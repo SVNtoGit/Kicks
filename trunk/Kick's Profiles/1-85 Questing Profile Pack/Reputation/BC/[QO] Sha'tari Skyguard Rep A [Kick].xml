@@ -1,0 +1,110 @@
+﻿<HBProfile>
+	<Name>[QO] Sha'tari Skyguard Rep A [Kick]</Name>
+   
+	<MinLevel>1</MinLevel>
+	<MaxLevel>86</MaxLevel>
+   
+	<MinDurability>0.2</MinDurability>
+	<MinFreeBagSlots>2</MinFreeBagSlots>
+	
+	<MailGrey>False</MailGrey>
+	<MailWhite>False</MailWhite>
+	<MailGreen>False</MailGreen>
+	<MailBlue>True</MailBlue>
+	<MailPurple>True</MailPurple>
+   
+	<SellGrey>True</SellGrey>
+	<SellWhite>True</SellWhite>
+	<SellGreen>True</SellGreen>
+	<SellBlue>False</SellBlue>
+	<SellPurple>False</SellPurple>
+   
+	<TargetElites>True</TargetElites>
+
+	<AvoidMobs>
+	</AvoidMobs>
+	<Blackspots>
+	</Blackspots>
+
+	<Mailboxes>
+	</Mailboxes>
+ 
+	<Vendors>
+	</Vendors>
+
+
+	<Quest Id="11096" Name="Threat from Above">
+		<Objective Type="KillMob" MobId="23450" KillCount="20">
+			<Hotspots>
+				<Hotspot X="-1602.048" Y="5987.573" Z="209.7726" />
+				<Hotspot X="-1532.811" Y="5994.209" Z="193.3728" />
+				<Hotspot X="-1489.065" Y="5907.307" Z="194.6135" />
+				<Hotspot X="-1490.979" Y="5849.793" Z="202.1178" />
+				<Hotspot X="-1450.759" Y="5912.92" Z="194.0237" />
+				<Hotspot X="-1385.706" Y="5845.151" Z="185.2484" />
+				<Hotspot X="-1333.322" Y="5786.868" Z="183.0933" />
+				<Hotspot X="-1370.313" Y="5636.057" Z="180.7686" />		
+			</Hotspots>
+		</Objective>
+	</Quest>
+
+
+
+
+
+
+   	
+	<QuestOrder>
+	
+		<CustomBehavior File="SetPullDistance" Distance="35" />
+	
+		<!-- This will stop the bot after you're Exalted -->
+		<If Condition="Me.GetReputationLevelWith(1031) == Styx.WoWUnitReaction.Exalted" >
+			<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nIf you liked this profile, +rep is always appreciated" />
+		</If>
+			
+		<If Condition="Me.GetReputationLevelWith(1031) &lt; Styx.WoWUnitReaction.Exalted" >
+			<!-- Non Repeatable quests -->
+			<If Condition="((!HasQuest(11096)) &amp;&amp; (!IsQuestCompleted(11096)))" >
+				<CustomBehavior File="FlyTo" X="-1841.645" Y="5298.662" Z="-12.42795" />
+				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
+		<PickUp QuestName="Threat from Above" QuestId="11096" GiverName="Yuula" GiverId="23449" />
+			</If>
+			<If Condition="((HasQuest(11096)) &amp;&amp; (!IsQuestCompleted(11096)))" >
+				<CustomBehavior File="FlyTo" X="-1521.214" Y="5945.294" Z="194.535" />
+				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
+				<Objective QuestName="Threat from Above" QuestId="11096" Type="KillMob" MobId="23450" KillCount="20" />
+			</If>
+			<If Condition="((HasQuest(11096)) &amp;&amp; (IsQuestCompleted(11096)))" >
+				<CustomBehavior File="FlyTo" X="-1841.645" Y="5298.662" Z="-12.42795" />
+				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
+		<TurnIn QuestName="Threat from Above" QuestId="11096" TurnInName="Yuula" TurnInId="23449" />
+		<PickUp QuestName="To Skettis!" QuestId="11098" GiverName="Yuula" GiverId="23449" />
+			</If>
+			<If Condition="((!HasQuest(11098)) &amp;&amp; (!IsQuestCompleted(11098)))" >
+				<CustomBehavior File="FlyTo" X="-1841.645" Y="5298.662" Z="-12.42795" />
+				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
+		<PickUp QuestName="To Skettis!" QuestId="11098" GiverName="Yuula" GiverId="23449" />
+			</If>
+			<If Condition="((HasQuest(11098)) &amp;&amp; (IsQuestCompleted(11098)))" >
+				<CustomBehavior File="FlyTo" X="-3395.321" Y="3597.655" Z="276.3321" />
+				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
+		<TurnIn QuestName="To Skettis!" QuestId="11098" TurnInName="Sky Sergeant Doryn" TurnInId="23048" />			
+			</If>
+			
+			
+			
+			
+			
+		</If>
+
+		<!-- If you don't have the repeatable quest, fly there and get the quest -->
+
+		
+	<CustomBehavior File="UserDialog" QuestId="0" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="End of Line!\n\nYes, I fight for the users!" />
+	
+		<!-- If you rename this profile, you have to rename the Profile="" -->
+		<CustomBehavior File="LoadProfile" ProfileName="[QO] Sha'tari' Skyguard Rep A [Kick]" />
+	
+	</QuestOrder>
+</HBProfile>
