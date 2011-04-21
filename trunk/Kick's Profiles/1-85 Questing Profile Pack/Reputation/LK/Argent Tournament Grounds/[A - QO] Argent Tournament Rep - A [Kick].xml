@@ -88,6 +88,20 @@
 
 	  <CustomBehavior File="UserSettings" LootMobs="True" PullDistance="35" TrainNewSkills="False" LearnFlightPaths="True" />
 				
+			<If Condition="Me.MapId == 0" >
+				<If Condition="(!HasQuest(13633))" >
+				<!-- If you're lazy like me, it will fly u to dock and use boat to borean -->
+				<CustomBehavior File="FlyTo" X="-8291.137" Y="1404.371" Z="4.731256" />
+				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
+				<!-- SW dock to Valiance Keep -->
+				<CustomBehavior File="UseTransport"
+								Entry="-8300.08, 1405.158, 4.422395"
+								Exit="2234.375, 5132.568, 5.343217"
+								Start="-8288.816, 1424.703, 0.04" 
+								End="2218.391, 5119.589, 0.04" 
+								Transport="190536" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" />
+			</If></If>
 
 				<!-- Non repeatable quests -->
 			<If Condition="((!HasQuest(13667)) &amp;&amp; (!IsQuestCompleted(13667)))" >
@@ -190,7 +204,13 @@
 				<If Condition="Me.MapId == 571" >
 					<CustomBehavior File="FlyTo" X="2231.537" Y="5135.816" Z="5.345537" />
 					<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
-					<!-- boat to borean to sw -->
+					<!-- Valiance Keep to SW dock -->
+					<CustomBehavior File="UseTransport"
+									Entry="2234.375, 5132.568, 5.343217"
+									Exit="-8300.08, 1405.158, 4.422395"
+									Start="2218.391, 5119.589, 0.04" 
+									End="-8288.816, 1424.703, 0.04" 
+									Transport="190536" />
 				</If>
 				<If Condition="Me.MapId == 0" >
 					<CustomBehavior File="FlyTo" X="-11022.3" Y="1519.262" Z="43.02094" />
