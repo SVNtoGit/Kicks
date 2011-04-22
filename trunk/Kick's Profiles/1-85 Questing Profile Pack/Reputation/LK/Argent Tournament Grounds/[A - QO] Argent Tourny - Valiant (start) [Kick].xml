@@ -389,7 +389,7 @@
 				<CustomBehavior File="FlyTo" X="3803.127" Y="-4349.656" Z="180.808" />
 				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
 				
-	<CustomBehavior File="UserDialog" QuestId="0" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="This quest is User done until HB 4512+ is out, press continue and the bot will kiss frogs, just interact with lady when she spawns" />
+	<CustomBehavior File="UserDialog" QuestId="0" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="This quest is User done until HB 4512+ is out, press continue and the bot will kiss frogs, just interact with lady when she spawns" />
 	
 			  <While Condition="((HasQuest(13666)) &amp;&amp; (!IsQuestCompleted(13666)))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(44986)" WaitTime="1000" />
@@ -403,7 +403,7 @@
 
 				<CustomBehavior File="FlyTo" X="6201.714" Y="973.8531" Z="164.7364" />
 				
-	<CustomBehavior File="UserDialog" QuestId="0" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="The looting part for this quest is User done until HB 4512+ is out, loot the 4 Winter Hyacinths\n\nPress continue after you have looted 4" />
+	<CustomBehavior File="UserDialog" QuestId="0" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="The looting part for this quest is User done until HB 4512+ is out, loot the 4 Winter Hyacinths\n\nPress continue after you have looted 4" />
 
 			<!-- enable in 4512+
 			  <While Condition="((HasQuest(13669)) &amp;&amp; (!IsQuestCompleted(13669)))" >
@@ -449,36 +449,24 @@
 				
 			</If>
 			<If Condition="((HasQuest(13670)) &amp;&amp; (!IsQuestCompleted(13670)))" >
-	<CustomBehavior File="UserDialog" QuestId="0" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="This quest is not yet supported.  please give me some time to script these, as there are 3 different ones that this npc offers" />
+	<CustomBehavior File="UserDialog" QuestId="0" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="This quest is not yet supported.  please give me some time to script these, as there are 3 different ones that this npc offers" />
 			<!--
 				<CustomBehavior File="FlyTo" 
 				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
 			-->
 			</If>
 			
-			
-			
-			
-			
-			
+			<!-- Turn In the Dailies -->
 			<If Condition="((HasQuest(13671)) &amp;&amp; (IsQuestCompleted(13671)))" >
-				<CustomBehavior File="FlyTo" X="8582.106" Y="692.2238" Z="547.2957" />
-				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
-			</If>
-			<If Condition="((HasQuest(13625)) &amp;&amp; (IsQuestCompleted(13625)))" >
 				<CustomBehavior File="FlyTo" X="8582.106" Y="692.2238" Z="547.2957" />
 				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
 			</If>
 		<TurnIn QuestName="Training In The Field" QuestId="13671" TurnInName="Avareth Swiftstrike" TurnInId="33646" />
 		<TurnIn QuestName="Learning The Reins" QuestId="13625" TurnInName="Scout Shalyndria" TurnInId="33647" />
 			<If Condition="((HasQuest(13670)) &amp;&amp; (IsQuestCompleted(13670)))" >
-				<CustomBehavior File="FlyTo" X="8582.106" Y="692.2238" Z="547.2957" />
-				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
 		<TurnIn QuestName="The Edge Of Winter" QuestId="13670" TurnInName="Arcanist Taelis" TurnInId="33625" />
 			</If>
 			<If Condition="((HasQuest(13669)) &amp;&amp; (IsQuestCompleted(13669)))" >
-				<CustomBehavior File="FlyTo" X="8582.106" Y="692.2238" Z="547.2957" />
-				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
 		<TurnIn QuestName="A Worthy Weapon" QuestId="13669" TurnInName="Arcanist Taelis" TurnInId="33625" />
 			</If>
 			<If Condition="((HasQuest(13666)) &amp;&amp; (IsQuestCompleted(13666)))" >
@@ -488,22 +476,50 @@
 			<!-- if we have the seals to continue, then do so -->
 			<If Condition="((HasQuest(13672)) &amp;&amp; (IsQuestCompleted(13672)))" >
 		<TurnIn QuestName="Up To The Challenge" QuestId="13672" TurnInName="Arcanist Taelis" TurnInId="33625" />
+		<PickUp QuestName="The Aspirant's Challenge" QuestId="13679" GiverName="Arcanist Taelis" GiverId="33625" />
 			</If>
+			<If Condition="((HasQuest(13679)) &amp;&amp; (!IsQuestCompleted(13679)))" >
+			  <If Condition="(!HasItem(46069))" >
+				<CustomBehavior File="FlyTo" X="8594.644" Y="942.6311" Z="548.3071" />
+				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
+				<!-- get id of lance rack -->
+				<CustomBehavior File="InteractWith" QuestId="0" NpcId="194618" ObjectType="Gameobject" NumOfTimes="1" CollectionDistance="50" X="8618.139" Y="897.5522" Z="546.9598" />
+			  </If>
+				<CustomBehavior File="FlyTo" X="8594.644" Y="942.6311" Z="548.3071" />
+				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
+				<CustomBehavior File="EquipItem" ItemId="46069" Slot="1" />
+				<CustomBehavior File="MountVehOnly" NpcMountId="33843" X="8596.26" Y="938.7139" Z="548.7403" />
 
+				<RunTo X="8606.085" Y="963.6285" Z="549.4207" />
+				<CustomBehavior File="InteractWith" QuestId="13679" NpcId="33447" NumOfTimes="1" WaitTime="1000" CollectionDistance="50" X="8606.085" Y="963.6285" Z="549.4207" />
 
+	<CustomBehavior File="UserDialog" QuestId="0" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="No behavior yet, press gossip(1) and defeat the valiant" />
 
+				<!-- <CustomBehavior File="InteractWith" QuestId="13679" NpcId="33447" NumOfTimes="1" GossipOption="1" WaitTime="1000" CollectionDistance="50" X="8606.085" Y="963.6285" Z="549.4207" /> -->
+				
+				<CustomBehavior File="EjectVeh" Eject="1" />
 
-
-
-
-
-
-
-
-
-
-
-
+			</If>
+			<If Condition="((HasQuest(13679)) &amp;&amp; (IsQuestCompleted(13679)))" >
+				<CustomBehavior File="FlyTo" X="8582.106" Y="692.2238" Z="547.2957" />
+				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
+		<TurnIn QuestName="The Aspirant's Challenge" QuestId="13679" TurnInName="Arcanist Taelis" TurnInId="33625" />
+		<PickUp QuestName="A Valiant Of Stormwind" QuestId="13684" GiverName="Arcanist Taelis" GiverId="33625" />
+			</If>
+			<If Condition="((HasQuest(13684)) &amp;&amp; (IsQuestCompleted(13684)))" >
+		<TurnIn QuestName="A Valiant Of Stormwind" QuestId="13684" TurnInName="Marshal Jacob Alerius" TurnInId="33225" />
+		<PickUp QuestName="The Valiant's Charge" QuestId="13718" GiverName="Marshal Jacob Alerius" GiverId="33225" />
+			</If>
+			
+			<If Condition="(IsQuestCompleted(13684))" >
+		<CustomBehavior File="LoadProfile" Profile="[A - QO] Argent Tourny - Valor [Kick]	" /> 
+			</If>
+			
+			<If Condition="((HasQuest(13718)) &amp;&amp; (IsQuestCompleted(13718)))" >
+				<CustomBehavior File="FlyTo" X="8582.106" Y="692.2238" Z="547.2957" />
+				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
+		<TurnIn QuestName="The Valiant's Charge" QuestId="13718" TurnInName="Marshal Jacob Alerius" TurnInId="33225" />
+			</If>
 
 			<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached the end of the profile (for now, I'm still developing this profile)\nMake sure you replace your weapon(s)\n\nIf you liked this profile, +rep is always appreciated" />
 	
