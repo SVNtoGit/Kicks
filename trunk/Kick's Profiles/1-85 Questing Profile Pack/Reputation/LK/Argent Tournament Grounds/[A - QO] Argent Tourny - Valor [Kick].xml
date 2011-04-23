@@ -165,7 +165,19 @@
 				<CustomBehavior File="EjectVeh" Eject="1" />
 				
 			</If>
-			
+			<If Condition="((HasQuest(13616)) &amp;&amp; (!IsQuestCompleted(13616)))" >
+			  <If Condition="(!HasItem(45005))" >
+				<CustomBehavior File="FlyTo" X="5138.633" Y="-57.57318" Z="347.322" />
+				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
+				<Objective QuestName="The Edge Of Winter" QuestId="13616" Type="CollectItem" ItemId="45005" CollectCount="1" />
+			  </If>
+				
+			  <If Condition="(HasItem(45005))" >
+				<CustomBehavior File="FlyTo" X="2324.844" Y="-3944.382" Z="218.2621" />
+				<CustomBehavior File="ForcedDismount" QuestId="0" MountType="Any" />
+				<CustomBehavior File="UseItemOn" QuestId="45005" NpcId="33303" ItemId="45005" NumOfTimes="1" WaitTime="5000" Range="5" CollectionDistance="50" X="2324.844" Y="-3944.382" Z="218.2621" />
+			  </If>
+			</If>
 			
 			<!-- Turn In the Dailies -->
 			<If Condition="((HasQuest(13592)) &amp;&amp; (IsQuestCompleted(13592)))" >
@@ -177,6 +189,10 @@
 			<If Condition="((HasQuest(13665)) &amp;&amp; (IsQuestCompleted(13665)))" >
 		<TurnIn QuestName="The Grand Melee" QuestId="13665" TurnInName="Captain Joseph Holley" TurnInId="33223" />
 			</If>
+			<If Condition="((HasQuest(13616)) &amp;&amp; (IsQuestCompleted(13616)))" >
+		<TurnIn QuestName="The Edge Of Winter" QuestId="13616" TurnInName="Marshal Jacob Alerius" TurnInId="33225" />			
+			</If>
+			
 			<If Condition="((HasQuest(13600)) &amp;&amp; (IsQuestCompleted(13600)))" >
 		<TurnIn QuestName="A Worthy Weapon" QuestId="13600" TurnInName="Marshal Jacob Alerius" TurnInId="33225" />
 			</If>
