@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +27,16 @@ namespace NobleGardenerAchievement
         public override Version Version { get { return new Version(1, 0, 4); } }
         public override string ButtonText { get { return "reload"; } }
         public override bool WantButton { get { return true; } }
+
+        private static uint[,] _data = new uint[,] { 
+			{1, 35792}, // Mage Hunter Personal Effects for Quest(12000)
+			{1, 20767}, // Scum Covered Bag
+			{1, 61387}, // Hidden Stash
+			{1, 62829}, // Magnetized Scrap Collector
+			{1, 32724}, // Sludge Covered Object
+			{1, 45072}, // Noblegarden Egg
+        };
+
 
         private void slog(string format, params object[] args)
         { Logging.Write(System.Drawing.Color.SeaGreen, Name + ": " + format, args); }
@@ -92,12 +102,11 @@ namespace NobleGardenerAchievement
                         ++i;
                         slog("search for best node");
                         TreeRoot.StatusText = Name + ": search for best node";
-						if ((egg.Entry == 113768 && egg.CanUse()) ||
-						(egg.Entry == 113769 && egg.CanUse()) ||
-						(egg.Entry == 113770 && egg.CanUse()) ||
-						(egg.Entry == 113771 && egg.CanUse())
-						)                        
-						{
+                        if (egg.Entry == 113768 && egg.CanUse() ||
+							(egg.Entry == 113769 && egg.CanUse()) ||
+							(egg.Entry == 113770 && egg.CanUse()) ||
+							(egg.Entry == 113771 && egg.CanUse()))
+                        {
                             double dist = egg.Distance2D;
                             if (xyDist > dist)
                             {
@@ -141,11 +150,38 @@ namespace NobleGardenerAchievement
                         //TreeRoot.StatusText = "";
                         bestNode = null;
                         Thread.Sleep(1500);
+			CheckInventoryItems();
+
+			
                     }
                 }
                 stuckTimer.Stop(); stuckTimer.Reset();
             }
         }
+
+private void CheckInventoryItems()
+        {
+           foreach (WoWItem item in ObjectManager.GetObjectsOfType<WoWItem>())
+            {
+            for (int i = 0; i <= _data.GetUpperBound(0); i++)
+            {
+                if (_data[i, 1] == item.Entry)
+                {
+                    int cnt = Convert.ToInt32(Lua.GetReturnValues(String.Format("return GetItemCount(\"{0}\")", item.Name), Name + ".lua")[0]);
+                    int max = (int)(cnt / _data[i, 0]);
+                    for (int j = 0; j < max; j++)
+                    {
+                        String s = String.Format("UseItemByName(\"{0}\")", item.Name);
+                        slog("Using {0} we have {1}", item.Name, cnt);
+                        Lua.DoString(s);
+                        StyxWoW.SleepForLagDuration();
+                    }
+                    break;
+                }
+            }
+        }
+        }
+
 
         #region UpdateList
         public void updateList(bool slog_)
