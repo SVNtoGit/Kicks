@@ -35,6 +35,7 @@ namespace OpenThatStuff
 			{1, 61387}, // Hidden Stash
 			{1, 62829}, // Magnetized Scrap Collector
 			{1, 32724}, // Sludge Covered Object
+			{1, 45072}, // Noblegarden Egg
         };
 
         private static Stopwatch sw = new Stopwatch();
