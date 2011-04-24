@@ -106,9 +106,6 @@ namespace OpenThatStuff
                             
                             if (LootFrame.Instance.IsVisible)
                                 Lua.DoString("for i=1,GetNumLootItems() do ConfirmLootSlot(i) LootSlot(i) end");
-
-                            while (LootFrame.Instance.IsVisible)
-                                StyxWoW.SleepForLagDuration();
                         }
                     }
                 }
