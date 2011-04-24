@@ -11,6 +11,7 @@ namespace OpenThatStuff
     using Styx.Plugins.PluginClass;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
+    using Styx.Logic.Inventory.Frames.LootFrame;
 
     using System;
     using System.Collections.Generic;
@@ -52,7 +53,6 @@ namespace OpenThatStuff
             Styx.Helpers.Logging.Write(color, String.Format("[{0}]: {1}", Name, s));
         }
 
-
         public override void Pulse()
         {
             if (!sw.IsRunning)
@@ -69,19 +69,21 @@ namespace OpenThatStuff
                     Mount.Dismount();
             }
 
+            // Unlock and open items
+            CheckInventoryItems();
+
             // 10 seconds pulse
-            if (sw.Elapsed.TotalSeconds < 10 || 
-                Battlegrounds.IsInsideBattleground || 
-                ObjectManager.Me.Mounted || 
+            if (sw.Elapsed.TotalSeconds < 10 ||
+                Battlegrounds.IsInsideBattleground ||
+                ObjectManager.Me.Mounted ||
                 ObjectManager.Me.Combat ||
                 ObjectManager.Me.Dead)
                 return;
 
-          
-            // Unlock and open items
-            CheckInventoryItems();
 
-         
+
+
+
             // Reset timer so it will all start over again in 5 seconds.
             sw.Reset();
             sw.Start();
@@ -90,25 +92,32 @@ namespace OpenThatStuff
 
         private void CheckInventoryItems()
         {
-           foreach (WoWItem item in ObjectManager.GetObjectsOfType<WoWItem>())
+            foreach (WoWItem item in StyxWoW.Me.BagItems)
             {
-            for (int i = 0; i <= _data.GetUpperBound(0); i++)
-            {
-                if (_data[i, 1] == item.Entry)
+                for (int i = 0; i <= _data.GetUpperBound(0); i++)
                 {
-                    int cnt = Convert.ToInt32(Lua.GetReturnValues(String.Format("return GetItemCount(\"{0}\")", item.Name), Name + ".lua")[0]);
-                    int max = (int)(cnt / _data[i, 0]);
-                    for (int j = 0; j < max; j++)
+                    if (_data[i, 1] == item.Entry)
                     {
-                        String s = String.Format("UseItemByName(\"{0}\")", item.Name);
-                        log("Using {0} we have {1}", item.Name, cnt);
-                        Lua.DoString(s);
-                        StyxWoW.SleepForLagDuration();
+                        while (IteminBag(item.Entry))
+                        {
+                            String s = String.Format("UseItemByName(\"{0}\")", item.Name);
+                            Lua.DoString(s);
+                            StyxWoW.SleepForLagDuration();
+                            
+                            if (LootFrame.Instance.IsVisible)
+                                Lua.DoString("for i=1,GetNumLootItems() do ConfirmLootSlot(i) LootSlot(i) end");
+
+                            while (LootFrame.Instance.IsVisible)
+                                StyxWoW.SleepForLagDuration();
+                        }
                     }
-                    break;
                 }
             }
         }
+
+        static public bool IteminBag(uint entry)
+        {
+            return StyxWoW.Me.BagItems.FirstOrDefault(i => i.Entry == entry) != null;
         }
     }
 }
