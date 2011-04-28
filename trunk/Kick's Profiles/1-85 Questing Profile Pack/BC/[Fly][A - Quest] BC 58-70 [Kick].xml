@@ -1480,31 +1480,38 @@
 			<!-- I need a flightpath CB here -->
 			<If Condition="((HasQuest(9563)) &amp;&amp; (!IsQuestCompleted(9563)))" >
 			 <While Condition="(!HasItem(23848))" >
+			  <If Condition="Me.MapId == 530" >
 				<RunTo X="199.3289" Y="4238.865" Z="121.7154" />
 				<!-- HH
 				<RunTo X="-666.6802" Y="2713.474" Z="94.20121" /> -->
 				<RunTo X="-319.8837" Y="1011.901" Z="54.29041" />
 				<RunTo X="-247.3009" Y="899.4864" Z="84.38084" />
 				<RunTo X="-247.7159" Y="898.6724" Z="84.3497" />
-			  <While Condition="Me.MapId == 530" >
+			   <While Condition="Me.MapId == 530" >
 				<CustomBehavior File="MyCTM" X="-247.1641" Y="897.9764" Z="84.37856" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
-			  </While>
-			  <While Condition="(!HasItem(23848))" >
+			   </While>
+			  </If>
+			  <If Condition="Me.MapId == 0" >
+			   <While Condition="Me.MapId == 0" >
 				<RunTo X="-10946.64" Y="-3369.315" Z="66.49876" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
 				<CustomBehavior File="InteractWith" QuestId="9563" MobId="3546" NumOfTimes="1" GossipOptions="1" BuySlot="19" WaitTime="3000" CollectionDistance="20" X="-10946.64" Y="-3369.315" Z="66.49859" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
+			   </While>
 			  </While>
-				<Objective QuestName="Gaining Mirren's Trust" QuestId="9563" Type="Collect" CollectCount="1" ItemId="23848" />
 				<!-- through the BC portal we go! -->
 				<RunTo X="-11903.13" Y="-3208.053" Z="-14.81489" />
+			   <While Condition="Me.MapId == 0" >
 				<CustomBehavior File="MyCTM" X="-11913.2" Y="-3209.895" Z="-14.09549" />
 				<!-- <CustomBehavior File="MyCTM" X="-11907.27" Y="-3208.546" Z="-14.85301" /> -->
 				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+			   </While>
+			 <If Condition="(HasItem(23848))" >
 				<RunTo X="-319.8837" Y="1011.901" Z="54.29041" />
 				<RunTo X="200.0528" Y="4245.053" Z="121.6154" />
-			 </While>
+			 </If>
+			 </If>
 			</If>
 		<TurnIn QuestName="Gaining Mirren's Trust" TurnInName="Mirren Longbeard" QuestId="9563" TurnInId="16851" />
 		<PickUp QuestName="The Finest Down" GiverName="Mirren Longbeard" QuestId="9420" GiverId="16851" />
