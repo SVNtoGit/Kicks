@@ -170,9 +170,16 @@
 				<CustomBehavior File="FlyTo" X="8587.15" Y="689.0057" Z="547.5109" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
+			<While Condition="HasQuestAvailable(34880)" >
+				<CustomBehavior File="InteractWith"  MobId="34880" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="8607.381" Y="660.5771" Z="550.322" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+			</While>
 		<PickUp QuestName="What Do You Feed a Yeti, Anyway?" QuestId="14112" GiverName="Savinia Loresong" GiverId="34912" />
+		<!--
 		<PickUp QuestName="Rescue at Sea" QuestId="14152" GiverName="Narasi Snowdawn" GiverId="34880" />
 		<PickUp QuestName="You've Really Done It This Time, Kul" QuestId="14096" GiverName="Narasi Snowdawn" GiverId="34880" />
+		-->
 			<If Condition="((HasQuest(14096)) &amp;&amp; (!IsQuestCompleted(14096)))" >
 				<If Condition="(GetItemCount(46895) &lt; 5)" >
 					<CustomBehavior File="FlyTo" X="8528.181" Y="1399.574" Z="642.043" />
@@ -181,8 +188,8 @@
 				</If>
 				<If Condition="(GetItemCount(46895) &gt;= 5)" >
 					<CustomBehavior File="FlyTo" X="8561.451" Y="1511.688" Z="642.2645" />
-					<CustomBehavior File="InteractWith" QuestId="46895" MobId="195310" ObjectType="Gameobject" NumOfTimes="1" CollectionDistance="15" X="8457.35" Y="1624.415" Z="670.4252" />
-					<CustomBehavior File="InteractWith" QuestId="46895" MobId="195310" ObjectType="Gameobject" NumOfTimes="4" CollectionDistance="35" X="8561.451" Y="1511.688" Z="642.2645" />
+					<CustomBehavior File="InteractWith" QuestId="14096" MobId="195310" ObjectType="Gameobject" NumOfTimes="1" CollectionDistance="15" X="8457.35" Y="1624.415" Z="670.4252" />
+					<CustomBehavior File="InteractWith" QuestId="14096" MobId="195310" ObjectType="Gameobject" NumOfTimes="4" CollectionDistance="35" X="8561.451" Y="1511.688" Z="642.2645" />
 				</If>
 			</If>
 			<While Condition="((HasQuest(14112)) &amp;&amp; (!IsQuestCompleted(14112)))" >
@@ -202,15 +209,29 @@
 				<Objective QuestName="Rescue at Sea" QuestId="14152" Type="KillMob" MobId="34947" KillCount="8" />
 				<Objective QuestName="Rescue at Sea" QuestId="14152" Type="KillMob" MobId="34907" KillCount="3" />
 			</If>
-			<If Condition="((HasQuest(14096)) &amp;&amp; (IsQuestCompleted(14096)))" >
+			<If Condition="((HasQuest(14077)) &amp;&amp; (!IsQuestCompleted(14077)))" >
+				<CustomBehavior File="FlyTo" X="9959.951" Y="1115.933" Z="31.96863" />
+				<CustomBehavior File="ForcedDismount" />
+			  <While Condition="((HasQuest(14077)) &amp;&amp; (!IsQuestCompleted(14077)))" >
+				<CustomBehavior File="UseItemOn" QuestId="14077" NpcId="34852" ItemId="46870" NumOfTimes="1" WaitTime="1000" Range="5" CollectionDistance="500" X="10263.18" Y="772.379" Z="73.11924" />
+			  </While>
+			</If>
+
+			<If Condition="((HasQuest(14112)) &amp;&amp; (IsQuestCompleted(14112)))" >
 				<CustomBehavior File="FlyTo" X="8587.15" Y="689.0057" Z="547.5109" />
 				<CustomBehavior File="ForcedDismount" />
-			</If>
-		<TurnIn QuestName="You've Really Done It This Time, Kul" QuestId="14096" TurnInName="Narasi Snowdawn" TurnInId="34880" />
 		<TurnIn QuestName="What Do You Feed a Yeti, Anyway?" QuestId="14112" TurnInName="Savinia Loresong" TurnInId="34912" />
+			</If>
+			<If Condition="((HasQuest(14096)) &amp;&amp; (IsQuestCompleted(14096)))" >
+		<TurnIn QuestName="You've Really Done It This Time, Kul" QuestId="14096" TurnInName="Narasi Snowdawn" TurnInId="34880" />
+			</If>
+			<If Condition="((HasQuest(14152)) &amp;&amp; (IsQuestCompleted(14152)))" >
 		<TurnIn QuestName="Rescue at Sea" QuestId="14152" TurnInName="Narasi Snowdawn" TurnInId="34880" />			
+			</If>
+			<If Condition="((HasQuest(14077)) &amp;&amp; (IsQuestCompleted(14077)))" >
+		<TurnIn QuestName="The Light's Mercy" QuestId="14077" TurnInName="Narasi Snowdawn" TurnInId="34880" />		
+			</If>
 			
-		
 		
 			<If Condition="(IsQuestCompleted(13684))" >
 		<CustomBehavior File="LoadProfile" ProfileName="[A - QO] Argent Tourny - GV [Kick]" /> 
