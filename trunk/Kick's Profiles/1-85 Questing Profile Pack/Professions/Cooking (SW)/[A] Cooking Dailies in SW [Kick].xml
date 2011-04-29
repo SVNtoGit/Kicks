@@ -26,46 +26,73 @@
 	  <If Condition="Me.IsHorde" >
 			<CustomBehavior File="RunMacro" Macro="/exit" NumOfTimes="1" WaitTime="500" />
 			<CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" NumOfTimes="1" WaitTime="500" />
-			<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You must be Alliance to run this profile" />
+			<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You must be Alliance to run this profile" />
 	  </If>
 	  
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="This profile is not currently avail for use" />
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This profile is not currently avail for use" />
 	
 	
 			<If Condition="((HasQuest(26153)) &amp;&amp; (!IsQuestCompleted(26153)))" >
-				<CustomBehavior File="FlyTo" X="-8101.731" Y="780.2896" Z="67.2523" />
+				<!-- Penny's Pumpkin Pancakes -->
+				<CustomBehavior File="FlyTo" Name="Pumpkin Patch" X="-8101.731" Y="780.2896" Z="67.2523" />
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="Penny's Pumpkin Pancakes" QuestId="26153" Type="CollectItem" ItemId="57137" CollectCount="6" />
 			</If>
+			<While Condition="((HasQuest(26192)) &amp;&amp; (!IsQuestCompleted(26192)))" >
+				<!-- Orphans Like Cookies Too! -->
+				<CustomBehavior File="FlyTo" QuestId="26192" X="-8380.628" Y="613.234" Z="95.17715" />
+				<CustomBehavior File="InteractWith" QuestId="26192" MobId="203801" WaitForNpcs="False" ObjectType="Gameobject" NumOfTimes="4" CollectionDistance="100" X="-8380.628" Y="613.234" Z="95.17715" />
+				
+				<CustomBehavior File="FlyTo" QuestId="26192" X="-8643.49" Y="428.6735" Z="101.6193" />
+				<CustomBehavior File="InteractWith" QuestId="26192" MobId="203801" WaitForNpcs="False" ObjectType="Gameobject" NumOfTimes="4" CollectionDistance="100" X="-8643.49" Y="428.6735" Z="101.6193" />
+				
+				<CustomBehavior File="FlyTo" QuestId="26192" X="-8839.628" Y="612.8966" Z="93.10394" />
+				<CustomBehavior File="InteractWith" QuestId="26192" MobId="203801" WaitForNpcs="False" ObjectType="Gameobject" NumOfTimes="4" CollectionDistance="100" X="-8839.628" Y="612.8966" Z="93.10394" />
+				
+				<CustomBehavior File="FlyTo" QuestId="26192" X="-9033.808" Y="849.2762" Z="107.1087" />
+				<CustomBehavior File="InteractWith" QuestId="26192" MobId="203801" WaitForNpcs="False" ObjectType="Gameobject" NumOfTimes="4" CollectionDistance="100" X="-9033.808" Y="849.2762" Z="107.1087" />
+				
+				<CustomBehavior File="FlyTo" QuestId="26192" X="-8939.758" Y="984.3801" Z="121.9316" />
+				<CustomBehavior File="InteractWith" QuestId="26192" MobId="203801" WaitForNpcs="False" ObjectType="Gameobject" NumOfTimes="4" CollectionDistance="100" X="-8939.758" Y="984.3801" Z="121.9316" />
+				
+			</While>
 			
 			
 			
-			
-			
-			
-			
-			
-			
-			
+			<If Condition="((HasQuest(26192)) &amp;&amp; (IsQuestCompleted(26192)))" >
+				<CustomBehavior File="FlyTo" Name="Turn in quest" X="-8828.162" Y="844.7129" Z="99.55173" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Orphans Like Cookies Too!" QuestId="26192" TurnInName="Robby Flay" TurnInId="42288" />
+			</If>
 			<If Condition="((HasQuest(26153)) &amp;&amp; (IsQuestCompleted(26153)))" >
-				<CustomBehavior File="FlyTo" X="-8828.162" Y="844.7129" Z="99.55173" />
+				<CustomBehavior File="FlyTo" Name="Turn in quest" X="-8828.162" Y="844.7129" Z="99.55173" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Penny's Pumpkin Pancakes" QuestId="26153" TurnInName="Robby Flay" TurnInId="42288" />
 			</If>
 	
-<!-- fishin' dailies:
-
-<PickUp QuestName="Big Gulp" QuestId="26488" GiverName="Catherine Leland" GiverId="5494" />
-<Objective QuestName="Big Gulp" QuestId="26488" Type="CollectItem" ItemId="58864" CollectCount="1" />
-<Objective QuestName="Big Gulp" QuestId="26488" Type="CollectItem" ItemId="58856" CollectCount="1" />
-<FlyTo X="-8985.136" Y="407.4563" Z="73.08955" />
-<RunTo X="-8982.789" Y="410.8324" Z="71.88472" /> // face the water runto \\
-
-<FlyTo X="-8801.841" Y="767.9167" Z="96.33894" /> // flyto once complete \\
-<TurnIn QuestName="Big Gulp" QuestId="26488" TurnInName="Catherine Leland" TurnInId="5494" />
-<Vendor Name="Catherine Leland" Entry="5494" Type="Repair" X="-8803.257" Y="766.717" Z="96.33804" />	
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCueInterval="1" Text="End of Line" />
 	
--->
+	<!-- fishin' dailies:
+
+		<PickUp QuestName="Big Gulp" QuestId="26488" GiverName="Catherine Leland" GiverId="5494" />
+		<Objective QuestName="Big Gulp" QuestId="26488" Type="CollectItem" ItemId="58864" CollectCount="1" />
+		<Objective QuestName="Big Gulp" QuestId="26488" Type="CollectItem" ItemId="58856" CollectCount="1" />
+		<FlyTo X="-8985.136" Y="407.4563" Z="73.08955" />
+		<RunTo X="-8982.789" Y="410.8324" Z="71.88472" /> // face the water runto \\
+
+		<FlyTo X="-8801.841" Y="767.9167" Z="96.33894" /> // flyto once complete \\
+		<TurnIn QuestName="Big Gulp" QuestId="26488" TurnInName="Catherine Leland" TurnInId="5494" />
+		<Vendor Name="Catherine Leland" Entry="5494" Type="Repair" X="-8803.257" Y="766.717" Z="96.33804" />	
+	
+		<PickUp QuestName="Diggin' For Worms" QuestId="26420" GiverName="Catherine Leland" GiverId="5494" />
+		<Flyto X="-8153.214" Y="717.6205" Z="69.51754" />
+		204281	Worm Mound
+		fish!
+			<Objective QuestName="Diggin' For Worms" QuestId="26420" Type="CollectItem" ItemId="58787" CollectCount="1" />
+			<Objective QuestName="Diggin' For Worms" QuestId="26420" Type="CollectItem" ItemId="58788" CollectCount="1" />
+		<TurnIn QuestName="Diggin' For Worms" QuestId="26420" TurnInName="Catherine Leland" TurnInId="5494" />
+			
+	-->
 	  
 	  
 

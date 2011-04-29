@@ -80,7 +80,22 @@
 			</Hotspots>
 		</Objective>
 	</Quest>	
-	
+	<Quest Id="14074" Name="A Leg Up">
+		<Objective Type="CollectItem" ItemId="46859" CollectCount="10">
+			<CollectFrom>
+				<Mob Name="Kvaldir Mist Binder" Id="34839" />
+				<Mob Name="Kvaldir Reaver" Id="34838" />
+				<GameObject Name="Stolen Tallstrider Leg" Id="195274" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="9949.973" Y="1108.078" Z="30.92166" />
+				<Hotspot X="10030.94" Y="988.2128" Z="6.612703" />
+				<Hotspot X="10122.75" Y="857.87" Z="24.31038" />
+				<Hotspot X="10234.35" Y="781.5357" Z="71.19129" />
+				<Hotspot X="10389.43" Y="758.4886" Z="66.87479" />
+			</Hotspots>
+		</Objective>
+	</Quest>	
 	
 	<QuestOrder>
 	<!-- 
@@ -93,7 +108,7 @@
 			<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You must be Alliance to run this profile" />
 	  </If>
 
-	  <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Disable Auto Equip / Equip me and press continue" />
+	  <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" ExpiryTime="3" ExpiryAction="InputEnabled_Continue" SoundCueInterval="1" Text="Disable Auto Equip / Equip me and press continue" />
 
 	  <CustomBehavior File="UserSettings" LootMobs="True" PullDistance="35" TrainNewSkills="False" LearnFlightPaths="True" />
 				
@@ -237,6 +252,14 @@
 				<CustomBehavior File="UseItemOn" QuestId="14077" MobId="34852" ItemId="46870" NumOfTimes="1" WaitTime="3000" Range="5" CollectionDistance="500" X="10263.18" Y="772.379" Z="73.11924" />
 			  </While>
 			</If>
+			<If Condition="((HasQuest(14074)) &amp;&amp; (!IsQuestCompleted(14074)))" >
+				<CustomBehavior File="FlyTo" X="9949.973" Y="1108.078" Z="30.92166" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="A Leg Up" QuestId="14074" Type="CollectItem" ItemId="46859" CollectCount="10" />
+			</If>
+			
+
+			
 
 			<If Condition="((HasQuest(14112)) &amp;&amp; (IsQuestCompleted(14112)))" >
 				<CustomBehavior File="FlyTo" X="8587.15" Y="689.0057" Z="547.5109" />
@@ -251,6 +274,9 @@
 			</If>
 			<If Condition="((HasQuest(14077)) &amp;&amp; (IsQuestCompleted(14077)))" >
 		<TurnIn QuestName="The Light's Mercy" QuestId="14077" TurnInName="Narasi Snowdawn" TurnInId="34880" />		
+			</If>
+			<If Condition="((HasQuest(14074)) &amp;&amp; (IsQuestCompleted(14074)))" >
+		<TurnIn QuestName="A Leg Up" QuestId="14074" TurnInName="Narasi Snowdawn" TurnInId="34880" />
 			</If>
 			
 		
