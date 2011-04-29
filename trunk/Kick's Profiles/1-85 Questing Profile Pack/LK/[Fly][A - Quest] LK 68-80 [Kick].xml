@@ -2821,14 +2821,20 @@
 			<If Condition="(HasQuest(11276))" >
 				<RunTo X="949.243" Y="-4838.147" Z="-72.44145" />
 				<CustomBehavior File="BasicInteractWith" MobId="24150" NumOfTimes="1" />
-				<CustomBehavior File="CompleteLogQuest" QuestID="11276" />
-				<CustomBehavior File="AcceptLogQuest" QuestID="11277" />
+				<CustomBehavior File="CompleteLogQuest" QuestId="11276" />
 			</If>
 			<!-- hb won't target this npc
 		<TurnIn QuestName="And Then There Were Two..." QuestId="11276" TurnInName="Glorenfeld" TurnInId="24150" X="949.243" Y="-4838.147" Z="-72.44145" />
 		<PickUp QuestName="The Depths of Depravity" QuestId="11277" GiverName="Glorenfeld" GiverId="24150" X="949.6965" Y="-4840.253" Z="-69.63878"  />
 			-->
-			<Objective QuestName="The Depths of Depravity" QuestId="11277" Type="CollectItem" ItemId="33355" CollectCount="10" />
+			<If Condition="((!HasQuest(11277)) &amp;&amp; (!IsQuestCompleted(11277)))" >
+				<CustomBehavior File="InteractWith" MobId="24150" NumOfTimes="1" Range="10" CollectionDistance="200" WaitTime="1000" X="949.243" Y="-4838.147" Z="-72.44145" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+			</If>
+			<If Condition="((HasQuest(11277)) &amp;&amp; (!IsQuestCompleted(11277)))" >
+				<Objective QuestName="The Depths of Depravity" QuestId="11277" Type="CollectItem" ItemId="33355" CollectCount="10" />
+			</If>
 			<If Condition="((HasQuest(11277)) &amp;&amp; (IsQuestCompleted(11277)))" >
 				<RunTo X="949.243" Y="-4838.147" Z="-72.44145" />
 				<CustomBehavior File="BasicInteractWith" MobId="24150" NumOfTimes="1" />
