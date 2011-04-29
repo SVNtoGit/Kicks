@@ -205,6 +205,24 @@
 		<PickUp QuestName="Rescue at Sea" QuestId="14152" GiverName="Narasi Snowdawn" GiverId="34880" />
 		<PickUp QuestName="You've Really Done It This Time, Kul" QuestId="14096" GiverName="Narasi Snowdawn" GiverId="34880" />
 		-->
+		
+			<!-- Eadric the Pure Quests -->
+			<If Condition="((!HasQuest(13682)) &amp;&amp; (!IsQuestCompleted(13682)))" >
+				<CustomBehavior File="FlyTo" X="8484.761" Y="1057.067" Z="550.5325" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<PickUp QuestName="Threat From Above" QuestId="13682" GiverName="Eadric the Pure" GiverId="33759" />
+		<PickUp QuestName="Battle Before The Citadel" QuestId="13861" GiverName="Eadric the Pure" GiverId="33759" />
+		<PickUp QuestName="Taking Battle To The Enemy" QuestId="13789" GiverName="Cellian Daybreak" GiverId="33763" />
+		<PickUp QuestName="Among the Champions" QuestId="13790" GiverName="Luuri" GiverId="33771" />
+			
+		
+			<If Condition="((HasQuest(13789)) &amp;&amp; (!IsQuestCompleted(13789)))" >
+				<!-- do with the key quest -->
+				<CustomBehavior File="FlyTo" X="8513.477" Y="1376.757" Z="641.6046" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Taking Battle To The Enemy" QuestId="13789" Type="KillMob" MobId="35297" KillCount="15" />
+			</If>
 			<If Condition="((HasQuest(14096)) &amp;&amp; (!IsQuestCompleted(14096)))" >
 				<If Condition="(GetItemCount(46895) &lt; 5)" >
 					<CustomBehavior File="FlyTo" X="8528.181" Y="1399.574" Z="642.043" />
@@ -258,9 +276,39 @@
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="A Leg Up" QuestId="14074" Type="CollectItem" ItemId="46859" CollectCount="10" />
 			</If>
-			
-
-			
+			<!-- drop item from Kvaldir -->
+			<If Condition="((!HasQuest(24442)) &amp;&amp; (!IsQuestCompleted(24442)))" >
+				<CustomBehavior File="FlyTo" X="9949.973" Y="1108.078" Z="30.92166" />
+				<CustomBehavior File="ForcedDismount" />
+				<If Condition="(!HasItem(49676))" >
+						<SetGrindArea>
+							<GrindArea>
+								<Factions>1885</Factions> <!-- [Vyrkul] -->
+								<Hotspots>
+									<Hotspot X="9949.973" Y="1108.078" Z="30.92166" />
+									<Hotspot X="10030.94" Y="988.2128" Z="6.612703" />
+									<Hotspot X="10122.75" Y="857.87" Z="24.31038" />
+									<Hotspot X="10234.35" Y="781.5357" Z="71.19129" />
+									<Hotspot X="10389.43" Y="758.4886" Z="66.87479" />
+								</Hotspots>
+							</GrindArea> 
+						</SetGrindArea>
+					<GrindTo Condition="(HasItem(49676))" Name="Getting Quest DropItem" />
+				</If>
+				<If Condition="(!HasItem(49676))" >
+		<PickUp QuestName="Battle Plans Of The Kvaldir" QuestId="24442" GiverName="Kvaldir Attack Plans" GiverId="49676" />
+				</If>
+			</If>
+			<If Condition="((HasQuest(24442)) &amp;&amp; (!IsQuestCompleted(24442)))" >
+				<CustomBehavior File="FlyTo" X="10133.24" Y="1207.722" Z="79.17584" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Battle Plans Of The Kvaldir" QuestId="24442" Type="CollectItem" ItemId="49678" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(24442)) &amp;&amp; (IsQuestCompleted(24442)))" >
+				<CustomBehavior File="FlyTo" X="8484.284" Y="1057.527" Z="550.8971" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Battle Plans Of The Kvaldir" QuestId="24442" TurnInName="Justicar Mariel Trueheart" TurnInId="33817" />
+			</If>
 
 			<If Condition="((HasQuest(14112)) &amp;&amp; (IsQuestCompleted(14112)))" >
 				<CustomBehavior File="FlyTo" X="8587.15" Y="689.0057" Z="547.5109" />
@@ -279,12 +327,55 @@
 			<If Condition="((HasQuest(14074)) &amp;&amp; (IsQuestCompleted(14074)))" >
 		<TurnIn QuestName="A Leg Up" QuestId="14074" TurnInName="Narasi Snowdawn" TurnInId="34880" />
 			</If>
+
 			
 		
 			<If Condition="(IsQuestCompleted(13684))" >
 		<CustomBehavior File="LoadProfile" ProfileName="[A - QO] Argent Tourny - GV [Kick]" /> 
 			</If>
 
+
+
+			<!-- Eadric the Pure Quests -->
+			<If Condition="((!HasQuest(13682)) &amp;&amp; (!IsQuestCompleted(13682)))" >
+				<CustomBehavior File="FlyTo" X="8484.761" Y="1057.067" Z="550.5325" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<PickUp QuestName="Threat From Above" QuestId="13682" GiverName="Eadric the Pure" GiverId="33759" />
+		<PickUp QuestName="Battle Before The Citadel" QuestId="13861" GiverName="Eadric the Pure" GiverId="33759" />
+		<PickUp QuestName="Taking Battle To The Enemy" QuestId="13789" GiverName="Cellian Daybreak" GiverId="33763" />
+		<PickUp QuestName="Among the Champions" QuestId="13790" GiverName="Luuri" GiverId="33771" />
+			
+			
+			
+			<If Condition="((HasQuest(13789)) &amp;&amp; (!IsQuestCompleted(13789)))" >
+				<!-- do with the key quest -->
+				<CustomBehavior File="FlyTo" X="8513.477" Y="1376.757" Z="641.6046" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Taking Battle To The Enemy" QuestId="13789" Type="KillMob" MobId="35297" KillCount="15" />
+			</If>
+			<If Condition="((HasQuest(13682)) &amp;&amp; (!IsQuestCompleted(13682)))" >
+				<!-- do before the 10 cursed quest -->
+				<CustomBehavior File="FlyTo" X="8017.643" Y="2550.513" Z="609.378" />
+				<CustomBehavior File="UserDialog" QuestId="13682" SoundCue="Exclamation" SoundCueInterval="1" Text="Find and kill Chillmaw and his 3 buddies that spawn" />
+			</If>
+			<If Condition="((HasQuest(13861)) &amp;&amp; (!IsQuestCompleted(13861)))" >
+				<CustomBehavior File="UserDialog" QuestId="13861" SoundCue="Exclamation" SoundCueInterval="1" Text="Kill 3 Commanders" />
+			</If>
+			<If Condition="((HasQuest(13790)) &amp;&amp; (!IsQuestCompleted(13790)))" >
+				<!-- change this flyto -->
+				<CustomBehavior File="FlyTo" X="8484.761" Y="1057.067" Z="550.5325" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+			
+			<If Condition="((HasQuest(13861)) &amp;&amp; (IsQuestCompleted(13861)))" >
+				<CustomBehavior File="FlyTo" X="8484.761" Y="1057.067" Z="550.5325" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Battle Before The Citadel" QuestId="13861" TurnInName="Eadric the Pure" TurnInId="33759" />
+		<TurnIn QuestName="Threat From Above" QuestId="13682" TurnInName="Eadric the Pure" TurnInId="33759" />
+		<TurnIn QuestName="Among the Champions" QuestId="13790" TurnInName="Luuri" TurnInId="33771" />
+		<TurnIn QuestName="Taking Battle To The Enemy" QuestId="13789" TurnInName="Cellian Daybreak" TurnInId="33763" />			
 
 
 		
@@ -301,33 +392,6 @@
 		
 		
 		
-			
-			
-			
-			<!-- load gnome dailies -->
-			<!-- Gnome Dailies -->
-		<PickUp QuestName="The Grand Melee" QuestId="13756" GiverName="Ranii" GiverId="33656" />
-				<Objective QuestName="The Grand Melee" QuestId="13756" Type="CollectItem" ItemId="45127" CollectCount="3" />
-		<TurnIn QuestName="The Grand Melee" QuestId="13756" TurnInName="Ranii" TurnInId="33656" />
-
-		<PickUp QuestName="At The Enemy's Gates" QuestId="13854" GiverName="Ranii" GiverId="33656" />
-				<Objective QuestName="At The Enemy's Gates" QuestId="13854" Type="KillMob" MobId="33438" KillCount="15" />
-				<Objective QuestName="At The Enemy's Gates" QuestId="13854" Type="KillMob" MobId="33550" KillCount="10" />
-				<Objective QuestName="At The Enemy's Gates" QuestId="13854" Type="KillMob" MobId="33429" KillCount="3" />
-		<TurnIn QuestName="At The Enemy's Gates" QuestId="13854" TurnInName="Ranii" TurnInId="33656" />			
-			
-		<PickUp QuestName="A Blade Fit For A Champion" QuestId="13752" GiverName="Colosos" GiverId="33593" />
-				<Objective QuestName="A Blade Fit For A Champion" QuestId="13752" Type="CollectItem" ItemId="44981" CollectCount="1" />
-				<Objective QuestName="A Blade Fit For A Champion" QuestId="13752" Type="CollectItem" ItemId="44986" CollectCount="1" />
-		<TurnIn QuestName="A Blade Fit For A Champion" QuestId="13752" TurnInName="Colosos" TurnInId="33593" />			
-
-			<!-- Gnome -->
-			<If Condition="((HasQuest(13716)) &amp;&amp; (IsQuestCompleted(13716)))" >
-				<CustomBehavior File="FlyTo" X="8587.15" Y="689.0057" Z="547.5109" />
-				<CustomBehavior File="ForcedDismount" />
-		<TurnIn QuestName="The Valiant's Charge" QuestId="13716" TurnInName="Colosos" TurnInId="33593" />
-			</If>
-			
 			
 
 
