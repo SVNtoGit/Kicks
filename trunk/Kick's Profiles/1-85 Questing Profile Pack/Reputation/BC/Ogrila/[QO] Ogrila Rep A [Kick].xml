@@ -139,7 +139,7 @@
 	<CustomBehavior File="UserSettings" LootMobs="True" PullDistance="35" TrainNewSkills="False" LearnFlightPaths="False" KillBetweenHotspots="True" LogoutForInactivity="False" />
 				
 
-		<If Condition="Me.GetReputationLevelWith(1038) &lt; Styx.WoWUnitReaction.Neutral" >
+		<If Condition="Me.GetReputationLevelWith(1038) &lt; Styx.WoWUnitReaction.Honored" >
 		
 			<If Condition="((!HasQuest(10984)) &amp;&amp; (!IsQuestCompleted(10984)))" >
 				<CustomBehavior File="FlyTo" X="-1896.204" Y="5330.318" Z="1.152675" />
@@ -559,9 +559,28 @@
 		<TurnIn QuestName="To Rule The Skies" QuestId="11078" TurnInName="Sky Commander Keller" TurnInId="23334" />
 			</If>
 
+			<If Condition="Me.GetReputationLevelWith(1038) &gt;= Styx.WoWUnitReaction.Honored" >
+			<If Condition="((!HasQuest(11026)) &amp;&amp; (!IsQuestCompleted(11026)))" >
+				<CustomBehavior File="FlyTo" X="2501.634" Y="7352.579" Z="380.3238" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Banish the Demons" QuestId="11026" GiverName="Kronk" GiverId="23253" />
+			</If>
+			<If Condition="((HasQuest(11026)) &amp;&amp; (!IsQuestCompleted(11026)))" >
+				<CustomBehavior File="FlyTo" X="1746.508" Y="7268.541" Z="364.554" />
+				<CustomBehavior File="ForcedDismount" />
+	<CustomBehavior File="UserDialog" QuestId="11026" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Use the portal and then kill demons near it until quest is completed" />
+			</If>
+			<If Condition="((HasQuest(11026)) &amp;&amp; (IsQuestCompleted(11026)))" >
+				<CustomBehavior File="FlyTo" X="2317.132" Y="7279.319" Z="365.6171" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Banish the Demons" QuestId="11026" TurnInName="Kronk" TurnInId="23253" />
+			</If>
+			
+		<!-- 
+		Not even trying to farm these.  I killed 20 and not 1 dropped
+		-->
 
-
-
+			</If>
 
 
 		<If Condition="Me.GetReputationLevelWith(1038) == Styx.WoWUnitReaction.Exalted" >
