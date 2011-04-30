@@ -1,0 +1,208 @@
+﻿<HBProfile>
+	<Name>[QO] Oracle Dailies[Kick]</Name>
+   
+	<MinLevel>1</MinLevel>
+	<MaxLevel>86</MaxLevel>
+   
+	<MinDurability>0.2</MinDurability>
+	<MinFreeBagSlots>2</MinFreeBagSlots>
+	
+	<MailGrey>False</MailGrey>
+	<MailWhite>False</MailWhite>
+	<MailGreen>False</MailGreen>
+	<MailBlue>True</MailBlue>
+	<MailPurple>True</MailPurple>
+   
+	<SellGrey>True</SellGrey>
+	<SellWhite>True</SellWhite>
+	<SellGreen>True</SellGreen>
+	<SellBlue>False</SellBlue>
+	<SellPurple>False</SellPurple>
+   
+	<TargetElites>True</TargetElites>
+
+	<AvoidMobs>
+	</AvoidMobs>
+	<Blackspots>
+	</Blackspots>
+	<Mailboxes>
+
+	</Mailboxes>
+	<Vendors>
+
+	</Vendors>
+
+	<Quest Id="12704" Name="Appeasing the Great Rain Stone">
+		<Objective Type="CollectItem" ItemId="38575" CollectCount="6">
+			<CollectFrom>
+				<Mob Name="Glinting Dirt" Id="28362" />
+				<GameObject Name="Glinting Armor" Id="190560" />
+				<GameObject Name="Glowing Gem" Id="190561" />
+				<GameObject Name="Polished Platter" Id="190562" />
+				<GameObject Name="Shining Crystal" Id="190558" />
+				<GameObject Name="Sparkling Treasure" Id="190563" />
+				<GameObject Name="Glowing Crystal" Id="181574" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="5677.721" Y="4484.066" Z="-134.7966" />
+				<Hotspot X="5770.876" Y="4464.97" Z="-133.8746" />
+				<Hotspot X="5812.428" Y="4516.523" Z="-135.3735" />
+				<Hotspot X="5754.761" Y="4548.107" Z="-133.998" />
+				<Hotspot X="5801.254" Y="4510.66" Z="-132.8757" />
+				<Hotspot X="5823.577" Y="4603.834" Z="-135.0869" />
+				<Hotspot X="5745.972" Y="4692.377" Z="-134.9043" />
+				<Hotspot X="5612.189" Y="4639.969" Z="-136.0512" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	<Quest Id="12761" Name="Mastery of the Crystals">
+		<Objective Type="KillMob" MobId="28078" KillCount="50">
+			<Hotspots>
+				<Hotspot X="4808.278" Y="5830.565" Z="-38.9472" />
+				<Hotspot X="4882.197" Y="5813.726" Z="-55.96918" />
+				<Hotspot X="4914.531" Y="5842.549" Z="-60.53718" />
+				<Hotspot X="4876.826" Y="5901.42" Z="-40.52926" />
+				<Hotspot X="4864.289" Y="5843.942" Z="-49.20718" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="CollectItem" ItemId="39693" CollectCount="1">
+			<Hotspots>
+				<Hotspot X="5091.518" Y="5489.865" Z="-93.37692" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="CollectItem" ItemId="39689" CollectCount="1">
+			<Hotspots>
+				<Hotspot X="5091.518" Y="5489.865" Z="-93.37692" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="CollectItem" ItemId="39694" CollectCount="1">
+			<Hotspots>
+				<Hotspot X="5091.518" Y="5489.865" Z="-93.37692" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+
+
+	
+	<QuestOrder>
+	
+				<CustomBehavior File="UserSettings" LootMobs="True" PullDistance="35" TrainNewSkills="False" LearnFlightPaths="True" />
+				
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="This questing daily is not available for use atm" />
+				
+			<If Condition="(Me.MapId == 0)" >
+				<CustomBehavior File="FlyTo" X="-8291.137" Y="1404.371" Z="4.731256" />
+				<CustomBehavior File="ForcedDismount" />
+				<!-- SW dock to Valiance Keep -->
+				<CustomBehavior File="UseTransport"
+								Entry="-8300.08, 1405.158, 4.422395"
+								Exit="2234.375, 5132.568, 5.343217"
+								Start="-8288.816, 1424.703, 0.04" 
+								End="2218.391, 5119.589, 0.04" 
+								Transport="190536" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" />
+				<CustomBehavior File="FlyTo" Name="Oracles Base Camp" X="5653.112" Y="4579.119" Z="-137.1973" />
+			</If>
+
+			<If Condition="Me.ZoneId != 3711" >
+				<CustomBehavior File="FlyTo" Name="Oracles Base Camp" X="5653.112" Y="4579.119" Z="-137.1973" />
+			</If>
+
+			<While Condition="HasQuestAvailable(29006)" >
+				<CustomBehavior File="InteractWith" MobId="29006" NumOfTimes="1" CollectionDistance="100" WaitTime="1000" X="5648.665" Y="4605.616" Z="-132.1362" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+			</While>
+			<While Condition="HasQuestAvailable(29149)" >
+				<CustomBehavior File="InteractWith" MobId="29149" NumOfTimes="1" CollectionDistance="100" WaitTime="1000" X="5726.034" Y="4569.98" Z="-119.9571" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+			</While>
+			<While Condition="HasQuestAvailable(28027)" >
+				<CustomBehavior File="InteractWith" MobId="28027" NumOfTimes="1" CollectionDistance="100" WaitTime="1000" X="5650.8" Y="4551.022" Z="-134.8539" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="InteractWith" MobId="28027" NumOfTimes="1" GossipOption="1" CollectionDistance="100" WaitTime="1000" X="5650.8" Y="4551.022" Z="-134.8539" />
+			</While>
+
+			<While Condition="((HasQuest(12736)) &amp;&amp; (!IsQuestCompleted(12736)))" >
+				<CustomBehavior File="FlyTo" X="6207.679" Y="4742.389" Z="224.7146" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo X="6210.225" Y="4758.817" Z="226.42" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" />
+				<UseItem QuestId="12736" ItemId="39598" X="6210.225" Y="4758.817" Z="226.42" />
+				
+				<CustomBehavior File="FlyTo" X="5763.893" Y="5482.96" Z="203.6407" />
+				<CustomBehavior File="ForcedDismount" />
+				<UseItem QuestId="12736" ItemId="39598" X="5763.893" Y="5482.96" Z="203.6407" />
+				
+				<CustomBehavior File="FlyTo" X="5113.719" Y="5345.139" Z="214.1832" />
+				<CustomBehavior File="ForcedDismount" />
+				<UseItem QuestId="12736" ItemId="39598" X="5113.719" Y="5345.139" Z="214.1832" />
+				
+				<CustomBehavior File="FlyTo" X="4978.647" Y="4605.949" Z="154.0169" />
+				<CustomBehavior File="ForcedDismount" />
+				<UseItem QuestId="12736" ItemId="39598" X="4978.647" Y="4605.949" Z="154.0169" />
+				
+				<CustomBehavior File="WaitTimer" WaitTime="5000" />
+			</While>
+			<If Condition="((HasQuest(12761)) &amp;&amp; (!IsQuestCompleted(12761)))" >
+			 <If Condition="(!HasItem(39694))" >
+				<CustomBehavior File="FlyTo" X="5096.629" Y="5491.385" Z="-94.05155" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Mastery of the Crystals" QuestId="12761" Type="CollectItem" ItemId="39693" CollectCount="1" />
+				<Objective QuestName="Mastery of the Crystals" QuestId="12761" Type="CollectItem" ItemId="39689" CollectCount="1" />
+				<Objective QuestName="Mastery of the Crystals" QuestId="12761" Type="CollectItem" ItemId="39694" CollectCount="1" />
+			 </If>
+			 <While Condition="(HasItem(39694))" >
+				<CustomBehavior File="FlyTo" X="4865.205" Y="5841.505" Z="-49.23333" />
+				<CustomBehavior File="ForcedDismount" />
+				<!--
+				<CustomBehavior File="UserSettings" PullDistance="1" LootMobs="False" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(39693)" WaitTime="1000" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(39689)" WaitTime="1000" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(39694)" WaitTime="1000" />
+				<CustomBehavior File="UserSettings" PullDistance="35" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" />
+				<RunTo X="4899.594" Y="5819.349" Z="-56.8826" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(39694)" WaitTime="1000" />
+				-->
+				<Objective QuestName="Mastery of the Crystals" QuestId="12761" Type="KillMob" MobId="28078" KillCount="50" />
+			 </While>
+			</If>
+			<If Condition="((HasQuest(12761)) &amp;&amp; (IsQuestCompleted(12761)))" >
+				<CustomBehavior File="FlyTo" X="5114.796" Y="5472.212" Z="-91.83806" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Mastery of the Crystals" QuestId="12761" TurnInName="Lightningcaller Soo-met" TurnInId="28107" />		
+			</If>
+			<If Condition="((HasQuest(12704)) &amp;&amp; (!IsQuestCompleted(12704)))" >
+				<CustomBehavior File="FlyTo" Name="Oracles Base Camp" X="5653.112" Y="4579.119" Z="-137.1973" />
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This quest is user done for now" />
+				<Objective QuestName="Appeasing the Great Rain Stone" QuestId="12704" Type="CollectItem" ItemId="38575" CollectCount="6" />
+			</If>
+			
+			<If Condition="((HasQuest(12736)) &amp;&amp; (IsQuestCompleted(12736)))" >
+				<CustomBehavior File="FlyTo" Name="Oracles Base Camp" X="5653.112" Y="4579.119" Z="-137.1973" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Song of Reflection" QuestId="12736" TurnInName="Oracle Soo-nee" TurnInId="29006" />
+			</If>
+			<If Condition="((HasQuest(12704)) &amp;&amp; (IsQuestCompleted(12704)))" >
+				<CustomBehavior File="FlyTo" Name="Oracles Base Camp" X="5653.112" Y="4579.119" Z="-137.1973" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Appeasing the Great Rain Stone" QuestId="12704" TurnInName="High-Oracle Soo-say" TurnInId="28027" />
+			</If>
+			
+	
+	
+	
+	
+	
+	
+	
+	
+	
+			
+	
+	</QuestOrder>
+
+</HBProfile>

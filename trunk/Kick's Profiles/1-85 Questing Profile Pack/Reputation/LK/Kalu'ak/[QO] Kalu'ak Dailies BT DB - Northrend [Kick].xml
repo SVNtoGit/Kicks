@@ -56,7 +56,6 @@
 	
 				<CustomBehavior File="UserSettings" LootMobs="True" PullDistance="35" TrainNewSkills="False" LearnFlightPaths="True" />
 				
-		<If Condition="Me.GetReputationLevelWith(1073) &lt; Styx.WoWUnitReaction.Exalted" >
 			<If Condition="Me.MapId == 0" >
 				<CustomBehavior File="FlyTo" X="-8291.137" Y="1404.371" Z="4.731256" />
 				<CustomBehavior File="ForcedDismount" />
@@ -104,12 +103,30 @@
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Planning for the Future" QuestId="11960" TurnInName="Trapper Mau'i" TurnInId="26228" />		
 			</If>
-
-		</If>
-			
-			<If Condition="Me.GetReputationLevelWith(1073) == Styx.WoWUnitReaction.Exalted" >
-				<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nIf you liked this profile, +rep is always appreciated" />
+		
+			<!-- HF - Reef Cow -->
+		<If Condition="(IsQuestCompleted(11469))" >
+			<If Condition="((!HasQuest(11472)) &amp;&amp; (!IsQuestCompleted(11472)))" >
+				<CustomBehavior File="FlyTo" X="749.1319" Y="-2887.481" Z="7.648436" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Way to His Heart..." QuestId="11472" GiverName="Anuniaq" GiverId="24810" />
 			</If>
+			<If Condition="((HasQuest(11472)) &amp;&amp; (!IsQuestCompleted(11472)))" >
+				<CustomBehavior File="FlyTo" X="151.7973" Y="-3174.247" Z="25.40625" />
+	<CustomBehavior File="UserDialog" AllowBotStop="True" QuestId="11472" SoundCue="Exclamation" SoundCueInterval="1" Text="Net reef fish from the pools or get them from sharks, then lead the reef bull across the channel by throwing fish in it's path" />
+				<!--
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Way to His Heart..." QuestId="11472" Type="CollectItem" ItemId="34127" CollectCount="250" />
+				<Objective QuestName="The Way to His Heart..." QuestId="11472" Type="CollectItem" ItemId="40946" CollectCount="1" />
+				-->
+			</If>
+			<If Condition="((HasQuest(11472)) &amp;&amp; (IsQuestCompleted(11472)))" >
+				<CustomBehavior File="FlyTo" X="749.1319" Y="-2887.481" Z="7.648436" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Way to His Heart..." QuestId="11472" TurnInName="Anuniaq" TurnInId="24810" />
+			</If>
+		</If>
+		
 			
 	<CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="End of Dailies today\n\nNot doing the Sea Cow quest" />
 			
