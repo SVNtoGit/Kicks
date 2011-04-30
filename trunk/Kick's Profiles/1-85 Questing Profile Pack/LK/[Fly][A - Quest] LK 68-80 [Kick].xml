@@ -2958,10 +2958,14 @@
 			</If>
 		<PickUp QuestName="Rifle the Bodies" QuestId="12000" GiverName="Image of Archmage Modera" GiverId="26673" />
 		<Pickup QuestName="The Liquid Fire of Elune" QuestId="12166" GiverName="Warden Jodi Moonsong" GiverId="26973" />
-		<If Condition="HasQuestAvailable(27060)" >
-			<Pickup QuestName="Of Traitors and Treason" QuestId="12171" GiverName="Courier Lanson" GiverId="27060" />
-			<TurnIn QuestName="Of Traitors and Treason" QuestId="12171" TurnInName="Palena Silvercloud" TurnInId="26881" />
-		</If>
+			<If Condition="HasQuestAvailable(27060)" >
+				<CustomBehavior File="BasicInteractWith" MobId="27060" NumOfTimes="1" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+			 <If Condition="(HasQuest())" >
+		<TurnIn QuestName="Of Traitors and Treason" QuestId="12171" TurnInName="Palena Silvercloud" TurnInId="26881" />
+			 </If>
+			</If>
 		<!-- <Pickup QuestName="High Commander Halford Wyrmbane" QuestId="12174" GiverName="Palena Silvercloud" GiverId="26881" /> -->
 			<If Condition="((HasQuest(12166)) &amp;&amp; (!IsQuestCompleted(12166)))" >
 				<CustomBehavior File="UserSettings" SkinMobs="false" NinjaSkin="false" />
