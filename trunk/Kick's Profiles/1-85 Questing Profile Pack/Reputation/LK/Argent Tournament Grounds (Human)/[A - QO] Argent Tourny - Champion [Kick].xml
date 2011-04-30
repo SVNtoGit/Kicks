@@ -69,6 +69,17 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+	<Quest Id="13789" Name="Taking Battle To The Enemy">
+		<Objective Type="KillMob" MobId="35297" KillCount="15">
+			<Hotspots>
+				<Hotspot X="8523.643" Y="1394.315" Z="642.1589" />
+				<Hotspot X="8554.881" Y="1458.198" Z="642.6511" />
+				<Hotspot X="8560.257" Y="1562.118" Z="643.9575" />
+				<Hotspot X="8562.568" Y="1651.121" Z="642.4687" />
+				<Hotspot X="8523.643" Y="1394.315" Z="642.1589" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 	<Quest Id="14112" Name="What Do You Feed a Yeti, Anyway?">
 		<Objective Type="CollectItem" ItemId="47036" CollectCount="5">
 			<CollectFrom>
@@ -191,7 +202,7 @@
 			
 		
 			<!-- Silver Covenant Dailies -->
-			<If Condition="((!HasQuest(14112)) &amp;&amp; (!IsQuestCompleted(14112)))" >
+			<If Condition="((!HasQuest(14096)) &amp;&amp; (!IsQuestCompleted(14096)))" >
 				<CustomBehavior File="FlyTo" X="8587.15" Y="689.0057" Z="547.5109" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
@@ -200,10 +211,15 @@
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
 			</While>
-		<PickUp QuestName="What Do You Feed a Yeti, Anyway?" QuestId="14112" GiverName="Savinia Loresong" GiverId="34912" />
-		<!--
-		<PickUp QuestName="Rescue at Sea" QuestId="14152" GiverName="Narasi Snowdawn" GiverId="34880" />
+			<While Condition="HasQuestAvailable(34912)" >
+				<CustomBehavior File="InteractWith"  MobId="34912" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="8607.381" Y="660.5771" Z="550.322" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+			</While>
+		<!-- if none of these are static, dunno
 		<PickUp QuestName="You've Really Done It This Time, Kul" QuestId="14096" GiverName="Narasi Snowdawn" GiverId="34880" />
+		<PickUp QuestName="What Do You Feed a Yeti, Anyway?" QuestId="14112" GiverName="Savinia Loresong" GiverId="34912" />
+		<PickUp QuestName="Rescue at Sea" QuestId="14152" GiverName="Narasi Snowdawn" GiverId="34880" />
 		-->
 		
 			<!-- Eadric the Pure Quests -->
@@ -213,14 +229,28 @@
 			</If>
 		<PickUp QuestName="Threat From Above" QuestId="13682" GiverName="Eadric the Pure" GiverId="33759" />
 		<PickUp QuestName="Battle Before The Citadel" QuestId="13861" GiverName="Eadric the Pure" GiverId="33759" />
-		<PickUp QuestName="Taking Battle To The Enemy" QuestId="13789" GiverName="Cellian Daybreak" GiverId="33763" />
 		<PickUp QuestName="Among the Champions" QuestId="13790" GiverName="Luuri" GiverId="33771" />
-			
-		
+		<PickUp QuestName="Taking Battle To The Enemy" QuestId="13789" GiverName="Cellian Daybreak" GiverId="33763" />
+
+
+			<If Condition="((HasQuest(14090)) &amp;&amp; (!IsQuestCompleted(14090)))" >
+				<CustomBehavior File="FlyTo" Name="get Snobalds" X="6345.042" Y="-1211.781" Z="427.6479" />
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Blizzard doesn't mark this quest as &quot;completed&quot; after you capture 8 snowbalds, so do this quest and then press continue and i'll fly you back, but you'll have to turn in manually" />
+				<CustomBehavior File="FlyTo" X="8587.15" Y="689.0057" Z="547.5109" />
+				<CustomBehavior File="ForcedDismount" />
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Turn In the snobald quest" />
+	<!--
+			<CustomBehavior File="UserSettings" PullDistance="1" />
+			 <While Condition="((HasQuest(14090)) &amp;&amp; (!IsQuestCompleted(14090)))" >
+				<CustomBehavior File="UseItemOn" QuestId="14090" MobId="29618" ItemId="46885" NpcState="Alive" NumOfTimes="1" WaitTime="1000" Range="20" CollectionDistance="100" X="6345.042" Y="-1211.781" Z="427.6479" />
+			 </While>
+	-->
+			</If>
 			<If Condition="((HasQuest(13789)) &amp;&amp; (!IsQuestCompleted(13789)))" >
 				<!-- do with the key quest -->
 				<CustomBehavior File="FlyTo" X="8513.477" Y="1376.757" Z="641.6046" />
 				<CustomBehavior File="ForcedDismount" />
+			<CustomBehavior File="UserSettings" PullDistance="25" />
 				<Objective QuestName="Taking Battle To The Enemy" QuestId="13789" Type="KillMob" MobId="35297" KillCount="15" />
 			</If>
 			<If Condition="((HasQuest(14096)) &amp;&amp; (!IsQuestCompleted(14096)))" >
@@ -310,13 +340,13 @@
 		<TurnIn QuestName="Battle Plans Of The Kvaldir" QuestId="24442" TurnInName="Justicar Mariel Trueheart" TurnInId="33817" />
 			</If>
 
-			<If Condition="((HasQuest(14112)) &amp;&amp; (IsQuestCompleted(14112)))" >
+			<If Condition="((HasQuest(14096)) &amp;&amp; (IsQuestCompleted(14096)))" >
 				<CustomBehavior File="FlyTo" X="8587.15" Y="689.0057" Z="547.5109" />
 				<CustomBehavior File="ForcedDismount" />
-		<TurnIn QuestName="What Do You Feed a Yeti, Anyway?" QuestId="14112" TurnInName="Savinia Loresong" TurnInId="34912" />
-			</If>
-			<If Condition="((HasQuest(14096)) &amp;&amp; (IsQuestCompleted(14096)))" >
 		<TurnIn QuestName="You've Really Done It This Time, Kul" QuestId="14096" TurnInName="Narasi Snowdawn" TurnInId="34880" />
+			</If>
+			<If Condition="((HasQuest(14112)) &amp;&amp; (IsQuestCompleted(14112)))" >
+		<TurnIn QuestName="What Do You Feed a Yeti, Anyway?" QuestId="14112" TurnInName="Savinia Loresong" TurnInId="34912" />
 			</If>
 			<If Condition="((HasQuest(14152)) &amp;&amp; (IsQuestCompleted(14152)))" >
 		<TurnIn QuestName="Rescue at Sea" QuestId="14152" TurnInName="Narasi Snowdawn" TurnInId="34880" />			
@@ -327,6 +357,10 @@
 			<If Condition="((HasQuest(14074)) &amp;&amp; (IsQuestCompleted(14074)))" >
 		<TurnIn QuestName="A Leg Up" QuestId="14074" TurnInName="Narasi Snowdawn" TurnInId="34880" />
 			</If>
+			<If Condition="((HasQuest(14090)) &amp;&amp; (IsQuestCompleted(14090)))" >
+		<TurnIn QuestName="Gormok Wants His Snobolds" QuestId="14090" TurnInName="Savinia Loresong" TurnInId="34912" />		
+			</If>
+		
 
 			
 		
