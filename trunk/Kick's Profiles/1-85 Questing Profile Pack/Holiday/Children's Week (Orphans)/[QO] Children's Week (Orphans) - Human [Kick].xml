@@ -1,0 +1,271 @@
+﻿<HBProfile>
+	<Name>[QO] Orphan's Week [Kick]</Name>
+   
+	<MinLevel>1</MinLevel>
+	<MaxLevel>86</MaxLevel>
+   
+	<MinDurability>0.2</MinDurability>
+	<MinFreeBagSlots>2</MinFreeBagSlots>
+	
+	<MailGrey>False</MailGrey>
+	<MailWhite>False</MailWhite>
+	<MailGreen>False</MailGreen>
+	<MailBlue>True</MailBlue>
+	<MailPurple>True</MailPurple>
+   
+	<SellGrey>True</SellGrey>
+	<SellWhite>True</SellWhite>
+	<SellGreen>True</SellGreen>
+	<SellBlue>False</SellBlue>
+	<SellPurple>False</SellPurple>
+   
+	<TargetElites>True</TargetElites>
+
+	<AvoidMobs>
+	</AvoidMobs>
+	<Blackspots>
+		<Blackspot X="-9455.722" Y="45.24489" Z="56.7141" Radius="2.081783" /> <!-- goldshire mailbox -->
+	</Blackspots>
+
+	<Mailboxes>
+
+	</Mailboxes>
+ 
+	<Vendors>
+
+	</Vendors>
+	
+
+
+
+
+
+	<QuestOrder>
+
+	<CustomBehavior File="UserSettings" LootMobs="True" PullDistance="1" UseMount="True" TrainNewSkills="False" LearnFlightPaths="False" KillBetweenHotspots="True" LogoutForInactivity="False" />
+
+	
+			<If Condition="((!HasQuest(1468)) &amp;&amp; (!IsQuestCompleted(1468)))" >
+				<!-- stormwind -->
+				<CustomBehavior File="FlyTo" X="-8623.76" Y="744.0499" Z="96.92513" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Children's Week" QuestId="1468" GiverName="Orphan Matron Nightingale" GiverId="51988" />
+			</If>
+			<If Condition="((HasQuest(1468)) &amp;&amp; (!IsQuestCompleted(1468)))" >
+				<!-- wait 2 secs, summon kiddo, wait 2 seconds for hb to find kiddo and insert him into database -->
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(18598)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+			</If>
+			<If Condition="((HasQuest(1468)) &amp;&amp; (IsQuestCompleted(1468)))" >
+			<!-- turn in to kiddo -->
+		<TurnIn QuestName="Children's Week" QuestId="1468" TurnInName="Human Orphan" TurnInId="14305" />
+			</If>
+
+		<PickUp QuestName="Cruisin' the Chasm" QuestId="29093" GiverName="Human Orphan" GiverId="14305" />
+		<PickUp QuestName="Malfurion Has Returned!" QuestId="29107" GiverName="Human Orphan" GiverId="14305" />
+		<PickUp QuestName="The Biggest Diamond Ever!" QuestId="29106" GiverName="Human Orphan" GiverId="14305" />
+		
+			<!-- Cruisin' the Chasm -->
+			<If Condition="((HasQuest(29093)) &amp;&amp; (!IsQuestCompleted(29093)))" >
+				<CustomBehavior File="FlyTo" Name="Westfall Motorcycles" X="-10638.28" Y="999.5894" Z="33.0731" />
+				<CustomBehavior File="ForcedDismount" />
+		 	 <If Condition="(!Me.HasAura(&quot;Orphan Out&quot;))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(18598)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			 </If>
+		 	 <If Condition="(Me.HasAura(&quot;Orphan Out&quot;))" >
+				<CustomBehavior File="MountVehOnly" VehicleMountId="52189" X="-10638.08" Y="994.4167" Z="33.4013" />
+				<!-- i might need a waittimer -->
+			 </If>
+			</If>
+			<If Condition="((HasQuest(29093)) &amp;&amp; (IsQuestCompleted(29093)))" >
+		 	 <If Condition="(!Me.HasAura(&quot;Orphan Out&quot;))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(18598)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			 </If>
+		<TurnIn QuestName="Cruisin' the Chasm" QuestId="29093" TurnInName="Human Orphan" TurnInId="14305" />
+			</If>
+			
+			<!-- The Biggest Diamond Ever! -->
+			<If Condition="((HasQuest(29106)) &amp;&amp; (!IsQuestCompleted(29106)))" >
+				<CustomBehavior File="FlyTo" Name="Gates of IF" X="-5085.934" Y="-789.5145" Z="495.6928" />
+				<CustomBehavior File="ForcedDismount" />
+		 	 <If Condition="(!Me.HasAura(&quot;Orphan Out&quot;))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(18598)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			 </If>
+			 <While Condition="((HasQuest(29106)) &amp;&amp; (!IsQuestCompleted(29106)))" >
+				<RunTo X="-4820.112" Y="-976.8712" Z="464.7092" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			 </While>
+			</If>
+			<If Condition="((HasQuest(29106)) &amp;&amp; (IsQuestCompleted(29106)))" >
+		 	 <If Condition="(!Me.HasAura(&quot;Orphan Out&quot;))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(18598)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			 </If>
+		<TurnIn QuestName="The Biggest Diamond Ever!" QuestId="29106" TurnInName="Human Orphan" TurnInId="14305" />
+			</If>
+			
+			<!-- Malfurion Has Returned! -->
+			<If Condition="((HasQuest(29107)) &amp;&amp; (!IsQuestCompleted(29107)))" >
+			 <If Condition="Me.ZoneId != 1657" >
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Find Passage to Darnassus (i'll hopefully be adding a boat from Wetlands to Darnassus this week)" />
+			 </If>
+			<!--
+				<CustomBehavior File="FlyTo" 
+				<CustomBehavior File="ForcedDismount" />
+			-->
+			 <If Condition="Me.ZoneId == 1657" >
+		 	  <If Condition="(!Me.HasAura(&quot;Orphan Out&quot;))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(18598)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			  </If>
+			 <While Condition="((HasQuest(29107)) &amp;&amp; (!IsQuestCompleted(29107)))" >
+				<RunTo X="9662.495" Y="2524.327" Z="1359.997" />
+			 </While>
+			 </If>
+			</If>
+			<If Condition="((HasQuest(29107)) &amp;&amp; (IsQuestCompleted(29107)))" >
+		 	 <If Condition="(!Me.HasAura(&quot;Orphan Out&quot;))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(18598)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			 </If>
+		<TurnIn QuestName="Malfurion Has Returned!" QuestId="29107" TurnInName="Human Orphan" TurnInId="14305" />
+			</If>
+			
+		<PickUp QuestName="You Scream, I Scream..." QuestId="29119" GiverName="Human Orphan" GiverId="14305" />
+		<PickUp QuestName="Let's Go Fly a Kite" QuestId="29117" GiverName="Human Orphan" GiverId="14305" />
+		
+			<!-- You Scream, I Scream -->
+			<If Condition="((HasQuest(29119)) &amp;&amp; (!IsQuestCompleted(29119)))" >
+			 <If Condition="Me.ZoneId == 1657" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(6948)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" />
+			 </If>
+			 <If Condition="Me.ZoneId != 1519" >
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Find passage to SW, you're not hearthed to SW" />
+			 </If>
+				<CustomBehavior File="FlyTo" X="-9033.96" Y="867.9114" Z="110.0335" />
+				<CustomBehavior File="ForcedDismount" />
+		 	 <If Condition="(!Me.HasAura(&quot;Orphan Out&quot;))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(18598)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			 </If>
+				<CustomBehavior File="InteractWith" QuestId="29119" MobId="52421" NumOfTimes="1" BuyItemId="69027" CollectionDistance="50" WaitTime="1000" X="-9035.274" Y="871.8246" Z="110.196" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(69027)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+			</If>
+			<If Condition="((HasQuest(29119)) &amp;&amp; (IsQuestCompleted(29119)))" >
+		 	 <If Condition="(!Me.HasAura(&quot;Orphan Out&quot;))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(18598)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			 </If>
+		<TurnIn QuestName="You Scream, I Scream..." QuestId="29119" TurnInName="Human Orphan" TurnInId="14305" />			
+			</If>
+			
+			<!-- Let's Go Fly a Kite -->
+			<If Condition="((HasQuest(29117)) &amp;&amp; (!IsQuestCompleted(29117)))" >
+				<CustomBehavior File="FlyTo" X="-8736.825" Y="718.0811" Z="100.9486" />
+				<CustomBehavior File="ForcedDismount" />
+		 	 <If Condition="(!Me.HasAura(&quot;Orphan Out&quot;))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(18598)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			 </If>
+				<CustomBehavior File="InteractWith" MobId="52358" NumOfTimes="1" CollectionDistance="500" BuyItemId="68890" WaitTime="1000" X="-8736.825" Y="718.0811" Z="100.9486" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(68890)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" />
+			</If>
+			<If Condition="((HasQuest(29117)) &amp;&amp; (IsQuestCompleted(29117)))" >
+		 	 <If Condition="(!Me.HasAura(&quot;Orphan Out&quot;))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(18598)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			 </If>
+		<TurnIn QuestName="Let's Go Fly a Kite" QuestId="29117" TurnInName="Human Orphan" TurnInId="14305" />
+			</If>
+			
+		<PickUp QuestName="A Warden of the Alliance" QuestId="171" GiverName="Human Orphan" GiverId="14305" />
+		
+			<!-- A Warden of the Alliance -->
+			<If Condition="((HasQuest(171)) &amp;&amp; (!IsQuestCompleted(171)))" >
+				<CustomBehavior File="FlyTo" X="-8736.825" Y="718.0811" Z="100.9486" />
+				<CustomBehavior File="ForcedDismount" />
+		 	 <If Condition="(!Me.HasAura(&quot;Orphan Out&quot;))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(18598)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			 </If>
+				<CustomBehavior File="InteractWith" MobId="52358" NumOfTimes="1" CollectionDistance="500" BuyItemId="69057" WaitTime="1000" X="-8736.825" Y="718.0811" Z="100.9486" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			</If>
+			<If Condition="((HasQuest(171)) &amp;&amp; (IsQuestCompleted(171)))" >
+				<CustomBehavior File="FlyTo" X="-8622.883" Y="744.1806" Z="96.91416" />
+				<CustomBehavior File="ForcedDismount" />
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Select the reward you want" />
+		<!-- <TurnIn QuestName="A Warden of the Alliance" QuestId="171" TurnInName="Human Orphan" TurnInId="14305" /> -->
+			</If>
+			
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Quests.  I'm making a Dalaran Profile next ... keep the SVN updated!" />
+			
+			
+			
+			
+			
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<PickUp QuestName="Children's Week" QuestId="1468" GiverName="" GiverId="" />
+<TurnIn QuestName="Children's Week" QuestId="1468" TurnInName="" TurnInId="" />
+
+====
+
+<PickUp QuestName="Cruisin' the Chasm" QuestId="29093" GiverName="" GiverId="" />
+<TurnIn QuestName="Cruisin' the Chasm" QuestId="29093" TurnInName="" TurnInId="" />
+
+<PickUp QuestName="Malfurion Has Returned!" QuestId="29107" GiverName="" GiverId="" />
+<TurnIn QuestName="Malfurion Has Returned!" QuestId="29107" TurnInName="" TurnInId="" />
+
+<PickUp QuestName="The Biggest Diamond Ever!" QuestId="29106" GiverName="" GiverId="" />
+<TurnIn QuestName="The Biggest Diamond Ever!" QuestId="29106" TurnInName="" TurnInId="" />
+
+====
+
+<PickUp QuestName="You Scream, I Scream..." QuestId="29119" GiverName="" GiverId="" />
+<Objective QuestName="You Scream, I Scream..." QuestId="29119" Type="CollectItem" ItemId="69027" CollectCount="0" />
+<TurnIn QuestName="You Scream, I Scream..." QuestId="29119" TurnInName="" TurnInId="" />
+
+<PickUp QuestName="Let's Go Fly a Kite" QuestId="29117" GiverName="" GiverId="" />
+<Objective QuestName="Let's Go Fly a Kite" QuestId="29117" Type="CollectItem" ItemId="68890" CollectCount="1" />
+<TurnIn QuestName="Let's Go Fly a Kite" QuestId="29117" TurnInName="" TurnInId="" />
+
+====
+
+<PickUp QuestName="A Warden of the Alliance" QuestId="171" GiverName="" GiverId="" />
+<Objective QuestName="A Warden of the Alliance" QuestId="171" Type="CollectItem" ItemId="69057" CollectCount="1" />
+<TurnIn QuestName="A Warden of the Alliance" QuestId="171" TurnInName="" TurnInId="" />
+
+
+
+-->
+
+
+	
+	
+	</QuestOrder>
+
+</HBProfile>
