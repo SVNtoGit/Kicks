@@ -300,7 +300,7 @@
 			<CustomBehavior File="UserSettings" PullDistance="25" />
 				<Objective QuestName="Taking Battle To The Enemy" QuestId="13789" Type="KillMob" MobId="35297" KillCount="15" />
 			</If>
-			<If Condition="((HasQuest(14096)) &amp;&amp; (!IsQuestCompleted(14096)))" >
+			<While Condition="((HasQuest(14096)) &amp;&amp; (!IsQuestCompleted(14096)))" >
 				<If Condition="(GetItemCount(46895) &lt; 5)" >
 					<CustomBehavior File="FlyTo" X="8528.181" Y="1399.574" Z="642.043" />
 					<CustomBehavior File="ForcedDismount" />
@@ -318,9 +318,11 @@
 					<CustomBehavior File="FlyTo" X="8561.451" Y="1511.688" Z="642.2645" />
 					<CustomBehavior File="ForcedDismount" />
 					<CustomBehavior File="WaitTimer" WaitTime="2000" />
-					<CustomBehavior File="InteractWith" QuestId="14096" MobId="195310" ObjectType="Gameobject" NumOfTimes="4" Range="10" CollectionDistance="35" X="8561.451" Y="1511.688" Z="642.2645" />
+					<CustomBehavior File="InteractWith" QuestId="14096" MobId="195310" ObjectType="Gameobject" NumOfTimes="10" Range="10" CollectionDistance="35" X="8561.451" Y="1511.688" Z="642.2645" />
+
+					<CustomBehavior File="WaitTimer" WaitTime="5000" />
 				</If>
-			</If>
+			</While>
 			<While Condition="((HasQuest(14112)) &amp;&amp; (!IsQuestCompleted(14112)))" >
 			  <If Condition="(!HasItem(47036))" >
 				<CustomBehavior File="FlyTo" X="9075.497" Y="1246.14" Z="4.166423" />
@@ -415,11 +417,14 @@
 
 			
 		
-			<If Condition="(IsQuestCompleted(13684))" >
+			<!-- Exodar -->
+			<If Condition="((IsQuestCompleted(13684)) &amp;&amp; (!IsQuestCompleted(13724)))" >
 		<CustomBehavior File="LoadProfile" ProfileName="[A - QO] Argent Tourny - GV [Kick]" /> 
 			</If>
 
-
+			<If Condition="(IsQuestCompleted(13724))" >
+		<CustomBehavior File="LoadProfile" ProfileName="[A - QO] Argent Tourny - GV [Kick]" /> 
+			</If>
 
 			<!-- Eadric the Pure Quests -->
 			<If Condition="((!HasQuest(13682)) &amp;&amp; (!IsQuestCompleted(13682)))" >
@@ -469,7 +474,7 @@
 			
 			
 			
-			<!-- Gnome -->
+			<!-- Exodar -->
 		<PickUp QuestName="A Valiant's Field Training" QuestId="13755" GiverName="Saandos" GiverId="33655" />
 				<Objective QuestName="A Valiant's Field Training" QuestId="13755" Type="KillMob" MobId="32255" KillCount="10" />
 		<TurnIn QuestName="A Valiant's Field Training" QuestId="13755" TurnInName="Saandos" TurnInId="33655" />
