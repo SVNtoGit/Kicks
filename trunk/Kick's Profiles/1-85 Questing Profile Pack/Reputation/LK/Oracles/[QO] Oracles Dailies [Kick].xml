@@ -93,6 +93,21 @@
 		</Objective>
 	</Quest>
 
+	<Quest Id="12705" Name="Will of the Titans">
+		<Objective Type="KillMob" MobId="28078" KillCount="50">
+			<Hotspots>
+				<Hotspot X="4808.278" Y="5830.565" Z="-38.9472" />
+				<Hotspot X="4882.197" Y="5813.726" Z="-55.96918" />
+				<Hotspot X="4914.531" Y="5842.549" Z="-60.53718" />
+				<Hotspot X="4876.826" Y="5901.42" Z="-40.52926" />
+				<Hotspot X="4864.289" Y="5843.942" Z="-49.20718" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="CollectItem" ItemId="39266" CollectCount="1">
+			<Hotspots>
+			</Hotspots>
+		</Objective>
+	</Quest>
 
 	
 	<QuestOrder>
@@ -212,14 +227,26 @@
 			 </If>
 			 <If Condition="(HasItem(39748))" >
 				<CustomBehavior File="FlyTo" X="4910.379" Y="5839.513" Z="-59.58861" />
+				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="Power of the Great Ones" QuestId="12762" Type="KillMob" MobId="28078" KillCount="30" />
 			 </If>
+			</If>
+			<If Condition="((HasQuest(12705)) &amp;&amp; (!IsQuestCompleted(12705)))" >
+				<CustomBehavior File="FlyTo" X="4910.379" Y="5839.513" Z="-59.58861" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Will of the Titans" QuestId="12705" Type="KillMob" MobId="28078" KillCount="50" />
+			</If>
+			<If Condition="((HasQuest(12705)) &amp;&amp; (IsQuestCompleted(12705)))" >
+				<CustomBehavior File="FlyTo" Name="turn in quest" X="5114.796" Y="5472.212" Z="-91.83806" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Will of the Titans" QuestId="12705" TurnInName="Lightningcaller Soo-met" TurnInId="28107" />
 			</If>
 			<If Condition="((HasQuest(12762)) &amp;&amp; (IsQuestCompleted(12762)))" >
 				<CustomBehavior File="FlyTo" Name="turn in quest" X="5114.796" Y="5472.212" Z="-91.83806" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Power of the Great Ones" QuestId="12762" TurnInName="Lightningcaller Soo-met" TurnInId="28107" />		
 			</If>
+			
 			<If Condition="((HasQuest(12737)) &amp;&amp; (!IsQuestCompleted(12737)))" >
 				<CustomBehavior File="FlyTo" X="6198.818" Y="5856.327" Z="48.01503" />
 				<CustomBehavior File="ForcedDismount" />
