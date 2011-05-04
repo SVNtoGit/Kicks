@@ -4,22 +4,23 @@
 	   
 	 * When we deploy the Orphan, its always in a While loop, as some addons can interfer with this.
 	 
-	  * This profile will also move you along with the "Bad Example" achievement by purchasing and
-	    eating icrcream (if your achievement isn't complete).
+	 * This profile will also move you along with the "Bad Example" achievement by purchasing and
+	   eating icrcream (if your achievement isn't complete).
 		
-	  * The initial quest pickup from the Orphan Matron is dicey.  Honorbuddy apparently can't figure out
-	    that it has picked up the quest, and continously clicks on her.  We've discovered no work-around
-		for this, other than to stop/start Honorbuddy, and the profile picks up where it should.
+	 * The initial quest pickup from the Orphan Matron is dicey.  Honorbuddy apparently can't figure out
+	   that it has picked up the quest, and continously clicks on her.  We've discovered no work-around
+	   for this, other than to stop/start Honorbuddy, and the profile picks up where it should.
 
 	 * Honorbuddy *really* likes quest pickups/turnins to Orphans other than our own.  This can *seriously*
 	   make you look like a bot if that other player is moving around.  Sadly, there is nothing we can do
 	   about this.  The problems appear to be exacerbated by the 'not always there' NPCs giving/taking
 	   quests (e.g., the Orphan).
 	   
-	  * We had to break down and use MyCTM in a few areas.  The Ironforge undercity is not meshed at
-	    this time.  The Rut'theran village portal is unpredicatable at this time (its more of a teleporter
-		than a portal which messes up the HB navigator in bad ways).  FlyTo is also unusable in
-		Rut'theran area because that area is on the 'edge of the world', and Flightor doesn't like that.
+	 * We had to break down and use MyCTM in a few areas.  The Ironforge undercity is not meshed at
+	   this time.  The Rut'theran village portal is unpredicatable at this time (its more of a teleporter
+	   than a portal which messes up the HB navigator in bad ways)... as such GoThruPortal won't work.
+	   FlyTo is also unusable in Rut'theran area because that area is on the 'edge of the world',
+	   and Flightor doesn't like that.
  -->
 <HBProfile>
 	<Name>[QO] Orphan's Week [Kick]</Name>
@@ -65,12 +66,14 @@
 
 		<CustomBehavior File="UserSettings" LootMobs="True" PullDistance="1" UseMount="True" TrainNewSkills="False" LearnFlightPaths="False" KillBetweenHotspots="True" LogoutForInactivity="False" UseFlightPaths="true" />
 
-	
-		<If Condition="((!HasQuest(1468)) &amp;&amp; (!IsQuestCompleted(1468)))" >
-			<!-- stormwind -->
-			<CustomBehavior File="FlyTo" DestName="Stormwind Orphan Matron" X="-8623.76" Y="744.0499" Z="96.92513" />
-			<CustomBehavior File="ForcedDismount" />
-			<PickUp QuestName="Children's Week" QuestId="1468" GiverName="Orphan Matron Nightingale" GiverId="51988" />
+		<!-- Move to the Matron, if we don't already have the whistle in inventory -->
+		<If Condition="!HasItem(18598)">
+			<If Condition="((!HasQuest(1468)) &amp;&amp; (!IsQuestCompleted(1468)))" >
+				<!-- stormwind -->
+				<CustomBehavior File="FlyTo" DestName="Stormwind Orphan Matron" X="-8623.76" Y="744.0499" Z="96.92513" />
+				<CustomBehavior File="ForcedDismount" />
+				<PickUp QuestName="Children's Week" QuestId="1468" GiverName="Orphan Matron Nightingale" GiverId="51988" />
+			</If>
 		</If>
 		
 		<If Condition="((HasQuest(1468)) &amp;&amp; (!IsQuestCompleted(1468)))" >
@@ -149,7 +152,10 @@
 			<If Condition="HasQuest(29093) &amp;&amp; IsQuestCompleted(29093)" >
 				<TurnIn QuestName="Cruisin' the Chasm" QuestId="29093" TurnInName="Human Orphan" TurnInId="14305" />
 			</If>
-			
+		</If>
+		
+		<!-- If we stop/started at Bronzebeards tomb, then this gets us out -->
+		<If Condition="Me.Location.Distance(new WoWPoint(-4823.082,-976.0417,464.7097)) &lt; 10">
 			<!-- Lower Ironforge is not meshed, so we issue a series of CTMs to get out -->
 			<CustomBehavior File="MyCTM" DestName="King Magni Bronzebeard" X="-4821.876" Y="-977.6767" Z="464.7091" />
 			<CustomBehavior File="MyCTM" DestName="second IF undercity ramp landing up" X="-4856.079" Y="-1006.624" Z="453.765" />
@@ -242,7 +248,7 @@
 					Flightor (e.g., FlyTo) has problems because we're on the edge of the map.
 				  -->
 				<If Condition="HasQuest(29119) &amp;&amp; !IsQuestCompleted(29119) &amp;&amp; (Me.ZoneId == 1657)" >
-					<RunTo Name="Temple of the Moon enrance" X="9723.681" Y="2525.958" Z="1335.678" />
+					<RunTo Name="Temple of the Moon entrance" X="9723.681" Y="2525.958" Z="1335.678" />
 					<CustomBehavior File="FlyTo" X="9732.421" Y="2507.921" Z="1368.836"  />
 					<CustomBehavior File="MyCTM" DestName="Temple of the Moon" X="9675.931" Y="2343.2" Z="1692.526" />
 					<CustomBehavior File="MyCTM" DestName="Temple of the Moon" X="9383.797" Y="1989.709" Z="1641.068" />
@@ -340,16 +346,21 @@
 		<PickUp QuestName="A Warden of the Alliance" QuestId="171" GiverName="Human Orphan" GiverId="14305" />
 	
 	
-		<!-- "Bad Example" Achivement: Consume the Stormwind treats in front of our Orphan -->
+		<!-- "Bad Example" Achievement: Consume the Stormwind treats in front of our Orphan -->
 		<If Condition="!IsAchievementCompleted(1788)">
 			<While Condition="(!Me.HasAura(&quot;Orphan Out&quot;))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(18598)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="4000" />
 			</While>
-			<RunTo DestName="Stormwind Treat Vendor" X="-8869.491" Y="658.2457" Z="96.26022"  />
+			<RunTo Name="Stormwind Treat Vendor" X="-8867.883" Y="657.0567" Z="96.27794" />
 			<CustomBehavior File="ForcedDismount" />
 			<CustomBehavior File="InteractWith" MobId="14481" NumOfTimes="1" CollectionDistance="500" BuyItemId="7228" WaitTime="1000" X="-8864.87" Y="657.9913" Z="96.46141" />
 			<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(7228)" WaitTime="1000" />
+			
+			<CustomBehavior File="UserDialog"
+				ExpiryTime="150"
+				SoundCueInterval="30"
+				Text="&quot;Bad Example&quot; achievement (you're &gt; Level 15)--\nYou just bought Ice Cream to move your incomplete &quot;Bad Example&quot; achievement along.\n\nWhen you run the Dalaran Orphan profile, we will acquire three other items for this achievement, but you'll need to handle &quot;The Lovely Cake&quot; by yourself since it is so expensive.\n\nThe other two remaining items--&quot;Tasty Cupcake&quot; and &quot;Lovely Chocolate Cake&quot; are crafted items.  You will need to make them, or buy them from the Auction House." />
 		</If>
 
 					
