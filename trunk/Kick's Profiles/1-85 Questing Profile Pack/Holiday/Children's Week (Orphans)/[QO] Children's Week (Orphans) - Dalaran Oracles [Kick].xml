@@ -1,8 +1,20 @@
-﻿<!-- General notes:
+﻿<!-- Profile by Kick/Chinajade (last updated for 2011 Children's week chain)
+
+    General notes:
+     * The profile starts and ends in Stormwind.
+	   But, the profile is very Honorbuddy stop/start friendly... it will pick up where if left off
+	   if this happens.
+	 
 	 * This profile is as AFK-able as we can make it.  However, it needs to be watched because HB
 	   (or the WoWclient in connection with HB) doesn't appear to process events reliably.
 	   
+	 * We explicitly fly everywhere (even though its a little bit slower than using taxis).
+	   We do this because not everyone may know the flightpoints.
+	   
 	 * When we deploy the Orphan, its always in a While loop, as some addons can interfere with this.
+	 
+	 * If you have more than one Orphan whistle in your inventory, some addons can interfere with this
+	   profile if the wrong Orphan is deployed.
 	 
 	 * This profile will also move you along with the "Bad Example" achievement by purchasing and
 	   eating icrcream (if your achievement isn't complete).
@@ -22,7 +34,7 @@
 	    will sometimes 'miss', if we don't.
  -->	
 <HBProfile>
-	<Name>[QO] Orphan's Week [Kick]</Name>
+	<Name>Children's Week (Oracles) [Kick/Chinajade]</Name>
    
 	<MinLevel>1</MinLevel>
 	<MaxLevel>86</MaxLevel>
@@ -145,7 +157,14 @@
 			<CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" NumOfTimes="1" WaitTime="1000" />
 			<CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="3000" />
 		</If>
-		
+				
+		<!-- If Orphan is deployed, put it away... the auto-summon has deployed the wrong Orphan
+			 because we have more than one whistle in our inventory -->
+		<While Condition="Me.HasAura(&quot;Orphan Out&quot;)" >
+			<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(46397)" WaitTime="1000" />
+			<CustomBehavior File="WaitTimer" WaitTime="4000" VariantTime="3000" />
+		</While>
+
 		<!-- The Orphan is not a stationary mob, and TurnIns sometimes 'miss' because of it.  Thus, the While loop -->
 		<While Condition="HasQuest(13926) &amp;&amp; IsQuestCompleted(13926)" >
 			<While Condition="(!Me.HasAura(&quot;Orphan Out&quot;))" >
@@ -357,7 +376,12 @@
 				<CustomBehavior File="WaitTimer" WaitTime="4000" VariantTime="3000" />
 			</While>
 			
-			<CustomBehavior File="InteractWith" MobId="29478" BuyItemId="46693" NumOfTimes="1" CollectionDistance="100" WaitTime="1000" X="5812.614" Y="683.0963" Z="647.046" />
+			<If Condition="!HasItem(46693)">
+				<CustomBehavior File="InteractWith" MobId="29478" BuyItemId="46693" NumOfTimes="1" CollectionDistance="100" WaitTime="1000" X="5812.614" Y="683.0963" Z="647.046" />
+			</If>
+			
+			<!--we move to the street to throw it... too easy to get stuck in shop -->
+			<RunTo Name="Dalaran street" X="5790.946" Y="715.8246" Z="640.8143" />
 			<CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="3000" />
 			<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(46693)" WaitTime="1000" />
 			<CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="3000" />
@@ -467,45 +491,7 @@
 		</If>
 
 				
-		<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Profile." />
-		
-<!-- 
-
-<PickUp QuestName="Little Orphan Roo Of The Oracles" QuestId="13926" GiverName="" GiverId="" />
-<Objective QuestName="Little Orphan Roo Of The Oracles" QuestId="13926" Type="KillMob" MobId="34365" KillCount="1" />
-<TurnIn QuestName="Little Orphan Roo Of The Oracles" QuestId="13926" TurnInName="" TurnInId="" />
-
-====
-<PickUp QuestName="The Biggest Tree Ever!" QuestId="13929" GiverName="" GiverId="" />
-<TurnIn QuestName="The Biggest Tree Ever!" QuestId="13929" TurnInName="" TurnInId="" />
-
-<PickUp QuestName="Playmates!" QuestId="13950" GiverName="" GiverId="" />
-<TurnIn QuestName="Playmates!" QuestId="13950" TurnInName="" TurnInId="" />
-
-<PickUp QuestName="The Bronze Dragonshrine" QuestId="13933" GiverName="" GiverId="" />
-<TurnIn QuestName="The Bronze Dragonshrine" QuestId="13933" TurnInName="" TurnInId="" />
-
-====
-
-<PickUp QuestName="The Dragon Queen" QuestId="13954" GiverName="" GiverId="" />
-<TurnIn QuestName="The Dragon Queen" QuestId="13954" TurnInName="" TurnInId="" />
-
-<PickUp QuestName="Meeting a Great One" QuestId="13956" GiverName="" GiverId="" />
-<TurnIn QuestName="Meeting a Great One" QuestId="13956" TurnInName="" TurnInId="" />
-
-====
-
-<PickUp QuestName="A Trip To The Wonderworks" QuestId="13937" GiverName="" GiverId="" />
-<Objective QuestName="A Trip To The Wonderworks" QuestId="13937" Type="KillMob" MobId="36209" KillCount="1" />
-<TurnIn QuestName="A Trip To The Wonderworks" QuestId="13937" TurnInName="" TurnInId="" />
-
-====
-
-<PickUp QuestName="Back To The Orphanage" QuestId="13959" GiverName="" GiverId="" />
-<TurnIn QuestName="Back To The Orphanage" QuestId="13959" TurnInName="" TurnInId="" />
-
--->	
+		<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="The quest reward will be mailed to you within a few minutes... usually less than five minutes.  You may have already received it as we've traveled.  We've placed you next to a mailbox to claim your reward.\n\nEnd of Profile." />
 	
 	</QuestOrder>
-
 </HBProfile>
