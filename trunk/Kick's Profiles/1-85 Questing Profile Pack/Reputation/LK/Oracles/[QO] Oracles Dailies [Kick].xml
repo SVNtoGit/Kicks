@@ -92,7 +92,6 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-
 	<Quest Id="12705" Name="Will of the Titans">
 		<Objective Type="KillMob" MobId="28078" KillCount="50">
 			<Hotspots>
@@ -114,8 +113,6 @@
 	
 				<CustomBehavior File="UserSettings" LootMobs="True" PullDistance="35" TrainNewSkills="False" LearnFlightPaths="True" />
 				
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="This questing daily is not available for use atm" />
-				
 			<If Condition="(Me.MapId == 0)" >
 				<CustomBehavior File="FlyTo" X="-8291.137" Y="1404.371" Z="4.731256" />
 				<CustomBehavior File="ForcedDismount" />
@@ -136,6 +133,12 @@
 				<CustomBehavior File="ForcedDismount" />
 			</If>
 
+			<While Condition="HasQuestAvailable(28027)" >
+				<CustomBehavior File="InteractWith" MobId="28027" NumOfTimes="1" CollectionDistance="100" WaitTime="1000" X="5650.8" Y="4551.022" Z="-134.8539" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="InteractWith" MobId="28027" NumOfTimes="1" GossipOption="1" CollectionDistance="100" WaitTime="1000" X="5650.8" Y="4551.022" Z="-134.8539" />
+			</While>
 			<While Condition="HasQuestAvailable(29006)" >
 				<CustomBehavior File="InteractWith" MobId="29006" NumOfTimes="1" CollectionDistance="100" WaitTime="1000" X="5648.665" Y="4605.616" Z="-132.1362" />
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
@@ -146,12 +149,7 @@
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
 			</While>
-			<While Condition="HasQuestAvailable(28027)" >
-				<CustomBehavior File="InteractWith" MobId="28027" NumOfTimes="1" CollectionDistance="100" WaitTime="1000" X="5650.8" Y="4551.022" Z="-134.8539" />
-				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
-				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
-				<CustomBehavior File="InteractWith" MobId="28027" NumOfTimes="1" GossipOption="1" CollectionDistance="100" WaitTime="1000" X="5650.8" Y="4551.022" Z="-134.8539" />
-			</While>
+			
 			<While Condition="((HasQuest(12735)) &amp;&amp; (!IsQuestCompleted(12735)))" >
 				<CustomBehavior File="FlyTo" X="5301.147" Y="4818.712" Z="-135.0204" />				
 				<CustomBehavior File="ForcedDismount" />
@@ -323,7 +321,19 @@
 			 </While>
 			</If>
 			
-			
+			<If Condition="((HasQuest(12726)) &amp;&amp; (!IsQuestCompleted(12726)))" >
+				<CustomBehavior File="FlyTo" X="6367.613" Y="5569.056" Z="74.07895" />
+				<CustomBehavior File="ForcedDismount" />
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must use the item and do the 'vehicle' quest for now" />
+				<!--
+			 <While Condition="((HasQuest(12726)) &amp;&amp; (!IsQuestCompleted(12726)))" >
+				<Objective QuestName="Song of Wind and Water" QuestId="12726" Type="KillMob" MobId="29008" KillCount="3" />
+				<Objective QuestName="Song of Wind and Water" QuestId="12726" Type="KillMob" MobId="29009" KillCount="3" />
+				<Objective QuestName="Song of Wind and Water" QuestId="12726" Type="CollectItem" ItemId="39571" CollectCount="1" />
+			 </While>
+				-->
+			</If>
+		<TurnIn QuestName="Song of Wind and Water" QuestId="12726" TurnInName="Oracle Soo-nee" TurnInId="29006" />		
 			
 			<If Condition="((HasQuest(12704)) &amp;&amp; (!IsQuestCompleted(12704)))" >
 				<CustomBehavior File="FlyTo" Name="Oracles Base Camp" X="5653.112" Y="4579.119" Z="-137.1973" />
