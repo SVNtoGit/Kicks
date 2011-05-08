@@ -56,6 +56,7 @@
 		<!--<Mob Name="Flamekin Spitter" Entry="9776" />-->
 	</AvoidMobs>
 	<Blackspots>
+		<Blackspot X="-10548.89" Y="-1335.182" Z="47.47839" Raidus="5" />
 		<Blackspot X="-11738.39" Y="217.7641" Z="39.50321" Radius="12" /> 
 		<Blackspot X="-6948.774" Y="-1055.033" Z="241.6994" Radius="25.38649" />
 		<Blackspot X="-12034.42" Y="-3443.192" Z="3.391762" Radius="9.305208" />
@@ -4005,7 +4006,6 @@
 			<Objective QuestName="Fine Linen Goods" QuestId="83" Type="CollectItem" ItemId="1019" CollectCount="6" />
 		<TurnIn QuestName="Discover Rolf's Fate" QuestId="45" TurnInType="Object" TurnInId="56" X="-9224.173" Y="-1234.316" Z="73.73194" />
 		<PickUp QuestName="Report to Thomas" QuestId="71" GiverType="Object" GiverId="56" X="-9224.173" Y="-1234.316" Z="73.73194" />
-			<Objective QuestName="Report to Thomas" QuestId="71" Type="CollectItem" ItemId="735" CollectCount="1" />
 			<Objective QuestName="Bounty on Murlocs" QuestId="46" Type="CollectItem" ItemId="780" CollectCount="8" />
 			<Objective QuestName="A Bundle of Trouble" QuestId="5545" Type="CollectItem" ItemId="13872" CollectCount="8" />
 			<Objective QuestName="Protect the Frontier" QuestId="52" Type="KillMob" MobId="822" KillCount="5" />
@@ -4166,7 +4166,7 @@
 		<TurnIn QuestName="Find Agent Kearnen" QuestId="26289" TurnInName="Agent Kearnen" TurnInId="7024" />
 		<PickUp QuestName="Secrets of the Tower" QuestId="26290" GiverName="Agent Kearnen" GiverId="7024" />
 			<While Condition="((HasQuest(26290)) &amp;&amp; (!IsQuestCompleted(26290)))" >
-				<CustomBehavior File="SetPullDistance" Distance="10" />
+				<CustomBehavior File="UserSettings" PullDistance="10" />
 				<CustomBehavior File="NoCombatMoveTo" X="-11123.45" Y="575.9608" Z="33.79729" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
 				<CustomBehavior File="NoCombatMoveTo" X="-11124.63" Y="573.5479" Z="35.05834" />
@@ -4177,12 +4177,13 @@
 				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
 				<UseItem QuestId="26290" ItemId="58112" X="-11142.74" Y="545.3058" Z="35.95961" />
 				<RunTo X="-11132.46" Y="546.587" Z="70.36973" />
-				<CustomBehavior File="WaitTimer" WaitTime="50000"/>
+				<CustomBehavior File="WaitTimer" WaitTime="52000"/>
 				<CustomBehavior File="NoCombatMoveTo" X="-11142.74" Y="545.3058" Z="35.95961" />				
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
 				<CustomBehavior File="NoCombatMoveTo" X="-11123.45" Y="575.9608" Z="33.79729" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
 				<CustomBehavior File="NoCombatMoveTo" X="-11044.71" Y="624.3614" Z="34.43306" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" />
 			</While>
 		<TurnIn QuestName="Secrets of the Tower" QuestId="26290" TurnInName="Agent Kearnen" TurnInId="7024" />	
 		<PickUp QuestName="Big Trouble in Moonbrook" QuestId="26291" GiverName="Agent Kearnen" GiverId="7024" />
@@ -4680,9 +4681,12 @@
 		<TurnIn QuestName="Clawing at the Truth" QuestId="26672" TurnInName="Madame Eva" TurnInId="265" X="-10531.91" Y="-1213.549" Z="28.11759" />
 		<PickUp QuestName="Mistmantle's Revenge" QuestId="26674" GiverName="Madame Eva" GiverId="265" X="-10531.91" Y="-1213.549" Z="28.11759" />
 			<While Condition="((HasQuest(26674)) &amp;&amp; (!IsQuestCompleted(26674)))" >
+				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
 				<UseItem QuestName="Mistmantle's Revenge" QuestId="26674" ItemId="59363" X="-10368.61" Y="-1255.158" Z="35.90972" />
-				<CustomBehavior File="WaitTimer" WaitTime="30000"/>
+				<CustomBehavior File="WaitTimer" WaitTime="20000"/>
 				<CustomBehavior File="RunMacro" Macro="/tar Stalvan\n/startattack" NumOfTimes="1" WaitTime="2000" />
+				<CustomBehavior File="KillUntilComplete" QuestId="26674" MobId="315" X="-10368.61" Y="-1255.158" Z="35.90972" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
 			</While>
 				<Objective QuestName="Mistmantle's Revenge" QuestId="26674" Type="KillMob" MobId="315" KillCount="1" />
 		<TurnIn QuestName="Mistmantle's Revenge" QuestId="26674" TurnInName="Tobias Mistmantle" TurnInId="43453" X="-10511.84" Y="-1301.943" Z="41.28986" />
@@ -5156,6 +5160,7 @@
 				<RunTo X="-13770.42" Y="-6.51657" Z="42.81776" />
 				<RunTo X="-13737.41" Y="-28.61647" Z="44.63197" />
 				<CustomBehavior File="InteractWith" QuestId="26597" MobId="1449" NumOfTimes="1" WaitTime="1000" CollectionDistance="50" X="-13738.46" Y="-29.74349" Z="44.55301" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
 				<CustomBehavior File="CompleteLogQuest" QuestId="26597" />
 				<CustomBehavior File="WaitTimer" WaitTime="30000"/>
 				<Objective QuestName="Stranglethorn Fever" QuestId="26597" Type="CollectItem" ItemId="2797" CollectCount="1" />
@@ -5842,9 +5847,11 @@
 			  </While>
 			</If>
 			<While Condition="((HasQuest(27389)) &amp;&amp; (!IsQuestCompleted(27389)))" >
+			  <While Condition="(GetItemCount(13155) &lt; 5)" >
 				<Objective QuestName="Marauders of Darrowshire" QuestId="27389" Type="CollectItem" ItemId="13157" CollectCount="5" />
-				<RunTo X="2175.57" Y="-3505.86" Z="126.7573" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(13156)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+			  </While>
 			</While>
 		<TurnIn QuestName="Postponing the Inevitable" QuestId="27420" TurnInName="Rayne" TurnInId="16135" />		
 		<TurnIn QuestName="Amidst Death, Life" QuestId="27421" TurnInName="Rayne" TurnInId="16135" X="2175.57" Y="-3505.86" Z="126.7573" />
@@ -5908,7 +5915,7 @@
 			<Objective QuestName="Frederick's Fish Fancy" QuestId="27450" Type="CollectItem" ItemId="61294" CollectCount="8" />
 		<TurnIn QuestName="Frederick's Fish Fancy" QuestId="27450" TurnInName="Frederick Calston" TurnInId="45575" />	-->
 		<TurnIn QuestName="Just a Drop in the Bucket" QuestId="27454" TurnInName="Betina Bigglezink" TurnInId="11035" />		
-		<PickUp QuestName="Boys Will Be Boys" QuestId="27455" GiverName="Fiona" GiverId="45417" />
+		<PickUp QuestName="Boys Will Be Boys" QuestId="27455" GiverName="Fiona" GiverId="45417" X="2278.03" Y="-4420.79" Z="111.7495" />
 		<TurnIn QuestName="Boys Will Be Boys" QuestId="27455" TurnInName="Gidwin Goldbraids" TurnInId="45431" />		
 		<PickUp QuestName="A Boyhood Dream" QuestId="27463" GiverName="Gidwin Goldbraids" GiverId="45431" />
 		<PickUp QuestName="Gathering Some Grub(s)" GiverName="Rimblat Earthshatter" QuestId="27456" GiverId="16134" X="2309.75" Y="-5261.74" Z="82.22337" />
@@ -6155,7 +6162,7 @@
 		<PickUp QuestName="Fuselight, Ho!" GiverName="Gek Nozzlerocket" QuestId="27762" GiverId="48704" X="2278.151" Y="-5259.874" Z="81.60403" />
 			<If Condition="(HasQuest(27762))" >
 				<CustomBehavior File="MountVehOnly" VehicleMountId="48708" X="2276.458" Y="-5258.253" Z="81.52869" />	
-				<CustomBehavior File="WaitTimer" WaitTime="240000" />
+				<CustomBehavior File="WaitTimer" WaitTime="360000" />
 			</If>
 		<TurnIn QuestName="Fuselight, Ho!" TurnInName="Eddie Flofizzle" QuestId="27762" TurnInId="46650" X="-6651.38" Y="-4746.83" Z="8.326457" />
 		<PickUp QuestName="To Fuselight Proper" GiverName="Eddie Flofizzle" QuestId="27763" GiverId="46650" X="-6651.38" Y="-4746.83" Z="8.326457" />
