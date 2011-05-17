@@ -3516,11 +3516,12 @@
 	  
 		<Checkpoint Level="1" />
 		<!-- Class Quests -->
-		<If Condition="Me.Race != WoWRace.Human">
+		<If Condition="Me.Race != WoWRace.Human &amp;&amp; ">
 		
+			<If Condition=" (Me.Level &lt; 8)
 			<If Condition="Me.ZoneId != 12" >
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This profile starts in Elwynn Forest, please move your toon there before continueing" />
-			</If>
+			</If></If>
 			
 		<SetVendor>
 			<Vendors>
@@ -4172,7 +4173,7 @@
 		<TurnIn QuestName="Feeding the Hungry and the Hopeless" QuestId="26271" TurnInName="Hope Saldean" TurnInId="42575" />
 		<TurnIn QuestName="The Westfall Brigade" QuestId="26287" TurnInName="Captain Danuvin" TurnInId="821" />	
 		<PickUp QuestName="Jango Spothide" QuestId="26288" GiverName="Captain Danuvin" GiverId="821" />
-			<If Condition="(Me.Level &gt;= 14" >
+			<If Condition="(Me.Level &gt;= 14) &amp;&amp; (Me.Level &lt; 18)" >
 		<PickUp QuestName="Hero's Call: Redridge Mountains!" QuestId="26365" GiverName="Captain Danuvin" GiverId="821" X="-10509.97" Y="1040.674" Z="60.51849" />
 			</If>
 		<TurnIn QuestName="In Defense of Westfall" QuestId="26286" TurnInName="Marshal Gryan Stoutmantle" TurnInId="234" />	
@@ -5073,9 +5074,11 @@
 			<!-- S. STV -->
 		<Checkpoint Level="34" />
 
-			<If Condition="((!HasQuest(26805)) &amp;&amp; (!IsQuestCompleted(26805)))" >
+		<!-- this quest has issues  -->
+			<If Condition="( (!HasQuest(26805)) &amp;&amp; (!IsQuestCompleted(26805)) &amp;&amp; (Me.Level &lt;= 36)) )" >
 			<!-- This quest keeps getting spam picked up - doing a shitty way around it
 		<PickUp QuestName="To the Cape!" QuestId="26805" GiverName="Wulfred Harrys" GiverId="44018" /> -->
+		<!-- -->
 				<RunTo X="-12828.95" Y="-442.4211" Z="12.96694" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith"  MobId="44018" NumOfTimes="1" WaitTime="1000" CollectionDistance="50" X="-12828.95" Y="-442.4211" Z="12.96694" />
@@ -5443,7 +5446,7 @@
 						</GrindArea> 
 					</SetGrindArea>
 				<GrindTo Level="37" />
-				
+
 			<!-- WPL - Andorhal -->
 			<Checkpoint Level="37" />
 
