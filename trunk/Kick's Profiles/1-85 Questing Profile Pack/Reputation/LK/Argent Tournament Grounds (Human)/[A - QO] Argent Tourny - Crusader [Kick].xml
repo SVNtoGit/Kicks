@@ -47,18 +47,27 @@
 	
 	<QuestOrder>
 	
-			<If Condition="((!HasQuest(14101)) &amp;&amp; (!IsQuestCompleted(14101)))" >
-				<CustomBehavior File="FlyTo" X="8484.761" Y="1057.067" Z="550.5325" />
-				<CustomBehavior File="ForcedDismount" />
-			</If>
-		<PickUp QuestName="Drottinn Hrothgar" QuestId="14101" GiverName="High Crusader Adelard" GiverId="34882" />
-		<PickUp QuestName="The Fate Of The Fallen" QuestId="14107" GiverName="Crusader Silverdawn" GiverId="35094" />
+			<While Condition="HasQuestAvailable(34882)" >
+				<CustomBehavior File="InteractWith"  MobId="34882" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="8458.966" Y="1084.406" Z="554.502" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+			</While>
+			<While Condition="HasQuestAvailable(35094)" >
+				<CustomBehavior File="InteractWith"  MobId="35094" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="8458.966" Y="1084.406" Z="554.502" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+			</While>
 		
+			<If Condition="((HasQuest(14108)) &amp;&amp; (!IsQuestCompleted(14108)))" >
+				<CustomBehavior File="FlyTo" X="9613.182" Y="1128.068" Z="64.74864" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UserDialog" QuestId="14108" SoundCue="Exclamation" SoundCueInterval="1" Text="Jump on the Hippogryph and fly out to kill 6 Deepcallers, then fly around and shoot Kraken 8 times with spears" />
+			</If>
 			<If Condition="((HasQuest(14101)) &amp;&amp; (!IsQuestCompleted(14101)))" >
 				<CustomBehavior File="FlyTo" X="10404.94" Y="949.1505" Z="123.3649" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(47006)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" />
 			</If>
 			<If Condition="((HasQuest(14107)) &amp;&amp; (!IsQuestCompleted(14107)))" >
 				<CustomBehavior File="FlyTo" X="7819.814" Y="2375.8" Z="385.4465" />
@@ -67,16 +76,47 @@
 				<CustomBehavior File="UseItemOn" QuestId="14107" MobId="32149" ItemId="47033" NumOfTimes="20" WaitTime="10000" Range="10" CollectionDistance="1000" X="7530.156" Y="2382.119" Z="379.8507" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 			</If>
+			<If Condition="((HasQuest(14102)) &amp;&amp; (!IsQuestCompleted(14102)))" >
+				<CustomBehavior File="FlyTo" X="10133.61" Y="1209.683" Z="80.08868" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo X="10183.71" Y="1183.288" Z="75.92505" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(47009)" WaitTime="1000" />
+			</If>
 				
+
 			<If Condition="((HasQuest(14101)) &amp;&amp; (IsQuestCompleted(14101)))" >
 				<CustomBehavior File="FlyTo" X="8484.761" Y="1057.067" Z="550.5325" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
+			<If Condition="((HasQuest(14102)) &amp;&amp; (IsQuestCompleted(14102)))" >
+				<CustomBehavior File="FlyTo" X="8484.761" Y="1057.067" Z="550.5325" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+			<If Condition="((HasQuest(14101)) &amp;&amp; (IsQuestCompleted(14101)))" >
 		<TurnIn QuestName="Drottinn Hrothgar" QuestId="14101" TurnInName="High Crusader Adelard" TurnInId="34882" />
-		<TurnIn QuestName="The Fate Of The Fallen" QuestId="14107" TurnInName="Crusader Silverdawn" TurnInId="35094" />		
+			</If>
+			<If Condition="((HasQuest(14107)) &amp;&amp; (IsQuestCompleted(14107)))" >
+		<TurnIn QuestName="The Fate Of The Fallen" QuestId="14107" TurnInName="Crusader Silverdawn" TurnInId="35094" />
+			</If>
+			<If Condition="((HasQuest(14102)) &amp;&amp; (IsQuestCompleted(14102)))" >
+		<TurnIn QuestName="Mistcaller Yngvar" QuestId="14102" TurnInName="High Crusader Adelard" TurnInId="34882" />
+			</If>
+			<If Condition="((HasQuest(14108)) &amp;&amp; (IsQuestCompleted(14108)))" >
+		<TurnIn QuestName="Get Kraken!" QuestId="14108" TurnInName="Crusader Silverdawn" TurnInId="35094" />
+			</If>
+			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+			</If>
+			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+			</If>
 		
 			
-
+			<If Condition="(HasItem(46955))" >
+		<PickUp QuestName="Identifying the Remains" QuestId="14095" GiverName="Kraken Tooth" GiverId="46955" GiverType="Item" />
+			</If>
+			<If Condition="((HasQuest(14095)) &amp;&amp; (IsQuestCompleted(14095)))" >
+		<TurnIn QuestName="Identifying the Remains" QuestId="14095" TurnInName="Crusader Silverdawn" TurnInId="35094" />
+			</If>
 
 
 
