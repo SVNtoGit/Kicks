@@ -1,5 +1,5 @@
 <HBProfile>
-	<Name>Kharazkhan [Kick]</Name>
+	<Name>Kara Key Quests [Kick]</Name>
 	<MinLevel>1</MinLevel>
 	<MaxLevel>86</MaxLevel>
   
@@ -51,21 +51,26 @@
 		<PickUp QuestName="Arcane Disturbances" QuestId="9824" GiverName="Archmage Alturus" GiverId="17613" X="-11120.83" Y="-2013.104" Z="47.09415" />
 		<PickUp QuestName="Restless Activity" QuestId="9825" GiverName="Archmage Alturus" GiverId="17613" X="-11120.83" Y="-2013.104" Z="47.09415" />
 			<While Condition="((HasQuest(9824)) &amp;&amp; (!IsQuestCompleted(9824)))" >
-				<RunTo X="-11167.6" Y="-1906.187" Z="-17.78267" />
+				<CustomBehavior File="NoCombatMoveTo" X="-11167.6" Y="-1906.187" Z="-17.78267" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+				<CustomBehavior File="NoCombatMoveTo" X="-11167.6" Y="-1906.187" Z="-17.78267" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(24474)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" />
 				
-				<RunTo X="-11369.69" Y="-2167.923" Z="22.19015" />
+				<CustomBehavior File="NoCombatMoveTo" X="-11369.69" Y="-2167.923" Z="22.19015" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+				<CustomBehavior File="NoCombatMoveTo" X="-11369.69" Y="-2167.923" Z="22.19015" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(24474)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" />
 			</While>
 			<Objective QuestName="Restless Activity" QuestId="9825" Type="CollectItem" ItemId="24480" CollectCount="10" />
+			<If Condition="((HasQuest(9825)) &amp;&amp; (IsQuestCompleted(9825)))" >
+				<CustomBehavior File="NoCombatMoveTo" X="-11120.83" Y="-2013.104" Z="47.09415" />
+			</If>
 		<TurnIn QuestName="Arcane Disturbances" QuestId="9824" TurnInName="Archmage Alturus" TurnInId="17613" X="-11120.83" Y="-2013.104" Z="47.09415" />
 		<TurnIn QuestName="Restless Activity" QuestId="9825" TurnInName="Archmage Alturus" TurnInId="17613" X="-11120.83" Y="-2013.104" Z="47.09415" />
 		<PickUp QuestName="Contact from Dalaran" QuestId="9826" GiverName="Archmage Alturus" GiverId="17613" X="-11120.83" Y="-2013.104" Z="47.09415" />
-			<If Condition="((HasQuest(9826)) &amp;&amp; (!IsQuestCompleted(9826)))" >
+			<If Condition="((HasQuest(9826)) &amp;&amp; (IsQuestCompleted(9826)))" >
 				<CustomBehavior File="FlyTo" Name="Refuge Point" X="-1268.069" Y="-2484.308" Z="102.6644" />
 				<CustomBehavior File="FlyTo" Name="Dalaran Crater" X="482.2866" Y="347.1217" Z="38.47408" />
 				<CustomBehavior File="ForcedDismount" />
@@ -83,7 +88,7 @@
 			</If>
 		<TurnIn QuestName="Khadgar" QuestId="9829" TurnInName="Khadgar" TurnInId="18166" X="-1859.439" Y="5423.017" Z="-10.46535" />
 		<PickUp QuestName="Entry Into Karazhan" QuestId="9831" GiverName="Khadgar" GiverId="18166" />
-			<If Condition="((HasQuest()) &amp;&amp; (!IsQuestCompleted()))" >
+			<If Condition="((HasQuest(9829)) &amp;&amp; (!IsQuestCompleted(9829)))" >
 				<RunTo X="-1809.575" Y="5331.866" Z="-12.42683" />
 				<CustomBehavior File="FlyTo" X="-3462.202" Y="4942.149" Z="-101.3959" />
 	<CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Go into Shadow Labs and get the fragment.  If you do not have the key, get it from sethekk halls" />
