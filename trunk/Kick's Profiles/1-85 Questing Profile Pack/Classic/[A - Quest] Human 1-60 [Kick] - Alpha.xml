@@ -21,13 +21,6 @@
 	<TargetElites>False</TargetElites>
 	<!-- <ContinentID>0</ContinentID> -->
   
-	<Quest Id="26746" Name="A Nose for This Sort of Thing">
-		<Objective Type="CollectItem" ItemId="60291" CollectCount="8">
-			<Hotspots>
-			</Hotspots>
-		</Objective>
-	</Quest>
-  
 	<AvoidMobs>
 		<!-- Northshire -->
 		<Mob Name="Training Dummy" Entry="44548" />
@@ -3499,6 +3492,15 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+	<Quest Id="26746" Name="A Nose for This Sort of Thing">
+		<Objective Type="CollectItem" ItemId="60291" CollectCount="8">
+			<Hotspots>
+				<Hotspot X="-11831.47" Y="62.32988" Z="13.94505" />
+				<Hotspot X="-11701.9" Y="117.4384" Z="15.52543" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+  
 
 
 	
@@ -3517,12 +3519,11 @@
 	  
 		<Checkpoint Level="1" />
 		<!-- Class Quests -->
-		<If Condition="Me.Race != WoWRace.Human &amp;&amp; ">
+		<If Condition="((Me.Race != WoWRace.Human) &amp;&amp; (Me.Level &lt; 5))">
 		
-			<If Condition="(Me.Level &lt; 8)" >
 			<If Condition="Me.ZoneId != 12" >
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This profile starts in Elwynn Forest, please move your toon there before continueing" />
-			</If></If>
+			</If>
 			
 		<SetVendor>
 			<Vendors>
@@ -4959,7 +4960,11 @@
 			<Objective QuestName="Sacred to the Bloodscalp" QuestId="26743" Type="CollectItem" ItemId="60271" CollectCount="1" />
 			<Objective QuestName="Sacred to the Bloodscalp" QuestId="26743" Type="CollectItem" ItemId="60272" CollectCount="1" />
 			<!-- i keep loosing my baby raptor :..( - maybe runto, waittimer 10 a few times and <While> it? -->
-			<Objective QuestName="A Nose for This Sort of Thing" QuestId="26746" Type="CollectItem" ItemId="60291" CollectCount="8" />
+			<If Condition="((HasQuest(26746)) &amp;&amp; (!IsQuestCompleted(26746)))" >
+				<CustomBehavior File="UserSettings" PullDistance="15" UseMount="False" />
+				<Objective QuestName="A Nose for This Sort of Thing" QuestId="26746" Type="CollectItem" ItemId="60291" CollectCount="8" />
+				<CustomBehavior File="UserSettings" PullDistance="25" UseMount="True" />
+			</If>
 			<Objective QuestName="Excelsior" QuestId="26345" Type="CollectItem" ItemId="4105" CollectCount="1" />
 			<Objective QuestName="Raptor Prowess" QuestId="196" Type="KillMob" MobId="687" KillCount="10" />
 			<If Condition="((HasQuest(196)) &amp;&amp; (IsQuestCompleted(196)))" >
