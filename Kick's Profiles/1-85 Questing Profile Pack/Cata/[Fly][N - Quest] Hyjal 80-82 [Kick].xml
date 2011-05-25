@@ -356,10 +356,15 @@
 	
 	<QuestOrder IgnoreCheckpoints="True" >
 	
-		<If Condition="Me.IsHorde" >
-			<CustomBehavior File="Message"  Text="For Horde, this starts in Moonglade or Hyjal\n\nIf you experience issues, I need to know about them. Please report them to my thread\n\nPress continue\n\n-Kick" LogColor="Red" GoalColor="Red" />
+		<If Condition="Me.IsHorde &amp;&amp; !IsQuestCompleted(25316))" >
+" >
+			<CustomBehavior File="Message" Text="For Horde, this starts in Moonglade or Hyjal\n\nIf you experience issues, I need to know about them. Please report them to my thread\n\nPress continue\n\n-Kick" LogColor="Red" GoalColor="Red" />
 		</If>
 			
+		 <If Condition="!CanFly()">
+			<CustomBehavior File="UserDialog" StopOnContinue="true" Text="You must be able to fly to use this profile." />
+		</If>
+		
 		<!-- Ally -->
 	  <If Condition="Me.IsAlliance" >
 			<If Condition="(HasQuest(28825))" >
