@@ -228,6 +228,20 @@
 		<Vendor Name="Fel-Caller Guloto" Entry="50128" Type="Train" TrainClass="Warlock" X="-1892.142" Y="5371.018" Z="-12.4265" />
 	</Vendors>
 
+	<Quest Id="10502" Name="The Bloodmaul Ogres">
+		<Objective Type="KillMob" MobId="19991" KillCount="30">
+			<Hotspots>
+				<Hotspot X="1469.901" Y="6548.806" Z="-10.33908" />
+				<Hotspot X="1415.635" Y="6542.351" Z="2.428762" />
+				<Hotspot X="1525.501" Y="6489.438" Z="-10.33782" />
+				<Hotspot X="1528.868" Y="6359.907" Z="1.532079" />
+				<Hotspot X="1704.549" Y="6285.583" Z="0.367195" />
+				<Hotspot X="1902.369" Y="6451.788" Z="-0.1794421" />
+				<Hotspot X="2064.752" Y="6469.375" Z="2.475456" />
+				<Hotspot X="2013.612" Y="6333.512" Z="-2.208913" />
+			</Hotspots>
+		</Objective>
+	</Quest>	
 	<Quest Id="9821" Name="Eating Damnation">
 		<Objective Type="CollectItem" ItemId="24473" CollectCount="10">
 			<Hotspots>
@@ -2940,9 +2954,9 @@
 		<TurnIn QuestName="The Ruins of Burning Blade" QuestId="9921" TurnInName="Mo'mor the Breaker" TurnInId="18223" />
 		<PickUp QuestName="The Twin Clefts of Nagrand" QuestId="9922" GiverName="Mo'mor the Breaker" GiverId="18223" />
 			<If Condition="((!HasQuest(9913)) &amp;&amp; (!IsQuestCompleted(9913)))" >
-				<CustomBehavior File="FlyTo" X="-1239.505" Y="7425.824" Z="23.49885" />
+				<CustomBehavior File="FlyTo" X="-2528.361" Y="7472.057" Z="-4.582375" />
 				<CustomBehavior File="ForcedDismount" />
-		<PickUp QuestName="The Consortium Needs You!" QuestId="9913" GiverName="Consortium Recruiter" GiverId="18335" X="-1239.505" Y="7425.824" Z="23.49885" />
+		<PickUp QuestName="The Consortium Needs You!" QuestId="9913" GiverName="Consortium Recruiter" GiverId="18335" X="-2528.361" Y="7472.057" Z="-4.582375" />
 			</If>
 			<If Condition="((!HasQuest(9871)) &amp;&amp; (!IsQuestCompleted(9871)))" >
 				<CustomBehavior File="FlyTo" X="-2066.492" Y="8108.036" Z="2.547558" />
@@ -3109,8 +3123,8 @@
 			<If Condition="(HasQuest(9913))" >
 				<CustomBehavior File="FlyTo" X="-2067.637" Y="8557.913" Z="23.62497" />
 				<CustomBehavior File="ForcedDismount" />
-			</If>
 		<TurnIn QuestName="The Consortium Needs You!" QuestId="9913" TurnInName="Gezhe" TurnInId="18265" X="-2087.022" Y="8562.938" Z="22.01402" />
+			</If>
 		<PickUp QuestName="Stealing from Thieves" QuestId="9882" GiverName="Gezhe" GiverId="18265" X="-2087.022" Y="8562.938" Z="22.01402" />
 		<PickUp QuestName="Gava'xi" QuestId="9900" GiverName="Zerid" GiverId="18276" X="-2099.588" Y="8595.171" Z="19.53758" />
 		<PickUp QuestName="Matters of Security" QuestId="9925" GiverName="Zerid" GiverId="18276" X="-2099.588" Y="8595.171" Z="19.53758" />
@@ -4021,8 +4035,8 @@
 				<RunTo X="2400.195" Y="2225.911" Z="111.0966" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
-			</If>
 		<TurnIn QuestName="Unlocking the Compendium" TurnInName="Image of Archmage Vargoth" QuestId="10301" TurnInId="19644" />
+			</If>
 		<TurnIn QuestName="Krasus's Compendium" TurnInName="Image of Archmage Vargoth" QuestId="10192" TurnInId="19644" />
 		<PickUp QuestName="Summoner Kanthin's Prize" GiverName="Image of Archmage Vargoth" QuestId="10209" GiverId="19644" />
 			<If Condition="((HasQuest(10233)) &amp;&amp; (IsQuestCompleted(10233)))" >
@@ -4304,7 +4318,10 @@
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="Fel Reavers, No Thanks!" QuestId="10855" Type="CollectItem" ItemId="31653" CollectCount="5" />
 				<CustomBehavior File="InteractWith" QuestId="10855" MobId="22293" NumOfTimes="1" CollectionDistance="100" X="4501.383" Y="3367.621" Z="156.7108" />
-				<CustomBehavior File="CompleteLogQuest" QuestID="10855" />
+				<CustomBehavior File="Misc\RunLua" Lua="CompleteQuest();" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="2000" />
+				<!-- <CustomBehavior File="CompleteLogQuest" QuestId="10855" /> -->
 			</If>
 			<If Condition="((HasQuest(10435)) &amp;&amp; (!IsQuestCompleted(10435)))" >
 				<CustomBehavior File="FlyTo" X="4936.661" Y="3035.986" Z="98.94111" />
@@ -4459,7 +4476,10 @@
 			</If>
 		<TurnIn QuestName="A Not-So-Modest Proposal" TurnInName="Image of Wind Trader Marid" QuestId="10270" TurnInId="20518" X="4008.063" Y="1515.283" Z="-115.95" />
 		<PickUp QuestName="Getting Down to Business" GiverName="Image of Wind Trader Marid" QuestId="10271" GiverId="20518" X="4008.063" Y="1515.283" Z="-115.95" />
-			<Objective QuestName="Getting Down to Business" QuestId="10271" Type="Collect" CollectCount="8" ItemId="28970" />
+			<While Condition="((HasQuest(10271)) &amp;&amp; (!IsQuestCompleted(10271)))" >
+				<!-- <Objective QuestName="Getting Down to Business" QuestId="10271" Type="Collect" CollectCount="8" ItemId="28970" /> -->
+				<CustomBehavior File="CombatUseItemOn" QuestId="10271" MobId="18877" ItemId="69825" MobHpPercentLeft="100" NumOfTimes="1" WaitTime="1000" Range="20" CollectionDistance="50" X="4023.415" Y="1475.924" Z="-119.7821" />
+			</While>
 			<If Condition="((HasQuest(10271)) &amp;&amp; (IsQuestCompleted(10271)))" >
 				<CustomBehavior File="FlyTo" X="4004.868" Y="1507.521" Z="-116.7939" />
 				<CustomBehavior File="ForcedDismount" />
