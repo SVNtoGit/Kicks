@@ -1,0 +1,104 @@
+<HBProfile>
+    <Name>QO Fly Dummy Grind</Name> 
+  
+    <MinLevel>1</MinLevel> 
+    <MaxLevel>86</MaxLevel> 
+    
+    <TargetElites>False</TargetElites>
+
+    <MinDurability>0.1</MinDurability>
+    <MinFreeBagSlots>1</MinFreeBagSlots>
+    
+    <SellGrey>True</SellGrey>
+    <SellWhite>False</SellWhite>
+    <SellGreen>False</SellGreen>
+    <MailWhite>True</MailWhite>
+    <MailGreen>True</MailGreen>
+    <MailBlue>True</MailBlue>
+    <MailPurple>True</MailPurple>
+
+   <AvoidMobs>
+   </AvoidMobs>
+    
+	<!--
+	<Mailboxes>
+	</Mailboxes>
+	-->
+   
+   <!--
+	<Vendors>     
+	</Vendors>
+	-->
+	
+	<QuestOrder>
+   
+		<While Condition="True" >
+		
+				<CustomBehavior File="FlyTo" X Y Z  Name="Profile Start" />
+				<CustomBehavior File="ForcedDismount" />
+		
+				<SetGrindArea><GrindArea>
+					<TargetMinLevel>70</TargetMinLevel>
+					<TargetMaxLevel>86</TargetMaxLevel>
+					<Factions></Factions> <!-- [] -->
+					<MaxDistance>30</MaxDistance>
+					<Hotspots>
+					
+					</Hotspots>
+				</GrindArea></SetGrindArea>
+			<GrindTo Condition="(Me.FreeBagSlots &lt;= 10)" GoalText="Farming" />
+		
+			<If Condition="(Me.FreeBagSlots &lt;= 10)" >
+			
+				<CustomBehavior File="Message" Text="Doing a vendor run at XX" LogColor="Red" />
+				
+				<CustomBehavior File="FlyTo" X Y Z  Name="Repair Run" />
+				<CustomBehavior File="ForcedDismount" />
+
+				<SetVendor><Vendors>
+					<Vendor Name="" Entry="" Type="Repair" X Y Z /> <!-- XX Location -->
+				</Vendors></SetVendor>
+				<SetMailbox><Mailboxes>
+					<Mailbox X Y Z /> <!-- XX Location -->
+				</Mailboxes></SetMailbox>
+				
+				<CustomBehavior File="ForceSetVendor" VendorType="Repair" />
+				<CustomBehavior File="ForceSetVendor" VendorType="Sell" />
+				<CustomBehavior File="ForceSetVendor" VendorType="Mail" />
+				<!-- <CustomBehavior File="ForceSetVendor" DoMail="True" DoSell="True" DoRepair="True" DoTrain="False" /> -->
+				
+				<ClearMailbox /><ClearVendor />
+			
+			</If>
+			
+		</While>
+		
+		<!-- Notes:
+			Fill in your
+		
+			<Factions></Factions>
+			<Hotspots>
+			
+			</Hotspots>
+		
+			You'll have to fill out this xyz (generally first hotspot for your grind area):
+
+				<CustomBehavior File="FlyTo" X Y Z  Name="Profile Start" />
+
+			You'll need to fill out the XYZ of the 'land at' coords for repair / mail run
+
+				<CustomBehavior File="FlyTo" XYZ  Name="Repair Run" />
+				<CustomBehavior File="ForcedDismount" />
+
+			Fill this vendor out and mailbox XYZ:
+
+				<SetVendor><Vendors>
+					<Vendor Name="" Entry="" Type="Repair" X Y Z />
+				</Vendors></SetVendor>
+				<SetMailbox><Mailboxes>
+					<Mailbox X Y Z />
+				</Mailboxes></SetMailbox>
+		-->
+							
+	</QuestOrder>
+</HBProfile>  
