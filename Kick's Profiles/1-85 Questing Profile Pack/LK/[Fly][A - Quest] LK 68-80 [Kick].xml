@@ -903,6 +903,21 @@
 		</Objective>
 	</Quest>
 	
+	<Quest Id="11945" Name="Preparing for the Worst">
+		<Objective Type="CollectItem" ItemId="35711" CollectCount="8">
+			<CollectFrom>
+				<GameObject Name="Kaskala Supplies" Id="188164" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="2876.18" Y="4858.867" Z="0.3971166" />
+				<Hotspot X="2962.803" Y="4865.652" Z="0.3968507" />
+				<Hotspot X="3062.123" Y="4852.588" Z="1.770035" />
+				<Hotspot X="3071.917" Y="4782.755" Z="1.116853" />
+				<Hotspot X="3041.523" Y="4631.554" Z="2.150343" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+
 	<Quest Id="11993" Name="The Runic Prophecies">  
 		<Objective Type="UseObject" ObjectId="188289" UseCount="1">
 			<Hotspots>
@@ -2202,72 +2217,317 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="In Wine, Truth" QuestId="11603" GiverName="James Deacon" GiverId="25245" />
 			</If>
-			
-
-	<!--
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" Text="End of Line!\n\nYes, I fight for the users!" />
-	-->	
-
-
-			
-			
 			<If Condition="((HasQuest(11603)) &amp;&amp; (!IsQuestCompleted(11603)))" >
-				<Runto QuestId="11603" X="2373.114" Y="5002.79" Z="-6.378314" />
+				<!-- Here and then dismount once the behavior is fixed properly (delete the current flyto below)
+					<CustomBehavior File="FlyTo" DestName="Objective"  X="2381.572" Y="5003.312" Z="2.479434" />
+				-->
+				<!-- I still need this water meshed or flightor enabled -->
+				<CustomBehavior File="FlyTo" DestName="Objective" X="2399.187" Y="5044.354" Z="-0.00370086" />
+				<CustomBehavior File="ForcedDismount" />
+				<Runto DestName="Water above boat" X="2373.114" Y="5002.79" Z="-6.378314" />
 				<CustomBehavior File="MyCTM" X="2373.21" Y="5002.848" Z="-35.08437" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
 				<CustomBehavior File="MyCTM" X="2373.21" Y="5002.848" Z="-36.08437" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
 				<CustomBehavior File="MyCTM" X="2373.21" Y="5002.848" Z="-37.08437" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
+				<!-- This no longer works properly - it won't interact
 				<Objective QuestName="In Wine, Truth" QuestId="11603" Type="CollectItem" ItemId="34714" ItemName="Kul Tiras Wine" CollectCount="1" />
+				-->
+				<CustomBehavior File="BasicUseObject" QuestId="11603" ObjectId="188131" />
 				<CustomBehavior File="MyCTM" X="2374.443" Y="5004.456" Z="-1.898165" /> 
+				<RunTo DestName="Above water" X="2398.375" Y="5043.349" Z="-0.3156538" />
 			</If>
+			<If Condition="((HasQuest(11603)) &amp;&amp; (IsQuestCompleted(11603)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2257.313" Y="5202.184" Z="11.31332" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="In Wine, Truth" QuestId="11603" TurnInName="Old Man Colburn" TurnInId="25302" />
 		<PickUp QuestName="A Deserter" QuestId="11604" GiverName="Old Man Colburn" GiverId="25302" />
+			</If>
+			<If Condition="((!HasQuest(11604)) &amp;&amp; (!IsQuestCompleted(11604)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2257.313" Y="5202.184" Z="11.31332" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="A Deserter" QuestId="11604" GiverName="Old Man Colburn" GiverId="25302" />
+			</If>
+			<If Condition="((HasQuest(11604)) &amp;&amp; (IsQuestCompleted(11604)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2142.494" Y="5292.179" Z="23.82647" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="A Deserter" QuestId="11604" TurnInName="Private Brau" TurnInId="25395" />
 		<PickUp QuestName="Cowards and Fools" QuestId="11932" GiverName="Private Brau" GiverId="25395" />
+			</If>
+			<If Condition="((!HasQuest(11932)) &amp;&amp; (!IsQuestCompleted(11932)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2142.494" Y="5292.179" Z="23.82647" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Cowards and Fools" QuestId="11932" GiverName="Private Brau" GiverId="25395" />
+			</If>
+			<If Condition="((HasQuest(12141)) &amp;&amp; (IsQuestCompleted(12141)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2003.32" Y="5853.793" Z="36.1144" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="A Diplomatic Mission" QuestId="12141" TurnInName="Karuk" TurnInId="25435" />
 		<PickUp QuestName="Karuk's Oath" QuestId="11613" GiverName="Karuk" GiverId="25435" />
-			<Objective QuestName="Karuk's Oath" QuestId="11613" Type="KillMob" MobId="25521" MobName="Skadir Longboatsman" KillCount="5" />
-			<Objective QuestName="Karuk's Oath" QuestId="11613" Type="KillMob" MobId="25522" MobName="Skadir Raider" KillCount="6" />
+			</If>
+			<If Condition="((!HasQuest(11613)) &amp;&amp; (!IsQuestCompleted(11613)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2003.32" Y="5853.793" Z="36.1144" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Karuk's Oath" QuestId="11613" GiverName="Karuk" GiverId="25435" />
+			</If>
+			<If Condition="((HasQuest(11613)) &amp;&amp; (!IsQuestCompleted(11613)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="1933.441" Y="5893.484" Z="14.32327" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Karuk's Oath" QuestId="11613" Type="KillMob" MobId="25522" MobName="Skadir Raider" KillCount="6" />
+				<Objective QuestName="Karuk's Oath" QuestId="11613" Type="KillMob" MobId="25521" MobName="Skadir Longboatsman" KillCount="5" />
+			</If>
+			<If Condition="((HasQuest(11613)) &amp;&amp; (IsQuestCompleted(11613)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2003.32" Y="5853.793" Z="36.1144" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Karuk's Oath" QuestId="11613" TurnInName="Karuk" TurnInId="25435" />
 		<PickUp QuestName="Gamel the Cruel" QuestId="11619" GiverName="Karuk" GiverId="25435" />
-			<Objective QuestName="Gamel the Cruel" QuestId="11619" Type="KillMob" MobId="26449" MobName="Gamel the Cruel" KillCount="1" />
+			</If>
+			<If Condition="((!HasQuest(11619)) &amp;&amp; (!IsQuestCompleted(11619)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2003.32" Y="5853.793" Z="36.1144" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Gamel the Cruel" QuestId="11619" GiverName="Karuk" GiverId="25435" />
+			</If>
+			<If Condition="((HasQuest(11619)) &amp;&amp; (!IsQuestCompleted(11619)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="1863.787" Y="5904.992" Z="-1.283498" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Gamel the Cruel" QuestId="11619" Type="KillMob" MobId="26449" MobName="Gamel the Cruel" KillCount="1" />
+			</If>
+			<If Condition="((HasQuest(11619)) &amp;&amp; (IsQuestCompleted(11619)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2003.32" Y="5853.793" Z="36.1144" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Gamel the Cruel" QuestId="11619" TurnInName="Karuk" TurnInId="25435" />
 		<PickUp QuestName="A Father's Words" QuestId="11620" GiverName="Karuk" GiverId="25435" />
+			</If>
+			<If Condition="((!HasQuest(11620)) &amp;&amp; (!IsQuestCompleted(11620)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2003.32" Y="5853.793" Z="36.1144" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="A Father's Words" QuestId="11620" GiverName="Karuk" GiverId="25435" />
+			</If>
+			<If Condition="((HasQuest(11620)) &amp;&amp; (IsQuestCompleted(11620)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="1821.924" Y="6039.961" Z="0.4319298" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="A Father's Words" QuestId="11620" TurnInName="Veehja" TurnInId="25450" />
 		<PickUp QuestName="The Trident of Naz'jan" QuestId="11625" GivermName="Veehja" GiverId="25450" />
-			<!-- If this quest has issues, use these
-			<RunTo X="1448.241" Y="5434.749" Z="28.37376" /> 
-			<CustomBehavior File="MyCTM" X="1495.376" Y="5399.339" Z="38.13504" />
-			<CustomBehavior File="MyCTM" X="1448.241" Y="5434.749" Z="28.37376" />
-			-->
-			<Objective QuestName="The Trident of Naz'jan" QuestId="11625" Type="CollectItem" ItemId="35774" ItemName="Trident of Naz'jan" CollectCount="1" />
+			</If>
+			<If Condition="((!HasQuest(11625)) &amp;&amp; (!IsQuestCompleted(11625)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="1821.924" Y="6039.961" Z="0.4319298" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Trident of Naz'jan" QuestId="11625" GivermName="Veehja" GiverId="25450" />
+			</If>
+			<If Condition="((HasQuest(11625)) &amp;&amp; (!IsQuestCompleted(11625)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="1501.133" Y="5474.914" Z="82.89011" />
+				<CustomBehavior File="FlyTo" DestName="Objective" X="1490.957" Y="5394.972" Z="38.13595" />
+				<!-- safe flyto if we have issues later
+				<CustomBehavior File="FlyTo" DestName="Objective" X="1399.464" Y="5459.245" Z="20.30879" /> -->
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Trident of Naz'jan" QuestId="11625" Type="CollectItem" ItemId="35774" ItemName="Trident of Naz'jan" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(11625)) &amp;&amp; (IsQuestCompleted(11625)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="1757.74" Y="6054.373" Z="0.6289117" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="The Trident of Naz'jan" QuestId="11625" TurnInName="Veehja" TurnInId="25450" />
 		<PickUp QuestName="The Emissary" QuestId="11626" GiverName="Veehja" GiverId="25450" />
-			<If Condition="((HasQuest(11626)) &amp;&amp; (!IsQuestCompleted(11626)))" >
-				<Runto QuestId="11626" X="1543.178" Y="5705.408" Z="1.219794" />
-				<CustomBehavior File="MyCTM" QuestId="11626" X="1574.487" Y="5593.496" Z="-3.269196" />
-				<CustomBehavior File="MyCTM" QuestId="11626" X="1526.592" Y="5574.666" Z="-2.2967691" />				
-				<CustomBehavior File="MyCTM" QuestId="11626" X="1509.517" Y="5573.146" Z="-58.10006" />
-				<CustomBehavior File="UseItemOn" QuestId="11626" MobId="26452" ItemId="35850" NumOfTimes="1" Range="20" WaitTime="1000" CollectionDistance="40" X="1505.254" Y="5580.519" Z="-66.70869" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000" />
 			</If>
-			<If Condition="((HasQuest(11626)) &amp;&amp; (IsQuestCompleted(11626)))" >
+			<If Condition="((!HasQuest(11626)) &amp;&amp; (!IsQuestCompleted(11626)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="1757.74" Y="6054.373" Z="0.6289117" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Emissary" QuestId="11626" GiverName="Veehja" GiverId="25450" />
+			</If>
+			<If Condition="((HasQuest(11626)) &amp;&amp; (!IsQuestCompleted(11626)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="1542.075" Y="5688.641" Z="2.430351" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="MyCTM" X="1574.487" Y="5593.496" Z="-3.269196" />
+				<CustomBehavior File="MyCTM" X="1526.592" Y="5574.666" Z="-2.2967691" />				
+				<CustomBehavior File="MyCTM" X="1494.106" Y="5583.749" Z="-64.5859" />
+				<CustomBehavior File="UseItemOn" QuestId="11626" MobId="26452" ItemId="35850" NumOfTimes="1" Range="20" WaitTime="1000" CollectionDistance="50" X="1494.106" Y="5583.749" Z="-64.5859" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
 				<CustomBehavior File="MyCTM" QuestId="11626" X="1532.314" Y="5552.445" Z="-1.841549" />
 				<CustomBehavior File="MyCTM" QuestId="11626" X="1802.628" Y="5795.152" Z="-0.01941342" />
 			</If>
+			<If Condition="((HasQuest(11626)) &amp;&amp; (IsQuestCompleted(11626)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2003.32" Y="5853.793" Z="36.1144" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="The Emissary" QuestId="11626" TurnInName="Karuk" TurnInId="25435" />
+			</If>
+			
+			<!-- beginning of Kaskala quests -->
+			<If Condition="((HasQuest(11932)) &amp;&amp; (IsQuestCompleted(11932)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3123.67" Y="4889.948" Z="1.73074" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Cowards and Fools" QuestId="11932" TurnInName="Ataika" TurnInId="26169" />
+		<PickUp QuestName="The Son of Karkut" QuestId="12086" GiverName="Ataika" GiverId="26169" />
+		<PickUp QuestName="Not Without a Fight!" QuestId="11949" GiverName="Ataika" GiverId="26169" />
+			</If>
+			<If Condition="((!HasQuest(11949)) &amp;&amp; (!IsQuestCompleted(11949)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3123.67" Y="4889.948" Z="1.73074" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Son of Karkut" QuestId="12086" GiverName="Ataika" GiverId="26169" />
+		<PickUp QuestName="Not Without a Fight!" QuestId="11949" GiverName="Ataika" GiverId="26169" />
+			</If>
+			<If Condition="((!HasQuest(11949)) &amp;&amp; (!IsQuestCompleted(11949)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3123.67" Y="4889.948" Z="1.73074" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Not Without a Fight!" QuestId="11949" GiverName="Ataika" GiverId="26169" />
+			</If>
+			
+			<!-- Daily = Preparing for the Worst -->
+			 <If Condition="Me.ZoneId == 3537" > <!-- Borean Tundra -->
+			<If Condition="((!HasQuest(11945)) &amp;&amp; (!IsQuestCompleted(11945)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Daily Quest" X="3138.744" Y="4881.745" Z="2.591486" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Preparing for the Worst" QuestId="11945" GiverId="26213" GiverName="Utaik" />
+			</If>
+			 </If>
+			<If Condition="((HasQuest(11945)) &amp;&amp; (!IsQuestCompleted(11945)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="2876.18" Y="4858.867" Z="0.3971166" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Preparing for the Worst" QuestId="11945" Type="CollectItem" CollectCount="8" ItemId="35711" />
+			</If>
+			<If Condition="((HasQuest(11945)) &amp;&amp; (IsQuestCompleted(11945)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3138.744" Y="4881.745" Z="2.591486" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Preparing for the Worst" QuestId="11945" TurnInId="26213" TurnInName="Utaik" />
+			</If>
+			<!-- End of Kaskala daily -->
+
+			<If Condition="((HasQuest(11949)) &amp;&amp; (!IsQuestCompleted(11949)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3088.551" Y="4796.059" Z="0.7614743" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Not Without a Fight!" QuestId="11949" Type="KillMob" MobId="25760" KillCount="12" />
+			</If>
+			<If Condition="((HasQuest(11949)) &amp;&amp; (IsQuestCompleted(11949)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3123.67" Y="4889.948" Z="1.73074" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Not Without a Fight!" QuestId="11949" TurnInName="Ataika" TurnInId="26169" />
+		<PickUp QuestName="Muahit's Wisdom" QuestId="11950" GiverName="Ataika" GiverId="26169" />
+			</If>
+			<If Condition="((!HasQuest(11950)) &amp;&amp; (!IsQuestCompleted(11950)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3123.67" Y="4889.948" Z="1.73074" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Muahit's Wisdom" QuestId="11950" GiverName="Ataika" GiverId="26169" />
+			</If>
+			<If Condition="((HasQuest(11950)) &amp;&amp; (IsQuestCompleted(11950)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2793.209" Y="4697.388" Z="1.862418" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Muahit's Wisdom" QuestId="11950" TurnInName="Elder Muahit" TurnInId="26218" />
+		<Pickup QuestName="Spirits Watch Over Us" QuestId="11961" GiverName="Elder Muahit" GiverId="26218" />
+			</If>
+			<If Condition="((!HasQuest(11961)) &amp;&amp; (!IsQuestCompleted(11961)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2793.209" Y="4697.388" Z="1.862418" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="Spirits Watch Over Us" QuestId="11961" GiverName="Elder Muahit" GiverId="26218" />
+			</If>
+			<If Condition="((HasQuest(11961)) &amp;&amp; (!IsQuestCompleted(11961)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="2957.734" Y="4670.674" Z="2.674987" />
+				<!-- <CustomBehavior File="ForcedDismount" /> -->
+				<CustomBehavior File="RunMacro" Macro="/dismount\n/cancelaura Flight Form\n/cancelaura Swift Flight Form" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="MyCTM" X="2960.394" Y="4671.321" Z="-32.58078" />
+				<CustomBehavior File="InteractWith" QuestId="11961" MobId="26219" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="2960.394" Y="4671.321" Z="-32.58078" />
+				<CustomBehavior File="MyCTM" X="2957.734" Y="4670.674" Z="0.1269286" />
+				<!-- <Objective QuestName="Spirits Watch Over Us" QuestId="11961" Type="CollectItem" CollectCount="1" ItemId="35701" /> -->
+			</If>
+			<If Condition="((HasQuest(11961)) &amp;&amp; (IsQuestCompleted(11961)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2793.209" Y="4697.388" Z="1.862418" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Spirits Watch Over Us" QuestId="11961" TurnInName="Elder Muahit" TurnInId="26218" />
+		<Pickup QuestName="The Tides Turn" QuestId="11968" GiverName="Elder Muahit" GiverId="26218" />
+			</If>
+			<If Condition="((!HasQuest(11968)) &amp;&amp; (!IsQuestCompleted(11968)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2793.209" Y="4697.388" Z="1.862418" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="The Tides Turn" QuestId="11968" GiverName="Elder Muahit" GiverId="26218" />
+			</If>
+			<If Condition="((HasQuest(11968)) &amp;&amp; (!IsQuestCompleted(11968)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="2734.445" Y="4670.153" Z="2.563574" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Tides Turn" QuestId="11968" Type="KillMob" MobId="26266" MobName="Heigarr the Horrible" KillCount="1" />
+			</If>
+			<If Condition="((HasQuest(11968)) &amp;&amp; (IsQuestCompleted(11968)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2793.209" Y="4697.388" Z="1.862418" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Tides Turn" QuestId="11968" TurnInName="Elder Muahit" TurnInId="26218" />
+		<PickUp QuestName="Travel to Moa'ki Harbor" QuestId="12117" GiverName="Hotawa" GiverId="28382" />
+			</If>
+			<If Condition="((!HasQuest(12117)) &amp;&amp; (!IsQuestCompleted(12117)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2793.209" Y="4697.388" Z="1.862418" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Travel to Moa'ki Harbor" QuestId="12117" GiverName="Hotawa" GiverId="28382" />
+			</If>
+			<!-- End of Kaskala Quests -->
+			
+			<!-- Beginning of Quarry Quests -->
+			<If Condition="((!HasQuest(11612)) &amp;&amp; (!IsQuestCompleted(11612)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3507.366" Y="5437.695" Z="54.22725" />
+				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Reclaiming the Quarry" QuestId="11612" GiverName="Etaruk" GiverId="25292" />
+			</If>
+			<If Condition="((!HasQuest(11605)) &amp;&amp; (!IsQuestCompleted(11605)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3522.04" Y="5413.482" Z="41.10724" />
+				<CustomBehavior File="ForcedDismount" />
 		<Pickup QuestName="The Honored Ancestors" QuestId="11605" GiverName="Elder Atkanok" GiverId="187565" GiverType="Object" X="3522.04" Y="5413.482" Z="41.10724" />
-			<Objective QuestName="The Honored Ancestors" QuestId="11605" Type="UseObject" ObjectId="187663" UseCount="2" /> <!-- Elder Sagani -->
-			<Objective QuestName="The Honored Ancestors" QuestId="11605" Type="UseObject" ObjectId="187662" UseCount="2" /> <!-- Elder Kesuk -->
-			<Objective QuestName="The Honored Ancestors" QuestId="11605" Type="UseObject" ObjectId="187664" UseCount="2" /> <!-- Elder Takret -->
-			<Objective QuestName="Reclaiming the Quarry" QuestId="11612" Type="KillMob" MobId="25353" KillCount="12" />
-		<TurnIn QuestName="The Honored Ancestors" QuestId="11605" TurnInName="Elder Atkanok" TurnInId="187565" X="3522.04" Y="5413.482" Z="41.10724" />
-		<Pickup QuestName="The Lost Spirits" QuestId="11607" GiverName="Elder Atkanok" GiverId="187565" GiverType="Object" X="3522.04" Y="5413.482" Z="41.10724" />
+			</If>
+			<If Condition="((HasQuest(11605)) &amp;&amp; (!IsQuestCompleted(11605)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3554.304" Y="5419.4" Z="41.56571" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(11605)) &amp;&amp; (!IsQuestCompleted(11605)))" >
+				<!-- I decided since we have very high agro - that flying would probably kill us more -->
+				<RunTo DestName="Elder Sagani" X="3585.118" Y="5524.815" Z="26.95133" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+				<Objective QuestName="The Honored Ancestors" QuestId="11605" Type="UseObject" ObjectId="187663" UseCount="1" /> <!-- Elder Sagani -->
+				
+				<RunTo DestName="Elder Kesuk" X="3653.336" Y="5636.229" Z="34.5524" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+				<Objective QuestName="The Honored Ancestors" QuestId="11605" Type="UseObject" ObjectId="187662" UseCount="1" /> <!-- Elder Kesuk -->
+				
+				<RunTo DestName="Elder Takret" X="3698.951" Y="5559.3" Z="34.83929" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+				<Objective QuestName="The Honored Ancestors" QuestId="11605" Type="UseObject" ObjectId="187664" UseCount="1" /> <!-- Elder Takret -->
+				
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+			 </While>
+			</If>
+			<If Condition="((HasQuest(11612)) &amp;&amp; (!IsQuestCompleted(11612)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3554.304" Y="5419.4" Z="41.56571" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Reclaiming the Quarry" QuestId="11612" Type="KillMob" MobId="25353" KillCount="12" />
+			</If>
+			<If Condition="((HasQuest(11612)) &amp;&amp; (IsQuestCompleted(11612)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3507.366" Y="5437.695" Z="54.22725" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Reclaiming the Quarry" QuestId="11612" TurnInName="Etaruk" TurnInId="25292" />
 		<PickUp QuestName="Hampering Their Escape" QuestId="11617" GiverName="Etaruk" GiverId="25292" />
+			</If>
+			<If Condition="((!HasQuest(11617)) &amp;&amp; (!IsQuestCompleted(11617)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3507.366" Y="5437.695" Z="54.22725" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Hampering Their Escape" QuestId="11617" GiverName="Etaruk" GiverId="25292" />
+			</If>
+			<If Condition="((HasQuest(11605)) &amp;&amp; (IsQuestCompleted(11605)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3522.04" Y="5413.482" Z="41.10724" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Honored Ancestors" QuestId="11605" TurnInName="Elder Atkanok" TurnInId="187565" X="3522.04" Y="5413.482" Z="41.10724" />
+		<Pickup QuestName="The Lost Spirits" QuestId="11607" GiverName="Elder Atkanok" GiverId="187565" GiverType="Object" X="3522.04" Y="5413.482" Z="41.10724" />
+			</If>
+			<If Condition="((!HasQuest(11607)) &amp;&amp; (!IsQuestCompleted(11607)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3522.04" Y="5413.482" Z="41.10724" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="The Lost Spirits" QuestId="11607" GiverName="Elder Atkanok" GiverId="187565" GiverType="Object" X="3522.04" Y="5413.482" Z="41.10724" />
+			</If>
+			
+			
+			
+		<!--
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" Text="End of Line!\n\nYes, I fight for the users!" />
+
+		Walrus
+		X="3507.366" Y="5437.695" Z="54.22725" />
+		
+		Stone
+		X="3522.04" Y="5413.482" Z="41.10724" />
+		
+		-->
+
 			<While Condition="((HasQuest(11607)) &amp;&amp; (!IsQuestCompleted(11607)))" >
 			<If Condition="((HasQuest(11607)) &amp;&amp; (!IsQuestCompleted(11607)))" >
 				<Objective QuestName="The Lost Spirits" QuestId="11607" Type="CollectItem" ItemId="34711" ItemName="Core of Malice" CollectCount="6" />
@@ -2312,60 +2572,20 @@
 			</While>
 		<TurnIn QuestName="Leading the Ancestors Home" QuestId="11610" TurnInName="Elder Atkanok" TurnInId="187565" X="3522.04" Y="5413.482" Z="41.10724" />
 		<!-- end of totem guy quests -->
-		
-			<!-- beginning of Kaskala quests -->
-			<!-- flyto <Hotspot X="3124.385" Y="4891.053" Z="1.773024" /> -->
-		<TurnIn QuestName="Cowards and Fools" QuestId="11932" TurnInName="Ataika" TurnInId="26169" />
-		<PickUp QuestName="The Son of Karkut" QuestId="12086" GiverName="Ataika" GiverId="26169" />
-		<PickUp QuestName="Not Without a Fight!" QuestId="11949" GiverName="Ataika" GiverId="26169" />
-		<!-- Daily = Preparing for the Worst, comment it out if you don't want do it (i have plans to fix this so it only does it once
-			<If Condition="(!IsQuestCompleted(11945))" >
-				<PickUp QuestName="Preparing for the Worst" QuestId="11945" GiverId="26213" GiverName="Utaik" />
-				<Objective QuestName="Preparing for the Worst" QuestId="11945" Type="CollectItem" CollectCount="8" ItemId="35711" />
-				<TurnIn QuestName="Preparing for the Worst" QuestId="11945" TurnInId="26213" TurnInName="Utaik" />
-			</If>  -->
-			<Objective QuestName="Not Without a Fight!" QuestId="11949" Type="KillMob" MobId="25760" KillCount="12" />
-		<TurnIn QuestName="Not Without a Fight!" QuestId="11949" TurnInName="Ataika" TurnInId="26169" />
-				<!-- Quest Disabled
-		<PickUp QuestName="Muahit's Wisdom" QuestId="11950" GiverName="Ataika" GiverId="26169" />
-			<If Condition="(HasQuest(11950))" >
-				<Runto QuestId="11950" X="3097.079" Y="4815.974" Z="1.276101" />
-				<Runto QuestId="11950" X="3079.618" Y="4796.583" Z="1.135878" />
-				<Runto QuestId="11950" X="2987.333" Y="4786.088" Z="-0.7743665" />
-				<Runto QuestId="11950" X="2732.841" Y="4543.406" Z="-1.850222" />
-				<CustomBehavior File="MyCTM" QuestId="11950" Location="2735.108 4599.975 -3.250239" />
-				<CustomBehavior File="MyCTM" QuestId="11950" Location="2741.384 4604.724 0.08365506" />
-				<CustomBehavior File="MyCTM" QuestId="11950" Location="2737.423 4614.241 0.08363962" />
-				<CustomBehavior File="MyCTM" QuestId="11950" Location="2733.222 4625.288 0.08435628" />
-				<CustomBehavior File="MyCTM" QuestId="11950" Location="2793.21 4695.416 1.859965" />
-			</If>
-		<TurnIn QuestName="Muahit's Wisdom" QuestId="11950" TurnInName="Elder Muahit" TurnInId="26218" />
-		<Pickup QuestName="Spirits Watch Over Us" QuestId="11961" GiverName="Elder Muahit" GiverId="26218" />
-			<If Condition="(HasQuest(11961))" >
-				<CustomBehavior File="MyCTM" QuestId="11961" Location="2917.07 4707.609 0.08389857" />
-				<CustomBehavior File="MyCTM" QuestId="11961" Location="2935.994 4685.748 -3.124168" />
-				<CustomBehavior File="MyCTM" QuestId="11961" Location="2960.394 4671.321 -32.58078" />
-				<CustomBehavior File="InteractWith" QuestId="11961" MobId="26219" NumOfTimes="1" CollectionDistance="10" X="2960.394" Y="4671.321" Z="-32.58078" />
-				<CustomBehavior File="RunMacro" Macro="/script SelectGossipOptions(1)\n/script CloseGossip()" NumOfTimes="1" WaitTime="1000" />
-				<CustomBehavior File="MyCTM"Location="2935.994 4685.748 -3.124168" />
-				<Runto X="2732.841" Y="4543.406" Z="-1.850222" />
-				<CustomBehavior File="MyCTM" Location="2735.108 4599.975 -3.250239" />
-				<CustomBehavior File="MyCTM" Location="2741.384 4604.724 0.08365506" />
-				<CustomBehavior File="MyCTM" Location="2737.423 4614.241 0.08363962" />
-				<CustomBehavior File="MyCTM" Location="2733.222 4625.288 0.08435628" />
-				<CustomBehavior File="MyCTM" Location="2793.21 4695.416 1.859965" />
-			</If>
-			 <Objective QuestName="Spirits Watch Over Us" QuestId="11961" Type="CollectItem" CollectCount="1" ItemId="35701" />
-		<TurnIn QuestName="Spirits Watch Over Us" QuestId="11961" TurnInName="Elder Muahit" TurnInId="26218" />
-		<Pickup QuestName="The Tides Turn" QuestId="11968" GiverName="Elder Muahit" GiverId="26218" />
-			<Objective QuestName="The Tides Turn" QuestId="11968" Type="KillMob" MobId="26266" MobName="Heigarr the Horrible" KillCount="1" />
-		<TurnIn QuestName="The Tides Turn" QuestId="11968" TurnInName="Elder Muahit" TurnInId="26218" />  -->
-			<!-- for some reason the bot keeps wanting to get this stupid quest 
-		<PickUp QuestName="Travel to Moa'ki Harbor" QuestId="12117" GiverName="Hotawa" GiverId="28382" /> -->
-			<!-- For the above quests, have the devs fix the findendpoly errors, using myCTM until then -->
-		
+
+
+			<!-- Death's Stand Quests -->
+			<If Condition="((HasQuest(12086)) &amp;&amp; (IsQuestCompleted(12086)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3109.528" Y="3841.598" Z="22.49096" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="The Son of Karkut" QuestId="12086" TurnInName="Corporal Venn" TurnInId="26187" />
 		<PickUp QuestName="Surrounded!" QuestId="11944" GiverName="Corporal Venn" GiverId="26187" />
+			</If>
+			<If Condition="((!HasQuest(12086)) &amp;&amp; (!IsQuestCompleted(12086)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3109.528" Y="3841.598" Z="22.49096" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Surrounded!" QuestId="11944" GiverName="Corporal Venn" GiverId="26187" />
+			</If>
 			<Objective QuestName="Surrounded!" QuestId="11944" Type="KillMob" MobId="26202" KillCount="7" />
 		<TurnIn QuestName="Surrounded!" QuestId="11944" TurnInName="Corporal Venn" TurnInId="26187" />
 		<Pickup QuestName="Thassarian, the Death Knight" QuestId="12088" GiverName="Corporal Venn" GiverId="26187" />
@@ -2418,6 +2638,7 @@
 		<TurnIn QuestName="Words of Power" QuestId="11942" TurnInName="Thassarian" TurnInId="26170" X="3295.889" Y="3682.7" Z="32.4682"/>
 		<!-- <Pickup QuestName="Last Rites" QuestId="12019" GiverName="Thassarian" GiverId="26170" />
 		end of thassarian quests -->
+		
 		
 		<!-- Now, we pick up the quest from Midge if 69
 		<If Condition="Me.Level &gt;= 69" >
