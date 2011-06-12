@@ -5,7 +5,7 @@
 -->
 
 <HBProfile>
-  <Name>[A - fly] QO 68-80 [Kick]</Name>
+  <Name>[A - Fly] QO 68-80 [Kick]</Name>
   <MinLevel>68</MinLevel>
   <MaxLevel>86</MaxLevel>
   
@@ -1761,7 +1761,7 @@
 		<!-- There is a Hero's Call: Northrend from the call boards, mess with it later
 			<Quest Id="28709" Name="Hero's Call: Northrend!">
 			Then ride the boat here
-		<TurnIn QuestName="Hero's Call: Northrend!" QuestId="28709" TurnInName="General Arlos" TurnInId="25250" TurnInType="Npc" />
+		<TurnIn QuestName="Hero's Call: Northrend!" QuestId="28709" TurnInName="General Arlos" TurnInId="25250" />
 		-->
 		
 	<CustomBehavior File="UserSettings" TrainNewSkills="True" LearnFlightPaths="True" UseFlightPaths="True" />
@@ -1772,40 +1772,143 @@
 					<RunTo X="2274.391" Y="5174.106" Z="11.17985" />
 					<CustomBehavior File="InteractWith"  MobId="35133" WaitTime="1000" CollectionDistance="50" X="2274.391" Y="5174.106" Z="11.17985" />
 					<CustomBehavior File="ForceTrainRiding"  MobId="35133" />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" />
 				</If>
 			</If>
-			<If Condition="(!HasSpell(54197))" >
-				<CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You need 500g to train flying and to use this profile" />
+			<If Condition="!CanFly()">
+				<CustomBehavior File="UserDialog" StopOnContinue="true" Text="You must be able to fly to use this profile." />
 			</If>
 		
+			<If Condition="((!HasQuest(11672)) &amp;&amp; (!IsQuestCompleted(11672)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2296.854" Y="5237.172" Z="12.32022" />
+				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Enlistment Day" QuestId="11672" GiverName="Recruitment Officer Blythe" GiverId="25307" X="2300.503" Y="5239.977" Z="11.33996" />
-		<TurnIn QuestName="Enlistment Day" QuestId="11672" TurnInName="General Arlos" TurnInId="25250" TurnInType="Npc" X="2105.964" Y="5303.947" Z="34.00501" />
+			</If>
+			<If Condition="((HasQuest(11672)) &amp;&amp; (IsQuestCompleted(11672)))" >
+				<CustomBehavior File="FlyTo" X="2142.024" Y="5290.128" Z="23.7525" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Enlistment Day" QuestId="11672" TurnInName="General Arlos" TurnInId="25250" X="2105.964" Y="5303.947" Z="34.00501" />
 		<PickUp QuestName="A Time for Heroes" QuestId="11727" GiverName="General Arlos" GiverId="25250" X="2105.964" Y="5303.947" Z="34.00501" />
-		<TurnIn QuestName="A Time for Heroes" QuestId="11727" TurnInName="Sergeant Hammerhill" TurnInId="25816" TurnInType="Npc" X="2223.272" Y="5321.957" Z="10.57495" />
+			</If>
+			<If Condition="((!HasQuest(11727)) &amp;&amp; (!IsQuestCompleted(11727)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2142.024" Y="5290.128" Z="23.7525" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="A Time for Heroes" QuestId="11727" GiverName="General Arlos" GiverId="25250" X="2105.964" Y="5303.947" Z="34.00501" />
+			</If>
+			<If Condition="((HasQuest(11727)) &amp;&amp; (IsQuestCompleted(11727)))" >
+				<CustomBehavior File="FlyTo" X="2223.417" Y="5319.069" Z="10.57282" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="A Time for Heroes" QuestId="11727" TurnInName="Sergeant Hammerhill" TurnInId="25816" X="2223.272" Y="5321.957" Z="10.57495" />
+			</If>
+			<If Condition="((!HasQuest(11797)) &amp;&amp; (!IsQuestCompleted(11797)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2223.417" Y="5319.069" Z="10.57282" />
+				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="The Siege" QuestId="11797" GiverName="Sergeant Hammerhill" GiverId="25816" X="2223.272" Y="5321.957" Z="10.57495" />
+			</If>
+			<If Condition="((!HasQuest(11789)) &amp;&amp; (!IsQuestCompleted(11789)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2249.866" Y="5401.697" Z="1.781213" />
+				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="A Soldier in Need" QuestId="11789" GiverName="Medic Hawthorn" GiverId="25825" />
-			<Objective QuestName="The Siege" QuestId="11797" Type="KillMob" MobId="25227" MobName="Crypt Crawler" KillCount="6" />
-		<TurnIn QuestName="The Siege" QuestId="11797" TurnInName="Sergeant Hammerhill" TurnInId="25816" TurnInType="Npc" />
+			</If>
+			<If Condition="((HasQuest(11797)) &amp;&amp; (!IsQuestCompleted(11797)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="2165.253" Y="5502.848" Z="0.2712236" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Siege" QuestId="11797" Type="KillMob" MobId="25227" MobName="Crypt Crawler" KillCount="6" />
+			</If>
+			<If Condition="((HasQuest(11797)) &amp;&amp; (IsQuestCompleted(11797)))" >
+				<CustomBehavior File="FlyTo" X="2223.417" Y="5319.069" Z="10.57282" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Siege" QuestId="11797" TurnInName="Sergeant Hammerhill" TurnInId="25816" />
 		<PickUp QuestName="Death From Above" QuestId="11889" GiverName="Sergeant Hammerhill" GiverId="25816" />
-			<Objective QuestName="A Soldier in Need" QuestId="11789" Type="CollectItem" ItemId="35119" ItemName="Hawthorn's Anti-Venom" CollectCount="1" />
-		<PickUp QuestName="Cultists Among Us" QuestId="11920" GiverName="Cultist Shrine" GiverId="187851" GiverType="Object" X="2243.815" Y="5256.613" Z="3.528494" />
-		<TurnIn QuestName="Cultists Among Us" QuestId="11920" TurnInName="Captain Lefty Lugsail" TurnInId="25298" />
-		<PickUp QuestName="Notify Arlos" QuestId="11791" GiverName="Admiral Cantlebree" GiverId="25299" />
-		<TurnIn QuestName="Notify Arlos" QuestId="11791" TurnInName="General Arlos" TurnInId="25250" TurnInType="Npc" />
-		<PickUp QuestName="A Diplomatic Mission" QuestId="12141" GiverName="Counselor Talbot" GiverId="25301" />
-		<PickUp QuestName="Enemies of the Light" QuestId="11792" GiverName="Harbinger Vurenn" GiverId="25285" />
-		<TurnIn QuestName="A Soldier in Need" QuestId="11789" TurnInName="Medic Hawthorn" TurnInId="25825" TurnInType="Npc" />
+			</If>
+			<If Condition="((!HasQuest(11889)) &amp;&amp; (!IsQuestCompleted(11889)))" >
+				<CustomBehavior File="FlyTo" X="2223.417" Y="5319.069" Z="10.57282" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Death From Above" QuestId="11889" GiverName="Sergeant Hammerhill" GiverId="25816" />
+			</If>
 			<If Condition="((HasQuest(11889)) &amp;&amp; (!IsQuestCompleted(11889)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
-				<RunTo QuestId="11889" X="2204.507" Y="5401.355" Z="0.5539084" />
-				<While Condition="((HasQuest(11889)) &amp;&amp; (!IsQuestCompleted(11889)))" >
-					<CustomBehavior File="UseItemOn" QuestId="11889" MobId="25582" ItemId="35278" NpcState="Alive" HpLeftAmount="100" NumOfTimes="10" WaitTime="1000" Range="30" CollectionDistance="100" X="2193.77" Y="5396.746" Z="0.1646834" />
-				</While>
+				<CustomBehavior File="FlyTo" DestName="Objective" Distance="1" X="2247.979" Y="5403.943" Z="1.781489" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo DestName="Kill bats" X="2201.213" Y="5397.096" Z="0.2828125" />
+			 <While Condition="((HasQuest(11889)) &amp;&amp; (!IsQuestCompleted(11889)))" >
+				<CustomBehavior File="UseItemOn" QuestId="11889" MobId="25582" ItemId="35278" NpcState="Alive" HpLeftAmount="100" NumOfTimes="10" WaitTime="3000" Range="30" CollectionDistance="100" X="2193.77" Y="5396.746" Z="0.1646834" />
+			 </While>
+				<RunTo DestName="Safe Place" X="2247.979" Y="5403.943" Z="1.781489" />
 				<CustomBehavior File="UserSettings" PullDistance="25" />
+				<!-- <Objective QuestName="Death From Above" QuestId="11889" Type="KillMob" MobId="25582" MobName="Scourged Flamespitter" KillCount="6" /> -->
 			</If>
-			<Objective QuestName="Death From Above" QuestId="11889" Type="KillMob" MobId="25582" MobName="Scourged Flamespitter" KillCount="6" />
-		<TurnIn QuestName="Death From Above" QuestId="11889" TurnInName="Sergeant Hammerhill" TurnInId="25816" TurnInType="Npc" />
+			<If Condition="((HasQuest(11889)) &amp;&amp; (IsQuestCompleted(11889)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2223.417" Y="5319.069" Z="10.57282" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Death From Above" QuestId="11889" TurnInName="Sergeant Hammerhill" TurnInId="25816" />
 		<PickUp QuestName="Plug the Sinkholes" QuestId="11897" GiverName="Sergeant Hammerhill" GiverId="25816" />
+			</If>
+			<If Condition="((!HasQuest(11897)) &amp;&amp; (!IsQuestCompleted(11897)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2223.417" Y="5319.069" Z="10.57282" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Plug the Sinkholes" QuestId="11897" GiverName="Sergeant Hammerhill" GiverId="25816" />
+			</If>
+			<If Condition="((HasQuest(11789)) &amp;&amp; (!IsQuestCompleted(11789)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="2253.666" Y="5283.035" Z="12.08185" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo DestName="Collect Anti-Venom" X="2249.73" Y="5273.08" Z="3.528209" />
+				<RunTo DestName="Collect Anti-Venom" X="2235.406" Y="5259.193" Z="3.527183" />
+				<Objective QuestName="A Soldier in Need" QuestId="11789" Type="CollectItem" ItemId="35119" ItemName="Hawthorn's Anti-Venom" CollectCount="1" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+		<PickUp QuestName="Cultists Among Us" QuestId="11920" GiverName="Cultist Shrine" GiverId="187851" GiverType="Object" X="2243.815" Y="5256.613" Z="3.528494" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+			</If>
+			<If Condition="((!HasQuest(11920)) &amp;&amp; (!IsQuestCompleted(11920)))" >
+				<!-- This is only if the user has missed this quest -->
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2253.666" Y="5283.035" Z="12.08185" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo DestName="Get Quest" X="2249.73" Y="5273.08" Z="3.528209" />
+				<RunTo DestName="Get Quest" X="2235.406" Y="5259.193" Z="3.527183" />
+		<PickUp QuestName="Cultists Among Us" QuestId="11920" GiverName="Cultist Shrine" GiverId="187851" GiverType="Object" X="2243.815" Y="5256.613" Z="3.528494" />
+			</If>
+			<If Condition="((HasQuest(11920)) &amp;&amp; (IsQuestCompleted(11920)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2240.539" Y="5237.984" Z="21.50579" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Cultists Among Us" QuestId="11920" TurnInName="Captain Lefty Lugsail" TurnInId="25298" />
+		<PickUp QuestName="Notify Arlos" QuestId="11791" GiverName="Admiral Cantlebree" GiverId="25299" />
+			</If>
+			<If Condition="((!HasQuest(11791)) &amp;&amp; (!IsQuestCompleted(11791)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2240.539" Y="5237.984" Z="21.50579" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Notify Arlos" QuestId="11791" GiverName="Admiral Cantlebree" GiverId="25299" />
+			</If>
+			<If Condition="((HasQuest(11791)) &amp;&amp; (IsQuestCompleted(11791)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2142.059" Y="5289.346" Z="23.63456" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Notify Arlos" QuestId="11791" TurnInName="General Arlos" TurnInId="25250" />
+		<PickUp QuestName="A Diplomatic Mission" QuestId="12141" GiverName="Counselor Talbot" GiverId="25301" />
+		<PickUp QuestName="Enemies of the Light" QuestId="11792" GiverName="Harbinger Vurenn" GiverId="25285" />
+			</If>
+			<If Condition="((!HasQuest(12141)) &amp;&amp; (!IsQuestCompleted(12141)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2142.059" Y="5289.346" Z="23.63456" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="A Diplomatic Mission" QuestId="12141" GiverName="Counselor Talbot" GiverId="25301" />
+		<PickUp QuestName="Enemies of the Light" QuestId="11792" GiverName="Harbinger Vurenn" GiverId="25285" />
+			</If>
+			<If Condition="((!HasQuest(11792)) &amp;&amp; (!IsQuestCompleted(11792)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2142.059" Y="5289.346" Z="23.63456" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Enemies of the Light" QuestId="11792" GiverName="Harbinger Vurenn" GiverId="25285" />
+			</If>
+			<If Condition="((HasQuest(11789)) &amp;&amp; (IsQuestCompleted(11789)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2235.553" Y="5295.681" Z="53.59694" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="A Soldier in Need" QuestId="11789" TurnInName="Medic Hawthorn" TurnInId="25825" />
+			</If>
+			
+			
+		<!--	
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" Text="End of Line!\n\nYes, I fight for the users!" />
+		-->
+			
+			
+			
 			<!-- add a flyto here -->
 			<If Condition="((HasQuest(11897)) &amp;&amp; (!IsQuestCompleted(11897)))" >
 				<RunTo X="2449.31" Y="5453.518" Z="17.64688" />
@@ -1816,20 +1919,20 @@
 			</If>
 			<Objective QuestName="Enemies of the Light" QuestId="11792" Type="CollectItem" ItemId="35122" ItemName="Cultist Communique" CollectCount="1" />
 		<TurnIn QuestName="Plug the Sinkholes" QuestId="11897" TurnInName="Sergeant Hammerhill" TurnInId="25816" />
-		<TurnIn QuestName="Enemies of the Light" QuestId="11792" TurnInName="Harbinger Vurenn" TurnInId="25285" TurnInType="Npc" />
+		<TurnIn QuestName="Enemies of the Light" QuestId="11792" TurnInName="Harbinger Vurenn" TurnInId="25285" />
 		<PickUp QuestName="Farshire" QuestId="11928" GiverName="Sergeant Hammerhill" GiverId="25816" />
 		<PickUp QuestName="Word on the Street" QuestId="11927" GiverName="Mark Hanes" GiverId="26155" />
-		<TurnIn QuestName="Word on the Street" QuestId="11927" TurnInName="Leryssa" TurnInId="25251" TurnInType="Npc" />
+		<TurnIn QuestName="Word on the Street" QuestId="11927" TurnInName="Leryssa" TurnInId="25251" />
 			<!-- I know that there are 2 quests available, go to Fizzcrank and Amber Ledge, picking them up later -->
 		<PickUp QuestName="Thassarian, My Brother" QuestId="11599" GiverName="Leryssa" GiverId="25251" />
 			<!-- This quest may bug if the npc is fighting mobs, you may have to stop and restart the bot -->
-		<TurnIn QuestName="Farshire" QuestId="11928" TurnInName="Gerald Green" TurnInId="26083" TurnInType="Npc" />
+		<TurnIn QuestName="Farshire" QuestId="11928" TurnInName="Gerald Green" TurnInId="26083" />
 		<PickUp QuestName="Military? What Military?" QuestId="11901" GiverName="Gerald Green" GiverId="26083" />
 		<TurnIn QuestName="Military? What Military?" QuestId="11901" TurnInName="Plagued Grain" TurnInId="188085" TurnInType="Object" />
 		<PickUp QuestName="Pernicious Evidence" QuestId="11902" GiverName="Plagued Grain" GiverId="188085" GiverType="Object" X="2759.969" Y="5295.227" Z="25.5763" />
-		<TurnIn QuestName="Thassarian, My Brother" QuestId="11599" TurnInName="William Allerton" TurnInId="25385" TurnInType="Npc" />
+		<TurnIn QuestName="Thassarian, My Brother" QuestId="11599" TurnInName="William Allerton" TurnInId="25385" />
 		<PickUp QuestName="The Late William Allerton" QuestId="11600" GiverName="William Allerton" GiverId="25385" />
-		<TurnIn QuestName="Pernicious Evidence" QuestId="11902" TurnInName="Gerald Green" TurnInId="26083" TurnInType="Npc" />
+		<TurnIn QuestName="Pernicious Evidence" QuestId="11902" TurnInName="Gerald Green" TurnInId="26083" />
 		<PickUp QuestName="It's Time for Action" QuestId="11903" GiverName="Gerald Green" GiverId="26083" />
 		<PickUp QuestName="Take No Chances" QuestId="11913" GiverName="Wendy Darren" GiverId="26085" />
 		<PickUp QuestName="Reference Material" QuestId="11908" GiverName="Jeremiah Hawning" GiverId="26084" />
@@ -1839,9 +1942,9 @@
 			<Objective QuestName="Reference Material" QuestId="11908" Type="CollectItem" ItemId="35481" ItemName="Fields, Factories and Workshops" CollectCount="1" />
 			<Objective QuestName="It's Time for Action" QuestId="11903" Type="KillMob" MobId="25650" MobName="Plagued Scavenger" KillCount="14" />
 		<TurnIn QuestName="Take No Chances" QuestId="11913" TurnInName="Wendy Darren" TurnInId="26085" />
-		<TurnIn QuestName="It's Time for Action" QuestId="11903" TurnInName="Gerald Green" TurnInId="26083" TurnInType="Npc" />
+		<TurnIn QuestName="It's Time for Action" QuestId="11903" TurnInName="Gerald Green" TurnInId="26083" />
 		<PickUp QuestName="Fruits of Our Labor" QuestId="11904" GiverName="Gerald Green" GiverId="26083" />
-		<TurnIn QuestName="Reference Material" QuestId="11908" TurnInName="Jeremiah Hawning" TurnInId="26084" TurnInType="Npc" />
+		<TurnIn QuestName="Reference Material" QuestId="11908" TurnInName="Jeremiah Hawning" TurnInId="26084" />
 			<!-- This Quest is not working properly
 		<PickUp QuestName="Repurposed Technology" QuestId="12035" GiverId="26084" GiverName="Jeremiah Hawning" /> -->
 			<!-- <Objective QuestName="Repurposed Technology" QuestId="12035" Type="KillMob" KillCount="5" MobId="25623" /> -->
@@ -1864,9 +1967,9 @@
 			<Objective QuestName="Fruits of Our Labor" QuestId="11904" Type="UseObject" ObjectId="188104" UseCount="1" />
 		<TurnIn QuestName="Fruits of Our Labor" QuestId="11904" TurnInName="Gerald Green" TurnInId="26083" />
 		<PickUp QuestName="One Last Delivery" QuestId="11962" GiverName="Gerald Green" GiverId="26083" />
-		<TurnIn QuestName="One Last Delivery" QuestId="11962" TurnInName="Hilda Stoneforge" TurnInId="25235" TurnInType="Npc" />
+		<TurnIn QuestName="One Last Delivery" QuestId="11962" TurnInName="Hilda Stoneforge" TurnInId="25235" />
 		<PickUp QuestName="Weapons for Farshire" QuestId="11963" GiverName="Hilda Stoneforge" GiverId="25235" />
-		<TurnIn QuestName="Weapons for Farshire" QuestId="11963" TurnInName="Gerald Green" TurnInId="26083" TurnInType="Npc" />
+		<TurnIn QuestName="Weapons for Farshire" QuestId="11963" TurnInName="Gerald Green" TurnInId="26083" />
 		<PickUp QuestName="Call to Arms!" QuestId="11965" GiverName="Gerald Green" GiverId="26083" />
 		<!-- I need this nav meshed -->
 			<If Condition="((HasQuest(11965)) &amp;&amp; (!IsQuestCompleted(11965)))" >
@@ -1885,9 +1988,9 @@
 			</If>
 			<!-- <Objective QuestName="Call to Arms!" QuestId="11965" Type="UseObject" ObjectId="188163" UseCount="1" /> doesn't work -->
 		<TurnIn QuestName="Call to Arms!" QuestId="11965" TurnInName="Gerald Green" TurnInId="26083" />
-		<TurnIn QuestName="The Late William Allerton" QuestId="11600" TurnInName="Leryssa" TurnInId="25251" TurnInType="Npc" />
+		<TurnIn QuestName="The Late William Allerton" QuestId="11600" TurnInName="Leryssa" TurnInId="25251" />
 		<PickUp QuestName="Lost and Found" QuestId="11601" GiverName="Leryssa" GiverId="25251" />
-		<TurnIn QuestName="Lost and Found" QuestId="11601" TurnInName="James Deacon" TurnInId="25245" TurnInType="Npc" />
+		<TurnIn QuestName="Lost and Found" QuestId="11601" TurnInName="James Deacon" TurnInId="25245" />
 		<PickUp QuestName="In Wine, Truth" QuestId="11603" GiverName="James Deacon" GiverId="25245" />
 			<If Condition="((HasQuest(11603)) &amp;&amp; (!IsQuestCompleted(11603)))" >
 				<Runto QuestId="11603" X="2373.114" Y="5002.79" Z="-6.378314" />
@@ -1900,12 +2003,12 @@
 				<Objective QuestName="In Wine, Truth" QuestId="11603" Type="CollectItem" ItemId="34714" ItemName="Kul Tiras Wine" CollectCount="1" />
 				<CustomBehavior File="MyCTM" X="2374.443" Y="5004.456" Z="-1.898165" /> 
 			</If>
-		<TurnIn QuestName="In Wine, Truth" QuestId="11603" TurnInName="Old Man Colburn" TurnInId="25302" TurnInType="Npc" />
+		<TurnIn QuestName="In Wine, Truth" QuestId="11603" TurnInName="Old Man Colburn" TurnInId="25302" />
 		<PickUp QuestName="A Deserter" QuestId="11604" GiverName="Old Man Colburn" GiverId="25302" />
-		<TurnIn QuestName="A Deserter" QuestId="11604" TurnInName="Private Brau" TurnInId="25395" TurnInType="Npc" />
+		<TurnIn QuestName="A Deserter" QuestId="11604" TurnInName="Private Brau" TurnInId="25395" />
 		<PickUp QuestName="Cowards and Fools" QuestId="11932" GiverName="Private Brau" GiverId="25395" />
 		<PickUp QuestName="Further Investigation" QuestId="11793" GiverName="Harbinger Vurenn" GiverId="25285" />
-		<TurnIn QuestName="Further Investigation" QuestId="11793" TurnInName="Vindicator Yaala" TurnInId="25826" TurnInType="Npc" />
+		<TurnIn QuestName="Further Investigation" QuestId="11793" TurnInName="Vindicator Yaala" TurnInId="25826" />
 		<PickUp QuestName="The Hunt is On" QuestId="11794" GiverId="25826" GiverName="Vindicator Yaala" />
 			<While Condition="((HasQuest(11794)) &amp;&amp; (!IsQuestCompleted(11794)))"> 
 					<UseItem ItemId="35125" QuestName="The Hunt Is On" QuestId="11794" X="2317.156" Y="5194.126" Z="12.49885"/>
@@ -1932,16 +2035,16 @@
 			<If Condition="((HasQuest(11794)) &amp;&amp; (IsQuestCompleted(11794)))" >
 		<TurnIn QuestName="The Hunt is On" QuestId="11794" TurnInId="25826" TurnInName="Vindicator Yaala" />
 			</If>
-		<TurnIn QuestName="A Diplomatic Mission" QuestId="12141" TurnInName="Karuk" TurnInId="25435" TurnInType="Npc" />
+		<TurnIn QuestName="A Diplomatic Mission" QuestId="12141" TurnInName="Karuk" TurnInId="25435" />
 		<PickUp QuestName="Karuk's Oath" QuestId="11613" GiverName="Karuk" GiverId="25435" />
 			<Objective QuestName="Karuk's Oath" QuestId="11613" Type="KillMob" MobId="25521" MobName="Skadir Longboatsman" KillCount="5" />
 			<Objective QuestName="Karuk's Oath" QuestId="11613" Type="KillMob" MobId="25522" MobName="Skadir Raider" KillCount="6" />
-		<TurnIn QuestName="Karuk's Oath" QuestId="11613" TurnInName="Karuk" TurnInId="25435" TurnInType="Npc" />
+		<TurnIn QuestName="Karuk's Oath" QuestId="11613" TurnInName="Karuk" TurnInId="25435" />
 		<PickUp QuestName="Gamel the Cruel" QuestId="11619" GiverName="Karuk" GiverId="25435" />
 			<Objective QuestName="Gamel the Cruel" QuestId="11619" Type="KillMob" MobId="26449" MobName="Gamel the Cruel" KillCount="1" />
-		<TurnIn QuestName="Gamel the Cruel" QuestId="11619" TurnInName="Karuk" TurnInId="25435" TurnInType="Npc" />
+		<TurnIn QuestName="Gamel the Cruel" QuestId="11619" TurnInName="Karuk" TurnInId="25435" />
 		<PickUp QuestName="A Father's Words" QuestId="11620" GiverName="Karuk" GiverId="25435" />
-		<TurnIn QuestName="A Father's Words" QuestId="11620" TurnInName="Veehja" TurnInId="25450" TurnInType="Npc" />
+		<TurnIn QuestName="A Father's Words" QuestId="11620" TurnInName="Veehja" TurnInId="25450" />
 		<PickUp QuestName="The Trident of Naz'jan" QuestId="11625" GivermName="Veehja" GiverId="25450" />
 			<!-- If this quest has issues, use these
 			<RunTo X="1448.241" Y="5434.749" Z="28.37376" /> 
@@ -1949,7 +2052,7 @@
 			<CustomBehavior File="MyCTM" X="1448.241" Y="5434.749" Z="28.37376" />
 			-->
 			<Objective QuestName="The Trident of Naz'jan" QuestId="11625" Type="CollectItem" ItemId="35774" ItemName="Trident of Naz'jan" CollectCount="1" />
-		<TurnIn QuestName="The Trident of Naz'jan" QuestId="11625" TurnInName="Veehja" TurnInId="25450" TurnInType="Npc" />
+		<TurnIn QuestName="The Trident of Naz'jan" QuestId="11625" TurnInName="Veehja" TurnInId="25450" />
 		<PickUp QuestName="The Emissary" QuestId="11626" GiverName="Veehja" GiverId="25450" />
 			<If Condition="((HasQuest(11626)) &amp;&amp; (!IsQuestCompleted(11626)))" >
 				<Runto QuestId="11626" X="1543.178" Y="5705.408" Z="1.219794" />
@@ -1996,7 +2099,7 @@
 			</While>
 		<TurnIn QuestName="The Lost Spirits" QuestId="11607" TurnInName="Elder Atkanok" TurnInId="187565" X="3522.04" Y="5413.482" Z="41.10724" />
 		<Pickup QuestName="Picking Up the Pieces" QuestId="11609" GiverName="Elder Atkanok" GiverId="187565" GiverType="Object" X="3522.04" Y="5413.482" Z="41.10724" />
-		<TurnIn QuestName="Hampering Their Escape" QuestId="11617" TurnInName="Etaruk" TurnInId="25292" TurnInType="Npc" />
+		<TurnIn QuestName="Hampering Their Escape" QuestId="11617" TurnInName="Etaruk" TurnInId="25292" />
 		<Pickup QuestName="A Visit to the Curator" QuestId="11623" GiverName="Etaruk" GiverId="25292" />
 			<Objective QuestName="Picking Up the Pieces" QuestId="11609" Type="CollectItem" ItemId="34713" ItemName="Tuskarr Ritual Object" CollectCount="6" />
 			<Objective QuestName="A Visit to the Curator" QuestId="11623" Type="KillMob" MobId="25448" MobName="Curator Insivius" KillCount="1" />
@@ -2412,15 +2515,15 @@
 				<RunTo QuestId="11713" X="3486.939" Y="4514.402" Z="-20.73891" />
 				<UseItem QuestName="Scouting the Sinkholes" QuestId="11713" ItemId="34920" X="3486.939" Y="4514.402" Z="-20.73891" />
 			</While>
-		<TurnIn QuestName="Scouting the Sinkholes" QuestId="11713" GiverName="Abner Fizzletorque" TurnInId="25780" TurnInType="Npc" />
+		<TurnIn QuestName="Scouting the Sinkholes" QuestId="11713" GiverName="Abner Fizzletorque" TurnInId="25780" />
 		<PickUp QuestName="Fueling the Project" QuestId="11715" GiverName="Abner Fizzletorque" GiverId="25780" />
 			<While Condition="((HasQuest(11715)) &amp;&amp; (!IsQuestCompleted(11715)))">
 				<CustomBehavior File="UseItemOn" QuestId="11715" MobId="25781" ItemId="34975" NumOfTimes="10" WaitTime="12000" CollectionDistance="200" X="3886.533" Y="5102.835" Z="0.6782706" />
 			</While>
-		<TurnIn QuestName="Fueling the Project" QuestId="11715" GiverName="Abner Fizzletorque" TurnInId="25780" TurnInType="Npc" />
+		<TurnIn QuestName="Fueling the Project" QuestId="11715" GiverName="Abner Fizzletorque" TurnInId="25780" />
 		<PickUp QuestName="A Bot in Mammoth's Clothing" QuestId="11718" GiverName="Abner Fizzletorque" GiverId="25780" />
 			<Objective QuestName="A Bot in Mammoth's Clothing" QuestId="11718" Type="CollectItem" ItemId="34977" CollectCount="6" />
-		<TurnIn QuestName="A Bot in Mammoth's Clothing" QuestId="11718" GiverName="Abner Fizzletorque" TurnInId="25780" TurnInType="Npc" />
+		<TurnIn QuestName="A Bot in Mammoth's Clothing" QuestId="11718" GiverName="Abner Fizzletorque" TurnInId="25780" />
 		<PickUp QuestName="Deploy the Shake-n-Quake!" QuestId="11723" GiverName="Abner Fizzletorque" GiverId="25780" />
 			<While Condition="((HasQuest(11723)) &amp;&amp; (!IsQuestCompleted(11723)))" >
 				<RunTo X="3504.301" Y="4524.173" Z="-14.67916" />
@@ -2428,7 +2531,7 @@
 				<CustomBehavior File="WaitTimer" WaitTime="37000"/> 
 				<Objective QuestName="Deploy the Shake-n-Quake!" QuestId="11723" Type="KillMob" MobId="25629" KillCount="1" />
 			</While>
-		<TurnIn QuestName="Deploy the Shake-n-Quake!" QuestId="11723" GiverName="Abner Fizzletorque" TurnInId="25780" TurnInType="Npc" />
+		<TurnIn QuestName="Deploy the Shake-n-Quake!" QuestId="11723" GiverName="Abner Fizzletorque" TurnInId="25780" />
 			<Objective QuestName="Dirty, Stinkin' Snobolds!" QuestId="11645" Type="CollectItem" ItemId="34787" CollectCount="10" />
 		<TurnIn QuestName="Dirty, Stinkin' Snobolds!" QuestId="11645" TurnInName="Crafty Wobblesprocket" TurnInId="25477" />
 		<PickUp QuestName="Check in With Bixie" QuestId="11692" GiverName="Mordle Cogspinner" GiverId="25702" />
@@ -2439,10 +2542,10 @@
 		<TurnIn QuestName="Just A Few More Things..." QuestId="11650" TurnInName="Crafty Wobblesprocket" TurnInId="25477" />
 		<Pickup QuestName="Hah... You're Not So Big Now!" QuestId="11653" GiverName="Crafty Wobblesprocket" GiverId="25477" /> -->
 			<!-- are we level 70 yet? If not, grind to? -->
-		<TurnIn QuestName="Check in With Bixie" QuestId="11692" TurnInName="Bixie Wrenchshanker" TurnInId="25705" TurnInType="Npc" />
+		<TurnIn QuestName="Check in With Bixie" QuestId="11692" TurnInName="Bixie Wrenchshanker" TurnInId="25705" />
 		<PickUp QuestName="Oh Great... Plagued Magnataur!" QuestId="11693" GiverName="Bixie Wrenchshanker" GiverId="25705" />
 			<Objective QuestName="Oh Great... Plagued Magnataur!" QuestId="11693" Type="KillMob" MobId="25615" MobName="Plagued Magnataur" KillCount="10" />
-		<TurnIn QuestName="Oh Great... Plagued Magnataur!" QuestId="11693" TurnInName="Bixie Wrenchshanker" TurnInId="25705" TurnInType="Npc" />
+		<TurnIn QuestName="Oh Great... Plagued Magnataur!" QuestId="11693" TurnInName="Bixie Wrenchshanker" TurnInId="25705" />
 		<PickUp QuestName="There's Something Going On In Those Caves" QuestId="11694" GiverName="Bixie Wrenchshanker" GiverId="25705" />
 			<While Condition="((HasQuest(11694)) &amp;&amp; (!IsQuestCompleted(11694)))" >
 				<RunTo QuestId="11694" X="4353.974" Y="4262.074" Z="98.46786" />
@@ -2451,7 +2554,7 @@
 		<TurnIn QuestName="There's Something Going On In Those Caves" QuestId="11694" TurnInName="Bixie Wrenchshanker" TurnInId="25705" />
 		<PickUp QuestName="Rats, Tinky Went into the Necropolis!" QuestId="11697" GiverName="Bixie Wrenchshanker" GiverId="25705" />
 		<PickUp QuestName="Might As Well Wipe Out the Scourge" QuestId="11698" GiverName="Bixie Wrenchshanker" GiverId="25705" />
-		<TurnIn QuestName="Rats, Tinky Went into the Necropolis!" QuestId="11697" TurnInName="Tinky Wickwhistle" TurnInId="25714" TurnInType="Npc" />
+		<TurnIn QuestName="Rats, Tinky Went into the Necropolis!" QuestId="11697" TurnInName="Tinky Wickwhistle" TurnInId="25714" />
 		<PickUp QuestName="I'm Stuck in this Damned Cage... But Not For Long!" QuestId="11699" GiverName="Tinky Wickwhistle" GiverId="25714" />
 			<Objective QuestName="I'm Stuck in this Damned Cage... But Not For Long!" QuestId="11699" Type="CollectItem" ItemId="34958" CollectCount="1" />
 			<Objective QuestName="I'm Stuck in this Damned Cage... But Not For Long!" QuestId="11699" Type="CollectItem" ItemId="34959" CollectCount="1" />
@@ -2460,7 +2563,7 @@
 		<TurnIn QuestName="I'm Stuck in this Damned Cage... But Not For Long!" QuestId="11699" TurnInName="Tinky Wickwhistle" TurnInId="25714" />
 		<PickUp QuestName="Let Bixie Know" QuestId="11700" GiverName="Tinky Wickwhistle" GiverId="25714" />
 		<TurnIn QuestName="Might As Well Wipe Out the Scourge" QuestId="11698" TurnInName="Bixie Wrenchshanker" TurnInId="25705" />
-		<TurnIn QuestName="Let Bixie Know" QuestId="11700" TurnInName="Bixie Wrenchshanker" TurnInId="25705" TurnInType="Npc" />
+		<TurnIn QuestName="Let Bixie Know" QuestId="11700" TurnInName="Bixie Wrenchshanker" TurnInId="25705" />
 		<PickUp QuestName="Back to the Airstrip" QuestId="11701" GiverName="Bixie Wrenchshanker" GiverId="25705" />
 			<If Condition="(HasQuest(11701))">
 				<Runto X="4177.329" Y="5280.924" Z="26.69335" />
@@ -2472,7 +2575,7 @@
 								End="4184.285, 5281.594, 39.48473" 
 								Transport="152614" />
 				<CustomBehavior File="MyCTM" X="4178.774" Y="5286.273" Z="39.60883" />
-		<TurnIn QuestName="Back to the Airstrip" QuestId="11701" TurnInName="Fizzcrank Fullthrottle" TurnInId="25590" TurnInType="Npc" />
+		<TurnIn QuestName="Back to the Airstrip" QuestId="11701" TurnInName="Fizzcrank Fullthrottle" TurnInId="25590" />
 				<CustomBehavior File="MyCTM" X="4181.785" Y="5282.175" Z="39.60907" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
 				<CustomBehavior File="UseTransport"
@@ -2543,9 +2646,9 @@
 				<CustomBehavior File="FlyTo" X="3196.44" Y="5283.456" Z="47.53091" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
-		<TurnIn QuestName="Unfit for Death" QuestId="11865" TurnInName="Zaza" TurnInId="25811" TurnInType="Npc" />
+		<TurnIn QuestName="Unfit for Death" QuestId="11865" TurnInName="Zaza" TurnInId="25811" />
 		<!-- <Pickup QuestName="The Culler Cometh" QuestId="11868" GiverName="Zaza" GiverId="25811" /> -->
-		<TurnIn QuestName="Happy as a Clam" QuestId="11869" TurnInName="Hierophant Cenius" TurnInId="25810" TurnInType="Npc" />
+		<TurnIn QuestName="Happy as a Clam" QuestId="11869" TurnInName="Hierophant Cenius" TurnInId="25810" />
 		<PickUp QuestName="The Abandoned Reach" QuestId="11870" GiverName="Hierophant Cenius" GiverId="25810" />
 		<!-- <TurnIn QuestName="Ned, Lord of Rhinos..." QuestId="11884" TurnInName="Killinger the Den Watcher" TurnInId="25812" /> -->
 		<TurnIn QuestName="Help Those That Cannot Help Themselves" QuestId="11876" TurnInName="Arch Druid Lathorius" TurnInId="25809" />
@@ -2572,7 +2675,7 @@
 				<CustomBehavior File="FlyTo" X="2779.779" Y="5238.808" Z="38.35458" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
-		<TurnIn QuestName="The Abandoned Reach" QuestId="11870" TurnInName="Hierophant Liandra" TurnInId="25838" TurnInType="Npc" />
+		<TurnIn QuestName="The Abandoned Reach" QuestId="11870" TurnInName="Hierophant Liandra" TurnInId="25838" />
 		<PickUp QuestName="Not On Our Watch" QuestId="11871" GiverName="Hierophant Liandra" GiverId="25838" />
 			<If Condition="((HasQuest(11871)) &amp;&amp; (!IsQuestCompleted(11871)))" >
 				<CustomBehavior File="FlyTo" X="2752.523" Y="5199.714" Z="29.66217" />
@@ -2583,7 +2686,7 @@
 				<CustomBehavior File="FlyTo" X="2780.223" Y="5243.329" Z="37.64537" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
-		<TurnIn QuestName="Not On Our Watch" QuestId="11871" TurnInName="Hierophant Liandra" TurnInId="25838" TurnInType="Npc" />
+		<TurnIn QuestName="Not On Our Watch" QuestId="11871" TurnInName="Hierophant Liandra" TurnInId="25838" />
 		<PickUp QuestName="The Nefarious Clam Master..." QuestId="11872" GiverName="Hierophant Liandra" GiverId="25838" />
 			<If Condition="((HasQuest(11872)) &amp;&amp; (!IsQuestCompleted(11872)))" >
 				<CustomBehavior File="FlyTo" X="2364.267" Y="4964.862" Z="5" />
@@ -2606,13 +2709,13 @@
 				<CustomBehavior File="FlyTo" X="3196.44" Y="5283.456" Z="47.53091" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
-		<TurnIn QuestName="The Nefarious Clam Master..." QuestId="11872" TurnInName="Hierophant Cenius" TurnInId="25810" TurnInType="Npc" />
+		<TurnIn QuestName="The Nefarious Clam Master..." QuestId="11872" TurnInName="Hierophant Cenius" TurnInId="25810" />
 			<If Condition="((HasQuest(11866)) &amp;&amp; (!IsQuestCompleted(11866)))" >
 				<CustomBehavior File="FlyTo" X="3913.555" Y="5479.67" Z="35.96967" />
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="Ears of Our Enemies" QuestId="11866" Type="CollectItem" ItemId="35188" ItemName="Nesingwary Lackey Ear" CollectCount="15" />
 			</If>
-		<TurnIn QuestName="Ears of Our Enemies" QuestId="11866" TurnInName="Arch Druid Lathorius" TurnInId="25809" TurnInType="Npc" />
+		<TurnIn QuestName="Ears of Our Enemies" QuestId="11866" TurnInName="Arch Druid Lathorius" TurnInId="25809" />
 		<!--
 			<If Condition="((HasQuest(11868)) &amp;&amp; (IsQuestCompleted(11868)))" >
 				<CustomBehavior File="FlyTo" X="3196.44" Y="5283.456" Z="47.53091" />
@@ -3107,19 +3210,19 @@
 			<Objective QuestName="Planning for the Future" QuestId="11960" Type="CollectItem" ItemId="35692" ItemName="Snowfall Glade Pup" CollectCount="12" /> -->
 			<Objective QuestName="Let Nothing Go To Waste" QuestId="11958" Type="CollectItem" ItemId="35686" ItemName="Stolen Moa'ki Goods" CollectCount="6" />
 			<!-- 
-		<TurnIn QuestName="Planning for the Future" QuestId="11960" TurnInName="Trapper Mau'i" TurnInId="26228" TurnInType="Npc" /> -->
-		<TurnIn QuestName="Let Nothing Go To Waste" QuestId="11958" TurnInName="Elder Ko'nani" TurnInId="26194" TurnInType="Npc" />
+		<TurnIn QuestName="Planning for the Future" QuestId="11960" TurnInName="Trapper Mau'i" TurnInId="26228" /> -->
+		<TurnIn QuestName="Let Nothing Go To Waste" QuestId="11958" TurnInName="Elder Ko'nani" TurnInId="26194" />
 		<PickUp QuestName="Slay Loguhn" QuestId="11959" GiverName="Elder Ko'nani" GiverId="26194" />
 			<Objective QuestName="Slay Loguhn" QuestId="11959" Type="CollectItem" ItemId="35688" CollectCount="1" />
 			<UseItem QuestName="Slay Loguhn" QuestId="11959" ItemId="35688" X="3352.497" Y="993.118" Z="138.1258" />
-		<TurnIn QuestName="Slay Loguhn" QuestId="11959" TurnInName="Elder Ko'nani" TurnInId="26194" TurnInType="Npc" />
+		<TurnIn QuestName="Slay Loguhn" QuestId="11959" TurnInName="Elder Ko'nani" TurnInId="26194" />
 		<PickUp QuestName="Spiritual Insight" QuestId="12028" GiverName="Toalu'u the Mystic" GiverId="26595" />
 			<If Condition="((HasQuest(12028)) &amp;&amp; (!IsQuestCompleted(12028)))" >
 				<CustomBehavior File="ForcedDismount" />
 				<UseItem QuestName="Spiritual Insight" QuestId="12028" ItemId="35907" X="2740.105" Y="881.537" Z="6.693972" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" />
 			</If>
-		<TurnIn QuestName="Spiritual Insight" QuestId="12028" TurnInName="Toalu'u the Mystic" TurnInId="26595" TurnInType="Npc" />
+		<TurnIn QuestName="Spiritual Insight" QuestId="12028" TurnInName="Toalu'u the Mystic" TurnInId="26595" />
 		
 		
 		<!-- find endpoly errors in water, as usual - use myCTM?
@@ -3138,12 +3241,12 @@
 					<PickUp QuestName="Signs of Big Watery Trouble" QuestId="12011" GiverName="Wrecked Crap Trap" GiverId="188364" GiverType="Object" X="2584.039" Y="953.323" Z="-59.84568" />
 					<CustomBehavior File="MyCTM" QuestId="12009" Location="2593.972 967.0676 -0.2489214" />
 					<CustomBehavior File="MyCTM" QuestId="12009" Location="2709.669 938.1523 0.3044204" />
-				<TurnIn QuestName="Signs of Big Watery Trouble" QuestId="12011" TurnInName="Tua'Kea" TurnInId="26245" TurnInType="Npc" />						
+				<TurnIn QuestName="Signs of Big Watery Trouble" QuestId="12011" TurnInName="Tua'Kea" TurnInId="26245" />						
 				</If>
 				-->
 		
 		<!-- I can't do this chain due to findendpoly errors QQ
-		<TurnIn QuestName="Tua'Kea's Crab Traps" QuestId="12009" TurnInName="Tua'Kea" TurnInId="26245" TurnInType="Npc" />
+		<TurnIn QuestName="Tua'Kea's Crab Traps" QuestId="12009" TurnInName="Tua'Kea" TurnInId="26245" />
 		<PickUp QuestName="The Bait" QuestId="12016" GiverName="Tua'kea" GiverId="26245" />
 			<Objective QuestName="The Bait" QuestId="12016" Type="CollectItem" ItemId="35831" CollectCount="1" />
 		<TurnIn QuestName="The Bait" QuestId="12016" TurnInName="Tua'kea" TurnInId="26245" />
@@ -3523,9 +3626,9 @@
 		<Checkpoint Level="73" />
 		
 		<PickUp QuestName="The Hills Have Us" QuestId="12511" PickUpName="Gryphon Commander Urik" GiverId="27317" />
-		<TurnIn QuestName="The Hills Have Us" QuestId="12511" TurnInName="Lieutenant Dumont" TurnInId="26875" TurnInType="Npc" />
+		<TurnIn QuestName="The Hills Have Us" QuestId="12511" TurnInName="Lieutenant Dumont" TurnInId="26875" />
 		<PickUp QuestName="Mmm... Amberseeds!" QuestId="12225" GiverName="Amberseed" GiverId="188667" GiverType="Object" X="3431.226" Y="-2779.476" Z="202.6579" />
-		<TurnIn QuestName="Mmm... Amberseeds!" QuestId="12225" TurnInName="Master Woodsman Anderhol" TurnInId="27277" TurnInType="Npc" />
+		<TurnIn QuestName="Mmm... Amberseeds!" QuestId="12225" TurnInName="Master Woodsman Anderhol" TurnInId="27277" />
 		<PickUp QuestName="Just Passing Through" QuestId="12226" GiverName="Master Woodsman Anderhol" GiverId="27277" />
 		<PickUp QuestName="Replenishing the Storehouse" QuestId="12212" GiverName="Master Woodsman Anderhol" GiverId="27277" />
 		<PickUp QuestName="Them or Us!" QuestId="12215" GiverName="Master Woodsman Anderhol" GiverId="27277" />
@@ -3533,29 +3636,29 @@
 			<Objective QuestName="Local Support" QuestId="12292" Type="CollectItem" ItemId="37572" ItemName="Cedar Chest" CollectCount="1" />
 			<Objective QuestName="Them or Us!" QuestId="12215" Type="KillMob" MobId="26592" MobName="Graymist Hunter" KillCount="6" />
 			<Objective QuestName="Replenishing the Storehouse" QuestId="12212" Type="CollectItem" ItemId="37185" ItemName="Succulent Venison" CollectCount="8" />
-		<TurnIn QuestName="Local Support" QuestId="12292" TurnInName="Lieutenant Dumont" TurnInId="26875" TurnInType="Npc" />
+		<TurnIn QuestName="Local Support" QuestId="12292" TurnInName="Lieutenant Dumont" TurnInId="26875" />
 		<PickUp QuestName="Close the Deal" QuestId="12293" GiverName="Lieutenant Dumont" GiverId="26875" />
-		<TurnIn QuestName="Replenishing the Storehouse" QuestId="12212" TurnInName="Master Woodsman Anderhol" TurnInId="27277" TurnInType="Npc" />
+		<TurnIn QuestName="Replenishing the Storehouse" QuestId="12212" TurnInName="Master Woodsman Anderhol" TurnInId="27277" />
 		<PickUp QuestName="Take Their Rear!" QuestId="12216" GiverName="Master Woodsman Anderhol" GiverId="27277" />
-		<TurnIn QuestName="Them or Us!" QuestId="12215" TurnInName="Master Woodsman Anderhol" TurnInId="27277" TurnInType="Npc" />
+		<TurnIn QuestName="Them or Us!" QuestId="12215" TurnInName="Master Woodsman Anderhol" TurnInId="27277" />
 		<PickUp QuestName="Eagle Eyes" QuestId="12217" GiverName="Master Woodsman Anderhol" GiverId="27277" />
 		<PickUp QuestName="Troll Season!" QuestId="12210" GiverName="Lieutenant Dumont" GiverId="26875" />
 			<Objective QuestName="Just Passing Through" QuestId="12226" Type="CollectItem" ItemId="37246" ItemName="Blackroot Stalk" CollectCount="5" />
 			<Objective QuestName="Take Their Rear!" QuestId="12216" Type="CollectItem" ItemId="37200" ItemName="Grizzly Flank" CollectCount="8" />
-		<TurnIn QuestName="Close the Deal" QuestId="12293" TurnInName="Ivan" TurnInId="27469" TurnInType="Npc" />
+		<TurnIn QuestName="Close the Deal" QuestId="12293" TurnInName="Ivan" TurnInId="27469" />
 		<PickUp QuestName="A Tentative Pact" QuestId="12294" GiverName="Ivan" GiverId="27469" />
 			<Objective QuestName="Eagle Eyes" QuestId="12217" Type="KillMob" MobId="26369" MobName="Imperial Eagle" KillCount="5" />
-		<TurnIn QuestName="A Tentative Pact" QuestId="12294" TurnInName="Lieutenant Dumont" TurnInId="26875" TurnInType="Npc" />
+		<TurnIn QuestName="A Tentative Pact" QuestId="12294" TurnInName="Lieutenant Dumont" TurnInId="26875" />
 		<PickUp QuestName="An Exercise in Diplomacy" QuestId="12295" GiverName="Lieutenant Dumont" GiverId="26875" />
-		<TurnIn QuestName="Take Their Rear!" QuestId="12216" TurnInName="Master Woodsman Anderhol" TurnInId="27277" TurnInType="Npc" />
-		<TurnIn QuestName="Just Passing Through" QuestId="12226" TurnInName="Master Woodsman Anderhol" TurnInId="27277" TurnInType="Npc" />
-		<TurnIn QuestName="Eagle Eyes" QuestId="12217" TurnInName="Master Woodsman Anderhol" TurnInId="27277" TurnInType="Npc" />
+		<TurnIn QuestName="Take Their Rear!" QuestId="12216" TurnInName="Master Woodsman Anderhol" TurnInId="27277" />
+		<TurnIn QuestName="Just Passing Through" QuestId="12226" TurnInName="Master Woodsman Anderhol" TurnInId="27277" />
+		<TurnIn QuestName="Eagle Eyes" QuestId="12217" TurnInName="Master Woodsman Anderhol" TurnInId="27277" />
 		<PickUp QuestName="Doing Your Duty" QuestId="12227" GiverName="Master Woodsman Anderhol" GiverId="27277" />
 			<While Condition="((HasQuest(12227)) &amp;&amp; (!IsQuestCompleted(12227)))" >
 				<CustomBehavior File="InteractWith" QuestId="12227" ObjectType="Gameobject" MobId="188666" NumOfTimes="1" GossipOptions="1" CollectionDistance="10" X="3453.324" Y="-2803.349" Z="202.0043" />
 				<CustomBehavior File="WaitTimer" WaitTime="20000"/>
 			</While>
-		<TurnIn QuestName="Doing Your Duty" QuestId="12227" TurnInName="Master Woodsman Anderhol" TurnInId="27277" TurnInType="Npc" />
+		<TurnIn QuestName="Doing Your Duty" QuestId="12227" TurnInName="Master Woodsman Anderhol" TurnInId="27277" />
 		<PickUp QuestName="Secrets of the Flamebinders" QuestId="12222" GiverName="Woodsman Drake" GiverId="27391" />
 		<PickUp QuestName="Thinning the Ranks" QuestId="12223" GiverName="Woodsman Drake" GiverId="27391" />
 			<If Condition="((HasQuest(12223)) &amp;&amp; (!HasItem(36940)))" >
@@ -3586,21 +3689,21 @@
 		<TurnIn QuestName="Thinning the Ranks" QuestId="12223" TurnInName="Woodsman Drake" TurnInId="27391" />
 			<!--Thane quest, but can't complete atm 
 		<PickUp QuestName="The Thane of Voldrune" QuestId="12255" GiverName="Woodsman Drake" GiverId="27391" /> -->
-		<TurnIn QuestName="Troll Season!" QuestId="12210" TurnInName="Samir" TurnInId="26424" TurnInType="Npc" />
+		<TurnIn QuestName="Troll Season!" QuestId="12210" TurnInName="Samir" TurnInId="26424" />
 			<!-- Figure out a way to do Filling The Cages quest (from Samir at Granite Springs, with help of Budd) -->
-		<TurnIn QuestName="An Exercise in Diplomacy" QuestId="12295" TurnInName="Envoy Ducal" TurnInId="26821" TurnInType="Npc" />
+		<TurnIn QuestName="An Exercise in Diplomacy" QuestId="12295" TurnInName="Envoy Ducal" TurnInId="26821" />
 		<PickUp QuestName="Northern Hospitality" QuestId="12299" GiverName="Sergei" GiverId="27486" />
 		<PickUp QuestName="Wolfsbane Root" QuestId="12307" GiverName="Katja" GiverId="27545" />
 			<Objective QuestName="Northern Hospitality" QuestId="12299" Type="KillMob" MobId="27424" MobName="Conquest Hold Marauder" KillCount="8" />
 			<Objective QuestName="Wolfsbane Root" QuestId="12307" Type="UseObject" ObjectId="189313" ObjectName="Wolfsbane Root" UseCount="8" />
-		<TurnIn QuestName="Northern Hospitality" QuestId="12299" TurnInName="Sergei" TurnInId="27486" TurnInType="Npc" />
-		<TurnIn QuestName="Wolfsbane Root" QuestId="12307" TurnInName="Katja" TurnInId="27545" TurnInType="Npc" />
+		<TurnIn QuestName="Northern Hospitality" QuestId="12299" TurnInName="Sergei" TurnInId="27486" />
+		<TurnIn QuestName="Wolfsbane Root" QuestId="12307" TurnInName="Katja" TurnInId="27545" />
 		<PickUp QuestName="Test of Mettle" QuestId="12300" GiverName="Sergei" GiverId="27486" />
 			<Objective QuestName="Test of Mettle" QuestId="12300" Type="KillMob" MobId="27493" KillCount="1" />
-		<TurnIn QuestName="Test of Mettle" QuestId="12300" TurnInName="Captured Trapper" TurnInId="27497" TurnInType="Npc" />
+		<TurnIn QuestName="Test of Mettle" QuestId="12300" TurnInName="Captured Trapper" TurnInId="27497" />
 		<PickUp QuestName="Words of Warning" QuestId="12302" GiverName="Captured Trapper" GiverId="27497" />
-		<TurnIn QuestName="Words of Warning" QuestId="12302" TurnInName="Caged Prisoner" TurnInId="27499" TurnInType="Npc" />
-		<TurnIn QuestName="Report to Gryan Stoutmantle... Again" QuestId="12109" TurnInName="Captain Gryan Stoutmantle" TurnInId="26212" TurnInType="Npc" />
+		<TurnIn QuestName="Words of Warning" QuestId="12302" TurnInName="Caged Prisoner" TurnInId="27499" />
+		<TurnIn QuestName="Report to Gryan Stoutmantle... Again" QuestId="12109" TurnInName="Captain Gryan Stoutmantle" TurnInId="26212" />
 		<PickUp QuestName="Softening the Blow" QuestId="11998" GiverName="Captain Gryan Stoutmantle" GiverId="26212" />
 		<PickUp QuestName="A Bear of an Appetite" QuestId="12279" GiverName="Hugh Glass" GiverId="26484" />
 			<!-- Find a way to loot the items and ride vehicle back and drop off x5
@@ -3630,29 +3733,29 @@
 		<TurnIn QuestName="Softening the Blow" QuestId="11998" TurnInName="Brugar Stoneshear" TurnInId="26226" />
 		<PickUp QuestName="Brothers in Battle" QuestId="12002" GiverName="Brugar Stoneshear" GiverId="26226" />
 		<PickUp QuestName="Hollowstone Mine" QuestId="12158" GiverName="Captain Gryan Stoutmantle" GiverId="26212" />
-		<TurnIn QuestName="Hollowstone Mine" QuestId="12158" TurnInName="Petrov" TurnInId="26932" TurnInType="Npc" />
+		<TurnIn QuestName="Hollowstone Mine" QuestId="12158" TurnInName="Petrov" TurnInId="26932" />
 		<PickUp QuestName="Souls at Unrest" QuestId="12159" GiverName="Petrov" GiverId="26932" />
 			<If Condition="(HasQuest(12159))" >
 				<CustomBehavior File="UseItemOn" QuestId="12159" ItemId="37932" MobId="26891" NumOfTimes="40" WaitTime="6000" CollectionDistance="500" X="4720.677" Y="-3974.096" Z="204.2048" />
 			</If>
-		<TurnIn QuestName="Souls at Unrest" QuestId="12159" TurnInName="Petrov" TurnInId="26932" TurnInType="Npc" />
+		<TurnIn QuestName="Souls at Unrest" QuestId="12159" TurnInName="Petrov" TurnInId="26932" />
 		<PickUp QuestName="A Name from the Past" QuestId="12160" GiverName="Petrov" GiverId="26932" />
-		<TurnIn QuestName="A Name from the Past" QuestId="12160" TurnInName="Captain Gryan Stoutmantle" TurnInId="26212" TurnInType="Npc" />
+		<TurnIn QuestName="A Name from the Past" QuestId="12160" TurnInName="Captain Gryan Stoutmantle" TurnInId="26212" />
 		<PickUp QuestName="Ruuna the Blind" QuestId="12161" GiverName="Private Arun" GiverId="27582" />
-		<TurnIn QuestName="Ruuna the Blind" QuestId="12161" TurnInName="Ruuna the Blind" TurnInId="27581" TurnInType="Npc" />
+		<TurnIn QuestName="Ruuna the Blind" QuestId="12161" TurnInName="Ruuna the Blind" TurnInId="27581" />
 		<PickUp QuestName="Ruuna's Request" QuestId="12328" GiverName="Ruuna the Blind" GiverId="27581" />
 			<!-- There is an escort quest called Mr. Floppy's Perilous Adventure at Heartwood Trading Post near collect area GiverName="Emily" GiverId="26588" gives it -->
 			<Objective QuestName="Ruuna's Request" QuestId="12328" Type="CollectItem" ItemId="37662" CollectCount="4" />
-		<TurnIn QuestName="Ruuna's Request" QuestId="12328" TurnInName="Ruuna the Blind" TurnInId="27581" TurnInType="Npc" />
+		<TurnIn QuestName="Ruuna's Request" QuestId="12328" TurnInName="Ruuna the Blind" TurnInId="27581" />
 		<PickUp QuestName="Out of Body Experience" QuestId="12327" GiverName="Ruuna the Blind" GiverId="27581" />
 			<If Condition="((HasQuest(12327)) &amp;&amp; (!IsQuestCompleted(12327)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="1000" />
 				<UseItem QuestName="Gossamer Potion" QuestId="12327" ItemId="37661" X="3838.483" Y="-3425.155" Z="293.1031" />
 				<CustomBehavior File="WaitTimer" WaitTime="50000" />
 			</If>
-		<TurnIn QuestName="Out of Body Experience" QuestId="12327" TurnInName="Ruuna the Blind" TurnInId="27581" TurnInType="Npc" />
+		<TurnIn QuestName="Out of Body Experience" QuestId="12327" TurnInName="Ruuna the Blind" TurnInId="27581" />
 		<PickUp QuestName="Fate and Coincidence" QuestId="12329" GiverName="Ruuna the Blind" GiverId="27581" />
-		<TurnIn QuestName="Fate and Coincidence" QuestId="12329" TurnInName="Sasha" TurnInId="26935" TurnInType="Npc" />
+		<TurnIn QuestName="Fate and Coincidence" QuestId="12329" TurnInName="Sasha" TurnInId="26935" />
 		<PickUp QuestName="Sasha's Hunt" QuestId="12134" GiverName="Sasha" GiverId="26935" />
 		<PickUp QuestName="Anatoly Will Talk" QuestId="12330" GiverName="Sasha" GiverId="26935" />
 			<Objective QuestName="Sasha's Hunt" QuestId="12134" Type="KillMob" MobId="26389" MobName="Solstice Hunter" KillCount="12" />
@@ -3668,10 +3771,10 @@
 				<CustomBehavior File="WaitTimer" WaitTime="30000" />
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</While>
-		<TurnIn QuestName="Sasha's Hunt" QuestId="12134" TurnInName="Sasha" TurnInId="26935" TurnInType="Npc" />
-		<TurnIn QuestName="Anatoly Will Talk" QuestId="12330" TurnInId="26935" TurnInType="Npc" />
+		<TurnIn QuestName="Sasha's Hunt" QuestId="12134" TurnInName="Sasha" TurnInId="26935" />
+		<TurnIn QuestName="Anatoly Will Talk" QuestId="12330" TurnInId="26935" />
 		<PickUp QuestName="A Sister's Pledge" QuestId="12411" GiverName="Sasha" GiverId="26935" />
-		<TurnIn QuestName="A Sister's Pledge" QuestId="12411" TurnInName="Anya" TurnInId="27646" TurnInType="Npc" />
+		<TurnIn QuestName="A Sister's Pledge" QuestId="12411" TurnInName="Anya" TurnInId="27646" />
 		<!-- 
 		<PickUp QuestName="Hour of the Worg" QuestId="12164" GiverName="Sasha" GiverId="26935" />
 		Group quest,  X="3996.828" Y="-4519.888" Z="195.6826" /> is location inside of the cave, lasts 30 seconds -->
@@ -3679,7 +3782,7 @@
 		<!-- NE of Westfall -->
 		<PickUp QuestName="Find Kurun!" QuestId="11981" GiverName="Fallen Earthen Warrior" GiverId="26335" />
 		<PickUp QuestName="The Damaged Journal" QuestId="11986" GiverName="Battered Journal" GiverId="188261" GiverType="Object" X="4823.791" Y="-4485.659" Z="198.8233" />
-		<TurnIn QuestName="Find Kurun!" QuestId="11981" TurnInName="Kurun" TurnInId="26260" TurnInType="Npc" />
+		<TurnIn QuestName="Find Kurun!" QuestId="11981" TurnInName="Kurun" TurnInId="26260" />
 			<!-- This Quest now works - let's implement it soon
 		<PickUp QuestName="Raining Down Destruction" QuestId="11982" GiverName="Kurun" GiverId="26260" />
 			<If Condition="((HasQuest(11982)) &amp;&amp; (!IsQuestCompleted(11982)))" >
@@ -3695,7 +3798,7 @@
 				<CustomBehavior File="WaitTimer" WaitTime="10000"/>
 			</If>
 			<Objective QuestName="Brothers in Battle" QuestId="12002" Type="KillMob" MobId="26284" MobName="Runic Battle Golem" KillCount="10" />
-		<TurnIn QuestName="Brothers in Battle" QuestId="12002" TurnInName="Brugar Stoneshear" TurnInId="26226" TurnInType="Npc" />
+		<TurnIn QuestName="Brothers in Battle" QuestId="12002" TurnInName="Brugar Stoneshear" TurnInId="26226" />
 		<TurnIn QuestName="The Damaged Journal" QuestId="11986" TurnInName="Torthen Deepdig" TurnInId="26361" />
 		<PickUp QuestName="The Runic Keystone" QuestId="11988" GiverName="Torthen Deepdig" GiverId="26361" />
 		<PickUp QuestName="Uncovering the Tunnels" QuestId="12003" GiverName="Brugar Stoneshear" GiverId="26226" />
@@ -3705,9 +3808,9 @@
 			<Objective QuestName="The Runic Keystone" QuestId="11988" Type="CollectItem" ItemId="35747" CollectCount="5" />
 		<TurnIn QuestName="The Runic Keystone" QuestId="11988" TurnInName="Torthen Deepdig" TurnInId="26361" />
 		<PickUp QuestName="The Runic Prophecies" QuestId="11993" GiverName="Torthen Deepdig" GiverId="26361" />
-		<TurnIn QuestName="Uncovering the Tunnels" QuestId="12003" TurnInName="Brugar Stoneshear" TurnInId="26226" TurnInType="Npc" />
+		<TurnIn QuestName="Uncovering the Tunnels" QuestId="12003" TurnInName="Brugar Stoneshear" TurnInId="26226" />
 		<PickUp QuestName="The Fate of Orlond" QuestId="12010" GiverName="Brugar Stoneshear" GiverId="26226" />
-		<TurnIn QuestName="The Fate of Orlond" QuestId="12010" TurnInName="Surveyor Orlond" TurnInId="26514" TurnInType="Npc" />
+		<TurnIn QuestName="The Fate of Orlond" QuestId="12010" TurnInName="Surveyor Orlond" TurnInId="26514" />
 		<PickUp QuestName="Steady as a Rock?" QuestId="12014" GiverName="Surveyor Orlond" GiverId="26514" />
 			<While Condition="((HasQuest(11993)) &amp;&amp; (!IsQuestCompleted(11993)))" >
 				<CustomBehavior File="InteractWith" QuestId="11993" ObjectType="Gameobject" MobId="188289" NumOfTimes="1" CollectionDistance="10" X="4950.799" Y="-4707.088" Z="219.6121" />
@@ -3717,19 +3820,19 @@
 			<Objective QuestName="Steady as a Rock?" QuestId="12014" Type="CollectItem" ItemId="35837" ItemName="Portable Seismograph" CollectCount="1" />
 			<UseItem QuestName="Steady as a Rock?" QuestId="12014" ItemId="35837" X="5048.288" Y="-4819.783" Z="219.5013" />
 			<Objective QuestName="Steady as a Rock?" QuestId="12014" Type="CollectItem" ItemId="35819" ItemName="Thor Modan Stability Profile" CollectCount="1" CollectFrom="188367" />
-		<TurnIn QuestName="Steady as a Rock?" QuestId="12014" TurnInName="Brugar Stoneshear" TurnInId="26226" TurnInType="Npc" />
+		<TurnIn QuestName="Steady as a Rock?" QuestId="12014" TurnInName="Brugar Stoneshear" TurnInId="26226" />
 		<TurnIn QuestName="The Runic Prophecies" QuestId="11993" TurnInName="Torthen Deepdig" TurnInId="26361" />
 		<PickUp QuestName="Check Up on Raegar" QuestId="12128" GiverName="Brugar Stoneshear" GiverId="26226" />
 		<PickUp QuestName="Nice to Meat You" QuestId="12113" GiverName="Harkor" GiverId="26884" />
 		<PickUp QuestName="Therapy" QuestId="12114" GiverName="Harkor" GiverId="26884" />
 		<PickUp QuestName="It Takes Guts...." QuestId="12116" GiverName="Kraz" GiverId="26886" />
 			<Objective QuestName="It Takes Guts...." QuestId="12116" Type="CollectItem" ItemId="36825" ItemName="Drakkari Canopic Jar" CollectCount="5" CollectFrom="188499" />
-		<TurnIn QuestName="It Takes Guts...." QuestId="12116" TurnInName="Kraz" TurnInId="26886" TurnInType="Npc" />
+		<TurnIn QuestName="It Takes Guts...." QuestId="12116" TurnInName="Kraz" TurnInId="26886" />
 		<PickUp QuestName="Drak'aguul's Mallet" QuestId="12120" GiverName="Kraz" GiverId="26886" />
 			<Objective QuestName="Drak'aguul's Mallet" QuestId="12120" Type="CollectItem" ItemId="36826" ItemName="Drakil'jin Mallet" CollectCount="1" />
 			<Objective QuestName="Therapy" QuestId="12114" Type="KillMob" MobId="26795" MobName="Drakkari Oracle" KillCount="10" />
 			<Objective QuestName="Therapy" QuestId="12114" Type="KillMob" MobId="26797" MobName="Drakkari Protector" KillCount="10" />
-		<TurnIn QuestName="Drak'aguul's Mallet" QuestId="12120" TurnInName="Kraz" TurnInId="26886" TurnInType="Npc" />
+		<TurnIn QuestName="Drak'aguul's Mallet" QuestId="12120" TurnInName="Kraz" TurnInId="26886" />
 			<!-- This quest has a bug with useitemon -> and collecting right after :( - there is also an escort quest in here, which we can't do atm
 		<PickUp QuestName="See You on the Other Side" QuestId="12121" GiverName="Kraz" GiverId="26886" />
 			<If Condition="(HasQuest(12121))" >
@@ -3743,7 +3846,7 @@
 				<Runto QuestId="12121" X="4812.743" Y="-4797.463" Z="25.48123" />
 				<Runto QuestId="12121" X="4829.643" Y="-4775.655" Z="32.57765" />
 				<Runto QuestId="12121" X="4835.465" Y="-4755.643" Z="32.51737" />
-				<TurnIn QuestName="See You on the Other Side" QuestId="12121" TurnInName="Gan'jo" TurnInId="26924" TurnInType="Npc" />
+				<TurnIn QuestName="See You on the Other Side" QuestId="12121" TurnInName="Gan'jo" TurnInId="26924" />
 			</If>
 			<If Condition="(!HasQuest(12137))" >
 				<PickUp QuestName="Chill Out, Mon" QuestId="12137" GiverName="Gan'jo" GiverId="26924" />
@@ -3756,13 +3859,13 @@
 				<CustomBehavior File="UseItemOn" QuestId="12137" MobId="26812" ItemId="36859" NumOfTimes="5" WaitTime="17000" CollectionDistance="100" X="4831.968" Y="-4810.053" Z="25.59231" />
 			</If>
 				<Objective QuestName="Chill Out, Mon" QuestId="12137" Type="CollectItem" ItemId="36868" ItemName="Drakkari Spirit Particles" CollectCount="5" />
-		<TurnIn QuestName="Chill Out, Mon" QuestId="12137" TurnInName="Kraz" TurnInId="26886" TurnInType="Npc" /> -->
-		<TurnIn QuestName="Therapy" QuestId="12114" TurnInName="Harkor" TurnInId="26884" TurnInType="Npc" />
+		<TurnIn QuestName="Chill Out, Mon" QuestId="12137" TurnInName="Kraz" TurnInId="26886" /> -->
+		<TurnIn QuestName="Therapy" QuestId="12114" TurnInName="Harkor" TurnInId="26884" />
 			<!-- You will get agro from the Runed Giants while doing this quest and likely die! -->
 			<Objective QuestName="Nice to Meat You" QuestId="12113" Type="CollectItem" ItemId="36875" CollectCount="10" />
 			<Objective QuestName="Nice to Meat You" QuestId="12113" Type="CollectItem" ItemId="36819" CollectCount="10" />
-		<TurnIn QuestName="Nice to Meat You" QuestId="12113" TurnInName="Harkor" TurnInId="26884" TurnInType="Npc" />
-		<TurnIn QuestName="Check Up on Raegar" QuestId="12128" TurnInName="Raegar Breakbrow" TurnInId="26883" TurnInType="Npc" />
+		<TurnIn QuestName="Nice to Meat You" QuestId="12113" TurnInName="Harkor" TurnInId="26884" />
+		<TurnIn QuestName="Check Up on Raegar" QuestId="12128" TurnInName="Raegar Breakbrow" TurnInId="26883" />
 		<!-- 
 		<Pickup QuestName="The Perfect Plan" QuestId="12129" GiverName="Raegar Breakbrow" GiverId="26883" />
 		<Pickup QuestName="The Captive Prospectors" QuestId="12180" GiverName="Mountaineer Kilian" GiverId="26885" />
