@@ -1817,7 +1817,7 @@
 		
 	<CustomBehavior File="UserSettings" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" LootMobs="True" PullDistance="20" />
 	
-		<CustomBehavior File="Message" Text="If the bot takes more than 5 secs to move, it is compiling quests to see where you are - it's about 1 minute per zone completed" LogColor="Red" />
+		<CustomBehavior File="Message" Text="If the bot takes more than 5 secs to move, it is compiling quests to see where you are - it's about 1 minute per zone completed" LogColor="Cornflowerblue" />
 
 	
 			<!-- Train riding -->
@@ -4362,9 +4362,45 @@
 			<!-- Not picking up "Prisoner of War" for The Nexus -->
 			<!-- End of Coldarra Quests -->
 
-
 			<!-- lets fly and turn in the moa'ki harbor quest - then fly to grizzly hills corner, then hf -->
+			<If Condition="((HasQuest(12117)) &amp;&amp; (IsQuestCompleted(12117)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2794.981" Y="910.9105" Z="22.27251" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Travel to Moa'ki Harbor" QuestId="12117" TurnInName="Elder Ko'nani" TurnInId="26194" />
+			</If>
 			
+			
+		<!-- Howling Fjorde -->
+		
+			<If Condition="((!HasQuest(11228)) &amp;&amp; (!IsQuestCompleted(11228)))" >
+			 <If Condition="Me.ZoneId == 3537" >
+				<CustomBehavior File="FlyTo" DestName="Dragonblight" X="2794.981" Y="910.9105" Z="200" />
+			 </If>
+			 <If Condition="Me.ZoneId == 65" >
+				<CustomBehavior File="FlyTo" DestName="Grizzly Hills" X="2795.066" Y="-1991.793" Z="189.3017" />
+			 </If>
+			 <If Condition="Me.ZoneId == 394" >
+				<CustomBehavior File="FlyTo" DestName="Howling Fjord" X="2230.956" Y="-3130.312" Z="283.205" />
+			 </If>
+			 <If Condition="Me.ZoneId == 495" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="597.7538" Y="-5070.106" Z="5.36035" />
+			 </If>
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Hell Has Frozen Over..." QuestId="11228" GiverName="Macalroy" GiverId="23547" />
+			</If>
+			<If Condition="((HasQuest(11228)) &amp;&amp; (IsQuestCompleted(11228)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="650.2914" Y="-5054.089" Z="1.78163" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Hell Has Frozen Over..." QuestId="11228" TurnInName="Vice Admiral Keller" TurnInId="23546" />
+		<PickUp QuestName="If Valgarde Falls..." QuestId="11243" GiverName="Vice Admiral Keller" GiverId="23546" />
+			</If>
+			<If Condition="((!HasQuest(11243)) &amp;&amp; (!IsQuestCompleted(11243)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="650.2914" Y="-5054.089" Z="1.78163" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="If Valgarde Falls..." QuestId="11243" GiverName="Vice Admiral Keller" GiverId="23546" />
+			</If>
+		
+		
 
 		<!--
 
@@ -4374,14 +4410,6 @@
 		
 		
 		
-		<!-- Howling Fjorde -->
-			<If Condition="((!HasQuest(11228)) &amp;&amp; (!IsQuestCompleted(11228)))" >
-				<CustomBehavior File="FlyTo" X="600.2275" Y="-5058.658" Z="3.312016" />
-				<CustomBehavior File="ForcedDismount" />
-			</If>
-		<PickUp QuestName="Hell Has Frozen Over..." QuestId="11228" GiverName="Macalroy" GiverId="23547" />
-		<TurnIn QuestName="Hell Has Frozen Over..." QuestId="11228" TurnInName="Vice Admiral Keller" TurnInId="23546" />
-		<PickUp QuestName="If Valgarde Falls..." QuestId="11243" GiverName="Vice Admiral Keller" GiverId="23546" />
 			<Objective QuestName="If Valgarde Falls..." QuestId="11243" Type="KillMob" MobId="24051" KillCount="12" />
 		<TurnIn QuestName="If Valgarde Falls..." QuestId="11243" TurnInName="Vice Admiral Keller" TurnInId="23546" />
 		<PickUp QuestName="Rescuing the Rescuers" QuestId="11244" GiverName="Vice Admiral Keller" GiverId="23546" />
