@@ -24,6 +24,7 @@
   
 
 	<Blackspots>
+		<Blackspot X="3651.744" Y="6964.696" Z="159.005" Radius="7.095916" />
 		<Blackspot X="3879.278" Y="7224.184" Z="172.0622" Radius="10" />
 		<Blackspot X="4026.739" Y="-4391.247" Z="262.0001" Radius="19.76611" />
 		<Blackspot X="3564.263" Y="5612.903" Z="38.99009" Radius="3.854768" />
@@ -1009,7 +1010,7 @@
 
 	<Quest Id="11951" Name="Bait and Switch">
 		<Objective Type="CollectItem" ItemId="35685" CollectCount="10">
-			<CollectFrom> 188140
+			<CollectFrom>
 				<GameObject Id="188140" Name="Crystallized Mana" />
 			</CollectFrom>
 			<Hotspots>
@@ -1159,6 +1160,23 @@
 				<Hotspot X="3858.342" Y="7380.099" Z="191.2344" />
 				<Hotspot X="3864.377" Y="7305.843" Z="180.6827" />
 				<Hotspot X="3900.246" Y="7216.545" Z="171.1792" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+
+	<Quest Id="11914" Name="Keep the Secret Safe">
+		<Objective Type="CollectItem" ItemId="35493" CollectCount="5">
+			<CollectFrom>
+				<Mob Name="Arcane Serpent" Entry="25721" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="3779.435" Y="6955.707" Z="104.901" />
+				<Hotspot X="3885.158" Y="6877.778" Z="103.6026" />
+				<Hotspot X="3974.255" Y="6949.997" Z="103.4229" />
+				<Hotspot X="3952.33" Y="7049.784" Z="104.6477" />
+				<Hotspot X="3838.464" Y="7073.317" Z="103.7773" />
+				<Hotspot X="3769.936" Y="7013.044" Z="102.9939" />
+				<Hotspot X="3780.395" Y="6950.975" Z="104.8372" />			
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -1786,6 +1804,7 @@
 	</Quest>
 	
 	<QuestOrder IgnoreCheckpoints="True" >
+	
 			<If Condition="Me.IsHorde" >
 				<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You must be Alliance to run this profile" />
 			</If>
@@ -1798,13 +1817,16 @@
 		
 	<CustomBehavior File="UserSettings" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" LootMobs="True" PullDistance="20" />
 	
+		<CustomBehavior File="Message" Text="If the bot takes more than 5 secs to move, it is compiling quests to see where you are - it's about 1 minute per zone completed" LogColor="Red" />
+
+	
 			<!-- Train riding -->
 			<If Condition="(!HasSpell(54197))">
 				<If Condition="Me.Gold &gt;= 501" >
 					<RunTo X="2274.391" Y="5174.106" Z="11.17985" />
 					<CustomBehavior File="InteractWith"  MobId="35133" WaitTime="1000" CollectionDistance="50" X="2274.391" Y="5174.106" Z="11.17985" />
 					<CustomBehavior File="ForceTrainRiding"  MobId="35133" />
-					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for   {TimeRemaining}"  />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting {TimeRemaining}"  />
 				</If>
 			</If>
 			<If Condition="!CanFly()"> <!-- You can't use this profile if you can't fly -->
@@ -4012,7 +4034,7 @@
 			</If>
 			
 			<If Condition="((!HasQuest(11918)) &amp;&amp; (!IsQuestCompleted(11918)))" >
-				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3623.447" Y="6613.672" Z="190.1278" />
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
 				<CustomBehavior File="ForcedDismount" />
 		<Pickup QuestName="Basic Training" QuestId="11918" GiverName="Raelorasz" GiverId="26117" />
 		<Pickup QuestName="Nuts for Berries" QuestId="11912" GiverName="Librarian Serrah" GiverId="26110" />
@@ -4020,52 +4042,96 @@
 		<Pickup QuestName="Secrets of the Ancients" QuestId="11910" GiverName="Archmage Berinand" GiverId="25314" />
 			</If>
 			<If Condition="((!HasQuest(11912)) &amp;&amp; (!IsQuestCompleted(11912)))" >
-				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3623.447" Y="6613.672" Z="190.1278" />
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
 				<CustomBehavior File="ForcedDismount" />
 		<Pickup QuestName="Nuts for Berries" QuestId="11912" GiverName="Librarian Serrah" GiverId="26110" />
 			</If>
 			<If Condition="((!HasQuest(11900)) &amp;&amp; (!IsQuestCompleted(11900)))" >
-				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3623.447" Y="6613.672" Z="190.1278" />
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
 				<CustomBehavior File="ForcedDismount" />
 		<Pickup QuestName="Reading the Meters" QuestId="11900" GiverName="Archmage Berinand" GiverId="25314" />
 			</If>
 			<If Condition="((!HasQuest(11910)) &amp;&amp; (!IsQuestCompleted(11910)))" >
-				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3623.447" Y="6613.672" Z="190.1278" />
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
 				<CustomBehavior File="ForcedDismount" />
 		<Pickup QuestName="Secrets of the Ancients" QuestId="11910" GiverName="Archmage Berinand" GiverId="25314" />
 			</If>
-			
-
-		<!--
-
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="3" Text="End of Line!\n\nYes, I fight for the users!" />
-		
-		-->
-		
-		
-		<Pickup QuestName="Nuts for Berries" QuestId="11912" GiverName="Librarian Serrah" GiverId="26110" />
-		<Pickup QuestName="Reading the Meters" QuestId="11900" GiverName="Archmage Berinand" GiverId="25314" />
-		<Pickup QuestName="Secrets of the Ancients" QuestId="11910" GiverName="Archmage Berinand" GiverId="25314" />
-			<Objective QuestName="Nuts for Berries" QuestId="11912" Type="CollectItem" CollectCount="10" ItemId="35492" />
-			<Objective QuestName="Secrets of the Ancients" QuestId="11910" Type="CollectItem" CollectCount="3" ItemId="35483" />
+			<If Condition="((HasQuest(11912)) &amp;&amp; (!IsQuestCompleted(11912)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3607.986" Y="6958.359" Z="170.6434" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Nuts for Berries" QuestId="11912" Type="CollectItem" CollectCount="10" ItemId="35492" />
+			</If>
+			<If Condition="((HasQuest(11918)) &amp;&amp; (!IsQuestCompleted(11918)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3607.986" Y="6958.359" Z="170.6434" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Basic Training" QuestId="11918" Type="KillMob" MobId="25722" MobName="Coldarra Spellweaver" KillCount="10" />
+			</If>
+			<If Condition="((HasQuest(11910)) &amp;&amp; (!IsQuestCompleted(11910)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3607.986" Y="6958.359" Z="170.6434" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Secrets of the Ancients" QuestId="11910" Type="CollectItem" CollectCount="3" ItemId="35483" />
+				<Objective QuestName="Secrets of the Ancients" QuestId="11910" Type="CollectItem" CollectCount="3" ItemId="35484" />
+			</If>
 			<While Condition="((HasQuest(11900)) &amp;&amp; (!IsQuestCompleted(11900)))" >
+			
+				<CustomBehavior File="FlyTo" DestName="S Coldarra Reading" QuestId="11900" X="3597.604" Y="6916.684" Z="177.1693" />
+				<CustomBehavior File="ForcedDismount" />
 				<RunTo QuestId="11900" X="3554.335" Y="6938.918" Z="174.2765" />
 				<CustomBehavior File="InteractWith" QuestId="11900" ObjectType="Gameobject" MobId="188101" NumOfTimes="1" CollectionDistance="20" X="3554.335" Y="6938.918" Z="174.2765" />
+
+				<CustomBehavior File="FlyTo" DestName="W Coldarra Reading" QuestId="11900" X="3972.152" Y="7236.749" Z="178.059" />
+				<CustomBehavior File="ForcedDismount" />
 				<RunTo QuestId="11900" X="3993.309" Y="7266.834" Z="178.9153" />
 				<CustomBehavior File="InteractWith" QuestId="11900" ObjectType="Gameobject" MobId="188103" NumOfTimes="1" CollectionDistance="20" X="3993.309" Y="7266.834" Z="178.9153" />
+
+				<CustomBehavior File="FlyTo" DestName="N Coldarra Reading" QuestId="11900" X="4074.97" Y="6764.403" Z="171.0032" />
+				<CustomBehavior File="ForcedDismount" />
 				<RunTo QuestId="11900" X="4105.506" Y="6746.935" Z="172.2622" />
 				<CustomBehavior File="InteractWith" QuestId="11900" ObjectType="Gameobject" MobId="188102" NumOfTimes="1" CollectionDistance="20" X="4105.506" Y="6746.935" Z="172.2622" />
+
+				<CustomBehavior File="FlyTo" DestName="Nexus Reading" QuestId="11900" X="3795.892" Y="6941.578" Z="106.1686" />
+				<CustomBehavior File="ForcedDismount" />
 				<RunTo QuestId="11900" X="3801.587" Y="6940.144" Z="108.1099" />
 				<CustomBehavior File="InteractWith" QuestId="11900" ObjectType="Gameobject" MobId="188100" NumOfTimes="1" CollectionDistance="40" X="3801.587" Y="6940.144" Z="108.1099" />
+
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</While>
-			<Objective QuestName="Secrets of the Ancients" QuestId="11910" Type="CollectItem" CollectCount="3" ItemId="35484" />
-			<Objective QuestName="Basic Training" QuestId="11918" Type="KillMob" MobId="25722" MobName="Coldarra Spellweaver" KillCount="10" />
+			<If Condition="((HasQuest(11918)) &amp;&amp; (IsQuestCompleted(11918)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Basic Training" QuestId="11918" TurnInName="Raelorasz" TurnInId="26117" />
 		<Pickup QuestName="Hatching a Plan" QuestId="11936" GiverName="Raelorasz" GiverId="26117" />
+			</If>
+			<If Condition="((!HasQuest(11936)) &amp;&amp; (!IsQuestCompleted(11936)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="Hatching a Plan" QuestId="11936" GiverName="Raelorasz" GiverId="26117" />
+			</If>
+			<If Condition="((HasQuest(11912)) &amp;&amp; (IsQuestCompleted(11912)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Nuts for Berries" QuestId="11912" TurnInName="Librarian Serrah" TurnInId="26110" />
 		<Pickup QuestName="Keep the Secret Safe" QuestId="11914" GiverName="Librarian Serrah" GiverId="26110" />
+			</If>
+			<If Condition="((!HasQuest(11914)) &amp;&amp; (!IsQuestCompleted(11914)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="Keep the Secret Safe" QuestId="11914" GiverName="Librarian Serrah" GiverId="26110" />
+			</If>
+			<If Condition="((HasQuest(11900)) &amp;&amp; (IsQuestCompleted(11900)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Reading the Meters" QuestId="11900" TurnInName="Archmage Berinand" TurnInId="25314" />
+			 <If Condition="((HasQuest(11910)) &amp;&amp; (IsQuestCompleted(11910)))" >
 		<TurnIn QuestName="Secrets of the Ancients" QuestId="11910" TurnInName="Archmage Berinand" TurnInId="25314" />
+			 </If>
+			</If>
+			<If Condition="((HasQuest(11910)) &amp;&amp; (IsQuestCompleted(11910)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Secrets of the Ancients" QuestId="11910" TurnInName="Archmage Berinand" TurnInId="25314" />
+			</If>
+			
 			<!-- Nexus Quests
 		<Pickup QuestName="Have They No Shame?" QuestId="13094" GiverName="Librarian Serrah" GiverId="26110" />
 		<Pickup QuestName="Postponing the Inevitable" QuestId="11905" GiverName="Archmage Berinand" GiverId="25314" />
@@ -4082,30 +4148,76 @@
 			<UseItem QuestName="Hatching a Plan" QuestId="11936" ItemId="35586" X="3777.592" Y="7023.561" Z="103.7552" />
 			<UseItem QuestName="Hatching a Plan" QuestId="11936" ItemId="35586" X="3774.394" Y="6946.553" Z="105.613" />
 			-->
+			
 			<While Condition="((HasQuest(11936)) &amp;&amp; (!IsQuestCompleted(11936)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3680.586" Y="6818.474" Z="161.5652" />
+				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="Hatching a Plan" QuestId="11936" Type="CollectItem" CollectCount="5" ItemId="35586" />
+				
+				<CustomBehavior File="FlyTo" DestName="Break Eggs" X="3800.385" Y="6941.689" Z="108.1623" />
+				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" QuestId="11936" ObjectType="Gameobject" MobId="188133" NumOfTimes="5" WaitTime="5000" CollectionDistance="1000" X="3800.385" Y="6941.689" Z="108.1623" />
+
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</While>
-			<Objective QuestName="Keep the Secret Safe" QuestId="11914" Type="CollectItem" CollectCount="5" ItemId="35493" />
+			<If Condition="((HasQuest(11914)) &amp;&amp; (!IsQuestCompleted(11914)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3776.637" Y="6961.561" Z="105.3831" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Keep the Secret Safe" QuestId="11914" Type="CollectItem" CollectCount="5" ItemId="35493" />
+			</If>
+			<If Condition="((HasQuest(11914)) &amp;&amp; (IsQuestCompleted(11914)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Keep the Secret Safe" QuestId="11914" TurnInName="Librarian Serrah" TurnInId="26110" />
+			</If>
+			<If Condition="((HasQuest(11936)) &amp;&amp; (IsQuestCompleted(11936)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Hatching a Plan" QuestId="11936" TurnInName="Raelorasz" TurnInId="26117" />
 		<Pickup QuestName="Drake Hunt" QuestId="11919" GiverName="Raelorasz" GiverId="26117" />
+			</If>
+			<If Condition="((!HasQuest(11919)) &amp;&amp; (!IsQuestCompleted(11919)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="Drake Hunt" QuestId="11919" GiverName="Raelorasz" GiverId="26117" />
+			</If>
 			<While Condition="((HasQuest(11919)) &amp;&amp; (!IsQuestCompleted(11919)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
-				<CustomBehavior File="FlyTo" X="4066.958" Y="7071.041" Z="167.2539" />
+				<CustomBehavior File="FlyTo" DestName="get a drake" X="4066.958" Y="7071.041" Z="167.2539" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="UseItemOn" QuestId="11919" MobId="26127" ItemId="35506" NumOfTimes="1" WaitTime="23000" Range="60" CollectionDistance="500" X="4066.958" Y="7071.041" Z="167.2539" />
 				<CustomBehavior File="RunMacro" Macro="/cleartarget" NumOfTimes="5" WaitTime="500" />
-				<CustomBehavior File="FlyTo" X="3572.097" Y="6650.867" Z="195.1819" />
+				<CustomBehavior File="FlyTo" DestName="Transitus Shield" X="3572.097" Y="6650.867" Z="195.1819" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="UserSettings" PullDistance="20" />
 			</While>
+			<If Condition="((HasQuest(11919)) &amp;&amp; (IsQuestCompleted(11919)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Drake Hunt" QuestId="11919" TurnInName="Raelorasz" TurnInId="26117" />
 		<Pickup QuestName="Cracking the Code" QuestId="11931" GiverName="Raelorasz" GiverId="26117" />
-			<Objective QuestName="Cracking the Code" QuestId="11931" Type="CollectItem" ItemId="35629" CollectCount="3" />
-			<Objective QuestName="Cracking the Code" QuestId="11931" Type="CollectItem" ItemId="35628" CollectCount="1" />		
-			<If Condition="((HasQuest(11931)) &amp;&amp; (!HasItem(35648)))" >
+			</If>
+			<If Condition="((!HasQuest(11931)) &amp;&amp; (!IsQuestCompleted(11931)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="Cracking the Code" QuestId="11931" GiverName="Raelorasz" GiverId="26117" />
+			</If>
+			<If Condition="((HasQuest(11931)) &amp;&amp; (!IsQuestCompleted(11931)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3762.315" Y="6646.266" Z="151.5233" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Cracking the Code" QuestId="11931" Type="CollectItem" ItemId="35629" CollectCount="3" />
+				<Objective QuestName="Cracking the Code" QuestId="11931" Type="CollectItem" ItemId="35628" CollectCount="1" />		
+				
+			 <If Condition="(HasItem(35648))" >
+		<PickUp QuestName="Puzzling" QuestId="11941" GiverType="Item" GiverId="35648" />
+			 </If>
+			 
+			</If>
+			<If Condition="((!HasQuest(11941)) &amp;&amp; (!IsQuestCompleted(11941)))" >
+			
+				<CustomBehavior File="FlyTo" DestName="get DropQuest Item" X="3762.315" Y="6646.266" Z="151.5233" />
+				<CustomBehavior File="ForcedDismount" />
 					<SetGrindArea><GrindArea>
 							<Factions>16</Factions>
 							<Hotspots>
@@ -4118,36 +4230,88 @@
 							</Hotspots>
 						</GrindArea></SetGrindArea>
 				<GrindTo Condition="(HasItem(35648))" />
-			</If>
+				
+			 <If Condition="(HasItem(35648))" >
 		<PickUp QuestName="Puzzling" QuestId="11941" GiverType="Item" GiverId="35648" />
+			 </If>
+			 
+			</If>
+			<If Condition="((HasQuest(11941)) &amp;&amp; (IsQuestCompleted(11941)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Puzzling" QuestId="11941" TurnInName="Raelorasz" TurnInId="26117" />
+			</If>
+			<If Condition="((HasQuest(11931)) &amp;&amp; (IsQuestCompleted(11931)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Cracking the Code" QuestId="11931" TurnInName="Raelorasz" TurnInId="26117" />
 		<Pickup QuestName="The Cell" QuestId="11943" GiverName="Raelorasz" GiverId="26117" />
-				<Objective QuestName="The Cell" QuestId="11943" Type="CollectItem" ItemId="35669" CollectCount="1" />
-				<Objective QuestName="The Cell" QuestId="11943" Type="CollectItem" ItemId="35668" CollectCount="1" />
-			<If Condition="((HasQuest(11943)) &amp;&amp; (IsQuestCompleted(11943)))" >
-		<TurnIn QuestName="The Cell" QuestId="11943" TurnInName="Raelorasz" TurnInId="26117" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for   {TimeRemaining}"  />
 			</If>
+			<If Condition="((!HasQuest(11943)) &amp;&amp; (!IsQuestCompleted(11943)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="The Cell" QuestId="11943" GiverName="Raelorasz" GiverId="26117" />
+			</If>
+			<If Condition="((HasQuest(11943)) &amp;&amp; (!IsQuestCompleted(11943)))" >
+				<CustomBehavior File="FlyTo" DestName="get Energy Core" X="3761.022" Y="7172.488" Z="162.2822" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Cell" QuestId="11943" Type="CollectItem" ItemId="35669" CollectCount="1" />
+				
+				<CustomBehavior File="FlyTo" DestName="get Prison Casing" X="4109.922" Y="6997.61" Z="165.3072" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Cell" QuestId="11943" Type="CollectItem" ItemId="35668" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(11943)) &amp;&amp; (IsQuestCompleted(11943)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Cell" QuestId="11943" TurnInName="Raelorasz" TurnInId="26117" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Keristrsza {TimeRemaining}" />
 		<Pickup QuestName="Keristrasza" QuestId="11946" GiverName="Keristrasza" GiverId="26206" />
 		<TurnIn QuestName="Keristrasza" QuestId="11946" TurnInName="Keristrasza" TurnInId="26206" />
 		<Pickup QuestName="Bait and Switch" QuestId="11951" GiverName="Keristrasza" GiverId="26206" />
-			<If Condition="((HasQuest(11951)) &amp;&amp;(!IsQuestCompleted(11951)))" >
-				<Objective QuestName="Bait and Switch" QuestId="11951" Type="CollectItem" ItemId="35685" CollectCount="10" />
+			</If>
+			<If Condition="((!HasQuest(11946)) &amp;&amp; (!IsQuestCompleted(11946)))" >
+				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for   {TimeRemaining}"  />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Keristrsza {TimeRemaining}" />
+		<Pickup QuestName="Keristrasza" QuestId="11946" GiverName="Keristrasza" GiverId="26206" />
+		<TurnIn QuestName="Keristrasza" QuestId="11946" TurnInName="Keristrasza" TurnInId="26206" />
+		<Pickup QuestName="Bait and Switch" QuestId="11951" GiverName="Keristrasza" GiverId="26206" />
+			</If>
+			<If Condition="((HasQuest(11946)) &amp;&amp; (IsQuestCompleted(11946)))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Keristrsza {TimeRemaining}" />
+		<TurnIn QuestName="Keristrasza" QuestId="11946" TurnInName="Keristrasza" TurnInId="26206" />
+		<Pickup QuestName="Bait and Switch" QuestId="11951" GiverName="Keristrasza" GiverId="26206" />
+			</If>
+			<If Condition="((!HasQuest(11951)) &amp;&amp; (!IsQuestCompleted(11951)))" >
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Keristrsza {TimeRemaining}" />
+		<Pickup QuestName="Bait and Switch" QuestId="11951" GiverName="Keristrasza" GiverId="26206" />
+			</If>
+			<If Condition="((HasQuest(11951)) &amp;&amp;(!IsQuestCompleted(11951)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3706.033" Y="6991.222" Z="159.7776" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Bait and Switch" QuestId="11951" Type="CollectItem" ItemId="35685" CollectCount="10" />
 			</If>
 			<If Condition="((HasQuest(11951)) &amp;&amp; (IsQuestCompleted(11951)))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for   {TimeRemaining}"  />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Keristrsza {TimeRemaining}" />
 		<TurnIn QuestName="Bait and Switch" QuestId="11951" TurnInName="Keristrasza" TurnInId="26206" />
 		<Pickup QuestName="Saragosa's End" QuestId="11957" GiverName="Keristrasza" GiverId="26206" />
+			</If>
+			<If Condition="((!HasQuest(11957)) &amp;&amp; (!IsQuestCompleted(11957)))" >
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Keristrsza {TimeRemaining}" />
+		<Pickup QuestName="Saragosa's End" QuestId="11957" GiverName="Keristrasza" GiverId="26206" />
+			</If>
 			<While Condition="((HasQuest(11957)) &amp;&amp; (!IsQuestCompleted(11957)))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for   {TimeRemaining}"  />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Keristrsza {TimeRemaining}" />
 				<CustomBehavior File="InteractWith" QuestId="11957" MobId="26206" NumOfTimes="1" GossipOptions="1" WaitTime="3000" CollectionDistance="3000" X="3706.033" Y="6991.222" Z="159.7776" />
 				<UseItem QuestName="Saragosa's End" QuestId="11957" ItemId="35690" X="4022.919" Y="7296.054" Z="635.97" />
 				<CustomBehavior File="WaitTimer" WaitTime="21000" />
@@ -4156,56 +4320,57 @@
 			<If Condition="(HasQuest(11957))" >
 				<CustomBehavior File="WaitTimer" WaitTime="60000"/>
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for   {TimeRemaining}"  />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Keristrsza {TimeRemaining}"  />
 		<TurnIn QuestName="Saragosa's End" QuestId="11957" TurnInName="Keristrasza" TurnInId="26206" />
+			</If>
+			<If Condition="((!HasQuest(11967)) &amp;&amp; (!IsQuestCompleted(11967)))" >
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Keristrsza {TimeRemaining}"  />
 		<Pickup QuestName="Mustering the Reds" QuestId="11967" GiverName="Keristrasza" GiverId="26206" />
 			</If>
 			<If Condition="(HasQuest(11967))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for   {TimeRemaining}"  />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Keristrsza {TimeRemaining}"  />
 				<CustomBehavior File="BasicInteractWith" MobId="26206" WaitTime="1000" />
 				<CustomBehavior File="RunMacro" Macro="/script SelectGossipOption(1)" NumOfTimes="1" WaitTime="1000" />
-			</If>
 		<TurnIn QuestName="Mustering the Reds" QuestId="11967" TurnInName="Raelorasz" TurnInId="26117" />
 		<Pickup QuestName="Springing the Trap" QuestId="11969" GiverName="Raelorasz" GiverId="26117" />
+			</If>
+			<If Condition="((!HasQuest(11969)) &amp;&amp; (!IsQuestCompleted(11969)))" >
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Keristrsza {TimeRemaining}"  />
+		<Pickup QuestName="Springing the Trap" QuestId="11969" GiverName="Raelorasz" GiverId="26117" />
+			</If>
 			<If Condition="((HasQuest(11969)) &amp;&amp; (!IsQuestCompleted(11969)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="4057.744" Y="7111.196" Z="170.0842" />
+				<CustomBehavior File="ForcedDismount" />
 				<RunTo QuestName="Springing the Trap" QuestId="11969" X="4057.744" Y="7111.196" Z="170.0842" />
 				<UseItem QuestName="Springing the Trap" QuestId="11969" ItemId="44950" X="4057.744" Y="7111.196" Z="170.0842" />
-				<CustomBehavior File="WaitTimer" WaitTime="210000" />
+				<CustomBehavior File="WaitTimer" WaitTime="210000" GoalText="Waiting for vehicle to land" />
 			</If>
 			<If Condition="((HasQuest(11969)) &amp;&amp; (IsQuestCompleted(11969)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Springing the Trap" QuestId="11969" TurnInName="Raelorasz" TurnInId="26117" />
-				<CustomBehavior File="FlyTo" X="3585.979" Y="5961.538" Z="136.167" />
 			</If>
-		<!-- Not picking up "Prisoner of War" for The Nexus -->
+			<!-- Not picking up "Prisoner of War" for The Nexus -->
+			<!-- End of Coldarra Quests -->
+
+
+			
+			
+
+		<!--
+
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="3" Text="End of Line!\n\nYes, I fight for the users!" />
 		
-		<!-- 
-				ToDo List:
-					Dev's ticket to the robot quest (Farshire)
-					get updated CombatUseItemOn.cs for various quests
-					UseVehicle for Fighting Kaw the Mammoth Destroyer
-					Fix Dailies to only do it once
 		-->
 		
-			<SetGrindArea>
-				<GrindArea>
-					<TargetMinLevel>68</TargetMinLevel>
-					<TargetMaxLevel>71</TargetMaxLevel>
-					<Factions>14</Factions>
-					<Hotspots>
-						<Hotspot X="3852.22" Y="1809.647" Z="119.275" />
-						<Hotspot X="3778.292" Y="1911.142" Z="96.00433" />
-						<Hotspot X="3699.155" Y="1977.327" Z="85.16573" />
-						<Hotspot X="3753.008" Y="2096.631" Z="91.45713" />
-					</Hotspots>
-				</GrindArea>
-			</SetGrindArea>
-			
-		<GrindTo Level="71" />
+		
+		
 		<!-- Howling Fjorde -->
-		<Checkpoint Level="71" />
-		
-		
 			<If Condition="((!HasQuest(11228)) &amp;&amp; (!IsQuestCompleted(11228)))" >
 				<CustomBehavior File="FlyTo" X="600.2275" Y="-5058.658" Z="3.312016" />
 				<CustomBehavior File="ForcedDismount" />
