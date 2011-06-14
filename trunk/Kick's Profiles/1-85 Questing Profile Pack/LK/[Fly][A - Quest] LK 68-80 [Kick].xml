@@ -4337,7 +4337,7 @@
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Keristrsza {TimeRemaining}" />
-				<CustomBehavior File="BasicInteractWith" MobId="26206" WaitTime="1000" />
+				<CustomBehavior File="BasicInteractWith" MobId="26206" />
 				<CustomBehavior File="RunMacro" Macro="/script SelectGossipOption(1)" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for teleport {TimeRemaining}" />
 				<UseItem QuestName="Saragosa's End" QuestId="11957" ItemId="35690" X="4022.919" Y="7296.054" Z="635.97" />
@@ -4358,7 +4358,7 @@
 			<If Condition="((HasQuest(11967)) &amp;&amp; (IsQuestCompleted(11967)))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Keristrsza {TimeRemaining}"  />
-				<CustomBehavior File="BasicInteractWith" MobId="26206" WaitTime="1000" />
+				<CustomBehavior File="BasicInteractWith" MobId="26206" />
 				<CustomBehavior File="RunMacro" Macro="/script SelectGossipOption(1)" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for port {TimeRemaining}"  />
 		<TurnIn QuestName="Mustering the Reds" QuestId="11967" TurnInName="Raelorasz" TurnInId="26117" />
@@ -4637,7 +4637,7 @@
 				<CustomBehavior File="ForcedDismount" />
 				
 				<RunTo X="949.243" Y="-4838.147" Z="-72.44145" />
-				<CustomBehavior File="BasicInteractWith" MobId="24150" NumOfTimes="1" />
+				<CustomBehavior File="BasicInteractWith" MobId="24150" />
 				<CustomBehavior File="CompleteLogQuest" QuestId="11276" />
 			<!-- hb won't interactwith npc by default
 		<TurnIn QuestName="And Then There Were Two..." QuestId="11276" TurnInName="Glorenfeld" TurnInId="24150" X="949.243" Y="-4838.147" Z="-72.44145" />
@@ -4661,7 +4661,7 @@
 			</If>
 			<If Condition="((HasQuest(11277)) &amp;&amp; (IsQuestCompleted(11277)))" >
 				<RunTo X="949.243" Y="-4838.147" Z="-72.44145" />
-				<CustomBehavior File="BasicInteractWith" MobId="24150" NumOfTimes="1" />
+				<CustomBehavior File="BasicInteractWith" MobId="24150" />
 				<CustomBehavior File="CompleteLogQuest" QuestId="11277" />
 			<!--
 		<TurnIn QuestName="The Depths of Depravity" QuestId="11277" TurnInName="Glorenfeld" TurnInId="24150" X="949.6965" Y="-4840.253" Z="-69.63878" />	
@@ -4744,46 +4744,103 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Tools to Get the Job Done" QuestId="11475" GiverName="Walt" GiverId="24807" />
 			</If>
-			<!-- Get the grub quest near Walt -->
+			<If Condition="((!HasQuest(11460)) &amp;&amp; (!IsQuestCompleted(11460)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="501.0887" Y="-5951.782" Z="314.5279" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Trust is Earned" QuestId="11460" GiverName="Hidalgo the Master Falconer" GiverId="24750" />
+			</If>
+			<If Condition="((HasQuest(11460)) &amp;&amp; (!IsQuestCompleted(11460)))" >
+				<CustomBehavior File="FlyTo" DestName="get grub" X="547.6845" Y="-5701.914" Z="289.7714" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Trust is Earned" QuestId="11460" Type="CollectItem" ItemId="34102" CollectCount="1" />
+
+				<CustomBehavior File="FlyTo" DestName="feed bird" X="500.6658" Y="-5952.434" Z="314.5367" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="11460" MobId="24752" GossipOptions="1" X="500.6658" Y="-5952.434" Z="314.5367" />
+			</If>
+			<If Condition="((HasQuest(11460)) &amp;&amp; (IsQuestCompleted(11460)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="501.0887" Y="-5951.782" Z="314.5279" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Trust is Earned" QuestId="11460" TurnInName="Hidalgo the Master Falconer" TurnInId="24750" />
+			<!-- Ignoring The Ransacked Caravan -->
+			</If>
 			<If Condition="((!HasQuest(11477)) &amp;&amp; (!IsQuestCompleted(11477)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="1123.73" Y="-6161.873" Z="260.2917" />
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Out of My Element?" QuestId="11477" GiverName="Donny" GiverId="24811" />
 			</If>
-		
-			
-		
-
-		<!--
-
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="3" Text="End of Line!\n\nYes, I fight for the users!" />
-		
-		-->
-		
-		
-			<Objective QuestName="Tools to Get the Job Done" QuestId="11475" Type="CollectItem" ItemId="34131" CollectCount="1" />
-			<Objective QuestName="Out of My Element?" QuestId="11477" Type="KillMob" MobId="23676" KillCount="10" />
-			<Objective QuestName="Out of My Element?" QuestId="11477" Type="KillMob" MobId="23711" KillCount="5" />
-			<Objective QuestName="Out of My Element?" QuestId="11477" Type="KillMob" MobId="23674" KillCount="2" />
+			<If Condition="((HasQuest(11475)) &amp;&amp; (!IsQuestCompleted(11475)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="1196.646" Y="-6177.537" Z="231.888" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Tools to Get the Job Done" QuestId="11475" Type="CollectItem" ItemId="34131" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(11477)) &amp;&amp; (!IsQuestCompleted(11477)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="1154.241" Y="-6217.739" Z="246.5917" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Out of My Element?" QuestId="11477" Type="KillMob" MobId="23676" KillCount="10" />
+				<Objective QuestName="Out of My Element?" QuestId="11477" Type="KillMob" MobId="23674" KillCount="2" />
+				<Objective QuestName="Out of My Element?" QuestId="11477" Type="KillMob" MobId="23711" KillCount="5" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+			<If Condition="((HasQuest(11477)) &amp;&amp; (IsQuestCompleted(11477)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="1123.73" Y="-6161.873" Z="260.2917" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Out of My Element?" QuestId="11477" TurnInName="Donney" TurnInId="24811" />
+			</If>
+			<If Condition="((HasQuest(11475)) &amp;&amp; (IsQuestCompleted(11475)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="477.9977" Y="-5933.353" Z="308.7207" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Tools to Get the Job Done" QuestId="11475" TurnInName="Walt" TurnInId="24807" />
+			</If>
+			<If Condition="((!HasQuest(11484)) &amp;&amp; (!IsQuestCompleted(11484)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="477.9977" Y="-5933.353" Z="308.7207" />
+				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="We Have the Technology" QuestId="11484" GiverName="Walt" GiverId="24807" />
+			</If>
+			<If Condition="((!HasQuest(11483)) &amp;&amp; (!IsQuestCompleted(11483)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="477.9977" Y="-5933.353" Z="308.7207" />
+				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="We Can Rebuild It" QuestId="11483" GiverName="Walt" GiverId="24807" />
-			<If Condition="((HasQuest(11483)) &amp;&amp; (!IsQuestCompleted(11483)))" >
+			</If>
+			<If Condition="((HasQuest(11484)) &amp;&amp; (!IsQuestCompleted(11484)))" >
+				<CustomBehavior File="FlyTo" DestName="get hide" X="596.4186" Y="-5875.149" Z="292.6481" />
+				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="We Have the Technology" QuestId="11484" Type="CollectItem" ItemId="34136" CollectCount="1" />
+
+				<CustomBehavior File="FlyTo" DestName="get Steel Ribbing" X="1087.94" Y="-5544.234" Z="204.5291" />
+				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="We Have the Technology" QuestId="11484" Type="CollectItem" ItemId="34137" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(11483)) &amp;&amp; (!IsQuestCompleted(11483)))" >
+				<CustomBehavior File="FlyTo" DestName="get barrel" X="845.4748" Y="-5472.148" Z="213.4943" />
+				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="We Can Rebuild It" QuestId="11483" Type="CollectItem" ItemId="34133" CollectCount="1" />
+			
+				<CustomBehavior File="FlyTo" DestName="get Rope" X="1464.231" Y="-5311.46" Z="195.878" />
+				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="We Can Rebuild It" QuestId="11483" Type="CollectItem" ItemId="34134" CollectCount="1" />
+			
 				<!-- <Objective QuestName="We Can Rebuild It" QuestId="11483" Type="CollectItem" ItemId="34135" CollectCount="1" CollectFrom="24040" /> -->
+				<CustomBehavior File="FlyTo" DestName="get Ingots" X="634.7477" Y="-5069.987" Z="0.03621107" />
 				<RunTo X="634.7477" Y="-5069.987" Z="0.03621107" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="InteractWith" QuestId="11483" MobId="24040" NumOfTimes="1" GossipOption="1, 1" WaitTime="1000" CollectionDistance="50" X="634.7477" Y="-5069.987" Z="0.03621107" />
-				<CustomBehavior File="WaitTimer" WaitTime="60000"/>
+				<CustomBehavior File="InteractWith" QuestId="11483" MobId="24040" GossipOptions="1, 1" X="634.7477" Y="-5069.987" Z="0.03621107" />
+				<!-- <CustomBehavior File="WaitTimer" WaitTime="60000" GoalText="Waiting to land {TimeRemaining}" /> -->
 			</If>
+			<If Condition="((HasQuest(11483)) &amp;&amp; (IsQuestCompleted(11483)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="477.9977" Y="-5933.353" Z="308.7207" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="We Can Rebuild It" QuestId="11483" TurnInName="Walt" TurnInId="24807" />
+			</If>
+			<If Condition="((HasQuest(11484)) &amp;&amp; (IsQuestCompleted(11484)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="477.9977" Y="-5933.353" Z="308.7207" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="We Have the Technology" QuestId="11484" TurnInName="Walt" TurnInId="24807" />
+			<!-- Ignoring Iron Rune Constructs and You: Rocket Jumping -->
+			</If>
+			<!-- End of Explorers' League Outpost Quests -->
 		
-		
+			
 			<!-- Westguard Keep Quests -->
 			<If Condition="((HasQuest(11291)) &amp;&amp; (IsQuestCompleted(11291)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="1352.553" Y="-3183.321" Z="161.7915" />
@@ -4797,10 +4854,20 @@
 		<PickUp QuestName="The Clutches of Evil" QuestId="11157" GiverName="Captain Adams" GiverId="23749" />
 			</If>
 			<If Condition="((!HasQuest(11190)) &amp;&amp; (!IsQuestCompleted(11190)))" >
-				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="1351.804" Y="-3448.56" Z="176.4122" />
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="1351.729" Y="-3447.465" Z="176.5011" />
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="One Size Does Not Fit All" QuestId="11190" GiverName="Cannoneer Ely" GiverId="23770" />
 			</If>
+			
+			
+
+		<!--
+
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="3" Text="End of Line!\n\nYes, I fight for the users!" />
+		
+		-->
+		
+		
 			
 			<!--
 				<Objective QuestName="The Clutches of Evil" QuestId="11157" Type="KillMob" MobId="23777" KillCount="15" />
@@ -6600,7 +6667,7 @@
 		<TurnIn QuestName="The Drakkensryd" TurnInName="Thorim" QuestId="12886" TurnInId="29445" />
 		<PickUp QuestName="Sibling Rivalry" GiverName="Thorim" QuestId="13064" GiverId="29445" />
 			<If Condition="(HasQuest(13064))" >
-				<CustomBehavior File="InteractWith" QuestId="13064" MobId="29445" NumOfTimes="1" GossipOption="1, 1, 1" CollectionDistance="10" X="7449.971" Y="-535.2917" Z="1896.851" />
+				<CustomBehavior File="InteractWith" QuestId="13064" MobId="29445" NumOfTimes="1" GossipOptions="1, 1, 1" CollectionDistance="10" X="7449.971" Y="-535.2917" Z="1896.851" />
 			</If>
 		<TurnIn QuestName="Sibling Rivalry" TurnInName="Thorim" QuestId="13064" TurnInId="29445" />
 		<PickUp QuestName="Mending Fences" GiverName="Thorim" QuestId="12915" GiverId="29445" />
