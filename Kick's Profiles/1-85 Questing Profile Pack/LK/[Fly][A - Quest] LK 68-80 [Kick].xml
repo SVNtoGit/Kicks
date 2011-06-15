@@ -131,6 +131,7 @@
 	</Vendors>
 
 	<AvoidMobs>
+		<AvoidMob Name="Corrupted Rager" Entry="21223" />
 		<AvoidMob Name="Carrion Condor" Entry="26174" />
 		<AvoidMob Name="Mildred the Cruel" Entry="29885" />
 		<AvoidMob Name="Nexus Drake Hatchling" Entry="26127" />
@@ -713,6 +714,14 @@
 		</Objective>
 	</Quest>
 
+	<Quest Id="12017" Name="Meat on the Hook">
+		<Objective Type="CollectItem" ItemId="35838" CollectCount="1">
+			<Hotspots>
+				<Hotspot X="2647.076" Y="1005.059" Z="-21.18766" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+
 	<Quest Id="12092" Name="Strengthen the Ancients">
 		<Objective Type="CollectItem" ItemId="36786" CollectCount="3">
 			<CollectFrom>
@@ -785,6 +794,26 @@
 				<Hotspot X="2522.813" Y="5196.436" Z="37.40746" />
 				<Hotspot X="2557.147" Y="5215.321" Z="37.40827" />
 				<Hotspot X="2582.01" Y="5233.026" Z="37.40782" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+
+	<Quest Id="12031" Name="Freedom for the Lingering">
+		<Objective Type="KillMob" MobId="26343" KillCount="15">
+			<Hotspots>
+				<Hotspot X="3050.339" Y="1585.324" Z="157.2131" />
+				<Hotspot X="3122.078" Y="1562.263" Z="163.5424" />
+				<Hotspot X="3103.056" Y="1501.834" Z="152.6626" />
+				<Hotspot X="3175.785" Y="1449.755" Z="151.6536" />
+				<Hotspot X="3140.27" Y="1426.597" Z="150.6086" />
+				<Hotspot X="3142.613" Y="1326.102" Z="158.6177" />
+				<Hotspot X="3175.414" Y="1303.156" Z="158.4408" />
+				<Hotspot X="3124.453" Y="1287.883" Z="158.4407" />
+				<Hotspot X="3000.754" Y="1238.117" Z="149.5509" />
+				<Hotspot X="2918.115" Y="1298.557" Z="152.2774" />
+				<Hotspot X="2938.667" Y="1409.124" Z="151.6336" />
+				<Hotspot X="2946.916" Y="1559.903" Z="150.6053" />
+				<Hotspot X="3072.077" Y="1580.514" Z="157.4088" />
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -5132,8 +5161,9 @@
 			</If>
 			<If Condition="((HasQuest(11510)) &amp;&amp; (!IsQuestCompleted(11510)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="-332.6303" Y="-3743.387" Z="30.11348" />
-				<CustomBehavior File="RunMacro" Macro="/dismount\n/cancelaura Flight Form\n/cancelaura Swift Flight Form" NumOfTimes="1" WaitTime="1000" />
-				<Objective QuestName="&quot;Scoodles&quot;" QuestId="11510" Type="CollectItem" ItemId="34235" CollectCount="1" />
+				<CustomBehavior File="ForcedDismount" />
+				<!-- <Objective QuestName="&quot;Scoodles&quot;" QuestId="11510" Type="CollectItem" ItemId="34235" CollectCount="1" /> -->
+				<CustomBehavior File="KillUntilComplete" QuestId="11510" MobId="24899" X="-332.6303" Y="-3743.387" Z="27.11348" />
 			</If>
 			<If Condition="((HasQuest(11510)) &amp;&amp; (IsQuestCompleted(11510)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-143.1077" Y="-3529.977" Z="3.295386" />
@@ -5903,7 +5933,7 @@
 			</If>
 			<!-- End of Stars' Rest Quests -->
 		
-			<!-- Let's go ahead and see how many of these Moa'ki Harbor Quests work -->
+			<!-- Start of Moa'ki Harbor Quests -->
 			<If Condition="((!HasQuest(11958)) &amp;&amp; (!IsQuestCompleted(11958)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2795.43" Y="911.594" Z="31.05032" />
 				<CustomBehavior File="ForcedDismount" />
@@ -5935,79 +5965,201 @@
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2795.43" Y="911.594" Z="31.05032" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Let Nothing Go To Waste" QuestId="11958" TurnInName="Elder Ko'nani" TurnInId="26194" />
+		<PickUp QuestName="Slay Loguhn" QuestId="11959" GiverName="Elder Ko'nani" GiverId="26194" />
 			</If>
-			
-			
-			
-		<!--
-
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="3" Text="End of Line!\n\nYes, I fight for the users!" />
-		
-		-->
-		
-			
-			<!--
+			<If Condition="((!HasQuest(11959)) &amp;&amp; (!IsQuestCompleted(11959)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2795.43" Y="911.594" Z="31.05032" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Slay Loguhn" QuestId="11959" GiverName="Elder Ko'nani" GiverId="26194" />
+			</If>
+			<If Condition="((HasQuest(11959)) &amp;&amp; (!IsQuestCompleted(11959)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3363.073" Y="1011.449" Z="144.423" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Slay Loguhn" QuestId="11959" Type="CollectItem" ItemId="35688" CollectCount="1" />
+				<UseItem QuestName="Slay Loguhn" QuestId="11959" ItemId="35688" X="3352.497" Y="993.118" Z="138.1258" />
+			</If>
+			<If Condition="((HasQuest(11959)) &amp;&amp; (IsQuestCompleted(11959)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2795.43" Y="911.594" Z="31.05032" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Slay Loguhn" QuestId="11959" TurnInName="Elder Ko'nani" TurnInId="26194" />
+			</If>
+			<If Condition="((!HasQuest(12028)) &amp;&amp; (!IsQuestCompleted(12028)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2734.914" Y="887.6769" Z="6.624989" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Spiritual Insight" QuestId="12028" GiverName="Toalu'u the Mystic" GiverId="26595" />
+			</If>
+			<If Condition="((HasQuest(12028)) &amp;&amp; (!IsQuestCompleted(12028)))" >
+				<CustomBehavior File="ForcedDismount" />
+				<UseItem QuestName="Spiritual Insight" QuestId="12028" ItemId="35907" X="2740.105" Y="881.537" Z="6.693972" />
+			</If>
+			<If Condition="((HasQuest(12028)) &amp;&amp; (IsQuestCompleted(12028)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2734.914" Y="887.6769" Z="6.624989" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Spiritual Insight" QuestId="12028" TurnInName="Toalu'u the Mystic" TurnInId="26595" />
+		<PickUp QuestName="Elder Mana'loa" QuestId="12030" GiverName="Toalu'u the Mystic" GiverId="26595" />
+			</If>
 			<If Condition="((!HasQuest(12030)) &amp;&amp; (!IsQuestCompleted(12030)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2734.914" Y="887.6769" Z="6.624989" />
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Elder Mana'loa" QuestId="12030" GiverName="Toalu'u the Mystic" GiverId="26595" />
 			</If>
 			<If Condition="((HasQuest(12030)) &amp;&amp; (IsQuestCompleted(12030)))" >
-				<CustomBehavior File="FlyTo" DestName="Turnin Quest" 
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3164.76" Y="1581.509" Z="170.1871" />
 				<CustomBehavior File="ForcedDismount" />
+				
+				<RunTo X="3154.238" Y="1579.765" Z="163.4331" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="BasicUseObject" ObjectId="188419" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />	
+				<!-- guy is too big
 		<TurnIn QuestName="Elder Mana'loa" QuestId="12030" TurnInName="Elder Mana'loa" TurnInId="188419" TurnInType="Object" X="3131.187" Y="1569.624" Z="163.5229" />
+		<PickUp QuestName="Freedom for the Lingering" QuestId="12031" GiverName="Elder Mana'loa" GiverId="188419" />
+				-->
+				<CustomBehavior File="BasicUseObject" ObjectId="188419" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
 			</If>
-			-->
-		<PickUp QuestName="Slay Loguhn" QuestId="11959" GiverName="Elder Ko'nani" GiverId="26194" />
-			<Objective QuestName="Slay Loguhn" QuestId="11959" Type="CollectItem" ItemId="35688" CollectCount="1" />
-			<UseItem QuestName="Slay Loguhn" QuestId="11959" ItemId="35688" X="3352.497" Y="993.118" Z="138.1258" />
-		<TurnIn QuestName="Slay Loguhn" QuestId="11959" TurnInName="Elder Ko'nani" TurnInId="26194" />
-		<PickUp QuestName="Spiritual Insight" QuestId="12028" GiverName="Toalu'u the Mystic" GiverId="26595" />
-			<If Condition="((HasQuest(12028)) &amp;&amp; (!IsQuestCompleted(12028)))" >
+			<If Condition="((!HasQuest(12031)) &amp;&amp; (!IsQuestCompleted(12031)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3164.76" Y="1581.509" Z="170.1871" />
 				<CustomBehavior File="ForcedDismount" />
-				<UseItem QuestName="Spiritual Insight" QuestId="12028" ItemId="35907" X="2740.105" Y="881.537" Z="6.693972" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000" />
+				
+				<RunTo X="3154.238" Y="1579.765" Z="163.4331" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="BasicUseObject" ObjectId="188419" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+				<!--
+		<PickUp QuestName="Freedom for the Lingering" QuestId="12031" GiverName="Elder Mana'loa" GiverId="188419" /> -->
 			</If>
-		<TurnIn QuestName="Spiritual Insight" QuestId="12028" TurnInName="Toalu'u the Mystic" TurnInId="26595" />
-		
-		
+			<If Condition="((HasQuest(12031)) &amp;&amp; (!IsQuestCompleted(12031)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3060.077" Y="1625.735" Z="158.1111" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Freedom for the Lingering" QuestId="12031" Type="KillMob" MobId="26343" KillCount="15" />
+			</If>
+			<If Condition="((HasQuest(12031)) &amp;&amp; (IsQuestCompleted(12031)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3164.76" Y="1581.509" Z="170.1871" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<RunTo X="3154.238" Y="1579.765" Z="163.4331" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="BasicUseObject" ObjectId="188419" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />	
+				<!--
+		<TurnIn QuestName="Freedom for the Lingering" QuestId="12031" TurnInName="Elder Mana'loa" TurnInId="188419" />
+		<PickUp QuestName="Conversing With the Depths" QuestId="12032" GiverName="Elder Mana'loa" GiverId="188419" />
+				-->
+				<CustomBehavior File="BasicUseObject" ObjectId="188419" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+			</If>
+			<If Condition="((!HasQuest(12032)) &amp;&amp; (!IsQuestCompleted(12032)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3164.76" Y="1581.509" Z="170.1871" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<RunTo X="3154.238" Y="1579.765" Z="163.4331" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="BasicUseObject" ObjectId="188419" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />	
+				<!--
+		<PickUp QuestName="Conversing With the Depths" QuestId="12032" GiverName="Elder Mana'loa" GiverId="188419" />
+				-->
+			</If>
+			<If Condition="((HasQuest(12032)) &amp;&amp; (!IsQuestCompleted(12032)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="2457.292" Y="1723.715" Z="76.43291" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="12032" MobId="188422" ObjectType="Gameobject" X="2457.36" Y="1723.75" Z="59.83193" />
+				<RunTo X="2455.553" Y="1717.125" Z="59.9511" />
+				<CustomBehavior File="WaitTimer" WaitTime="55000" GoalText="Waiting for event {TimeRemaining}" />
+				<CustomBehavior File="Message" Text="Geronimo!" LogColor="Red" />
+				<CustomBehavior File="MyCTM" X="2434.546" Y="1709.331" Z="-1.577231" />
+				<RunTo X="2438.683" Y="1654.85" Z="0.3224503" />
+			</If>
+			<If Condition="((HasQuest(12032)) &amp;&amp; (IsQuestCompleted(12032)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2734.914" Y="887.6769" Z="6.624989" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Conversing With the Depths" QuestId="12032" TurnInName="Toalu'u the Mystic" TurnInId="26595" />
+			</If>
+			<If Condition="((!HasQuest(12011)) &amp;&amp; (!IsQuestCompleted(12011)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2572.908" Y="955.69" Z="1.716503" />
+				<CustomBehavior File="ForcedDismount" />
+
+				<CustomBehavior File="MyCTM" X="2581.489" Y="951.1885" Z="-60.89835" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="BasicUseObject" ObjectId="188364" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="MyCTM" X="2707.942" Y="943.1884" Z="0.138295" />
+				<!-- 
+		<PickUp QuestName="Signs of Big Watery Trouble" QuestId="12011" GiverName="Wrecked Crab Trap" GiverId="188364" GiverType="Object" X="2581.489" Y="951.1885" Z="-60.89835" />
+				-->
+			</If>
+			<If Condition="((HasQuest(12011)) &amp;&amp; (IsQuestCompleted(12011)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2708.817" Y="951.0189" Z="0.1401795" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Signs of Big Watery Trouble" QuestId="12011" TurnInName="Tua'kea" TurnInId="26245" />
+		<PickUp QuestName="The Bait" QuestId="12016" GiverName="Tua'kea" GiverId="26245" />
+			</If>
+			<If Condition="((!HasQuest(12016)) &amp;&amp; (!IsQuestCompleted(12016)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2708.817" Y="951.0189" Z="0.1401795" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Bait" QuestId="12016" GiverName="Tua'kea" GiverId="26245" />
+			</If>
+			<If Condition="((HasQuest(12016)) &amp;&amp; (!IsQuestCompleted(12016)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="2528.639" Y="1225.852" Z="3.132644" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Bait" QuestId="12016" Type="CollectItem" ItemId="35831" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(12016)) &amp;&amp; (IsQuestCompleted(12016)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2708.817" Y="951.0189" Z="0.1401795" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Bait" QuestId="12016" TurnInName="Tua'kea" TurnInId="26245" />
+		<PickUp QuestName="Meat on the Hook" QuestId="12017" GiverName="Tua'kea" GiverId="26245" />
+			</If>
+			<If Condition="((!HasQuest(12017)) &amp;&amp; (!IsQuestCompleted(12017)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2708.817" Y="951.0189" Z="0.1401795" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Meat on the Hook" QuestId="12017" GiverName="Tua'kea" GiverId="26245" />
+			</If>
+			<If Condition="((HasQuest(12017)) &amp;&amp; (!IsQuestCompleted(12017)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="2634.363" Y="1020.338" Z="3.176086" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="MyCTM" X="2650.548" Y="1008.303" Z="-22.2939" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35838)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Waiting for Tuggie {TimeRemaining}" />
+				<Objective QuestName="Meat on the Hook" QuestId="12017" Type="KillMob" MobId="26510" KillCount="1" />
+				<RunTo X="2711.815" Y="943.4164" Z="0.4194623" />
+			</If>
+			<If Condition="((HasQuest(12017)) &amp;&amp; (IsQuestCompleted(12017)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2708.817" Y="951.0189" Z="0.1401795" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Meat on the Hook" QuestId="12017" TurnInName="Tua'kea" TurnInId="26245" />
+			</If>
 		<!-- find endpoly errors in water, as usual - use myCTM?
 			<If Condition="((!HasQuest(12009)) &amp;&amp; (!IsQuestCompleted(12009)))" >
 		<PickUp QuestName="Tua'Kea's Crab Traps" QuestId="12009" GiverName="Tua'kea" GiverId="26245" />
-			</If> -->
-			<!-- 
+			</If>
 			<UseItem QuestName="Tua'Kea's Crab Traps" QuestId="12009" ItemId="37265" X="2706.806" Y="950.1384" Z="0.08107334" />
 			<Objective QuestName="Tua'Kea's Crab Traps" QuestId="12009" Type="CollectItem" ItemId="35802" CollectCount="8" />
-			-->
-				<!--
-				<If Condition="((HasQuest(12009)) &amp;&amp; (!IsQuestCompleted(12011)))" >
-					<CustomBehavior File="MyCTM" QuestId="12009" Location="2593.972 967.0676 -0.2489214" />
-					<CustomBehavior File="MyCTM" QuestId="12009" Location="2583.707 950.7631 -59.75452" />
-
-					<PickUp QuestName="Signs of Big Watery Trouble" QuestId="12011" GiverName="Wrecked Crap Trap" GiverId="188364" GiverType="Object" X="2584.039" Y="953.323" Z="-59.84568" />
-					<CustomBehavior File="MyCTM" QuestId="12009" Location="2593.972 967.0676 -0.2489214" />
-					<CustomBehavior File="MyCTM" QuestId="12009" Location="2709.669 938.1523 0.3044204" />
-				<TurnIn QuestName="Signs of Big Watery Trouble" QuestId="12011" TurnInName="Tua'Kea" TurnInId="26245" />						
-				</If>
-				-->
-		
-		<!-- I can't do this chain due to findendpoly errors QQ
 		<TurnIn QuestName="Tua'Kea's Crab Traps" QuestId="12009" TurnInName="Tua'Kea" TurnInId="26245" />
-		<PickUp QuestName="The Bait" QuestId="12016" GiverName="Tua'kea" GiverId="26245" />
-			<Objective QuestName="The Bait" QuestId="12016" Type="CollectItem" ItemId="35831" CollectCount="1" />
-		<TurnIn QuestName="The Bait" QuestId="12016" TurnInName="Tua'kea" TurnInId="26245" />
-		<PickUp QuestName="Meat on the Hook" QuestId="12017" GiverName="Tua'kea" GiverId="26245" />
-		<UseItem QuestName="Meat on the Hook" QuestId="12017" ItemId="35838" X="2649.44" Y="1009.03" Z="-24.92308"/>
-			<Objective QuestName="Meat on the Hook" QuestId="12017" Type="KillMob" MobId="26510" KillCount="1" />
-		<TurnIn QuestName="Meat on the Hook" QuestId="12017" TurnInName="Tua'kea" TurnInId="26245" />
 		-->
+			<!-- End of Moa'ki Harbor Quests -->
+			
+			
+			
 		
-		<!-- Lets go ahead and turn in the next quest for wyrmrest -->
+
+		<!--
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="3" Text="End of Line!\n\nYes, I fight for the users!" />
+		-->
+
+		
+		
+		<!-- Lets go ahead and turn in the next quest for wyrmrest
 			<If Condition="((HasQuest(12119)) &amp;&amp; (IsQuestCompleted(12119)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3595.765" Y="278.5951" Z="349.7748" />
 				<CustomBehavior File="ForcedDismount" />
+			</If> -->
 		<TurnIn QuestName="Gaining an Audience" QuestId="12119" TurnInName="Tariolstrasz" TurnInId="26443" />
-			</If>
 		<PickUp QuestName="Speak with your Ambassador" QuestId="12766" GiverName="Tariolstrasz" GiverId="26443" />
 		<TurnIn QuestName="Speak with your Ambassador" QuestId="12766" TurnInName="Lauriel Trueblade" TurnInId="27803" />
 		<PickUp QuestName="Report to the Ruby Dragonshrine" QuestId="12460" GiverName="Lauriel Trueblade" GiverId="27803" />
