@@ -4256,7 +4256,6 @@
 			 <If Condition="(HasItem(35648))" >
 		<PickUp QuestName="Puzzling" QuestId="11941" GiverType="Item" GiverId="35648" />
 			 </If>
-			 
 			</If>
 			<If Condition="((HasQuest(11941)) &amp;&amp; (IsQuestCompleted(11941)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
@@ -4359,7 +4358,8 @@
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Keristrsza {TimeRemaining}"  />
 				<CustomBehavior File="BasicInteractWith" MobId="26206" />
-				<CustomBehavior File="RunMacro" Macro="/script SelectGossipOption(1)" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting... {TimeRemaining}"  />
+				<CustomBehavior File="RunMacro" Macro="/script SelectGossipOption(1)" NumOfTimes="2" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for port {TimeRemaining}"  />
 		<TurnIn QuestName="Mustering the Reds" QuestId="11967" TurnInName="Raelorasz" TurnInId="26117" />
 		<Pickup QuestName="Springing the Trap" QuestId="11969" GiverName="Raelorasz" GiverId="26117" />
@@ -5800,40 +5800,59 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Search Indu'le Village" QuestId="12098" GiverName="Image of Archmage Modera" GiverId="26673" />
 			</If>
-		
-			
-			
-			
-		<!--
-
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="3" Text="End of Line!\n\nYes, I fight for the users!" />
-		
-		-->
-		
-			
-		<!-- Sigh, it won't let me set an interactrange with this guy! It keeps trying to go into the middle of him.  I added a blackspot, the bot ignores it; I also tried interactwith
-		<PickUp QuestName="Elder Mana'loa" QuestId="12030" GiverName="Toalu'u the Mystic" GiverId="26595" />
-		<TurnIn QuestName="Elder Mana'loa" QuestId="12030" TurnInName="Elder Mana'loa" TurnInId="188419" TurnInType="Object" X="3131.187" Y="1569.624" Z="163.5229" />
-		-->
-		<!-- do i need runto?, then CTM? -->
+			<If Condition="((HasQuest(12098)) &amp;&amp; (IsQuestCompleted(12098)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3070.979" Y="1364.306" Z="151.8857" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Search Indu'le Village" QuestId="12098" TurnInName="Mage-Commander Evenstar" TurnInId="26873" />
 		<PickUp QuestName="The End of the Line" QuestId="12107" GiverName="Mage-Commander Evenstar" GiverId="26873" />
+			</If>
+			<If Condition="((!HasQuest(12107)) &amp;&amp; (!IsQuestCompleted(12107)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3070.979" Y="1364.306" Z="151.8857" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The End of the Line" QuestId="12107" GiverName="Mage-Commander Evenstar" GiverId="26873" />
+			</If>
 			<While Condition="((HasQuest(12107)) &amp;&amp; (!IsQuestCompleted(12107)))" >
 				<CustomBehavior File="MyCTM" X="3075.246" Y="1371.93" Z="146.874" />
 				<CustomBehavior File="MyCTM" X="3056.683" Y="1390.501" Z="124.5216" />
 				<CustomBehavior File="MyCTM" X="3054.746" Y="1407.988" Z="125.1827" />
 				<CustomBehavior File="MyCTM" X="3056.853" Y="1399.232" Z="122.9392" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 				<UseItem QuestName="The End of the Line" QuestId="12107" ItemId="36815" X="3056.853" Y="1399.232" Z="122.9392" />
-				<CustomBehavior File="WaitTimer" WaitTime="6000" />
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for objective to complete {TimeRemaining}" />
 				<CustomBehavior File="MyCTM" X="3075.627" Y="1372.794" Z="132.3547" />
 				<CustomBehavior File="MyCTM" X="3075.246" Y="1371.93" Z="146.874" />
-				<RunTo X="3103.423" Y="648.3962" Z="79.87502" />
+				<RunTo X="3121.376" Y="1345.549" Z="148.8011" />
+				
+				<CustomBehavior File="FlyTo" DestName="Azure Dragonshrine" X="3108.117" Y="658.7141" Z="104.412" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</While>
-			<!-- if you have completed the objectives and stop / DC, you may have issues turning this is in -->
+			<If Condition="((HasQuest(12107)) &amp;&amp; (!IsQuestCompleted(12107)))" >
+			</If>
+			<If Condition="((HasQuest(12107)) &amp;&amp; (IsQuestCompleted(12107)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3498.927" Y="1999.767" Z="65.07062" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="The End of the Line" QuestId="12107" TurnInName="Image of Archmage Modera" TurnInId="26673" />
-			<!-- Pickup quest to Wyrmrest, continue after Moa'ki Harbor -->
 		<PickUp QuestName="Gaining an Audience" QuestId="12119" GiverName="Image of Archmage Modera" GiverId="26673" />
-			<If Condition="((HasQuest(12167)) &amp;&amp; (!HasItem(36958)))" >
+			</If>
+			<If Condition="((!HasQuest(12119)) &amp;&amp; (!IsQuestCompleted(12119)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3498.927" Y="1999.767" Z="65.07062" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Gaining an Audience" QuestId="12119" GiverName="Image of Archmage Modera" GiverId="26673" />
+			</If>
+			<If Condition="((HasQuest(12167)) &amp;&amp; (!IsQuestCompleted(12167)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3916.423" Y="2264.603" Z="190.594" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Kill the Cultists" QuestId="12167" Type="CollectItem" ItemId="36957" CollectCount="5" />
+			</If>
+			<If Condition="((!HasQuest(12168)) &amp;&amp; (!IsQuestCompleted(12168)))" >
+			 <If Condition="(HasItem(36958))" >
+		<PickUp QuestName="The Favor of Zangus" GiverType="Item" QuestId="12168" GiverId="36958" />
+			 </If>
+			 
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3916.423" Y="2264.603" Z="190.594" />
+				<CustomBehavior File="ForcedDismount" />
+				
 					<SetGrindArea>
 						<GrindArea>
 							<Factions>2018</Factions>
@@ -5850,25 +5869,95 @@
 						</GrindArea>
 					</SetGrindArea>
 				<GrindTo Condition="(HasItem(36958))" />
-			</If>
-			<Objective QuestName="Kill the Cultists" QuestId="12167" Type="CollectItem" ItemId="36957" CollectCount="5" />
-		<TurnIn QuestName="Kill the Cultists" QuestId="12167" TurnInName="Warden Jodi Moonsong" TurnInId="26973" />
-			<If Condition="(HasItem(36958))" >
+				
+			 <If Condition="(HasItem(36958))" >
 		<PickUp QuestName="The Favor of Zangus" GiverType="Item" QuestId="12168" GiverId="36958" />
+			 </If>
+			 
+			</If>
+			<If Condition="((HasQuest(12167)) &amp;&amp; (IsQuestCompleted(12167)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3494.291" Y="1990.601" Z="70.87428" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Kill the Cultists" QuestId="12167" TurnInName="Warden Jodi Moonsong" TurnInId="26973" />
+			</If>
+			<If Condition="((HasQuest(12168)) &amp;&amp; (IsQuestCompleted(12168)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3494.291" Y="1990.601" Z="70.87428" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="The Favor of Zangus" QuestId="12168" TurnInName="Warden Jodi Moonsong" TurnInId="26973" />
 		<Pickup QuestName="The High Cultist" QuestId="12169" GiverName="Warden Jodi Moonsong" GiverId="26973" />
-			<Objective QuestName="The High Cultist" QuestId="12169" Type="KillMob" MobId="26655" KillCount="1" />
+			</If>
+			<If Condition="((!HasQuest(12169)) &amp;&amp; (!IsQuestCompleted(12169)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3494.291" Y="1990.601" Z="70.87428" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="The High Cultist" QuestId="12169" GiverName="Warden Jodi Moonsong" GiverId="26973" />
+			</If>
+			<If Condition="((HasQuest(12169)) &amp;&amp; (!IsQuestCompleted(12169)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3729.468" Y="2155.439" Z="82.98367" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The High Cultist" QuestId="12169" Type="KillMob" MobId="26655" KillCount="1" />
+			</If>
+			<If Condition="((HasQuest(12169)) &amp;&amp; (IsQuestCompleted(12169)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3494.291" Y="1990.601" Z="70.87428" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="The High Cultist" QuestId="12169" TurnInName="Warden Jodi Moonsong" TurnInId="26973" />
 			</If>
-		<!-- Let's go ahead and see how many of these Moa'ki Harbor Quests work -->
+			<!-- End of Stars' Rest Quests -->
+		
+			<!-- Let's go ahead and see how many of these Moa'ki Harbor Quests work -->
+			<If Condition="((!HasQuest(11958)) &amp;&amp; (!IsQuestCompleted(11958)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2795.43" Y="911.594" Z="31.05032" />
+				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Let Nothing Go To Waste" QuestId="11958" GiverName="Elder Ko'nani" GiverId="26194" />
-		<!-- <PickUp QuestName="Planning for the Future" QuestId="11960" GiverName="Trapper Mau'i" GiverId="26228" />
-				This one is weird (daily, too), but it collects them
-			<Objective QuestName="Planning for the Future" QuestId="11960" Type="CollectItem" ItemId="35692" ItemName="Snowfall Glade Pup" CollectCount="12" /> -->
-			<Objective QuestName="Let Nothing Go To Waste" QuestId="11958" Type="CollectItem" ItemId="35686" ItemName="Stolen Moa'ki Goods" CollectCount="6" />
-			<!-- 
-		<TurnIn QuestName="Planning for the Future" QuestId="11960" TurnInName="Trapper Mau'i" TurnInId="26228" /> -->
+			</If>
+			 <If Condition="Me.ZoneId == 65" >
+			<If Condition="((!HasQuest(11960)) &amp;&amp; (!IsQuestCompleted(11960)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2795.43" Y="911.594" Z="31.05032" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Planning for the Future" QuestId="11960" GiverName="Trapper Mau'i" GiverId="26228" />
+			</If>
+			 </If>
+			<If Condition="((HasQuest(11960)) &amp;&amp; (!IsQuestCompleted(11960)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3171.75" Y="967.9421" Z="113.3939" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Planning for the Future" QuestId="11960" Type="CollectItem" ItemId="35692" ItemName="Snowfall Glade Pup" CollectCount="12" />
+			</If>
+			<If Condition="((HasQuest(11958)) &amp;&amp; (!IsQuestCompleted(11958)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3171.75" Y="967.9421" Z="113.3939" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Let Nothing Go To Waste" QuestId="11958" Type="CollectItem" ItemId="35686" ItemName="Stolen Moa'ki Goods" CollectCount="6" />
+			</If>
+			<If Condition="((HasQuest(11960)) &amp;&amp; (IsQuestCompleted(11960)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2795.43" Y="911.594" Z="31.05032" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Planning for the Future" QuestId="11960" TurnInName="Trapper Mau'i" TurnInId="26228" />
+			</If>
+			<If Condition="((HasQuest(11958)) &amp;&amp; (IsQuestCompleted(11958)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2795.43" Y="911.594" Z="31.05032" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Let Nothing Go To Waste" QuestId="11958" TurnInName="Elder Ko'nani" TurnInId="26194" />
+			</If>
+			
+			
+			
+		<!--
+
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="3" Text="End of Line!\n\nYes, I fight for the users!" />
+		
+		-->
+		
+			
+			<!--
+			<If Condition="((!HasQuest(12030)) &amp;&amp; (!IsQuestCompleted(12030)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2734.914" Y="887.6769" Z="6.624989" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Elder Mana'loa" QuestId="12030" GiverName="Toalu'u the Mystic" GiverId="26595" />
+			</If>
+			<If Condition="((HasQuest(12030)) &amp;&amp; (IsQuestCompleted(12030)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" 
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Elder Mana'loa" QuestId="12030" TurnInName="Elder Mana'loa" TurnInId="188419" TurnInType="Object" X="3131.187" Y="1569.624" Z="163.5229" />
+			</If>
+			-->
 		<PickUp QuestName="Slay Loguhn" QuestId="11959" GiverName="Elder Ko'nani" GiverId="26194" />
 			<Objective QuestName="Slay Loguhn" QuestId="11959" Type="CollectItem" ItemId="35688" CollectCount="1" />
 			<UseItem QuestName="Slay Loguhn" QuestId="11959" ItemId="35688" X="3352.497" Y="993.118" Z="138.1258" />
@@ -5914,7 +6003,11 @@
 		-->
 		
 		<!-- Lets go ahead and turn in the next quest for wyrmrest -->
+			<If Condition="((HasQuest(12119)) &amp;&amp; (IsQuestCompleted(12119)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3595.765" Y="278.5951" Z="349.7748" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Gaining an Audience" QuestId="12119" TurnInName="Tariolstrasz" TurnInId="26443" />
+			</If>
 		<PickUp QuestName="Speak with your Ambassador" QuestId="12766" GiverName="Tariolstrasz" GiverId="26443" />
 		<TurnIn QuestName="Speak with your Ambassador" QuestId="12766" TurnInName="Lauriel Trueblade" TurnInId="27803" />
 		<PickUp QuestName="Report to the Ruby Dragonshrine" QuestId="12460" GiverName="Lauriel Trueblade" GiverId="27803" />
