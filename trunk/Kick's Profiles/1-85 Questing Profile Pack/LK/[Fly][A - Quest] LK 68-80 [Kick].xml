@@ -4585,7 +4585,9 @@
 		<PickUp QuestName="Anguish of Nifflevar" QuestId="11344" GiverName="Thoralius the Wise" GiverId="23975" />
 			</If>
 			<While Condition="((HasQuest(11344)) &amp;&amp; (!IsQuestCompleted(11344)))" >
-				<CustomBehavior File="FlyTo" DestName="Objective" X="934.2448" Y="-5548.902" Z="185.9204" />
+			<!-- <CustomBehavior File="FlyTo" DestName="Objective" X="934.2448" Y="-5548.902" Z="185.9204" /> -->
+				<CustomBehavior File="FlyTo" DestName="Objective" X="1051.004" Y="-5175.828" Z="177.0833" />
+				<CustomBehavior File="FlyTo" DestName="Objective" X="973.6571" Y="-5469.82" Z="233.5634" />
 				<CustomBehavior File="ForcedDismount" />
 				
 				<RunTo X="918.7421" Y="-5546.94" Z="189.1457" />
@@ -5761,6 +5763,43 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Strengthen the Ancients" QuestId="12092" GiverName="Sarendryana" GiverId="26837" />
 			</If>
+			<If Condition="((HasQuest(12092)) &amp;&amp; (!IsQuestCompleted(12092)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="2929.471" Y="1754.225" Z="139.9233" />
+				<CustomBehavior File="ForcedDismount" />
+				<!-- You will run into an elite here and may die -->
+			 <While Condition="((HasQuest(12092)) &amp;&amp; (!IsQuestCompleted(12092)))" >
+				<CustomBehavior File="InteractWith" QuestId="12092" MobId="26421" NumOfTimes="4" GossipOptions="1" CollectionDistance="500" X="3229.479" Y="1844.142" Z="134.4824" />
+				<Objective QuestName="Strengthen the Ancients" QuestId="12092" Type="CollectItem" ItemId="36786" CollectCount="3" CollectFrom="26421" />
+				<CustomBehavior File="UseItemOn" QuestId="12092" ItemId="36786" MobId="26321" NumOfTimes="3" WaitTime="6000" CollectionDistance="500" X="3229.479" Y="1844.142" Z="134.4824" />
+			 </While>
+			</If>
+			<If Condition="((HasQuest(12083)) &amp;&amp; (!IsQuestCompleted(12083)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="2929.471" Y="1754.225" Z="139.9233" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(12083)) &amp;&amp; (!IsQuestCompleted(12083)))" >
+				<Objective QuestName="Atop the Woodlands" QuestId="12083" Type="CollectItem" ItemId="36779" CollectCount="1" />
+				<RunTo X="2900.56" Y="1813.609" Z="131.9698" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for agro to clear {TimeRemaining}"  />
+				<UseItem QuestName="Atop the Woodlands" QuestId="12083" ItemId="36779" X="2900.56" Y="1813.609" Z="131.9698" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}"  />
+			 </While>
+			</If>
+			<If Condition="((HasQuest(12092)) &amp;&amp; (IsQuestCompleted(12092)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3447.371" Y="2010.776" Z="70.01018" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Strengthen the Ancients" QuestId="12092" TurnInName="Sarendryana" TurnInId="26837" />
+			</If>
+			<If Condition="((HasQuest(12083)) &amp;&amp; (IsQuestCompleted(12083)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3498.927" Y="1999.767" Z="65.07062" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Atop the Woodlands" QuestId="12083" TurnInName="Image of Archmage Modera" TurnInId="26673" />
+		<PickUp QuestName="Search Indu'le Village" QuestId="12098" GiverName="Image of Archmage Modera" GiverId="26673" />
+			</If>
+			<If Condition="((!HasQuest(12098)) &amp;&amp; (!IsQuestCompleted(12098)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3498.927" Y="1999.767" Z="65.07062" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Search Indu'le Village" QuestId="12098" GiverName="Image of Archmage Modera" GiverId="26673" />
+			</If>
 		
 			
 			
@@ -5772,20 +5811,6 @@
 		-->
 		
 			
-			<While Condition="((HasQuest(12092)) &amp;&amp; (!IsQuestCompleted(12092)))" >
-				<CustomBehavior File="InteractWith" QuestId="12092" MobId="26421" NumOfTimes="4" GossipOptions="1" WaitTime="1000" CollectionDistance="500" X="3229.479" Y="1844.142" Z="134.4824" />
-				<Objective QuestName="Strengthen the Ancients" QuestId="12092" Type="CollectItem" ItemId="36786" CollectCount="3" CollectFrom="26421" />
-				<CustomBehavior File="UseItemOn" QuestId="12092" ItemId="36786" MobId="26321" NumOfTimes="3" WaitTime="6000" CollectionDistance="500" X="3229.479" Y="1844.142" Z="134.4824" />
-			</While>
-			<!-- You will run into an elite here and may die -->
-			<While Condition="((HasQuest(12083)) &amp;&amp; (!IsQuestCompleted(12083)))" >
-				<Objective QuestName="Atop the Woodlands" QuestId="12083" Type="CollectItem" ItemId="36779" CollectCount="1" />
-				<UseItem QuestName="Atop the Woodlands" QuestId="12083" ItemId="36779" X="2900.56" Y="1813.609" Z="131.9698" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for   {TimeRemaining}"  />
-			</While>
-		<TurnIn QuestName="Strengthen the Ancients" QuestId="12092" TurnInName="Sarendryana" TurnInId="26837" />
-		<TurnIn QuestName="Atop the Woodlands" QuestId="12083" TurnInName="Image of Archmage Modera" TurnInId="26673" />
-		<PickUp QuestName="Search Indu'le Village" QuestId="12098" GiverName="Image of Archmage Modera" GiverId="26673" />
 		<!-- Sigh, it won't let me set an interactrange with this guy! It keeps trying to go into the middle of him.  I added a blackspot, the bot ignores it; I also tried interactwith
 		<PickUp QuestName="Elder Mana'loa" QuestId="12030" GiverName="Toalu'u the Mystic" GiverId="26595" />
 		<TurnIn QuestName="Elder Mana'loa" QuestId="12030" TurnInName="Elder Mana'loa" TurnInId="188419" TurnInType="Object" X="3131.187" Y="1569.624" Z="163.5229" />
