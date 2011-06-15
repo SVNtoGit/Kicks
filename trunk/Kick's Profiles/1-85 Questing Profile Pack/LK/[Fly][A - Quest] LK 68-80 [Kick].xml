@@ -6181,6 +6181,26 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Return to the Earth" QuestId="12417" GiverName="Ceristrasz" GiverId="27506" />
 			</If>
+			<If Condition="((HasQuest(12417)) &amp;&amp; (!IsQuestCompleted(12417)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3660.879" Y="1022.283" Z="63.84389" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(12417)) &amp;&amp; (!IsQuestCompleted(12417)))" >
+				<Objective QuestName="Return to the Earth" QuestId="12417" Type="CollectItem" ItemId="37727" CollectCount="6" />
+				<CustomBehavior File="UseItemOn" QuestId="12417" MobId="27530" ItemId="37727" NumOfTimes="7" WaitTime="5000" CollectionDistance="1000" X="3678.148" Y="950.5617" Z="57.32401" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </While>
+			</If>
+			<If Condition="((HasQuest(12417)) &amp;&amp; (IsQuestCompleted(12417)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3702.168" Y="698.8325" Z="89.59326" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Return to the Earth" QuestId="12417" TurnInName="Ceristrasz" TurnInId="27506" />
+		<PickUp QuestName="Through Fields of Flame" QuestId="12418" GiverName="Ceristrasz" GiverId="27506" />
+			</If>
+			<If Condition="((!HasQuest(12418)) &amp;&amp; (!IsQuestCompleted(12418)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3702.168" Y="698.8325" Z="89.59326" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Through Fields of Flame" QuestId="12418" GiverName="Ceristrasz" GiverId="27506" />
+			</If>
 
 			
 			
@@ -6202,13 +6222,6 @@
 				<CustomBehavior File="InteractWith" QuestId="12416" MobId="26949" NumOfTimes="1" GossipOptions="1" CollectionDistance="10" X="3580.809" Y="289.5718" Z="340.8393" />
 				<CustomBehavior File="WaitTimer" WaitTime="25000" />
 			</If>
-				<!-- If you see your bot dieing a lot, do the quest manually -->
-			<While Condition="((HasQuest(12417)) &amp;&amp; (!IsQuestCompleted(12417)))" >
-				<Objective QuestName="Return to the Earth" QuestId="12417" Type="CollectItem" ItemId="37727" CollectCount="6" />
-				<CustomBehavior File="UseItemOn" QuestId="12417" MobId="27530" ItemId="37727" NumOfTimes="7" WaitTime="5000" CollectionDistance="1000" X="3678.148" Y="950.5617" Z="57.32401" />
-			</While>
-		<TurnIn QuestName="Return to the Earth" QuestId="12417" TurnInName="Ceristrasz" TurnInId="27506" />
-		<PickUp QuestName="Through Fields of Flame" QuestId="12418" GiverName="Ceristrasz" GiverId="27506" />
 			<Objective QuestName="Through Fields of Flame" QuestId="12418" Type="KillMob" MobId="27539" KillCount="6" />
 			<Objective QuestName="Through Fields of Flame" QuestId="12418" Type="KillMob" MobId="27680" KillCount="1" />
 		<TurnIn QuestName="Through Fields of Flame" QuestId="12418" TurnInName="Ceristrasz" TurnInId="27506" />
