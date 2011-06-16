@@ -24,6 +24,9 @@
   
 
 	<Blackspots>
+		<Blackspot X="4549.369" Y="17.37861" Z="72.59253" Radius="4.139221" />
+		<Blackspot X="4034.889" Y="-43.50105" Z="53.87233" Radius="13.72007" />
+		<Blackspot X="4039.103" Y="-42.25162" Z="56.73813" Radius="8.673649" />
 		<Blackspot X="622.7944" Y="-5020.791" Z="3.377577" Radius="3.016026" />
 		<Blackspot X="619.7838" Y="-5015.652" Z="2.663823" Radius="7.686247" />
 		<Blackspot X="3651.744" Y="6964.696" Z="159.005" Radius="7.095916" />
@@ -628,6 +631,23 @@
 			<Hotspots>
 				<Hotspot X="3338.984" Y="631.6773" Z="82.27358" />
 				<Hotspot X="3420.708" Y="811.8761" Z="87.76858" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+
+	<Quest Id="12142" Name="Pest Control">
+		<Objective Type="KillMob" MobId="26705" KillCount="10">
+			<Hotspots>
+				<Hotspot X="4056.372" Y="-42.67951" Z="53.75469" />
+				<Hotspot X="4025.921" Y="-65.61231" Z="49.9143" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="KillMob" MobId="26481" KillCount="3">
+			<Hotspots>
+				<Hotspot X="3756.011" Y="-45.20821" Z="59.01798" />
+				<Hotspot X="3672.821" Y="1.411107" Z="57.67888" />
+				<Hotspot X="3983.095" Y="-40.72001" Z="49.42145" />
+				<Hotspot X="3961.287" Y="12.6158" Z="47.04526" />
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -6293,13 +6313,23 @@
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="The Obsidian Dragonshrine" QuestId="12447" TurnInName="Serinar" TurnInId="26593" />
 		<PickUp QuestName="No One to Save You" QuestId="12262" GiverName="Serinar" GiverId="26593" />
-		<!--
-		<PickUp QuestName="No Place to Run" QuestId="12261" GiverName="Serinar" GiverId="26593" /> -->
+		<!-- <PickUp QuestName="No Place to Run" QuestId="12261" GiverName="Serinar" GiverId="26593" /> -->
 			</If>
 			<If Condition="((!HasQuest(12262)) &amp;&amp; (!IsQuestCompleted(12262)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4379.795" Y="1501.333" Z="134.2545" />
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="No One to Save You" QuestId="12262" GiverName="Serinar" GiverId="26593" />
+			</If>
+			<If Condition="((HasQuest(12262)) &amp;&amp; (!IsQuestCompleted(12262)))" >
+				<Objective QuestName="No One to Save You" QuestId="12262" Type="KillMob" MobId="27356" KillCount="6" />
+				<Objective QuestName="No One to Save You" QuestId="12262" Type="KillMob" MobId="27360" KillCount="10" />
+			</If>
+			<If Condition="((HasQuest(12262)) &amp;&amp; (IsQuestCompleted(12262)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4379.795" Y="1501.333" Z="134.2545" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="No One to Save You" QuestId="12262" TurnInName="Serinar" TurnInId="26593" />
+				<RunTo X="4379.795" Y="1501.333" Z="134.2545" /> <!-- delete this runto when the next quest is fixed -->
+
 			</If>
 			<!--
 			<If Condition="((!HasQuest(12261)) &amp;&amp; (!IsQuestCompleted(12261)))" >
@@ -6307,52 +6337,22 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="No Place to Run" QuestId="12261" GiverName="Serinar" GiverId="26593" />
 			</If>
-			-->
-			
-			
-			
-		<!--
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="3" Text="End of Line!\n\nYes, I fight for the users!" />
-		-->
-		
-		
-
-		<!-- I need a CB to make the bot stay here and fight -->
-		<!--
 			<If Condition="(HasQuest(12261))">
-			<RunTo QuestId="12261" X="4383.268" Y="1307.806" Z="150.224" />
-			<UseItem QuestName="No Place to Run" QuestId="12261" ItemId="37445" X="4377.28" Y="1285.45" Z="156.2455" />
-					<SetGrindArea>
-						<GrindArea>
-							<Factions>2035</Factions>
-							<Hotspots>
-								<Hotspot X="4377.28" Y="1285.45" Z="156.2455" />
-								<Hotspot X="4377.28" Y="1285.45" Z="156.2455" />
-							</Hotspots>
-						</GrindArea>
-					</SetGrindArea>
-				<GrindTo Condition="IsQuestCompleted(12261)" />
-				-->
-				<!--
-				<Objective QuestName="No Place to Run" QuestId="12261" Type="KillMob" MobId="28820" KillCount="1" />
-				
-			</If>
+				<RunTo X="4379.795" Y="1501.333" Z="134.2545" />
+				<CustomBehavior File="FlyTo" DestName="Objective" X="4384.706" Y="1305.638" Z="150.4314" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo X="4384.706" Y="1305.638" Z="150.4314" />
+				<UseItem QuestName="No Place to Run" QuestId="12261" ItemId="37445" X="4384.706" Y="1305.638" Z="150.4314" />
+				// Escort is not defending the Ward
+				<CustomBehavior File="Escort" QuestId="12261" MobId="27430" X="4377.28" Y="1285.45" Z="156.2455" />
+				\\
+			 </If>
+		<TurnIn QuestName="No Place to Run" QuestId="12261" TurnInName="Serinar" TurnInId="26593" />
 			-->
-			<Objective QuestName="No One to Save You" QuestId="12262" Type="KillMob" MobId="27356" KillCount="6" />
-			<Objective QuestName="No One to Save You" QuestId="12262" Type="KillMob" MobId="27360" KillCount="10" />
-		<TurnIn QuestName="No One to Save You" QuestId="12262" TurnInName="Serinar" TurnInId="26593" />
-		<!--
-		<TurnIn QuestName="No Place to Run" QuestId="12261" TurnInName="Serinar" TurnInId="26593" />		  -->
-		<!-- This has not been tested
+			<!-- This has not been tested
 		<PickUp QuestName="The Best of Intentions" QuestId="12263" GiverName="Serinar" GiverId="26593" />
 			<If Condition="(HasQuest(12263))" >
-					 <CustomBehavior File="InteractWith" QuestId="12263" MobId="26593" NumOfTimes="1" CollectionDistance="10" X="4451.42" Y="1652.292" Z="133.7449" />
-					 <CustomBehavior File="TalkToAndListenToStory" QuestId="12263" MobIds="25590" /> -->
-					 <!-- use runmacro if ttalts doesn't work
-					 <CustomBehavior File="RunMacro" Macro="/script SelectGossipOptions(1)" NumOfTimes="1" WaitTime="500" />
-					 <CustomBehavior File="RunMacro" Macro="/script CloseGossip()" NumOfTimes="2" WaitTime="500" /> -->
-		<!--
-			<RunTo QuestId="12263" XYZ />
+					 <CustomBehavior File="InteractWith" QuestId="12263" MobId="26593" NumOfTimes="1" GossipOptions="1, 1" CollectionDistance="10" X="4451.42" Y="1652.292" Z="133.7449" />
 			</If>
 		<TurnIn QuestName="The Best of Intentions" QuestId="12263" TurnInName="Serinar" TurnInId="26593" />
 		<PickUp QuestName="Culling the Damned" QuestId="12264" GiverName="Serinar" GiverId="26593" />
@@ -6371,59 +6371,157 @@
 			</If>
 		<TurnIn QuestName="Neltharion's Flame" QuestId="12267" TurnInName="Serinar" TurnInId="26593" />
 		<PickUp QuestName="Tales of Destruction" QuestId="12266" GiverName="Serinar" GiverId="26593" />
-		-->
+			-->
 		
 			<If Condition="((HasQuest(12458)) &amp;&amp; (IsQuestCompleted(12458)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3562.24" Y="354.7234" Z="371.0081" />
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3596.992" Y="279.423" Z="344.5974" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Seeds of the Lashers" QuestId="12458" TurnInName="Lord Itharius" TurnInId="27785" />
+			<!-- That Which Creates Can Also Destroy -->
 				<RunTo X="3600.435" Y="277.5533" Z="340.9138" />
 			</If>
+			<!-- End of Wyrmrest Temple Quests -->
 		
-		
-		
-		<!--
-		ok, lets go ahead and do the quests north of wyrmrest now
-		-->
+			<!-- N Dragonblight Quests -->
+			<If Condition="((!HasQuest(12142)) &amp;&amp; (!IsQuestCompleted(12142)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" Distance="3" X="4567.521" Y="17.47261" Z="82.31758" />
+				<CustomBehavior File="ForcedDismount" />
 		<Pickup QuestName="Pest Control" QuestId="12142" GiverName="Duane" GiverId="26978" />
-			<Objective QuestName="Pest Control" QuestId="12142" Type="KillMob" MobId="26481" KillCount="3" />
-			<Objective QuestName="Pest Control" QuestId="12142" Type="KillMob" MobId="26705" KillCount="10" />
+			</If>
+			<If Condition="((HasQuest(12142)) &amp;&amp; (!IsQuestCompleted(12142)))" >
+				<CustomBehavior File="FlyTo" DestName="kill Magnataur" X="4028.311" Y="-74.37708" Z="52.33945" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Pest Control" QuestId="12142" Type="KillMob" MobId="26481" KillCount="3" />
+				
+				<CustomBehavior File="FlyTo" DestName="kill Snowbalds" X="3791.301" Y="-54.09116" Z="56.96104" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Pest Control" QuestId="12142" Type="KillMob" MobId="26705" KillCount="10" />
+			</If>
+			<If Condition="((HasQuest(12142)) &amp;&amp; (IsQuestCompleted(12142)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" Distance="3" X="4567.521" Y="17.47261" Z="82.31758" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Pest Control" QuestId="12142" TurnInName="Duane" TurnInId="26978" />
 		<Pickup QuestName="Canyon Chase" QuestId="12143" GiverName="Duane" GiverId="26978" />
-			<Objective QuestName="Canyon Chase" QuestId="12143" Type="KillMob" MobId="27005" KillCount="1" />
+			</If>
+			<If Condition="((!HasQuest(12143)) &amp;&amp; (!IsQuestCompleted(12143)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" Distance="3" X="4567.521" Y="17.47261" Z="82.31758" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="Canyon Chase" QuestId="12143" GiverName="Duane" GiverId="26978" />
+			</If>
+			<If Condition="((HasQuest(12143)) &amp;&amp; (!IsQuestCompleted(12143)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="4498.555" Y="-425.4195" Z="89.1582" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Canyon Chase" QuestId="12143" Type="KillMob" MobId="27005" KillCount="1" />
+			</If>
+			<If Condition="((HasQuest(12143)) &amp;&amp; (IsQuestCompleted(12143)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" Distance="3" X="4567.521" Y="17.47261" Z="82.31758" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Canyon Chase" QuestId="12143" TurnInName="Duane" TurnInId="26978" />
+			</If>
 			<If Condition="(HasItem(36855))" >
 		<PickUp QuestName="Disturbing Implications" QuestId="12146" GiverType="Item" GiverId="36855" />
 			</If>
+			<If Condition="((HasQuest(12146)) &amp;&amp; (IsQuestCompleted(12146)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3673.478" Y="284.73" Z="58.57715" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Disturbing Implications" QuestId="12146" TurnInName="Aurastrasza" TurnInId="26983" />
-		<TurnIn QuestName="Canyon Chase" QuestId="12143" TurnInName="Duane" TurnInId="26978" />
-		<Pickup QuestName="Slim Pickings" QuestId="12075" GiverName="Zort" GiverId="26659" />
-			<Objective QuestName="Slim Pickings" QuestId="12075" Type="CollectItem" ItemId="36765" CollectCount="1" />
-		<TurnIn QuestName="Slim Pickings" QuestId="12075" TurnInName="Zort" TurnInId="26659" />
-		<!-- I need a CB for If HasDebuff() UseItem -->
-
-		<!--
-		<Pickup QuestName="Stomping Grounds" QuestId="12079" GiverName="Ko'char the Unbreakable" GiverId="26473" />
-		<Pickup QuestName="Messy Business" QuestId="12076" GiverName="Zort" GiverId="26659" />
-			<If Condition="((HasAura(47435)) &amp;&amp; (HasQuest(12076)) &amp;&amp; (!IsQuestCompleted(12076)))" >
-				<CustomBehavior File="UseItemIfMeHasDebuff" QuestId="12076" DebuffName="" />
-				// or maybe \\
-				<CustomBehavior File="UseItemIfMeHasDebuff" QuestId="12076" ItemId="36775" MobId="26358" NumOfTimes="2" WaitTime="6000" 
+				<!-- One of a Kind -->
+				<RunTo X="3675.622" Y="286.871" Z="52.22809" />
 			</If>
-		
+			<If Condition="((!HasQuest(12075)) &amp;&amp; (!IsQuestCompleted(12075)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4903.812" Y="294.4225" Z="136.2409" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="Slim Pickings" QuestId="12075" GiverName="Zort" GiverId="26659" />
+			</If>
+			<If Condition="((HasQuest(12075)) &amp;&amp; (!IsQuestCompleted(12075)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5111.169" Y="406.3114" Z="192.1229" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Slim Pickings" QuestId="12075" Type="CollectItem" ItemId="36765" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(12075)) &amp;&amp; (IsQuestCompleted(12075)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4903.812" Y="294.4225" Z="136.2409" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Slim Pickings" QuestId="12075" TurnInName="Zort" TurnInId="26659" />
+		<Pickup QuestName="Messy Business" QuestId="12076" GiverName="Zort" GiverId="26659" />
+		<Pickup QuestName="Stomping Grounds" QuestId="12079" GiverName="Ko'char the Unbreakable" GiverId="26473" />
+			</If>
+			<If Condition="((!HasQuest(12076)) &amp;&amp; (!IsQuestCompleted(12076)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4906.897" Y="310.8272" Z="145.8285" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="Messy Business" QuestId="12076" GiverName="Zort" GiverId="26659" />
+			</If>
+			<If Condition="((!HasQuest(12079)) &amp;&amp; (!IsQuestCompleted(12079)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4906.897" Y="310.8272" Z="145.8285" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="Stomping Grounds" QuestId="12079" GiverName="Ko'char the Unbreakable" GiverId="26473" />
+			</If>
+			<If Condition="((HasQuest(12076)) &amp;&amp; (!IsQuestCompleted(12076)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5111.169" Y="406.3114" Z="192.1229" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="CombatUseItemOn" QuestId="12076" MobId="26358" ItemId="36775" HasAuraId="47447" CollectionDistance="500" X="5149.556" Y="533.8982" Z="187.395" />
+				
+			 <If Condition="(HasQuest(12079))" >
 				<Objective QuestName="Stomping Grounds" QuestId="12079" Type="KillMob" MobId="26358" KillCount="8" />
-		<TurnIn QuestName="Stomping Grounds" QuestId="12079" TurnInName="Ko'char the Unbreakable" TurnInId="26473" />
-		-->
-		<!-- ignoring this quest chain until I get a CB for "Messy Business"
+			 </If>
+				<RunTo X="5111.169" Y="406.3114" Z="192.1229" />
+			</If>
+			<If Condition="((HasQuest(12079)) &amp;&amp; (!IsQuestCompleted(12079)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5111.169" Y="406.3114" Z="192.1229" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Stomping Grounds" QuestId="12079" Type="KillMob" MobId="26358" KillCount="8" />
+				
+				<RunTo X="5111.169" Y="406.3114" Z="192.1229" />
+			</If>
+			<If Condition="((HasQuest(12076)) &amp;&amp; (IsQuestCompleted(12076)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4903.812" Y="294.4225" Z="136.2409" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Messy Business" QuestId="12076" TurnInName="Zort" TurnInId="26659" />
-		-->
-			<!-- 
-			<Vendor Name="Rattlebore" Entry="26360" Type="Repair" X="4903.295" Y="789.5843" Z="124.6554" />
-			-->
-		
-		<Pickup QuestName="Stocking Up" QuestId="12044" GiverName="Xink" GiverId="26660" />
+		<PickUp QuestName="Apply This Twice A Day" QuestId="12077" GiverName="Zort" GiverId="26659" />
+			</If>
+			<If Condition="((!HasQuest(12077)) &amp;&amp; (!IsQuestCompleted(12077)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4903.812" Y="294.4225" Z="136.2409" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Apply This Twice A Day" QuestId="12077" GiverName="Zort" GiverId="26659" />
+			</If>
+			<If Condition="((HasQuest(12079)) &amp;&amp; (IsQuestCompleted(12079)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4906.897" Y="310.8272" Z="145.8285" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Stomping Grounds" QuestId="12079" TurnInName="Ko'char the Unbreakable" TurnInId="26473" />
+			</If>
+			<If Condition="((HasQuest(1212077079)) &amp;&amp; (IsQuestCompleted(12077)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4906.897" Y="310.8272" Z="145.8285" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Apply This Twice A Day" QuestId="12077" TurnInName="Ko'char the Unbreakable" TurnInId="26473" />
+			<!-- Ignoring Really Big Worm and Worm Wrangler -->
+			</If>
+			
+			<!-- Start of The Crystal Vice Quests (N. of Wyrmrest -->
+			<If Condition="((!HasQuest(12043)) &amp;&amp; (!IsQuestCompleted(12043)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4694.082" Y="578.1246" Z="119.389" />
+				<CustomBehavior File="ForcedDismount" />
 		<Pickup QuestName="Nozzlerust Defense" QuestId="12043" GiverName="Narf" GiverId="26647" />
+			</If>
+			<If Condition="((!HasQuest(12044)) &amp;&amp; (!IsQuestCompleted(12044)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4698.147" Y="545.3454" Z="121.1313" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="Stocking Up" QuestId="12044" GiverName="Xink" GiverId="26660" />
+			</If>
+			<If Condition="((!HasQuest(12045)) &amp;&amp; (!IsQuestCompleted(12045)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4703.98" Y="557.6345" Z="123.743" />
+				<CustomBehavior File="ForcedDismount" />
 		<Pickup QuestName="Shaved Ice" QuestId="12045" GiverName="Zivlix" GiverId="26661" />
+			</If>
+			
+			
+			
+		<!--
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="3" Text="End of Line!\n\nYes, I fight for the users!" />
+		-->
+		
+		
+
+		
 			<Objective QuestName="Stocking Up" QuestId="12044" Type="CollectItem" ItemId="36727" CollectCount="8" />
 			<Objective QuestName="Nozzlerust Defense" QuestId="12043" Type="KillMob" MobId="26492" KillCount="12" />
 			<Objective QuestName="Nozzlerust Defense" QuestId="12043" Type="KillMob" MobId="26493" KillCount="1" />
