@@ -9037,7 +9037,7 @@
 			<Checkpoint Level="76" />
 		
 			<!-- Sholazar Basin Quests -->
-				<CustomBehavior File="Message" Text="Compiling Sholazar Basin Quests - Little to No flying yet (You will get stuck in trees)" LogColor="Orange" />
+				<CustomBehavior File="Message" Text="Compiling Sholazar Basin Quests (You will get stuck in trees)" LogColor="Green" />
 		
 		<!-- only do this quest if you are in Dalaran, the bot won't use FP's to get from Zul'Drak to Dalaran
 		<PickUp QuestName="Where in the World is Hemet Nesingwary?" QuestId="12521" GiverName="Archmage Pentarus" GiverId="28160" X="5833.988" Y="483.5187" Z="658.1784" />
@@ -9359,6 +9359,10 @@
 			<!-- Frenzyheart Hill Quests -->
 				<CustomBehavior File="Message" Text="Compiling Frenzyheart Hill Quests" LogColor="Cornflowerblue" />
 
+			<If Condition="(!IsQuestCompleted(12539))" >
+	  <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" ExpiryTime="10" ExpiryAction="InputEnabled_Continue" SoundCueInterval="2" Text="Make sure you're using the ItemForAura Plugin\n\n1-85 Questing / Plugins" />
+			</If>
+
 			<If Condition="((!HasQuest(12528)) &amp;&amp; (!IsQuestCompleted(12528)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5043.43" Y="4726.093" Z="-125.621" />
 				<CustomBehavior File="ForcedDismount" />
@@ -9369,19 +9373,196 @@
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Playing Along" QuestId="12528" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
 		<PickUp QuestName="The Ape Hunter's Slave" QuestId="12529" GiverName="High-Shaman Rakjak" GiverId="28082" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for npc to spawn {TimeRemaining}" />
+		<PickUp QuestName="Tormenting the Softknuckles" QuestId="12530" GiverName="Goregek the Gorilla Hunter" GiverId="28214" />
 			</If>
 			<If Condition="((!HasQuest(12529)) &amp;&amp; (!IsQuestCompleted(12529)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="The Ape Hunter's Slave" QuestId="12529" GiverName="High-Shaman Rakjak" GiverId="28082" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for npc to spawn {TimeRemaining}" />
+		<PickUp QuestName="Tormenting the Softknuckles" QuestId="12530" GiverName="Goregek the Gorilla Hunter" GiverId="28214" />
 			</If>
-			
-
-
-
-
-
-			
+			<If Condition="((!HasQuest(12530)) &amp;&amp; (!IsQuestCompleted(12530)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5277.587" Y="4529.633" Z="-81.22305" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(38619)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for npc to spawn {TimeRemaining}" />
+		<PickUp QuestName="Tormenting the Softknuckles" QuestId="12530" GiverName="Goregek the Gorilla Hunter" GiverId="28214" />
+			</If>
+			<If Condition="((HasQuest(12530)) &amp;&amp; (!IsQuestCompleted(12530)))" >
+				<CustomBehavior File="FlyTo" DestName="kill Matriach Gorilla" X="5175" Y="4022.421" Z="-60.85987" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(12530)) &amp;&amp; (!IsQuestCompleted(12530)))" >
+				<CustomBehavior File="UseItemOn" QuestId="12530" ItemId="38467" MobId="28127" NumOfTimes="5" WaitTime="1500" X="5155.861" Y="4014.228" Z="-60.46114" />
+				<RunTo QuestId="12530" X="5175" Y="4022.421" Z="-60.85987" />
+				<CustomBehavior QuestId="12530" File="WaitTimer" WaitTime="5000" GoalText="Waiting for Matriarch {TimeRemaining}" />
+			 </While>
+			</If>
+			<If Condition="((HasQuest(12529)) &amp;&amp; (!IsQuestCompleted(12529)))" >
+				<CustomBehavior File="FlyTo" DestName="kill Gorilla's" X="5175" Y="4022.421" Z="-60.85987" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Ape Hunter's Slave" QuestId="12529" Type="KillMob" MobId="28096" KillCount="6" />
+				
+				<CustomBehavior File="FlyTo" DestName="kill Gorilla's" X="5223.697" Y="4280.111" Z="-99.52932" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Ape Hunter's Slave" QuestId="12529" Type="KillMob" MobId="28098" KillCount="8" />
+			</If>
+			<If Condition="((HasQuest(12530)) &amp;&amp; (IsQuestCompleted(12530)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Tormenting the Softknuckles" QuestId="12530" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
+			</If>
+			<If Condition="((HasQuest(12529)) &amp;&amp; (IsQuestCompleted(12529)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Ape Hunter's Slave" QuestId="12529" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
+		<PickUp QuestName="The Wasp Hunter's Apprentice" QuestId="12533" GiverName="High-Shaman Rakjak" GiverId="28082" />
+			</If>
+			<If Condition="((!HasQuest(12533)) &amp;&amp; (!IsQuestCompleted(12533)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Wasp Hunter's Apprentice" QuestId="12533" GiverName="High-Shaman Rakjak" GiverId="28082" />
+			</If>
+			<If Condition="((!HasQuest(12534)) &amp;&amp; (!IsQuestCompleted(12534)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5262.588" Y="4509.902" Z="-84.85413" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Sapphire Queen" QuestId="12534" GiverName="Elder Harkek" GiverId="28138" />
+			</If>
+			<If Condition="((HasQuest(12534)) &amp;&amp; (!IsQuestCompleted(12534)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5039.379" Y="4307.315" Z="-84.18459" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Sapphire Queen" QuestId="12534" Type="CollectItem" ItemId="38477" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(12533)) &amp;&amp; (!IsQuestCompleted(12533)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5039.379" Y="4307.315" Z="-84.18459" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Wasp Hunter's Apprentice" QuestId="12533" Type="KillMob" MobId="28086" KillCount="6" />
+				<Objective QuestName="The Wasp Hunter's Apprentice" QuestId="12533" Type="KillMob" MobId="28085" KillCount="9" />
+			</If>
+			<If Condition="((HasQuest(12533)) &amp;&amp; (IsQuestCompleted(12533)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Wasp Hunter's Apprentice" QuestId="12533" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
+			</If>
+			<If Condition="((HasQuest(12534)) &amp;&amp; (IsQuestCompleted(12534)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Sapphire Queen" QuestId="12534" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
+		<PickUp QuestName="Flown the Coop!" QuestId="12532" GiverName="Elder Harkek" GiverId="28138" />
+			</If>
+			<If Condition="((!HasQuest(12532)) &amp;&amp; (!IsQuestCompleted(12532)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5262.588" Y="4509.902" Z="-84.85413" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Flown the Coop!" QuestId="12532" GiverName="Elder Harkek" GiverId="28138" />
+			</If>
+			<If Condition="((HasQuest(12532)) &amp;&amp; (!IsQuestCompleted(12532)))" >
+				<CustomBehavior File="FlyTo" DestName="collect chickens" X="5245.291" Y="4409.099" Z="-95.76038" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="12532" MobId="28161" NumOfTimes="30" Range="5" CollectionDistance="500" X="5278.118" Y="4434.634" Z="-96.02177" />
+			</If>
+			<If Condition="((HasQuest(12532)) &amp;&amp; (IsQuestCompleted(12532)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5262.588" Y="4509.902" Z="-84.85413" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Flown the Coop!" QuestId="12532" TurnInName="Elder Harkek" TurnInId="28138" />
+		<PickUp QuestName="The Underground Menace" QuestId="12531" GiverName="Elder Harkek" GiverId="28138" />
+			</If>
+			<If Condition="((!HasQuest(12531)) &amp;&amp; (!IsQuestCompleted(12531)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5262.588" Y="4509.902" Z="-84.85413" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Underground Menace" QuestId="12531" GiverName="Elder Harkek" GiverId="28138" />
+			</If>
+			<If Condition="((!HasQuest(12535)) &amp;&amp; (!IsQuestCompleted(12535)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Mischief in the Making" QuestId="12535" GiverName="High-Shaman Rakjak" GiverId="28082" />
+			</If>
+			<If Condition="((HasQuest(12531)) &amp;&amp; (!IsQuestCompleted(12531)))" >
+				<CustomBehavior File="FlyTo" DestName="kill Serfex" X="4856.5" Y="4395.31" Z="-62.08129" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UserSettings" PullDistance="10" />
+				<Objective QuestName="The Underground Menace" QuestId="12531" Type="CollectItem" ItemId="38473" CollectCount="1" />
+				<CustomBehavior File="UserSettings" PullDistance="25" />
+			</If>
+			<If Condition="((HasQuest(12535)) &amp;&amp; (!IsQuestCompleted(12535)))" >
+				<CustomBehavior File="FlyTo" DestName="collect crystals" X="4741.547" Y="4368.969" Z="-31.60911" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UserSettings" PullDistance="10" />
+				<Objective QuestName="Mischief in the Making" QuestId="12535" Type="CollectItem" ItemId="38504" CollectCount="8" />
+				<CustomBehavior File="UserSettings" PullDistance="25" />
+			</If>
+			<If Condition="((HasQuest(12535)) &amp;&amp; (IsQuestCompleted(12535)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Mischief in the Making" QuestId="12535" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
+			</If>
+			<If Condition="((HasQuest(12531)) &amp;&amp; (IsQuestCompleted(12531)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Underground Menace" QuestId="12531" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
+		<PickUp QuestName="A Rough Ride" QuestId="12536" GiverName="High-Shaman Rakjak" GiverId="28082" />
+			</If>
+			<If Condition="((!HasQuest(12536)) &amp;&amp; (!IsQuestCompleted(12536)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="A Rough Ride" QuestId="12536" GiverName="High-Shaman Rakjak" GiverId="28082" />
+			</If>
+			<If Condition="((HasQuest(12536)) &amp;&amp; (!IsQuestCompleted(12536)))" >
+				<CustomBehavior File="FlyTo" DestName="croc" X="5301.503" Y="4433.174" Z="-98.05336" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="12536" MobId="28298" NumOfTimes="1" GossipOptions="1" WaitTime="250" CollectionDistance="20" X="5301.503" Y="4433.174" Z="-98.05336" />
+				<CustomBehavior File="WaitTimer" WaitTime="120000" GoalText="Waiting for ride {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(12536)) &amp;&amp; (IsQuestCompleted(12536)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6139.721" Y="4916.872" Z="-95.08303" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="A Rough Ride" QuestId="12536" TurnInName="Zepik the Gorloc Hunter" TurnInId="28216" X="6139.721" Y="4916.872" Z="-95.08303" />
+		<Pickup QuestName="The Mist Isn't Listening" QuestId="12538" GiverName="Zepik the Gorloc Hunter" GiverId="28216" X="6139.721" Y="4916.872" Z="-95.08303" />
+		<Pickup QuestName="Lightning Definitely Strikes Twice" QuestId="12537" GiverName="Zepik the Gorloc Hunter" GiverId="28216" X="6139.721" Y="4916.872" Z="-95.08303" />
+			</If>
+			<If Condition="((!HasQuest(12538)) &amp;&amp; (!IsQuestCompleted(12538)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6139.721" Y="4916.872" Z="-95.08303" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="The Mist Isn't Listening" QuestId="12538" GiverName="Zepik the Gorloc Hunter" GiverId="28216" X="6139.721" Y="4916.872" Z="-95.08303" />
+			</If>
+			<If Condition="((!HasQuest(12537)) &amp;&amp; (!IsQuestCompleted(12537)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6139.721" Y="4916.872" Z="-95.08303" />
+				<CustomBehavior File="ForcedDismount" />
+		<Pickup QuestName="Lightning Definitely Strikes Twice" QuestId="12537" GiverName="Zepik the Gorloc Hunter" GiverId="28216" X="6139.721" Y="4916.872" Z="-95.08303" />
+			</If>
+			<If Condition="((HasQuest(12537)) &amp;&amp; (!IsQuestCompleted(12537)))" >
+				<CustomBehavior File="FlyTo" DestName="sabotage the Shrine" X="6209.123" Y="4953.141" Z="-98.94791" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for agro to clear {TimeRemaining}"  />
+			 <While Condition="((HasQuest(12537)) &amp;&amp; (!IsQuestCompleted(12537)))" >
+				<UseItem QuestName="Lightning Definitely Strikes Twice" QuestId="12537" ItemId="38510" X="6209.123" Y="4953.141" Z="-98.94791" />
+				<CustomBehavior File="InteractWith" QuestId="12537" ObjectType="Gameobject" MobId="190502" NumOfTimes="1" CollectionDistance="10" X="6209.123" Y="4953.141" Z="-98.94791" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}"  />
+			 </While>
+				<!-- <Objective QuestName="Lightning Definitely Strikes Twice" QuestId="12537" Type="CollectItem" ItemId="38510" CollectCount="1" /> -->
+			</If>
+			<If Condition="((HasQuest(12538)) &amp;&amp; (!IsQuestCompleted(12538)))" >
+				<CustomBehavior File="FlyTo" DestName="kill 12 Mistwhisper's" X="6217.211" Y="4908.339" Z="-91.5281" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Mist Isn't Listening" QuestId="12538" Type="KillMob" MobId="28109" KillCount="12" />
+			</If>
+			<If Condition="((HasQuest(12538)) &amp;&amp; (IsQuestCompleted(12538)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6139.721" Y="4916.872" Z="-95.08303" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Mist Isn't Listening" QuestId="12538" TurnInName="Zepik the Gorloc Hunter" TurnInId="28216" />
+			</If>
+			<If Condition="((HasQuest(12537)) &amp;&amp; (IsQuestCompleted(12537)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6139.721" Y="4916.872" Z="-95.08303" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Lightning Definitely Strikes Twice" QuestId="12537" TurnInName="Zepik the Gorloc Hunter" TurnInId="28216" />
+		<Pickup QuestName="Hoofing It" QuestId="12539" GiverName="Zepik the Gorloc Hunter" GiverId="28216" />
+			</If>
+			<If Condition="((HasQuest(12539)) &amp;&amp; (IsQuestCompleted(12539)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Hoofing It" QuestId="12539" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
+			</If>
 			
 			
 			
@@ -9390,72 +9571,6 @@
 		-->
 		
 		
-			<If Condition="((HasQuest(12529)) &amp;&amp; (!HasQuest(12530)))" >
-				<CustomBehavior File="WaitTimer" WaitTime="10000"/>
-			</If>
-		<PickUp QuestName="Tormenting the Softknuckles" QuestId="12530" GiverName="Goregek the Gorilla Hunter" GiverId="28214" />
-			<While Condition="((HasQuest(12530)) &amp;&amp; (!IsQuestCompleted(12530)))" >
-				<CustomBehavior File="UseItemOn" QuestId="12530" ItemId="38467" MobId="28127" NumOfTimes="10" WaitTime="1500" X="5155.861" Y="4014.228" Z="-60.46114" />
-			</While>
-			<Objective QuestName="Tormenting the Softknuckles" QuestId="12530" Type="KillMob" MobId="28213" KillCount="1" />
-			<Objective QuestName="The Ape Hunter's Slave" QuestId="12529" Type="KillMob" MobId="28098" KillCount="8" />
-			<Objective QuestName="The Ape Hunter's Slave" QuestId="12529" Type="KillMob" MobId="28096" KillCount="6" />
-			<Objective QuestName="Tormenting the Softknuckles" QuestId="12530" Type="KillMob" MobId="28213" KillCount="1" />
-			<Objective QuestName="Tormenting the Softknuckles" QuestId="12530" Type="CollectItem" ItemId="38467" CollectCount="1" />
-		<TurnIn QuestName="Tormenting the Softknuckles" QuestId="12530" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
-		<TurnIn QuestName="The Ape Hunter's Slave" QuestId="12529" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
-		<PickUp QuestName="The Wasp Hunter's Apprentice" QuestId="12533" GiverName="High-Shaman Rakjak" GiverId="28082" />
-		<PickUp QuestName="The Sapphire Queen" QuestId="12534" GiverName="Elder Harkek" GiverId="28138" />
-			<Objective QuestName="The Sapphire Queen" QuestId="12534" Type="CollectItem" ItemId="38477" CollectCount="1" />
-			<Objective QuestName="The Wasp Hunter's Apprentice" QuestId="12533" Type="KillMob" MobId="28086" KillCount="6" />
-			<Objective QuestName="The Wasp Hunter's Apprentice" QuestId="12533" Type="KillMob" MobId="28085" KillCount="9" />
-		<TurnIn QuestName="The Wasp Hunter's Apprentice" QuestId="12533" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
-		<TurnIn QuestName="The Sapphire Queen" QuestId="12534" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
-		<PickUp QuestName="Flown the Coop!" QuestId="12532" GiverName="Elder Harkek" GiverId="28138" />
-			<!-- LOL @ bot running around chasing chickens -->
-			<If Condition="((HasQuest(12532)) &amp;&amp; (!IsQuestCompleted(12532)))" >
-				<CustomBehavior File="InteractWith" QuestId="12532" MobId="28161" NumOfTimes="30" Range="5" CollectionDistance="500" X="5278.118" Y="4434.634" Z="-96.02177" />
-			</If>
-		<TurnIn QuestName="Flown the Coop!" QuestId="12532" TurnInName="Elder Harkek" TurnInId="28138" />
-		<PickUp QuestName="Mischief in the Making" QuestId="12535" GiverName="High-Shaman Rakjak" GiverId="28082" />
-		<PickUp QuestName="The Underground Menace" QuestId="12531" GiverName="Elder Harkek" GiverId="28138" />
-			<Objective QuestName="Mischief in the Making" QuestId="12535" Type="CollectItem" ItemId="38504" CollectCount="8" />
-			<Objective QuestName="The Underground Menace" QuestId="12531" Type="CollectItem" ItemId="38473" CollectCount="1" />
-		<TurnIn QuestName="Mischief in the Making" QuestId="12535" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
-		<TurnIn QuestName="The Underground Menace" QuestId="12531" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
-		<PickUp QuestName="A Rough Ride" QuestId="12536" GiverName="High-Shaman Rakjak" GiverId="28082" />
-			<If Condition="((HasQuest(12536)) &amp;&amp; (!IsQuestCompleted(12536)))" >
-				<RunTo X="5301.503" Y="4433.174" Z="-98.05336" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for   {TimeRemaining}"  />
-				<CustomBehavior File="InteractWith" QuestId="12536" MobId="28298" NumOfTimes="1" GossipOptions="1" WaitTime="250" CollectionDistance="20" X="5301.503" Y="4433.174" Z="-98.05336" />
-				<CustomBehavior File="WaitTimer" WaitTime="170000"/>
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(38512)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
-			</If>
-			<While Condition="((HasQuest(12536)) &amp;&amp; (!IsQuestCompleted(12536)))" >
-				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(38512)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
-		<TurnIn QuestName="A Rough Ride" QuestId="12536" TurnInName="Zepik the Gorloc Hunter" TurnInId="28216" X="6139.721" Y="4916.872" Z="-95.08303" />
-			</While>
-		<Pickup QuestName="The Mist Isn't Listening" QuestId="12538" GiverName="Zepik the Gorloc Hunter" GiverId="28216" X="6139.721" Y="4916.872" Z="-95.08303" />
-		<Pickup QuestName="Lightning Definitely Strikes Twice" QuestId="12537" GiverName="Zepik the Gorloc Hunter" GiverId="28216" X="6139.721" Y="4916.872" Z="-95.08303" />
-			<While Condition="((HasQuest(12537)) &amp;&amp; (!IsQuestCompleted(12537)))" >
-				<UseItem QuestName="Lightning Definitely Strikes Twice" QuestId="12537" ItemId="38510" X="6209.123" Y="4953.141" Z="-98.94791" />
-				<CustomBehavior File="InteractWith" QuestId="12537" ObjectType="Gameobject" MobId="190502" NumOfTimes="1" CollectionDistance="10" X="6209.123" Y="4953.141" Z="-98.94791" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for   {TimeRemaining}"  />
-			</While>
-			<Objective QuestName="Lightning Definitely Strikes Twice" QuestId="12537" Type="CollectItem" ItemId="38510" CollectCount="1" />
-			<Objective QuestName="The Mist Isn't Listening" QuestId="12538" Type="KillMob" MobId="28109" KillCount="12" />
-			<While Condition="((HasQuest(12538)) &amp;&amp; (IsQuestCompleted(12538)))" >
-				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(38512)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
-		<TurnIn QuestName="The Mist Isn't Listening" QuestId="12538" TurnInName="Zepik the Gorloc Hunter" TurnInId="28216" />
-			</While>
-		<TurnIn QuestName="Lightning Definitely Strikes Twice" QuestId="12537" TurnInName="Zepik the Gorloc Hunter" TurnInId="28216" />
-		<Pickup QuestName="Hoofing It" QuestId="12539" GiverName="Zepik the Gorloc Hunter" GiverId="28216" />
-		<TurnIn QuestName="Hoofing It" QuestId="12539" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
 		<!-- issues
 		<PickUp QuestName="Just Following Orders" QuestId="12540" GiverName="High-Shaman Rakjak" GiverId="28082" />
 			<If Condition="((HasQuest(12540)) &amp;&amp; (!IsQuestCompleted(12540)))" >
