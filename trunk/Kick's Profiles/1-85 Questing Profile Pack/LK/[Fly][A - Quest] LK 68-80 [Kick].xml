@@ -24,6 +24,7 @@
   
 
 	<Blackspots>
+		<Blackspot X="5929.256" Y="5507.261" Z="-82.47823" Radius="9.517329" />
 		<Blackspot X="5798.709" Y="-1598.232" Z="234.9282" Radius="19.08842" />
 		<Blackspot X="3875.323" Y="-886.3891" Z="119.5723" Radius="7.115067" />
 		<Blackspot X="3923.166" Y="-868.5923" Z="124.4711" Radius="6.03725" />
@@ -398,6 +399,30 @@
 	<Quest Id="12565" Name="The Blessing of Zim'Abwa">
 	<TurnIn X="5248.609" Y="-2441.381" Z="290.0513" />
 	</Quest> 
+
+	<Quest Id="12560" Name="Crocolisk Mastery: The Plan">
+		<Objective Type="CollectItem" ItemId="38553" CollectCount="5">
+			<CollectFrom>
+				<GameObject Name="Sandfern" Id="190533" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="5284.618" Y="4815.651" Z="-136.6761" />
+				<Hotspot X="5153.39" Y="4837.05" Z="-134.9031" />
+				<Hotspot X="5113.808" Y="4977.729" Z="-135.1223" />
+				<Hotspot X="5004.743" Y="5021.001" Z="-111.9313" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	
+	<Quest Id="12549" Name="Dreadsaber Mastery: Becoming a Predator">
+		<Objective Type="KillMob" MobId="28001" KillCount="15">
+			<Hotspots>
+				<Hotspot X="5998.874" Y="5612.99" Z="-71.11282" />
+				<Hotspot X="5614.419" Y="5605.063" Z="-88.75378" />
+				<Hotspot X="5671.374" Y="5864.607" Z="-61.58224" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 
 	<Quest Id="12533" Name="The Wasp Hunter's Apprentice">
 		<Objective Type="KillMob" MobId="28086" KillCount="6">
@@ -9012,7 +9037,7 @@
 			<Checkpoint Level="76" />
 		
 			<!-- Sholazar Basin Quests -->
-				<CustomBehavior File="Message" Text="Compiling Sholazar Basin Quests - No flying yet" LogColor="Red" />
+				<CustomBehavior File="Message" Text="Compiling Sholazar Basin Quests - Little to No flying yet (You will get stuck in trees)" LogColor="Orange" />
 		
 		<!-- only do this quest if you are in Dalaran, the bot won't use FP's to get from Zul'Drak to Dalaran
 		<PickUp QuestName="Where in the World is Hemet Nesingwary?" QuestId="12521" GiverName="Archmage Pentarus" GiverId="28160" X="5833.988" Y="483.5187" Z="658.1784" />
@@ -9024,11 +9049,339 @@
 		<TurnIn QuestName="Welcome to Sholazar Basin" QuestId="12521" GiverName="Monte Muzzleshot" GiverId="27987" />
 		<TurnIn QuestName="Welcome to Sholazar Basin" QuestId="12521" TurnInName="Hemet Nesingwary" TurnInId="27986" />d
 		 -->
+				<CustomBehavior File="Message" Text="Compiling Nesingwary Base Camp Quests" LogColor="Cornflowerblue" />
+
 			<If Condition="((!HasQuest(12624)) &amp;&amp; (!IsQuestCompleted(12624)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5576.296" Y="5753.702" Z="-74.80744" />
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="It Could Be Anywhere!" QuestId="12624" GiverName="Chad" GiverId="28497" />
 			</If>
+			<If Condition="((!HasQuest(12524)) &amp;&amp; (!IsQuestCompleted(12524)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5550.199" Y="5744.141" Z="-76.93842" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Venture Co. Misadventure" QuestId="12524" GiverName="Debaar" GiverId="28032" />
+			</If>
+			<If Condition="((!HasQuest(12522)) &amp;&amp; (!IsQuestCompleted(12522)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5591.376" Y="5823.71" Z="-68.54658" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Need an Engine, Take an Engine" QuestId="12522" GiverName="Weslex Quickwrench" GiverId="28033" />
+			</If>
+			<If Condition="((HasQuest(12522)) &amp;&amp; (!IsQuestCompleted(12522)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5642.085" Y="5241.759" Z="-130.9622" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Need an Engine, Take an Engine" QuestId="12522" Type="CollectItem" ItemId="38334" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(12522)) &amp;&amp; (IsQuestCompleted(12522)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5591.376" Y="5823.71" Z="-68.54658" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Need an Engine, Take an Engine" QuestId="12522" TurnInName="Weslex Quickwrench" TurnInId="28033" />
+		<PickUp QuestName="Have a Part, Give a Part" QuestId="12523" GiverName="Weslex Quickwrench" GiverId="28033" />
+			</If>
+			<If Condition="((!HasQuest(12523)) &amp;&amp; (!IsQuestCompleted(12523)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5591.376" Y="5823.71" Z="-68.54658" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Have a Part, Give a Part" QuestId="12523" GiverName="Weslex Quickwrench" GiverId="28033" />
+			</If>
+			<If Condition="((HasQuest(12523)) &amp;&amp; (!IsQuestCompleted(12523)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5930.061" Y="5561.252" Z="-71.36949" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Have a Part, Give a Part" QuestId="12523" Type="CollectItem" ItemId="38349" CollectCount="7" />
+			</If>
+			<If Condition="((HasQuest(12524)) &amp;&amp; (!IsQuestCompleted(12524)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5930.061" Y="5561.252" Z="-71.36949" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Venture Co. Misadventure" QuestId="12524" Type="KillMob" MobId="28123" KillCount="15" />
+			</If>
+			<If Condition="((HasQuest(12624)) &amp;&amp; (!IsQuestCompleted(12624)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5930.061" Y="5561.252" Z="-71.36949" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="It Could Be Anywhere!" QuestId="12624" Type="CollectItem" ItemId="38642" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(12523)) &amp;&amp; (IsQuestCompleted(12523)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5591.376" Y="5823.71" Z="-68.54658" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Have a Part, Give a Part" QuestId="12523" TurnInName="Weslex Quickwrench" TurnInId="28033" />
+			</If>
+			<If Condition="((HasQuest(12624)) &amp;&amp; (IsQuestCompleted(12624)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5576.296" Y="5753.702" Z="-74.80744" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="It Could Be Anywhere!" QuestId="12624" TurnInName="Chad" TurnInId="28497" />
+			</If>
+			<If Condition="((HasQuest(12524)) &amp;&amp; (IsQuestCompleted(12524)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5550.199" Y="5744.141" Z="-76.93842" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Venture Co. Misadventure" QuestId="12524" TurnInName="Debaar" TurnInId="28032" />
+		<PickUp QuestName="Wipe That Grin Off His Face" QuestId="12525" GiverName="Debaar" GiverId="28032" />
+			</If>
+			<If Condition="((!HasQuest(12525)) &amp;&amp; (!IsQuestCompleted(12525)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5550.199" Y="5744.141" Z="-76.93842" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Wipe That Grin Off His Face" QuestId="12525" GiverName="Debaar" GiverId="28032" />
+			</If>
+			<If Condition="((HasQuest(12525)) &amp;&amp; (!IsQuestCompleted(12525)))" >
+				<CustomBehavior File="FlyTo" DestName="kill 2 noobs" Distance="2" X="5831.227" Y="5376.605" Z="-52.70358" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Wipe That Grin Off His Face" QuestId="12525" Type="KillMob" MobId="28186" KillCount="1" />
+				<Objective QuestName="Wipe That Grin Off His Face" QuestId="12525" Type="KillMob" MobId="28188" KillCount="1" />
+			</If>
+			<If Condition="((HasQuest(12525)) &amp;&amp; (IsQuestCompleted(12525)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5550.199" Y="5744.141" Z="-76.93842" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Wipe That Grin Off His Face" QuestId="12525" TurnInName="Debaar" TurnInId="28032" />
+			<!-- This quest has issues due to Auto Equip plugin.  It puts the RJR Rifle in your ranged / relic slot
+		<PickUp QuestName="Kick, What Kick?" QuestId="12589" GiverName="Drostan" GiverId="28328" />
+			<If Condition="((HasQuest(12589)) &amp;&amp; (!IsQuestCompleted(12589)))" >
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UseItemOn" QuestId="12589" ItemId="38573" MobId="28054" Range="20" NumOfTimes="10" WaitTime="6000" CollectionDistance="50" X="5545.847" Y="5751.875" Z="-78.03299" />
+			</If>
+		<TurnIn QuestName="Kick, What Kick?" QuestId="12589" TurnInName="Drostan" TurnInId="28328" />
+		<PickUp QuestName="The Great Hunter's Challenge" QuestId="12592" GiverName="Drostan" GiverId="28328" />
+			-->
+			</If>
+			<If Condition="((!HasQuest(12549)) &amp;&amp; (!IsQuestCompleted(12549)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5569.7" Y="5755.663" Z="-75.23274" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Dreadsaber Mastery: Becoming a Predator" QuestId="12549" GiverName="Buck Cantwell" GiverId="28031" />
+			</If>
+			<If Condition="((!HasQuest(12520)) &amp;&amp; (!IsQuestCompleted(12520)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5581.769" Y="5749.131" Z="-72.76088" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Rhino Mastery: The Test" QuestId="12520" GiverName="Hemet Nesingwary" GiverId="27986" />
+			</If>
+			<If Condition="((HasQuest(12549)) &amp;&amp; (!IsQuestCompleted(12549)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5998.874" Y="5612.99" Z="-71.11282" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Dreadsaber Mastery: Becoming a Predator" QuestId="12549" Type="KillMob" MobId="28001" KillCount="15" />
+			</If>
+			<If Condition="((HasQuest(12520)) &amp;&amp; (!IsQuestCompleted(12520)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5998.874" Y="5612.99" Z="-71.11282" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Rhino Mastery: The Test" QuestId="12520" Type="KillMob" MobId="28009" KillCount="15" />
+			</If>
+			<If Condition="((HasQuest(12549)) &amp;&amp; (IsQuestCompleted(12549)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5569.7" Y="5755.663" Z="-75.23274" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Dreadsaber Mastery: Becoming a Predator" QuestId="12549" TurnInName="Buck Cantwell" TurnInId="28031" />
+		<PickUp QuestName="Dreadsaber Mastery: Stalking the Prey" QuestId="12550" GiverName="Buck Cantwell" GiverId="28031" />
+			</If>
+			<If Condition="((!HasQuest(12550)) &amp;&amp; (!IsQuestCompleted(12550)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5569.7" Y="5755.663" Z="-75.23274" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Dreadsaber Mastery: Stalking the Prey" QuestId="12550" GiverName="Buck Cantwell" GiverId="28031" />
+			</If>
+			<If Condition="((HasQuest(12520)) &amp;&amp; (IsQuestCompleted(12520)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5581.769" Y="5749.131" Z="-72.76088" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Rhino Mastery: The Test" QuestId="12520" TurnInName="Hemet Nesingwary" TurnInId="27986" />
+		<PickUp QuestName="Rhino Mastery: The Chase" QuestId="12526" GiverName="Hemet Nesingwary" GiverId="27986" />
+			</If>
+			<!-- Some Make Lemonade, Some Make Liquor - this quest is the one where you pull the vines and loot stuff, maybe mess with this quest later -->
+			<If Condition="((!HasQuest(12526)) &amp;&amp; (!IsQuestCompleted(12526)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5581.769" Y="5749.131" Z="-72.76088" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Rhino Mastery: The Chase" QuestId="12526" GiverName="Hemet Nesingwary" GiverId="27986" />
+			</If>
+			<If Condition="((!HasQuest(12551)) &amp;&amp; (!IsQuestCompleted(12551)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5550.199" Y="5744.141" Z="-76.93842" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Crocolisk Mastery: The Trial" QuestId="12551" GiverName="Debaar" GiverId="28032" />
+			</If>
+			<If Condition="((!HasQuest(12804)) &amp;&amp; (!IsQuestCompleted(12804)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5560.848" Y="5764.8" Z="-76.68642" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="A Steak Fit for a Hunter" QuestId="12804" GiverName="Korg the Cleaver" GiverId="28046" />
+			</If>
+			<If Condition="((HasQuest(12526)) &amp;&amp; (IsQuestCompleted(12526)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5356.455" Y="5816.797" Z="-74.19667" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Rhino Mastery: The Chase" QuestId="12526" TurnInName="Oracle Soo-rahm" TurnInId="28191" />
+		<PickUp QuestName="An Offering for Soo-rahm" QuestId="12543" GiverName="Oracle Soo-rahm" GiverId="28191" />
+			</If>
+			<If Condition="((!HasQuest(12543)) &amp;&amp; (!IsQuestCompleted(12543)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5356.455" Y="5816.797" Z="-74.19667" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="An Offering for Soo-rahm" QuestId="12543" GiverName="Oracle Soo-rahm" GiverId="28191" />
+			</If>
+			<If Condition="((HasQuest(12804)) &amp;&amp; (!IsQuestCompleted(12804)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5318.954" Y="5814.553" Z="-77.32117" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="A Steak Fit for a Hunter" QuestId="12804" Type="CollectItem" ItemId="40394" CollectCount="5" />
+			</If>
+			<If Condition="((HasQuest(12543)) &amp;&amp; (!IsQuestCompleted(12543)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5619.327" Y="5233.255" Z="-133.3323" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="An Offering for Soo-rahm" QuestId="12543" Type="CollectItem" ItemId="38505" CollectCount="5" />
+			</If>
+			<If Condition="((HasQuest(12551)) &amp;&amp; (!IsQuestCompleted(12551)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5619.327" Y="5233.255" Z="-133.3323" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Crocolisk Mastery: The Trial" QuestId="12551" Type="KillMob" MobId="28002" KillCount="15" />
+			</If>
+			<If Condition="((HasQuest(12550)) &amp;&amp; (!IsQuestCompleted(12550)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="6030.473" Y="5177.69" Z="-98.13507" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Dreadsaber Mastery: Stalking the Prey" QuestId="12550" Type="UseObject" ObjectId="190700" UseCount="15" />
+			</If>
+			<If Condition="((HasQuest(12543)) &amp;&amp; (IsQuestCompleted(12543)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5356.455" Y="5816.797" Z="-74.19667" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="An Offering for Soo-rahm" QuestId="12543" TurnInName="Oracle Soo-rahm" TurnInId="28191" />
+		<PickUp QuestName="The Bones of Nozronn" QuestId="12544" GiverName="Oracle Soo-rahm" GiverId="28191" />
+			</If>
+			<If Condition="((!HasQuest(12544)) &amp;&amp; (!IsQuestCompleted(12544)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5356.455" Y="5816.797" Z="-74.19667" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Bones of Nozronn" QuestId="12544" GiverName="Oracle Soo-rahm" GiverId="28191" />
+			</If>
+			<If Condition="((HasQuest(12544)) &amp;&amp; (!IsQuestCompleted(12544)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5210.412" Y="5791.234" Z="-70.80236" />
+				<CustomBehavior File="ForcedDismount" />
+				<UseItem QuestName="The Bones of Nozronn" QuestId="12544" ItemId="38519" X="5210.412" Y="5791.234" Z="-70.80236" />
+				<CustomBehavior File="WaitTimer" WaitTime="37000" GoalText="Waiting for event {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(12804)) &amp;&amp; (IsQuestCompleted(12804)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5560.848" Y="5764.8" Z="-76.68642" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="A Steak Fit for a Hunter" QuestId="12804" TurnInName="Korg the Cleaver" TurnInId="28046" />
+			</If>
+			<If Condition="((HasQuest(12551)) &amp;&amp; (IsQuestCompleted(12551)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5550.199" Y="5744.141" Z="-76.93842" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Crocolisk Mastery: The Trial" QuestId="12551" TurnInName="Debaar" TurnInId="28032" />
+		<PickUp QuestName="Crocolisk Mastery: The Plan" QuestId="12560" GiverName="Debaar" GiverId="28032" />
+			</If>
+			<If Condition="((!HasQuest(12560)) &amp;&amp; (!IsQuestCompleted(12560)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5550.199" Y="5744.141" Z="-76.93842" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Crocolisk Mastery: The Plan" QuestId="12560" GiverName="Debaar" GiverId="28032" />
+			</If>
+			<If Condition="((HasQuest(12550)) &amp;&amp; (IsQuestCompleted(12550)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5569.7" Y="5755.663" Z="-75.23274" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Dreadsaber Mastery: Stalking the Prey" QuestId="12550" TurnInName="Buck Cantwell" TurnInId="28031" />
+		<PickUp QuestName="Dreadsaber Mastery: Ready to Pounce" QuestId="12558" GiverName="Buck Cantwell" GiverId="28031" />
+			</If>
+			<If Condition="((!HasQuest(12558)) &amp;&amp; (!IsQuestCompleted(12558)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5569.7" Y="5755.663" Z="-75.23274" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Dreadsaber Mastery: Ready to Pounce" QuestId="12558" GiverName="Buck Cantwell" GiverId="28031" />
+			</If>
+			<If Condition="((HasQuest(12544)) &amp;&amp; (IsQuestCompleted(12544)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5581.769" Y="5749.131" Z="-72.76088" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Bones of Nozronn" QuestId="12544" TurnInName="Hemet Nesingwary" TurnInId="27986" />
+		<PickUp QuestName="Rhino Mastery: The Kill" QuestId="12556" GiverName="Hemet Nesingwary" GiverId="27986" />
+			</If>
+			<If Condition="((!HasQuest(12556)) &amp;&amp; (!IsQuestCompleted(12556)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5581.769" Y="5749.131" Z="-72.76088" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Rhino Mastery: The Kill" QuestId="12556" GiverName="Hemet Nesingwary" GiverId="27986" />
+			</If>
+			<If Condition="((HasQuest(12558)) &amp;&amp; (!IsQuestCompleted(12558)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="6281.237" Y="5464.705" Z="-40.99458" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Dreadsaber Mastery: Ready to Pounce" QuestId="12558" Type="CollectItem" ItemId="38523" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(12556)) &amp;&amp; (!IsQuestCompleted(12556)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="6000.273" Y="4857.027" Z="-87.56519" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Rhino Mastery: The Kill" QuestId="12556" Type="CollectItem" ItemId="38522" CollectCount="1" />
+			</If>
+			<If Condition="((!HasQuest(12654)) &amp;&amp; (!IsQuestCompleted(12654)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5483.281" Y="4731.893" Z="-194.4094" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Part-time Hunter" QuestId="12654" GiverName="Tamara Wobblesprocket" GiverId="28568" />
+			</If>
+			<If Condition="((HasQuest(12560)) &amp;&amp; (!IsQuestCompleted(12560)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5277.958" Y="4778.142" Z="-123.699" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Crocolisk Mastery: The Plan" QuestId="12560" Type="CollectItem" ItemId="38553" CollectCount="5" />
+			</If>
+			<If Condition="((HasQuest(12654)) &amp;&amp; (!IsQuestCompleted(12654)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5043.43" Y="4726.093" Z="-125.621" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Part-time Hunter" QuestId="12654" Type="CollectItem" ItemId="38703" CollectCount="1" />
+		<PickUp QuestName="Playing Along" QuestId="12528" GiverName="Tracker Gekgek" GiverId="28095" />
+			</If>
+			<If Condition="((HasQuest(12556)) &amp;&amp; (IsQuestCompleted(12556)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5581.769" Y="5749.131" Z="-72.76088" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Rhino Mastery: The Kill" QuestId="12556" TurnInName="Hemet Nesingwary" TurnInId="27986" />
+			</If>
+			<If Condition="((HasQuest(12558)) &amp;&amp; (IsQuestCompleted(12558)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5569.7" Y="5755.663" Z="-75.23274" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Dreadsaber Mastery: Ready to Pounce" QuestId="12558" TurnInName="Buck Cantwell" TurnInId="28031" />
+			</If>
+			<If Condition="((HasQuest(12592)) &amp;&amp; (IsQuestCompleted(12592)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5550.368" Y="5749.094" Z="-77.56958" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Great Hunter's Challenge" QuestId="12592" TurnInName="Drostan" TurnInId="28328" />
+			</If>
+			<If Condition="((HasQuest(12560)) &amp;&amp; (IsQuestCompleted(12560)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5550.199" Y="5744.141" Z="-76.93842" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Crocolisk Mastery: The Plan" QuestId="12560" TurnInName="Debaar" TurnInId="28032" />
+		<PickUp QuestName="Crocolisk Mastery: The Ambush" QuestId="12569" GiverName="Debaar" GiverId="28032" />
+			</If>
+			<If Condition="((!HasQuest(12569)) &amp;&amp; (!IsQuestCompleted(12569)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5550.199" Y="5744.141" Z="-76.93842" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Crocolisk Mastery: The Ambush" QuestId="12569" GiverName="Debaar" GiverId="28032" />
+			</If>
+			<If Condition="((HasQuest(12654)) &amp;&amp; (IsQuestCompleted(12654)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5483.281" Y="4731.893" Z="-194.4094" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Part-time Hunter" QuestId="12654" TurnInName="Tamara Wobblesprocket" TurnInId="28568" />
+			</If>
+			<If Condition="((HasQuest(12569)) &amp;&amp; (!IsQuestCompleted(12569)))" >
+				<CustomBehavior File="FlyTo" DestName="kill Bushwacker" Distance="1" X="5445.556" Y="4898.322" Z="-173.7971" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(12569)) &amp;&amp; (!IsQuestCompleted(12569)))" >
+				<UseItem QuestName="Crocolisk Mastery: The Ambush" QuestId="12569" ItemId="38564" X="5445.556" Y="4898.322" Z="-193.7971" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for Bushwacker {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" QuestId="12569" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </While>
+			</If>
+			<If Condition="((HasQuest(12569)) &amp;&amp; (IsQuestCompleted(12569)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5550.199" Y="5744.141" Z="-76.93842" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Crocolisk Mastery: The Ambush" QuestId="12569" TurnInName="Debaar" TurnInId="28032" />
+		<PickUp QuestName="In Search of Bigger Game" QuestId="12595" GiverName="Hemet Nesingwary" GiverId="27986" />
+			</If>
+			<If Condition="((!HasQuest(12595)) &amp;&amp; (!IsQuestCompleted(12595)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5581.769" Y="5749.131" Z="-72.76088" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="In Search of Bigger Game" QuestId="12595" GiverName="Hemet Nesingwary" GiverId="27986" />
+			</If>
+			<!-- End of Nesingwary Base Camp Quests -->
+			
+			<!-- Frenzyheart Hill Quests -->
+				<CustomBehavior File="Message" Text="Compiling Frenzyheart Hill Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((!HasQuest(12528)) &amp;&amp; (!IsQuestCompleted(12528)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5043.43" Y="4726.093" Z="-125.621" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Playing Along" QuestId="12528" GiverName="Tracker Gekgek" GiverId="28095" />
+			</If>
+			<If Condition="((HasQuest(12528)) &amp;&amp; (IsQuestCompleted(12528)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Playing Along" QuestId="12528" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
+		<PickUp QuestName="The Ape Hunter's Slave" QuestId="12529" GiverName="High-Shaman Rakjak" GiverId="28082" />
+			</If>
+			<If Condition="((!HasQuest(12529)) &amp;&amp; (!IsQuestCompleted(12529)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Ape Hunter's Slave" QuestId="12529" GiverName="High-Shaman Rakjak" GiverId="28082" />
+			</If>
+			
+
+
+
+
+
+			
 			
 			
 			
@@ -9037,68 +9390,6 @@
 		-->
 		
 		
-		<PickUp QuestName="Need an Engine, Take an Engine" QuestId="12522" GiverName="Weslex Quickwrench" GiverId="28033" />
-		<PickUp QuestName="Venture Co. Misadventure" QuestId="12524" GiverName="Debaar" GiverId="28032" />
-			<Objective QuestName="Need an Engine, Take an Engine" QuestId="12522" Type="CollectItem" ItemId="38334" CollectCount="1" />
-		<TurnIn QuestName="Need an Engine, Take an Engine" QuestId="12522" TurnInName="Weslex Quickwrench" TurnInId="28033" />
-		<PickUp QuestName="Have a Part, Give a Part" QuestId="12523" GiverName="Weslex Quickwrench" GiverId="28033" />
-			<Objective QuestName="Have a Part, Give a Part" QuestId="12523" Type="CollectItem" ItemId="38349" CollectCount="7" />
-			<Objective QuestName="Venture Co. Misadventure" QuestId="12524" Type="KillMob" MobId="28123" KillCount="15" />
-			<Objective QuestName="It Could Be Anywhere!" QuestId="12624" Type="CollectItem" ItemId="38642" CollectCount="1" />
-		<TurnIn QuestName="It Could Be Anywhere!" QuestId="12624" TurnInName="Chad" TurnInId="28497" />
-		<TurnIn QuestName="Venture Co. Misadventure" QuestId="12524" TurnInName="Debaar" TurnInId="28032" />
-		<TurnIn QuestName="Have a Part, Give a Part" QuestId="12523" TurnInName="Weslex Quickwrench" TurnInId="28033" />
-		<PickUp QuestName="Wipe That Grin Off His Face" QuestId="12525" GiverName="Debaar" GiverId="28032" />
-			<Objective QuestName="Wipe That Grin Off His Face" QuestId="12525" Type="KillMob" MobId="28188" KillCount="1" />
-			<Objective QuestName="Wipe That Grin Off His Face" QuestId="12525" Type="KillMob" MobId="28186" KillCount="1" />
-		<TurnIn QuestName="Wipe That Grin Off His Face" QuestId="12525" TurnInName="Debaar" TurnInId="28032" />
-		<PickUp QuestName="Dreadsaber Mastery: Becoming a Predator" QuestId="12549" GiverName="Buck Cantwell" GiverId="28031" />
-		<PickUp QuestName="Rhino Mastery: The Test" QuestId="12520" GiverName="Hemet Nesingwary" GiverId="27986" />
-		<!-- This quest has issues due to Auto Equip plugin.  It puts the RJR Rifle in your ranged / relic slot
-		<PickUp QuestName="Kick, What Kick?" QuestId="12589" GiverName="Drostan" GiverId="28328" />
-			<If Condition="((HasQuest(12589)) &amp;&amp; (!IsQuestCompleted(12589)))" >
-				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="UseItemOn" QuestId="12589" ItemId="38573" MobId="28054" Range="20" NumOfTimes="10" WaitTime="6000" CollectionDistance="50" X="5545.847" Y="5751.875" Z="-78.03299" />
-			</If>
-		<TurnIn QuestName="Kick, What Kick?" QuestId="12589" TurnInName="Drostan" TurnInId="28328" />
-		<PickUp QuestName="The Great Hunter's Challenge" QuestId="12592" GiverName="Drostan" GiverId="28328" />
-		-->
-			<Objective QuestName="Dreadsaber Mastery: Becoming a Predator" QuestId="12549" Type="KillMob" MobId="28001" KillCount="15" />
-			<Objective QuestName="Rhino Mastery: The Test" QuestId="12520" Type="KillMob" MobId="28009" KillCount="15" />
-		<TurnIn QuestName="Dreadsaber Mastery: Becoming a Predator" QuestId="12549" TurnInName="Buck Cantwell" TurnInId="28031" />
-		<TurnIn QuestName="Rhino Mastery: The Test" QuestId="12520" TurnInName="Hemet Nesingwary" TurnInId="27986" />
-		<PickUp QuestName="Dreadsaber Mastery: Stalking the Prey" QuestId="12550" GiverName="Buck Cantwell" GiverId="28031" />
-		<PickUp QuestName="Rhino Mastery: The Chase" QuestId="12526" GiverName="Hemet Nesingwary" GiverId="27986" />
-		<PickUp QuestName="A Steak Fit for a Hunter" QuestId="12804" GiverName="Korg the Cleaver" GiverId="28046" />
-		<PickUp QuestName="Crocolisk Mastery: The Trial" QuestId="12551" GiverName="Debaar" GiverId="28032" />
-		<TurnIn QuestName="Rhino Mastery: The Chase" QuestId="12526" TurnInName="Oracle Soo-rahm" TurnInId="28191" />
-		<PickUp QuestName="An Offering for Soo-rahm" QuestId="12543" GiverName="Oracle Soo-rahm" GiverId="28191" />
-			<!-- Some Make Lemonade, Some Make Liquor - this quest is the one where you pull the vines and loot stuff, maybe mess with this quest later -->
-			<Objective QuestName="Dreadsaber Mastery: Stalking the Prey" QuestId="12550" Type="UseObject" ObjectId="190700" UseCount="15" />
-			<Objective QuestName="An Offering for Soo-rahm" QuestId="12543" Type="CollectItem" ItemId="38505" CollectCount="5" />
-			<Objective QuestName="Crocolisk Mastery: The Trial" QuestId="12551" Type="KillMob" MobId="28002" KillCount="15" />
-		<TurnIn QuestName="An Offering for Soo-rahm" QuestId="12543" TurnInName="Oracle Soo-rahm" TurnInId="28191" />
-		<PickUp QuestName="The Bones of Nozronn" QuestId="12544" GiverName="Oracle Soo-rahm" GiverId="28191" />
-			<If Condition="((HasQuest(12544)) &amp;&amp; (!IsQuestCompleted(12544)))" >
-				<UseItem QuestName="The Bones of Nozronn" QuestId="12544" ItemId="38519" X="5210.412" Y="5791.234" Z="-70.80236" />
-				<CustomBehavior File="WaitTimer" WaitTime="30000"/>
-			</If>
-			<Objective QuestName="A Steak Fit for a Hunter" QuestId="12804" Type="CollectItem" ItemId="40394" CollectCount="5" />
-		<TurnIn QuestName="A Steak Fit for a Hunter" QuestId="12804" TurnInName="Korg the Cleaver" TurnInId="28046" />
-		<TurnIn QuestName="Crocolisk Mastery: The Trial" QuestId="12551" TurnInName="Debaar" TurnInId="28032" />
-		<PickUp QuestName="Crocolisk Mastery: The Plan" QuestId="12560" GiverName="Debaar" GiverId="28032" />
-		<TurnIn QuestName="Dreadsaber Mastery: Stalking the Prey" QuestId="12550" TurnInName="Buck Cantwell" TurnInId="28031" />
-		<PickUp QuestName="Dreadsaber Mastery: Ready to Pounce" QuestId="12558" GiverName="Buck Cantwell" GiverId="28031" />
-		<TurnIn QuestName="The Bones of Nozronn" QuestId="12544" TurnInName="Hemet Nesingwary" TurnInId="27986" />
-		<PickUp QuestName="Rhino Mastery: The Kill" QuestId="12556" GiverName="Hemet Nesingwary" GiverId="27986" />
-			<Objective QuestName="Crocolisk Mastery: The Plan" QuestId="12560" Type="CollectItem" ItemId="38553" CollectCount="5" />
-			<Objective QuestName="Rhino Mastery: The Kill" QuestId="12556" Type="CollectItem" ItemId="38522" CollectCount="1" />
-			<Objective QuestName="Dreadsaber Mastery: Ready to Pounce" QuestId="12558" Type="CollectItem" ItemId="38523" CollectCount="1" />
-		<PickUp QuestName="The Part-time Hunter" QuestId="12654" GiverName="Tamara Wobblesprocket" GiverId="28568" />
-			<Objective QuestName="The Part-time Hunter" QuestId="12654" Type="CollectItem" ItemId="38703" CollectCount="1" />
-		<PickUp QuestName="Playing Along" QuestId="12528" GiverName="Tracker Gekgek" GiverId="28095" />
-		<TurnIn QuestName="Playing Along" QuestId="12528" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
-		<PickUp QuestName="The Ape Hunter's Slave" QuestId="12529" GiverName="High-Shaman Rakjak" GiverId="28082" />
 			<If Condition="((HasQuest(12529)) &amp;&amp; (!HasQuest(12530)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="10000"/>
 			</If>
@@ -9184,24 +9475,9 @@
 
 
 	
+			<!-- The Savage Thicket Quests -->
+				<CustomBehavior File="Message" Text="Compiling The Savage Thicket Quests" LogColor="Cornflowerblue" />
 
-		<TurnIn QuestName="The Part-time Hunter" QuestId="12654" TurnInName="Tamara Wobblesprocket" TurnInId="28568" />
-		<TurnIn QuestName="Rhino Mastery: The Kill" QuestId="12556" TurnInName="Hemet Nesingwary" TurnInId="27986" />
-		<TurnIn QuestName="Dreadsaber Mastery: Ready to Pounce" QuestId="12558" TurnInName="Buck Cantwell" TurnInId="28031" />
-		<TurnIn QuestName="Crocolisk Mastery: The Plan" QuestId="12560" TurnInName="Debaar" TurnInId="28032" />
-		<!-- un-comment if you actually have the quest!
-		<TurnIn QuestName="The Great Hunter's Challenge" QuestId="12592" TurnInName="Drostan" TurnInId="28328" />
-		-->
-		<PickUp QuestName="Crocolisk Mastery: The Ambush" QuestId="12569" GiverName="Debaar" GiverId="28032" />
-			<While Condition="((HasQuest(12569)) &amp;&amp; (!IsQuestCompleted(12569)))" >
-				<RunTo QuestId="12569" X="5441.341" Y="4860.857" Z="-202.1799" />
-				<RunTo QuestId="12569" X="5445.556" Y="4898.322" Z="-193.7971" />
-				<UseItem QuestName="Crocolisk Mastery: The Ambush" QuestId="12569" ItemId="38564" X="5445.556" Y="4898.322" Z="-193.7971" />
-				<CustomBehavior File="WaitTimer" WaitTime="15000"/>
-			</While>
-			<Objective QuestName="Crocolisk Mastery: The Ambush" QuestId="12569" Type="CollectItem" ItemId="38559" CollectCount="1" />
-		<TurnIn QuestName="Crocolisk Mastery: The Ambush" QuestId="12569" TurnInName="Debaar" TurnInId="28032" />
-		<PickUp QuestName="In Search of Bigger Game" QuestId="12595" GiverName="Hemet Nesingwary" GiverId="27986" />
 		<TurnIn QuestName="In Search of Bigger Game" QuestId="12595" TurnInName="Dorian Drakestalker" TurnInId="28376" />
 		<PickUp QuestName="Sharpening Your Talons" QuestId="12603" GiverName="Dorian Drakestalker" GiverId="28376" />
 		<PickUp QuestName="Securing the Bait" QuestId="12605" GiverName="Dorian Drakestalker" GiverId="28376" />
@@ -9243,7 +9519,9 @@
 		-->
 		
 			<If Condition="(Me.Level &gt;= 77)" >
-		<!-- Avatar of Freya quests -->
+			<!-- Avatar of Freya quests -->
+				<CustomBehavior File="Message" Text="Compiling Avatar of Freya Quests" LogColor="Cornflowerblue" />
+
 		<PickUp QuestName="Force of Nature" QuestId="12803" GiverName="Pilot Vic" GiverId="28746" />
 		<TurnIn QuestName="Force of Nature" QuestId="12803" TurnInName="Avatar of Freya" TurnInId="27801" />
 		<Pickup QuestName="An Issue of Trust" QuestId="12561" GiverName="Avatar of Freya" GiverId="27801" />
@@ -9302,11 +9580,11 @@
 		</SetGrindArea>
 		<GrindTo Level="77" />
 		<Checkpoint Level="77" />
-		<!-- Storm Peaks -->
 		
+			<!-- Storm Peaks -->
 				<CustomBehavior File="Message" Text="Compiling Storm Peaks Quests - Little or No flying yet" LogColor="Red" />
 				
-		<!-- Icecrown Quest so I can have the user fly there -->
+			<!-- Icecrown Quest so I can have the user fly there -->
 		
 		<PickUp QuestName="Clean Up" QuestId="12818" GiverName="Jeer Sparksocket" GiverId="29431" />
 		<PickUp QuestName="Reclaimed Rations" QuestId="12827" GiverName="Ricket" GiverId="29428" />
