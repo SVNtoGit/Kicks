@@ -414,6 +414,31 @@
 	<TurnIn X="5248.609" Y="-2441.381" Z="290.0513" />
 	</Quest> 
 
+	<Quest Id="12561" Name="An Issue of Trust">
+		<Objective Type="KillMob" MobId="28101" KillCount="6">
+			<Hotspots>
+				<Hotspot X="5771.02" Y="3967.587" Z="-74.10452" />
+				<Hotspot X="5815.639" Y="3903.993" Z="-58.92887" />
+				<Hotspot X="5746.072" Y="3860.454" Z="-68.14272" />
+				<Hotspot X="5761.41" Y="3776.729" Z="-41.67377" />
+				<Hotspot X="5845.41" Y="3753.174" Z="-22.71802" />
+				<Hotspot X="5959.989" Y="3853.559" Z="-18.21636" />
+				<Hotspot X="5896.155" Y="3952.428" Z="-61.04056" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="KillMob" MobId="28108" KillCount="10">
+			<Hotspots>
+				<Hotspot X="5771.02" Y="3967.587" Z="-74.10452" />
+				<Hotspot X="5815.639" Y="3903.993" Z="-58.92887" />
+				<Hotspot X="5746.072" Y="3860.454" Z="-68.14272" />
+				<Hotspot X="5761.41" Y="3776.729" Z="-41.67377" />
+				<Hotspot X="5845.41" Y="3753.174" Z="-22.71802" />
+				<Hotspot X="5959.989" Y="3853.559" Z="-18.21636" />
+				<Hotspot X="5896.155" Y="3952.428" Z="-61.04056" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+
 	<Quest Id="12560" Name="Crocolisk Mastery: The Plan">
 		<Objective Type="CollectItem" ItemId="38553" CollectCount="5">
 			<CollectFrom>
@@ -9730,7 +9755,6 @@
 
 			</If>
 
-
 			<!-- River's Heart Quests -->
 				<CustomBehavior File="Message" Text="Compiling River's Heart Quests" LogColor="Cornflowerblue" />
 
@@ -9795,12 +9819,115 @@
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="An Issue of Trust" QuestId="12561" TurnInName="Avatar of Freya" TurnInId="27801" />
+		<PickUp QuestName="Returned Sevenfold" QuestId="12611" GiverName="Avatar of Freya" GiverId="27801" />
 			</If>
-			<!-- make turnin to avatar of freya for later
-				ignoring the flight / vehicle quest
-			-->
+			<If Condition="((HasQuest(12611)) &amp;&amp; (!IsQuestCompleted(12611)))" >
+				<CustomBehavior File="FlyTo" DestName="Kill Thalgran Blightbringer" X="6064.153" Y="4033.164" Z="-16.71477" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="CombatUseItemOn" QuestId="12611" MobId="28443" ItemId="38657" CastingSpellId="51854" X="6006.052" Y="4023.683" Z="-44.92612" />
+			</If>
+			<If Condition="((HasQuest(12611)) &amp;&amp; (IsQuestCompleted(12611)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Returned Sevenfold" QuestId="12611" TurnInName="Avatar of Freya" TurnInId="27801" />
+		<PickUp QuestName="The Fallen Pillar" QuestId="12612" GiverName="Avatar of Freya" GiverId="27801" />
+		<PickUp QuestName="Salvaging Life's Strength" QuestId="12805" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((!HasQuest(12612)) &amp;&amp; (!IsQuestCompleted(12612)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Fallen Pillar" QuestId="12612" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((!HasQuest(12805)) &amp;&amp; (!IsQuestCompleted(12805)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Salvaging Life's Strength" QuestId="12805" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((HasQuest(12612)) &amp;&amp; (IsQuestCompleted(12612)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5535.695" Y="4094.837" Z="49.22174" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Fallen Pillar" QuestId="12612" TurnInName="Cultist Corpse" TurnInId="28464" />
+		<PickUp QuestName="Cultist Incursion" QuestId="12608" GiverName="Cultist Corpse" GiverId="28464" />
+			</If>
+			<If Condition="((!HasQuest(12608)) &amp;&amp; (!IsQuestCompleted(12608)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5535.695" Y="4094.837" Z="49.22174" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Cultist Incursion" QuestId="12608" GiverName="Cultist Corpse" GiverId="28464" />
+			</If>
+			<If Condition="((HasQuest(12608)) &amp;&amp; (IsQuestCompleted(12608)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Cultist Incursion" QuestId="12608" TurnInName="Avatar of Freya" TurnInId="27801" />
+		<PickUp QuestName="Weapons of Destruction" QuestId="12660" GiverName="Avatar of Freya" GiverId="27801" />
+		<PickUp QuestName="Exterminate the Intruders" QuestId="12617" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((!HasQuest(12660)) &amp;&amp; (!IsQuestCompleted(12660)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Weapons of Destruction" QuestId="12660" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((!HasQuest(12617)) &amp;&amp; (!IsQuestCompleted(12617)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Exterminate the Intruders" QuestId="12617" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((HasQuest(12805)) &amp;&amp; (!IsQuestCompleted(12805)))" >
+				<!-- This quest is not vital -->
+				<CustomBehavior File="FlyTo" DestName="get Lifeblood Energy" X="5556.109" Y="3908.131" Z="-63.81953" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="Message" Text="You may get stuck here" LogColor="Orange" />
+				<CustomBehavior File="UseItemOn" QuestId="12805" MobId="29124" ItemId="40397" NumOfTimes="30" WaitTime="5000" Range="5" CollectionDistance="100" X="5556.195" Y="3908.116" Z="-72.41305" />
+			</If>
+			<If Condition="((HasQuest(12660)) &amp;&amp; (!IsQuestCompleted(12660)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="6099.332" Y="4462.296" Z="-85.28928" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Weapons of Destruction" QuestId="12660" Type="UseObject" ObjectId="190590" UseCount="4" />
+			</If>
+			<If Condition="((HasQuest(12617)) &amp;&amp; (!IsQuestCompleted(12617)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="6099.332" Y="4462.296" Z="-85.28928" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Exterminate the Intruders" QuestId="12617" Type="KillMob" MobId="28373" KillCount="8" />
+			</If>
+			<If Condition="((HasQuest(12660)) &amp;&amp; (IsQuestCompleted(12660)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Weapons of Destruction" QuestId="12660" TurnInName="Avatar of Freya" TurnInId="27801" />
+			</If>
+			<If Condition="((HasQuest(12805)) &amp;&amp; (IsQuestCompleted(12805)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Salvaging Life's Strength" QuestId="12805" TurnInName="Avatar of Freya" TurnInId="27801" />			
+			</If>
+			<If Condition="((HasQuest(12617)) &amp;&amp; (IsQuestCompleted(12617)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Exterminate the Intruders" QuestId="12617" TurnInName="Avatar of Freya" TurnInId="27801" />
+		<PickUp QuestName="The Lifewarden's Wrath" QuestId="12620" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((!HasQuest(12620)) &amp;&amp; (!IsQuestCompleted(12620)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Lifewarden's Wrath" QuestId="12620" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((HasQuest(12620)) &amp;&amp; (!IsQuestCompleted(12620)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="6184.336" Y="4733.248" Z="272.9613" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo X="6208.104" Y="4762.392" Z="222.7582" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<UseItem QuestId="12620" ItemId="38684" X="6208.104" Y="4762.392" Z="222.7582" />
+				<RunTo X="6184.334" Y="4733.238" Z="224.7068" />
+			</If>
+			<If Condition="((HasQuest(12620)) &amp;&amp; (IsQuestCompleted(12620)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Lifewarden's Wrath" QuestId="12620" TurnInName="Avatar of Freya" TurnInId="27801" />			
+			</If>
+			
+			
 
-
+			
+			
+			
 			
 		<!--
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
