@@ -9736,24 +9736,25 @@
 				<CustomBehavior File="FlyTo" DestName="Grind Area" X="5794.945" Y="5294.534" Z="-95.72417" />
 				<CustomBehavior File="ForcedDismount" />
 			
-				<SetGrindArea>
-					<GrindArea>
-					<Factions>14</Factions> <!-- [Gnoll, Kobold, Mammoth] -->
-					<TargetMinLevel>75</TargetMinLevel>
-					<TargetMaxLevel>80</TargetMaxLevel>
-					<Hotspots>
-						<Hotspot X="5794.945" Y="5294.534" Z="-95.72417" />
-						<Hotspot X="5867.814" Y="5358.674" Z="-98.62659" />
-						<Hotspot X="5953.415" Y="5310.896" Z="-97.32868" />
-						<Hotspot X="5938.719" Y="5425.146" Z="-93.70094" />
-						<Hotspot X="5914.854" Y="5484.173" Z="-82.88635" />
-						<Hotspot X="5977.575" Y="5433.839" Z="-90.84299" />
-					</Hotspots>
-					</GrindArea>
-				</SetGrindArea>
-			<GrindTo Level="77" />
-
+					<SetGrindArea>
+						<GrindArea>
+						<Factions>14</Factions> <!-- [Gnoll, Kobold, Mammoth] -->
+						<TargetMinLevel>75</TargetMinLevel>
+						<TargetMaxLevel>80</TargetMaxLevel>
+						<Hotspots>
+							<Hotspot X="5794.945" Y="5294.534" Z="-95.72417" />
+							<Hotspot X="5867.814" Y="5358.674" Z="-98.62659" />
+							<Hotspot X="5953.415" Y="5310.896" Z="-97.32868" />
+							<Hotspot X="5938.719" Y="5425.146" Z="-93.70094" />
+							<Hotspot X="5914.854" Y="5484.173" Z="-82.88635" />
+							<Hotspot X="5977.575" Y="5433.839" Z="-90.84299" />
+						</Hotspots>
+						</GrindArea>
+					</SetGrindArea>
+				<GrindTo Level="77" />
 			</If>
+			<!-- <CheckPoint Level="77" /> -->
+
 
 			<!-- River's Heart Quests -->
 				<CustomBehavior File="Message" Text="Compiling River's Heart Quests" LogColor="Cornflowerblue" />
@@ -9921,48 +9922,249 @@
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="The Lifewarden's Wrath" QuestId="12620" TurnInName="Avatar of Freya" TurnInId="27801" />			
+		<PickUp QuestName="Freya's Pact" QuestId="12621" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((!HasQuest(12621)) &amp;&amp; (!IsQuestCompleted(12621)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Freya's Pact" QuestId="12621" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((HasQuest(12621)) &amp;&amp; (!IsQuestCompleted(12621)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="12621" MobId="27801" GossipOptions="1, 1, 1" X="5874.56" Y="4116.636" Z="-85.51167" />
+			</If>
+			<If Condition="((HasQuest(12621)) &amp;&amp; (IsQuestCompleted(12621)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Freya's Pact" QuestId="12621" TurnInName="Avatar of Freya" TurnInId="27801" />
+		<!-- <PickUp QuestName="Powering the Waygate - The Makers' Perch" QuestId="12559" GiverName="Avatar of Freya" GiverId="27801" /> -->
+			</If>
+				<!-- If we die on these quests - we can't get back up.  Maybe put this in the [Test] Profile?
+			<If Condition="((!HasQuest(12559)) &amp;&amp; (!IsQuestCompleted(12559)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Powering the Waygate - The Makers' Perch" QuestId="12559" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((HasQuest(12559)) &amp;&amp; (!IsQuestCompleted(12559)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="6116.741" Y="5663.464" Z="17.99642" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo X="6254.906" Y="5785.817" Z="-6.130185" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<Objective QuestName="Powering the Waygate - The Makers' Perch" QuestId="12559" Type="UseObject" ObjectId="190508" UseCount="1" />
+			</If>
+			<If Condition="((HasQuest(12559)) &amp;&amp; (IsQuestCompleted(12559)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Powering the Waygate - The Makers' Perch" QuestId="12559" TurnInName="Avatar of Freya" TurnInId="27801" />			
+		<PickUp QuestName="Powering the Waygate - The Makers' Overlook" QuestId="12613" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((!HasQuest(12613)) &amp;&amp; (!IsQuestCompleted(12613)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Powering the Waygate - The Makers' Overlook" QuestId="12613" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((HasQuest(12613)) &amp;&amp; (!IsQuestCompleted(12613)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5649.105" Y="3425.17" Z="332.4856" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="A Timeworn Coffer" QuestId="12691" GiverName="Timeworn Coffer" GiverId="190768" GiverType="GameObject" X="5669.654" Y="3429.74" Z="300.8429" />
+				<RunTo X="5751.252" Y="3048.935" Z="287.9865" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<Objective QuestName="Powering the Waygate - The Makers' Overlook" QuestId="12613" Type="UseObject" ObjectId="190509" UseCount="1" />
+			 <If Condition="((HasQuest(12691)) &amp;&amp; (!IsQuestCompleted(12691)))" >
+				<Objective QuestName="A Timeworn Coffer" QuestId="12691" Type="CollectItem" ItemId="39227" CollectCount="1" />
+			 </If>
+			</If>
+			<If Condition="((!HasQuest(12691)) &amp;&amp; (!IsQuestCompleted(12691)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest in SB" X="5649.105" Y="3425.17" Z="332.4856" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="A Timeworn Coffer" QuestId="12691" GiverName="Timeworn Coffer" GiverId="190768" GiverType="GameObject" X="5669.654" Y="3429.74" Z="300.8429" />
+			</If>
+			<If Condition="((HasQuest(12691)) &amp;&amp; (!IsQuestCompleted(12691)))" >
+				<Objective QuestName="A Timeworn Coffer" QuestId="12691" Type="CollectItem" ItemId="39227" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(12691)) &amp;&amp; (IsQuestCompleted(12691)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5649.105" Y="3425.17" Z="332.4856" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="A Timeworn Coffer" QuestId="12691" TurnInName="Timeworn Coffer" TurnInId="190768" TurninType="GameObject" X="5669.654" Y="3429.74" Z="300.8429" />
+			</If>
+			<If Condition="((HasQuest(12613)) &amp;&amp; (IsQuestCompleted(12613)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Powering the Waygate - The Makers' Overlook" QuestId="12613" TurnInName="Avatar of Freya" TurnInId="27801" />
+		<PickUp QuestName="The Etymidian" QuestId="12548" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((!HasQuest(12548)) &amp;&amp; (!IsQuestCompleted(12548)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Etymidian" QuestId="12548" GiverName="Avatar of Freya" GiverId="27801" />
+			</If>
+			<If Condition="((HasQuest(12548)) &amp;&amp; (IsQuestCompleted(12548)))" >
+			 <If Condition="Me.MapId == 571" >
+				<CustomBehavior File="FlyTo" X="4886.683" Y="5176.714" Z="-84.86341"  />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="MyCTM" X="4874.802" Y="5171.116" Z="-84.43401" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting {TimeRemaining} for zoning to complete." />
+			 </If>
+			 
+			 <If Condition="Me.ZoneId == 490" >
+				<CustomBehavior File="MyCTM" X="-6179.5" Y="-1316.936" Z="-172.3443" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-6193.96" Y="-1223.291" Z="-160.8772" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Etymidian" QuestId="12548" TurnInName="The Etymidian" TurnInId="28092" />
+		<PickUp QuestName="The Activation Rune" QuestId="12547" GiverName="The Etymidian" GiverId="28092" />
+			 </If>
 			</If>
 			
-			
+			 <If Condition="Me.ZoneId == 490" >
 
+			<If Condition="((!HasQuest(12547)) &amp;&amp; (!IsQuestCompleted(12547)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="-6193.96" Y="-1223.291" Z="-160.8772" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Activation Rune" QuestId="12547" GiverName="The Etymidian" GiverId="28092" />
+			</If>
+			<If Condition="((HasQuest(12547)) &amp;&amp; (!IsQuestCompleted(12547)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="-6157.307" Y="-1250.497" Z="-157.1589" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo X="-6028.08" Y="-1249.02" Z="-146.7649" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<Objective QuestName="The Activation Rune" QuestId="12547" Type="CollectItem" ItemId="38708" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(12547)) &amp;&amp; (IsQuestCompleted(12547)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-6193.96" Y="-1223.291" Z="-160.8772" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Activation Rune" QuestId="12547" TurnInName="The Etymidian" TurnInId="28092" />			
+		<PickUp QuestName="Back Through the Waygate" QuestId="12797" GiverName="The Etymidian" GiverId="28092" />
+			</If>
+			<If Condition="((!HasQuest(12797)) &amp;&amp; (!IsQuestCompleted(12797)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="-6193.96" Y="-1223.291" Z="-160.8772" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Back Through the Waygate" QuestId="12797" GiverName="The Etymidian" GiverId="28092" />
+			</If>
+			<If Condition="((HasQuest(12797)) &amp;&amp; (IsQuestCompleted(12797)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-6165.07" Y="-1328.2" Z="-171.3684" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="MyCTM" X="-6157.386" Y="-1335.965" Z="-168.7974" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting {TimeRemaining} for zoning to complete." />
+				<CustomBehavior File="MyCTM" X="4906.778" Y="5185.186" Z="-93.1286" />
+			</If>
 			
-			
-			
-			
+			 </If>
+			<If Condition="((HasQuest(12797)) &amp;&amp; (IsQuestCompleted(12797)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Back Through the Waygate" QuestId="12797" TurnInName="Avatar of Freya" TurnInId="27801" />
+			</If>
+			 -->
+			<!-- Reclamation -->
+			<!-- End of Avatar of Freya Quests -->
+		
+		
+			<!-- Icecrown Quests -->
+				<CustomBehavior File="Message" Text="Compiling Icecrown Quests - Little or No flying yet" LogColor="Red" />
+				
+			<!-- Argent Vanguard Quests -->
+				<CustomBehavior File="Message" Text="Compiling Argent Vanguard Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((!HasQuest(13036)) &amp;&amp; (!IsQuestCompleted(13036)))" >
+				<CustomBehavior File="FlyTo" X="6256.38" Y="-40.85156" Z="421.4163" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Honor Above All Else" QuestId="13036" GiverName="Highlord Tirion Fordring" GiverId="28179" X="6256.38" Y="-40.85156" Z="421.4163" />
+			</If>
+			<If Condition="((HasQuest(13036)) &amp;&amp; (IsQuestCompleted(13036)))" >
+				<CustomBehavior File="FlyTo" X="6254.698" Y="-40.04223" Z="421.415" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Honor Above All Else" QuestId="13036" TurnInName="Crusade Commander Entari" TurnInId="30223" />
+			</If>
+				
+				
+				
+
 		<!--
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
 		-->
 		
 		
+		<PickUp QuestName="Scourge Tactics" QuestId="13008" GiverName="Crusade Commander Entari" GiverId="30223" X="6256.228" Y="-16.39272" Z="410.0319"/>
+		<PickUp QuestName="Curing The Incurable" QuestId="13040" GiverName="Father Gustav" GiverId="30226" X="6223.911" Y="-1.391122" Z="410.1637"/>
+		<PickUp QuestName="Defending The Vanguard" QuestId="13039" GiverName="Crusader Lord Dalfors" GiverId="30224" X="6259.506" Y="44.82388" Z="388.4307"/>
+			<If Condition="((HasQuest(13008)) &amp;&amp; (!IsQuestCompleted(13008)))" >
+					<SetGrindArea><GrindArea>
+						<TargetMinLevel>1</TargetMinLevel>
+						<Factions>14 2068</Factions>
+						<Hotspots>
+							<Hotspot X="6349.432" Y="120.4015" Z="391.513" />
+							<Hotspot X="6290.314" Y="135.1599" Z="386.9259" />
+							<Hotspot X="6210.401" Y="162.1622" Z="378.8814" />
+							<Hotspot X="6262.011" Y="185.5018" Z="382.7718" />
+							<Hotspot X="6320.153" Y="200.5595" Z="390.153" />
+							<Hotspot X="6377.593" Y="207.0352" Z="393.2706" />
+							<Hotspot X="6413.117" Y="180.9867" Z="395.478" />
+							<Hotspot X="6365.809" Y="134.8888" Z="391.611" />
+							<Hotspot X="6298.085" Y="135.0915" Z="387.7146" />
+						</Hotspots>
+					</GrindArea></SetGrindArea>
+				<GrindTo Condition="(IsQuestCompleted(13008))" GoalText="Freeing Crusaders" />
+			</If>
+			<Objective QuestName="Curing The Incurable" QuestId="13040" Type="CollectItem" ItemId="42770" CollectCount="10" />
+			<Objective QuestName="Defending The Vanguard" QuestId="13039" Type="KillMob" MobId="30402" KillCount="15" />
+		<TurnIn QuestName="Defending The Vanguard" QuestId="13039" TurnInName="Crusader Lord Dalfors" TurnInId="30224" />
+		<TurnIn QuestName="Curing The Incurable" QuestId="13040" TurnInName="Father Gustav" TurnInId="30226" />
+		<TurnIn QuestName="Scourge Tactics" QuestId="13008" TurnInName="Crusade Commander Entari" TurnInId="30223" />
+		<PickUp QuestName="If There Are Survivors..." QuestId="13044" GiverName="Crusade Commander Entari" GiverId="30223" X="6256.05" Y="-17.83882" Z="410.0478"/>
+		<TurnIn QuestName="If There Are Survivors..." QuestId="13044" TurnInName="Penumbrius" TurnInId="30227" />
+		<PickUp QuestName="Into The Wild Green Yonder" QuestId="13045" GiverName="Penumbrius" GiverId="30227" X="6129.342" Y="-12.45778" Z="383.5179"/>
+			<If Condition="((HasQuest(13045)) &amp;&amp; (!IsQuestCompleted(13045)))" >
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="MountVehOnly" VehicleMountId="30500" X="6121.719" Y="-20.34945" Z="383.512" />
+			<While Condition="((HasQuest(13045)) &amp;&amp; (!IsQuestCompleted(13045)))" >
+			
+				<CustomBehavior File="Vehicles\FlyingVehicle" QuestId="13045" VehicleId="30228" NpcList="30407"
+				PickUpPassengerButton="1" DropPassengerButton="2" SpeedButton="3"
+				StartPath="6545.917, 348.2747, 580.2816 | 6619.757, 488.2379, 408.1627 "		
+				Path="6608.668, 443.7926, 436.0548 | 6713.227, 484.2516, 446.7397 | 6598.934, 582.8495, 437.1812 "
+				EndPath="6545.917, 348.2747, 580.2816 | 6216.801, 4.160139, 416.227" />
+	
+			</While>
+			</If>
+		<TurnIn QuestName="Into The Wild Green Yonder" QuestId="13045" TurnInName="Highlord Tirion Fordring" TurnInId="28179" />
+		<PickUp QuestName="A Cold Front Approaches" QuestId="13070" GiverName="Highlord Tirion Fordring" GiverId="28179" />
+		<TurnIn QuestName="A Cold Front Approaches" QuestId="13070" TurnInName="Siegemaster Fezzik" TurnInId="30657" />
+		<PickUp QuestName="The Last Line Of Defense" QuestId="13086" GiverName="Siegemaster Fezzik" GiverId="30657" />
+				<CustomBehavior File="UserDialog" QuestId="13086" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="This is experimental.  fly your toon up to a turret and press continue.  if you get kicked out of turret, fly to another.  aim turret as needed - the bot will fire\n\nI'll automate this soon" />
+				<CustomBehavior File="Vehicles\CannonControl" VehicleId="30236" QuestId="13086" MaxAngle="0.22" MinAngle="0.10" Buttons="1,2" ExitButton="5" />
+		<TurnIn QuestName="The Last Line Of Defense" QuestId="13086" TurnInName="Siegemaster Fezzik" TurnInId="30657" />
+		<PickUp QuestName="Once More Unto the Breach, Hero" QuestId="13104" GiverName="Highlord Tirion Fordring" GiverId="30677" />
+		<TurnIn QuestName="Once More Unto the Breach, Hero" QuestId="13104" TurnInName="The Ebon Watcher" TurnInId="30596" />
+		<PickUp QuestName="The Purging Of Scourgeholme" QuestId="13118" GiverName="The Ebon Watcher" GiverId="30596" />
+		<PickUp QuestName="The Scourgestone" QuestId="13122" GiverName="The Ebon Watcher" GiverId="30596" />
+		<PickUp QuestName="The Stone That Started A Revolution" QuestId="13130" GiverName="Crusade Architect Silas" GiverId="30686" />
+		<PickUp QuestName="It Could Kill Us All" QuestId="13135" GiverName="Crusade Engineer Spitzpatrick" GiverId="30714" />
+			<If Condition="((HasQuest(13135)) &amp;&amp; (!IsQuestCompleted(13135)))" >
+				<RunTo QuestId="13135" X="5038.406" Y="-519.023" Z="224.7156" /> <!-- Let's get a FP while we're here -->
+				<Objective QuestName="It Could Kill Us All" QuestId="13135" Type="CollectItem" ItemId="43225" CollectCount="8" />
+			</If>
+			<Objective QuestName="The Stone That Started A Revolution" QuestId="13130" Type="CollectItem" ItemId="43217" CollectCount="10" />
+			<Objective QuestName="The Stone That Started A Revolution" QuestId="13130" Type="CollectItem" ItemId="43218" CollectCount="10" />
+		<TurnIn QuestName="The Stone That Started A Revolution" QuestId="13130" TurnInName="Crusade Architect Silas" TurnInId="30686" />
+		<TurnIn QuestName="It Could Kill Us All" QuestId="13135" TurnInName="Crusade Engineer Spitzpatrick" TurnInId="30714" />
+		<PickUp QuestName="The Restless Dead" QuestId="13110" GiverName="Father Gustav" GiverId="30683" />
+			<While Condition="((HasQuest(13110)) &amp;&amp; (!IsQuestCompleted(13110)))" >
+				<CustomBehavior File="UseItemOn" QuestId="13110" ItemId="43153" MobId="30202" NumOfTimes="30" WaitTime="1000" CollectionDistance="500" X="6617.311" Y="456.2849" Z="400.5445" />
+			</While>
+			<Objective QuestName="The Purging Of Scourgeholme" QuestId="13118" Type="KillMob" MobId="30543" KillCount="3" />
+			<Objective QuestName="The Purging Of Scourgeholme" QuestId="13118" Type="KillMob" MobId="30541" KillCount="3" />
+			<Objective QuestName="The Purging Of Scourgeholme" QuestId="13118" Type="KillMob" MobId="30202" KillCount="8" />
+			<Objective QuestName="The Scourgestone" QuestId="13122" Type="CollectItem" ItemId="43169" CollectCount="15" />
+		<TurnIn QuestName="The Scourgestone" QuestId="13122" TurnInName="The Ebon Watcher" TurnInId="30596" />
+		<TurnIn QuestName="The Purging Of Scourgeholme" QuestId="13118" TurnInName="The Ebon Watcher" TurnInId="30596" />
+		<TurnIn QuestName="The Restless Dead" QuestId="13110" TurnInName="Father Gustav" TurnInId="30683" />
+		<PickUp QuestName="The Air Stands Still" QuestId="13125" GiverName="The Ebon Watcher" GiverId="30596" />
+			<CustomBehavior File="UserDialog" QuestId="13125" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Use the item on the elites and kill them\n\nAfter this quest, the profile will grind you to 80 - i recommend AB until 80 and then switching to my Cata flying profiles" />
+		<TurnIn QuestName="The Air Stands Still" QuestId="13125" TurnInName="The Ebon Watcher" TurnInId="30596" />
+
 		
 		
-		
-		<SetGrindArea>
-			<GrindArea>
-			<Factions>16 1693 190</Factions> <!-- [Gnoll, Kobold, Mammoth] -->
-			<TargetMinLevel>75</TargetMinLevel>
-			<TargetMaxLevel>80</TargetMaxLevel>
-			<Hotspots>
-				<Hotspot X="6285.17" Y="-896.4157" Z="409.7999" />
-				<Hotspot X="6325.764" Y="-892.1709" Z="408.42" />
-				<Hotspot X="6383.059" Y="-863.1478" Z="408.4239" />
-				<Hotspot X="6373.252" Y="-824.2702" Z="409.4583" />
-				<Hotspot X="6322.515" Y="-791.652" Z="407.4753" />
-				<Hotspot X="6266.65" Y="-796.7496" Z="408.6371" />
-				<Hotspot X="6243.16" Y="-840.7773" Z="407.1665" />
-				<Hotspot X="6265.521" Y="-694.8317" Z="418.3795" />
-				<Hotspot X="6239.067" Y="-666.7831" Z="416.1303" />
-				<Hotspot X="6180.708" Y="-650.7217" Z="404.7965" />
-				<Hotspot X="6225.924" Y="-593.2983" Z="416.8743" />
-				<Hotspot X="6260.139" Y="-620.3668" Z="419.7072" />
-				<Hotspot X="6301.604" Y="-629.5598" Z="423.3912" />
-				<Hotspot X="6302.375" Y="-674.4965" Z="425.3145" />
-				<Hotspot X="6264.413" Y="-698.1252" Z="418.4413" />
-			</Hotspots>
-			</GrindArea>
-		</SetGrindArea>
-		<GrindTo Level="77" />
-		<Checkpoint Level="77" />
 		
 			<!-- Storm Peaks -->
 				<CustomBehavior File="Message" Text="Compiling Storm Peaks Quests - Little or No flying yet" LogColor="Red" />
@@ -10561,123 +10763,6 @@
 		
 		
 		
-		
-			<SetGrindArea><GrindArea>
-				<Factions>16 1693 190</Factions> <!-- [Gnoll, Kobold, Mammoth] -->
-				<TargetMinLevel>75</TargetMinLevel>
-				<TargetMaxLevel>80</TargetMaxLevel>
-				<Hotspots>
-					<Hotspot X="6285.17" Y="-896.4157" Z="409.7999" />
-					<Hotspot X="6325.764" Y="-892.1709" Z="408.42" />
-					<Hotspot X="6383.059" Y="-863.1478" Z="408.4239" />
-					<Hotspot X="6373.252" Y="-824.2702" Z="409.4583" />
-					<Hotspot X="6322.515" Y="-791.652" Z="407.4753" />
-					<Hotspot X="6266.65" Y="-796.7496" Z="408.6371" />
-					<Hotspot X="6243.16" Y="-840.7773" Z="407.1665" />
-					<Hotspot X="6265.521" Y="-694.8317" Z="418.3795" />
-					<Hotspot X="6239.067" Y="-666.7831" Z="416.1303" />
-					<Hotspot X="6180.708" Y="-650.7217" Z="404.7965" />
-					<Hotspot X="6225.924" Y="-593.2983" Z="416.8743" />
-					<Hotspot X="6260.139" Y="-620.3668" Z="419.7072" />
-					<Hotspot X="6301.604" Y="-629.5598" Z="423.3912" />
-					<Hotspot X="6302.375" Y="-674.4965" Z="425.3145" />
-					<Hotspot X="6264.413" Y="-698.1252" Z="418.4413" />
-				</Hotspots>
-			</GrindArea></SetGrindArea>
-			<GrindTo Level="79" />
-		<Checkpoint Level="79" />
-		
-				<CustomBehavior File="Message" Text="Compiling Icecrown Quests - Little or No flying yet" LogColor="Red" />
-				
-			<!-- These are Icecrown Quests -->
-			<If Condition="((!HasQuest(13036)) &amp;&amp; (!IsQuestCompleted(13036)))" >
-				<CustomBehavior File="FlyTo" X="6256.38" Y="-40.85156" Z="421.4163" />
-				<CustomBehavior File="ForcedDismount" />
-		<PickUp QuestName="Honor Above All Else" QuestId="13036" GiverName="Highlord Tirion Fordring" GiverId="28179" X="6256.38" Y="-40.85156" Z="421.4163" />
-			</If>
-			<If Condition="((HasQuest(13036)) &amp;&amp; (IsQuestCompleted(13036)))" >
-				<CustomBehavior File="FlyTo" X="6254.698" Y="-40.04223" Z="421.415" />
-				<CustomBehavior File="ForcedDismount" />
-		<TurnIn QuestName="Honor Above All Else" QuestId="13036" TurnInName="Crusade Commander Entari" TurnInId="30223" />
-			</If>
-		<PickUp QuestName="Scourge Tactics" QuestId="13008" GiverName="Crusade Commander Entari" GiverId="30223" X="6256.228" Y="-16.39272" Z="410.0319"/>
-		<PickUp QuestName="Curing The Incurable" QuestId="13040" GiverName="Father Gustav" GiverId="30226" X="6223.911" Y="-1.391122" Z="410.1637"/>
-		<PickUp QuestName="Defending The Vanguard" QuestId="13039" GiverName="Crusader Lord Dalfors" GiverId="30224" X="6259.506" Y="44.82388" Z="388.4307"/>
-			<If Condition="((HasQuest(13008)) &amp;&amp; (!IsQuestCompleted(13008)))" >
-				<SetGrindArea><GrindArea>
-					<TargetMinLevel>1</TargetMinLevel>
-					<Factions>14 2068</Factions>
-					<Hotspots>
-						<Hotspot X="6349.432" Y="120.4015" Z="391.513" />
-						<Hotspot X="6290.314" Y="135.1599" Z="386.9259" />
-						<Hotspot X="6210.401" Y="162.1622" Z="378.8814" />
-						<Hotspot X="6262.011" Y="185.5018" Z="382.7718" />
-						<Hotspot X="6320.153" Y="200.5595" Z="390.153" />
-						<Hotspot X="6377.593" Y="207.0352" Z="393.2706" />
-						<Hotspot X="6413.117" Y="180.9867" Z="395.478" />
-						<Hotspot X="6365.809" Y="134.8888" Z="391.611" />
-						<Hotspot X="6298.085" Y="135.0915" Z="387.7146" />
-					</Hotspots>
-				</GrindArea></SetGrindArea>
-			<GrindTo Condition="(IsQuestCompleted(13008))" />
-			</If>
-			<Objective QuestName="Curing The Incurable" QuestId="13040" Type="CollectItem" ItemId="42770" CollectCount="10" />
-			<Objective QuestName="Defending The Vanguard" QuestId="13039" Type="KillMob" MobId="30402" KillCount="15" />
-		<TurnIn QuestName="Defending The Vanguard" QuestId="13039" TurnInName="Crusader Lord Dalfors" TurnInId="30224" />
-		<TurnIn QuestName="Curing The Incurable" QuestId="13040" TurnInName="Father Gustav" TurnInId="30226" />
-		<TurnIn QuestName="Scourge Tactics" QuestId="13008" TurnInName="Crusade Commander Entari" TurnInId="30223" />
-		<PickUp QuestName="If There Are Survivors..." QuestId="13044" GiverName="Crusade Commander Entari" GiverId="30223" X="6256.05" Y="-17.83882" Z="410.0478"/>
-		<TurnIn QuestName="If There Are Survivors..." QuestId="13044" TurnInName="Penumbrius" TurnInId="30227" />
-		<PickUp QuestName="Into The Wild Green Yonder" QuestId="13045" GiverName="Penumbrius" GiverId="30227" X="6129.342" Y="-12.45778" Z="383.5179"/>
-			<If Condition="((HasQuest(13045)) &amp;&amp; (!IsQuestCompleted(13045)))" >
-				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="MountVehOnly" VehicleMountId="30500" X="6121.719" Y="-20.34945" Z="383.512" />
-			<While Condition="((HasQuest(13045)) &amp;&amp; (!IsQuestCompleted(13045)))" >
-			
-				<CustomBehavior File="Vehicles\FlyingVehicle" QuestId="13045" VehicleId="30228" NpcList="30407"
-				PickUpPassengerButton="1" DropPassengerButton="2" SpeedButton="3"
-				StartPath="6545.917, 348.2747, 580.2816 | 6619.757, 488.2379, 408.1627 "		
-				Path="6608.668, 443.7926, 436.0548 | 6713.227, 484.2516, 446.7397 | 6598.934, 582.8495, 437.1812 "
-				EndPath="6545.917, 348.2747, 580.2816 | 6216.801, 4.160139, 416.227" />
-	
-			</While>
-			</If>
-		<TurnIn QuestName="Into The Wild Green Yonder" QuestId="13045" TurnInName="Highlord Tirion Fordring" TurnInId="28179" />
-		<PickUp QuestName="A Cold Front Approaches" QuestId="13070" GiverName="Highlord Tirion Fordring" GiverId="28179" />
-		<TurnIn QuestName="A Cold Front Approaches" QuestId="13070" TurnInName="Siegemaster Fezzik" TurnInId="30657" />
-		<PickUp QuestName="The Last Line Of Defense" QuestId="13086" GiverName="Siegemaster Fezzik" GiverId="30657" />
-				<CustomBehavior File="UserDialog" QuestId="13086" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="This is experimental.  fly your toon up to a turret and press continue.  if you get kicked out of turret, fly to another.  aim turret as needed - the bot will fire\n\nI'll automate this soon" />
-				<CustomBehavior File="Vehicles\CannonControl" VehicleId="30236" QuestId="13086" MaxAngle="0.22" MinAngle="0.10" Buttons="1,2" ExitButton="5" />
-		<TurnIn QuestName="The Last Line Of Defense" QuestId="13086" TurnInName="Siegemaster Fezzik" TurnInId="30657" />
-		<PickUp QuestName="Once More Unto the Breach, Hero" QuestId="13104" GiverName="Highlord Tirion Fordring" GiverId="30677" />
-		<TurnIn QuestName="Once More Unto the Breach, Hero" QuestId="13104" TurnInName="The Ebon Watcher" TurnInId="30596" />
-		<PickUp QuestName="The Purging Of Scourgeholme" QuestId="13118" GiverName="The Ebon Watcher" GiverId="30596" />
-		<PickUp QuestName="The Scourgestone" QuestId="13122" GiverName="The Ebon Watcher" GiverId="30596" />
-		<PickUp QuestName="The Stone That Started A Revolution" QuestId="13130" GiverName="Crusade Architect Silas" GiverId="30686" />
-		<PickUp QuestName="It Could Kill Us All" QuestId="13135" GiverName="Crusade Engineer Spitzpatrick" GiverId="30714" />
-			<If Condition="((HasQuest(13135)) &amp;&amp; (!IsQuestCompleted(13135)))" >
-				<RunTo QuestId="13135" X="5038.406" Y="-519.023" Z="224.7156" /> <!-- Let's get a FP while we're here -->
-				<Objective QuestName="It Could Kill Us All" QuestId="13135" Type="CollectItem" ItemId="43225" CollectCount="8" />
-			</If>
-			<Objective QuestName="The Stone That Started A Revolution" QuestId="13130" Type="CollectItem" ItemId="43217" CollectCount="10" />
-			<Objective QuestName="The Stone That Started A Revolution" QuestId="13130" Type="CollectItem" ItemId="43218" CollectCount="10" />
-		<TurnIn QuestName="The Stone That Started A Revolution" QuestId="13130" TurnInName="Crusade Architect Silas" TurnInId="30686" />
-		<TurnIn QuestName="It Could Kill Us All" QuestId="13135" TurnInName="Crusade Engineer Spitzpatrick" TurnInId="30714" />
-		<PickUp QuestName="The Restless Dead" QuestId="13110" GiverName="Father Gustav" GiverId="30683" />
-			<While Condition="((HasQuest(13110)) &amp;&amp; (!IsQuestCompleted(13110)))" >
-				<CustomBehavior File="UseItemOn" QuestId="13110" ItemId="43153" MobId="30202" NumOfTimes="30" WaitTime="1000" CollectionDistance="500" X="6617.311" Y="456.2849" Z="400.5445" />
-			</While>
-			<Objective QuestName="The Purging Of Scourgeholme" QuestId="13118" Type="KillMob" MobId="30543" KillCount="3" />
-			<Objective QuestName="The Purging Of Scourgeholme" QuestId="13118" Type="KillMob" MobId="30541" KillCount="3" />
-			<Objective QuestName="The Purging Of Scourgeholme" QuestId="13118" Type="KillMob" MobId="30202" KillCount="8" />
-			<Objective QuestName="The Scourgestone" QuestId="13122" Type="CollectItem" ItemId="43169" CollectCount="15" />
-		<TurnIn QuestName="The Scourgestone" QuestId="13122" TurnInName="The Ebon Watcher" TurnInId="30596" />
-		<TurnIn QuestName="The Purging Of Scourgeholme" QuestId="13118" TurnInName="The Ebon Watcher" TurnInId="30596" />
-		<TurnIn QuestName="The Restless Dead" QuestId="13110" TurnInName="Father Gustav" TurnInId="30683" />
-		<PickUp QuestName="The Air Stands Still" QuestId="13125" GiverName="The Ebon Watcher" GiverId="30596" />
-			<CustomBehavior File="UserDialog" QuestId="13125" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Use the item on the elites and kill them\n\nAfter this quest, the profile will grind you to 80 - i recommend AB until 80 and then switching to my Cata flying profiles" />
-		<TurnIn QuestName="The Air Stands Still" QuestId="13125" TurnInName="The Ebon Watcher" TurnInId="30596" />
-
 
 
 
@@ -10717,8 +10802,8 @@
 			</Hotspots>
 			</GrindArea>
 		</SetGrindArea>
-		<GrindTo Level="81" />
-		<Checkpoint Level="81" />
+		<GrindTo Level="80" />
+		<Checkpoint Level="80" />
 
 
 	</QuestOrder>
