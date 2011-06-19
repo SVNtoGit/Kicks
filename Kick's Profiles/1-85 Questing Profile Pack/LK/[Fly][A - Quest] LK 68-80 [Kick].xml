@@ -277,6 +277,9 @@
 
 	<Quest Id="12830" Name="Ore Repossession">
 		<Objective Type="CollectItem" ItemId="40744" CollectCount="5">
+			<CollectFrom>
+				<Mob Name="Snowblind Digger" Entry="29413" />
+			</CollectFrom>
 			<Hotspots>
 				<Hotspot X="6468.749" Y="-1027.474" Z="434.0722" />
 				<Hotspot X="6854.293" Y="-1541.383" Z="354.7178" />
@@ -10061,7 +10064,7 @@
 		
 		
 			<!-- Icecrown Quests -->
-				<CustomBehavior File="Message" Text="Compiling Icecrown Quests - Little or No flying yet" LogColor="Red" />
+				<CustomBehavior File="Message" Text="Compiling Icecrown Quests" LogColor="Green" />
 				
 			<!-- Argent Vanguard Quests -->
 				<CustomBehavior File="Message" Text="Compiling Argent Vanguard Quests" LogColor="Cornflowerblue" />
@@ -10226,53 +10229,74 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Clean Up" QuestId="12818" GiverName="Jeer Sparksocket" GiverId="29431" />
 			</If>
-				
-
-		<!--
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
-		-->
-		
-		
-		
-		
+			<If Condition="((!HasQuest(12827)) &amp;&amp; (!IsQuestCompleted(12827)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6150.674" Y="-1069.464" Z="402.6671" />
+				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Reclaimed Rations" QuestId="12827" GiverName="Ricket" GiverId="29428" />
 		<PickUp QuestName="Expression of Gratitude" QuestId="12836" GiverName="Ricket" GiverId="29428" />
-			<Objective QuestName="Clean Up" QuestId="12818" Type="CollectItem" ItemId="40603" CollectCount="10" />
-			<Objective QuestName="Expression of Gratitude" QuestId="12836" Type="KillMob" MobId="30003" KillCount="1" />
-			<Objective QuestName="Reclaimed Rations" QuestId="12827" Type="CollectItem" ItemId="40645" CollectCount="16" />
+			</If>
+			<If Condition="((!HasQuest(12836)) &amp;&amp; (!IsQuestCompleted(12836)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6150.674" Y="-1069.464" Z="402.6671" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Expression of Gratitude" QuestId="12836" GiverName="Ricket" GiverId="29428" />
+			</If>
+			<If Condition="((HasQuest(12818)) &amp;&amp; (!IsQuestCompleted(12818)))" >
+				<CustomBehavior File="FlyTo" DestName="collect 10 Charred Wreckage" X="6108.694" Y="-921.1199" Z="392.923" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Clean Up" QuestId="12818" Type="CollectItem" ItemId="40603" CollectCount="10" />
+			</If>
+			<If Condition="((HasQuest(12836)) &amp;&amp; (!IsQuestCompleted(12836)))" >
+				<CustomBehavior File="FlyTo" DestName="kill Gnarlhide" X="6130.403" Y="-313.8772" Z="457.1128" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Expression of Gratitude" QuestId="12836" Type="KillMob" MobId="30003" KillCount="1" />
+			</If>
+			<If Condition="((HasQuest(12827)) &amp;&amp; (!IsQuestCompleted(12827)))" >
+				<CustomBehavior File="FlyTo" DestName="collect 16 Rations" X="6155.047" Y="-453.8429" Z="412.0418" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Reclaimed Rations" QuestId="12827" Type="CollectItem" ItemId="40645" CollectCount="16" />
+			</If>
+			<If Condition="((HasQuest(12827)) &amp;&amp; (IsQuestCompleted(12827)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6150.674" Y="-1069.464" Z="402.6671" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Reclaimed Rations" QuestId="12827" TurnInName="Ricket" TurnInId="29428" />
+			</If>
+			<If Condition="((HasQuest(12836)) &amp;&amp; (IsQuestCompleted(12836)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6150.674" Y="-1069.464" Z="402.6671" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Expression of Gratitude" QuestId="12836" TurnInName="Ricket" TurnInId="29428" />
-		<TurnIn QuestName="Clean Up" QuestId="12818" TurnInName="Jeer Sparksocket" TurnInId="29431" />
-		<PickUp QuestName="Ore Repossession" QuestId="12830" GiverName="Tore Rumblewrench" GiverId="29430" />
-		<PickUp QuestName="Moving In" QuestId="12829" GiverName="Tore Rumblewrench" GiverId="29430" />
-		<PickUp QuestName="Only Partly Forgotten" QuestId="12831" GiverName="Injured Goblin Miner" GiverId="29434" />
-			<Objective QuestName="Only Partly Forgotten" QuestId="12831" Type="CollectItem" ItemId="40944" CollectCount="1" />
-		<TurnIn QuestName="Only Partly Forgotten" QuestId="12831" TurnInName="Injured Goblin Miner" TurnInId="29434" />
-			<Objective QuestName="Ore Repossession" QuestId="12830" Type="CollectItem" ItemId="40744" CollectCount="5" />
-			<Objective QuestName="Moving In" QuestId="12829" Type="KillMob" MobId="29412" KillCount="12" />
-		<TurnIn QuestName="Ore Repossession" QuestId="12830" TurnInName="Tore Rumblewrench" TurnInId="29430" />
-		<TurnIn QuestName="Moving In" QuestId="12829" TurnInName="Tore Rumblewrench" TurnInId="29430" />
 		<PickUp QuestName="Ample Inspiration" GiverName="Ricket" QuestId="12828" GiverId="29428" />
+			</If>
+			<If Condition="((!HasQuest(12828)) &amp;&amp; (!IsQuestCompleted(12828)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6150.674" Y="-1069.464" Z="402.6671" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Ample Inspiration" GiverName="Ricket" QuestId="12828" GiverId="29428" />
+			</If>
+			<If Condition="((HasQuest(12818)) &amp;&amp; (IsQuestCompleted(12818)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6101.326" Y="-1072.456" Z="403.6563" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Clean Up" QuestId="12818" TurnInName="Jeer Sparksocket" TurnInId="29431" />
+		<PickUp QuestName="Just Around the Corner" GiverName="Jeer Sparksocket" QuestId="12819" GiverId="29431" />
+			</If>
+			<If Condition="((!HasQuest(12819)) &amp;&amp; (!IsQuestCompleted(12819)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6101.326" Y="-1072.456" Z="403.6563" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Just Around the Corner" GiverName="Jeer Sparksocket" QuestId="12819" GiverId="29431" />
+			</If>
 			<If Condition="((HasQuest(12828)) &amp;&amp; (!IsQuestCompleted(12828)))" >
-			<While Condition="((HasQuest(12828)) &amp;&amp; (!IsQuestCompleted(12828)))" >
-				<CustomBehavior File="FlyTo" X="6401.575" Y="-1120.398" Z="425.8143" />
+			 <While Condition="((HasQuest(12828)) &amp;&amp; (!IsQuestCompleted(12828)))" >
+				<CustomBehavior File="FlyTo" DestName="to get bomb" X="6401.575" Y="-1120.398" Z="425.8143" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" QuestId="12828" ObjectType="Gameobject" MobId="191553" NumOfTimes="1" GossipOptions="1" CollectionDistance="50" X="6401.575" Y="-1120.398" Z="425.8143" />
 				<CustomBehavior File="FlyTo" X="6173.439" Y="-765.3783" Z="398.8278" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="UseItemOn" QuestId="12828" MobId="29402" ItemId="40686" NumOfTimes="1" WaitTime="1000" Range="30" CollectionDistance="1000" X="6182.865" Y="-709.2883" Z="401.3564" />
-				<CustomBehavior File="InteractWith" QuestId="12828" ObjectType="Gameobject" MobId="182693" NumOfTimes="1" CollectionDistance="1000" X="6182.865" Y="-709.2883" Z="401.3564" />
-				<CustomBehavior File="InteractWith" QuestId="12828" ObjectType="Gameobject" MobId="191567" NumOfTimes="6" CollectionDistance="1000" X="6182.865" Y="-709.2883" Z="401.3564" />
-			</While>
+				<CustomBehavior File="UseItemOn" QuestId="12828" MobId="29402" ItemId="40686" WaitTime="5000" Range="30" CollectionDistance="1000" X="6182.865" Y="-709.2883" Z="401.3564" />
+				<CustomBehavior File="InteractWith" QuestId="12828" ObjectType="Gameobject" MobId="192693" NumOfTimes="1" WaitForNpcs="False" CollectionDistance="1000" X="6182.865" Y="-709.2883" Z="401.3564" />
+				<CustomBehavior File="InteractWith" QuestId="12828" ObjectType="Gameobject" MobId="191567" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="6182.865" Y="-709.2883" Z="401.3564" />
+				<CustomBehavior File="WaitTimer" QuestId="12828" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </While>
 			</If>
-			<If Condition="((HasQuest(12828)) &amp;&amp; (IsQuestCompleted(12828)))" >
-				<CustomBehavior File="FlyTo" X="6149.032" Y="-1069.229" Z="402.6819" />
-				<CustomBehavior File="ForcedDismount" />
-			</If>
-		<TurnIn QuestName="Ample Inspiration" TurnInName="Ricket" QuestId="12828" TurnInId="29428" />
-		<PickUp QuestName="Just Around the Corner" GiverName="Jeer Sparksocket" QuestId="12819" GiverId="29431" />
 			<If Condition="((HasQuest(12819)) &amp;&amp; (!IsQuestCompleted(12819)))" >
-				<CustomBehavior File="FlyTo" X="6069.957" Y="-785.3235" Z="374.2989" />
+				<CustomBehavior File="FlyTo" DestName="Mine Field" X="6069.957" Y="-785.3235" Z="374.2989" />
 				<CustomBehavior File="ForcedDismount" />
 				<RunTo X="6001.081" Y="-743.666" Z="371.9312" />
 				<CustomBehavior File="MyCTM" X="5995.893" Y="-719.6183" Z="374.7697" />
@@ -10294,56 +10318,141 @@
 				<RunTo X="6001.081" Y="-743.666" Z="371.9312" />
 				<RunTo X="6069.957" Y="-785.3235" Z="374.2989" />
 			</If>
-			<If Condition="((HasQuest(12819)) &amp;&amp; (IsQuestCompleted(12819)))" >
-				<CustomBehavior File="FlyTo" X="6102.894" Y="-1073.459" Z="403.4583" />
+			<If Condition="((HasQuest(12828)) &amp;&amp; (IsQuestCompleted(12828)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6149.032" Y="-1069.229" Z="402.6819" />
 				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Ample Inspiration" TurnInName="Ricket" QuestId="12828" TurnInId="29428" />
 			</If>
+			<If Condition="((HasQuest(12819)) &amp;&amp; (IsQuestCompleted(12819)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6102.894" Y="-1073.459" Z="403.4583" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Just Around the Corner" TurnInName="Jeer Sparksocket" QuestId="12819" TurnInId="29431" />
 		<PickUp QuestName="Slightly Unstable" GiverName="Jeer Sparksocket" QuestId="12826" GiverId="29431" />
-		<TurnIn QuestName="Slightly Unstable" TurnInName="Ricket" QuestId="12826" TurnInId="29428" />
-		<PickUp QuestName="A Delicate Touch" GiverName="Ricket" QuestId="12820" GiverId="29428" />
-			<Objective QuestName="A Delicate Touch" QuestId="12820" Type="CollectItem" ItemId="40676" CollectCount="1" />
-			<If Condition="((HasQuest(12820)) &amp;&amp; (!IsQuestCompleted(12820)))" >
-				<CustomBehavior File="UserSettings" PullDistance="1" />
-				<CustomBehavior File="FlyTo" X="6382.029" Y="-1195.668" Z="425.9955" />
+			</If>
+			<If Condition="((!HasQuest(12826)) &amp;&amp; (!IsQuestCompleted(12826)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6102.894" Y="-1073.459" Z="403.4583" />
 				<CustomBehavior File="ForcedDismount" />
-			<While Condition="((HasQuest(12820)) &amp;&amp; (!IsQuestCompleted(12820)))" >
+		<PickUp QuestName="Slightly Unstable" GiverName="Jeer Sparksocket" QuestId="12826" GiverId="29431" />
+			</If>
+			<If Condition="((HasQuest(12826)) &amp;&amp; (IsQuestCompleted(12826)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6149.032" Y="-1069.229" Z="402.6819" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Slightly Unstable" QuestId="12826" TurnInName="Ricket" TurnInId="29428" />
+		<PickUp QuestName="A Delicate Touch" QuestId="12820" GiverName="Ricket" GiverId="29428" />
+			</If>
+			<If Condition="((!HasQuest(12820)) &amp;&amp; (!IsQuestCompleted(12820)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6149.032" Y="-1069.229" Z="402.6819" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="A Delicate Touch" QuestId="12820" GiverName="Ricket" GiverId="29428" />
+			</If>
+			<If Condition="((HasQuest(12820)) &amp;&amp; (!IsQuestCompleted(12820)))" >
+				<CustomBehavior File="UserSettings" PullDistance="1" UseMount="False" />
+				<CustomBehavior File="FlyTo" DestName="setup mines" X="6382.029" Y="-1195.668" Z="425.9955" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(12820)) &amp;&amp; (!IsQuestCompleted(12820)))" >
 				<UseItem QuestId="12820" ItemId="40676" X="6362.375" Y="-1211.152" Z="426.9274" />
-				<CustomBehavior File="WaitTimer" WaitTime="500"/>
+				<CustomBehavior File="WaitTimer" QuestId="12820" WaitTime="1500"/>
 				<UseItem QuestId="12820" ItemId="40676" X="6358.92" Y="-1211.504" Z="427.1507" />
-				<CustomBehavior File="WaitTimer" WaitTime="500"/>
+				<CustomBehavior File="WaitTimer" QuestId="12820" WaitTime="1500"/>
 				<UseItem QuestId="12820" ItemId="40676" X="6355.661" Y="-1211.835" Z="427.3261" />
-				<CustomBehavior File="WaitTimer" WaitTime="500"/>
+				<CustomBehavior File="WaitTimer" QuestId="12820" WaitTime="1500"/>
 				<UseItem QuestId="12820" ItemId="40676" X="6353.105" Y="-1212.095" Z="427.4397" />
-				<CustomBehavior File="WaitTimer" WaitTime="500"/>
+				<CustomBehavior File="WaitTimer" QuestId="12820" WaitTime="1500"/>
 				<UseItem QuestId="12820" ItemId="40676" X="6350.502" Y="-1213.416" Z="427.5239" />
-				<CustomBehavior File="WaitTimer" WaitTime="500"/>
+				<CustomBehavior File="WaitTimer" QuestId="12820" WaitTime="1500"/>
 				<UseItem QuestId="12820" ItemId="40676" X="6347.279" Y="-1215.011" Z="427.6374" />
-				<CustomBehavior File="WaitTimer" WaitTime="500"/>
+				<CustomBehavior File="WaitTimer" QuestId="12820" WaitTime="1500"/>
 				<UseItem QuestId="12820" ItemId="40676" X="6349.87" Y="-1215.703" Z="427.5107" />
-				<CustomBehavior File="WaitTimer" WaitTime="500"/>
+				<CustomBehavior File="WaitTimer" QuestId="12820" WaitTime="1500"/>
 				<UseItem QuestId="12820" ItemId="40676" X="6353.813" Y="-1216.755" Z="427.2916" />
-				<CustomBehavior File="WaitTimer" WaitTime="500"/>
+				<CustomBehavior File="WaitTimer" QuestId="12820" WaitTime="1500"/>
 				<UseItem QuestId="12820" ItemId="40676" X="6356.574" Y="-1217.174" Z="427.1633" />
-				<CustomBehavior File="WaitTimer" WaitTime="500"/>
+				<CustomBehavior File="WaitTimer" QuestId="12820" WaitTime="1500"/>
 				<UseItem QuestId="12820" ItemId="40676" X="6359.349" Y="-1217.596" Z="427.0812" />
-				<CustomBehavior File="WaitTimer" WaitTime="500"/>
+				<CustomBehavior File="WaitTimer" QuestId="12820" WaitTime="1500"/>
 				<UseItem QuestId="12820" ItemId="40676" X="6362.117" Y="-1218.017" Z="426.9355" />
-				<CustomBehavior File="WaitTimer" WaitTime="500"/>
+				<CustomBehavior File="WaitTimer" QuestId="12820" WaitTime="1500"/>
 				<UseItem QuestId="12820" ItemId="40676" X="6364.449" Y="-1218.371" Z="426.8047" />
-				<CustomBehavior File="WaitTimer" WaitTime="500"/>
+				<CustomBehavior File="WaitTimer" QuestId="12820" WaitTime="1500"/>
 				<UseItem QuestId="12820" ItemId="40676" X="6367.035" Y="-1217.664" Z="426.6492" />
-				<CustomBehavior File="WaitTimer" WaitTime="500"/>
-			</While>
+				<CustomBehavior File="WaitTimer" QuestId="12820" WaitTime="1500"/>
+			 </While>
 			</If>
 			<If Condition="((HasQuest(12820)) &amp;&amp; (IsQuestCompleted(12820)))" >
-				<CustomBehavior File="FlyTo" X="6150.142" Y="-1069.5" Z="402.6692" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6150.142" Y="-1069.5" Z="402.6692" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="UserSettings" PullDistance="25" />
+				<CustomBehavior File="UserSettings" PullDistance="25" UseMount="True" />
+		<TurnIn QuestName="A Delicate Touch" QuestId="12820" TurnInName="Ricket" TurnInId="29428" />
 			</If>
-		<TurnIn QuestName="A Delicate Touch" TurnInName="Ricket" QuestId="12820" TurnInId="29428" />
-		<PickUp QuestName="They Took Our Men!" GiverName="Gretchen Fizzlespark" QuestId="12843" GiverId="29473" />
-		<PickUp QuestName="Equipment Recovery" GiverName="Gretchen Fizzlespark" QuestId="12844" GiverId="29473" />
+			<!-- End of K3 Quests -->
+			
+			<!-- Crystalweb Caverns Quests -->
+				<CustomBehavior File="Message" Text="Compiling Crystalweb Caverns Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((!HasQuest(12830)) &amp;&amp; (!IsQuestCompleted(12830)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6401.958" Y="-1125.99" Z="426.2207" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Ore Repossession" QuestId="12830" GiverName="Tore Rumblewrench" GiverId="29430" />
+		<PickUp QuestName="Moving In" QuestId="12829" GiverName="Tore Rumblewrench" GiverId="29430" />
+			</If>
+			<If Condition="((!HasQuest(12829)) &amp;&amp; (!IsQuestCompleted(12829)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6401.958" Y="-1125.99" Z="426.2207" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Moving In" QuestId="12829" GiverName="Tore Rumblewrench" GiverId="29430" />
+			</If>
+			<If Condition="((!HasQuest(12831)) &amp;&amp; (!IsQuestCompleted(12831)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6449.68" Y="-1033.194" Z="430.8594" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Only Partly Forgotten" QuestId="12831" GiverName="Injured Goblin Miner" GiverId="29434" />
+			</If>
+			<If Condition="((HasQuest(12831)) &amp;&amp; (!IsQuestCompleted(12831)))" >
+				<Objective QuestName="Only Partly Forgotten" QuestId="12831" Type="CollectItem" ItemId="40944" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(12831)) &amp;&amp; (IsQuestCompleted(12831)))" >
+		<TurnIn QuestName="Only Partly Forgotten" QuestId="12831" TurnInName="Injured Goblin Miner" TurnInId="29434" />
+			<!-- Bitter Departure - escort quest -->
+			</If>
+			<If Condition="((HasQuest(12830)) &amp;&amp; (!IsQuestCompleted(12830)))" >
+				<Objective QuestName="Ore Repossession" QuestId="12830" Type="CollectItem" ItemId="40744" CollectCount="5" />
+			</If>
+			<If Condition="((HasQuest(12829)) &amp;&amp; (!IsQuestCompleted(12829)))" >
+				<Objective QuestName="Moving In" QuestId="12829" Type="KillMob" MobId="29412" KillCount="12" />
+			</If>
+			<If Condition="((HasQuest(12830)) &amp;&amp; (IsQuestCompleted(12830)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6401.958" Y="-1125.99" Z="426.2207" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Ore Repossession" QuestId="12830" TurnInName="Tore Rumblewrench" TurnInId="29430" />
+			</If>
+			<If Condition="((HasQuest(12829)) &amp;&amp; (IsQuestCompleted(12829)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6401.958" Y="-1125.99" Z="426.2207" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Moving In" QuestId="12829" TurnInName="Tore Rumblewrench" TurnInId="29430" />
+			</If>
+
+			
+			
+			
+		<!--
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
+		-->
+		
+		
+		
+		
+			<!-- This starts the Sons of Hodir Chain -->
+				<CustomBehavior File="Message" Text="Compiling SoH Starter Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((!HasQuest(12843)) &amp;&amp; (!IsQuestCompleted(12843)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6122.198" Y="-1067.789" Z="402.9616" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="They Took Our Men!" QuestId="12843" GiverName="Gretchen Fizzlespark" GiverId="29473" />
+		<PickUp QuestName="Equipment Recovery" QuestId="12844" GiverName="Gretchen Fizzlespark" GiverId="29473" />
+			</If>
+			<If Condition="((!HasQuest(12844)) &amp;&amp; (!IsQuestCompleted(12844)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6122.198" Y="-1067.789" Z="402.9616" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Equipment Recovery" QuestId="12844" GiverName="Gretchen Fizzlespark" GiverId="29473" />
+			</If>
 			<If Condition="((HasQuest(12844)) &amp;&amp; (!IsQuestCompleted(12844)))" >
 				<CustomBehavior File="FlyTo" X="6599.201" Y="-988.3707" Z="840.3089" />
 				<CustomBehavior File="FlyTo" X="6668.205" Y="-1025.524" Z="767.0791" />
@@ -10352,15 +10461,15 @@
 			</If>
 			<While Condition="((HasQuest(12843)) &amp;&amp; (!IsQuestCompleted(12843)))" >
 				<Objective QuestName="They Took Our Men!" QuestId="12843" GiverName="Gretchen Fizzlespark" Type="CollectItem" CollectCount="5" ItemId="40641" />
-				<CustomBehavior File="InteractWith" QuestId="12843" ObjectType="Gameobject" MobId="191544" NumOfTimes="10" CollectionDistance="500" X="6721.84" Y="-1054.548" Z="766.6909" />
+				<CustomBehavior File="InteractWith" QuestId="12843" ObjectType="Gameobject" MobId="191544" NumOfTimes="10" Range="10" CollectionDistance="500" X="6721.84" Y="-1054.548" Z="766.6909" />
 			</While>
 			<If Condition="((HasQuest(12843)) &amp;&amp; (IsQuestCompleted(12843)))" >
 				<CustomBehavior File="FlyTo" X="6122.364" Y="-1067.258" Z="402.8506" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
-		<TurnIn QuestName="They Took Our Men!" TurnInName="Gretchen Fizzlespark" QuestId="12843" TurnInId="29473" />
-		<TurnIn QuestName="Equipment Recovery" TurnInName="Gretchen Fizzlespark" QuestId="12844" TurnInId="29473" />
-		<PickUp QuestName="Leave No Goblin Behind" GiverName="Gretchen Fizzlespark" QuestId="12846" GiverId="29473" />
+		<TurnIn QuestName="They Took Our Men!" QuestId="12843" TurnInName="Gretchen Fizzlespark" TurnInId="29473" />
+		<TurnIn QuestName="Equipment Recovery" QuestId="12844" TurnInName="Gretchen Fizzlespark" TurnInId="29473" />
+		<PickUp QuestName="Leave No Goblin Behind" QuestId="12846" GiverName="Gretchen Fizzlespark" GiverId="29473" />
 			<If Condition="(HasQuest(12846))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<CustomBehavior File="FlyTo" X="6894.713" Y="-1108.836" Z="802.9475" />
