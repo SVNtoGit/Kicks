@@ -9605,20 +9605,41 @@
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Hoofing It" QuestId="12539" TurnInName="High-Shaman Rakjak" TurnInId="28082" />
+		<!-- <PickUp QuestName="Just Following Orders" QuestId="12540" GiverName="High-Shaman Rakjak" GiverId="28082" /> -->
 			</If>
-		
-		<!-- issues
-		<PickUp QuestName="Just Following Orders" QuestId="12540" GiverName="High-Shaman Rakjak" GiverId="28082" />
-			<If Condition="((HasQuest(12540)) &amp;&amp; (!IsQuestCompleted(12540)))" >
-				<CustomBehavior File="InteractWith" QuestId="12540" MobId="28217" NumOfTimes="1" GossipOptions="1" WaitTime="2000" CollectionDistance="10" X="5409.498" Y="4574.446" Z="-129.2509" />
-			</If>
-		<TurnIn QuestName="Just Following Orders" QuestId="12540" TurnInName="Injured Rainspeaker Oracle" TurnInId="28217" X="5409.498" Y="4574.446" Z="-129.2509" />
-		-->
-		<!-- I need an escort quest CB >:-(
-		<PickUp QuestName="Fortunate Misunderstandings" QuestId="12570" GiverName="Injured Rainspeaker Oracle" GiverId="28217" X="5409.498" Y="4574.446" Z="-129.2509" />
-		<TurnIn QuestName="Fortunate Misunderstandings" QuestId="12570" TurnInName="High-Oracle Soo-say" TurnInId="28027" />
-		-->
 			<!-- End of Frenzyheart Hill Quests -->
+		
+			<!-- Rainspeaker Canopy Quests -->
+				<CustomBehavior File="Message" Text="Compiling Rainspeaker Canopy Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((!HasQuest(12540)) &amp;&amp; (!IsQuestCompleted(12540)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Just Following Orders" QuestId="12540" GiverName="High-Shaman Rakjak" GiverId="28082" />
+			</If>
+			<If Condition="((HasQuest(12540)) &amp;&amp; (!IsQuestCompleted(12540)))" >
+				<CustomBehavior File="FlyTo" DestName="talk to Oracle" X="5400.678" Y="4502.84" Z="-130.8759" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(12540)) &amp;&amp; (!IsQuestCompleted(12540)))" >
+				<CustomBehavior File="InteractWith" QuestId="12540" MobId="28217" GossipOptions="1" WaitTime="2000" CollectionDistance="10" X="5400.678" Y="4502.84" Z="-130.8759" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+			 </While>
+			</If>
+			<If Condition="((HasQuest(12540)) &amp;&amp; (IsQuestCompleted(12540)))" >
+				<CustomBehavior File="FlyTo" DestName="talk to Oracle" X="5400.678" Y="4502.84" Z="-130.8759" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Just Following Orders" QuestId="12540" TurnInName="Injured Rainspeaker Oracle" TurnInId="28217" X="5400.678" Y="4502.84" Z="-130.8759" />
+		<PickUp QuestName="Fortunate Misunderstandings" QuestId="12570" GiverName="Injured Rainspeaker Oracle" GiverId="28217" X="5400.678" Y="4502.84" Z="-130.8759" />
+			</If>
+			<If Condition="((HasQuest(12570)) &amp;&amp; (!IsQuestCompleted(12570)))" >
+				<CustomBehavior File="InteractWith" QuestId="12570" MobId="28217" GossipOptions="1" WaitTime="2000" CollectionDistance="10" X="5400.678" Y="4502.84" Z="-130.8759" />
+				<CustomBehavior File="Escort" QuestId="12570" MobId="28217" X="5400.678" Y="4502.84" Z="-130.8759" />
+			</If>
+			<If Condition="((HasQuest(12570)) &amp;&amp; (IsQuestCompleted(12570)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5651.868" Y="4560.372" Z="-134.7812" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Fortunate Misunderstandings" QuestId="12570" TurnInName="High-Oracle Soo-say" TurnInId="28027" />
+			</If>
 			
 			<!-- Dorian's Outpost Quests -->
 				<CustomBehavior File="Message" Text="Compiling Dorian's Outpost Quests" LogColor="Cornflowerblue" />
@@ -9942,9 +9963,10 @@
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Freya's Pact" QuestId="12621" TurnInName="Avatar of Freya" TurnInId="27801" />
-		<!-- <PickUp QuestName="Powering the Waygate - The Makers' Perch" QuestId="12559" GiverName="Avatar of Freya" GiverId="27801" /> -->
+		<!--  -->
+		<PickUp QuestName="Powering the Waygate - The Makers' Perch" QuestId="12559" GiverName="Avatar of Freya" GiverId="27801" />
 			</If>
-				<!-- If we die on these quests - we can't get back up.  Maybe put this in the [Test] Profile?
+				<!-- If we die on these quests - we can't get back up.  Maybe put this in the [Test] Profile? -->
 			<If Condition="((!HasQuest(12559)) &amp;&amp; (!IsQuestCompleted(12559)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
 				<CustomBehavior File="ForcedDismount" />
@@ -10059,7 +10081,6 @@
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Back Through the Waygate" QuestId="12797" TurnInName="Avatar of Freya" TurnInId="27801" />
 			</If>
-			 -->
 			<!-- Reclamation -->
 			<!-- End of Avatar of Freya Quests -->
 		
@@ -10176,10 +10197,11 @@
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6249.462" Y="68.89738" Z="389.4709" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="A Cold Front Approaches" QuestId="13070" TurnInName="Siegemaster Fezzik" TurnInId="30657" />
-		<!-- <PickUp QuestName="The Last Line Of Defense" QuestId="13086" GiverName="Siegemaster Fezzik" GiverId="30657" /> -->
+		<!--  -->
+		<PickUp QuestName="The Last Line Of Defense" QuestId="13086" GiverName="Siegemaster Fezzik" GiverId="30657" />
 				<RunTo X="6249.044" Y="66.03371" Z="389.0972" />
 			</If>
-			<!-- I need a turret vehicle behavior that works properly 
+			<!-- I need a turret vehicle behavior that works properly -->
 			<If Condition="((!HasQuest(13086)) &amp;&amp; (!IsQuestCompleted(13086)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6249.462" Y="68.89738" Z="389.4709" />
 				<CustomBehavior File="ForcedDismount" />
@@ -10216,7 +10238,6 @@
 		<PickUp QuestName="The Air Stands Still" QuestId="13125" GiverName="The Ebon Watcher" GiverId="30596" />
 			<CustomBehavior File="UserDialog" QuestId="13125" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Use the item on the elites and kill them\n\nAfter this quest, the profile will grind you to 80 - i recommend AB until 80 and then switching to my Cata flying profiles" />
 		<TurnIn QuestName="The Air Stands Still" QuestId="13125" TurnInName="The Ebon Watcher" TurnInId="30596" />
-		-->
 			<!-- End of Icecrown Quests -->	
 				
 			<!-- Storm Peaks -->
@@ -10939,27 +10960,6 @@
 			</If>
 		<TurnIn QuestName="The Exiles of Ulduar" TurnInName="Bouldercrag the Rockshaper" QuestId="12885" TurnInId="29801" />
 		<!-- stopping here for now -->
-		
-		
-		
-
-
-		
-		
-		
-		
-		
-
-
-
-
-
-
-
-
-
-
-
 		
 		
 		
