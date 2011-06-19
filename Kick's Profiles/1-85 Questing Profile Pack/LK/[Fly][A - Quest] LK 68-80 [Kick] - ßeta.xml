@@ -5,7 +5,7 @@
 -->
 
 <HBProfile>
-	<Name>[A - Fly] QO 68-80 [Kick] - ßeta</Name>
+	<Name>[A - Fly] QO 68-80 [Kick] - Beta</Name>
 	<MinLevel>68</MinLevel>
 	<MaxLevel>86</MaxLevel>
   
@@ -378,6 +378,38 @@
 		</Objective>
 	</Quest>
 
+	<Quest Id="12579" Name="Lifeblood of the Mosswalker Shrine">
+		<Objective Type="CollectItem" ItemId="39063" CollectCount="10">
+			<CollectFrom>
+				<GameObject Name="Lifeblood Shard" Id="190702" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="5690.543" Y="3909.377" Z="-84.18755" />
+				<Hotspot X="5704.984" Y="3937.657" Z="-81.56623" />
+				<Hotspot X="5672.212" Y="3993.282" Z="-87.84903" />
+				<Hotspot X="5623.89" Y="3899.199" Z="-95.5256" />
+				<Hotspot X="5537.935" Y="3933.866" Z="-59.08381" />
+				<Hotspot X="5476.777" Y="3868.305" Z="-69.2412" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+
+	<Quest Id="12575" Name="The Lost Mistwhisper Treasure">
+		<Objective Type="KillMob" MobId="28105" KillCount="1">
+			<Hotspots>
+				<Hotspot X="6714.699" Y="5121.02" Z="-18.3786" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="CollectItem" ItemId="38601" CollectCount="1">
+			<CollectFrom>
+				<GameObject Name="Mistwhisper Treasure" Id="190578" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="6714.699" Y="5121.02" Z="-18.3786" />
+			</Hotspots>
+		</Objective>
+	</Quest>	
+	
 	<Quest Id="12572" Name="Gods like Shiny Things">
 		<Objective Type="CollectItem" ItemId="38575" CollectCount="6">
 			<CollectFrom>
@@ -9633,7 +9665,7 @@
 			</If>
 			<!-- End of Frenzyheart Hill Quests -->
 		
-			<!-- Rainspeaker Canopy Quests -->
+			<!-- Rainspeaker Canopy Quests (Oracles) -->
 				<CustomBehavior File="Message" Text="Compiling Rainspeaker Canopy Quests" LogColor="Cornflowerblue" />
 
 			<If Condition="((!HasQuest(12540)) &amp;&amp; (!IsQuestCompleted(12540)))" >
@@ -9728,6 +9760,154 @@
 		<TurnIn QuestName="Gods like Shiny Things" QuestId="12572" TurnInName="High-Oracle Soo-say" TurnInId="28027" />
 		<PickUp QuestName="Making Peace" QuestId="12573" GiverName="High-Oracle Soo-say" GiverId="28027" />
 			</If>
+			<If Condition="((!HasQuest(12573)) &amp;&amp; (!IsQuestCompleted(12573)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5651.868" Y="4560.372" Z="-134.7812" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Making Peace" QuestId="12573" GiverName="High-Oracle Soo-say" GiverId="28027" />
+			</If>
+			<If Condition="((HasQuest(12573)) &amp;&amp; (!IsQuestCompleted(12573)))" >
+				<CustomBehavior File="FlyTo" DestName="Shaman Vekjik" X="5408.609" Y="4693.539" Z="-111.2048" />
+				<CustomBehavior File="FlyTo" DestName="Shaman Vekjik" Distance="2" X="5408.56" Y="4693.51" Z="-122.1808" />
+				<CustomBehavior File="InteractWith" QuestId="12573" MobId="28315" GossipOptions="1, 1" X="5408.56" Y="4693.51" Z="-122.1808" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(12573)) &amp;&amp; (IsQuestCompleted(12573)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5651.868" Y="4560.372" Z="-134.7812" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Making Peace" QuestId="12573" TurnInName="High-Oracle Soo-say" TurnInId="28027" />
+		<PickUp QuestName="Back So Soon?" QuestId="12574" GiverName="High-Oracle Soo-say" GiverId="28027" />
+			</If>
+			<If Condition="((!HasQuest(12574)) &amp;&amp; (!IsQuestCompleted(12574)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5651.868" Y="4560.372" Z="-134.7812" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Back So Soon?" QuestId="12574" GiverName="High-Oracle Soo-say" GiverId="28027" />
+			</If>
+			<If Condition="((HasQuest(12574)) &amp;&amp; (IsQuestCompleted(12574)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6168.69" Y="5091.19" Z="-97.2488" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Back So Soon?" QuestId="12574" TurnInName="Mistcaller Soo-gan" TurnInId="28114" />
+		<PickUp QuestName="The Lost Mistwhisper Treasure" QuestId="12575" GiverName="Mistcaller Soo-gan" GiverId="28114" />
+		<PickUp QuestName="Forced Hand" QuestId="12576" GiverName="Mistcaller Soo-gan" GiverId="28114" />
+			</If>
+			<If Condition="((!HasQuest(12575)) &amp;&amp; (!IsQuestCompleted(12575)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6168.69" Y="5091.19" Z="-97.2488" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Lost Mistwhisper Treasure" QuestId="12575" GiverName="Mistcaller Soo-gan" GiverId="28114" />
+			</If>
+			<If Condition="((!HasQuest(12576)) &amp;&amp; (!IsQuestCompleted(12576)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6168.69" Y="5091.19" Z="-97.2488" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Forced Hand" QuestId="12576" GiverName="Mistcaller Soo-gan" GiverId="28114" />
+			</If>
+			<If Condition="((HasQuest(12575)) &amp;&amp; (!IsQuestCompleted(12575)))" >
+				<CustomBehavior File="FlyTo" DestName="kill Tartek" X="6718.602" Y="5117.964" Z="-7.807914" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for Tartek to 'spawn' {TimeRemaining}" />
+				<Objective QuestName="The Lost Mistwhisper Treasure" QuestId="12575" Type="KillMob" MobId="28105" KillCount="1" />
+				<Objective QuestName="The Lost Mistwhisper Treasure" QuestId="12575" Type="CollectItem" ItemId="38601" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(12576)) &amp;&amp; (!IsQuestCompleted(12576)))" >
+				<CustomBehavior File="FlyTo" DestName="kill Frenzyhearts" X="6637.929" Y="5142.848" Z="-37.0036" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Forced Hand" QuestId="12576" Type="KillMob" MobId="28080" KillCount="8" />
+				<Objective QuestName="Forced Hand" QuestId="12576" Type="KillMob" MobId="28081" KillCount="6" />
+			</If>
+			<If Condition="((HasQuest(12575)) &amp;&amp; (IsQuestCompleted(12575)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6168.69" Y="5091.19" Z="-97.2488" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Lost Mistwhisper Treasure" QuestId="12575" TurnInName="Mistcaller Soo-gan" TurnInId="28114" />
+			</If>
+			<If Condition="((HasQuest(12576)) &amp;&amp; (IsQuestCompleted(12576)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6168.69" Y="5091.19" Z="-97.2488" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Forced Hand" QuestId="12576" TurnInName="Mistcaller Soo-gan" TurnInId="28114" />
+		<PickUp QuestName="Home Time!" QuestId="12577" GiverName="Mistcaller Soo-gan" GiverId="28114" />
+			</If>
+			<If Condition="((!HasQuest(12577)) &amp;&amp; (!IsQuestCompleted(12577)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6168.69" Y="5091.19" Z="-97.2488" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Home Time!" QuestId="12577" GiverName="Mistcaller Soo-gan" GiverId="28114" />
+			</If>
+			<If Condition="((HasQuest(12577)) &amp;&amp; (IsQuestCompleted(12577)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5651.868" Y="4560.372" Z="-134.7812" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Home Time!" QuestId="12577" TurnInName="High-Oracle Soo-say" TurnInId="28027" />
+		<PickUp QuestName="The Angry Gorloc" QuestId="12578" GiverName="High-Oracle Soo-say" GiverId="28027" />
+			</If>
+			<!-- End of Rainspeaker Canopy Quests -->
+			
+			<!-- Mosswalker Village Quests -->
+				<CustomBehavior File="Message" Text="Compiling Mosswalker Village Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((!HasQuest(12578)) &amp;&amp; (!IsQuestCompleted(12578)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5651.868" Y="4560.372" Z="-134.7812" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Angry Gorloc" QuestId="12578" GiverName="High-Oracle Soo-say" GiverId="28027" />
+			</If>
+			<If Condition="((HasQuest(12578)) &amp;&amp; (!IsQuestCompleted(12578)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5804.352" Y="3684.366" Z="-20.47348" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for Moodle {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(12578)) &amp;&amp; (IsQuestCompleted(12578)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5804.352" Y="3684.366" Z="-20.47348" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Angry Gorloc" QuestId="12578" TurnInName="Moodle" TurnInId="28122" />
+		<PickUp QuestName="The Mosswalker Savior" QuestId="12580" GiverName="Moodle" GiverId="28122" />
+		<PickUp QuestName="Lifeblood of the Mosswalker Shrine" QuestId="12579" GiverName="Moodle" GiverId="28122" />
+			</If>
+			<If Condition="((!HasQuest(12580)) &amp;&amp; (!IsQuestCompleted(12580)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5804.352" Y="3684.366" Z="-20.47348" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Mosswalker Savior" QuestId="12580" GiverName="Moodle" GiverId="28122" />
+			</If>
+			<If Condition="((!HasQuest(12579)) &amp;&amp; (!IsQuestCompleted(12579)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5804.352" Y="3684.366" Z="-20.47348" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Lifeblood of the Mosswalker Shrine" QuestId="12579" GiverName="Moodle" GiverId="28122" />
+			</If>
+			<If Condition="((HasQuest(12580)) &amp;&amp; (!IsQuestCompleted(12580)))" >
+				<CustomBehavior File="FlyTo" DestName="rescue 6 Victims" X="5813.002" Y="3631.94" Z="-11.94503" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="12580" MobId="28113" NumOfTimes="100" MobState="Alive" WaitForNpcs="False" GossipOptions="1" CollectionDistance="500" X="5813.002" Y="3631.94" Z="-11.94503" />
+				<!-- pouch that drops
+				<CustomBehavior File="InteractWith" QuestId="12580" MobId="190696" ObjectType="Gameobject" NumOfTimes="1" CollectionDistance="500" X="5813.002" Y="3631.94" Z="-11.94503" /> -->
+			</If>
+			<If Condition="((HasQuest(12579)) &amp;&amp; (!IsQuestCompleted(12579)))" >
+				<CustomBehavior File="FlyTo" DestName="collect 10 Lifeblood Shards" X="5681.193" Y="3914.884" Z="-80.39618" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Lifeblood of the Mosswalker Shrine" QuestId="12579" Type="CollectItem" ItemId="39063" CollectCount="10" />
+			</If>
+			<If Condition="((HasQuest(12580)) &amp;&amp; (IsQuestCompleted(12580)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5804.352" Y="3684.366" Z="-20.47348" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Mosswalker Savior" QuestId="12580" TurnInName="Moodle" TurnInId="28122" />
+			</If>
+			<If Condition="((HasQuest(12579)) &amp;&amp; (IsQuestCompleted(12579)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5804.352" Y="3684.366" Z="-20.47348" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Lifeblood of the Mosswalker Shrine" QuestId="12579" TurnInName="Moodle" TurnInId="28122" />
+		<PickUp QuestName="A Hero's Burden" QuestId="12581" GiverName="Moodle" GiverId="28122" />
+			</If>
+			<If Condition="((!HasQuest(12581)) &amp;&amp; (!IsQuestCompleted(12581)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5804.352" Y="3684.366" Z="-20.47348" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="A Hero's Burden" QuestId="12581" GiverName="Moodle" GiverId="28122" />
+			</If>
+			<!-- Pick your oracles / frenzyheart faction and kill Artruis 
+			<If Condition="((HasQuest(12581)) &amp;&amp; (!IsQuestCompleted(12581)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="5585.717" Y="3865.314" Z="-70.76512" />
+				<CustomBehavior File="ForcedDismount" />
+	<CustomBehavior File="UserDialog" QuestId="12581" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" Text="Kill Artruis the Heartless and choose your faction" />
+				<RunTo X="5645.436" Y="3769.498" Z="-100.6662" />
+				<Objective QuestName="A Hero's Burden" QuestId="12581" Type="KillMob" MobId="28659" KillCount="1" />
+			</If>
+			<If Condition="((HasQuest(12581)) &amp;&amp; (IsQuestCompleted(12581)))" >
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" Text="Choose your faction" />
+		<TurnIn QuestName="A Hero's Burden" QuestId="12581" TurnInName="Artruis's Phylactery" TurnInId="190777" TurnInType="GameObject" X="5645.436" Y="3769.498" Z="-100.6662" />
+			</If>
+			-->
+			<!-- End of Mosswalker Village Quests -->
 			
 			<!-- Dorian's Outpost Quests -->
 				<CustomBehavior File="Message" Text="Compiling Dorian's Outpost Quests" LogColor="Cornflowerblue" />
@@ -9867,7 +10047,6 @@
 				<GrindTo Level="77" />
 			</If>
 			<!-- <CheckPoint Level="77" /> -->
-
 
 			<!-- River's Heart Quests -->
 				<CustomBehavior File="Message" Text="Compiling River's Heart Quests" LogColor="Cornflowerblue" />
@@ -11052,31 +11231,29 @@
 		
 		
 		
-		<SetGrindArea>
-			<GrindArea>
-			<Factions>16 1693 190</Factions> <!-- [Gnoll, Kobold, Mammoth] -->
-			<TargetMinLevel>75</TargetMinLevel>
-			<TargetMaxLevel>80</TargetMaxLevel>
-			<Hotspots>
-				<Hotspot X="6285.17" Y="-896.4157" Z="409.7999" />
-				<Hotspot X="6325.764" Y="-892.1709" Z="408.42" />
-				<Hotspot X="6383.059" Y="-863.1478" Z="408.4239" />
-				<Hotspot X="6373.252" Y="-824.2702" Z="409.4583" />
-				<Hotspot X="6322.515" Y="-791.652" Z="407.4753" />
-				<Hotspot X="6266.65" Y="-796.7496" Z="408.6371" />
-				<Hotspot X="6243.16" Y="-840.7773" Z="407.1665" />
-				<Hotspot X="6265.521" Y="-694.8317" Z="418.3795" />
-				<Hotspot X="6239.067" Y="-666.7831" Z="416.1303" />
-				<Hotspot X="6180.708" Y="-650.7217" Z="404.7965" />
-				<Hotspot X="6225.924" Y="-593.2983" Z="416.8743" />
-				<Hotspot X="6260.139" Y="-620.3668" Z="419.7072" />
-				<Hotspot X="6301.604" Y="-629.5598" Z="423.3912" />
-				<Hotspot X="6302.375" Y="-674.4965" Z="425.3145" />
-				<Hotspot X="6264.413" Y="-698.1252" Z="418.4413" />
-			</Hotspots>
-			</GrindArea>
-		</SetGrindArea>
-		<GrindTo Level="80" />
+			<SetGrindArea><GrindArea>
+				<Factions>16 1693 190</Factions> <!-- [Gnoll, Kobold, Mammoth] -->
+				<TargetMinLevel>75</TargetMinLevel>
+				<TargetMaxLevel>80</TargetMaxLevel>
+				<Hotspots>
+					<Hotspot X="6285.17" Y="-896.4157" Z="409.7999" />
+					<Hotspot X="6325.764" Y="-892.1709" Z="408.42" />
+					<Hotspot X="6383.059" Y="-863.1478" Z="408.4239" />
+					<Hotspot X="6373.252" Y="-824.2702" Z="409.4583" />
+					<Hotspot X="6322.515" Y="-791.652" Z="407.4753" />
+					<Hotspot X="6266.65" Y="-796.7496" Z="408.6371" />
+					<Hotspot X="6243.16" Y="-840.7773" Z="407.1665" />
+					<Hotspot X="6265.521" Y="-694.8317" Z="418.3795" />
+					<Hotspot X="6239.067" Y="-666.7831" Z="416.1303" />
+					<Hotspot X="6180.708" Y="-650.7217" Z="404.7965" />
+					<Hotspot X="6225.924" Y="-593.2983" Z="416.8743" />
+					<Hotspot X="6260.139" Y="-620.3668" Z="419.7072" />
+					<Hotspot X="6301.604" Y="-629.5598" Z="423.3912" />
+					<Hotspot X="6302.375" Y="-674.4965" Z="425.3145" />
+					<Hotspot X="6264.413" Y="-698.1252" Z="418.4413" />
+				</Hotspots>
+			</GrindArea></SetGrindArea>
+			<GrindTo Level="80" />
 		<Checkpoint Level="80" />
 
 
