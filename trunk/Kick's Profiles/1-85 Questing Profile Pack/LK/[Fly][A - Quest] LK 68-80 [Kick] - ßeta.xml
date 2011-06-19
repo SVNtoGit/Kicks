@@ -2033,14 +2033,18 @@
 		<If Condition="Me.IsHorde" >
 			<CustomBehavior File="RunMacro" Macro="/exit" NumOfTimes="1" WaitTime="500" />
 			<CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" NumOfTimes="1" WaitTime="500" />
-			<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You must be Alliance to run this profile" />
+			<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You must be Alliance to run this profile" />
 		</If>
 	
 		<!-- There is a Hero's Call: Northrend from the call boards, mess with it later
 			<Quest Id="28709" Name="Hero's Call: Northrend!">
-			Then ride the boat here
+			Then ride the boat here -->
+			<If Condition="((HasQuest(28709)) &amp;&amp; (IsQuestCompleted(28709)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2142.024" Y="5290.128" Z="23.7525" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Hero's Call: Northrend!" QuestId="28709" TurnInName="General Arlos" TurnInId="25250" />
-		-->
+			</If>
+		
 		
 	<CustomBehavior File="UserSettings" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" LootMobs="True" PullDistance="25" />
 	
@@ -2072,7 +2076,7 @@
 		<PickUp QuestName="Enlistment Day" QuestId="11672" GiverName="Recruitment Officer Blythe" GiverId="25307" X="2300.503" Y="5239.977" Z="11.33996" />
 			</If>
 			<If Condition="((HasQuest(11672)) &amp;&amp; (IsQuestCompleted(11672)))" >
-				<CustomBehavior File="FlyTo" X="2142.024" Y="5290.128" Z="23.7525" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2142.024" Y="5290.128" Z="23.7525" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Enlistment Day" QuestId="11672" TurnInName="General Arlos" TurnInId="25250" X="2105.964" Y="5303.947" Z="34.00501" />
 		<PickUp QuestName="A Time for Heroes" QuestId="11727" GiverName="General Arlos" GiverId="25250" X="2105.964" Y="5303.947" Z="34.00501" />
@@ -2083,9 +2087,10 @@
 		<PickUp QuestName="A Time for Heroes" QuestId="11727" GiverName="General Arlos" GiverId="25250" X="2105.964" Y="5303.947" Z="34.00501" />
 			</If>
 			<If Condition="((HasQuest(11727)) &amp;&amp; (IsQuestCompleted(11727)))" >
-				<CustomBehavior File="FlyTo" X="2223.417" Y="5319.069" Z="10.57282" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2223.417" Y="5319.069" Z="10.57282" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="A Time for Heroes" QuestId="11727" TurnInName="Sergeant Hammerhill" TurnInId="25816" X="2223.272" Y="5321.957" Z="10.57495" />
+		<PickUp QuestName="The Siege" QuestId="11797" GiverName="Sergeant Hammerhill" GiverId="25816" X="2223.272" Y="5321.957" Z="10.57495" />
 			</If>
 			<If Condition="((!HasQuest(11797)) &amp;&amp; (!IsQuestCompleted(11797)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2223.417" Y="5319.069" Z="10.57282" />
@@ -2098,7 +2103,7 @@
 		<PickUp QuestName="A Soldier in Need" QuestId="11789" GiverName="Medic Hawthorn" GiverId="25825" />
 			</If>
 			<If Condition="((HasQuest(11797)) &amp;&amp; (!IsQuestCompleted(11797)))" >
-				<CustomBehavior File="FlyTo" DestName="Objective" X="2165.253" Y="5502.848" Z="0.2712236" />
+				<CustomBehavior File="FlyTo" DestName="kill 6 spiders" X="2165.253" Y="5502.848" Z="0.2712236" />
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="The Siege" QuestId="11797" Type="KillMob" MobId="25227" MobName="Crypt Crawler" KillCount="6" />
 			</If>
