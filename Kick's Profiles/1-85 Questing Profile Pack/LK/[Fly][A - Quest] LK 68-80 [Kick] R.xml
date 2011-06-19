@@ -378,6 +378,30 @@
 		</Objective>
 	</Quest>
 
+	<Quest Id="12572" Name="Gods like Shiny Things">
+		<Objective Type="CollectItem" ItemId="38575" CollectCount="6">
+			<CollectFrom>
+				<Mob Name="Glinting Dirt" Id="28362" />
+				<GameObject Name="Glinting Armor" Id="190560" />
+				<GameObject Name="Glowing Gem" Id="190561" />
+				<GameObject Name="Polished Platter" Id="190562" />
+				<GameObject Name="Shining Crystal" Id="190558" />
+				<GameObject Name="Sparkling Treasure" Id="190563" />
+				<GameObject Name="Glowing Crystal" Id="181574" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="5677.721" Y="4484.066" Z="-134.7966" />
+				<Hotspot X="5770.876" Y="4464.97" Z="-133.8746" />
+				<Hotspot X="5812.428" Y="4516.523" Z="-135.3735" />
+				<Hotspot X="5754.761" Y="4548.107" Z="-133.998" />
+				<Hotspot X="5801.254" Y="4510.66" Z="-132.8757" />
+				<Hotspot X="5823.577" Y="4603.834" Z="-135.0869" />
+				<Hotspot X="5745.972" Y="4692.377" Z="-134.9043" />
+				<Hotspot X="5612.189" Y="4639.969" Z="-136.0512" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	
 	<Quest Id="12557" Name="Lab Work">
 		<Objective Type="CollectItem" ItemId="38386" CollectCount="1" >
 			<CollectFrom>
@@ -9609,15 +9633,36 @@
 			</If>
 		
 		<!-- issues
+				<CustomBehavior File="Message" Text="Compiling Rainspeaker Canopy Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((!HasQuest(12540)) &amp;&amp; (!IsQuestCompleted(12540)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5277.756" Y="4529.624" Z="-78.12341" />
+				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Just Following Orders" QuestId="12540" GiverName="High-Shaman Rakjak" GiverId="28082" />
-			<If Condition="((HasQuest(12540)) &amp;&amp; (!IsQuestCompleted(12540)))" >
-				<CustomBehavior File="InteractWith" QuestId="12540" MobId="28217" NumOfTimes="1" GossipOptions="1" WaitTime="2000" CollectionDistance="10" X="5409.498" Y="4574.446" Z="-129.2509" />
 			</If>
-		<TurnIn QuestName="Just Following Orders" QuestId="12540" TurnInName="Injured Rainspeaker Oracle" TurnInId="28217" X="5409.498" Y="4574.446" Z="-129.2509" />
-		-->
-		<!-- I need an escort quest CB >:-(
-		<PickUp QuestName="Fortunate Misunderstandings" QuestId="12570" GiverName="Injured Rainspeaker Oracle" GiverId="28217" X="5409.498" Y="4574.446" Z="-129.2509" />
+			<If Condition="((HasQuest(12540)) &amp;&amp; (!IsQuestCompleted(12540)))" >
+				<CustomBehavior File="FlyTo" DestName="talk to Oracle" X="5400.678" Y="4502.84" Z="-130.8759" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(12540)) &amp;&amp; (!IsQuestCompleted(12540)))" >
+				<CustomBehavior File="InteractWith" QuestId="12540" MobId="28217" GossipOptions="1" WaitTime="2000" CollectionDistance="10" X="5400.678" Y="4502.84" Z="-130.8759" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+			 </While>
+			</If>
+			<If Condition="((HasQuest(12540)) &amp;&amp; (IsQuestCompleted(12540)))" >
+				<CustomBehavior File="FlyTo" DestName="talk to Oracle" X="5400.678" Y="4502.84" Z="-130.8759" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Just Following Orders" QuestId="12540" TurnInName="Injured Rainspeaker Oracle" TurnInId="28217" X="5400.678" Y="4502.84" Z="-130.8759" />
+		<PickUp QuestName="Fortunate Misunderstandings" QuestId="12570" GiverName="Injured Rainspeaker Oracle" GiverId="28217" X="5400.678" Y="4502.84" Z="-130.8759" />
+			</If>
+			<If Condition="((HasQuest(12570)) &amp;&amp; (!IsQuestCompleted(12570)))" >
+				<CustomBehavior File="InteractWith" QuestId="12570" MobId="28217" GossipOptions="1" WaitTime="2000" CollectionDistance="10" X="5400.678" Y="4502.84" Z="-130.8759" />
+				<CustomBehavior File="Escort" QuestId="12570" MobId="28217" X="5400.678" Y="4502.84" Z="-130.8759" />
+			</If>
+			<If Condition="((HasQuest(12570)) &amp;&amp; (IsQuestCompleted(12570)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5651.868" Y="4560.372" Z="-134.7812" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Fortunate Misunderstandings" QuestId="12570" TurnInName="High-Oracle Soo-say" TurnInId="28027" />
+			</If>
 		-->
 			<!-- End of Frenzyheart Hill Quests -->
 			
