@@ -237,8 +237,15 @@
 			<CollectFrom>
 				<Mob Name="Sifreldar Storm Maiden" Id="29323" />
 			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="6892.511" Y="-1025.023" Z="804.8934" />
+				<Hotspot X="6866.102" Y="-1096.416" Z="802.8101" />
+				<Hotspot X="6763.471" Y="-1082.71" Z="766.7587" />
+				<Hotspot X="6718.556" Y="-1113.003" Z="769.3292" />
+				<Hotspot X="6746.795" Y="-1010.19" Z="766.3876" />
+			</Hotspots>
 		</Objective>
-	</Quest>
+	</Quest>			
 	
 	<Quest Id="12841" Name="The Crone's Bargain">
 		<Objective Type="CollectItem" ItemId="40690" CollectCount="1">
@@ -2058,7 +2065,7 @@
 					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting {TimeRemaining}"  />
 				</If>
 			</If>
-			<If Condition="!CanFly()">
+			<If Condition="(!StyxWoW.FlightChecksDisabled)">
 				<CustomBehavior File="UserDialog" StopOnContinue="true" Text="You must be able to fly to use this profile." />
 			</If>
 		
@@ -2147,7 +2154,6 @@
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 			</If>
 			<If Condition="((!HasQuest(11920)) &amp;&amp; (!IsQuestCompleted(11920)))" >
-				<!-- This is only if the user has missed this quest -->
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2253.666" Y="5283.035" Z="12.08185" />
 				<CustomBehavior File="ForcedDismount" />
 				<RunTo DestName="Get Quest" X="2249.73" Y="5273.08" Z="3.528209" />
@@ -2660,7 +2666,7 @@
 			</If>
 			
 			<!-- Daily = Preparing for the Worst -->
-			 <If Condition="Me.ZoneId == 3537" > <!-- Borean Tundra -->
+			 <If Condition="Me.ZoneId == 3537" >
 			<If Condition="((!HasQuest(11945)) &amp;&amp; (!IsQuestCompleted(11945)))" >
 				<CustomBehavior File="FlyTo" DestName="Get Daily (Kaskala)" X="3138.744" Y="4881.745" Z="2.591486" />
 				<CustomBehavior File="ForcedDismount" />
@@ -4395,18 +4401,6 @@
 		<Pickup QuestName="Have They No Shame?" QuestId="13094" GiverName="Librarian Serrah" GiverId="26110" />
 		<Pickup QuestName="Postponing the Inevitable" QuestId="11905" GiverName="Archmage Berinand" GiverId="25314" />
 		<Pickup QuestName="Quickening" QuestId="11911" GiverName="Archmage Berinand" GiverId="25314" /> -->
-			<!-- DO NO STOP THE QUEST AND START IT AGAIN AFTER YOU INTERACTWITH OR YOU WILL RE-COLLECT 5x FROZEN AXE -->
-			<!-- what about useitemon gameobject ?
-			<UseItem QuestName="Hatching a Plan" QuestId="11936" ItemId="35586" X="3769.076" Y="6943.822" Z="106.5709" />
-			<UseItem QuestName="Hatching a Plan" QuestId="11936" ItemId="35586" X="3845.391" Y="6889.977" Z="103.6976" />
-			<UseItem QuestName="Hatching a Plan" QuestId="11936" ItemId="35586" X="3922.54" Y="6902.609" Z="103.798" />
-			<UseItem QuestName="Hatching a Plan" QuestId="11936" ItemId="35586" X="3972.194" Y="6952.203" Z="103.2246" />
-			<UseItem QuestName="Hatching a Plan" QuestId="11936" ItemId="35586" X="3968.393" Y="7039.469" Z="103.2634" />
-			<UseItem QuestName="Hatching a Plan" QuestId="11936" ItemId="35586" X="3866.681" Y="7072.871" Z="104.8354" />
-			<UseItem QuestName="Hatching a Plan" QuestId="11936" ItemId="35586" X="3803.087" Y="7051.106" Z="103.9054" />
-			<UseItem QuestName="Hatching a Plan" QuestId="11936" ItemId="35586" X="3777.592" Y="7023.561" Z="103.7552" />
-			<UseItem QuestName="Hatching a Plan" QuestId="11936" ItemId="35586" X="3774.394" Y="6946.553" Z="105.613" />
-			-->
 			
 			<While Condition="((HasQuest(11936)) &amp;&amp; (!IsQuestCompleted(11936)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="3680.586" Y="6818.474" Z="161.5652" />
