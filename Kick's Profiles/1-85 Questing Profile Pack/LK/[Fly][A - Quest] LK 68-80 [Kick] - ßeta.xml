@@ -11116,6 +11116,11 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="You'll Need a Bear" QuestId="12972" GiverName="Lok'lira the Crone" GiverId="29975" />
 			</If>
+			<!-- End of Lok'lira the Crone Quests - B Village -->
+			
+			<!-- Brunnhildar Village Quests -->
+				<CustomBehavior File="Message" Text="Compiling Brunnhildar Village Quests" LogColor="Cornflowerblue" />
+
 			<If Condition="((HasQuest(12972)) &amp;&amp; (IsQuestCompleted(12972)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="7081.919" Y="-1938.527" Z="772.3828" />
 				<CustomBehavior File="ForcedDismount" />
@@ -11341,8 +11346,13 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="The Drakkensryd" QuestId="12886" GiverName="Gretta the Arbiter" GiverId="29796" />
 			</If>
+			<!-- End of Brunnhildar Village Quests -->
+			
+			<!-- SoH Quests -->
+				<CustomBehavior File="Message" Text="Compiling Sons of Hodir Quests" LogColor="Cornflowerblue" />
+
 			<If Condition="((HasQuest(12886)) &amp;&amp; (!IsQuestCompleted(12886)))" >
-				<!-- 
+				<!-- vehicle quest where you have to 'jump' from 1 drake to the next, then when it's done, 'jump' to the ornament.  kill drakerider x10
 				<Vendor Name="Hyldsmeet Proto-Drake" Entry="29625" Type="Repair" X="7295.787" Y="-673.7227" Z="1859.459" />
 				<Vendor Name="Hyldsmeet Drakerider" Entry="29694" Type="Repair" X="7573.893" Y="-592.7961" Z="1864.956" />
 				<Vendor Name="Column Ornament" Entry="29754" Type="Repair" X="7502.606" Y="-476.0621" Z="1918.89" />
@@ -11376,34 +11386,34 @@
 		<PickUp QuestName="Mending Fences" QuestId="12915" GiverName="Thorim" GiverId="29445" />
 			</If>
 			<If Condition="((HasQuest(12968)) &amp;&amp; (!IsQuestCompleted(12968)))" >
-				<CustomBehavior File="FlyTo" DestName="Kill Yulda" X="7357.66" Y="-92.36269" Z="777.8027" />
+				<CustomBehavior File="FlyTo" DestName="Kill Yulda" X="7309.407" Y="223.9468" Z="778.8857" />
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="Yulda's Folly" QuestId="12968" Type="KillMob" KillCount="1" MobId="30046" />
-			</If>
-
-			
-			
-			
-			
-
-
-
-		<!--
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
-		-->
-		
-		
 		<PickUp QuestName="Valkyrion Must Burn" QuestId="12953" GiverName="Harpoon Crate" GiverId="192072" X="7269.696" Y="135.1761" Z="784.6338" />
+			</If>
+			<If Condition="((!HasQuest(12953)) &amp;&amp; (!IsQuestCompleted(12953)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="7309.407" Y="223.9468" Z="778.8857" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Valkyrion Must Burn" QuestId="12953" GiverName="Harpoon Crate" GiverId="192072" X="7269.696" Y="135.1761" Z="784.6338" />
+			</If>
 			<If Condition="((HasQuest(12953)) &amp;&amp; (!IsQuestCompleted(12953)))" >
-				<RunTo X="7348.067" Y="153.5998" Z="785.3381" />
-				<CustomBehavior File="FlyTo" X="7356.944" Y="-93.45062" Z="777.7985" />
+				<CustomBehavior File="FlyTo" DestName="Harpoon Gun" X="7355.466" Y="-93.58298" Z="777.7219" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="MountVehOnly" VehicleMountId="30066" X="7350.971" Y="-96.0752" Z="777.6364" />
-				<CustomBehavior File="UserDialog" QuestId="12953" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Shoot 6 stacks of hay\n\nPress continue when you're out" />
+				<CustomBehavior File="UserDialog" QuestId="12953" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" 
+								Text="Shoot 6 stacks of hay\n\nPress continue when you're out" />
+				<CustomBehavior File="EjectVeh" Eject="True" />
 			</If>
-			<Objective QuestName="Off With Their Black Wings" QuestId="12942" Type="KillMob" KillCount="12" MobId="29570" />
-			<If Condition="((HasQuest(12925)) &amp;&amp; (!IsQuestCompleted(12925)))" >
+			<If Condition="((HasQuest(12942)) &amp;&amp; (!IsQuestCompleted(12942)))" >
+				<CustomBehavior File="FlyTo" DestName="kill 12 Val'kyr" X="7364.481" Y="-61.89075" Z="778.9698" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Off With Their Black Wings" QuestId="12942" Type="KillMob" KillCount="12" MobId="29570" />
+			</If>
+			<While Condition="((HasQuest(12925)) &amp;&amp; (!IsQuestCompleted(12925)))" >
 				<If Condition="((GetItemCount(41612) &lt; 7) &amp;&amp; (!IsQuestCompleted(12925)))" >
+					<CustomBehavior File="FlyTo" DestName="Grind Area" X="7369.608" Y="-28.84844" Z="776.7415" />
+					<CustomBehavior File="ForcedDismount" />
+				
 						<SetGrindArea>
 							<GrindArea>
 								<Factions>1885</Factions>
@@ -11419,42 +11429,53 @@
 								</Hotspots>
 							</GrindArea>
 						</SetGrindArea>
-					<GrindTo Condition="(GetItemCount(41612) &gt;= 7)" />
+					<GrindTo Condition="(GetItemCount(41612) &gt;= 7)" GoalText="Getting 7 Frost Oils" />
+					
 				</If>
-			<While Condition="((HasQuest(12925)) &amp;&amp; (!IsQuestCompleted(12925)))" >
-			
-				<RunTo QuestId="12925" X="7446.136" Y="138.293" Z="768.1174" />
-				<CustomBehavior File="UseAoeCircle" QuestId="12925" ItemId="41612" X="7446.136" Y="138.293" Z="768.1174" />
-				<RunTo QuestId="12925" X="7460.255" Y="179.5692" Z="768.4624" />
-				<CustomBehavior File="UseAoeCircle" QuestId="12925" ItemId="41612" X="7460.255" Y="179.5692" Z="768.4624" />
-				<RunTo QuestId="12925" X="7438.313" Y="171.9877" Z="768.7144" />
-				<CustomBehavior File="UseAoeCircle" QuestId="12925" ItemId="41612" X="7438.313" Y="171.9877" Z="768.7144" />
-				<RunTo QuestId="12925" X="7458.688" Y="227.4483" Z="768.9072" />
-				<CustomBehavior File="UseAoeCircle" QuestId="12925" ItemId="41612" X="7458.688" Y="227.4483" Z="768.9072" />
-				<RunTo QuestId="12925" X="7435.064" Y="242.8364" Z="768.7314" />
-				<CustomBehavior File="UseAoeCircle" QuestId="12925" ItemId="41612" X="7435.064" Y="242.8364" Z="768.7314" />
-				<RunTo QuestId="12925" X="7415.667" Y="245.1594" Z="768.6834" />
-				<CustomBehavior File="UseAoeCircle" QuestId="12925" ItemId="41612" X="7415.667" Y="245.1594" Z="768.6834" />
-				<RunTo QuestId="12925" X="7459.985" Y="253.3249" Z="768.6105" />
-				<CustomBehavior File="UseAoeCircle" QuestId="12925" ItemId="41612" X="7459.985" Y="253.3249" Z="768.6105" />
-
-				<!-- <CustomBehavior File="UseItemTargetLocation" QuestId="12925" ItemId="41612" MinRange="5" UseType="ToObject" WaitTime="1500" GameObjectId="191840" X="7431.436" Y="182.3643" Z="768.6315" /> -->
+				
+				<CustomBehavior File="FlyTo" DestName="break eggs" X="7432.785" Y="256.6399" Z="768.2631" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UseItemTargetLocation" QuestId="12925" ItemId="41612" Range="5" UseType="ToObject" WaitTime="6500" MobId="191840" X="7431.436" Y="182.3643" Z="768.6315" />
+				<CustomBehavior File="WaitTimer" QuestId="12925" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</While>
+			<If Condition="((HasQuest(12925)) &amp;&amp; (IsQuestCompleted(12925)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6874.76" Y="-1634.084" Z="820.233" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Aberrations" QuestId="12925" TurnInName="Thyra Kvinnshal" TurnInId="30041" />
+			 <If Condition="((HasQuest(12953)) &amp;&amp; (IsQuestCompleted(12953)))" >
+		<TurnIn QuestName="Valkyrion Must Burn" QuestId="12953" TurnInName="Iva the Vengeful" TurnInId="29997" />
+			 </If>
+			 <If Condition="((HasQuest(12942)) &amp;&amp; (IsQuestCompleted(12942)))" >
+		<TurnIn QuestName="Off With Their Black Wings" QuestId="12942" TurnInName="Iva the Vengeful" TurnInId="29997" />
+			 </If>
+			 <If Condition="((HasQuest(12968)) &amp;&amp; (IsQuestCompleted(12968)))" >
+		<TurnIn QuestName="Yulda's Folly" QuestId="12968" TurnInName="Iva the Vengeful" QTurnInId="29997" />
+			 </If>
 			</If>
 			<If Condition="((HasQuest(12925)) &amp;&amp; (IsQuestCompleted(12925)))" >
-				<CustomBehavior File="UserSettings" PullDistance="1" />
-				<CustomBehavior File="FlyTo" X="6869.995" Y="-1631.278" Z="820.5649" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6874.76" Y="-1634.084" Z="820.233" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="UserSettings" PullDistance="25" />
+		<TurnIn QuestName="Aberrations" QuestId="12925" TurnInName="Thyra Kvinnshal" TurnInId="30041" />
 			</If>
-		<TurnIn QuestName="Aberrations" TurnInName="Thyra Kvinnshal" QuestId="12925" TurnInId="30041" />
-		<TurnIn QuestName="Valkyrion Must Burn" QuestId="12953" TurnInName="Iva the Vengeful" TurnInId="29997" />			
-		<TurnIn QuestName="Off With Their Black Wings" TurnInName="Iva the Vengeful" QuestId="12942" TurnInId="29997" />
-		<TurnIn QuestName="Yulda's Folly" TurnInName="Iva the Vengeful" QuestId="12968" TurnInId="29997" />
-			<If Condition="((HasQuest(12968)) &amp;&amp; (!IsQuestCompleted(12968)))" >
-				<RunTo X="6873.982" Y="-1632.193" Z="820.341" />
-				<CustomBehavior File="FlyTo" X="7202.364" Y="-3532.803" Z="912.8735" />
-				<CustomBehavior File="UserDialog" QuestId="12968" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Get a boulder on the ground and use &quot;Thorim's Charm of Earth&quot; on the giants and Fjorn.  Help the dorfs kill them\nMake sure you get &quot;Slag Covered Metal&quot; from a giant and pick the quest up - do that one, too. I recommend doing that one and killing giants when they agro - Turn it into Fjorn's Anvil, pickup &quot;A Spark of Hope&quot;\n\nPress continue when done - I'll fly you to Thorim.  Don't go too far, there's a few more vehicle quests" />
+			<If Condition="((HasQuest(12953)) &amp;&amp; (IsQuestCompleted(12953)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6874.76" Y="-1634.084" Z="820.233" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Valkyrion Must Burn" QuestId="12953" TurnInName="Iva the Vengeful" TurnInId="29997" />
+			</If>
+			<If Condition="((HasQuest(12942)) &amp;&amp; (IsQuestCompleted(12942)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6874.76" Y="-1634.084" Z="820.233" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Off With Their Black Wings" QuestId="12942" TurnInName="Iva the Vengeful" TurnInId="29997" />
+			</If>
+			<If Condition="((HasQuest(12968)) &amp;&amp; (IsQuestCompleted(12968)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6874.76" Y="-1634.084" Z="820.233" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Yulda's Folly" QuestId="12968" TurnInName="Iva the Vengeful" TurnInId="29997" />
+			</If>
+			<If Condition="((HasQuest(12915)) &amp;&amp; (!IsQuestCompleted(12915)))" >
+				<CustomBehavior File="FlyTo" DestName="kill Giants and Fjorn" X="7202.364" Y="-3532.803" Z="912.8735" />
+				<CustomBehavior File="UserDialog" QuestId="12915" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" 
+				Text="Get boulders from the ground and use &quot;Thorim's Charm of Earth&quot; on the giants and Fjorn - Loot them and get 'Slag Covered Metal' - Accept this quest and do it alongside killing Giants and Fjorn - Turnin 'Refiners Fire' to Fjorn's Anvil, pickup &quot;A Spark of Hope&quot;\n\nPress continue when done - I'll fly you to Thorim.  Don't go too far, there's a few more vehicle quests" />
 			</If>
 			<If Condition="(HasItem(41556))" >
 		<PickUp QuestName="The Refiner's Fire" QuestId="12922" GiverName="Slag Covered Metal" GiverId="41556" GiverType="Item" />
@@ -11463,55 +11484,210 @@
 				<Objective QuestName="The Refiner's Fire" QuestId="12922" Type="CollectItem" ItemId="41558" CollectCount="10" />
 			</If>
 			<If Condition="((HasQuest(12922)) &amp;&amp; (IsQuestCompleted(12922)))" >
-				<CustomBehavior File="FlyTo" X="7217.75" Y="-3640.006" Z="823.9442" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" Distance="2" X="7217.108" Y="-3645.132" Z="851.1033" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="The Refiner's Fire" QuestId="12922" TurnInName="Fjorn's Anvil" TurnInId="192060" X="7217.75" Y="-3640.006" Z="823.9442" />
-			</If>
 		<PickUp QuestName="A Spark of Hope" QuestId="12956" GiverName="Fjorn's Anvil" GiverId="192060" X="7217.75" Y="-3640.006" Z="823.9442" />
-			<If Condition="(HasQuest(12956))" >
-				<CustomBehavior File="FlyTo" X="7449.099" Y="-690.5399" Z="1950.768" />
-				<CustomBehavior File="FlyTo" X="7440.476" Y="-534.2142" Z="1896.851" />
 			</If>
+			<If Condition="((!HasQuest(12956)) &amp;&amp; (!IsQuestCompleted(12956)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" Distance="2" X="7217.108" Y="-3645.132" Z="851.1033" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="A Spark of Hope" QuestId="12956" GiverName="Fjorn's Anvil" GiverId="192060" X="7217.75" Y="-3640.006" Z="823.9442" />
+			</If>
+			<If Condition="((HasQuest(12956)) &amp;&amp; (IsQuestCompleted(12956)))" >
+				<CustomBehavior File="FlyTo" DestName="Thorim" X="7277.55" Y="-826.5412" Z="1301.461" />
+				<CustomBehavior File="MyCTM" DestName="Thorim" X="7308.24" Y="-741.3013" Z="1968.893" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="7440.454" Y="-533.5836" Z="1896.851" />
 		<TurnIn QuestName="A Spark of Hope" QuestId="12956" TurnInName="Thorim" TurnInId="29445" />
 		<TurnIn QuestName="Mending Fences" TurnInName="Thorim" QuestId="12915" TurnInId="29445" />
-		<PickUp QuestName="Forging an Alliance" GiverName="Thorim" QuestId="12924" GiverId="29445" />
+		<PickUp QuestName="Forging an Alliance" QuestId="12924" GiverName="Thorim" GiverId="29445" />
+			</If>
+			<If Condition="((!HasQuest(12924)) &amp;&amp; (!IsQuestCompleted(12924)))" >
+				<CustomBehavior File="FlyTo" DestName="Thorim" X="7277.55" Y="-826.5412" Z="1301.461" />
+				<CustomBehavior File="MyCTM" DestName="Thorim" X="7308.24" Y="-741.3013" Z="1968.893" />
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="7440.454" Y="-533.5836" Z="1896.851" />
+		<PickUp QuestName="Forging an Alliance" QuestId="12924" GiverName="Thorim" GiverId="29445" />
+			</If>
 			<If Condition="((HasQuest(12924)) &amp;&amp; (!IsQuestCompleted(12924)))" >
+			 <If Condition="((!HasQuest(12966)) &amp;&amp; (!IsQuestCompleted(12966)))" >
 				<CustomBehavior File="MyCTM" X="7456.633" Y="-668.6012" Z="1895.914" />
 				<CustomBehavior File="MyCTM" X="7336.251" Y="-2668.419" Z="953.8251" />
 				<CustomBehavior File="FlyTo" X="7346.312" Y="-2810.109" Z="798.8449" />
-		<PickUp QuestName="You Can't Miss Him" GiverName="King Jokkum" QuestId="12966" GiverId="30105" />
-			<If Condition="(HasQuest(12966))" >
-				<CustomBehavior File="FlyTo" X="7186.173" Y="-3519.831" Z="826.9591" />
-			</If>
-		<TurnIn QuestName="You Can't Miss Him" TurnInName="Njormeld" QuestId="12966" TurnInId="30099" />
-		<PickUp QuestName="Battling the Elements" GiverName="Njormeld" QuestId="12967" GiverId="30099" />
-			<If Condition="((HasQuest(12967)) &amp;&amp; (!IsQuestCompleted(12967)))" >
+		<PickUp QuestName="You Can't Miss Him" QuestId="12966" GiverName="King Jokkum" GiverId="30105" />
+			 </If>
+			 <If Condition="((HasQuest(12966)) &amp;&amp; (IsQuestCompleted(12966)))" >
+				<CustomBehavior File="FlyTo" DestName="Njormeld" X="7186.173" Y="-3519.831" Z="826.9591" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="You Can't Miss Him" QuestId="12966" TurnInName="Njormeld" TurnInId="30099" />
+		<PickUp QuestName="Battling the Elements" QuestId="12967" GiverName="Njormeld" GiverId="30099" />
+			 </If>
+			 <If Condition="((HasQuest(12967)) &amp;&amp; (!IsQuestCompleted(12967)))" >
 				<CustomBehavior File="UserDialog" QuestId="12967" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Jump on Snorri and help him kill 10 Fires - jump off near Njormeld when finished and press continue" />
+			 </If>
+			 <If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+				<CustomBehavior File="FlyTo" DestName="Njormeld" X="7186.173" Y="-3519.831" Z="826.9591" />
+		<TurnIn QuestName="Battling the Elements" QuestId="12967" TurnInName="Njormeld" TurnInId="30099" />
+		<PickUp QuestName="Forging a Head" QuestId="12985" GiverName="Njormeld" GiverId="30127" />
+			 </If>
+			 <If Condition="((!HasQuest(12985)) &amp;&amp; (!IsQuestCompleted(12985)))" >
+				<CustomBehavior File="FlyTo" DestName="Njormeld" X="7203.344" Y="-2657.347" Z="818.5505" />
+		<PickUp QuestName="Forging a Head" QuestId="12985" GiverName="Njormeld" GiverId="30127" />
+			 </If>
+			 <If Condition="((HasQuest(12985)) &amp;&amp; (!IsQuestCompleted(12985)))" >
+				<CustomBehavior File="FlyTo" DestName="collect 8 Eyes" X="7282.471" Y="-3150.474" Z="837.4534" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UseItemOn" QuestId="12985" MobId="30163" ItemId="42424" NumOfTimes="50" WaitTime="4000" CollectionDistance="200" X="7282.471" Y="-3150.474" Z="837.4534" />
+			 </If>
+			 <If Condition="((HasQuest(12985)) &amp;&amp; (IsQuestCompleted(12985)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="7203.344" Y="-2657.347" Z="818.5505" />
+		<TurnIn QuestName="Forging a Head" QuestId="12985" TurnInName="Njormeld" TurnInId="30127" />
+		<PickUp QuestName="Mounting Hodir's Helm" QuestId="12987" GiverName="Njormeld" GiverId="30127" />
+			 </If>
+			<If Condition="((!HasQuest(12987)) &amp;&amp; (!IsQuestCompleted(12987)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="7203.344" Y="-2657.347" Z="818.5505" />
+		<PickUp QuestName="Mounting Hodir's Helm" QuestId="12987" GiverName="Njormeld" GiverId="30127" />
 			</If>
-		<TurnIn QuestName="Battling the Elements" TurnInName="Njormeld" QuestId="12967" TurnInId="30099" />
+			 <If Condition="((HasQuest(12987)) &amp;&amp; (!IsQuestCompleted(12987)))" >
+				<CustomBehavior File="FlyTo" DestName="use helm" X="7383.484" Y="-2724.113" Z="872.2104" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(42442)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
+			 </If>
+			 <If Condition="((HasQuest(12987)) &amp;&amp; (IsQuestCompleted(12987)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="7203.344" Y="-2657.347" Z="818.5505" />
+		<TurnIn QuestName="Mounting Hodir's Helm" QuestId="12987" TurnInName="Njormeld" TurnInId="30127" />
+			 </If>
 			</If>
-			<If Condition="((HasQuest(12924)) &amp;&amp; (IsQuestCompleted(12924)))" >
-				<CustomBehavior File="FlyTo" X="7309.188" Y="-2845.129" Z="944.3129" />
-				<CustomBehavior File="FlyTo" X="7201.078" Y="-2653.959" Z="813.4736" />
+			<!-- this never says it's completed - so i'm sticking a 'hasquest()' in there for now
+			<If Condition="((HasQuest(12924)) &amp;&amp; (IsQuestCompleted(12924)))" > -->
+			<If Condition="(HasQuest(12924))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="7203.344" Y="-2657.347" Z="818.5505" />
+		<!-- <TurnIn QuestName="Forging an Alliance" QuestId="12924" TurnInName="Njormeld" TurnInId="30127" /> -->
+				<CustomBehavior File="BasicInteractWith" MobId="30127" />
+				<CustomBehavior File="RunMacro" Macro="/script SelectGossipActiveQuest(1)" />
+				<CustomBehavior File="RunMacro" Macro="/script GetQuestReward(3)" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for bot {TimeRemaining}" />
+				<CustomBehavior File="RunMacro" Macro="/script GetQuestReward()" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for bot {TimeRemaining}" />
+		<PickUp QuestName="A New Beginning" QuestId="13009" GiverName="Njormeld" GiverId="30127" />
 			</If>
-		<TurnIn QuestName="Forging an Alliance" TurnInName="Njormeld" QuestId="12924" TurnInId="30127" />
-		<PickUp QuestName="A New Beginning" GiverName="Njormeld" QuestId="13009" GiverId="30127" />
-			<If Condition="((HasQuest(13009)) &amp;&amp; (!HasQuest(12870)))" >
+			<If Condition="((!HasQuest(13009)) &amp;&amp; (!IsQuestCompleted(13009)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="7203.344" Y="-2657.347" Z="818.5505" />
+		<PickUp QuestName="A New Beginning" QuestId="13009" GiverName="Njormeld" GiverId="30127" />
+			</If>
+			<If Condition="((HasQuest(13009)) &amp;&amp; (IsQuestCompleted(13009)))" >
+				<CustomBehavior File="FlyTo" DestName="Thorim" X="7277.55" Y="-826.5412" Z="1301.461" />
+				<CustomBehavior File="MyCTM" DestName="Thorim" X="7308.24" Y="-741.3013" Z="1968.893" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="7440.454" Y="-533.5836" Z="1896.851" />
+		<TurnIn QuestName="A New Beginning" QuestId="13009" TurnInName="Thorim" TurnInId="29445" />
+		<PickUp QuestName="Veranus" QuestId="13050" GiverName="Thorim" GiverId="29445" />
+			</If>
+			<If Condition="((!HasQuest(13050)) &amp;&amp; (!IsQuestCompleted(13050)))" >
+				<CustomBehavior File="FlyTo" DestName="Thorim" X="7277.55" Y="-826.5412" Z="1301.461" />
+				<CustomBehavior File="MyCTM" DestName="Thorim" X="7308.24" Y="-741.3013" Z="1968.893" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="7440.454" Y="-533.5836" Z="1896.851" />
+		<PickUp QuestName="Veranus" QuestId="13050" GiverName="Thorim" GiverId="29445" />
+			</If>
+			<If Condition="((HasQuest(13050)) &amp;&amp; (!IsQuestCompleted(13050)))" >
+				<CustomBehavior File="FlyTo" X="6997.815" Y="-1275.06" Z="1100.831" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="13050" ObjectType="Gameobject" MobId="192536" WaitForNpcs="False" NumOfTimes="6" CollectionDistance="25" X="6986.952" Y="-1263.389" Z="1100.925" />
+
+				<CustomBehavior File="FlyTo" X="7009.078" Y="-1362.497" Z="985.6733" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="13050" ObjectType="Gameobject" MobId="192536" WaitForNpcs="False" NumOfTimes="6" CollectionDistance="20" X="7033.565" Y="-1398.07" Z="984.5645" />
+			</If>
+			<If Condition="((HasQuest(13050)) &amp;&amp; (IsQuestCompleted(13050)))" >
+				<CustomBehavior File="FlyTo" DestName="Thorim" X="7277.55" Y="-826.5412" Z="1301.461" />
+				<CustomBehavior File="MyCTM" DestName="Thorim" X="7308.24" Y="-741.3013" Z="1968.893" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="7440.454" Y="-533.5836" Z="1896.851" />
+		<TurnIn QuestName="Veranus" TurnInName="Thorim" QuestId="13050" TurnInId="29445" />
+		<PickUp QuestName="Territorial Trespass" GiverName="Thorim" QuestId="13051" GiverId="29445" />
+			</If>
+			<If Condition="((!HasQuest(13051)) &amp;&amp; (!IsQuestCompleted(13051)))" >
+				<CustomBehavior File="FlyTo" DestName="Thorim" X="7277.55" Y="-826.5412" Z="1301.461" />
+				<CustomBehavior File="MyCTM" DestName="Thorim" X="7308.24" Y="-741.3013" Z="1968.893" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="7440.454" Y="-533.5836" Z="1896.851" />
+		<PickUp QuestName="Territorial Trespass" GiverName="Thorim" QuestId="13051" GiverId="29445" />
+			</If>
+			<If Condition="((HasQuest(13051)) &amp;&amp; (!IsQuestCompleted(13051)))" >
+				<CustomBehavior File="FlyTo" X="7089.85" Y="-913.0775" Z="1068.739" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
+				<UseItem QuestId="13051" ItemId="42797" X="7089.85" Y="-913.0775" Z="1067.773" />
+				<CustomBehavior File="WaitTimer" WaitTime="45000"/>
+			</If>
+			<If Condition="((HasQuest(13051)) &amp;&amp; (IsQuestCompleted(13051)))" >
+				<CustomBehavior File="FlyTo" DestName="Thorim" X="7277.55" Y="-826.5412" Z="1301.461" />
+				<CustomBehavior File="MyCTM" DestName="Thorim" X="7308.24" Y="-741.3013" Z="1968.893" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="7440.454" Y="-533.5836" Z="1896.851" />
+		<TurnIn QuestName="Territorial Trespass" QuestId="13051" TurnInName="Thorim" TurnInId="29445" />
+		<PickUp QuestName="Krolmir, Hammer of Storms" QuestId="13010" GiverName="Thorim" GiverId="29445" />
+				<CustomBehavior File="FlyTo" DestName="Thorim" X="7277.55" Y="-826.5412" Z="1301.461" />
+			</If>
+			<If Condition="((!HasQuest(13010)) &amp;&amp; (!IsQuestCompleted(13010)))" >
+				<CustomBehavior File="FlyTo" DestName="Thorim" X="7277.55" Y="-826.5412" Z="1301.461" />
+				<CustomBehavior File="MyCTM" DestName="Thorim" X="7308.24" Y="-741.3013" Z="1968.893" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="7440.454" Y="-533.5836" Z="1896.851" />
+		<PickUp QuestName="Krolmir, Hammer of Storms" QuestId="13010" GiverName="Thorim" GiverId="29445" />
+				<CustomBehavior File="FlyTo" DestName="Thorim" X="7277.55" Y="-826.5412" Z="1301.461" />
+			</If>
+			<!-- we'll come back to this long boring chain
+			<If Condition="((HasQuest(13010)) &amp;&amp; (!IsQuestCompleted(13010)))" >
+				<CustomBehavior File="FlyTo" DestName="chat with King Jokkum" X="7345.416" Y="-2812.377" Z="798.5736" />
+				<CustomBehavior File="InteractWith" QuestId="13010" MobId="30105" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" 
+			</If>
+			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" 
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+			-->
+			<!-- End of Dun Niffelem Quests (for now) -->
+
+			<!-- Frosthold Quests -->
+				<CustomBehavior File="Message" Text="Compiling Frosthold Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((!HasQuest(12870)) &amp;&amp; (!IsQuestCompleted(12870)))" >
 				<CustomBehavior File="FlyTo" X="6682.248" Y="-210.052" Z="949.1603" />
-		<PickUp QuestName="Ancient Relics" GiverName="Rork Sharpchin" QuestId="12870" GiverId="29744" />
-		<PickUp QuestName="On Brann's Trail" GiverName="Archaeologist Andorin" QuestId="12854" GiverId="29650" />
-		<PickUp QuestName="Offering Thanks" GiverName="Lagnus" QuestId="12863" GiverId="29743" />
-		<TurnIn QuestName="Offering Thanks" TurnInName="Glorthal Stiffbeard" QuestId="12863" TurnInId="29727" />
-		<PickUp QuestName="Missing Scouts" GiverName="Glorthal Stiffbeard" QuestId="12864" GiverId="29727" />
-		<PickUp QuestName="Loyal Companions" GiverName="Fjorlin Frostbrow" QuestId="12865" GiverId="29732" />
-				<CustomBehavior File="FlyTo" X="7474.247" Y="-1266.532" Z="1259.58" />
-				<CustomBehavior File="MyCTM" X="7562.845" Y="-1132.693" Z="1921.711" />
-				<CustomBehavior File="MyCTM" X="7434.725" Y="-541.8408" Z="1923.208" />
-				<CustomBehavior File="MyCTM" X="7439.056" Y="-533.3228" Z="1896.85" />
+		<PickUp QuestName="Ancient Relics" QuestId="12870" GiverName="Rork Sharpchin" GiverId="29744" />
+			 <If Condition="((HasQuest(12870)) &amp;&amp; (IsQuestCompleted(12870)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6683.81" Y="-211.2404" Z="948.9999" />
+		<TurnIn QuestName="Ancient Relics" QuestId="12870" TurnInName="Rork Sharpchin" TurnInId="29744" />
+			 </If>
 			</If>
-		<TurnIn QuestName="A New Beginning" TurnInName="Thorim" QuestId="13009" TurnInId="29445" />
-		<PickUp QuestName="Veranus" GiverName="Thorim" QuestId="13050" GiverId="29445" />
-		<!-- We have this quest from thorim, and some quests at Hodir, and a few from Frosthold now -->
+			<If Condition="((!HasQuest(12863)) &amp;&amp; (!IsQuestCompleted(12863)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6699.271" Y="-247.3945" Z="947.6819" />
+		<PickUp QuestName="Offering Thanks" QuestId="12863" GiverName="Lagnus" GiverId="29743" />
+			</If>
+			<If Condition="((!HasQuest(12854)) &amp;&amp; (!IsQuestCompleted(12854)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6686.379" Y="-270.9436" Z="958.2554" />
+		<PickUp QuestName="On Brann's Trail" QuestId="12854" GiverName="Archaeologist Andorin" GiverId="29650" />
+			</If>
+			<If Condition="((HasQuest(12863)) &amp;&amp; (IsQuestCompleted(12863)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6648.396" Y="-231.8049" Z="948.696" />
+		<TurnIn QuestName="Offering Thanks" QuestId="12863" TurnInName="Glorthal Stiffbeard" TurnInId="29727" />
+		<PickUp QuestName="Missing Scouts" QuestId="12864" GiverName="Glorthal Stiffbeard" GiverId="29727" />
+			</If>
+			<If Condition="((!HasQuest(12864)) &amp;&amp; (!IsQuestCompleted(12864)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6648.396" Y="-231.8049" Z="948.696" />
+		<PickUp QuestName="Missing Scouts" QuestId="12864" GiverName="Glorthal Stiffbeard" GiverId="29727" />
+			</If>
+			<If Condition="((!HasQuest(12865)) &amp;&amp; (!IsQuestCompleted(12865)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6609.32" Y="-278.8593" Z="984.7334" />
+		<PickUp QuestName="Loyal Companions" QuestId="12865" GiverName="Fjorlin Frostbrow" GiverId="29732" />
+			</If>
+			
+			
+
+			
+			
+			
+			
+
+
+		<!--
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
+		-->
+		
 			<If Condition="((HasQuest(12864)) &amp;&amp; (!IsQuestCompleted(12864)))" >
 				<CustomBehavior File="FlyTo" X="6537.003" Y="-897.8021" Z="570.004" />
 				<CustomBehavior File="ForcedDismount" />
@@ -11536,43 +11712,6 @@
 				<CustomBehavior File="FlyTo" X="6677.661" Y="-557.1868" Z="1122.646" />	
 				<CustomBehavior File="UseItemOn" QuestId="12865" MobId="29854" ItemId="41340" NumOfTimes="3" WaitTime="2000" Range="30" CollectionDistance="500" X="6677.661" Y="-557.1868" Z="1122.646" />	
 
-			</If>
-			<If Condition="((HasQuest(13050)) &amp;&amp; (!IsQuestCompleted(13050)))" >
-				<CustomBehavior File="FlyTo" X="6997.815" Y="-1275.06" Z="1100.831" />
-				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="InteractWith" QuestId="13050" ObjectType="Gameobject" MobId="192536" NumOfTimes="3" CollectionDistance="25" X="6986.952" Y="-1263.389" Z="1100.925" />
-
-				<CustomBehavior File="FlyTo" X="7009.078" Y="-1362.497" Z="985.6733" />
-				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="InteractWith" QuestId="13050" ObjectType="Gameobject" MobId="192536" NumOfTimes="3" CollectionDistance="20" X="7033.565" Y="-1398.07" Z="984.5645" />
-			</If>
-			<If Condition="((HasQuest(13050)) &amp;&amp; (IsQuestCompleted(13050)))" >
-				<CustomBehavior File="FlyTo" X="7474.247" Y="-1266.532" Z="1259.58" />
-				<CustomBehavior File="MyCTM" X="7562.845" Y="-1132.693" Z="1921.711" />
-				<CustomBehavior File="MyCTM" X="7434.725" Y="-541.8408" Z="1923.208" />
-				<CustomBehavior File="MyCTM" X="7439.056" Y="-533.3228" Z="1896.85" />
-			</If>
-		<TurnIn QuestName="Veranus" TurnInName="Thorim" QuestId="13050" TurnInId="29445" />
-		<PickUp QuestName="Territorial Trespass" GiverName="Thorim" QuestId="13051" GiverId="29445" />
-			<If Condition="((HasQuest(13051)) &amp;&amp; (!IsQuestCompleted(13051)))" >
-				<CustomBehavior File="UserSettings" PullDistance="1" />
-				<CustomBehavior File="MyCTM" X="7345.78" Y="-677.8099" Z="1897.837" />
-				<CustomBehavior File="MyCTM" X="7089.85" Y="-913.0775" Z="1068.739" />
-				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
-				<UseItem QuestId="13051" ItemId="42797" X="7089.85" Y="-913.0775" Z="1067.773" />
-				<CustomBehavior File="WaitTimer" WaitTime="45000"/>
-			</If>
-			<If Condition="((HasQuest(13051)) &amp;&amp; (IsQuestCompleted(13051)))" >
-				<CustomBehavior File="FlyTo" X="7474.247" Y="-1266.532" Z="1259.58" />
-				<CustomBehavior File="MyCTM" X="7562.845" Y="-1132.693" Z="1921.711" />
-				<CustomBehavior File="MyCTM" X="7434.725" Y="-541.8408" Z="1923.208" />
-				<CustomBehavior File="MyCTM" X="7439.056" Y="-533.3228" Z="1896.85" />
-		<TurnIn QuestName="Territorial Trespass" QuestId="13051" TurnInName="Thorim" TurnInId="29445" />
-		<PickUp QuestName="Krolmir, Hammer of Storms" GiverName="Thorim" QuestId="13010" GiverId="29445" />
-				<CustomBehavior File="MyCTM" X="7345.78" Y="-677.8099" Z="1897.837" />
-				<CustomBehavior File="MyCTM" X="6726.284" Y="-258.8604" Z="1051.049" />
-				<CustomBehavior File="MyCTM" X="6664.631" Y="-206.7166" Z="949.3724" />
 			</If>
 		<TurnIn QuestName="Missing Scouts" TurnInName="Glorthal Stiffbeard" QuestId="12864" TurnInId="29727" />
 		<PickUp QuestName="Stemming the Aggressors" GiverName="Glorthal Stiffbeard" QuestId="12866" GiverId="29727" />
