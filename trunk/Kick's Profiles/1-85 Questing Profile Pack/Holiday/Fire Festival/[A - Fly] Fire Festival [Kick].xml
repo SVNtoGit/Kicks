@@ -6,6 +6,21 @@
 	<MinDurability>0.1</MinDurability>
 	<MinFreeBagSlots>1</MinFreeBagSlots>
 	
+	<Quest Id="11886" Name="Unusual Activity">
+		<Objective Type="CollectItem" ItemId="35277" CollectCount="1">
+			<CollectFrom>
+				<Mob Name="Twilight Firesworn" Entry="25863" />
+				<Mob Name="Twilight Flameguard" Entry="25866" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="3875.726" Y="792.8496" Z="2.727243" />
+				<Hotspot X="3947.198" Y="858.9898" Z="0.7317204" />
+				<Hotspot X="3976.418" Y="788.8929" Z="6.527483" />
+				<Hotspot X="3914.045" Y="758.1599" Z="7.458753" />	
+			</Hotspots>
+		</Objective>
+	</Quest>				
+				
 
 	
 	
@@ -68,20 +83,37 @@
 		<TurnIn QuestName="Torch Catching" QuestId="11657" TurnInName="Master Fire Eater" TurnInId="25975" />
 			</If>
 
+			<If Condition="((!HasQuest(11886)) &amp;&amp; (!IsQuestCompleted(11886)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" />
+		<PickUp QuestName="Unusual Activity" QuestId="11886" GiverName="Earthen Ring Elder" GiverId="26221" />
+			</If>
 			<If Condition="((HasQuest(11886)) &amp;&amp; (!IsQuestCompleted(11886)))" >
 			 <If Condition="Me.MapId == 0" >
 				<CustomBehavior File="FlyTo" DestName="Darnassus boat (in SW)" X="-8644.474" Y="1327.779" Z="5.538271" />
 				<CustomBehavior File="ForcedDismount" />
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Get on the Darnassus boat when it comes!\n\nGet off when in Kalimdor" />
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Get on the Darnassus boat when it comes!\n\nGet off when in Kalimdor and press continue" />
 			</If>
 			 <If Condition="Me.MapId == 1" >
-				<CustomBehavior File="FlyTo" DestName="Ashenvale" X="4069.603" Y="974.9187" Z="36.6615" />
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Uh, hit stop and re-svn" />
+				<CustomBehavior File="FlyTo" DestName="Ashenvale" X="3926.077" Y="872.5566" Z="1.784019" />
+				<Objective QuestName="Unusual Activity" QuestId="11886" Type="CollectItem" ItemId="35277" CollectCount="1" />
 			 </If>
-				
-				
-				
 			</If>
+			<If Condition="((HasQuest(11886)) &amp;&amp; (IsQuestCompleted(11886)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3893.657" Y="912.9663" Z="-0.126839" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35828)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Using item {TimeRemaining}" />
+				
+		<TurnIn QuestName="Unusual Activity" QuestId="11886" TurnInName="Earthen Ring Guide" TurnInId="1727" />
+			</If>
+
+			<!--
+
+		<PickUp QuestName="An Innocent Disguise" QuestId="11891" GiverName="Earthen Ring Guide" GiverId="25324" />
+		<Objective QuestName="An Innocent Disguise" QuestId="11891" Type="CollectItem" ItemId="35237" CollectCount="1" />
+		<TurnIn QuestName="An Innocent Disguise" QuestId="11891" TurnInName="Earthen Ring Guide" TurnInId="25324" />
+			-->
 
 
 
