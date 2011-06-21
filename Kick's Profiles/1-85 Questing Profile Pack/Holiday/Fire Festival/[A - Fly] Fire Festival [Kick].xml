@@ -84,15 +84,16 @@
 			</If>
 
 			<If Condition="((!HasQuest(11886)) &amp;&amp; (!IsQuestCompleted(11886)))" >
-				<CustomBehavior File="FlyTo" DestName="Pickup Quest" />
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="-8832.973" Y="863.6421" Z="98.88687" />
 		<PickUp QuestName="Unusual Activity" QuestId="11886" GiverName="Earthen Ring Elder" GiverId="26221" />
 			</If>
 			<If Condition="((HasQuest(11886)) &amp;&amp; (!IsQuestCompleted(11886)))" >
 			 <If Condition="Me.MapId == 0" >
 				<CustomBehavior File="FlyTo" DestName="Darnassus boat (in SW)" X="-8644.474" Y="1327.779" Z="5.538271" />
 				<CustomBehavior File="ForcedDismount" />
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Get on the Darnassus boat when it comes!\n\nGet off when in Kalimdor and press continue" />
-			</If>
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
+				Text="Get on the Darnassus boat when it comes!\n\nGet off when in Kalimdor and press continue" />
+			 </If>
 			 <If Condition="Me.MapId == 1" >
 				<CustomBehavior File="FlyTo" DestName="Ashenvale" X="3926.077" Y="872.5566" Z="1.784019" />
 				<Objective QuestName="Unusual Activity" QuestId="11886" Type="CollectItem" ItemId="35277" CollectCount="1" />
@@ -106,14 +107,53 @@
 				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Using item {TimeRemaining}" />
 				
 		<TurnIn QuestName="Unusual Activity" QuestId="11886" TurnInName="Earthen Ring Guide" TurnInId="1727" />
+		<PickUp QuestName="An Innocent Disguise" QuestId="11891" GiverName="Earthen Ring Guide" GiverId="1727" />
+			</If>
+			<If Condition="((!HasQuest(11891)) &amp;&amp; (!IsQuestCompleted(11891)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3893.657" Y="912.9663" Z="-0.126839" />
+				
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35828)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Using item {TimeRemaining}" />
+				
+		<PickUp QuestName="An Innocent Disguise" QuestId="11891" GiverName="Earthen Ring Guide" GiverId="1727" />
+			</If>
+			<If Condition="((HasQuest(11891)) &amp;&amp; (!IsQuestCompleted(11891)))" >
+				<CustomBehavior File="FlyTo" DestName="listen as a crab!" X="4181.066" Y="1130.996" Z="21.66227" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35237)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Using item {TimeRemaining}" />
+				
+				<RunTo X="4195.132" Y="1176.962" Z="6.272671" />
+				<CustomBehavior File="WaitTimer" WaitTime="40000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				
+				<RunTo X="4186.814" Y="1128.38" Z="17.67639" />
+				<CustomBehavior File="RunMacro" Macro="/cancelaura Crab Disguise" NumOfTimes="1" WaitTime="1000" />
+			</If>
+			<If Condition="((HasQuest(11891)) &amp;&amp; (IsQuestCompleted(11891)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4186.814" Y="1128.38" Z="17.67639" />
+				
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35828)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Using item {TimeRemaining}" />
+				
+		<TurnIn QuestName="An Innocent Disguise" QuestId="11891" TurnInName="Earthen Ring Guide" TurnInId="1727" />
+		<PickUp QuestName="Inform the Elder" QuestId="29092" GiverName="Earthen Ring Guide" GiverId="1727" />
+			</If>
+			<If Condition="((HasQuest(29092)) &amp;&amp; (IsQuestCompleted(29092)))" >
+			 <If Condition="Me.MapId == 1" >
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
+				Text="Stop and use hearthstone if it's set to SW\n\nIf it's not, press continue and you'll fly to Reth Village to use the boat to SW" />
+				
+				<CustomBehavior File="FlyTo" DestName="Darnassus Boat (To Stormwind)" X="8196.444" Y="999.1541" Z="17.57117" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
+				Text="Get on the boat to SW - get off and press continue when you're in SW" />
+			 </If>
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-8832.973" Y="863.6421" Z="98.88687" />
+		<TurnIn QuestName="Inform the Elder" QuestId="29092" TurnInName="Earthen Ring Elder" TurnInId="26221" />
 			</If>
 
-			<!--
-
-		<PickUp QuestName="An Innocent Disguise" QuestId="11891" GiverName="Earthen Ring Guide" GiverId="25324" />
-		<Objective QuestName="An Innocent Disguise" QuestId="11891" Type="CollectItem" ItemId="35237" CollectCount="1" />
-		<TurnIn QuestName="An Innocent Disguise" QuestId="11891" TurnInName="Earthen Ring Guide" TurnInId="25324" />
-			-->
 
 
 
