@@ -25,6 +25,7 @@
 
 	<Blackspots>
 		
+		<Blackspot X="5667.451" Y="5196.524" Z="-129.5585" Radius="17.49124" />
 		<Blackspot X="3082.603" Y="1216.461" Z="146.7069" Radius="20.5261" />
 		<Blackspot X="3084.648" Y="1225.043" Z="153.575" Radius="10.05685" />
 		<Blackspot X="5444.766" Y="4862.599" Z="-211.0478" Radius="15" />
@@ -2526,7 +2527,7 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="In Wine, Truth" QuestId="11603" GiverName="James Deacon" GiverId="25245" />
 			</If>
-			<If Condition="((HasQuest(11603)) &amp;&amp; (!IsQuestCompleted(11603)))" >
+			<While Condition="((HasQuest(11603)) &amp;&amp; (!IsQuestCompleted(11603)))" >
 				<!-- Here and then dismount once the behavior is fixed properly (delete the current flyto below)
 					<CustomBehavior File="FlyTo" DestName="Objective"  X="2381.572" Y="5003.312" Z="2.479434" />
 				-->
@@ -2544,9 +2545,10 @@
 				<Objective QuestName="In Wine, Truth" QuestId="11603" Type="CollectItem" ItemId="34714" ItemName="Kul Tiras Wine" CollectCount="1" />
 				-->
 				<CustomBehavior File="BasicUseObject" QuestId="11603" ObjectId="188131" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="MyCTM" X="2374.443" Y="5004.456" Z="-1.898165" /> 
 				<RunTo DestName="Above water" X="2398.375" Y="5043.349" Z="-0.3156538" />
-			</If>
+			</While>
 			<If Condition="((HasQuest(11603)) &amp;&amp; (IsQuestCompleted(11603)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2257.313" Y="5202.184" Z="11.31332" />
 				<CustomBehavior File="ForcedDismount" />
