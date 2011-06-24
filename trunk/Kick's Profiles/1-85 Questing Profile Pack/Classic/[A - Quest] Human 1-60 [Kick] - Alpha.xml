@@ -4672,7 +4672,10 @@
 		<PickUp QuestName="A Curse We Cannot Lift" QuestId="26720" GiverName="Oliver Harris" GiverId="43730" />
 		<PickUp QuestName="Soothing Spirits" QuestId="26777" GiverName="Sister Elsington" GiverId="43731" />
 			<!-- doing Raven Hill quests later -->
-		<PickUp QuestName="The Weathered Grave" QuestId="26793" GiverType="Object" GiverId="61" X="-10240.54" Y="355.7654" Z="50.45142"  />
+		<PickUp QuestName="The Weathered Grave" QuestId="26793" GiverType="GameObject" GiverId="61" X="-10240.54" Y="355.7654" Z="50.45142"  />
+			<If Condition="(HasQuest(26793))" >
+				<RunTo X="-10559.14" Y="-1157.564" Z="28.03283" />
+			</If>
 		<TurnIn QuestName="The Weathered Grave" QuestId="26793" TurnInName="Sirra Von'Indi" TurnInId="268" X="-10576.36" Y="-1126.984" Z="29.16781" />
 		<PickUp QuestName="Morgan Ladimore" QuestId="26794" GiverName="Sirra Von'Indi" GiverId="268" X="-10576.36" Y="-1126.984" Z="29.16781" />
 		<TurnIn QuestName="Morgan Ladimore" QuestId="26794" TurnInName="Commander Althea Ebonlocke" TurnInId="264" X="-10561.29" Y="-1151.804" Z="28.01492" />
@@ -4953,8 +4956,22 @@
 				<CustomBehavior File="CompleteLogQuest" QuestId="195" /> <!-- Get 196 -->
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
 			</If>
-			<!-- do people have issues doing this chain / getting it? I may need a "grindto npc offers quest" -->
+			<If Condition="((!HasQuest(26745)) &amp;&amp; (!IsQuestCompleted(26745)))" >
+					<SetGrindArea>	
+						<GrindArea>
+							<Factions>28</Factions> <!-- [Trolls] -->
+							<Hotspots> 
+								<Hotspot X="-12020.79" Y="401.8159" Z="1.855008" />
+								<Hotspot X="-11997.49" Y="354.1963" Z="2.849246" />
+								<Hotspot X="-11987.2" Y="297.5674" Z="3.641392" />
+								<Hotspot X="-12061.18" Y="369.4714" Z="1.30675" />
+							</Hotspots>
+						</GrindArea> 
+					</SetGrindArea>	
+				<GrindTo Condition="HasQuestAvailable(42736)" />
+
 		<PickUp QuestName="Favored Skull" QuestId="26745" GiverName="Lashtail Hatchling" GiverId="42736" />
+			</If>
 			<Objective QuestName="Water Elementals" QuestId="26729" Type="CollectItem" ItemId="3923" CollectCount="6" />
 			<If Condition="((HasQuest(26729)) &amp;&amp; (IsQuestCompleted(26729)))" >
 				<RunTo X="-12129.76" Y="955.2557" Z="4.604999" />
