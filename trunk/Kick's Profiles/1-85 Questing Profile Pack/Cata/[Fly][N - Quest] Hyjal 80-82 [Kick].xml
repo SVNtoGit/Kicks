@@ -285,6 +285,18 @@
 		</Objective>
 	</Quest>
 
+	<Quest Id="25255" Name="Harrying the Hunters">
+		<Objective Type="KillMob" MobId="39437" KillCount="6">
+			<Hotspots>
+				<Hotspot X="5583.354" Y="-2619.995" Z="1490.693" />
+				<Hotspot X="5457.57" Y="-2411.308" Z="1466.59" />
+				<Hotspot X="5539.313" Y="-2353.036" Z="1478.467" />
+				<Hotspot X="5581.479" Y="-2480.834" Z="1482.912" />
+				<Hotspot X="5593.446" Y="-2644.877" Z="1491.31" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+
 	<Quest Id="25233" Name="End of the Supply Line" >
 		<Objective Type="CollectItem" ItemId="52568" CollectCount="36">
 			<Hotspots>
@@ -676,85 +688,194 @@
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5641.554" Y="-2445.48" Z="1527.105" />
 		<PickUp QuestName="In the Rear With the Gear" QuestId="25234" GiverName="Jadi Falaryn" GiverId="39427" />
 			</If>
+			<If Condition="((HasQuest(25234)) &amp;&amp; (!IsQuestCompleted(25234)))" >
+				<CustomBehavior File="FlyTo" DestName="get 36 Twilight Supplies" X="5463.787" Y="-2396.549" Z="1465.196" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="In the Rear With the Gear" QuestId="25234" Type="CollectItem" ItemId="52568" CollectCount="36" />
+			</If>
+			<If Condition="((HasQuest(25233)) &amp;&amp; (!IsQuestCompleted(25233)))" >
+				<CustomBehavior File="FlyTo" DestName="Kill 4 Proveditor" X="5463.787" Y="-2396.549" Z="1465.196" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="End of the Supply Line" QuestId="25233" Type="KillMob" MobId="39436" KillCount="4" />
+			</If>
+			<If Condition="((HasQuest(25255)) &amp;&amp; (!IsQuestCompleted(25255)))" >
+				<CustomBehavior File="FlyTo" DestName="Kill 6 Hunters" X="5488.648" Y="-2475.149" Z="1474.471" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Harrying the Hunters" QuestId="25255" Type="KillMob" MobId="39437" KillCount="6" />
+			</If>
+			<If Condition="((HasQuest(25255)) &amp;&amp; (IsQuestCompleted(25255)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5646.037" Y="-2444.712" Z="1527.159" />
+		<TurnIn QuestName="Harrying the Hunters" QuestId="25255" TurnInName="Oomla Whitehorn" TurnInId="39429" />
+			</If>
+			<If Condition="((HasQuest(25233)) &amp;&amp; (IsQuestCompleted(25233)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5646.037" Y="-2444.712" Z="1527.159" />
+		<TurnIn QuestName="End of the Supply Line" QuestId="25233" TurnInName="Jadi Faralyn" TurnInId="39427" />
+			</If>
+			<If Condition="((HasQuest(25234)) &amp;&amp; (IsQuestCompleted(25234)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5646.037" Y="-2444.712" Z="1527.159" />
+		<TurnIn QuestName="In the Rear With the Gear" QuestId="25234" TurnInName="Jadi Falaryn" TurnInId="39427" />
+			</If>
 
+		<!-- Ally -->
+	  <If Condition="Me.IsAlliance" >
+			<If Condition="((!HasQuest(25268)) &amp;&amp; (!IsQuestCompleted(25268))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5646.037" Y="-2444.712" Z="1527.159" />
+		<PickUp QuestName="The Voice of Goldrinn" QuestId="25268" GiverName="Jadi Falaryn" GiverId="39427" />
+			</If>
+			<If Condition="((HasQuest(25268)) &amp;&amp; (IsQuestCompleted(25268)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5307.343" Y="-2204.682" Z="1264.366" />
+		<TurnIn QuestName="The Voice of Goldrinn" QuestId="25268" TurnInName="Ian Duran" TurnInId="39433" />
+		<PickUp QuestName="Goldrinn's Ferocity" QuestId="25271" GiverName="Ian Duran" GiverId="39433" />
+			</If>
+			<If Condition="((!HasQuest(25271)) &amp;&amp; (!IsQuestCompleted(25271)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5307.343" Y="-2204.682" Z="1264.366" />
+		<PickUp QuestName="Goldrinn's Ferocity" QuestId="25271" GiverName="Ian Duran" GiverId="39433" />
+			</If>
+			<If Condition="((HasQuest(25271)) &amp;&amp; (!IsQuestCompleted(25271)))" >
+				<CustomBehavior File="FlyTo" DestName="get 6 Incense" X="5326.598" Y="-2173.843" Z="1269.515" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Goldrinn's Ferocity" QuestId="25271" Type="CollectItem" ItemId="52658" CollectCount="6" />
+			</If>
+			<If Condition="((HasQuest(25271)) &amp;&amp; (IsQuestCompleted(25271)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5307.343" Y="-2204.682" Z="1264.366" />
+		<TurnIn QuestName="Goldrinn's Ferocity" QuestId="25271" TurnInName="Ian Duran" TurnInId="39433" />
+		<PickUp QuestName="Lycanthoth the Corruptor" QuestId="25273" GiverName="Ian Duran" GiverId="39433" />
+			</If>
+			<If Condition="((!HasQuest(25273)) &amp;&amp; (!IsQuestCompleted(25273)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5307.343" Y="-2204.682" Z="1264.366" />
+		<PickUp QuestName="Lycanthoth the Corruptor" QuestId="25273" GiverName="Ian Duran" GiverId="39433" />
+			</If>
+			<If Condition="((HasQuest(25273)) &amp;&amp; (!IsQuestCompleted(25273)))" >
+				<CustomBehavior File="FlyTo" DestName="kill Lycanthoth" X="5169.652" Y="-2276.873" Z="1278.715" />
+				<CustomBehavior File="ForcedDismount" />
+				<UseItem QuestName="Lycanthoth the Corruptor" QuestId="25273" ItemId="52682" X="5143.717" Y="-2303.042" Z="1278.421" />
+				<Objective QuestName="Lycanthoth the Corruptor" QuestId="25273" Type="KillMob" MobId="39446" KillCount="1" />
+				<Objective QuestName="Lycanthoth the Corruptor" QuestId="25273" Type="CollectItem" ItemId="52682" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(25273)) &amp;&amp; (IsQuestCompleted(25273)))" >
+		<TurnIn QuestName="Lycanthoth the Corruptor" QuestId="25273" TurnInName="Spirit of Goldrinn" TurnInId="39627" X="5138.492" Y="-2306.841" Z="1278.755" />
+				<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Waiting for event {TimeRemaining}" />
+		<PickUp QuestName="The Shrine Reclaimed" QuestId="25280" GiverName="Spirit of Goldrinn" GiverId="39627" X="5367.26" Y="-2188.07" Z="1291.621" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5351.258" Y="-2127.681" Z="1280.52" />
+		<TurnIn QuestName="The Shrine Reclaimed" QuestId="25280" TurnInName="Ian Duran" TurnInId="39433" X="5353.563" Y="-2127.177" Z="1280.52" />
+			</If>
+			<If Condition="((HasQuest(25280)) &amp;&amp; (IsQuestCompleted(25280)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5351.258" Y="-2127.681" Z="1280.52" />
+		<TurnIn QuestName="The Shrine Reclaimed" QuestId="25280" TurnInName="Ian Duran" TurnInId="39433" X="5353.563" Y="-2127.177" Z="1280.52" />
+		<PickUp QuestName="From the Mouth of Madness" QuestId="25297" GiverName="Rio Duran" GiverId="39434" />
+		<PickUp QuestName="Cleaning House" QuestId="25278" GiverName="Ian Duran" GiverId="39433" X="5344.717" Y="-2132.941" Z="1280.52" />
+		<PickUp QuestName="The Eye of Twilight" QuestId="25300" GiverName="Royce Duskwhisper" GiverId="39435" GiverType="Npc" />
+			</If>
+			<If Condition="((!HasQuest(25297)) &amp;&amp; (!IsQuestCompleted(25297)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5351.258" Y="-2127.681" Z="1280.52" />
+		<PickUp QuestName="From the Mouth of Madness" QuestId="25297" GiverName="Rio Duran" GiverId="39434" />
+			</If>
+			<If Condition="((!HasQuest(25278)) &amp;&amp; (!IsQuestCompleted(25278)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5351.258" Y="-2127.681" Z="1280.52" />
+		<PickUp QuestName="Cleaning House" QuestId="25278" GiverName="Ian Duran" GiverId="39433" X="5344.717" Y="-2132.941" Z="1280.52" />
+			</If>
+			<If Condition="((!HasQuest(25300)) &amp;&amp; (!IsQuestCompleted(25300)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5351.258" Y="-2127.681" Z="1280.52" />
+		<PickUp QuestName="The Eye of Twilight" QuestId="25300" GiverName="Royce Duskwhisper" GiverId="39435" GiverType="Npc" />
+			</If>
+			<If Condition="((HasQuest(25297)) &amp;&amp; (!IsQuestCompleted(25297)))" >
+				<CustomBehavior File="FlyTo" DestName="get Bitterblossom" X="5282.406" Y="-2157.596" Z="1258.256" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="From the Mouth of Madness" QuestId="25297" Type="CollectItem" ItemId="52727" CollectCount="1" />
+				
+				<CustomBehavior File="FlyTo" DestName="Darkflame Ember" X="5183.424" Y="-2131.858" Z="1277.822" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="From the Mouth of Madness" QuestId="25297" Type="CollectItem" ItemId="52728" CollectCount="1" />
+
+				<CustomBehavior File="FlyTo" DestName="get Stonebloom" X="5171.777" Y="-2105.745" Z="1279.902" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="From the Mouth of Madness" QuestId="25297" Type="CollectItem" ItemId="52726" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(25278)) &amp;&amp; (!IsQuestCompleted(25278)))" >
+				<CustomBehavior File="FlyTo" DestName="kill Ogres" X="5185.852" Y="-2115.451" Z="1276.718" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Cleaning House" QuestId="25278" Type="KillMob" MobId="39642" KillCount="8" />
+			</If>
+			<If Condition="((HasQuest(25297)) &amp;&amp; (IsQuestCompleted(25297)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5170.385" Y="-2135.102" Z="1277.85" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="From the Mouth of Madness" QuestId="25297" TurnInName="Twilight Cauldron" TurnInId="202706" TurnInType="Object" X="5168.022" Y="-2135.641" Z="1277.844" />
+		<PickUp QuestName="Free Your Mind, the Rest Follows" QuestId="25298" GiverName="Twilight Cauldron" GiverId="202706" GiverType="Object" X="5168.022" Y="-2135.641" Z="1277.844" />
+			</If>
+			<If Condition="((!HasQuest(25298)) &amp;&amp; (!IsQuestCompleted(25298)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5170.385" Y="-2135.102" Z="1277.85" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Free Your Mind, the Rest Follows" QuestId="25298" GiverName="Twilight Cauldron" GiverId="202706" GiverType="Object" X="5168.022" Y="-2135.641" Z="1277.844" />
+			</If>
+			<If Condition="((HasQuest(25300)) &amp;&amp; (IsQuestCompleted(25300)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5195.96" Y="-2086.782" Z="1281.298" />
+		<TurnIn QuestName="The Eye of Twilight" QuestId="25300" TurnInName="Eye of Twilight" TurnInId="202697" X="5201.717" Y="-2084.617" Z="1280.64" />
+		<PickUp QuestName="Mastering Puppets" QuestId="25301" GiverName="Eye of Twilight" GiverId="202697" GiverType="Object" X="5201.717" Y="-2084.617" Z="1280.64" />
+			</If>
+			<If Condition="((!HasQuest(25301)) &amp;&amp; (!IsQuestCompleted(25301)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5195.96" Y="-2086.782" Z="1281.298" />
+		<PickUp QuestName="Mastering Puppets" QuestId="25301" GiverName="Eye of Twilight" GiverId="202697" GiverType="Object" X="5201.717" Y="-2084.617" Z="1280.64" />
+			</If>
+			<If Condition="((!HasQuest(25328)) &amp;&amp; (!IsQuestCompleted(25328)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5187.642" Y="-2086.129" Z="1281.231" /> <!-- cave ent -->
+		<PickUp QuestName="Gar'gol's Gotta Go" QuestId="25328" GiverName="Kristoff Manheim" GiverId="39640" X="5038.081" Y="-2084.975" Z="1276.445" />
+			</If>
+			<If Condition="((HasQuest(25328)) &amp;&amp; (!IsQuestCompleted(25328)))" >
+				<Objective QuestName="Gar'gol's Gotta Go" QuestId="25328" Type="CollectItem" ItemId="52789" CollectCount="1" />
+			</If>
+			<While Condition="((HasQuest(25298)) &amp;&amp; (!IsQuestCompleted(25298)))" >
+				<CustomBehavior File="InteractWith" QuestId="25298" MobId="39644" NumOfTimes="20" GossipOptions="1" WaitTime="1000" CollectionDistance="300" X="5144.358" Y="-2076.16" Z="1277.518" />
+			</While>
+			<If Condition="((HasQuest(25328)) &amp;&amp; (IsQuestCompleted(25328)))" >
+		<TurnIn QuestName="Gar'gol's Gotta Go" QuestId="25328" TurnInName="Kristoff Manheim" TurnInId="39640" X="5038.081" Y="-2084.975" Z="1276.445" />
+		<PickUp QuestName="Get Me Outta Here!" QuestId="25332" GiverName="Kristoff Manheim" GiverId="39640" X="5038.081" Y="-2084.975" Z="1276.445" />
+			</If>
+			<If Condition="((!HasQuest(25332)) &amp;&amp; (!IsQuestCompleted(25332)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5187.642" Y="-2086.129" Z="1281.231" /> <!-- cave ent -->
+		<PickUp QuestName="Get Me Outta Here!" QuestId="25332" GiverName="Kristoff Manheim" GiverId="39640" X="5038.081" Y="-2084.975" Z="1276.445" />
+			</If>
+			<If Condition="((HasQuest(25332)) &amp;&amp; (!IsQuestCompleted(25332)))" >
+				<RunTo X="5184.401" Y="-2084.53" Z="1281.333" />
+			</If>
+			<If Condition="((HasQuest(25301)) &amp;&amp; (IsQuestCompleted(25301)))" >
+		<TurnIn QuestName="Mastering Puppets" QuestId="25301" TurnInName="The Twilight Apocrypha" TurnInId="202712" TurnInType="Object" X="5017.413" Y="-2024.35" Z="1269.838" />
+		<Pickup QuestName="Elementary!" QuestId="25303" GiverName="The Twilight Apocrypha" GiverId="202712" GiverType="Object" X="5017.413" Y="-2024.35" Z="1269.838" />
+			</If>
+			<If Condition="((!HasQuest(25303)) &amp;&amp; (!IsQuestCompleted(25303)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5187.642" Y="-2086.129" Z="1281.231" /> <!-- cave ent -->
+		<Pickup QuestName="Elementary!" QuestId="25303" GiverName="The Twilight Apocrypha" GiverId="202712" GiverType="Object" X="5017.413" Y="-2024.35" Z="1269.838" />
+			</If>
+			<While Condition="((HasQuest(25303)) &amp;&amp; (!IsQuestCompleted(25303)))" >
+				<CustomBehavior File="InteractWith" QuestId="25303" MobId="39730" NumOfTimes="1" CollectionDistance="50" X="5013.506" Y="-2028.906" Z="1270.055" />
+				<CustomBehavior File="InteractWith" QuestId="25303" MobId="39737" NumOfTimes="1" CollectionDistance="50" X="5015.306" Y="-2022.625" Z="1270.277" />
+				<CustomBehavior File="InteractWith" QuestId="25303" MobId="39736" NumOfTimes="1" CollectionDistance="50" X="5013.495" Y="-2023.632" Z="1270.493" />
+				<CustomBehavior File="InteractWith" QuestId="25303" MobId="39738" NumOfTimes="1" CollectionDistance="50" X="5017.704" Y="-2028.753" Z="1269.8" />
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</While>
+			<If Condition="((HasQuest(25303)) &amp;&amp; (IsQuestCompleted(25303)))" >
+		<TurnIn QuestName="Elementary!" QuestId="25303" TurnInName="The Twilight Apocrypha" TurnInId="202712" TurnInType="Object" X="5017.413" Y="-2024.35" Z="1269.838" />
+		<Pickup QuestName="Return to Duskwhisper" QuestId="25312" GiverName="The Twilight Apocrypha" GiverId="202712" GiverType="Object" X="5017.413" Y="-2024.35" Z="1269.838" />
+				<RunTo X="5191.049" Y="-2089.05" Z="1280.774" />
+			</If>
+			<If Condition="((!HasQuest(25312)) &amp;&amp; (!IsQuestCompleted(25312)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5187.642" Y="-2086.129" Z="1281.231" /> <!-- cave ent -->
+		<Pickup QuestName="Return to Duskwhisper" QuestId="25312" GiverName="The Twilight Apocrypha" GiverId="202712" GiverType="Object" X="5017.413" Y="-2024.35" Z="1269.838" />
+				<RunTo X="5191.049" Y="-2089.05" Z="1280.774" />
+			</If>
+			<If Condition="((HasQuest(25312)) &amp;&amp; (IsQuestCompleted(25312)))" >
+				<CustomBehavior File="FlyTo" X="5344.717" Y="-2132.941" Z="1280.52" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Return to Duskwhisper" QuestId="25312" TurnInName="Royce Duskwhisper" TurnInId="39435" X="5344.717" Y="-2132.941" Z="1280.52" />
+			</If>
 			
+		
+		
 
 			
 		<!--
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
 		-->
 		
-		
-			<Objective QuestName="In the Rear With the Gear" QuestId="25234" Type="CollectItem" ItemId="52568" CollectCount="36" />
-			<Objective QuestName="End of the Supply Line" QuestId="25233" Type="KillMob" MobId="39436" KillCount="4" />
-			<Objective QuestName="Harrying the Hunters" QuestId="25255" Type="KillMob" MobId="39437" KillCount="6" />
-			<If Condition="((HasQuest(25255)) &amp;&amp; (IsQuestCompleted(25255)))" >
-				<CustomBehavior File="FlyTo" X="5646.037" Y="-2444.712" Z="1527.159" />
-				<CustomBehavior File="ForcedDismount" />
-			</If>
-		<TurnIn QuestName="Harrying the Hunters" QuestId="25255" TurnInName="Oomla Whitehorn" TurnInId="39429" />
-		<TurnIn QuestName="End of the Supply Line" QuestId="25233" TurnInName="Jadi Faralyn" TurnInId="39427" />
-		<TurnIn QuestName="In the Rear With the Gear" QuestId="25234" TurnInName="Jadi Falaryn" TurnInId="39427" />
-		
-		<!-- Ally -->
-	  <If Condition="Me.IsAlliance" >
-		<PickUp QuestName="The Voice of Goldrinn" QuestId="25268" GiverName="Jadi Falaryn" GiverId="39427" />
-			<If Condition="(HasQuest(25268))" >
-				<CustomBehavior File="FlyTo" X="5307.343" Y="-2204.682" Z="1264.366" />
-				<CustomBehavior File="ForcedDismount" />
-			</If>
-		<TurnIn QuestName="The Voice of Goldrinn" QuestId="25268" TurnInName="Ian Duran" TurnInId="39433" />
-		<PickUp QuestName="Goldrinn's Ferocity" QuestId="25271" GiverName="Ian Duran" GiverId="39433" />
-			<Objective QuestName="Goldrinn's Ferocity" QuestId="25271" Type="CollectItem" ItemId="52658" CollectCount="6" />
-		<TurnIn QuestName="Goldrinn's Ferocity" QuestId="25271" TurnInName="Ian Duran" TurnInId="39433" />
-		<PickUp QuestName="Lycanthoth the Corruptor" QuestId="25273" GiverName="Ian Duran" GiverId="39433" />
-			<UseItem QuestName="Lycanthoth the Corruptor" QuestId="25273" ItemId="52682" X="5143.717" Y="-2303.042" Z="1278.421" />
-			<Objective QuestName="Lycanthoth the Corruptor" QuestId="25273" Type="KillMob" MobId="39446" KillCount="1" />
-			<Objective QuestName="Lycanthoth the Corruptor" QuestId="25273" Type="CollectItem" ItemId="52682" CollectCount="1" />
-			<If Condition="((HasQuest(25273)) &amp;&amp; (IsQuestCompleted(25273)))" >
-		<TurnIn QuestName="Lycanthoth the Corruptor" QuestId="25273" TurnInName="Spirit of Goldrinn" TurnInId="39627" X="5138.492" Y="-2306.841" Z="1278.755" />
-		<PickUp QuestName="The Shrine Reclaimed" QuestId="25280" GiverName="Spirit of Goldrinn" GiverId="39627" X="5367.26" Y="-2188.07" Z="1291.621" />
-			</If>
-			<If Condition="(HasQuest(25280))" >
-		<TurnIn QuestName="The Shrine Reclaimed" QuestId="25280" TurnInName="Ian Duran" TurnInId="39433" X="5353.563" Y="-2127.177" Z="1280.52" />
-			</If>
-		<PickUp QuestName="From the Mouth of Madness" QuestId="25297" GiverName="Rio Duran" GiverId="39434" />
-		<PickUp QuestName="Cleaning House" QuestId="25278" GiverName="Ian Duran" GiverId="39433" X="5344.717" Y="-2132.941" Z="1280.52" />
-		<PickUp QuestName="The Eye of Twilight" QuestId="25300" GiverName="Royce Duskwhisper" GiverId="39435" GiverType="Npc" />
-			<Objective QuestName="From the Mouth of Madness" QuestId="25297" Type="CollectItem" ItemId="52726" CollectCount="1" />
-			<Objective QuestName="From the Mouth of Madness" QuestId="25297" Type="CollectItem" ItemId="52727" CollectCount="1" />
-			<Objective QuestName="From the Mouth of Madness" QuestId="25297" Type="CollectItem" ItemId="52728" CollectCount="1" />
-			<Objective QuestName="Cleaning House" QuestId="25278" Type="KillMob" MobId="39642" KillCount="8" />
-		<TurnIn QuestName="From the Mouth of Madness" QuestId="25297" TurnInName="Twilight Cauldron" TurnInId="202706" />
-		<PickUp QuestName="Free Your Mind, the Rest Follows" QuestId="25298" GiverName="Twilight Cauldron" GiverId="202706" GiverType="Object" X="5168.022" Y="-2135.641" Z="1277.844" />
-		<TurnIn QuestName="The Eye of Twilight" QuestId="25300" TurnInName="Eye of Twilight" TurnInId="202697" X="5201.717" Y="-2084.617" Z="1280.64" />
-		<PickUp QuestName="Mastering Puppets" QuestId="25301" GiverName="Eye of Twilight" GiverId="202697" GiverType="Object" X="5201.717" Y="-2084.617" Z="1280.64" />
-		<PickUp QuestName="Gar'gol's Gotta Go" GiverName="Kristoff Manheim" QuestId="25328" GiverId="39640" X="5038.081" Y="-2084.975" Z="1276.445" />
-			<Objective QuestName="Gar'gol's Gotta Go" QuestId="25328" Type="CollectItem" ItemId="52789" CollectCount="1" />
-			<While Condition="((HasQuest(25298)) &amp;&amp; (!IsQuestCompleted(25298)))" >
-				<CustomBehavior File="InteractWith" QuestId="25298" MobId="39644" NumOfTimes="10" GossipOptions="1" WaitTime="1000" CollectionDistance="300" X="5144.358" Y="-2076.16" Z="1277.518" />
-			</While>
-		<TurnIn QuestName="Gar'gol's Gotta Go" QuestId="25328" TurnInName="Kristoff Manheim" TurnInId="39640" X="5038.081" Y="-2084.975" Z="1276.445" />
-		<PickUp QuestName="Get Me Outta Here!" QuestId="25332" GiverName="Kristoff Manheim" GiverId="39640" X="5038.081" Y="-2084.975" Z="1276.445" />
-			<If Condition="((HasQuest(25332)) &amp;&amp; (!IsQuestCompleted(25332)))" >
-				<RunTo X="5184.401" Y="-2084.53" Z="1281.333" />
-			</If>
-		<TurnIn QuestName="Mastering Puppets" TurnInName="The Twilight Apocrypha" QuestId="25301" TurnInId="202712" TurnInType="Object" X="5017.413" Y="-2024.35" Z="1269.838" />
-		<Pickup QuestName="Elementary!" QuestId="25303" GiverName="The Twilight Apocrypha" GiverId="202712" GiverType="Object" X="5017.413" Y="-2024.35" Z="1269.838" />
-			<While Condition="((HasQuest(25303)) &amp;&amp; (!IsQuestCompleted(25303)))" >
-				<CustomBehavior File="InteractWith" QuestId="25303" MobId="39730" NumOfTimes="1" CollectionDistance="50" X="5013.506" Y="-2028.906" Z="1270.055" />
-				<CustomBehavior File="InteractWith" QuestId="25303" MobId="39737" NumOfTimes="1" CollectionDistance="50" X="5015.306" Y="-2022.625" Z="1270.277" />
-				<CustomBehavior File="InteractWith" QuestId="25303" MobId="39736" NumOfTimes="1" CollectionDistance="50" X="5013.495" Y="-2023.632" Z="1270.493" />
-				<CustomBehavior File="InteractWith" QuestId="25303" MobId="39738" NumOfTimes="1" CollectionDistance="50" X="5017.704" Y="-2028.753" Z="1269.8" />
-			</While>
-		<TurnIn QuestName="Elementary!" TurnInName="The Twilight Apocrypha" QuestId="25303" TurnInId="202712" TurnInType="Object" X="5017.413" Y="-2024.35" Z="1269.838" />
-		<Pickup QuestName="Return to Duskwhisper" GiverName="The Twilight Apocrypha" QuestId="25312" GiverId="202712" GiverType="Object" X="5017.413" Y="-2024.35" Z="1269.838" />
-			<If Condition="(HasQuest(25312))" >
-				<RunTo X="5191.049" Y="-2089.05" Z="1280.774" />
-				<CustomBehavior File="FlyTo" X="5344.717" Y="-2132.941" Z="1280.52" />
-				<CustomBehavior File="ForcedDismount" />
-			</If>
-		<TurnIn QuestName="Return to Duskwhisper" QuestId="25312" TurnInName="Royce Duskwhisper" TurnInId="39435" X="5344.717" Y="-2132.941" Z="1280.52" />
 		<TurnIn QuestName="Get Me Outta Here!" QuestId="25332" TurnInName="Royce Duskwhisper" TurnInId="39435" X="5344.717" Y="-2132.941" Z="1280.52" />
 		<TurnIn QuestName="Free Your Mind, the Rest Follows" QuestId="25298" TurnInName="Rio Duran" TurnInId="39434" X="5344.717" Y="-2132.941" Z="1280.52" />
 		<TurnIn QuestName="Cleaning House" QuestId="25278" TurnInName="Ian Duran" TurnInId="39433" X="5344.717" Y="-2132.941" Z="1280.52" />
