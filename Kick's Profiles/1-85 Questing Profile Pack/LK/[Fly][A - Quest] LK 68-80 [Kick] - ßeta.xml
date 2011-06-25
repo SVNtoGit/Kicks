@@ -11852,7 +11852,7 @@
 				<CustomBehavior File="MyCTM" X="7313.958" Y="-1611.88" Z="944.5136" />
 				<Objective QuestId="12855" Type="CollectItem" ItemId="41430" CollectCount="1" />
 			</If>
-			<If Condition="((HasQuest(12855)) &amp;&amp; (IsQuestCompleted(12855)))" >
+			<If Condition="((HasQuest(12855)) &amp;&amp; (!IsQuestCompleted(12855)))" > <!-- this quest doesn't complete properly -->
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}"  />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(40971)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for bot {TimeRemaining}"  />
@@ -11869,7 +11869,7 @@
 			</If>
 			<If Condition="((!HasQuest(12858)) &amp;&amp; (!IsQuestCompleted(12858)))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(40971)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for bot {TimeRemaining}"  />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}"  />
 		<PickUp QuestName="Pieces to the Puzzle" GiverName="Brann Bronzebeard" QuestId="12858" GiverId="29579" />
 			</If>
 			<If Condition="((HasQuest(12858)) &amp;&amp; (!IsQuestCompleted(12858)))" >
@@ -11881,13 +11881,13 @@
 			<If Condition="((HasQuest(12858)) &amp;&amp; (IsQuestCompleted(12858)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}"  />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(40971)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for bot {TimeRemaining}"  />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}"  />
 		<TurnIn QuestName="Pieces to the Puzzle" TurnInName="Brann Bronzebeard" QuestId="12858" TurnInId="29579" />
 		<PickUp QuestName="Data Mining" GiverName="Brann Bronzebeard" QuestId="12860" GiverId="29579" />
 			</If>
 			<If Condition="((!HasQuest(12860)) &amp;&amp; (!IsQuestCompleted(12860)))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(40971)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for bot {TimeRemaining}"  />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}"  />
 		<PickUp QuestName="Data Mining" GiverName="Brann Bronzebeard" QuestId="12860" GiverId="29579" />
 			</If>
 			<If Condition="((HasQuest(12860)) &amp;&amp; (!IsQuestCompleted(12860)))" >
@@ -11900,7 +11900,7 @@
 			<If Condition="((HasQuest(12860)) &amp;&amp; (IsQuestCompleted(12860)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}"  />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(40971)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for bot {TimeRemaining}"  />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}"  />
 		<TurnIn QuestName="Data Mining" TurnInName="Brann Bronzebeard" QuestId="12860" TurnInId="29579" />
 		<PickUp QuestName="The Library Console" QuestId="13415" GiverName="Brann Bronzebeard" GiverId="29579" />
 			</If>
@@ -11920,7 +11920,7 @@
 			</If>
 			<If Condition="((HasQuest(12872)) &amp;&amp; (IsQuestCompleted(12872)))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(40971)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for bot {TimeRemaining}"  />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}"  />
 		<TurnIn QuestName="Norgannon's Shell" QuestId="12872" TurnInName="Brann Bronzebeard" TurnInId="29579" />			
 		<PickUp QuestName="Aid from the Explorers' League" GiverName="Brann Bronzebeard" QuestId="12871" GiverId="29579" />
 		<PickUp QuestName="The Exiles of Ulduar" GiverName="Brann Bronzebeard" QuestId="12885" GiverId="29579" />
@@ -12048,8 +12048,8 @@
 
 
 
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
 		<!--
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
 		-->
 		
 		<!-- stopping here for now
@@ -12058,33 +12058,41 @@
 		
 		
 		
-		
-			<SetGrindArea><GrindArea>
-				<Factions>16 1693 190</Factions> <!-- [Gnoll, Kobold, Mammoth] -->
-				<TargetMinLevel>75</TargetMinLevel>
-				<TargetMaxLevel>80</TargetMaxLevel>
-				<Hotspots>
-					<Hotspot X="6285.17" Y="-896.4157" Z="409.7999" />
-					<Hotspot X="6325.764" Y="-892.1709" Z="408.42" />
-					<Hotspot X="6383.059" Y="-863.1478" Z="408.4239" />
-					<Hotspot X="6373.252" Y="-824.2702" Z="409.4583" />
-					<Hotspot X="6322.515" Y="-791.652" Z="407.4753" />
-					<Hotspot X="6266.65" Y="-796.7496" Z="408.6371" />
-					<Hotspot X="6243.16" Y="-840.7773" Z="407.1665" />
-					<Hotspot X="6265.521" Y="-694.8317" Z="418.3795" />
-					<Hotspot X="6239.067" Y="-666.7831" Z="416.1303" />
-					<Hotspot X="6180.708" Y="-650.7217" Z="404.7965" />
-					<Hotspot X="6225.924" Y="-593.2983" Z="416.8743" />
-					<Hotspot X="6260.139" Y="-620.3668" Z="419.7072" />
-					<Hotspot X="6301.604" Y="-629.5598" Z="423.3912" />
-					<Hotspot X="6302.375" Y="-674.4965" Z="425.3145" />
-					<Hotspot X="6264.413" Y="-698.1252" Z="418.4413" />
-				</Hotspots>
-			</GrindArea></SetGrindArea>
-			<GrindTo Level="80" />
-		<Checkpoint Level="80" />
-		
-		
+			<!-- End of AFK Profile -->
+			<If Condition="(Me.Level &lt; 80)" >
+			
+	  <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" ExpiryTime="20" ExpiryAction="InputEnabled_Continue" SoundCueInterval="2" 
+	  Text="End of AFK profile - Press continue to grind to 80 (This window will auto continue in 20 seconds)\n\nYou can also load the Beta profile if you are near the computer for more xp" />
+			
+				<CustomBehavior File="FlyTo" DestName="Grind Area" X="6285.17" Y="-896.4157" Z="409.7999" />
+				<CustomBehavior File="ForcedDismount" />
+				
+					<SetGrindArea><GrindArea>
+						<Factions>16 1693 190</Factions> <!-- [Gnoll, Kobold, Mammoth] -->
+						<TargetMinLevel>75</TargetMinLevel>
+						<TargetMaxLevel>80</TargetMaxLevel>
+						<Hotspots>
+							<Hotspot X="6285.17" Y="-896.4157" Z="409.7999" />
+							<Hotspot X="6325.764" Y="-892.1709" Z="408.42" />
+							<Hotspot X="6383.059" Y="-863.1478" Z="408.4239" />
+							<Hotspot X="6373.252" Y="-824.2702" Z="409.4583" />
+							<Hotspot X="6322.515" Y="-791.652" Z="407.4753" />
+							<Hotspot X="6266.65" Y="-796.7496" Z="408.6371" />
+							<Hotspot X="6243.16" Y="-840.7773" Z="407.1665" />
+							<Hotspot X="6265.521" Y="-694.8317" Z="418.3795" />
+							<Hotspot X="6239.067" Y="-666.7831" Z="416.1303" />
+							<Hotspot X="6180.708" Y="-650.7217" Z="404.7965" />
+							<Hotspot X="6225.924" Y="-593.2983" Z="416.8743" />
+							<Hotspot X="6260.139" Y="-620.3668" Z="419.7072" />
+							<Hotspot X="6301.604" Y="-629.5598" Z="423.3912" />
+							<Hotspot X="6302.375" Y="-674.4965" Z="425.3145" />
+							<Hotspot X="6264.413" Y="-698.1252" Z="418.4413" />
+						</Hotspots>
+					</GrindArea></SetGrindArea>
+				<GrindTo Level="80" />
+			</If>
+			
+			
 		<CustomBehavior File="LoadProfile" ProfileName="..\GoTo\LK to EK" /> 
 
 
