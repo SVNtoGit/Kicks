@@ -129,6 +129,17 @@
 		</Objective>
 	</Quest>
 
+	<Quest Id="25886" Name="Pressing the Advantage">
+		<Objective Type="KillMob" MobId="41502" KillCount="4">
+			<Hotspots>
+				<Hotspot X="4606.767" Y="-3648.59" Z="963.2474" />
+				<Hotspot X="4537.515" Y="-3586.065" Z="979.9473" />
+				<Hotspot X="4556.738" Y="-3453.727" Z="1005.438" />
+				<Hotspot X="4558.623" Y="-3313.177" Z="1009.224" />		
+			</Hotspots>
+		</Objective>
+	</Quest>
+				
 	<Quest Id="25746" Name="Sethria's Brood">
 		<Objective Type="KillMob" MobId="41029" KillCount="12">
 			<Hotspots>
@@ -1809,8 +1820,8 @@
 			</If>
 			<!-- End of The Flamewake Quests -->
 			
-			<!-- The Regrowth Quests -->
-				<CustomBehavior File="Message" Text="Compiling The Regrowth Quests" LogColor="Cornflowerblue" />
+			<!-- The Scorched Plain Quests -->
+				<CustomBehavior File="Message" Text="Compiling The Scorched Plain Quests" LogColor="Cornflowerblue" />
 
 			<If Condition="((HasQuest(25843)) &amp;&amp; (IsQuestCompleted(25843)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4477.372" Y="-2718.52" Z="1101.165" />
@@ -1831,43 +1842,101 @@
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4477.372" Y="-2718.52" Z="1101.165" />
 		<PickUp QuestName="Breakthrough" QuestId="25899" GiverName="Niden" GiverId="41507" />
 			</If>
-
-			
-
-		<!--
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
-		-->
-		
+			<If Condition="((!HasQuest(25901)) &amp;&amp; (!IsQuestCompleted(25901)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4663.579" Y="-3373.202" Z="1024.012" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Hyjal Recycling Program" QuestId="25901" GiverName="Logram" GiverId="41497" />
+			</If>
+			<If Condition="((HasQuest(25904)) &amp;&amp; (!IsQuestCompleted(25904)))" >
+				<CustomBehavior File="FlyTo" DestName="get Key" X="4648.17" Y="-3212.85" Z="1036.619" />
+				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="The Hammer and the Key" QuestId="25904" Type="Collect" CollectCount="1" ItemId="56177" />
+			</If>
 			<If Condition="((HasQuest(25881)) &amp;&amp; (!IsQuestCompleted(25881)))" >
+				<CustomBehavior File="FlyTo" DestName="Rescue Wardens" X="4648.17" Y="-3212.85" Z="1036.619" />
+				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" QuestId="25881" MobId="41499" NumOfTimes="30" GossipOptions="1" WaitTime="1000" CollectionDistance="500" X="4609.796" Y="-2955.545" Z="1067.854" />
 			</If>
-			<Objective QuestName="Breakthrough" QuestId="25899" Type="KillMob" MobId="41500" KillCount="10" />
-			<If Condition="((HasQuest(25904)) &amp;&amp; (IsQuestCompleted(25904)))" >
-				<CustomBehavior File="FlyTo" X="4477.372" Y="-2718.52" Z="1101.165" />
+			<If Condition="((HasQuest(25901)) &amp;&amp; (!IsQuestCompleted(25901)))" >
+				<CustomBehavior File="FlyTo" DestName="collect Arrows" X="4598.39" Y="-3278.6" Z="1015.619" />
 				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Hyjal Recycling Program" QuestId="25901" Type="Collect" CollectCount="15" ItemId="56176" />
 			</If>
+			<If Condition="((HasQuest(25899)) &amp;&amp; (!IsQuestCompleted(25899)))" >
+				<CustomBehavior File="FlyTo" DestName="kill 10 Scorchlords" X="4648.17" Y="-3212.85" Z="1036.619" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Breakthrough" QuestId="25899" Type="KillMob" MobId="41500" KillCount="10" />
+			</If>
+			<If Condition="((HasQuest(25904)) &amp;&amp; (IsQuestCompleted(25904)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4477.372" Y="-2718.52" Z="1101.165" />
 		<TurnIn QuestName="The Hammer and the Key" QuestId="25904" TurnInName="Tortolla" TurnInId="41504" />
 		<PickUp QuestName="The Third Flamegate" QuestId="25906" GiverName="Tortolla" GiverId="41504" />
-			<If Condition="((HasQuest(25899)) &amp;&amp; (IsQuestCompleted(25899)))" >
-				<CustomBehavior File="FlyTo" X="4664.163" Y="-3353.545" Z="1024.168" />
-				<CustomBehavior File="ForcedDismount" />
 			</If>
+			<If Condition="((!HasQuest(25906)) &amp;&amp; (!IsQuestCompleted(25906)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4477.372" Y="-2718.52" Z="1101.165" />
+		<PickUp QuestName="The Third Flamegate" QuestId="25906" GiverName="Tortolla" GiverId="41504" />
+			</If>
+			<If Condition="((HasQuest(25899)) &amp;&amp; (IsQuestCompleted(25899)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4663.579" Y="-3373.202" Z="1024.012" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Breakthrough" QuestId="25899" TurnInName="Captain Irontree" TurnInId="41492" />
+			 <If Condition="((HasQuest(25881)) &amp;&amp; (IsQuestCompleted(25881)))" >
 		<TurnIn QuestName="Lost Wardens" QuestId="25881" TurnInName="Captain Irontree" TurnInId="41492" />
 		<PickUp QuestName="Pressing the Advantage" QuestId="25886" GiverName="Captain Irontree" GiverId="41492" />
-		<PickUp QuestName="Hyjal Recycling Program" QuestId="25901" GiverName="Logram" GiverId="41497" />
-			<Objective QuestName="Hyjal Recycling Program" QuestId="25901" Type="Collect" CollectCount="15" ItemId="56176" />
-			<Objective QuestName="Pressing the Advantage" QuestId="25886" Type="KillMob" KillCount="4" MobId="41502" />
-		<TurnIn QuestName="Pressing the Advantage" QuestId="25886" TurnInName="Captain Irontree" TurnInId="41492" />
+			 </If>
+			<If Condition="((HasQuest(25901)) &amp;&amp; (IsQuestCompleted(25901)))" >
 		<TurnIn QuestName="Hyjal Recycling Program" QuestId="25901" TurnInName="Logram" TurnInId="41497" />
-			<If Condition="(HasQuest(25906))" >
-				<CustomBehavior File="FlyTo" X="4637.39" Y="-3689.15" Z="954.4733" />
-				<CustomBehavior File="ForcedDismount" />
 			</If>
+			</If>
+			<If Condition="((HasQuest(25881)) &amp;&amp; (IsQuestCompleted(25881)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4663.579" Y="-3373.202" Z="1024.012" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Lost Wardens" QuestId="25881" TurnInName="Captain Irontree" TurnInId="41492" />
+		<PickUp QuestName="Pressing the Advantage" QuestId="25886" GiverName="Captain Irontree" GiverId="41492" />
+			</If>
+			<If Condition="((!HasQuest(25886)) &amp;&amp; (!IsQuestCompleted(25886)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4663.579" Y="-3373.202" Z="1024.012" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Pressing the Advantage" QuestId="25886" GiverName="Captain Irontree" GiverId="41492" />
+			</If>
+			<If Condition="((HasQuest(25901)) &amp;&amp; (IsQuestCompleted(25901)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4663.579" Y="-3373.202" Z="1024.012" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Hyjal Recycling Program" QuestId="25901" TurnInName="Logram" TurnInId="41497" />
+			</If>
+			<If Condition="((HasQuest(25886)) &amp;&amp; (!IsQuestCompleted(25886)))" >
+				<CustomBehavior File="FlyTo" DestName="kill 4 Field Captains" X="4606.483" Y="-3637.274" Z="963.1493" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Pressing the Advantage" QuestId="25886" Type="KillMob" KillCount="4" MobId="41502" />
+			</If>
+			<If Condition="((HasQuest(25886)) &amp;&amp; (IsQuestCompleted(25886)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4663.579" Y="-3373.202" Z="1024.012" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Pressing the Advantage" QuestId="25886" TurnInName="Captain Irontree" TurnInId="41492" />
+			</If>
+			<!-- End of The Scorched Plains -->
+
+			<!-- The Crucible of Flame Quests -->
+				<CustomBehavior File="Message" Text="Compiling The Crucible of Flame Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((HasQuest(25906)) &amp;&amp; (IsQuestCompleted(25906)))" >
+				<CustomBehavior File="FlyTo" DestName="The Third Flamegate" X="4637.39" Y="-3689.15" Z="954.4733" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="The Third Flamegate" QuestId="25906" TurnInName="Garunda Mountainpeak" TurnInId="41498" X="4678.29" Y="-3657.86" Z="696.7037" />
 		<PickUp QuestName="The Time for Mercy has Passed" QuestId="25910" GiverName="Garunda Mountainpeak" GiverId="41498" X="4678.29" Y="-3657.86" Z="696.7037" />
 		<PickUp QuestName="The Strength of Tortolla" QuestId="25915" GiverName="Garunda Mountainpeak" GiverId="41498" X="4678.29" Y="-3657.86" Z="696.7037" />
+			</If>
+			<If Condition="((!HasQuest(25910)) &amp;&amp; (!IsQuestCompleted(25910)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4637.39" Y="-3689.15" Z="954.4733" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Time for Mercy has Passed" QuestId="25910" GiverName="Garunda Mountainpeak" GiverId="41498" X="4678.29" Y="-3657.86" Z="696.7037" />
+		<PickUp QuestName="The Strength of Tortolla" QuestId="25915" GiverName="Garunda Mountainpeak" GiverId="41498" X="4678.29" Y="-3657.86" Z="696.7037" />
+			</If>
+			<If Condition="((!HasQuest(25915)) &amp;&amp; (!IsQuestCompleted(25915)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4637.39" Y="-3689.15" Z="954.4733" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Strength of Tortolla" QuestId="25915" GiverName="Garunda Mountainpeak" GiverId="41498" X="4678.29" Y="-3657.86" Z="696.7037" />
+			</If>
 			<While Condition="((HasQuest(25915)) &amp;&amp; (!IsQuestCompleted(25915)))" >
 				<CustomBehavior File="InteractWith" QuestId="25915" MobId="41498" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="4678.012" Y="-3660.107" Z="696.8307" />
 				<RunTo QuestId="25915" X="4552.849" Y="-3731.336" Z="673.9423" />
@@ -1888,27 +1957,50 @@
 			</If>
 		<TurnIn QuestName="Finish Nemesis" QuestId="25923" TurnInName="Garunda Mountainpeak" TurnInId="41498" />
 		<PickUp QuestName="Tortolla's Triumph" QuestId="25928" GiverName="Garunda Mountainpeak" GiverId="41498" />
-			<If Condition="(HasQuest(25928))" >
+			<!-- End of Crucible of Flame Quests -->
+		
+			<!-- Darkwhisper Pass Quests -->
+				<CustomBehavior File="Message" Text="Compiling Darkwhisper Pass Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((HasQuest(25928)) &amp;&amp; (IsQuestCompleted(25928)))" >
 				<RunTo X="4676.442" Y="-3682.449" Z="697.7275" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
-				<CustomBehavior File="FlyTo" X="4477.372" Y="-2718.52" Z="1101.165" />
-				<CustomBehavior File="ForcedDismount" />
-			</If>
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4477.372" Y="-2718.52" Z="1101.165" />
 		<TurnIn QuestName="Tortolla's Triumph" QuestId="25928" TurnInName="Tortolla" TurnInId="41504" />
 		<PickUp QuestName="The Ancients are With Us" QuestId="25653" GiverName="Tortolla" GiverId="41504" />
-			<If Condition="(HasQuest(25653))" >
-				<CustomBehavior File="FlyTo" X="5135.679" Y="-3384.412" Z="1707.247" />
-				<CustomBehavior File="MyCTM" X="5492.198" Y="-3561.557" Z="1569.734" />
 			</If>
+			<If Condition="((!HasQuest(25653)) &amp;&amp; (!IsQuestCompleted(25653)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4477.372" Y="-2718.52" Z="1101.165" />
+		<PickUp QuestName="The Ancients are With Us" QuestId="25653" GiverName="Tortolla" GiverId="41504" />
+			</If>
+			<If Condition="((HasQuest(25653)) &amp;&amp; (IsQuestCompleted(25653)))" >
+				<CustomBehavior File="FlyTo" DestName="Nordrassil" X="5135.679" Y="-3384.412" Z="1707.247" />
+				<CustomBehavior File="MyCTM" X="5492.198" Y="-3561.557" Z="1569.734" />
 		<TurnIn QuestName="The Ancients are With Us" QuestId="25653" TurnInName="Ysera" TurnInId="40289" />
 		<PickUp QuestName="Commander Jarod Shadowsong" QuestId="25597" GiverName="Ysera" GiverId="40289" />
-			<If Condition="(HasQuest(25597))" >
-				<RunTo X="5540.258" Y="-3631.135" Z="1566.344" />
-				<CustomBehavior File="FlyTo" X="4543.903" Y="-3985.049" Z="941.8311" />
-				<CustomBehavior File="ForcedDismount" />
 			</If>
+			<If Condition="((!HasQuest(25597)) &amp;&amp; (!IsQuestCompleted(25597)))" >
+				<CustomBehavior File="FlyTo" DestName="Nordrassil" X="5135.679" Y="-3384.412" Z="1707.247" />
+				<CustomBehavior File="MyCTM" X="5492.198" Y="-3561.557" Z="1569.734" />
+		<PickUp QuestName="Commander Jarod Shadowsong" QuestId="25597" GiverName="Ysera" GiverId="40289" />
+			</If>
+			<If Condition="((HasQuest(25597)) &amp;&amp; (IsQuestCompleted(25597)))" >
+				<CustomBehavior File="FlyTo" DestName="" X="5540.258" Y="-3631.135" Z="1566.344" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4543.903" Y="-3985.049" Z="941.8311" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Commander Jarod Shadowsong" QuestId="25597" TurnInName="Elementalist Ortell" TurnInId="39621" />
 		<PickUp QuestName="Signed in Blood" QuestId="25274" GiverName="Elementalist Ortell" GiverId="39621" />
+			</If>
+			<If Condition="((!HasQuest(25274)) &amp;&amp; (!IsQuestCompleted(25274)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4543.903" Y="-3985.049" Z="941.8311" />
+		<PickUp QuestName="Signed in Blood" QuestId="25274" GiverName="Elementalist Ortell" GiverId="39621" />
+			</If>
+			
+			
+		<!--
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
+		-->
+		
 			<While Condition="((HasQuest(25274)) &amp;&amp; (!IsQuestCompleted(25274)))" >
 				<RunTo QuestId="25274" X="4484.46" Y="-4055.922" Z="935.4614" />
 				<CustomBehavior File="InteractWith" QuestId="25274" MobId="39619" NumOfTimes="1" WaitTime="1000" CollectionDistance="200" X="4499.621" Y="-4052.924" Z="936.8698" />
