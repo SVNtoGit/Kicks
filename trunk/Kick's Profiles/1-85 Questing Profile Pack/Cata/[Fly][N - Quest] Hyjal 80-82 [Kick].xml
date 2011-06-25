@@ -1356,19 +1356,23 @@
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4411.69" Y="-2077.85" Z="1210.7" />
 		<PickUp QuestName="Prepping the Soil" QuestId="25502" GiverName="Rayne Feathersong" GiverId="40331" X="4411.69" Y="-2077.85" Z="1210.7" />
 			</If>
-			<!-- this one is kind of weird, due to him roaming.  it kind of works, but kind of doesn't
 			<If Condition="((HasQuest(25507)) &amp;&amp; (!IsQuestCompleted(25507)))" >
 				<CustomBehavior File="FlyTo" DestName="get Nemises' Shell" X="4607.118" Y="-2437.628" Z="1147.097" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="UseItemOn2" QuestId="25507" MobId="40340" ItemId="54744" MinRange="20" WaitTime="2000" Range="30" />
-				<CustomBehavior File="InteractWith" QuestId="25507" MobId="40340" WaitTime="3000" />
-				<Objective QuestName="Hell's Shells" QuestId="25507" Type="Collect" CollectCount="1" ItemId="54745"  />
+				<!-- this doesn't work right <CustomBehavior File="CombatUseItemOn" MobId="40340" ItemId="54744" MobHpPercentLeft="100" /> -->
+			 <While Condition="((HasQuest(25507)) &amp;&amp; (!IsQuestCompleted(25507)))" >
+				<CustomBehavior File="UseItemOn" QuestId="25507" MobId="40340" ItemId="54744" WaitTime="1000" MinRange="15" Range="25" CollectionDistance="500" />
+				<CustomBehavior File="WaitTimer" WaitTime="7000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="25507" MobId="40340" WaitTime="3000" IgnoreCombat="True" CollectionDistance="600" />
+				<!-- <Objective QuestName="Hell's Shells" QuestId="25507" Type="Collect" CollectCount="1" ItemId="54745"  /> -->
+			 </While>
 			</If>
+			<!--
 			<If Condition="((HasQuest(25502)) &amp;&amp; (!IsQuestCompleted(25502)))" >
-				<CustomBehavior File="InteractWith" QuestId="25502" MobId="202929" />
+				<CustomBehavior File="InteractWith" QuestId="25502" MobId="202929" CollectionDistance="600" />
 				<CustomBehavior File="WaitTimer" WaitTime="7000" />
 			</If>
- -->
+			-->
 
 
 
