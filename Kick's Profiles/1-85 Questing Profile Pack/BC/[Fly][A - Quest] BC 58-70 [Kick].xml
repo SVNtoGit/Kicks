@@ -58,6 +58,7 @@
 	</AvoidMobs>
   
 	<Blackspots>
+		<Blackspot X="-974.4414" Y="8933.254" Z="102.6603" Radius="2.83279" />
 		<Blackspot X="1547.783" Y="8607.752" Z="-33.55394" Radius="3.632762" />
 		<Blackspot X="-3340.626" Y="2127.664" Z="78.71019" Radius="45.0951" />
 		<Blackspot X="3092.799" Y="2217.017" Z="158.5844" Radius="30.00" />
@@ -230,6 +231,19 @@
 		<Vendor Name="Fel-Caller Guloto" Entry="50128" Type="Train" TrainClass="Warlock" X="-1892.142" Y="5371.018" Z="-12.4265" />
 	</Vendors>
 
+	<Quest Id="9819" Name="The Tortured Earth">
+		<Objective Type="KillMob" KillCount="10" Name="Tortured Earth Spirit" MobId="17156" >
+			<Hotspots>
+				<Hotspot X="-1304.029" Y="6639.784" Z="49.66998" />
+				<Hotspot X="-1167.692" Y="6633.203" Z="79.75835" />
+				<Hotspot X="-1257.877" Y="6585.345" Z="58.1963" />
+				<Hotspot X="-1335.746" Y="6504.973" Z="65.51266" />
+				<Hotspot X="-1569.19" Y="6424.806" Z="29.62448" />
+				<Hotspot X="-1580.694" Y="6288.443" Z="50.09601" />
+				<Hotspot X="-1611.919" Y="6252.762" Z="71.41828" />			
+			</Hotspots>
+		</Objective>
+	</Quest>
 	<Quest Id="10502" Name="The Bloodmaul Ogres">
 		<Objective Type="KillMob" MobId="19991" KillCount="30">
 			<Hotspots>
@@ -2884,7 +2898,11 @@
 			<Objective QuestName="A Rare Bean" QuestId="9800" Type="CollectItem" CollectCount="8" Name="Digested Caracoli" ItemId="24419" />
 			<Objective QuestName="Talbuk Mastery" QuestId="9858" Type="KillMob" KillCount="12" Name="Talbuk Thorngrazer" MobId="17131" />
 			<Objective QuestName="Clefthoof Mastery" QuestId="9850" Type="KillMob" KillCount="12" Name="Clefthoof Bull" MobId="17132" />
-			<Objective QuestName="The Tortured Earth" QuestId="9819" Type="KillMob" KillCount="10" Name="Tortured Earth Spirit" MobId="17156" />
+			<If Condition="((HasQuest(9819)) &amp;&amp; (!IsQuestCompleted(9819)))" >
+				<CustomBehavior File="FlyTo" DestName="kill 10 Rocks" X="-1304.029" Y="6639.784" Z="49.66998" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Tortured Earth" QuestId="9819" Type="KillMob" KillCount="10" Name="Tortured Earth Spirit" MobId="17156" />
+			</If>
 			<If Condition="((HasQuest(10109)) &amp;&amp; (!IsQuestCompleted(10109)))" >
 				<CustomBehavior File="FlyTo" X="-1652.224" Y="6889.364" Z="-12.50284" />
 				<CustomBehavior File="ForcedDismount" />
