@@ -1,5 +1,5 @@
 <HBProfile>
-	<Name>[Fly][N - Rep Quest] Firelands Dailies [Kick]</Name>
+	<Name>[Fly][N - Rep Quest] Hyjal Firelands Dailies [Kick]</Name>
 
 	<MinDurability>0.1</MinDurability>
 
@@ -7,13 +7,26 @@
 	<Blackspots>
 	</Blackspots>
 	<AvoidMobs>
+		<Mob Name="Leyara" Entry="53014" />
 	</AvoidMobs>
 	
 	
-	<Quest Id="29125" Name="Between the Trees">
-	</Quest>
 	<Quest Id="29127" Name="Rage Against the Flames">
 		<Objective Type="KillMob" MobId="52816" KillCount="8">
+			<Hotspots>
+				<Hotspot X="4691.802" Y="-2261.604" Z="1169.293" />
+				<Hotspot X="4617.677" Y="-2198.616" Z="1156.865" />
+				<Hotspot X="4730.866" Y="-2198.972" Z="1196.309" />
+				<Hotspot X="4709.215" Y="-2350.19" Z="1174.337" />
+				<Hotspot X="4658.587" Y="-2478.721" Z="1146.134" />
+				<Hotspot X="4746.831" Y="-2559.83" Z="1160.337" />
+				<Hotspot X="4629.755" Y="-2602.287" Z="1134.873" />
+				<Hotspot X="4410.779" Y="-2556.289" Z="1119.575" />	
+			</Hotspots>
+		</Objective>
+	</Quest>	
+	<Quest Id="29123" Name="Rage Against the Flames">
+		<Objective Type="KillMob" MobId="52816" KillCount="6">
 			<Hotspots>
 				<Hotspot X="4691.802" Y="-2261.604" Z="1169.293" />
 				<Hotspot X="4617.677" Y="-2198.616" Z="1156.865" />
@@ -92,7 +105,6 @@
 											FireLocationX="4499.939" FireLocationY="-1968.376" FireLocationZ="1218.086"
 											TargetLocationX="4566.33" TargetLocationY="-1988.167" TargetLocationZ="1211.557" />
 					</If>
-				
 				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			 </While>
 			</If>
@@ -141,8 +153,9 @@
 	
 	
 	
+			<If Condition="(HasQuest(29127)) || (HasQuest(29123)) || (HasQuest(29126)) || (HasQuest(29122))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quests" X="4426.363" Y="-2084.204" Z="1209.685" />	
-				<CustomBehavior File="ForcedDismount" />
+			</If>
 			
 			<If Condition="((HasQuest(29127)) &amp;&amp; (IsQuestCompleted(29127)))" >
 		<TurnIn QuestName="Rage Against the Flames" QuestId="29127" TurnInName="Matoclaw" TurnInId="52669" />
@@ -170,7 +183,26 @@
 			</If>
 			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
 			</If>
-	
+
+			
+			<!-- Calling for Reinforcements - 20 Tokens -->
+			<If Condition="((HasQuest(29199)) &amp;&amp; (IsQuestCompleted(29199)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4418.696" Y="-2080.762" Z="1210.32" />
+		<TurnIn QuestName="Calling for Reinforcements" QuestId="29199" TurnInName="Arch Druid Hamuul Runetotem" TurnInId="52838" />
+		<PickUp QuestName="Leyara" QuestId="29200" GiverName="Arch Druid Hamuul Runetotem" GiverId="52838" />
+			</If>
+			
+			<If Condition="(IsQuestCompleted(29201))" >
+				<CustomBehavior File="FlyTo" DestName="Firelands" X="4618.406" Y="-2093.736" Z="1238.793" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" MobId="208900" ObjectType="Gameobject" WaitTime="10000" X="4605.788" Y="-2095.764" Z="1238.9" />
+	<CustomBehavior File="LoadProfile" ProfileName="[Fly][N - Rep Quest] Molten Front Firelands Dailies [Kick]" /> 
+			</If>
+			<If Condition="(IsQuestCompleted(29199))" >
+	<CustomBehavior File="LoadProfile" ProfileName="[Fly][N - Quest] Hyjal to Firelands Quests [Kick]" /> 
+			</If>
+				
+			
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
 		<!--
 		-->
