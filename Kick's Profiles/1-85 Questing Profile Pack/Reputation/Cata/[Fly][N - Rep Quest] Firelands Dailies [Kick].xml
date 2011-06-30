@@ -1,0 +1,133 @@
+<HBProfile>
+	<Name>[Fly][N - Rep Quest] Firelands Dailies [Kick]</Name>
+
+	<MinDurability>0.1</MinDurability>
+
+
+	<Blackspots>
+	</Blackspots>
+	<AvoidMobs>
+	</AvoidMobs>
+	
+	
+	<Quest Id="29125" Name="Between the Trees">
+	</Quest>
+	<Quest Id="29127" Name="Rage Against the Flames">
+		<Objective Type="KillMob" MobId="52816" KillCount="8">
+			<Hotspots>
+				<Hotspot X="4691.802" Y="-2261.604" Z="1169.293" />
+				<Hotspot X="4617.677" Y="-2198.616" Z="1156.865" />
+				<Hotspot X="4730.866" Y="-2198.972" Z="1196.309" />
+				<Hotspot X="4709.215" Y="-2350.19" Z="1174.337" />
+				<Hotspot X="4658.587" Y="-2478.721" Z="1146.134" />
+				<Hotspot X="4746.831" Y="-2559.83" Z="1160.337" />
+				<Hotspot X="4629.755" Y="-2602.287" Z="1134.873" />
+				<Hotspot X="4410.779" Y="-2556.289" Z="1119.575" />	
+			</Hotspots>
+		</Objective>
+	</Quest>	
+	
+	
+	
+	
+	<QuestOrder>
+	
+		<CustomBehavior File="UserSettings" TrainNewSkills="False" LootMobs="True" PullDistance="25"  />
+	
+			<!-- This is the MobId, not QuestId -->
+			<While Condition="HasQuestAvailable(52669)" >
+				<CustomBehavior File="InteractWith" MobId="52669" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+			</While>
+	
+			
+			<!-- Between the Trees and  -->
+			<While Condition="((HasQuest(29125)) &amp;&amp; (!IsQuestCompleted(29125)))" >
+				<!-- I need an attr for interactwith to UseMount or StayOnMount for this quest unless i have agro -->
+				<CustomBehavior File="FlyTo" QuestId="29125" DestName="capture 3 Spirits of Malorne"  X="4525.667" Y="-2325.843" Z="1140.4" />
+				<CustomBehavior File="InteractWith" QuestId="29125" MobId="52176" NumOfTimes="100" CollectionDistance="500" WaitForNpcs="False" Range="1"  X="4525.667" Y="-2325.843" Z="1140.4" />
+
+				<CustomBehavior File="FlyTo" QuestId="29125" DestName="capture 3 Spirits of Malorne"  X="4480.135" Y="-2519.665" Z="1129.381" />
+				<CustomBehavior File="InteractWith" QuestId="29125" MobId="52176" NumOfTimes="100" CollectionDistance="500" WaitForNpcs="False" Range="1"  X="4480.135" Y="-2519.665" Z="1129.381" />
+
+				<CustomBehavior File="FlyTo" QuestId="29125" DestName="capture 3 Spirits of Malorne"  X="4700.01" Y="-2566.731" Z="1147.963" />
+				<CustomBehavior File="InteractWith" QuestId="29125" MobId="52176" NumOfTimes="100" CollectionDistance="500" WaitForNpcs="False" Range="1"  X="4700.01" Y="-2566.731" Z="1147.963" />
+
+				<CustomBehavior File="FlyTo" QuestId="29125" DestName="capture 3 Spirits of Malorne"  X="4677.301" Y="-2367.177" Z="1164.98" />				
+				<CustomBehavior File="InteractWith" QuestId="29125" MobId="52176" NumOfTimes="100" CollectionDistance="500" WaitForNpcs="False" Range="1"  X="4677.301" Y="-2367.177" Z="1164.98" />
+			</While>
+			<If Condition="((HasQuest(29125)) &amp;&amp; (IsQuestCompleted(29125)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="29125" /> <!-- Get 29126 -->
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(29126)) &amp;&amp; (!IsQuestCompleted(29126)))" >
+				<CustomBehavior File="FlyTo" DestName="kill Galenges" X="4604.546" Y="-2697.2" Z="1140.474" />
+				<CustomBehavior File="ForcedDismount" />
+				<UseItem QuestId="29126" ItemId="68997" X="4604.546" Y="-2697.2" Z="1140.474" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<!-- <Objective QuestName="The Power of Malorne" QuestId="29126" Type="KillMob" MobId="52399" KillCount="1" /> -->
+				<CustomBehavior File="KillUntilComplete" QuestId="29126" MobId="52399" X="4604.546" Y="-2697.2" Z="1140.474" />
+			</If>
+			
+			
+			
+
+			
+			
+			
+			
+			
+			
+			<If Condition="((HasQuest(29127)) &amp;&amp; (!IsQuestCompleted(29127)))" >
+				<CustomBehavior File="FlyTo" DestName="Kill Firelands Invaders" X="4691.802" Y="-2261.604" Z="1169.293" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Rage Against the Flames" QuestId="29127" Type="KillMob" MobId="52816" KillCount="8" />
+			</If>
+	
+
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+			<CustomBehavior File="FlyTo" DestName="Turnin Quests" X="4426.363" Y="-2084.204" Z="1209.685" />	
+			
+			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+		<TurnIn QuestName="Between the Trees" QuestId="29125" TurnInName="Matoclaw" TurnInId="52669" />
+			</If>
+			<If Condition="((HasQuest(29126)) &amp;&amp; (IsQuestCompleted(29126)))" >
+		<TurnIn QuestName="The Power of Malorne" QuestId="29126" TurnInName="Matoclaw" TurnInId="52669" />
+			</If>
+			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+			</If>
+			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+			</If>
+			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+			</If>
+			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+			</If>
+			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+			</If>
+			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+			</If>
+			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+			</If>
+			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+			</If>
+	
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
+		<!--
+		-->
+
+	
+	
+	
+	</QuestOrder>
+</HBProfile>
