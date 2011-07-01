@@ -35,16 +35,30 @@
 			</Hotspots>
 		</Objective>
 	</Quest>	
-	
+	<Quest Id="29304" Name="The Dogs of War">
+		<Objective Type="KillMob" MobId="54339" KillCount="5">
+			<Hotspots>
+				<Hotspot X="1227.841" Y="294.1497" Z="21.199" />
+				<Hotspot X="1111.717" Y="297.7415" Z="15.70232" />
+				<Hotspot X="1141.271" Y="354.0903" Z="16.67934" />
+				<Hotspot X="1131.765" Y="417.3665" Z="16.73324" />
+				<Hotspot X="1216.131" Y="410.7752" Z="18.29552" />
+				<Hotspot X="1254.653" Y="453.8996" Z="22.94057" />
+				<Hotspot X="1198.281" Y="390.2693" Z="16.14559" />
+				<Hotspot X="1168.376" Y="319.9581" Z="16.41817" />
+				<Hotspot X="1125.151" Y="290.8251" Z="15.5314" />
+			</Hotspots>
+		</Objective>
+	</Quest>	
 	
 	<QuestOrder>
 	
 		<CustomBehavior File="UserSettings" TrainNewSkills="False" LootMobs="True" UseMount="True" PullDistance="25"  />
 	
-			<!-- Start Firelands Dailies -->
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" Text="Tilemap for Firelands Dailies is currently *null* \n\nATM you'll have to do these quests manually until the zone is meshed" />
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="2" Text="HEY! DON'T PRESS ALT F4 TO CONTINUE" />
-	<CustomBehavior File="UserSettings" StopBot="True" />
+			<If Condition="((HasQuest(29128)) &amp;&amp; (IsQuestCompleted(29128)))" >
+				<!-- Quest from Hyjal Dailies -->
+		<TurnIn QuestName="The Protectors of Hyjal" QuestId="29128" TurnInName="General Taldris Moonfall" TurnInId="52824" />
+			</If>	
 	
 		<PickUp QuestName="Druids of the Talon" QuestId="29181" GiverName="Malfurion Stormrage" GiverId="52135" />
 		<PickUp QuestName="The Shadow Wardens" QuestId="29214" GiverName="Malfurion Stormrage" GiverId="52135" />
@@ -68,10 +82,12 @@
 	
 	
 			<If Condition="((HasQuest(29139)) &amp;&amp; (!IsQuestCompleted(29139)))" >
+				<!-- Aggressive Growth -->
 				<CustomBehavior File="InteractWith" QuestId="29139" MobId="208545" ObjectType="Gameobject" NumOfTimes="20" CollectionDistance="500" X="1138.623" Y="367.218" Z="17.09965" />
 			</If>
 			
 			<If Condition="((HasQuest(29138)) &amp;&amp; (!IsQuestCompleted(29138)))" >
+				<!-- Burn Victims -->
 				<CustomBehavior File="UseItemOn" QuestId="29138" MobId="52834" ItemId="69240" NumOfTimes="100" WaitTime="3500" Range="5" MobHpPercentLeft="15" CollectionDistance="500" X="1138.623" Y="367.218" Z="17.09965" />
 			</If>
 			
@@ -83,7 +99,8 @@
 				<Objective QuestName="Breach in the Defenses" QuestId="29137" Type="KillMob" MobId="52633" KillCount="5" />
 			</If>
 			
-			<If Condition="((HasQuest()) &amp;&amp; (!IsQuestCompleted()))" >
+			<If Condition="((HasQuest(29304)) &amp;&amp; (!IsQuestCompleted(29304)))" >
+				<Objective QuestName="The Dogs of War" QuestId="29304" Type="KillMob" MobId="54339" KillCount="5" />
 			</If>
 			
 			<If Condition="((HasQuest()) &amp;&amp; (!IsQuestCompleted()))" >
@@ -102,6 +119,7 @@
 			</If>
 			
 	
+
 	
 	
 	
@@ -134,7 +152,8 @@
 			<If Condition="((HasQuest(29138)) &amp;&amp; (IsQuestCompleted(29138)))" >
 		<TurnIn QuestName="Burn Victims" QuestId="29138" TurnInName="Captain Irontree" TurnInId="53080" />
 			</If>
-			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+			<If Condition="((HasQuest(29304)) &amp;&amp; (IsQuestCompleted(29304)))" >
+		<TurnIn QuestName="The Dogs of War" QuestId="29304" TurnInName="General Taldris Moonfall" TurnInId="52824" />
 			</If>
 			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
 			</If>
@@ -183,4 +202,5 @@
 	
 	
 	</QuestOrder>
+
 </HBProfile>
