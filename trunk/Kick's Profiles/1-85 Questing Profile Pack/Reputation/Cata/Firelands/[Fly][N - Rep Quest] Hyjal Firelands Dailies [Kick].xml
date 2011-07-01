@@ -62,8 +62,19 @@
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
 			</While>
+			<While Condition="HasQuestAvailable(53073)" >
+				<CustomBehavior File="InteractWith" MobId="53073" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+			</While>
 	
-			
+			<!-- Protectors of Hyjal -->
+			<If Condition="((HasQuest(29128)) &amp;&amp; (!IsQuestCompleted(29128)))" >
+				<CustomBehavior File="FlyTo" DestName="kill Sethria's Roost" X="4103.459" Y="-2301.724" Z="1131.987" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Protectors of Hyjal" QuestId="29128" Type="KillMob" MobId="52300" KillCount="6" />
+			</If>
+	
 			<!-- Between the Trees and The Power of Malorne -->
 			<While Condition="((HasQuest(29125)) &amp;&amp; (!IsQuestCompleted(29125)))" >
 				<!-- I need an attr for interactwith to UseMount or StayOnMount for this quest unless i have agro -->
@@ -92,7 +103,7 @@
 				<CustomBehavior File="KillUntilComplete" QuestId="29126" MobId="52399" X="4604.546" Y="-2697.2" Z="1140.474" />
 			</If>
 			
-			<!-- Punting Season and  -->
+			<!-- Punting Season and Echoes of Nemesis -->
 			<If Condition="((HasQuest(29101)) &amp;&amp; (!IsQuestCompleted(29101)))" >
 				<CustomBehavior File="FlyTo" DestName="Punt Turtles" X="4499.939" Y="-1968.376" Z="1218.086" />
 				<CustomBehavior File="ForcedDismount" />
@@ -123,10 +134,56 @@
 				<Objective QuestName="Echoes of Nemesis" QuestId="29122" Type="KillMob" MobId="52383" KillCount="1" />
 			</If>
 
+			<!-- Bears up there and Nature's Blessing -->
+			<If Condition="((HasQuest(29161)) &amp;&amp; (!IsQuestCompleted(29161)))" >
+				<CustomBehavior File="FlyTo" DestName="throw Bears Down" X="5250.184" Y="-1527.648" Z="1361.464" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UserSettings" PullDistance="1" />
+				<CustomBehavior File="InteractWith" QuestId="29161" MobId="52676" CollectionDistance="2" X="5254.562" Y="-1536.917" Z="1361.341" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
+				
+				<!-- 74920 is the climbing auraid - aura in tree is 46598 - but I can't get this behavior to climb all the way up 
+				<CustomBehavior File="MountHyjal\BearsUpThereF" QuestName="The Bears Up There" QuestId="29161" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				-->
+				
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Chuck the bears down, climb down and jump off the tree and press continue" />
+				
+				<CustomBehavior File="UserSettings" PullDistance="25" />
+			</If>
+			<If Condition="((HasQuest(29161)) &amp;&amp; (IsQuestCompleted(29161)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="29161" /> <!-- Get  -->
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(29162)) &amp;&amp; (!IsQuestCompleted(29162)))" >
+				<CustomBehavior File="FlyTo" DestName="kill Pyrachnis" X="4927.581" Y="-1493.392" Z="1328.175" />
+				<CustomBehavior File="ForcedDismount" />
+				<UseItem QuestId="29162" ItemId="69232" X="4927.581" Y="-1493.392" Z="1328.175" />
+				<!-- poison doesn't hurt us
+				<CustomBehavior File="CombatUseItemOn" QuestId="29162" MobId="52749" ItemId="69232" HasAuraId="97515" CollectionDistance="500" X="4927.581" Y="-1493.392" Z="1328.175" /> -->
+				<Objective QuestName="Nature's Blessing" QuestId="29162" Type="KillMob" MobId="52749" KillCount="1" />
+			</If>
 
 			
-
 			
+
+
+
+
+		<!-- <TurnIn QuestName="Those Bears Up There" QuestId="29161" TurnInName="" TurnInId="" /> -->
+
+	
+	
+	
+	
+	
+	
+			<!-- Rage Against the Flames x9 -->
+			<If Condition="((HasQuest(29163)) &amp;&amp; (!IsQuestCompleted(29163)))" >
+				<CustomBehavior File="FlyTo" DestName="Kill Firelands Invaders" X="4691.802" Y="-2261.604" Z="1169.293" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Rage Against the Flames" QuestId="29127" Type="KillMob" MobId="52816" KillCount="9" />
+			</If>
 			<!-- Rage Against the Flames x8 -->
 			<If Condition="((HasQuest(29127)) &amp;&amp; (!IsQuestCompleted(29127)))" >
 				<CustomBehavior File="FlyTo" DestName="Kill Firelands Invaders" X="4691.802" Y="-2261.604" Z="1169.293" />
@@ -142,15 +199,6 @@
 	
 
 	
-
-
-	
-	
-	
-	
-	
-	
-	
 	
 	
 			<If Condition="(HasQuest(29127)) || (HasQuest(29123)) || (HasQuest(29126)) || (HasQuest(29122))" >
@@ -163,13 +211,20 @@
 			<If Condition="((HasQuest(29123)) &amp;&amp; (IsQuestCompleted(29123)))" >
 		<TurnIn QuestName="Rage Against the Flames" QuestId="29123" TurnInName="Matoclaw" TurnInId="52669" />
 			</If>
+			<If Condition="((HasQuest(29163)) &amp;&amp; (IsQuestCompleted(29163)))" >
+		<TurnIn QuestName="Rage Against the Flames" QuestId="29163" TurnInName="Matoclaw" TurnInId="52669" />
+			</If>
 			<If Condition="((HasQuest(29126)) &amp;&amp; (IsQuestCompleted(29126)))" >
 		<TurnIn QuestName="The Power of Malorne" QuestId="29126" TurnInName="Matoclaw" TurnInId="52669" />
 			</If>
 			<If Condition="((HasQuest(29122)) &amp;&amp; (IsQuestCompleted(29122)))" >
 		<TurnIn QuestName="Echoes of Nemesis" QuestId="29122" TurnInName="Mylune" TurnInId="52671" />
 			</If>
-			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+			<If Condition="((HasQuest(29162)) &amp;&amp; (IsQuestCompleted(29162)))" >
+		<TurnIn QuestName="Nature's Blessing" QuestId="29162" TurnInName="Mylune" TurnInId="52671" />
+			</If>
+			<If Condition="((HasQuest(29128)) &amp;&amp; (IsQuestCompleted(29128)))" >
+		<TurnIn QuestName="The Protectors of Hyjal" QuestId="29128" TurnInName="General Taldris Moonfall" TurnInId="52824" />
 			</If>
 			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
 			</If>
@@ -177,19 +232,18 @@
 			</If>
 			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
 			</If>
-			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
-			</If>
-			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
-			</If>
-			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
-			</If>
-
 			
-			<!-- Calling for Reinforcements - 20 Tokens -->
 			<If Condition="((HasQuest(29199)) &amp;&amp; (IsQuestCompleted(29199)))" >
+				<!-- Calling for Reinforcements - 20 Tokens -->
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4418.696" Y="-2080.762" Z="1210.32" />
 		<TurnIn QuestName="Calling for Reinforcements" QuestId="29199" TurnInName="Arch Druid Hamuul Runetotem" TurnInId="52838" />
 		<PickUp QuestName="Leyara" QuestId="29200" GiverName="Arch Druid Hamuul Runetotem" GiverId="52838" />
+			</If>
+			
+			<If Condition="((HasQuest(29202)) &amp;&amp; (IsQuestCompleted(29202)))" >
+				<!-- After completing the Firelands Turnin -->
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4427.619" Y="-2098.229" Z="1205.72" />
+		<TurnIn QuestName="The Fate of Runetotem" QuestId="29202" TurnInName="Dorda'en Nightweaver" TurnInId="52986" />
 			</If>
 			
 			<If Condition="(IsQuestCompleted(29201))" >
@@ -211,4 +265,5 @@
 	
 	
 	</QuestOrder>
+
 </HBProfile>
