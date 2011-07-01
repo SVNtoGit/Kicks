@@ -227,14 +227,20 @@
 			<TurnIn QuestName="A Rough Start" QuestId="24767" TurnInName="Zen'tabra" TurnInId="38243"/>
 
 			<PickUp QuestName="Proving Pit" QuestId="24768" GiverName="Zen'tabra" GiverId="38243"/>
-			<CustomBehavior QuestId="24768" File="TalkToAndListenToStory" NpcIds="39062" />
-			<If Condition="HasQuest(24768)">
-				<CustomBehavior File="WaitTimer" WaitTime="10000"/></If>
+				<!-- change this to interactwith, gossipoptions -->
+			<CustomBehavior QuestId="24768" File="TalkToAndListenToStory" MobIds="39062" />
+				<If Condition="HasQuest(24768)">
+					<CustomBehavior File="WaitTimer" WaitTime="10000"/>
+				</If>
 			<Objective QuestName="Proving Pit" QuestId="24768" Type="KillMob" MobId="38142" KillCount="1"/>
 			<TurnIn QuestName="Proving Pit" QuestId="24768" TurnInName="Zen'tabra" TurnInId="38243"/>
 
 			<PickUp QuestName="The Arts of a Druid" QuestId="24766" GiverName="Zen'tabra" GiverId="38243" />
-			<CustomBehavior File="CastSpellOn" QuestId="24766" SpellId="5185" NpcId="47057" NumOfTimes="6" MinRange="13" X="-1105.562" Y="-5470.519" Z="12.51251" />
+				<If Condition="((HasQuest(24766)) &amp;&amp; (!IsQuestCompleted(24766)))" >
+					<CustomBehavior File="ForceSetVendor" DoTrain="True" />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+					<CustomBehavior File="CastSpellOn" QuestId="24766" SpellId="5185" MobId="47057" NumOfTimes="6" MinRange="13" X="-1105.562" Y="-5470.519" Z="12.51251" />
+				</If>
 			<TurnIn QuestName="The Arts of a Druid" QuestId="24766" TurnInName="Zen'tabra" TurnInId="38243"/>
 		</If>
 
