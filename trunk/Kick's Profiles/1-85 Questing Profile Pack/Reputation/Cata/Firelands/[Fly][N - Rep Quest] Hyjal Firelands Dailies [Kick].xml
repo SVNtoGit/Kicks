@@ -67,7 +67,28 @@
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
 			</While>
+			<While Condition="HasQuestAvailable(52986)" >
+				<CustomBehavior File="InteractWith" MobId="52986" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+			</While>
+			<!--
+			<While Condition="HasQuestAvailable()" >
+				<CustomBehavior File="InteractWith" MobId="" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+			</While>
+			-->
+			
+			
 	
+			<!-- Relieving the Pain -->
+			<If Condition="((HasQuest(29246)) &amp;&amp; (!IsQuestCompleted(29246)))" >
+				<CustomBehavior File="FlyTo" DestName="get 4 Flame-Wreathed Hearts" X="4103.459" Y="-2301.724" Z="1131.987" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Relieving the Pain" QuestId="29246" Type="CollectItem" ItemId="69678" CollectCount="4" />
+			</If>
+			
 			<!-- Protectors of Hyjal -->
 			<If Condition="((HasQuest(29128)) &amp;&amp; (!IsQuestCompleted(29128)))" >
 				<CustomBehavior File="FlyTo" DestName="kill Sethria's Roost" X="4103.459" Y="-2301.724" Z="1131.987" />
@@ -164,9 +185,47 @@
 				<Objective QuestName="Nature's Blessing" QuestId="29162" Type="KillMob" MobId="52749" KillCount="1" />
 			</If>
 
+			<!-- Call the Flock and  -->
+			<If Condition="((HasQuest(29147)) &amp;&amp; (!IsQuestCompleted(29147)))" >
+				<CustomBehavior File="FlyTo" DestName="Call The Flock" X="5079.347" Y="-1363.696" Z="1372.45" />
+				
+	<CustomBehavior File="UserDialog" QuestId="29147" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Use the 'feather' and then use the vehicle to call birds \n\nPress continue when completed" />
+	<CustomBehavior File="UserDialog" QuestId="29147" StopOnContinue="True" SoundCue="Exclamation" SoundCueInterval="1" Text="HEY, NO PRESSIE DA BUTTON!!!11111ONEONEONEONE11!!111" />
+				
+				<!-- Flying Vehicle quest w/ a simple useitem
+				<Objective QuestName="Call the Flock" QuestId="29147" Type="CollectItem" ItemId="69234" CollectCount="1" />
+				<CustomBehavior File="ForcedDismount" />
+				-->
+			</If>
+			<If Condition="((HasQuest(29147)) &amp;&amp; (IsQuestCompleted(29147)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="29147" /> <!-- Get  -->
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(29148)) &amp;&amp; (!IsQuestCompleted(29148)))" >
+					<!-- Flying Vehicle quest w/ a useitem to help kill the elite -->
+					<If Condition="StyxWoW.Me.IsOnTransport" >
+						<CustomBehavior File="EjectVeh" Eject="True" />
+					</If>
+				<CustomBehavior File="FlyTo" DestName="kill Millagazor" X="4933.787" Y="-1490.77" Z="1327.634" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(69212)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Using item {TimeRemaining}" />
+				<Objective QuestName="Wings Aflame" QuestId="29148" Type="KillMob" MobId="52649" KillCount="1" />
+			</If>
+
+
+			
+			
 			
 			
 
+			
+			
+			
+			
+			
+			
+			
 
 
 
@@ -214,15 +273,17 @@
 			<If Condition="((HasQuest(29126)) &amp;&amp; (IsQuestCompleted(29126)))" >
 		<TurnIn QuestName="The Power of Malorne" QuestId="29126" TurnInName="Matoclaw" TurnInId="52669" />
 			</If>
+			<If Condition="((HasQuest(29148)) &amp;&amp; (IsQuestCompleted(29148)))" >
+		<TurnIn QuestName="Wings Aflame" QuestId="29148" TurnInName="Matoclaw" TurnInId="52669" />
+			</If>
 			<If Condition="((HasQuest(29122)) &amp;&amp; (IsQuestCompleted(29122)))" >
 		<TurnIn QuestName="Echoes of Nemesis" QuestId="29122" TurnInName="Mylune" TurnInId="52671" />
 			</If>
 			<If Condition="((HasQuest(29162)) &amp;&amp; (IsQuestCompleted(29162)))" >
 		<TurnIn QuestName="Nature's Blessing" QuestId="29162" TurnInName="Mylune" TurnInId="52671" />
 			</If>
-			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
-			</If>
-			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+			<If Condition="((HasQuest(29246)) &amp;&amp; (IsQuestCompleted(29246)))" >
+		<TurnIn QuestName="Relieving the Pain" QuestId="29246" TurnInName="Dorda'en Nightweaver" TurnInId="52986" />
 			</If>
 			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
 			</If>
