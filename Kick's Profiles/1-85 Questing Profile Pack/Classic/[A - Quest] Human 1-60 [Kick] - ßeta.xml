@@ -7256,8 +7256,10 @@
 		<PickUp QuestName="Our Fallen Friends" GiverName="Enohar Thunderbrew" QuestId="25708" GiverId="9540" X="-11038.6" Y="-3444.98" Z="65.79061" />
 		<PickUp QuestName="Curtail the Darktail" GiverName="Enohar Thunderbrew" QuestId="25709" GiverId="9540" X="-11038.6" Y="-3444.98" Z="65.79061" />
 			<While Condition="((HasQuest(25709)) &amp;&amp; (!IsQuestCompleted(25709)))" >
+				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<RunTo X="-11418.44" Y="-3692.187" Z="2.534489" />
-				<CustomBehavior File="UseItemOn" QuestId="25709" MobId="42235" ItemId="57119" NpcState="Alive" NumOfTimes="1" WaitTime="2500" Range="100" CollectionDistance="500" X="-11418.44" Y="-3692.187" Z="2.534489" />
+				<CustomBehavior File="UseItemOn" QuestId="25709" MobId="42235" ItemId="57119" NpcState="Alive" NumOfTimes="50" WaitTime="2500" Range="100" CollectionDistance="500" X="-11418.44" Y="-3692.187" Z="2.534489" />
+				<CustomBehavior File="UserSettings" PullDistance="20" />
 			</While>
 			<Objective QuestName="Our Fallen Friends" QuestId="25708" Type="KillMob" KillCount="13" MobId="42252" />
 		<TurnIn QuestName="Our Fallen Friends" TurnInName="Enohar Thunderbrew" QuestId="25708" TurnInId="9540" X="-11038.6" Y="-3444.98" Z="65.79061" />
@@ -7292,10 +7294,10 @@
 			<While Condition="((HasQuest(26169)) &amp;&amp; (!IsQuestCompleted(26169)))" >
 				<CustomBehavior File="InteractWith" QuestId="26169" MobId="203230" NumOfTimes="1" ObjectType="Gameobject" X="-11450.43" Y="-3793.646" Z="-4.315826" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000"/>
-				<!-- stupid water nav
-				<CustomBehavior File="BasicInteractWith" QuestId="26169" MobId="41267" MoveTo="1" /> -->
+				<CustomBehavior File="InteractWith" QuestId="26169" WaitForNpcs="False" MobId="41267" Nav="Mesh" X="-11446.05" Y="-3799.944" Z="-1.927538" />
+				<CustomBehavior File="InteractWith" QuestId="26169" WaitForNpcs="False" MobId="41267" Nav="CTM" X="-11446.05" Y="-3799.944" Z="-1.927538" />
+				<Objective QuestName="The Amulet of Grol" QuestId="26169" Type="CollectItem" CollectCount="1" ItemId="10753" />
 			</While>
-			<Objective QuestName="The Amulet of Grol" QuestId="26169" Type="CollectItem" CollectCount="1" ItemId="10753" />
 		<PickUp QuestName="Home... Gone... Naga..." GiverName="Salt-Flop" QuestId="25702" GiverId="41265" X="-11741.48" Y="-3873.863" Z="57.23456" />
 			<If Condition="((HasQuest(26168)) &amp;&amp; (!IsQuestCompleted(26168)))" >
 				<CustomBehavior File="InteractWith" QuestId="26168" MobId="41265" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="-11744.36" Y="-3871.997" Z="57.32174" />
@@ -7395,6 +7397,7 @@
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(57179)" NumOfTimes="2" WaitTime="1000" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(57182)" NumOfTimes="1" WaitTime="5000" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(57180)" NumOfTimes="1" WaitTime="7000" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			 </While>
 				<!-- <Objective QuestName="Demoniac Vessel" QuestId="26186" Type="CollectItem" ItemId="57184" CollectCount="1" /> -->
 			</If>
