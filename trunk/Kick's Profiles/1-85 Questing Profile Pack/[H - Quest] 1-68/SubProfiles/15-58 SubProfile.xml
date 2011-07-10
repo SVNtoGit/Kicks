@@ -781,7 +781,7 @@
 			<!-- End of Darsok's Outpost Quests -->
 			
 			<!-- Dreadmist Camp Quests -->
-			<CustomBehavior File="Message" Text="Compiling  Quests" LogColor="Cornflowerblue" />
+			<CustomBehavior File="Message" Text="Compiling Dreadmist Camp Quests" LogColor="Cornflowerblue" />
 
 		<PickUp QuestName="Mor'shan Caravan Rescue" QuestId="29110" GiverName="Nagala Whipshank" GiverId="52207" />
 		<TurnIn QuestName="Mor'shan Caravan Rescue" QuestId="29110" TurnInName="Balgor Whipshank" TurnInId="52309" />
@@ -798,8 +798,6 @@
 				<CustomBehavior File="UserSettings" PullDistance="20" />
 			</If>
 		<TurnIn QuestName="Mor'shan Caravan Delivery" QuestId="29111" TurnInName="Kadrak" TurnInId="8582" />
-	
-		
 		
 		<SetGrindArea>
 			<GrindArea>
@@ -819,30 +817,119 @@
 				</Hotspots>
 			</GrindArea>
 		</SetGrindArea>
-		<GrindTo Level="19"/>
-		<Checkpoint Level="19"/>
+		<GrindTo Level="20"/>
+		<Checkpoint Level="20"/>
 		
-			<If Condition="((!HasQuest(13615)) &amp;&amp; (!IsQuestCompleted(13615)))" >
-	<PickUp QuestName="Empty Quivers" QuestId="13615" GiverName="Truun" GiverId="33284" X="1228.235" Y="-2226.454" Z="91.74738" />
+		<!-- Begin Mount Procedure -->
+		<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue == 0 &amp;&amp; Me.Silver &gt;= 450" >
+		
+				<CustomBehavior File="Message" Text="Compiling Mount Procedures" LogColor="Orange" />
+
+			<If Condition="Me.Race == WoWRace.Orc" >
+				<CustomBehavior File="ForceTrainRiding" MobId="4752" X="2084.29" Y="-4572.058" Z="49.25319" />
+				<If Condition="!HasItem(5665)" >
+					<CustomBehavior File="InteractWith" MobId="3362" BuyItemId="5665" X="2076.602" Y="-4568.632" Z="49.25319" />
+				</If>
+				<If Condition="HasItem(5665)" >
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(5665)" WaitTime="1000" />
+				</If>
 			</If>
+			<If Condition="Me.Race == WoWRace.Goblin" >
+				<CustomBehavior File="ForceTrainRiding" MobId="48513" X="1475.32" Y="-4140.98" Z="52.51" />
+				<If Condition="!HasItem(62461)" >
+					<CustomBehavior File="InteractWith" MobId="48510" BuyItemId="62461" X="1475.32" Y="-4140.98" Z="52.51" />
+				</If>
+				<If Condition="HasItem(62461)" >
+						<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62461)" WaitTime="1000" />
+				</If>
+			</If>
+			<If Condition="Me.Race == WoWRace.Troll">
+				<CustomBehavior File="ForceTrainRiding" MobId="7953" X="-852.78" Y="-4885.40" Z="22.03" />
+				<If Condition="!HasItem(8588)" >
+					<CustomBehavior File="InteractWith" MobId="7952" BuyItemId="8588" X="-852.78" Y="-4885.40" Z="22.03" />
+				</If>
+				<If Condition="HasItem(8588)" >
+						<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(8588)" WaitTime="1000" />
+				</If>
+			</If>
+			<If Condition="Me.Race == WoWRace.Tauren" >
+				<CustomBehavior File="ForceTrainRiding" MobId="3690" X="-2275.65" Y="-399.94" Z="-9.40" />
+				<If Condition="!HasItem(15277)" >
+					<CustomBehavior File="InteractWith" MobId="3685" BuyItemId="15277" X="-2279.796" Y="-392.0697" Z="-9.396863" />
+				</If>
+				<If Condition="HasItem(15277)" >
+						<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(15277)" WaitTime="1000" />
+				</If>
+			</If>
+			<If Condition="Me.Race == WoWRace.Undead" >
+				<CustomBehavior File="UseTransport" TransportId="164871"
+						GetOffX="2070.155" GetOffY="289.2588" GetOffZ="97.0315" 
+						TransportEndX="2062.376" TransportEndY="292.998" TransportEndZ="114.973"
+						TransportStartX="1833.509" TransportStartY="-4391.543" TransportStartZ="152.7679"
+						WaitAtX="1840.225" WaitAtY="-4390.912" WaitAtZ="135.2337" />
+				<CustomBehavior File="ForceTrainRiding" MobId="4773" X="2275.08" Y="237.00" Z="33.69" />
+				<If Condition="!HasItem(46308)" >
+					<CustomBehavior File="InteractWith" MobId="4731" BuyItemId="46308" X="2275.08" Y="237.00" Z="33.69" />
+				</If>
+				<If Condition="HasItem(46308)" >
+						<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(46308)" WaitTime="1000" />
+				</If>
+				<CustomBehavior File="UseTransport" TransportId="164871"
+						WaitAtX="2070.155" WaitAtY="289.2588" WaitAtZ="97.0315" 
+						TransportStartX="2062.376" TransportStartY="292.998" TransportStartZ="114.973"
+						TransportEndX="1833.509" TransportEndY="-4391.543" TransportEndZ="152.7679"
+						StandOnX="2067.979" StandOnY="295.2747" StandOnZ="97.23677" 
+						GetOffX="1840.225" GetOffY="-4390.912" GetOffZ="135.2337" />
+				</If>
+			<If Condition="Me.Race == WoWRace.BloodElf" >
+				<CustomBehavior File="UseTransport" TransportId="164871"
+						GetOffX="2070.155" GetOffY="289.2588" GetOffZ="97.0315" 
+						TransportEndX="2062.376" TransportEndY="292.998" TransportEndZ="114.973"
+						TransportStartX="1833.509" TransportStartY="-4391.543" TransportStartZ="152.7679"
+						WaitAtX="1840.225" WaitAtY="-4390.912" WaitAtZ="135.2337" />
+						
+				<CustomBehavior File="InteractWith" MobId="184503" ObjectType="Gameobject" Range="8" X="1805.877" Y="345.0006" Z="70.79002" />
+				<CustomBehavior File="ForceTrainRiding" MobId="16280" X="9244.59" Y="-7491.566" Z="36.91401"  />
+				<If Condition="!HasItem(29221)" >
+					<CustomBehavior File="InteractWith" MobId="16264" BuyItemId="29221" X="9244.59" Y="-7491.566" Z="36.91401"  />
+				</If>
+				<If Condition="HasItem(29221)" >
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(29221)" WaitTime="1000" />
+				</If>
+				<CustomBehavior File="InteractWith" MobId="184502" ObjectType="Gameobject" Range="8" X="10021" Y="-7014" Z="49.71769"  />
+				<CustomBehavior File="UseTransport" TransportId="164871"
+						WaitAtX="2070.155" WaitAtY="289.2588" WaitAtZ="97.0315" 
+						TransportStartX="2062.376" TransportStartY="292.998" TransportStartZ="114.973"
+						TransportEndX="1833.509" TransportEndY="-4391.543" TransportEndZ="152.7679"
+						StandOnX="2067.979" StandOnY="295.2747" StandOnZ="97.23677" 
+						GetOffX="1840.225" GetOffY="-4390.912" GetOffZ="135.2337" />
+				</If>
+
+		</If>
+		
+			<CustomBehavior File="Message" Text="Compiling Ashenvale Quests" LogColor="Green" />
+	
+			<!-- The Mor'shan Rampart Quests -->
+			<CustomBehavior File="Message" Text="Compiling The Mor'shan Rampart Quests" LogColor="Cornflowerblue" />
+		
+		<PickUp QuestName="Empty Quivers" QuestId="13615" GiverName="Truun" GiverId="33284" X="1228.235" Y="-2226.454" Z="91.74738" />
 		<PickUp QuestName="Mor'shan Defense" QuestId="13612" GiverName="Kadrak" GiverId="8582"/>
 		<PickUp QuestName="Find Gorat!" QuestId="13618" GiverName="Kadrak" GiverId="8582"/>
-		<Objective QuestName="Empty Quivers" QuestId="13615" Type="CollectItem" ItemId="45004" CollectCount="10"/>
+			<Objective QuestName="Empty Quivers" QuestId="13615" Type="CollectItem" ItemId="45004" CollectCount="10"/>
 		<TurnIn QuestName="Empty Quivers" QuestId="13615" TurnInName="Truun" TurnInId="33284"/>
-		<Objective QuestName="Mor'shan Defense" QuestId="13612" Type="KillMob" MobId="33193" KillCount="5"/>
-		<Objective QuestName="Mor'shan Defense" QuestId="13612" Type="KillMob" MobId="33195" KillCount="5"/>
+			<Objective QuestName="Mor'shan Defense" QuestId="13612" Type="KillMob" MobId="33193" KillCount="5"/>
+			<Objective QuestName="Mor'shan Defense" QuestId="13612" Type="KillMob" MobId="33195" KillCount="5"/>
 		<TurnIn QuestName="Mor'shan Defense" QuestId="13612" TurnInName="Kadrak" TurnInId="8582"/>
 		<TurnIn QuestName="Find Gorat!" QuestId="13618" TurnInName="Gorat" TurnInId="33294"/>
 		<PickUp QuestName="Final Report" QuestId="13619" GiverName="Gorat" GiverId="33294"/>
 		<TurnIn QuestName="Final Report" QuestId="13619" TurnInName="Kadrak" TurnInId="8582"/>
 		<PickUp QuestName="To Dinah, at Once!" QuestId="13620" GiverName="Kadrak" GiverId="8582"/>
 		<TurnIn QuestName="To Dinah, at Once!" QuestId="13620" TurnInName="Dinah Halfmoon" TurnInId="33263"/>
-		
 		<PickUp QuestName="Gorat's Vengeance" QuestId="13621" GiverName="Dinah Halfmoon" GiverId="33263" />
-		<UseItem ItemId="45023" QuestName="Gorat's Vengeance" QuestId="13621" X="1424.913" Y="-1999.623" Z="96.3291"/>
-		<If Condition="HasQuest(13621)">
-			<CustomBehavior File="Escort" NpcId="33304" QuestId="13621" X="1424.95" Y="-1999.65" Z="96.18333" />
-		</If>
+			<UseItem ItemId="45023" QuestName="Gorat's Vengeance" QuestId="13621" X="1424.913" Y="-1999.623" Z="96.3291"/>
+			<If Condition="HasQuest(13621)">
+				<CustomBehavior File="Escort" NpcId="33304" QuestId="13621" X="1424.95" Y="-1999.65" Z="96.18333" />
+			</If>
 		<Objective QuestName="Gorat's Vengeance" QuestId="13621" Type="KillMob" MobId="33302" KillCount="1" />
 		<TurnIn QuestName="Gorat's Vengeance" QuestId="13621" TurnInName="Kadrak" TurnInId="8582" />
 		<SetGrindArea>
@@ -864,8 +951,7 @@
 			</GrindArea>
 		</SetGrindArea>
 		<GrindTo Level="20"/>
-		<!-- BEGIN GET MOUNT PROCEDURE -->
-		<If Condition="Me.Level == 20">
+			<!-- BEGIN GET MOUNT PROCEDURE -->
 			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 1">
 				<If Condition="Me.Race == WoWRace.Tauren">
 					<If Condition="Me.ZoneId != 215">
@@ -967,8 +1053,7 @@
 					<CustomBehavior File="UseItem" ItemId="1132" />
 				</If>
 			</If>
-		</If>
-		<!--END GET MOUNT PROCEDURE -->
+			<!--END GET MOUNT PROCEDURE -->
 
 		<!--RETURN TRIP TO ORG-->
 		<If Condition="Me.MapId != 1">
