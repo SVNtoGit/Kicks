@@ -277,6 +277,14 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+	<Quest Id="29088" Name="Hyena Extermination">
+		<Objective Type="KillMob" MobId="4127" KillCount="6">
+			<Hotspots>
+					  <Hotspot X="933.4305" Y="-2930.237" Z="91.66684" />
+					  <Hotspot X="751.1871" Y="-2914.983" Z="93.96053" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 	
 	<!-- Ashenvale Overrides-->
 	<Quest Name="Building Your Own Coffin" Id="13983" >
@@ -538,7 +546,7 @@
 			
 			<CustomBehavior File="Message" Text="Compiling N. Barrens Quests" LogColor="Green" />
 
-			<!-- Ratchet -->
+			<!-- Ratchet Quests -->
 			<CustomBehavior File="Message" Text="Compiling Ratchet Quests" LogColor="Cornflowerblue" />
 
 		<PickUp QuestName="A Captain's Vengeance" QuestId="891" GiverName="Captain Thalo'thas Brightsun" GiverId="3339"/>
@@ -642,62 +650,156 @@
 				<CustomBehavior File="WaitTimer" WaitTime="122000" GoalText="Waiting for ride {TimeRemaining}" />
 			</If>
 		<TurnIn QuestName="Raging River Ride" QuestId="26769" TurnInName="Nozzlepot" TurnInId="34698" />
+			<!-- End of Ratchet Quests -->
 
 			<!-- Nozzlepot's Outpost Quests -->
 			<CustomBehavior File="Message" Text="Compiling Nozzlepot's Outpost Quests" LogColor="Cornflowerblue" />
 
-		
-	
-	
+		<PickUp QuestName="Sludge Investigation" QuestId="29087" GiverName="Nozzlepot" GiverId="34698" />
+		<PickUp QuestName="Hyena Extermination" QuestId="29088" GiverName="Nozzlepot" GiverId="34698" />
+		<PickUp QuestName="Competition Schmompetition" QuestId="29086" GiverName="Sputtervalve" GiverId="3442" />
+		<PickUp QuestName="Samophlange" QuestId="29021" GiverName="Sputtervalve" GiverId="3442" />
+			<If Condition="((HasQuest(29087)) &amp;&amp; (!IsQuestCompleted(29087)))" >
+				<CustomBehavior File="InteractWith" QuestId="29087" MobId="52171" NumOfTimes="50" CollectionDistance="500" X="1022.07" Y="-3174.922" Z="84.61289" />
+			</If>
+			<If Condition="((HasQuest(29087)) &amp;&amp; (IsQuestCompleted(29087)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="29087" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(29089)) &amp;&amp; (!IsQuestCompleted(29089)))" >
+				<CustomBehavior File="InteractWith" QuestId="29089" MobId="208343" ObjectType="Gameobject" Range="8" X="1069.279" Y="-3140.694" Z="66.86901" />
+			</If>
+		<PickUp QuestName="Ignition" QuestId="858" GiverName="Wizzlecrank's Shredder" GiverId="3439" />
+			<Objective QuestName="Ignition" QuestId="858" Type="CollectItem" ItemId="5050" CollectCount="1" />
+			<Objective QuestName="Competition Schmompetition" QuestId="29086" Type="CollectItem" ItemId="68820" CollectCount="6" />
+		<TurnIn QuestName="Ignition" QuestId="858" TurnInName="Wizzlecrank's Shredder" TurnInId="3439" />
+		<PickUp QuestName="The Escape" QuestId="863" GiverName="Wizzlecrank's Shredder" GiverId="3439" />
+			<If Condition="((HasQuest(863)) &amp;&amp; (!IsQuestCompleted(863)))" >
+				<CustomBehavior File="UserSettings" PullDistance="1" />
+				<CustomBehavior File="Escort" QuestId="863" MobId="3439" X="1106.418" Y="-3104.472" Z="82.7077" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="UserSettings" PullDistance="20" />
+			</If>
+		<TurnIn QuestName="Samophlange" QuestId="29021" TurnInType="Object" TurnInName="Control Console" TurnInId="4141" X="824.3635" Y="-2689.097" Z="91.78558" />
+		<PickUp QuestName="Samophlange" QuestId="29022" GiverType="Object" GiverName="Control Console" GiverId="4141" X="824.3635" Y="-2689.097" Z="91.78558" />
+			<While Condition="HasQuest(29022) &amp;&amp; !IsQuestCompleted(29022)">
+				<Objective QuestName="Samophlange" QuestId="29022" Type="UseObject" ObjectId="4072" UseCount="1" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+				<Objective QuestName="Samophlange" QuestId="29022" Type="UseObject" ObjectId="61936" UseCount="1" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+				<Objective QuestName="Samophlange" QuestId="29022" Type="UseObject" ObjectId="61935" UseCount="1" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</While>
+		<TurnIn QuestName="Samophlange" QuestId="29022" TurnInType="Object" TurnInName="Control Console" TurnInId="4141" X="824.3635" Y="-2689.097" Z="91.78558" />
+		<PickUp QuestName="Samophlange" QuestId="29023" GiverType="Object" GiverName="Control Console" GiverId="4141" X="824.3635" Y="-2689.097" Z="91.78558" />
+			<Objective QuestName="Samophlange" QuestId="29023" Type="CollectItem" ItemId="5089" CollectCount="1" />
+		<TurnIn QuestName="Samophlange" QuestId="29023" TurnInType="Object" TurnInName="Control Console" TurnInId="4141" X="824.3635" Y="-2689.097" Z="91.78558" />
+		<PickUp QuestName="Samophlange" QuestId="29024" GiverType="Object" GiverName="Control Console" GiverId="4141" X="824.3635" Y="-2689.097" Z="91.78558" />
+			<Objective QuestName="Hyena Extermination" QuestId="29088" Type="KillMob" MobId="4127" KillCount="6" />
+		<TurnIn QuestName="Samophlange" QuestId="29024" TurnInName="Sputtervalve" TurnInId="3442" />
+		<TurnIn QuestName="Competition Schmompetition" QuestId="29086" TurnInName="Sputtervalve" TurnInId="3442" />
+		<TurnIn QuestName="The Escape" QuestId="863" TurnInName="Sputtervalve" TurnInId="3442" />
+		<PickUp QuestName="Samophlange Repair" QuestId="14003" GiverName="Sputtervalve" GiverId="3442" />
+		<TurnIn QuestName="Sludge Beast!" QuestId="29089" TurnInName="Nozzlepot" TurnInId="34698" />
+		<TurnIn QuestName="Hyena Extermination" QuestId="29088" TurnInName="Nozzlepot" TurnInId="34698" />
+			<If Condition="((HasQuest(14003)) &amp;&amp; (IsQuestCompleted(14003)))" >
+		<TurnIn QuestName="Samophlange Repair" QuestId="14003" TurnInName="Brak Blusterpipe" TurnInId="34674" />
+				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+		<PickUp QuestName="Wenikee Boltbucket" QuestId="29026" GiverName="Brak Blusterpipe" GiverId="34674" />
+			<If Condition="((HasQuest(29026)) &amp;&amp; (IsQuestCompleted(29026)))" >
+				<CustomBehavior File="InteractWith" MobId="34674"  GossipOptions="1" X="1160.245" Y="-3395.619" Z="91.66805" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for port{TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Wenikee Boltbucket" QuestId="29026" TurnInName="Wenikee Boltbucket" TurnInId="9316" />
+		<PickUp QuestName="Nugget Slugs" QuestId="29027" GiverName="Wenikee Boltbucket" GiverId="9316" />
+		<PickUp QuestName="A Burning Threat" QuestId="29090" GiverName="Brogor" GiverId="52192" />
+			<Objective QuestName="Nugget Slugs" QuestId="29027" Type="CollectItem" ItemId="11143" CollectCount="10" />
+			<Objective QuestName="A Burning Threat" QuestId="29090" Type="KillMob" MobId="3379" KillCount="8" />
+		<TurnIn QuestName="A Burning Threat" QuestId="29090" TurnInName="Brogor" TurnInId="52192" />
+		<TurnIn QuestName="Nugget Slugs" QuestId="29027" TurnInName="Wenikee Boltbucket" TurnInId="9316" />
+		<PickUp QuestName="Return to Samophlanger" QuestId="14004" GiverName="Wenikee Boltbucket" GiverId="9316" />
+			<If Condition="((HasQuest(14004)) &amp;&amp; (IsQuestCompleted(14004)))" >
+				<CustomBehavior File="InteractWith" MobId="9316"  GossipOptions="1" X="856.3846" Y="-2348.816" Z="91.79204" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Return to Samophlanger" QuestId="14004" TurnInName="Sputtervalve" TurnInId="3442" />
+		<PickUp QuestName="Read the Manual" QuestId="14006" GiverName="Sputtervalve" GiverId="3442" />
+		<PickUp QuestName="Miner's Fortune" QuestId="29015" GiverName="Brak Blusterpipe" GiverId="34674" />
+			<Objective QuestName="Miner's Fortune" QuestId="29015" Type="CollectItem" ItemId="5097" CollectCount="1" />
+			<Objective QuestName="Read the Manual" QuestId="14006" Type="CollectItem" ItemId="11147" CollectCount="1" />
+			<Objective QuestName="Read the Manual" QuestId="14006" Type="CollectItem" ItemId="11148" CollectCount="5" />
+			<If Condition="((HasQuest(14006)) &amp;&amp; (!IsQuestCompleted(14006)))" >
+				<RunTo X="1157.938" Y="-3395.032" Z="91.66805" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<UseItem ItemId="11147" QuestName="Read the Manual" QuestId="14006" WaitTime="2500" X="1157.938" Y="-3395.032" Z="91.66805" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for item cd {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Miner's Fortune" QuestId="29015" TurnInName="Brak Blusterpipe" TurnInId="34674" />
+			<If Condition="((HasQuest(14006)) &amp;&amp; (IsQuestCompleted(14006)))" >
+		<TurnIn QuestName="Read the Manual" QuestId="14006" TurnInName="Sputtervalve" TurnInId="3442" />
+			</If>
+		<PickUp QuestName="The Short Way Home" QuestId="29094" GiverName="Sputtervalve" GiverId="3442" />
+			<If Condition="((HasQuest(29094)) &amp;&amp; (!IsQuestCompleted(29094)))" >
+				<RunTo X="1138.428" Y="-3375.113" Z="92.64356" />
+				<CustomBehavior File="MyCTM" X="1138.196" Y="-3368.299" Z="94.05231" />
+				<CustomBehavior File="MyCTM" X="1143.117" Y="-3368.273" Z="94.1484" />
+				<CustomBehavior File="MountVehOnly" VehicleMountId="52203" X="1141.137" Y="-3370.053" Z="94.22646" />
+				<CustomBehavior File="WaitTimer" WaitTime="116000" GoalText="Waiting for ride {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="The Short Way Home" QuestId="29094" TurnInName="Darsok Swiftdagger" TurnInId="3449" />
+			<!-- End of Nozzlepot's Outpost Quests -->
+			
+			<!-- Darsok's Outpost Quests -->
+			<CustomBehavior File="Message" Text="Compiling Darsok's Outpost Quests" LogColor="Cornflowerblue" />
+
+		<PickUp QuestName="Harpy Raiders" QuestId="867" GiverName="Darsok Swiftdagger" GiverId="3449" />
+		<PickUp QuestName="Harpy Lieutenants" QuestId="875" GiverName="Darsok Swiftdagger" GiverId="3449" />
+			<Objective QuestName="Harpy Raiders" QuestId="867" Type="CollectItem" ItemId="5064" CollectCount="8" />
+			<If Condition="((HasQuest(867)) &amp;&amp; (IsQuestCompleted(867)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="867" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
+			<Objective QuestName="Harpy Lieutenants" QuestId="875" Type="KillMob" MobId="3278" KillCount="6" />
+			<If Condition="((HasQuest(875)) &amp;&amp; (IsQuestCompleted(875)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="875" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
+			<Objective QuestName="Serena Bloodfeather" QuestId="876" Type="CollectItem" ItemId="5067" CollectCount="1" />
+		<TurnIn QuestName="Serena Bloodfeather" QuestId="876" TurnInName="Darsok Swiftdagger" TurnInId="3449" />
+		<PickUp QuestName="Report to Thork" QuestId="29095" GiverName="Darsok Swiftdagger" GiverId="3449" />
+		<TurnIn QuestName="Report to Thork" QuestId="29095" TurnInName="Thork" TurnInId="3429" />
+		<PickUp QuestName="Mor'shan Caravan Pick-Up" QuestId="29109" GiverName="Thork" GiverId="3429" />
+			<If Condition="((HasQuest(29109)) &amp;&amp; (!IsQuestCompleted(29109)))" >
+				<CustomBehavior File="InteractWith" MobId="52220" GossipOptions="1" WaitTime="5000" X="-381.4866" Y="-2688.53" Z="95.84391" />
+				<CustomBehavior File="MountVehOnly" VehicleMountId="52209" X="-383.2574" Y="-2683.459" Z="95.73019" />
+				<CustomBehavior File="WaitTimer" WaitTime="140000" GoalText="Waiting for ride {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Mor'shan Caravan Pick-Up" QuestId="29109" TurnInName="Nagala Whipshank" TurnInId="52207" />
+			<!-- End of Darsok's Outpost Quests -->
+			
+			<!-- Dreadmist Camp Quests -->
+			<CustomBehavior File="Message" Text="Compiling  Quests" LogColor="Cornflowerblue" />
+
+		<PickUp QuestName="Mor'shan Caravan Rescue" QuestId="29110" GiverName="Nagala Whipshank" GiverId="52207" />
+		<TurnIn QuestName="Mor'shan Caravan Rescue" QuestId="29110" TurnInName="Balgor Whipshank" TurnInId="52309" />
+		<PickUp QuestName="Demon Seed" QuestId="29112" GiverName="Balgor Whipshank" GiverId="52309" />
+			<Objective QuestName="Demon Seed" QuestId="29112" Type="CollectItem" ItemId="68837" CollectCount="1" />
+		<TurnIn QuestName="Demon Seed" QuestId="29112" TurnInName="Nagala Whipshank" TurnInId="52207" />
+		<PickUp QuestName="Mor'shan Caravan Delivery" QuestId="29111" GiverName="Nagala Whipshank" GiverId="52207" />
+			<If Condition="((HasQuest(29111)) &amp;&amp; (!IsQuestCompleted(29111)))" >
+				<!-- Mount Caravan Kodo (Part 04)	96748 -->
+				<CustomBehavior File="UserSettings" PullDistance="1" />
+				<CustomBehavior File="InteractWith" MobId="52207" GossipOptions="1" WaitTime="5000" X="294.1472" Y="-2526.877" Z="91.66673" />
+				<CustomBehavior File="MountVehOnly" VehicleMountId="52314" X="294.6572" Y="-2541.963" Z="91.66673" />
+				<CustomBehavior File="RunMacro" QuestId="29111" Macro="/click BonusActionButton2" NumOfTimes="15" WaitTime="10000" />
+				<CustomBehavior File="UserSettings" PullDistance="20" />
+			</If>
+		<TurnIn QuestName="Mor'shan Caravan Delivery" QuestId="29111" TurnInName="Kadrak" TurnInId="8582" />
 	
-	
 		
-		<!-- Currently Samophlange quest is bugged. Removing whole chain for time being
-		<PickUp QuestName="Samophlange" QuestId="29021" GiverName="Sputtervalve" GiverId="3442" X="1142.627" Y="-3372.585" Z="92.46114" />
-		<TurnIn QuestName="Samophlange" QuestId="29021" TurnInName="Control Console" TurnInId="4141" TurnInType="Object" X="826.1482" Y="-2688.659" Z="91.7657" />
-		<PickUp QuestName="Samophlange" QuestId="29022" GiverName="Control Console" GiverId="4141" GiverType="Object" X="825.1547" Y="-2687.908" Z="91.79817" />
-		<Objective QuestName="Samophlange" QuestId="29022" Type="UseObject" ObjectId="4072" UseCount="1" />
-		<Objective QuestName="Samophlange" QuestId="29022" Type="UseObject" ObjectId="61936" UseCount="1" />
-		<Objective QuestName="Samophlange" QuestId="29022" Type="UseObject" ObjectId="61935" UseCount="1" />
-		<TurnIn QuestName="Samophlange" QuestId="29022" TurnInName="Control Console" TurnInId="4141" />
-		<PickUp QuestName="Samophlange" QuestId="29023" GiverName="Control Console" GiverId="4141" GiverType="Object" X="825.1547" Y="-2687.908" Z="91.79817"/>
-		<Objective QuestName="Samophlange" QuestId="29023" Type="CollectItem" ItemId="5089" CollectCount="1"/>
-		<TurnIn QuestName="Samophlange" QuestId="29023" TurnInName="Control Console" TurnInId="4141"/>
-		<PickUp QuestName="Samophlange" QuestId="29024" GiverName="Control Console" GiverId="4141" GiverType="Object" X="825.1547" Y="-2687.908" Z="91.79817"/>
-		<TurnIn QuestName="Samophlange" QuestId="29024" TurnInName="Sputtervalve" TurnInId="3442"/>
-		<PickUp QuestName="Samophlange Repair" QuestId="14003" GiverName="Sputtervalve" GiverId="3442"/>
-		<TurnIn QuestName="Samophlange Repair" QuestId="14003" TurnInName="Brak Blusterpipe" TurnInId="34674" X="1160.377" Y="-3398.648" Z="91.66685"/>
-		<PickUp QuestName="Wenikee Boltbucket" GiverName="Brak Blusterpipe" QuestId="3921" GiverId="34674" />
-		<CustomBehavior QuestId="3921" File="TalkToAndListenToStory" NpcIds="34674" />
-		<CustomBehavior File="WaitTimer" WaitTime="5000"/>
-		<TurnIn QuestName="Wenikee Boltbucket" TurnInName="Wenikee Boltbucket" QuestId="3921" TurnInId="9316" />
-		<PickUp QuestName="Nugget Slugs" GiverName="Wenikee Boltbucket" QuestId="3922" GiverId="9316" />
-		<Objective QuestName="Nugget Slugs" QuestId="3922" Type="Collect" CollectCount="10" ItemId="11143" />
-		<TurnIn QuestName="Nugget Slugs" TurnInName="Wenikee Boltbucket" QuestId="3922" TurnInId="9316" />
-		<PickUp QuestName="Return to Samophlanger" GiverName="Wenikee Boltbucket" QuestId="14004" GiverId="9316" />
-		<TurnIn QuestName="Return to Samophlanger" TurnInName="Sputtervalve" QuestId="14004" TurnInId="3442" />
-		-->
-		
-		<SetGrindArea>
-			<GrindArea>
-				<TargetMinLevel>14</TargetMinLevel>
-				<TargetMaxLevel>17</TargetMaxLevel>
-				<Factions>48 189 38 16</Factions>
-				<Hotspots>
-					<Hotspot X="1046.813" Y="-3607.161" Z="50.8836" />
-					<Hotspot X="1081.476" Y="-3303.051" Z="91.67207" />
-					<Hotspot X="919.4611" Y="-3161.246" Z="91.66793" />
-					<Hotspot X="875.2319" Y="-2909.201" Z="94.32776" />
-					<Hotspot X="758.006" Y="-2914.293" Z="94.27911" />
-				</Hotspots>
-			</GrindArea>
-		</SetGrindArea>
-		<GrindTo Level="18"/>
-		<Checkpoint Level="18"/>
-		
-		
-		<!-- Ashenvale subprofile attached -->
 		
 		<SetGrindArea>
 			<GrindArea>
@@ -719,9 +821,10 @@
 		</SetGrindArea>
 		<GrindTo Level="19"/>
 		<Checkpoint Level="19"/>
-		<If Condition="!HasQuest(13615) &amp;&amp; !IsQuestCompleted(13615)">
+		
+			<If Condition="((!HasQuest(13615)) &amp;&amp; (!IsQuestCompleted(13615)))" >
 	<PickUp QuestName="Empty Quivers" QuestId="13615" GiverName="Truun" GiverId="33284" X="1228.235" Y="-2226.454" Z="91.74738" />
-		</If>
+			</If>
 		<PickUp QuestName="Mor'shan Defense" QuestId="13612" GiverName="Kadrak" GiverId="8582"/>
 		<PickUp QuestName="Find Gorat!" QuestId="13618" GiverName="Kadrak" GiverId="8582"/>
 		<Objective QuestName="Empty Quivers" QuestId="13615" Type="CollectItem" ItemId="45004" CollectCount="10"/>
