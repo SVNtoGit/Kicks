@@ -1,0 +1,82 @@
+<HBProfile>
+	<Name>[Fly][N - Rep Quest] Shadow - Molten Front Firelands Dailies [Kick]</Name>
+
+	<MinDurability>0.1</MinDurability>
+
+
+	<Blackspots>
+	</Blackspots>
+	<AvoidMobs>
+		<Mob Name="Molten Behemoth" Entry="52552" />
+	</AvoidMobs>
+	<Vendors>
+		<Vendor Name="Zen'Vorka" Entry="52822" Type="Repair" X="979.8785" Y="375.066" Z="37.98084" />
+	</Vendors>
+	
+	
+
+	
+	<QuestOrder>
+	
+		<CustomBehavior File="UserSettings" TrainNewSkills="False" LootMobs="True" UseMount="True" PullDistance="20"  />
+	
+		
+			<If Condition="(IsQuestCompleted(29214)) &amp;&amp; (HasQuest(29215))" >
+		<TurnIn QuestName="The Hunt Begins" QuestId="29215" TurnInName="Captain Saynna Stormrunner" TurnInId="52493" X="982.84" Y="368.9735" Z="38.06548" />
+			</If>
+	
+			<!-- This is the MobId, not QuestId -->
+			<While Condition="HasQuestAvailable(52824)" >
+				<CustomBehavior File="InteractWith" MobId="52824" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+			</While>
+			
+			<If Condition="((HasQuest(29205)) &amp;&amp; (!IsQuestCompleted(29205)))" >
+				<RunTo X="1157.52" Y="277.6692" Z="16.75616" />
+				<CustomBehavior File="UserDialog" QuestId="29205" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Follow the npc's up and kill Pyrelord" />
+				<CustomBehavior File="Escort" QuestId="29205" MobId="52953" X="1157.52" Y="277.6692" Z="16.75616" /> <!-- There might be more than 1 npc.  I think keeper Talros is also helping out, maybe Turak, Tholo, and anren too -->
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for cutscene {TimeRemaining}" /> <!-- after killing 52998 Pyrelord --> 
+			</If>
+			<If Condition="((HasQuest(29205)) &amp;&amp; (IsQuestCompleted(29205)))" >
+		<TurnIn QuestName="The Forlorn Spire" QuestId="29205" TurnInName="Marin Bladewing" TurnInId="52494" X="1168.755" Y="162.3811" Z="60.06127" />
+			</If>
+			<!-- i'm not 100% sure if 29205 is a daily quest, but it shows up as a daily on the first day (kill Pyrelord and take over Forlorn Spire) -->
+			
+			<!-- Forlorn Spire Dailies -->
+			<While Condition="HasQuestAvailable(52494)" >
+				<CustomBehavior File="InteractWith" MobId="52494" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+			</While>
+			<While Condition="HasQuestAvailable(52921)" >
+				<CustomBehavior File="InteractWith" MobId="52921" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+			</While>
+			
+			
+			
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="I haven't scripted this yet, sorry :\" />
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+	
+			
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
+		<!--
+		-->
+
+	
+	
+	
+	</QuestOrder>
+
+</HBProfile>

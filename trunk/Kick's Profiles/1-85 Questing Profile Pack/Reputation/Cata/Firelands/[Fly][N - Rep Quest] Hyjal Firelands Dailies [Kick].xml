@@ -414,6 +414,20 @@
 		<TurnIn QuestName="The Fate of Runetotem" QuestId="29202" TurnInName="Dorda'en Nightweaver" TurnInId="52986" />
 			</If>
 			
+			<!-- Change Amout to Amount when Nesox fixes it -->
+			<If Condition="(((HasQuest(29181)) || (HasQuest(29214))) &amp;&amp; (GetCurrencyAmout(416) &gt;= 150))" >
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
+				Text="I noticed you have 150 tokens - please go and turn in your quest (In Hyjal)\n\nI went with the Shadow Wardens and I'll be developing that profile first" />
+			</If>
+			
+			<If Condition="(IsQuestCompleted(29214)) &amp;&amp; ((!HasQuest(29215)) &amp;&amp; (!IsQuestCompleted(29215)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4426.363" Y="-2084.204" Z="1209.685" />	
+		<PickUp QuestName="The Hunt Begins" QuestId="29215" GiverName="Matoclaw" GiverId="52669" />
+			</If>
+			
+			
+			
+			
 			<If Condition="(IsQuestCompleted(29201))" >
 			 <If Condition="Me.ZoneId == 616" >
 				<CustomBehavior File="FlyTo" DestName="Firelands" X="4618.406" Y="-2093.736" Z="1238.793" />
@@ -421,11 +435,13 @@
 				<CustomBehavior File="InteractWith" MobId="208900" ObjectType="Gameobject" WaitTime="10000" X="4605.788" Y="-2095.764" Z="1238.9" />
 	<CustomBehavior File="LoadProfile" ProfileName="[Fly][N - Rep Quest] Molten Front Firelands Dailies [Kick]" /> 
 			 </If>
+			 
 			</If>
 			<If Condition="(HasQuest(29200))" >
 	<CustomBehavior File="LoadProfile" ProfileName="[Fly][N - Quest] Hyjal to Firelands Quests [Kick]" /> 
 			</If>
 				
+			
 			
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
 		<!--

@@ -220,28 +220,64 @@
 			</If>
 			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
 			</If>
-			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+	
+	
+	
+	
+		<CustomBehavior File="UserSettings" PullDistance="25"  />
+	
+	
+	
+			<!-- Change Amout to Amount when Nesox fixes it -->
+			<If Condition="(((HasQuest(29181)) || (HasQuest(29214))) &amp;&amp; (GetCurrencyAmout(416) &gt;= 150))" >
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
+				Text="I noticed you have 150 tokens - please go and turn in your quest (In Hyjal)\n\nI went with the Shadow Wardens and I'll be developing that profile first" />
 			</If>
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	<!--
 			<If Condition="((HasQuest(29181)) &amp;&amp; (IsQuestCompleted(29181)))" >
 		<TurnIn QuestName="Druids of the Talon" QuestId="29181" TurnInName="Skylord Omnuron" TurnInId="50082" />
 			</If>
-			<If Condition="((HasQuest(29214)) &amp;&amp; (IsQuestCompleted(29214)))" >
+			<If Condition=" &amp;&amp; (IsQuestCompleted(29214)))" >
 		<TurnIn QuestName="The Shadow Wardens" QuestId="29214" TurnInName="Captain Saynna Stormrunner" TurnInId="52844" />
 			</If>
 	-->
-		<CustomBehavior File="UserSettings" PullDistance="25"  />
 	
+			<If Condition="(IsQuestCompleted(29214)) &amp;&amp; (HasQuest(29215))" >
+		<TurnIn QuestName="The Hunt Begins" QuestId="29215" TurnInName="Captain Saynna Stormrunner" TurnInId="52493" X="982.84" Y="368.9735" Z="38.06548" />
+			</If>
+	
+			<!-- This is the MobId, not QuestId -->
+			<While Condition="HasQuestAvailable(52824)" >
+				<CustomBehavior File="InteractWith" MobId="52824" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+			</While>
 			
+			<If Condition="((HasQuest(29205)) &amp;&amp; (!IsQuestCompleted(29205)))" >
+				<RunTo X="1157.52" Y="277.6692" Z="16.75616" />
+				<CustomBehavior File="UserDialog" QuestId="29205" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Follow the npc's up and kill Pyrelord" />
+				<CustomBehavior File="Escort" QuestId="29205" MobId="52953" X="1157.52" Y="277.6692" Z="16.75616" /> <!-- There might be more than 1 npc.  I think keeper Talros is also helping out, maybe Turak, Tholo, and anren too -->
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for cutscene {TimeRemaining}" /> <!-- after killing 52998 Pyrelord --> 
+			</If>
+			<If Condition="((HasQuest(29205)) &amp;&amp; (IsQuestCompleted(29205)))" >
+		<TurnIn QuestName="The Forlorn Spire" QuestId="29205" TurnInName="Marin Bladewing" TurnInId="52494" X="1168.755" Y="162.3811" Z="60.06127" />
+			</If>
+			<!-- i'm not 100% sure if 29205 is a daily quest, but it shows up as a daily on the first day (kill Pyrelord and take over Forlorn Spire) -->
+			
+			
+			<If Condition="(IsQuestCompleted(29215))" >
+	<CustomBehavior File="LoadProfile" ProfileName="[Fly][N - Rep Quest] Shadow - Molten Front Firelands Dailies [Kick]" /> 
+			</If>
+
+
+
+
+
+
+
+
+
+
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
 		<!--
 		-->
