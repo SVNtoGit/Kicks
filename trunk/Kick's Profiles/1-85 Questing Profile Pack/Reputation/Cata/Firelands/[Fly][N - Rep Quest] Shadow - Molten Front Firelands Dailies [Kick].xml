@@ -36,6 +36,72 @@
 		<TurnIn QuestName="The Hunt Begins" QuestId="29215" TurnInName="Captain Saynna Stormrunner" TurnInId="52493" X="982.84" Y="368.9735" Z="38.06548" />
 			</If>
 	
+			<If Condition="((!HasQuest(29245)) &amp;&amp; (!IsQuestCompleted(29245)))" >
+				<!-- Non Daily Acorn Quest -->
+					<SetGrindArea>	
+						<GrindArea>
+							<Factions>2371</Factions> <!-- [Hyjal Invaders] -->
+							<Hotspots> 
+								<Hotspot X="1352.499" Y="101.3619" Z="63.49738" />
+								<Hotspot X="1420.179" Y="119.826" Z="62.75326" />
+								<Hotspot X="1363.899" Y="69.27287" Z="67.86981" />
+							</Hotspots>
+						</GrindArea> 
+					</SetGrindArea>	
+				<GrindTo Condition="HasQuestAvailable(208535)" />
+
+		<PickUp QuestName="The Mysterious Seed" QuestId="29245" GiverName="Dried Acorn" GiverId="208535" />
+			</If>
+			<If Condition="((HasQuest(29245)) &amp;&amp; (IsQuestCompleted(29245)))" >
+				<CustomBehavior File="NoCombatMoveTo" X="1021.436" Y="368.7899" Z="41.0231" />
+		<TurnIn QuestName="The Mysterious Seed" QuestId="29245" TurnInName="Keeper Krothis" TurnInId="52476" X="1009.831" Y="329.2008" Z="41.2768" />
+		<PickUp QuestName="Planting Season" QuestId="29249" GiverName="Keeper Krothis" GiverId="52476" X="1009.831" Y="329.2008" Z="41.2768" />
+			</If>
+			<If Condition="((!HasQuest(29249)) &amp;&amp; (!IsQuestCompleted(29249)))" >
+		<PickUp QuestName="Planting Season" QuestId="29249" GiverName="Keeper Krothis" GiverId="52476" X="1009.831" Y="329.2008" Z="41.2768" />
+			</If>
+			<If Condition="((HasQuest(29249)) &amp;&amp; (!IsQuestCompleted(29249)))" >
+				<CustomBehavior File="InteractWith" QuestId="29249" MobId="208537" ObjectType="Gameobject" Range="8" X="980.4998" Y="297.2505" Z="45.74989" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(29249)) &amp;&amp; (IsQuestCompleted(29249)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="29249" /> <!-- Get 29254 -->
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(29254)) &amp;&amp; (IsQuestCompleted(29254)))" >
+		<TurnIn QuestName="Little Lasher" QuestId="29254" TurnInName="Avrilla" TurnInId="52489" X="1009.831" Y="329.2008" Z="41.2768" />
+			</If>
+
+				
+			<!-- Avrilla Daily -->
+			<While Condition="HasQuestAvailable(52489)" >
+				<CustomBehavior File="InteractWith" MobId="52489" X="1009.831" Y="329.2008" Z="41.2768" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+			</While>
+
+			<If Condition="((HasQuest(29299)) &amp;&amp; (!IsQuestCompleted(29299)))" >
+				<SetGrindArea>
+					<GrindArea>
+						<Factions>2156</Factions>
+						<Hotspots>
+							<Hotspot X="1317.235" Y="394.4182" Z="21.61626" />
+							<Hotspot X="1260.687" Y="444.7308" Z="22.62494" />
+							<Hotspot X="1392.042" Y="357.3324" Z="25.72089" />
+							<Hotspot X="1345.574" Y="299.6357" Z="22.87051" />
+							<Hotspot X="1253.672" Y="298.7153" Z="23.08849" />
+						</Hotspots>
+					</GrindArea>
+				</SetGrindArea>
+				<GrindTo Condition="(IsQuestCompleted(29299))" />
+			</If>
+			
+			<CustomBehavior File="NoCombatMoveTo" X="1009.831" Y="329.2008" Z="41.2768" />
+			
+			<If Condition="((HasQuest(29299)) &amp;&amp; (IsQuestCompleted(29299)))" >
+		<TurnIn QuestName="Some Like It Hot" QuestId="29299" TurnInName="Avrilla" TurnInId="52489" />
+			</If>
+			
 			<!-- This is the MobId, not QuestId -->
 			<While Condition="HasQuestAvailable(52824)" >
 				<CustomBehavior File="InteractWith" MobId="52824" />
@@ -66,23 +132,6 @@
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
 			</While>
 			
-			
-			<If Condition="((!HasQuest(29245)) &amp;&amp; (!IsQuestCompleted(29245)))" >
-				<!-- Non Daily Acorn Quest -->
-					<SetGrindArea>	
-						<GrindArea>
-							<Factions>2371</Factions> <!-- [Hyjal Invaders] -->
-							<Hotspots> 
-								<Hotspot X="1352.499" Y="101.3619" Z="63.49738" />
-								<Hotspot X="1420.179" Y="119.826" Z="62.75326" />
-								<Hotspot X="1363.899" Y="69.27287" Z="67.86981" />
-							</Hotspots>
-						</GrindArea> 
-					</SetGrindArea>	
-				<GrindTo Condition="HasQuestAvailable(208535)" />
-
-		<PickUp QuestName="The Mysterious Seed" QuestId="29245" GiverName="Dried Acorn" GiverId="208535" />
-			</If>
 			
 			<If Condition="((HasQuest(29211)) &amp;&amp; (!IsQuestCompleted(29211)))" >
 				<RunTo X="1375.436" Y="133.87" Z="61.15922" />
@@ -119,7 +168,19 @@
 				<CustomBehavior File="UserSettings" PullDistance="10" />
 				<Objective QuestName="Pyrorachnophobia" QuestId="29159" Type="KillMob" MobId="52648" KillCount="8" />
 			</If>
+			<If Condition="((HasQuest(29210)) &amp;&amp; (!IsQuestCompleted(29210)))" >
+				<If Condition="(!IsObjectiveComplete(1, 29210))">
+					<RunTo X="1307.24" Y="238.8463" Z="24.56153" />
+				</If>
+				<If Condition="(!IsObjectiveComplete(2, 29210))">
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This quest currently has issues.  run around and click the blue circles in the cave.  ignore fire guys" />
+				</If>
+			</If>
+			<If Condition="((HasQuest(29210)) &amp;&amp; (IsQuestCompleted(29210)))" >
+		<TurnIn QuestName="Enduring the Heat" QuestId="29210" TurnInName="Theresa Barkskin" TurnInId="52823" />
+			</If>
 			
+
 
 			<CustomBehavior File="NoCombatMoveTo" X="1186.644" Y="153.5595" Z="60.92998" />
 
@@ -135,68 +196,8 @@
 			
 				<CustomBehavior File="UserSettings" PullDistance="20" />
 				
-			<If Condition="((HasQuest(29245)) &amp;&amp; (IsQuestCompleted(29245)))" >
-				<CustomBehavior File="NoCombatMoveTo" X="1021.436" Y="368.7899" Z="41.0231" />
-		<TurnIn QuestName="The Mysterious Seed" QuestId="29245" TurnInName="Keeper Krothis" TurnInId="52476" X="1009.831" Y="329.2008" Z="41.2768" />
-		<PickUp QuestName="Planting Season" QuestId="29249" GiverName="Keeper Krothis" GiverId="52476" X="1009.831" Y="329.2008" Z="41.2768" />
-			</If>
-			<If Condition="((!HasQuest(29249)) &amp;&amp; (!IsQuestCompleted(29249)))" >
-		<PickUp QuestName="Planting Season" QuestId="29249" GiverName="Keeper Krothis" GiverId="52476" X="1009.831" Y="329.2008" Z="41.2768" />
-			</If>
-			<If Condition="((HasQuest(29249)) &amp;&amp; (!IsQuestCompleted(29249)))" >
-				<CustomBehavior File="InteractWith" QuestId="29249" MobId="208537" ObjectType="Gameobject" Range="8" X="980.4998" Y="297.2505" Z="45.74989" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-			</If>
-			<If Condition="((HasQuest(29249)) &amp;&amp; (IsQuestCompleted(29249)))" >
-				<CustomBehavior File="CompleteLogQuest" QuestId="29249" /> <!-- Get 29254 -->
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
-			<If Condition="((HasQuest(29254)) &amp;&amp; (IsQuestCompleted(29254)))" >
-		<TurnIn QuestName="Little Lasher" QuestId="29254" TurnInName="Avrilla" TurnInId="52489" X="1009.831" Y="329.2008" Z="41.2768" />
-			</If>
-
-			<RunTo X="1009.831" Y="329.2008" Z="41.2768" />
-				
-			<!-- Avrilla Daily Now ??? -->
-			<While Condition="HasQuestAvailable(52489)" >
-				<CustomBehavior File="InteractWith" MobId="52489" X="1009.831" Y="329.2008" Z="41.2768" />
-				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
-				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
-			</While>
-
-			<If Condition="((HasQuest(29299)) &amp;&amp; (!IsQuestCompleted(29299)))" >
-				<SetGrindArea>
-					<GrindArea>
-						<Factions>2156</Factions>
-						<Hotspots>
-							<Hotspot X="1317.235" Y="394.4182" Z="21.61626" />
-							<Hotspot X="1260.687" Y="444.7308" Z="22.62494" />
-							<Hotspot X="1392.042" Y="357.3324" Z="25.72089" />
-							<Hotspot X="1345.574" Y="299.6357" Z="22.87051" />
-							<Hotspot X="1253.672" Y="298.7153" Z="23.08849" />
-						</Hotspots>
-					</GrindArea>
-				</SetGrindArea>
-				<GrindTo Condition="(IsQuestCompleted(29299))" />
-			</If>
 			
 
-		
-			
-			
-			<If Condition="((HasQuest(29299)) &amp;&amp; (IsQuestCompleted(29299)))" >
-		<TurnIn QuestName="Some Like It Hot" QuestId="29299" TurnInName="Avrilla" TurnInId="52489" />
-			</If>
-			
-			<CustomBehavior File="NoCombatMoveTo" X="1186.644" Y="153.5595" Z="60.92998" />
-
-			<!-- More Forlorn Spire Dailies -->
-			<While Condition="HasQuestAvailable(52494)" >
-				<CustomBehavior File="InteractWith" MobId="52494" />
-				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
-				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
-			</While>
-			
 			
 			
 			
