@@ -536,42 +536,123 @@
 	
 	<QuestOrder IgnoreCheckPoints="True" >
 			
+			<CustomBehavior File="Message" Text="Compiling N. Barrens Quests" LogColor="Green" />
+
 			<!-- Ratchet -->
+			<CustomBehavior File="Message" Text="Compiling Ratchet Quests" LogColor="Cornflowerblue" />
+
+		<PickUp QuestName="A Captain's Vengeance" QuestId="891" GiverName="Captain Thalo'thas Brightsun" GiverId="3339"/>
+		<PickUp QuestName="It's Gotta be the Horn" QuestId="865" GiverName="Mebok Mizzyrix" GiverId="3446" />
 		<PickUp QuestName="WANTED: Cap'n Garvey" QuestId="895" GiverType="Object" GiverId="3972" X="-921.4776" Y="-3723.168" Z="9.23311"/>
 		<PickUp QuestName="Investigate the Wreckage" QuestId="14066" GiverName="Gazrog" GiverId="3464"/>
-		<PickUp QuestName="A Captain's Vengeance" QuestId="891" GiverName="Captain Thalo'thas Brightsun" GiverId="3339"/>
 			<RunTo QuestId="14066" X="-772.7415" Y="-3193.571" Z="91.69006"/>
-		<Turnin QuestName="Investigate the Wreckage" QuestId="14066" TurnInName="Gazrog" TurnInId="3464"/>
+			<If Condition="((HasQuest(14066)) &amp;&amp; (IsQuestCompleted(14066)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="14066" /> <!-- Get 869 -->
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
+			<If Condition="((!HasQuest(869)) &amp;&amp; (!IsQuestCompleted(869)))" >
 		<PickUp QuestName="To Track a Thief" QuestId="869" GiverName="Gazrog" GiverId="3464"/>
+			</If>
 		<PickUp QuestName="Find Baron Longshore" QuestId="14045" GiverName="Gazlowe" GiverId="3391"/>
+		<PickUp QuestName="Club Foote" QuestId="14034" GiverName="Gazlowe" GiverId="3391" />
 		<PickUp QuestName="Take it up with Tony" QuestId="14052" GiverName="Wharfmaster Dizzywig" GiverId="3453"/>
 		<PickUp QuestName="Southsea Freebooters" QuestId="887" GiverName="Wharfmaster Dizzywig" GiverId="3453"/>
+			<If Condition="((HasQuest(14034)) &amp;&amp; (!IsQuestCompleted(14034)))" >
+				<CustomBehavior File="UserSettings" PullDistance="1" />
+				<CustomBehavior File="InteractWith" MobId="34754" GossipOptions="1" WaitTime="3000" X="-1051.166" Y="-3646.629" Z="24.04116" />
+				<CustomBehavior File="InteractWith" MobId="34754" GossipOptions="1" IgnoreCombat="True" X="-1051.166" Y="-3646.629" Z="24.04116" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(14034)) &amp;&amp; (IsQuestCompleted(14034)))" >
+		<TurnIn QuestName="Club Foote" QuestId="14034" TurnInName="Gazlowe" TurnInId="3391" />
+				<CustomBehavior File="UserSettings" PullDistance="20" />
+			</If>
+		<PickUp QuestName="Love it or Limpet" QuestId="14038" GiverName="Gazlowe" GiverId="3391" />
 			<Objective QuestName="A Captain's Vengeance" QuestId="891" Type="CollectItem" ItemId="5078" CollectCount="10"/>
 		<TurnIn QuestName="Find Baron Longshore" QuestId="14045" TurnInName="Baron Longshore" TurnInId="3467"/>
-			<Objective QuestName="A Captain's Vengeance" QuestId="891" Type="KillMob" MobId="34753" KillCount="1"/>
+		<PickUp QuestName="The Baron's Demands" QuestId="14046" GiverName="Baron Longshore" GiverId="3467" />
+			<If Condition="((HasQuest(14046)) &amp;&amp; (!IsQuestCompleted(14046)))" >
+				<CustomBehavior File="InteractWith" QuestId="14046" MobId="3467" GossipOptions="2" WaitTime="3000" X="-1454.157" Y="-3815.583" Z="21.60774" />
+			</If>
+		<TurnIn QuestName="The Baron's Demands" QuestId="14046" TurnInName="Baron Longshore" TurnInId="3467" />
+		<PickUp QuestName="A Most Unusual Map" QuestId="14049" GiverName="Baron Longshore" GiverId="3467" />
+			<Objective QuestName="A Most Unusual Map" QuestId="14049" Type="CollectItem" ItemId="46832" CollectCount="1" />
+			<Objective QuestName="A Captain's Vengeance" QuestId="891" Type="KillMob" MobId="34753" KillCount="1" />
+			<If Condition="((HasQuest(14038)) &amp;&amp; (!IsQuestCompleted(14038)))" >
+				<RunTo X="-1468.916" Y="-3967.801" Z="-1.651532" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<UseItem ItemId="46829" QuestName="Love it or Limpet" QuestId="14038" X="-1469.204" Y="-3967.555" Z="-1.641989" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(14038)) &amp;&amp; (IsQuestCompleted(14038)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="14038" /> <!-- Get 14042 -->
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
 			<Objective QuestName="A Captain's Vengeance" QuestId="891" Type="KillMob" MobId="34752" KillCount="1"/>
+			<Objective QuestName="Ammo Kerblammo" QuestId="14042" Type="UseObject" ObjectId="195203" UseCount="5" />
+			<Objective QuestName="WANTED: Cap'n Garvey" QuestId="895" Type="CollectItem" ItemId="5084" CollectCount="1"/>
+			<Objective QuestName="A Captain's Vengeance" QuestId="891" Type="CollectItem" ItemId="5078" CollectCount="10" />
 		<TurnIn QuestName="Take it up with Tony" QuestId="14052" TurnInName="Tony Two-Tusk" TurnInId="34749"/>
 		<PickUp QuestName="Glomp is Sitting On It" QuestId="14056" GiverName="Tony Two-Tusk" GiverId="34749"/>
 			<Objective QuestName="Glomp is Sitting On It" QuestId="14056" Type="CollectItem" ItemId="46834" CollectCount="1"/>
 		<TurnIn QuestName="Glomp is Sitting On It" QuestId="14056" TurnInName="Tony Two-Tusk" TurnInId="34749"/>
 		<PickUp QuestName="Guns. We Need Guns." QuestId="14057" GiverName="Tony Two-Tusk" GiverId="34749"/>
 			<Objective QuestName="Guns. We Need Guns." QuestId="14057" Type="CollectItem" ItemId="46836" CollectCount="1"/>
-			<Objective QuestName="WANTED: Cap'n Garvey" QuestId="895" Type="CollectItem" ItemId="5084" CollectCount="1"/>
 			<Objective QuestName="Southsea Freebooters" QuestId="887" Type="KillMob" MobId="34779" KillCount="8"/>
 		<TurnIn QuestName="Guns. We Need Guns." QuestId="14057" TurnInName="Tony Two-Tusk" TurnInId="34749"/>
-			<RunTo QuestId="869" X="-552.7271" Y="-3422.826" Z="91.66428"/>
-		<TurnIn QuestName="To Track a Thief" QuestId="869" TurnInName="Gazrog" TurnInId="3464"/>
-		<TurnIn QuestName="Southsea Freebooters" QuestId="887" TurnInName="Wharfmaster Dizzywig" TurnInId="3453"/>
+		<PickUp QuestName="Mutiny, Mon!" QuestId="14063" GiverName="Tony Two-Tusk" GiverId="34749" />
+			<If Condition="((HasQuest(14063)) &amp;&amp; (!IsQuestCompleted(14063)))" >
+				<RunTo X="-1672.21" Y="-4386.869" Z="10.62436" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<UseItem ItemId="46838" QuestName="Mutiny, Mon!" QuestId="14063" X="-1672.21" Y="-4386.869" Z="10.62436" />
+			 <While Condition="((HasQuest(14063)) &amp;&amp; (!IsQuestCompleted(14063)))" >
+				<UseItem ItemId="46838" QuestName="Mutiny, Mon!" QuestId="14063" X="-1672.21" Y="-4386.869" Z="10.62436" />
+				<CustomBehavior File="InteractWith" QuestId="14063" MobId="34782" WaitForNpcs="False" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </While>
+			</If>
 		<TurnIn QuestName="A Captain's Vengeance" QuestId="891" TurnInName="Captain Thalo'thas Brightsun" TurnInId="3339"/>
+		<TurnIn QuestName="Mutiny, Mon!" QuestId="14063" TurnInName="Wharfmaster Dizzywig" TurnInId="3453" />
+		<TurnIn QuestName="Southsea Freebooters" QuestId="887" TurnInName="Wharfmaster Dizzywig" TurnInId="3453"/>
+		<TurnIn QuestName="Ammo Kerblammo" QuestId="14042" TurnInName="Gazlowe" TurnInId="3391" />
 		<TurnIn QuestName="WANTED: Cap'n Garvey" QuestId="895" TurnInName="Gazlowe" TurnInId="3391"/>
-		<PickUp QuestName="It's Gotta be the Horn" QuestId="865" GiverName="Mebok Mizzyrix" GiverId="3446"/>
-		<PickUp QuestName="The Stolen Silver" QuestId="14067" GiverName="Gazrog" GiverId="3464"/>
+ 		<TurnIn QuestName="A Most Unusual Map" QuestId="14049" TurnInName="Gazlowe" TurnInId="3391" />
+       <PickUp QuestName="Gazlowe's Fortune" QuestId="14050" GiverName="Gazlowe" GiverId="3391" />
+		     <Objective QuestName="Gazlowe's Fortune" QuestId="14050" Type="CollectItem" ItemId="46833" CollectCount="1" />
+		<TurnIn QuestName="Gazlowe's Fortune" QuestId="14050" TurnInName="Gazlowe" TurnInId="3391" />
+		<PickUp QuestName="Raging River Ride" QuestId="26769" GiverName="Gazlowe" GiverId="3391" />
+			<If Condition="((HasQuest(869)) &amp;&amp; (!IsQuestCompleted(869)))" >
+				<RunTo QuestId="869" X="-552.7271" Y="-3422.826" Z="91.66428"/>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(869)) &amp;&amp; (IsQuestCompleted(869)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="869" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
+			<!-- Ignoring Waptor Twapping from Kala'ma.  A CUIO quest I think.  Kala'ma is N/NW from Ratchet under a tree -->
 			<Objective QuestName="It's Gotta be the Horn" QuestId="865" Type="CollectItem" ItemId="46850" CollectCount="1"/>
 			<Objective QuestName="The Stolen Silver" QuestId="14067" Type="CollectItem" ItemId="5061" CollectCount="1"/>
 			<Objective QuestName="The Stolen Silver" QuestId="14067" Type="KillMob" MobId="44164" KillCount="8"/>
 			<Objective QuestName="The Stolen Silver" QuestId="14067" Type="KillMob" MobId="3256" KillCount="4"/>
 		<TurnIn QuestName="The Stolen Silver" QuestId="14067" TurnInName="Gazrog" TurnInId="3464"/>
 		<TurnIn QuestName="It's Gotta be the Horn" QuestId="865" TurnInName="Mebok Mizzyrix" TurnInId="3446"/>
+			<If Condition="((HasQuest(26769)) &amp;&amp; (!IsQuestCompleted(26769)))" >
+				<RunTo X="-702.7002" Y="-3986.347" Z="19.46557" />
+				<CustomBehavior File="MountVehOnly" VehicleMountId="44057" X="-702.8704" Y="-3985.98" Z="19.46014" />
+				<CustomBehavior File="WaitTimer" WaitTime="122000" GoalText="Waiting for ride {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Raging River Ride" QuestId="26769" TurnInName="Nozzlepot" TurnInId="34698" />
+
+			<!-- Nozzlepot's Outpost Quests -->
+			<CustomBehavior File="Message" Text="Compiling Nozzlepot's Outpost Quests" LogColor="Cornflowerblue" />
+
+		
+	
+	
+
+	
+	
+		
 		<!-- Currently Samophlange quest is bugged. Removing whole chain for time being
 		<PickUp QuestName="Samophlange" QuestId="29021" GiverName="Sputtervalve" GiverId="3442" X="1142.627" Y="-3372.585" Z="92.46114" />
 		<TurnIn QuestName="Samophlange" QuestId="29021" TurnInName="Control Console" TurnInId="4141" TurnInType="Object" X="826.1482" Y="-2688.659" Z="91.7657" />
