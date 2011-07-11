@@ -118,7 +118,7 @@
 			<If Condition="((HasQuest(29189)) &amp;&amp; (!IsQuestCompleted(29189)))" >
 				<!-- Wicked Webs -->
 				<CustomBehavior File="UserSettings" PullDistance="10" />
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This quest currently has issues.  Free the people by killing the spider sacs" />
+	<CustomBehavior File="UserDialog" QuestId="29189" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This quest currently has issues.  Free the people by killing the spider sacs" />
 				<CustomBehavior File="KillUntilComplete" QuestId="29189" MobId1="52784" X="1351.945" Y="173.9379" Z="52.25431" />
 				<!-- 
 					<SetGrindArea>	
@@ -138,17 +138,6 @@
 			<If Condition="((HasQuest(29159)) &amp;&amp; (!IsQuestCompleted(29159)))" >
 				<CustomBehavior File="UserSettings" PullDistance="10" />
 				<Objective QuestName="Pyrorachnophobia" QuestId="29159" Type="KillMob" MobId="52648" KillCount="8" />
-			</If>
-			<If Condition="((HasQuest(29210)) &amp;&amp; (!IsQuestCompleted(29210)))" >
-				<If Condition="(!IsObjectiveComplete(1, 29210))">
-					<RunTo X="1307.24" Y="238.8463" Z="24.56153" />
-				</If>
-				<If Condition="(!IsObjectiveComplete(2, 29210))">
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This quest currently has issues.  run around and click the blue circles in the cave(hb isn't returning an npc nor a gameobject).  ignore fire guys" />
-				</If>
-			</If>
-			<If Condition="((HasQuest(29210)) &amp;&amp; (IsQuestCompleted(29210)))" >
-		<TurnIn QuestName="Enduring the Heat" QuestId="29210" TurnInName="Theresa Barkskin" TurnInId="52823" />
 			</If>
 			
 
@@ -171,10 +160,64 @@
 
 			
 			
+			<While Condition="HasQuestAvailable(52824)" >
+				<CustomBehavior File="InteractWith" MobId="52824" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+			</While>
 			
 			
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="I haven't scripted this yet, sorry :\" />
-			
+			<If Condition="((HasQuest(29210)) &amp;&amp; (!IsQuestCompleted(29210)))" >
+				<If Condition="(!IsObjectiveComplete(1, 29210))">
+					<RunTo X="1307.24" Y="238.8463" Z="24.56153" />
+				</If>
+				<While Condition="(!IsObjectiveComplete(2, 29210))">
+					<CustomBehavior File="UserDialog" QuestId="29210" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
+					Text="This quest currently has issues.  run around and click the blue circles in the cave(hb isn't returning an npc nor a gameobject).  ignore fire guys" />
+					
+					<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<!-- 
+					<CustomBehavior File="NoCombatMoveTo" X="1282.764" Y="199.9376" Z="3.79715" />
+					<CustomBehavior File="InteractWith" QuestId="29210" MobId="52889" IgnoreCombat="True" CollectionDistance="10" X="1282.764" Y="199.9376" Z="3.79715" />
+					
+					<CustomBehavior File="NoCombatMoveTo" X="1317.794" Y="203.1866" Z="14.50614" />
+					<CustomBehavior File="InteractWith" QuestId="29210" MobId="52884" IgnoreCombat="True" CollectionDistance="10" X="1317.794" Y="203.1866" Z="14.50614" />
+
+					<CustomBehavior File="NoCombatMoveTo" X="1287.823" Y="143.8314" Z="4.259557" />
+					<CustomBehavior File="InteractWith" QuestId="29210" MobId="52885" IgnoreCombat="True" CollectionDistance="10" X="1287.823" Y="143.8314" Z="4.259557" />
+
+					<CustomBehavior File="NoCombatMoveTo" X="1287.823" Y="143.8314" Z="4.259557" />
+					<CustomBehavior File="InteractWith" QuestId="29210" MobId="52890" IgnoreCombat="True" CollectionDistance="10" X="1287.823" Y="143.8314" Z="4.259557" />
+
+					<CustomBehavior File="NoCombatMoveTo" X="1225.958" Y="212.8385" Z="4.066926" />
+					<CustomBehavior File="InteractWith" QuestId="29210" MobId="52888" IgnoreCombat="True" CollectionDistance="10" X="1225.958" Y="212.8385" Z="4.066926" />
+
+					<CustomBehavior File="NoCombatMoveTo" X="1177.622" Y="170.0713" Z="4.38552" />
+					<CustomBehavior File="InteractWith" QuestId="29210" MobId="52887" IgnoreCombat="True" CollectionDistance="10" X="1177.622" Y="170.0713" Z="4.38552" />
+
+					<CustomBehavior File="NoCombatMoveTo" X="1239.309" Y="114.2077" Z="4.264248" />
+					<CustomBehavior File="InteractWith" QuestId="29210" MobId="52886" IgnoreCombat="True" CollectionDistance="10" X="1239.309" Y="114.2077" Z="4.264248" />
+					
+					<CustomBehavior File="UserDialog" QuestId="29210" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
+					Text="This quest currently has issues.  run around and click the blue circles in the cave(hb isn't returning an npc nor a gameobject).  ignore fire guys" />
+					
+
+					<CustomBehavior File="NoCombatMoveTo" X="1217.242" Y="113.7649" Z="6.791813" />
+					<RunTo X="1192.292" Y="111.6759" Z="4.134892" />
+					<CustomBehavior File="InteractWith" QuestId="29210" MobId="53887" CollectionDistance="10" X="1173.972" Y="122.8178" Z="4.252748" />
+					<CustomBehavior File="NoCombatMoveTo" X="1194.156" Y="113.9745" Z="3.963918" />
+					<RunTo X="1220.965" Y="113.8248" Z="5.827456" />
+					
+					<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+					-->
+				</While>
+			</If>
+
+			<CustomBehavior File="NoCombatMoveTo" X="1186.644" Y="153.5595" Z="60.92998" />
+
+			<If Condition="((HasQuest(29210)) &amp;&amp; (IsQuestCompleted(29210)))" >
+		<TurnIn QuestName="Enduring the Heat" QuestId="29210" TurnInName="Theresa Barkskin" TurnInId="52823" />
+			</If>
 			
 			
 			

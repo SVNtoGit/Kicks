@@ -393,6 +393,48 @@
 		</Hotspots>
 	</Objective>
 </Quest>
+	<Quest Id="26890" Name="The Essence of Aku'Mai">
+		<Objective Type="CollectItem" ItemId="16784" CollectCount="20">
+			<Hotspots>
+				<Hotspot X="4163.655" Y="904.4813" Z="-21.50703" />
+				<Hotspot X="4168.624" Y="945.957" Z="-18.0094" />
+				<Hotspot X="4246.205" Y="891.0563" Z="-9.316075" />
+				<Hotspot X="4314.627" Y="918.1245" Z="-17.09809" />
+				<Hotspot X="4286.151" Y="978.1454" Z="-22.66925" />
+				<Hotspot X="4230.633" Y="742.1807" Z="-25.53623" />
+				<Hotspot X="4245.76" Y="702.0316" Z="-29.08051" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	<Quest Id="6442" Name="Naga at the Zoram Strand"> <!-- Get some hotspots -->
+		<Objective Type="CollectItem" ItemId="5490" CollectCount="20">
+			<Hotspots>
+			</Hotspots>
+		</Objective>
+	</Quest>
+	<Quest Id="13920" Name="Before You Go...">
+		<Objective Type="CollectItem" ItemId="46392" CollectCount="5">
+			<CollectFrom>
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="3864.891" Y="728.6595" Z="6.99602" />
+				<Hotspot X="3656.74" Y="634.9991" Z="4.616676" />
+				<Hotspot X="3580.172" Y="548.859" Z="6.899375" />
+				<Hotspot X="3519.389" Y="716.4093" Z="6.662622" />
+				<Hotspot X="3352.473" Y="388.1468" Z="2.958886" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	<Quest Id="13901" Name="Deep Despair">
+		<Objective Type="KillMob" MobId="4802" KillCount="6">
+			<Hotspots>
+				<Hotspot X="4166.032" Y="933.6697" Z="-17.88599" />
+				<Hotspot X="4218.003" Y="912.7496" Z="-8.307417" />
+				<Hotspot X="4269.884" Y="902.6219" Z="-15.17532" />
+				<Hotspot X="4313.435" Y="921.8574" Z="-17.05407" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 
 
 	<!-- Stonetalon Overrides-->
@@ -1225,93 +1267,89 @@
 			</If>
 			 -->
 
+			<CustomBehavior File="CollectThings" CollectUntil="QuestComplete" QuestId="13883" ObjectId="195012" CollectItemId="46357" CollectItemCount="10" HuntingGroundRadius="200" X="3402.582" Y="1194.723" Z="-1.727643" />
+			<CustomBehavior File="CollectThings" CollectUntil="RequiredCountReached" QuestId="13890" MobId="3721" CollectItemId="46365" CollectItemCount="10" HuntingGroundRadius="200" X="3402.582" Y="1194.723" Z="-1.727643" />
+			<If Condition="!IsQuestCompleted(13890) &amp;&amp; HasQuest(13890) &amp;&amp; !HasItem(46366)">
+				<RunTo X="3431.499" Y="1129.346" Z="0.4719441" />
+				<RunTo X="3313.196" Y="1035.18" Z="4.057281" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" /> 
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(46365)" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" /> 
+			</If>
+			<While Condition="!IsQuestCompleted(13890)">
+				<CustomBehavior File="InteractWith" QuestId="13890" MobId="195024" NumOfTimes="1" ObjectType="Gameobject" Range="5" WaitTime="2000" X="3561.869" Y="1312.178" Z="36.55131" />
+			</While>
+			<Objective QuestName="Naga at the Zoram Strand" QuestId="6442" Type="CollectItem" ItemId="5490" CollectCount="20" />
+		<TurnIn QuestName="Keep the Fires Burning" QuestId="13890" TurnInName="Commander Grimfang" TurnInId="34122" />
+		<PickUp QuestName="Before You Go..." QuestId="13920" GiverName="Commander Grimfang" GiverId="34122" />
+		<TurnIn QuestName="Naga at the Zoram Strand" QuestId="6442" TurnInName="Marukai" TurnInId="12719" />
+		<PickUp QuestName="Deep Despair" QuestId="13901" GiverName="Marukai" GiverId="12719" />
+		<TurnIn QuestName="Lousy Pieces of Ship" QuestId="13883" TurnInName="Dagrun Ragehammer" TurnInId="34303" />
+			<Objective QuestName="The Essence of Aku'Mai" QuestId="26890" Type="CollectItem" ItemId="16784" CollectCount="20" />
+			<Objective QuestName="Deep Despair" QuestId="13901" Type="KillMob" MobId="4802" KillCount="6" />
+			<Objective QuestName="Before You Go..." QuestId="13920" Type="CollectItem" ItemId="46392" CollectCount="5" />
+		<TurnIn QuestName="The Essence of Aku'Mai" QuestId="26890" TurnInName="Dagrun Ragehammer" TurnInId="34303" />
+		<TurnIn QuestName="Deep Despair" QuestId="13901" TurnInName="Marukai" TurnInId="12719" />
+		<TurnIn QuestName="Before You Go..." QuestId="13920" TurnInName="Commander Grimfang" TurnInId="34122" />
+			<If Condition="((!HasQuest(13936)) &amp;&amp; (!IsQuestCompleted(13936)))" >
+		<PickUp QuestName="To Hellscream's Watch" QuestId="13923" GiverName="Commander Grimfang" GiverId="34122" />
+			</If>
+			<If Condition="HasQuest(13923) &amp;&amp; Me.Y &gt; 800">
+				<CustomBehavior File="InteractWith" MobId="11901"  GossipOptions="2" NumOfTimes="1" WaitTime="1000" X="3347.99" Y="1053.536" Z="3.128762" />
+				<CustomBehavior File="WaitTimer" WaitTime="20000" />
+			</If>
+			<If Condition="((HasQuest(13923)) &amp;&amp; (IsQuestCompleted(13923)))" >
+		<TurnIn QuestName="To Hellscream's Watch" QuestId="13923" TurnInName="Captain Goggath" TurnInId="34359" />
+			</If>
+			<!-- End of Zoram'gar Outpost Quests -->
+			
+			<!-- Hellscream Watch Quests -->
+			<CustomBehavior File="Message" Text="Compiling Hellscream Watch Quests" LogColor="Cornflowerblue" />
 
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
-	
-	
-
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		<PickUp QuestName="Ashenvale Outrunners" QuestId="6503" GiverName="Kuray'bin" GiverId="12867" />
-		<PickUp QuestName="Destroy the Legion" QuestId="26448" GiverName="Valusha" GiverId="17355" />
-			<Objective QuestName="Ashenvale Outrunners" QuestId="6503" Type="KillMob" MobId="12856" KillCount="9" />
-			<Objective QuestName="Destroy the Legion" QuestId="26448" Type="KillMob" MobId="11697" KillCount="15" />
-		<TurnIn QuestName="Ashenvale Outrunners" QuestId="6503" TurnInName="Kuray'bin" TurnInId="12867" />
-		<TurnIn QuestName="Destroy the Legion" QuestId="26448" TurnInName="Valusha" TurnInId="17355" />
-		<TurnIn QuestName="Gurtar's Request" QuestId="13875" TurnInName="Splintertree Demolisher" TurnInId="33726" />
-		<SetGrindArea>
-			<GrindArea>
-				<TargetMinLevel>18</TargetMinLevel>
-				<TargetMaxLevel>21</TargetMaxLevel>
-				<Factions>1514</Factions>
-				<Hotspots>
-					<Hotspot X="1280.953" Y="-2231.483" Z="92.15885"/>
-					<Hotspot X="1272.132" Y="-2203.077" Z="92.28832"/>
-					<Hotspot X="1288.737" Y="-2212.074" Z="91.90065"/>
-					<Hotspot X="1289.755" Y="-2233.392" Z="91.77265"/>
-					<Hotspot X="1304.565" Y="-2220.53" Z="91.686"/>
-					<Hotspot X="1326.461" Y="-2299.802" Z="93.7626"/>
-					<Hotspot X="1407.091" Y="-2326.954" Z="94.02001"/>
-					<Hotspot X="1478.907" Y="-2291.215" Z="93.16885"/>
-					<Hotspot X="1517.571" Y="-2236.472" Z="94.89737"/>
-				</Hotspots>
-			</GrindArea>
-		</SetGrindArea>
-		<GrindTo Level="21"/>
 		<PickUp QuestName="Tweedle's Dumb" QuestId="13936" GiverName="Captain Goggath" GiverId="34359" X="3029.162" Y="-519.3588" Z="203.8066" />
 		<PickUp QuestName="Troll Charm" QuestId="6462" GiverName="Mitsuwa" GiverId="12721" />
 		<PickUp QuestName="Between a Rock and a Thistlefur" QuestId="216" GiverName="Karang Amakkar" GiverId="12757" />
 		<TurnIn QuestName="Tweedle's Dumb" QuestId="13936" TurnInName="Tweedle" TurnInId="34395" />
 		<PickUp QuestName="Set Us Up the Bomb" QuestId="13942" GiverName="Tweedle" GiverId="34395" />
 		<PickUp QuestName="Breathing Room" QuestId="13943" GiverName="Captain Goggath" GiverId="34359" />
+	
+	
+	
 
-		<If Condition="Me.Class == WoWClass.Mage || Me.Class == WoWClass.Priest || Me.Class == WoWClass.Rogue || Me.Class == WoWClass.Warlock">
-			<SetGrindArea>
-				<GrindArea>
-					<TargetMinLevel>19</TargetMinLevel>
-					<TargetMaxLevel>22</TargetMaxLevel>
-					<Factions>82</Factions>
-					<Hotspots>
-						<Hotspot X="3312.595" Y="-458.3269" Z="151.3836" />
-						<Hotspot X="3244.78" Y="-381.971" Z="154.4931" />
-						<Hotspot X="3156.068" Y="-207.322" Z="112.3445" />
-						<Hotspot X="3190.902" Y="-251.3445" Z="118.7857" />
-						<Hotspot X="3128.19" Y="-95.6964" Z="102.1618" />
-						<Hotspot X="2991.646" Y="-105.8771" Z="97.94107" />
-					</Hotspots>
-				</GrindArea>
-			</SetGrindArea>
-			<GrindTo Level="23"/>
-		</If>
-		<Objective QuestName="Set Us Up the Bomb" QuestId="13942" Type="CollectItem" ItemId="46698" CollectCount="10" />
-		<Objective QuestName="Troll Charm" QuestId="6462" Type="CollectItem" ItemId="16602" CollectCount="8" />
-		<Objective QuestName="Between a Rock and a Thistlefur" QuestId="216" Type="KillMob" MobId="3925" KillCount="15" />
-		<Objective QuestName="Breathing Room" QuestId="13943" Type="KillMob" MobId="34419" KillCount="10" />
-		<Objective QuestName="Breathing Room" QuestId="13943" Type="KillMob" MobId="34420" KillCount="3" />
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+			<Objective QuestName="Set Us Up the Bomb" QuestId="13942" Type="CollectItem" ItemId="46698" CollectCount="10" />
+			<Objective QuestName="Troll Charm" QuestId="6462" Type="CollectItem" ItemId="16602" CollectCount="8" />
+			<Objective QuestName="Between a Rock and a Thistlefur" QuestId="216" Type="KillMob" MobId="3925" KillCount="15" />
+			<Objective QuestName="Breathing Room" QuestId="13943" Type="KillMob" MobId="34419" KillCount="10" />
+			<Objective QuestName="Breathing Room" QuestId="13943" Type="KillMob" MobId="34420" KillCount="3" />
 		<TurnIn QuestName="Between a Rock and a Thistlefur" QuestId="216" TurnInName="Karang Amakkar" TurnInId="12757" />
 		<TurnIn QuestName="Troll Charm" QuestId="6462" TurnInName="Mitsuwa" TurnInId="12721" />
 		<TurnIn QuestName="Set Us Up the Bomb" QuestId="13942" TurnInName="Tweedle" TurnInId="34395" />
