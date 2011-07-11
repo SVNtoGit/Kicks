@@ -71,7 +71,22 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-
+	<Quest Id="29255" Name="Embergris">
+		<Objective Type="CollectItem" ItemId="69722" CollectCount="5">
+			<CollectFrom>
+				<Mob Name="Charred Soldier" Entry="52504" />
+				<Mob Name="Charred Vanquisher" Entry="52503" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="1070.131" Y="365.8237" Z="32.16909" />
+				<Hotspot X="1163.085" Y="362.5709" Z="16.89077" />
+				<Hotspot X="1215.312" Y="365.9862" Z="15.90511" />
+				<Hotspot X="1158.828" Y="287.8879" Z="16.40254" />
+				<Hotspot X="1218.296" Y="415.741" Z="19.65164" />
+				<Hotspot X="1306.02" Y="390.476" Z="22.23001" />			
+			</Hotspots>
+		</Objective>
+	</Quest>
 	
 	<QuestOrder>
 	
@@ -101,6 +116,13 @@
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
 			</While>
+			<!-- Avrilla Daily -->
+			<While Condition="HasQuestAvailable(52489)" >
+				<CustomBehavior File="InteractWith" MobId="52489" X="1009.831" Y="329.2008" Z="41.2768" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+			</While>
+
 	
 	
 			<If Condition="((HasQuest(29143)) &amp;&amp; (!IsQuestCompleted(29143)))" >
@@ -154,7 +176,26 @@
 				<Objective QuestName="The Harder They Fall" QuestId="29141" Type="KillMob" MobId="52552" KillCount="3" />
 			</If>
 			
-			<If Condition="((HasQuest()) &amp;&amp; (!IsQuestCompleted()))" >
+			<!-- Some Like It Hot - Avrilla Daily -->
+			<If Condition="((HasQuest(29299)) &amp;&amp; (!IsQuestCompleted(29299)))" >
+				<SetGrindArea>
+					<GrindArea>
+						<Factions>2156</Factions>
+						<Hotspots>
+							<Hotspot X="1317.235" Y="394.4182" Z="21.61626" />
+							<Hotspot X="1260.687" Y="444.7308" Z="22.62494" />
+							<Hotspot X="1392.042" Y="357.3324" Z="25.72089" />
+							<Hotspot X="1345.574" Y="299.6357" Z="22.87051" />
+							<Hotspot X="1253.672" Y="298.7153" Z="23.08849" />
+						</Hotspots>
+					</GrindArea>
+				</SetGrindArea>
+				<GrindTo Condition="(IsQuestCompleted(29299))" />
+			</If>
+			
+			<!-- Avrilla Daily -->
+			<If Condition="((HasQuest(29255)) &amp;&amp; (!IsQuestCompleted(29255)))" >
+				<Objective QuestName="Embergris" QuestId="29255" Type="CollectItem" ItemId="69722" CollectCount="5" />
 			</If>
 			
 			<If Condition="((HasQuest()) &amp;&amp; (!IsQuestCompleted()))" >
@@ -208,7 +249,8 @@
 			<If Condition="((HasQuest(29141)) &amp;&amp; (IsQuestCompleted(29141)))" >
 		<TurnIn QuestName="The Harder They Fall" QuestId="29141" TurnInName="General Taldris Moonfall" TurnInId="52824" />
 			</If>
-			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+			<If Condition="((HasQuest(29255)) &amp;&amp; (IsQuestCompleted(29255)))" >
+		<TurnIn QuestName="Embergris" QuestId="29255" TurnInName="Avrilla" TurnInId="52489" />
 			</If>
 			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
 			</If>
