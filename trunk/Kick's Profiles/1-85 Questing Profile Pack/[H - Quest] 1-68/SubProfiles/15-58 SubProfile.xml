@@ -26,10 +26,13 @@
 		<!--Cold Hearth Manor Sign-->
 		<Blackspot X="2188.518" Y="661.0852" Z="33.29134" Radius="4.017753"/>	
 		<!--Northern Barrens Blackspots-->
-		<Blackspot X="1355.354" Y="-3543.558" Z="94.33585" Radius="13.51309" />		
+		<Blackspot X="1355.354" Y="-3543.558" Z="94.33585" Radius="13.51309" />	
+
+		<Blackspot X="2168.818" Y="-2502.867" Z="82.42438" Radius="52.62083" />
 	</Blackspots>
 	
 	<AvoidMobs>
+		<Mob Name="Gaivan Shadewalker" Entry="33777" />
 		<Mob Name="Honor's Stand Footman" Entry="37161" />
 		<Mob Name="Raging Ancient" Id="33688" />
 	</AvoidMobs>
@@ -367,7 +370,31 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-	
+	<Quest Id="13871" Name="Security!">
+	<Objective Type="CollectItem" ItemId="46147" CollectCount="1">
+		<CollectFrom>
+		</CollectFrom>
+		<Hotspots>
+			<Hotspot X="2406.159" Y="-3542.906" Z="99.27013" />
+			<Hotspot X="2416.819" Y="-3522.347" Z="99.27789" />
+			<Hotspot X="2439.212" Y="-3515.437" Z="99.31758" />
+			<Hotspot X="2461.19" Y="-3524.186" Z="99.27757" />
+			<Hotspot X="2470.958" Y="-3547.159" Z="99.266" />
+			<Hotspot X="2440.722" Y="-3554.999" Z="99.46024" />
+			<Hotspot X="2438.406" Y="-3533.785" Z="99.46024" />
+			<Hotspot X="2441.983" Y="-3477.333" Z="91.74357" />
+			<Hotspot X="2407.481" Y="-3492.926" Z="92.52463" />
+			<Hotspot X="2421.384" Y="-3435.846" Z="98.06487" />
+			<Hotspot X="2449.432" Y="-3408" Z="100.1834" />
+			<Hotspot X="2495.892" Y="-3431.328" Z="104.9322" />
+			<Hotspot X="2503.377" Y="-3461.26" Z="107.3871" />
+			<Hotspot X="2460.852" Y="-3470.626" Z="93.01585" />
+			<Hotspot X="2477.21" Y="-3491.113" Z="92.37178" />
+		</Hotspots>
+	</Objective>
+</Quest>
+
+
 	<!-- Stonetalon Overrides-->
 	<Quest Name="I Got Your Parts Right Here..." Id="26045">
 		<Objective Type="CollectItem" ItemId="56575" CollectCount="10">
@@ -1032,15 +1059,24 @@
 		<PickUp QuestName="Playing With Felfire" QuestId="13730" GiverName="Splintertree Demolisher" GiverId="33726" />
 		<PickUp QuestName="Dead Elves Walking" QuestId="13801" GiverName="Pixel" GiverId="12724" />
 			<If Condition="((HasQuest(13730)) &amp;&amp; (!IsQuestCompleted(13730)))" >
-				<CustomBehavior File="UseItemOn" QuestId="13730" MobId="33736" ItemId="45478" WaitTime="7500" NumOfTimes="21" CollectionDistance="400" X="2088.558" Y="-3006.204" Z="110.2349" />
+				<CustomBehavior File="UseItemOn" QuestId="13730" MobId="33736" ItemId="45478" WaitTime="7500" NumOfTimes="21" Range="3" CollectionDistance="400" X="2088.558" Y="-3006.204" Z="110.2349" />
 			</If>
 			<Objective QuestName="Destroy the Legion" QuestId="26448" Type="KillMob" MobId="11697" KillCount="15" />
-			<!--
-			<If Condition="HasQuest(6503) &amp;&amp; !IsQuestCompleted(6503)" >
-					<CustomBehavior File="UserSettings" UseFlightPaths="False" />
-					<RunTo X="1589.244" Y="-4385.648" Z="18.31772" />
-			</If>
-			-->
+			<If Condition="((!HasQuest(26447)) &amp;&amp; (!IsQuestCompleted(26447)))" >
+                    <SetGrindArea>
+                        <GrindArea>
+                            <Factions>90</Factions>
+                            <Hotspots>
+                               <Hotspot X="2034.744" Y="-2988.271" Z="105.4556" />
+                               <Hotspot X="2132.983" Y="-2980.163" Z="114.4466" />
+                               <Hotspot X="1973.013" Y="-3124.797" Z="105.5921" />
+                            </Hotspots>
+                        </GrindArea>
+                    </SetGrindArea>
+                <GrindTo Condition="(HasItem(23797))" GoalText="Getting DropQuest Item" />
+				
+        <PickUp QuestName="Diabolical Plans" QuestId="26447" GiverType="Item" GiverId="23797" />
+                </If>
 			<Objective QuestName="Ashenvale Outrunners" QuestId="6503" Type="KillMob" MobId="12856" KillCount="9" />
 			<If Condition="((HasQuest(13805)) &amp;&amp; (!IsQuestCompleted(13805)))" >
 				<RunTo X="1817.922" Y="-2652.812" Z="52.8696" />
@@ -1048,35 +1084,39 @@
 				<UseItem ItemId="45683" QuestId="13805" X="1817.922" Y="-2652.812" Z="52.8696" />
 			</If>
 			<Objective QuestName="Dead Elves Walking" QuestId="13801" Type="KillMob" MobId="3803" KillCount="15" />
-
-			<!--
-		<If Condition="HasQuest(13801) &amp;&amp; IsQuestCompleted(13801)" >
-			<RunTo X="2074.638" Y="-2526.881" Z="95.40819" />
-                        <RunTo X="2185.378" Y="-2636.788" Z="108.4832" />
-		</If>
-			-->
+			<If Condition="((HasQuest(13801)) &amp;&amp; (IsQuestCompleted(13801)))" >
+				<RunTo X="2182.44" Y="-2640.033" Z="108.3732" />
+			</If>
 		<TurnIn QuestName="Dead Elves Walking" QuestId="13801" TurnInName="Pixel" TurnInId="12724" />
 		<TurnIn QuestName="Pierce Their Heart!" QuestId="13805" TurnInName="Kadrak" TurnInId="33837" />
 		<PickUp QuestName="Mission Improbable" QuestId="13808" GiverName="Kadrak" GiverId="33837" />
 		<PickUp QuestName="Bad News Bear-er" QuestId="13848" GiverName="Kadrak" GiverId="33837" />
+			<If Condition="((HasQuest(13848)) &amp;&amp; (IsQuestCompleted(13848)) &amp;&amp; (Me.Z &gt; 20))" > <!-- FP bugs out if we don't turn this in immediately --> 
+				<CustomBehavior File="InteractWith" MobId="12616" GossipOptions="2" X="2304.965" Y="-2520.768" Z="104.0347" />
+			</If>
+		<TurnIn QuestName="Bad News Bear-er" QuestId="13848" TurnInName="Commander Grimfang" TurnInId="34122" />
+		<!-- take out the comments when done w/ org quest chain
+		<PickUp QuestName="Keep the Fires Burning" QuestId="13890" GiverName="Commander Grimfang" GiverId="34122" />
+		<PickUp QuestName="Lousy Pieces of Ship" QuestId="13883" GiverName="Dagrun Ragehammer" GiverId="34303" />
+		<PickUp QuestName="The Essence of Aku'Mai" QuestId="26890" GiverName="Dagrun Ragehammer" GiverId="34303" />
+		<PickUp QuestName="Naga at the Zoram Strand" QuestId="6442" GiverName="Marukai" GiverId="12719" />
+		<PickUp QuestName="Vorsha the Lasher" QuestId="6641" GiverName="Muglash" GiverId="12717" />
+		-->
 		<TurnIn QuestName="Ashenvale Outrunners" QuestId="6503" TurnInName="Kuray'bin" TurnInId="12867" />
 		<TurnIn QuestName="Destroy the Legion" QuestId="26448" TurnInName="Valusha" TurnInId="17355" />
+        <TurnIn QuestName="Diabolical Plans" QuestId="26447" TurnInName="Valusha" TurnInId="17355" />
+        <PickUp QuestName="Never Again!" QuestId="26449" GiverName="Valusha" GiverId="17355" />
 		<TurnIn QuestName="Playing With Felfire" QuestId="13730" TurnInName="Splintertree Demolisher" TurnInId="33726" />
 		<PickUp QuestName="Tell No One!" QuestId="13751" GiverName="Splintertree Demolisher" GiverId="33726" />
 		<TurnIn QuestName="Tell No One!" QuestId="13751" TurnInName="Durak" TurnInId="33760" />
 		<PickUp QuestName="Dirty Deeds" QuestId="13797" GiverName="Durak" GiverId="33760" />
-	
-	
-	
-
-
 			<Objective QuestName="Dirty Deeds" QuestId="13797" Type="CollectItem" ItemId="45576" CollectCount="10" />
 		<TurnIn QuestName="Dirty Deeds" QuestId="13797" TurnInName="Durak" TurnInId="33760" />
 		<PickUp QuestName="Rain of Destruction" QuestId="13798" GiverName="Durak" GiverId="33760" />
-		<If Condition="HasQuest(13798) &amp;&amp; !IsQuestCompleted(13798)">
-                <CustomBehavior File="UserSettings" UseMount="false" />
-		        <RunTo X="2246.625" Y="-2496.338" Z="125.1114" />
-			<While Condition="HasQuest(13798) &amp;&amp; !IsQuestCompleted(13798)">
+			<If Condition="((HasQuest(13798)) &amp;&amp; (!IsQuestCompleted(13798)))" >
+				<CustomBehavior File="UserSettings" UseMount="False" />
+				<RunTo X="2246.625" Y="-2496.338" Z="125.1114" />
+			 <While Condition="HasQuest(13798) &amp;&amp; !IsQuestCompleted(13798)">
 				<CustomBehavior File="UseItemTargetLocation" QuestId="13798" ItemId="45598" UseType="ToObject" Range="150" MobId="33912" X="2218.044" Y="-2563.114" Z="90.47626" />
 				<CustomBehavior File="WaitTimer" WaitTime="16000" />
 				<CustomBehavior File="UseItemTargetLocation" QuestId="13798" ItemId="45598" UseType="ToObject" Range="150" MobId="33914" X="2204.47" Y="-2534.636" Z="82.85535" />
@@ -1087,12 +1127,92 @@
 				<CustomBehavior File="WaitTimer" WaitTime="16000" />
 				<CustomBehavior File="UseItemTargetLocation" QuestId="13798" ItemId="45598" UseType="ToObject" Range="150" MobId="33912" X="2172.599" Y="-2508.907" Z="80.04305" />
 				<CustomBehavior File="WaitTimer" WaitTime="16000" />
-			</While>
-                        <CustomBehavior File="UserSettings" UseMount="false" />
-                        <RunTo X="2458.066" Y="-2464.168" Z="109.563" />
-		</If>
+			 </While>
+				<RunTo X="2458.066" Y="-2464.168" Z="109.563" />
+			</If>
+			<If Condition="((HasQuest(13798)) &amp;&amp; (IsQuestCompleted(13798)))" >
 		<TurnIn QuestName="Rain of Destruction" QuestId="13798" TurnInName="Durak" TurnInId="33977" />
+				<CustomBehavior File="UserSettings" UseMount="True" />
+			</If>
 		<PickUp QuestName="All Apologies" QuestId="13841" GiverName="Splintertree Demolisher" GiverId="33726" />
+		<TurnIn QuestName="All Apologies" QuestId="13841" TurnInName="Garrosh Hellscream" TurnInId="39605" />
+		<PickUp QuestName="Dread Head Redemption" QuestId="13842" GiverName="Garrosh Hellscream" GiverId="39605" />
+ 			<If Condition="((HasQuest(13842)) &amp;&amp; (!IsQuestCompleted(13842)) &amp;&amp; (Me.ZoneId == 1637))" >
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" DoTrain="True" />
+				<!-- Set Hearth to Orgrimmar -->
+				<CustomBehavior File="InteractWith" MobId="6929" GossipOptions="1" X="1572.816" Y="-4437.691" Z="16.05642" /> 
+				<CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" NumOfTimes="1" WaitTime="5000"/> 
+				
+				<!-- delete this when flight master is un-blacklisted -->
+				<CustomBehavior File="InteractWith" QuestId="13842" MobId="3310" />
+				<RunTo X="2457.892" Y="-2463.774" Z="109.6444" />
+			</If>
+			<If Condition="((HasQuest(13842)) &amp;&amp; (!IsQuestCompleted(13842)))" >
+				<CustomBehavior File="InteractWith" QuestId="13842" MobId="44414" GossipOptions="1" X="2457.892" Y="-2463.774" Z="109.6444" />
+				<CustomBehavior File="WaitTimer" WaitTime="16000" GoalText="Waiting for speech {TimeRemaining}" />
+				<Objective QuestName="Dread Head Redemption" QuestId="13842" Type="CollectItem" ItemId="60638" CollectCount="1" />
+			</If>
+		<TurnIn QuestName="Dread Head Redemption" QuestId="13842" TurnInName="Garrosh Hellscream" TurnInId="39605" />
+			<Objective QuestName="Never Again!" QuestId="26449" Type="CollectItem" ItemId="45477" CollectCount="1" />
+			<Objective QuestName="Never Again!" QuestId="26449" Type="CollectItem" ItemId="45476" CollectCount="1" />
+		<TurnIn QuestName="Never Again!" QuestId="26449" TurnInName="Valusha" TurnInId="17355" />
+		<PickUp QuestName="Demon Duty" QuestId="13806" GiverName="Locke Okarr" GiverId="11820" />
+		<PickUp QuestName="Satyr Horns" QuestId="6441" GiverName="Pixel" GiverId="12724" />
+			<If Condition="((HasQuest(13808)) &amp;&amp; (IsQuestCompleted(13808)))" >
+				<RunTo X="2611.031" Y="-3058.034" Z="156.4043" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(45710)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for npc to spawn {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Mission Improbable" QuestId="13808" TurnInName="Krokk" TurnInId="33889" />
+		<PickUp QuestName="Making Stumps" QuestId="13815" GiverName="Krokk" GiverId="33889" />
+		<PickUp QuestName="Wet Work" QuestId="13865" GiverName="Krokk" GiverId="33889" />
+			<If Condition="((HasQuest(13815)) &amp;&amp; (!IsQuestCompleted(13815)))" >
+				<CustomBehavior File="UseItemOn" QuestId="13815" ItemId="45807" MobId="34167" NumOfTimes="20" WaitTime="4000" MobState="Alive" X="2460.057" Y="-3266.886" Z="114.6126" />
+			</If>
+			<Objective QuestName="Wet Work" QuestId="13865" Type="KillMob" MobId="34208" KillCount="1" />
+			<Objective QuestName="Wet Work" QuestId="13865" Type="KillMob" MobId="34294" KillCount="1" />
+			<Objective QuestName="Wet Work" QuestId="13865" Type="KillMob" MobId="34204" KillCount="1" />
+			<Objective QuestName="Wet Work" QuestId="13865" Type="KillMob" MobId="34177" KillCount="12" />
+			<If Condition="((HasQuest(13815)) &amp;&amp; (IsQuestCompleted(13815)))" >
+				<RunTo X="2611.031" Y="-3058.034" Z="156.4043" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(45710)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for npc to spawn {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Wet Work" QuestId="13865" TurnInName="Krokk" TurnInId="33889" />
+		<TurnIn QuestName="Making Stumps" QuestId="13815" TurnInName="Krokk" TurnInId="33889" />
+		<PickUp QuestName="As Good as it Gets" QuestId="13870" GiverName="Krokk" GiverId="33889" />
+		<TurnIn QuestName="As Good as it Gets" QuestId="13870" TurnInName="Overseer Gorthak" TurnInId="17304" />
+		<PickUp QuestName="Security!" QuestId="13871" GiverName="Overseer Gorthak" GiverId="17304" />
+			<Objective QuestName="Security!" QuestId="13871" Type="CollectItem" ItemId="46147" CollectCount="1" />
+		<TurnIn QuestName="Security!" QuestId="13871" TurnInName="Overseer Gorthak" TurnInId="17304" />
+		<PickUp QuestName="Sheelah's Last Wish" QuestId="13873" GiverName="Guardian Menerin" GiverId="34233" />
+		<TurnIn QuestName="Sheelah's Last Wish" QuestId="13873" TurnInName="Guardian Gurtar" TurnInId="34242" />
+		<PickUp QuestName="Gurtar's Request" QuestId="13875" GiverName="Guardian Gurtar" GiverId="34242" X="2802.91" Y="-3466.646" Z="115.8374" />
+			<If Condition="((HasQuest(13875)) &amp;&amp; (!IsQuestCompleted(13875)))" >
+				<Objective QuestName="Gurtar's Request" QuestId="13875" Type="CollectItem" ItemId="46315" CollectCount="8" />
+				<UseItem ItemId="46316" QuestId="13875" QuestName="Gurtar's Revenge" X="2276.95" Y="-2543.309" Z="97.69904" />
+			</If>
+			<If Condition="((HasQuest(13806)) &amp;&amp; (!IsQuestCompleted(13806)))" >
+				<CustomBehavior File="InteractWith" MobId="194612" NumOfTimes="20" Range="8" ObjectType="Gameobject" X="2913.082" Y="-2827.083" Z="209.0692" />
+			</If>
+			<Objective QuestName="Satyr Horns" QuestId="6441" Type="CollectItem" ItemId="5481" CollectCount="16" />
+		<TurnIn QuestName="Gurtar's Request" QuestId="13875" TurnInName="Splintertree Demolisher" TurnInId="33726" />
+		<TurnIn QuestName="Demon Duty" QuestId="13806" TurnInName="Locke Okarr" TurnInId="11820" />
+		<TurnIn QuestName="Satyr Horns" QuestId="6441" TurnInName="Pixel" TurnInId="12724" />
+		
+
+
+
+
+		
+	
+	
+
+
+
+
 
 	
 	
@@ -1116,11 +1236,6 @@
 	
 	
 	
-		<PickUp QuestName="Gurtar's Request" QuestId="13875" GiverName="Guardian Gurtar" GiverId="34242" X="2802.91" Y="-3466.646" Z="115.8374" />
-			<If Condition="((HasQuest(13875)) &amp;&amp; (!IsQuestCompleted(13875)))" >
-				<Objective QuestName="Gurtar's Request" QuestId="13875" Type="CollectItem" ItemId="46315" CollectCount="8" />
-				<UseItem ItemId="46316" QuestId="13875" QuestName="Gurtar's Revenge" X="2276.95" Y="-2543.309" Z="97.69904" />
-			</If>
 		<PickUp QuestName="Ashenvale Outrunners" QuestId="6503" GiverName="Kuray'bin" GiverId="12867" />
 		<PickUp QuestName="Destroy the Legion" QuestId="26448" GiverName="Valusha" GiverId="17355" />
 		<Objective QuestName="Ashenvale Outrunners" QuestId="6503" Type="KillMob" MobId="12856" KillCount="9" />
