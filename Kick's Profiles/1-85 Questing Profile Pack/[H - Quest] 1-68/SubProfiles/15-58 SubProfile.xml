@@ -1467,13 +1467,15 @@
 			<Objective QuestName="Building Your Own Coffin" QuestId="13983" Type="CollectItem" ItemId="46772" CollectCount="3" />
 			<Objective QuestName="Building Your Own Coffin" QuestId="13983" Type="CollectItem" ItemId="46773" CollectCount="3" />
 			<Objective QuestName="Building Your Own Coffin" QuestId="13983" Type="CollectItem" ItemId="46771" CollectCount="5" />
-			<If Condition="Me.HasAura(&quot;Jinx's Elf Detection Ray&quot;)">
-				<Else>
-					<UseItem ItemId="46776" QuestName="They're Out There!" QuestId="13980" X="2241.533" Y="-956.9616" Z="86.38051"/>
-				</Else>
+			<If Condition="((HasQuest(13980)) &amp;&amp; (!IsQuestCompleted(13980)))" >
+			 <!-- <If Condition="!Me.HasAura(&quot;Jinx's Elf Detection Ray&quot;)"> -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(46776)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
+				<!-- <UseItem ItemId="46776" QuestName="They're Out There!" QuestId="13980" X="2241.533" Y="-956.9616" Z="86.38051"/> -->
+			 <!-- </If> -->
+				<Objective QuestName="They're Out There!" QuestId="13980" Type="KillMob" MobId="34603" KillCount="12" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(46776)" WaitTime="1000" />
 			</If>
-			<Objective QuestName="They're Out There!" QuestId="13980" Type="KillMob" MobId="34603" KillCount="12" />
-			<UseItem ItemId="46776" QuestName="They're Out There!" QuestId="13980" X="2241.533" Y="-956.9616" Z="86.38051"/>
 		<TurnIn QuestName="Building Your Own Coffin" QuestId="13983" TurnInName="Foreman Jynx" TurnInId="34596" />
 		<TurnIn QuestName="They're Out There!" QuestId="13980" TurnInName="Foreman Jynx" TurnInId="34596" />
 		
