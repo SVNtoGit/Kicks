@@ -1638,8 +1638,8 @@
 					</Hotspots>
 				</GrindArea>
 			</SetGrindArea>
-			<GrindTo Level="25"/>
-			<CheckPoint Level="25"/>
+			<GrindTo Level="27"/>
+			<CheckPoint Level="27"/>
 
 			<!-- Stonetalon Mountains Quests -->
 			<CustomBehavior File="Message" Text="Compiling Stonetalon Mount Quests" LogColor="Green" />
@@ -1728,7 +1728,12 @@
 				<CustomBehavior File="UseItemOn" QuestId="26010" MobId="203431" ItemId="56473" NumOfTimes="30" MobType="GameObject" WaitTime="8500" Range="5" CollectionDistance="500" X="843.1978" Y="205.8929" Z="27.36547" />
 			</If>
 		<TurnIn QuestName="Dream of a Better Tomorrow" QuestId="26026" TurnInName="Clarissa" TurnInId="40907" />
-			<!-- Ignoring Mr. D's Wild Ride - Vehicle Quest -->
+		 <!-- Veh Bev - Vlad.  Needs some tweaking
+		<PickUp QuestName="Mr. D's Wild Ride" QuestId="26028" GiverName="Clarissa" GiverId="40907" />
+			<If Condition="((HasQuest(26028)) &amp;&amp; (!IsQuestCompleted(26028)))" >
+				<CustomBehavior File="26028" QuestId="26028" X="1081.281" Y="21.28194" Z="4.390781" endX="936.7939" endY="-43.59257" endZ="94.04282"  />
+			</If>
+		<TurnIn QuestName="Mr. D's Wild Ride" QuestId="26028" TurnInName="Overlord Krom'gar" TurnInId="41023" /> -->
 		<TurnIn QuestName="Enemy of the Horde: Marshal Paltrow" QuestId="26011" TurnInName="Spy-Mistress Anara" TurnInId="40903" />
 		<TurnIn QuestName="Ashes to Ashes" QuestId="26010" TurnInName="Overlord Krom'gar" TurnInId="41023" />
 		<PickUp QuestName="Report to Bombgutz" QuestId="26020" GiverName="Overlord Krom'gar" GiverId="41023" />
@@ -1748,20 +1753,59 @@
 		<TurnIn QuestName="I Got Your Parts Right Here..." QuestId="26045" TurnInName="Sergeant Dontrag" TurnInId="41991" />
 		<PickUp QuestName="Spare Parts Up In Here!" QuestId="26048" GiverName="Sergeant Dontrag" GiverId="41991" /> <!-- End of Cave -->
 		<TurnIn QuestName="Spare Parts Up In Here!" QuestId="26048" TurnInName="Chief Blastgineer Bombgutz" TurnInId="40902" />
-			<!-- Ignoring vehicle quest
-		<PickUp QuestName="In Defense of Krom'gar Fortress" QuestId="26058" GiverName="Chief Blastgineer Bombgutz" GiverId="40902" /> -->
+		<PickUp QuestName="In Defense of Krom'gar Fortress" QuestId="26058" GiverName="Chief Blastgineer Bombgutz" GiverId="40902" />
+		<!-- Veh Bev - Vlad. This Beh messes up the camera.  Natfoth actually has a behavior just like this that needs a little fixing too -->
+			<If Condition="((HasQuest(26058)) &amp;&amp; (!IsQuestCompleted(26058)))" >
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="26058" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="In Defense of Krom'gar Fortress" QuestId="26058" TurnInName="Overlord Krom'gar" TurnInId="41023" />
+		<PickUp QuestName="Eyes and Ears: Malaka'jin" QuestId="26059" GiverName="Overlord Krom'gar" GiverId="41023" />
 			<!-- End of Krom'gar Fortress Quests -->
 			
-			<!-- Webwinder Path  Quest -->
+			<!-- Webwinder Path Quest -->
 			<CustomBehavior File="Message" Text="Compiling Webwinder Path Quest" LogColor="Cornflowerblue" />
 
 		<PickUp QuestName="The Queen and Her Court" QuestId="26063" GiverName="Darn Talongrip" GiverId="11821" />
 			<Objective QuestName="The Queen and Her Court" QuestId="26063" Type="KillMob" MobId="41185" KillCount="1" />
 			<Objective QuestName="The Queen and Her Court" QuestId="26063" Type="KillMob" MobId="4006" KillCount="10" />
 		<TurnIn QuestName="The Queen and Her Court" QuestId="26063" TurnInName="Darn Talongrip" TurnInId="11821" />
+			<!-- End of Webwinder Path Quest -->
 		
-		
+			<!-- Malaka'jin Quests -->
+			<CustomBehavior File="Message" Text="Compiling Malaka'jin Quests" LogColor="Cornflowerblue" />
+
+		<TurnIn QuestName="Eyes and Ears: Malaka'jin" QuestId="26059" TurnInName="Witch Doctor Jin'Zil" TurnInId="3995" />
+		<PickUp QuestName="Da Voodoo: Stormer Heart" QuestId="26060" GiverName="Witch Doctor Jin'Zil" GiverId="3995" />
+		<PickUp QuestName="Da Voodoo: Ram Horns" QuestId="26061" GiverName="Witch Doctor Jin'Zil" GiverId="3995" />
+		<PickUp QuestName="Nura Pathfinder" QuestId="26069" GiverName="Witch Doctor Jin'Zil" GiverId="3995" />
+		<PickUp QuestName="Fight On Their Stomachs" QuestId="26064" GiverName="Denni'ka" GiverId="3411" />
+			<Objective QuestName="Da Voodoo: Stormer Heart" QuestId="26060" Type="CollectItem" ItemId="56796" CollectCount="1" />
+			<Objective QuestName="Da Voodoo: Ram Horns" QuestId="26061" Type="CollectItem" ItemId="56797" CollectCount="6" />
+			<Objective QuestName="Fight On Their Stomachs" QuestId="26064" Type="CollectItem" ItemId="56041" CollectCount="8" />
+		<TurnIn QuestName="Da Voodoo: Stormer Heart" QuestId="26060" TurnInName="Witch Doctor Jin'Zil" TurnInId="3995" />
+		<TurnIn QuestName="Da Voodoo: Ram Horns" QuestId="26061" TurnInName="Witch Doctor Jin'Zil" TurnInId="3995" />
+		<PickUp QuestName="Da Voodoo: Resonite Crystal" QuestId="26062" GiverName="Witch Doctor Jin'Zil" GiverId="3995" />
+		<PickUp QuestName="Reinforcements..." QuestId="26066" GiverName="Subjugator Devo" GiverId="42023" />
+		<TurnIn QuestName="Fight On Their Stomachs" QuestId="26064" TurnInName="Denni'ka" TurnInId="3411" />
+			<Objective QuestName="Da Voodoo: Resonite Crystal" QuestId="26062" Type="CollectItem" ItemId="56795" CollectCount="8" />
+			<If Condition="((HasQuest(26066)) &amp;&amp; (!IsQuestCompleted(26066)))" >
+				<CustomBehavior File="UseItemOn" QuestId="26066" ItemId="56794" MobId="11915" NumOfTimes="20" NpcState="Alive" X="-119.0355" Y="215.0531" Z="97.1964" />
+			</If>
+		<TurnIn QuestName="Reinforcements..." QuestId="26066" TurnInName="Subjugator Devo" TurnInId="42023" />
+		<TurnIn QuestName="Da Voodoo: Resonite Crystal" QuestId="26062" TurnInName="Witch Doctor Jin'Zil" TurnInId="3995" />
 		<!-- Kick stopped here
+		<PickUp QuestName="Jin'Zil's Blessing" QuestId="26067" GiverName="Witch Doctor Jin'Zil" GiverId="3995" />
+		<PickUp QuestName="Kobold Fury!" QuestId="26068" GiverName="Subjugator Devo" GiverId="42023" />
+		
+		
+		
+		
+		
+		
+		
+		
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
 		-->
 		
@@ -1788,8 +1832,8 @@
 					</Hotspots>
 				</GrindArea>
 			</SetGrindArea>
-			<GrindTo Level="30"/>
-			<Checkpoint Level="30"/>
+			<GrindTo Level="31"/>
+			<Checkpoint Level="31"/>
 
 		<!-- Desolace subprofile attached -->
 		
@@ -1817,6 +1861,7 @@
 		<UseItem QuestId="14213" ItemId="48857" QuestName="Ten Pounds of Flesh" X="-240.7148" Y="694.8555" Z="100.8951"/>
 		<TurnIn QuestName="Ten Pounds of Flesh" QuestId="14213" TurnInName="Elune's Brazier" TurnInType="Object" TurnInId="195497" X="-240.7148" Y="694.8555" Z="100.8951"/>		
 		<TurnIn QuestName="Furien's Footsteps" QuestId="14191" TurnInName="Ancient Tablets" TurnInType="Object" TurnInId="195433" X="-423.1596" Y="1115.479" Z="96.02772"/>
+		
 		<SetGrindArea>
 			<GrindArea>
 				<Name>Grind to Level 32</Name>
