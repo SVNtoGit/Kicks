@@ -56,6 +56,7 @@
 	</Blackspots>
 	
 	<AvoidMobs>
+		<Mob Name="Orbital Support Shredder" />
 		<Mob Name="Gnomebot Pounder" Entry="35203" />
 		<Mob Name="Gnome Engineer" Entry="35334" />
 		<Mob Name="Gaivan Shadewalker" Entry="33777" />
@@ -1779,7 +1780,9 @@
 		<TurnIn QuestName="Eyes and Ears: Malaka'jin" QuestId="26059" TurnInName="Witch Doctor Jin'Zil" TurnInId="3995" />
 		<PickUp QuestName="Da Voodoo: Stormer Heart" QuestId="26060" GiverName="Witch Doctor Jin'Zil" GiverId="3995" />
 		<PickUp QuestName="Da Voodoo: Ram Horns" QuestId="26061" GiverName="Witch Doctor Jin'Zil" GiverId="3995" />
+			<If Condition="(!IsQuestCompleted(24504)) || (!IsQuestCompleted(28549))" > 
 		<PickUp QuestName="Nura Pathfinder" QuestId="26069" GiverName="Witch Doctor Jin'Zil" GiverId="3995" />
+			</If>
 		<PickUp QuestName="Fight On Their Stomachs" QuestId="26064" GiverName="Denni'ka" GiverId="3411" />
 			<Objective QuestName="Da Voodoo: Stormer Heart" QuestId="26060" Type="CollectItem" ItemId="56796" CollectCount="1" />
 			<Objective QuestName="Da Voodoo: Ram Horns" QuestId="26061" Type="CollectItem" ItemId="56797" CollectCount="6" />
@@ -1791,23 +1794,95 @@
 		<TurnIn QuestName="Fight On Their Stomachs" QuestId="26064" TurnInName="Denni'ka" TurnInId="3411" />
 			<Objective QuestName="Da Voodoo: Resonite Crystal" QuestId="26062" Type="CollectItem" ItemId="56795" CollectCount="8" />
 			<If Condition="((HasQuest(26066)) &amp;&amp; (!IsQuestCompleted(26066)))" >
-				<CustomBehavior File="UseItemOn" QuestId="26066" ItemId="56794" MobId="11915" NumOfTimes="20" NpcState="Alive" X="-119.0355" Y="215.0531" Z="97.1964" />
+				<CustomBehavior File="CombatUseItemOn" QuestId="26066" ItemId="56794" MobId="11915" MobHpPercentLeft="100" Range="5" X="-119.0355" Y="215.0531" Z="97.1964" />
 			</If>
 		<TurnIn QuestName="Reinforcements..." QuestId="26066" TurnInName="Subjugator Devo" TurnInId="42023" />
 		<TurnIn QuestName="Da Voodoo: Resonite Crystal" QuestId="26062" TurnInName="Witch Doctor Jin'Zil" TurnInId="3995" />
-		<!-- Kick stopped here
 		<PickUp QuestName="Jin'Zil's Blessing" QuestId="26067" GiverName="Witch Doctor Jin'Zil" GiverId="3995" />
 		<PickUp QuestName="Kobold Fury!" QuestId="26068" GiverName="Subjugator Devo" GiverId="42023" />
+			<If Condition="((HasQuest(26067)) &amp;&amp; (!IsQuestCompleted(26067)))" >
+				<CustomBehavior File="UserSettings" PullDistance="1" />
+				<CustomBehavior File="UseItemOn" QuestId="26067" ItemId="56798" MobId="41360" Range="20" WaitTime="7000" MobState="Alive" NumOfTimes="30" X="171.7514" Y="-806.8386" Z="-0.294844" />
+			</If>
+		<TurnIn QuestName="Jin'Zil's Blessing" QuestId="26067" TurnInName="Witch Doctor Jin'Zil" TurnInId="3995" /> <!-- I turn in on purpose -->
+			<If Condition="((HasQuest(26068)) &amp;&amp; (!IsQuestCompleted(26068)))" >
+				<CustomBehavior File="NoCombatMoveTo" X="187.9012" Y="-810.9161" Z="2.74902" />
+				<RunTo X="318.4083" Y="-460.5539" Z="69.84375" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+				<UseItem ItemId="56799" QuestName="Kobold Fury!" QuestId="26068" X="318.4083" Y="-460.5539" Z="69.84375" />
+				<CustomBehavior File="NoCombatMoveTo" X="292.2652" Y="-408.4276" Z="76.49138" />
+				<CustomBehavior File="NoCombatMoveTo" X="318.4083" Y="-460.5539" Z="69.84375" />
+				<CustomBehavior File="NoCombatMoveTo" X="187.9012" Y="-810.9161" Z="2.74902" />
+			</If>
+			<If Condition="((HasQuest(26068)) &amp;&amp; (IsQuestCompleted(26068)))" >
+		<TurnIn QuestName="Kobold Fury!" QuestId="26068" TurnInName="Subjugator Devo" TurnInId="42023" />
+				<CustomBehavior File="UserSettings" PullDistance="20" />
+			</If>
+		<PickUp QuestName="All's Quiet on the Southern Front" QuestId="26073" GiverName="Witch Doctor Jin'Zil" GiverId="3995" />
+		<!-- This quest might go through Northwatch Hold (ally) if it doesn't fly.  So, we may need RunTo's -->
+		<TurnIn QuestName="All's Quiet on the Southern Front" QuestId="26073" TurnInName="Overlord Krom'gar" TurnInId="41023" />
+		<PickUp QuestName="Beginning of the End" QuestId="26074" GiverName="Overlord Krom'gar" GiverId="41023" />
+			<If Condition="((HasQuest(26074)) &amp;&amp; (!IsQuestCompleted(26074)))" >
+				<RunTo X="903.1131" Y="-30.63014" Z="94.00879" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="MountVehOnly" VehicleMountId="42029" X="903.1131" Y="-30.63014" Z="94.00879" />
+				<CustomBehavior File="WaitTimer" WaitTime="80000" GoalText="Waiting for ride {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Beginning of the End" QuestId="26074" TurnInName="Jibbly Rakit" TurnInId="42033" />
+			<!-- End of Malaka'jin Quests -->
+		
+			<!-- Sludgewerks Quests -->
+			<CustomBehavior File="Message" Text="Compiling Sludgewerks Quests" LogColor="Cornflowerblue" />
+
+		<PickUp QuestName="The Turd Problem" QuestId="26075" GiverName="Jibbly Rakit" GiverId="42033" />
+			<Objective QuestName="The Turd Problem" QuestId="26075" Type="KillMob" MobId="4012" KillCount="6" />
+		<TurnIn QuestName="The Turd Problem" QuestId="26075" TurnInName="Jibbly Rakit" TurnInId="42033" />
+			<PickUp QuestName="Spy Infestation" QuestId="26076" GiverName="Jibbly Rakit" GiverId="42033" />
+			<If Condition="((HasQuest(26076)) &amp;&amp; (!IsQuestCompleted(26076)))" >
+			 <!-- mobstate isn't working on this behavior.  i need to use it on alive ones only, as it doesn't blacklist where it last used it at.  temp work around below
+				<CustomBehavior File="UseItemTargetLocation" QuestId="26076" UseType="ToObject" ItemId="56800" ObjectId="42035" Range="5" MobState="Alive" X="1751.485" Y="810.5716" Z="130.9548" /> -->
+			 <While Condition="((HasQuest(26076)) &amp;&amp; (!IsQuestCompleted(26076)))" >
+				<CustomBehavior File="InteractWith" MobId="42035" CollectionDistance="500" MobState="Alive" X="1751.485" Y="810.5716" Z="130.9548" />
+				<CustomBehavior File="UseItemTargetLocation" UseType="ToObject" ItemId="56800" ObjectId="42035" Range="5" X="1751.485" Y="810.5716" Z="130.9548" />
+				<CustomBehavior File="WaitTimer" WaitTime="1500" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </While>
+			</If>
+		<TurnIn QuestName="Spy Infestation" QuestId="26076" TurnInName="Jibbly Rakit" TurnInId="42033" />
+		<!--	I can't do this quest until Cliffwalker elevators work.  but this quest is ready to go!
+		<PickUp QuestName="Final Delivery" QuestId="26077" GiverName="Jibbly Rakit" GiverId="42033" />
+			<If Condition="((HasQuest(26077)) &amp;&amp; (!IsQuestCompleted(26077)))" >
+				<RunTo X="1614.106" Y="881.3948" Z="147.7018" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="MountVehOnly" VehicleMountId="41418" QuestId="26077" X="1614.106" Y="881.3948" Z="147.7018" />
+				<CustomBehavior File="WaitTimer" WaitTime="80000" GoalText="Waiting for ride {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Final Delivery" QuestId="26077" TurnInName="General Grebo" TurnInId="42050" />
+			 End of Sludgewerks Quests -->
+			
+			<!-- I won't develop Cliffwalker quests until the mesh utilizes the elevators -->
+		
+			<!-- Cliffwalker Post Quests
+			<CustomBehavior File="Message" Text="Compiling Cliffwalker Post Quests" LogColor="Cornflowerblue" />
+
+		<PickUp QuestName="To Battlescar!" QuestId="26082" GiverName="General Grebo" GiverId="42050" />
+			<CustomBehavior File="KillUntilComplete" QuestId="26082" MobId="35150" MobId2="35151" MobId3="35152" X="1895.59" Y="1516.43" Z="208.6599"/>
+		<TurnIn QuestName="To Battlescar!" QuestId="26082" TurnInName="General Grebo" TurnInId="42050" />
+		<PickUp QuestName="Proof of Lies" QuestId="26097" GiverName="High Chieftain Cliffwalker" GiverId="42039" />
+			-->
+
 		
 		
 		
+		<!-- I have 'orders from base camp' in my bags from somewhere (drop quest item).  It turns in at Krom'gar -->		
 		
 		
-		
-		
-		
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
+		<!-- Kick stopped here for stonetalon
 		-->
+		
+		
+		
+		
+		
 		
 	
 		
@@ -1835,32 +1910,99 @@
 			<GrindTo Level="31"/>
 			<Checkpoint Level="31"/>
 
-		<!-- Desolace subprofile attached -->
-		
-		<!--BEGIN DESOLACE QUESTING-->
+			<!-- Desolace Quests -->
 			<CustomBehavior File="Message" Text="Compiling Desolace Quests" LogColor="Green" />
 
+			<CustomBehavior File="Message" Text="Compiling N. Desolace Quests" LogColor="Cornflowerblue" />
+
 		<PickUp QuestName="My Time Has Passed" QuestId="14184" GiverName="Furien" GiverId="35286" />
+			<If Condition="((HasQuest(14184)) &amp;&amp; (IsQuestCompleted(14184)) &amp;&amp; (Me.Y &gt; 2000))" >
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="MountVehOnly" VehicleMountId="35287" X="188.8457" Y="1771.345" Z="91.06986" />
+				<CustomBehavior File="WaitTimer" WaitTime="50000" GoalText="Waiting for ride {TimeRemaining}" />
+			</If>
 		<TurnIn QuestName="My Time Has Passed" QuestId="14184" TurnInName="Cerelia" TurnInId="35295" />
 		<PickUp QuestName="Avenge Furien!" QuestId="14188" GiverName="Furien" GiverId="35295" />
 		<TurnIn QuestName="Avenge Furien!" QuestId="14188" TurnInName="Sorrem" TurnInId="35298" />
 		<PickUp QuestName="Translation" QuestId="14189" GiverName="Sorrem" GiverId="35298" />
-		<If Condition="HasQuest(14189)">
-		<RunTo X="-404.8366" Y="1116.254" Z="96.89956" />
-		</If>			
+			<!-- There was a higher level naga quest at far west side of Desolace -->
+			<If Condition="((HasQuest(14189)) &amp;&amp; (IsQuestCompleted(14189)) &amp;&amp; (Me.Y &gt; 2000))" >
+				<CustomBehavior File="InteractWith" MobId="35315" GossipOptions="1" X="-439.3874" Y="2240.096" Z="92.31689" />
+				<CustomBehavior File="WaitTimer" WaitTime="50000" GoalText="Waiting for taxi {TimeRemaining}" />
+			</If>
 		<TurnIn QuestName="Translation" QuestId="14189" TurnInType="Object" TurnInName="Ancient Tablets" TurnInId="195433" X="-423.1596" Y="1115.479" Z="96.02772"/>
 		<PickUp QuestName="Furien's Footsteps" QuestId="14191" GiverName="Ancient Tablets" GiverType="Object" GiverId="195433" X="-423.044" Y="1115.576" Z="96.02879" />
 		<PickUp QuestName="Stubborn Lands" QuestId="14247" GiverName="Cenarion Embassador Thunk" GiverId="35661" />
-
-		<RunTo QuestId="14191" X="-350.4042" Y="826.3677" Z="95.512"/>
+			<!-- Ignoring Egg Adoption Quest - defend egg after you lay it -->
+			<If Condition="(!IsObjectiveComplete(1, 14191))">
+				<RunTo QuestId="14191" X="-350.4042" Y="826.3677" Z="95.512"/>
+			</If>
+		<PickUp QuestName="To the Hilt!" QuestId="14219" GiverType="Object" GiverName="Elune's Handmaiden" GiverId="195517" X="-347.8854" Y="823.8865" Z="95.1759"  />
+			<If Condition="(!IsObjectiveComplete(2, 14191))">
+				<RunTo QuestId="14191" X="-350.4042" Y="826.3677" Z="95.512"/>
+			</If>
 		<PickUp QuestName="Ten Pounds of Flesh" QuestId="14213" GiverName="Elune's Brazier" GiverType="Object" GiverId="195497" X="-240.7148" Y="694.8555" Z="100.8951"/>
-		<RunTo QuestId="14191" X="-350.4042" Y="826.3677" Z="95.512"/>
+			<If Condition="(!IsObjectiveComplete(3, 14191))">
+				<RunTo QuestId="14191" X="-92.28197" Y="756.6418" Z="126.2953" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+		<!-- <TurnIn QuestName="Furien's Footsteps" QuestId="14191" TurnInName="Ancient Tablets" TurnInType="Object" TurnInId="195433" X="-423.1596" Y="1115.479" Z="96.02772"/>
+		<PickUp QuestName="Nothing a Couple of Melons Won't Fix" QuestId="14360" GiverName="" GiverId="" /> -->
+			<If Condition="((HasQuest(14191)) &amp;&amp; (IsQuestCompleted(14191)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="14191" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(14360)) &amp;&amp; (!IsQuestCompleted(14360)))" >
+				<Objective QuestName="Nothing a Couple of Melons Won't Fix" QuestId="14360" Type="CollectItem" ItemId="48106" CollectCount="8" />
+				<RunTo X="-87.77672" Y="768.8437" Z="132.8921" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<UseItem QuestId="14360" ItemId="48106" X="-87.77672" Y="768.8437" Z="132.8921" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(14360)) &amp;&amp; (IsQuestCompleted(14360)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="14360" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(14195)) &amp;&amp; (!IsQuestCompleted(14195)))" >
+				<RunTo X="55.16868" Y="877.1237" Z="141.766" />
+			</If>
+		<TurnIn QuestName="All Becoming Clearer" QuestId="14195" TurnInName="Ancient Vortex Runestone" TurnInId="195445" TurnInType="Object" X="57.87955" Y="873.1879" Z="141.7707" />
+			<!-- not picking up next quest - Firestarter - just yet. - need to dev it
+		<PickUp QuestName="Firestarter" QuestId="14196" GiverName="Ancient Vortex Runestone" GiverId="195445" GiverType="Object"195445" X="57.87955" Y="873.1879" Z="141.7707" />
+			<If Condition="((!HasQuest(14196)) &amp;&amp; (!IsQuestCompleted(14196)))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(48110)" WaitTime="1000" />
+				<CustomBehavior File="KillUntilComplete" QuestId="14196" MobId1="35384" X="-95.92042" Y="746.1512" Z="125.1134" />
+			</If>
+		<TurnIn QuestName="Firestarter" QuestId="14196" TurnInName="Ancient Vortex Runestone" TurnInId="195445" TurnInType="Object" X="57.87955" Y="873.1879" Z="141.7707" />
+			-->
+			
+			
+			
+			
+			
+		<!-- Kick stopped here for profile
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
+		-->
+			
+
+			
+			
+			
 		<TurnIn QuestName="Stubborn Lands" QuestId="14247" TurnInName="Smouldering Stone" TurnInType="Object" TurnInId="195600" X="-187.7241" Y="1117.043" Z="88.08567"/>
-		<RunTo QuestId="14191" X="-92.28197" Y="756.6418" Z="126.2953" />
-		<Objective QuestName="Ten Pounds of Flesh" QuestId="14213" Type="CollectItem" ItemId="48857" CollectCount="10" />
-		<UseItem QuestId="14213" ItemId="48857" QuestName="Ten Pounds of Flesh" X="-240.7148" Y="694.8555" Z="100.8951"/>
+			
+
+
+
+
+		
+		
+
+			<Objective QuestName="To the Hilt!" QuestId="14219" Type="CollectItem" ItemId="48943" CollectCount="20" />
+			<Objective QuestName="Ten Pounds of Flesh" QuestId="14213" Type="CollectItem" ItemId="48857" CollectCount="10" />
+			<UseItem ItemId="48943" QuestName="To the Hilt!" QuestId="14219" X="-342.2977" Y="818.1179" Z="94.28691" />
+		<TurnIn QuestName="To the Hilt!" QuestId="14219" TurnInName="Elune's Handmaiden" TurnInId="195517" TurnInType="Object" X="-342.2977" Y="818.1179" Z="94.28691" />
+			<UseItem QuestId="14213" ItemId="48857" QuestName="Ten Pounds of Flesh" X="-240.7148" Y="694.8555" Z="100.8951"/>
 		<TurnIn QuestName="Ten Pounds of Flesh" QuestId="14213" TurnInName="Elune's Brazier" TurnInType="Object" TurnInId="195497" X="-240.7148" Y="694.8555" Z="100.8951"/>		
-		<TurnIn QuestName="Furien's Footsteps" QuestId="14191" TurnInName="Ancient Tablets" TurnInType="Object" TurnInId="195433" X="-423.1596" Y="1115.479" Z="96.02772"/>
 		
 		<SetGrindArea>
 			<GrindArea>
