@@ -1162,15 +1162,6 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-	<Quest Id="26184" Name="Wormthorn's Dream">
-		<Objective Type="KillMob" MobId="45125" KillCount="3">
-			<Hotspots>
-				<Hotspot X="-12491.38" Y="-2386.499" Z="1.648015" />
-				<Hotspot X="-12545.86" Y="-2391.669" Z="1.873279" />
-				<Hotspot X="-12518.91" Y="-2463.69" Z="3.895913" />
-			</Hotspots>
-		</Objective>
-  </Quest>
 	<Quest Id="25708" Name="Our Fallen Friends">
     <Objective Type="KillMob" MobId="42252" KillCount="13">
       <Hotspots>
@@ -1404,8 +1395,9 @@
 	<Quest Id="25717" Name="The Demons and the Druid">
 		<Objective Type="KillMob" MobId="45125" KillCount="3">
 			<Hotspots>
-				<Hotspot X="-12484.24" Y="-2419.203" Z="2.293264" />
-				<Hotspot X="-12547.93" Y="-2397.558" Z="1.760547" />
+				<Hotspot X="-12491.38" Y="-2386.499" Z="1.648015" />
+				<Hotspot X="-12545.86" Y="-2391.669" Z="1.873279" />
+				<Hotspot X="-12518.91" Y="-2463.69" Z="3.895913" />
 			</Hotspots>
 		</Objective>
 	</Quest>	
@@ -4195,17 +4187,33 @@
 			<Objective QuestName="The Owls Have It" QuestId="28638" Type="KillMob" MobId="7455" KillCount="15" />
 			<Objective QuestName="Fresh Frostsabers" QuestId="28640" Type="KillMob" MobId="7431" KillCount="15" />
 			<Objective QuestName="A Taste for Bear" QuestId="28637" Type="KillMob" MobId="7444" KillCount="15" />
-			<CustomBehavior File="CompleteLogQuest" QuestId="28637" />
+			<If Condition="((HasQuest(28637)) &amp;&amp; (IsQuestCompleted(28637)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="28637" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest()) &amp;&amp; (IsQuestCompleted()))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
 		<TurnIn QuestName="You Gotta Have Eggs" QuestId="28828" TurnInName="Jez Goodgrub" TurnInId="49396" />
+				<If Condition="((HasQuest(28640)) &amp;&amp; (IsQuestCompleted(28640)))" >
 			<CustomBehavior File="CompleteLogQuest" QuestId="28640" />
-			<CustomBehavior File="CompleteLogQuest" QuestId="28638" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(28638)) &amp;&amp; (IsQuestCompleted(28638)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="28638" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
 		<PickUp QuestName="A Little Gamy" QuestId="28719" GiverName="Francis Morcott" GiverId="49436" />
 		<PickUp QuestName="Pride of the Dinner Table" QuestId="28641" GiverName="Jez Goodgrub" GiverId="49396" />
 		<!--<PickUp QuestName="Screechy Keen" QuestId="28745" GiverName="" GiverId="" />-->
 			<If Condition="HasQuest(28745)">
 				<Objective QuestName="Screechy Keen" QuestId="28745" Type="KillMob" MobId="7456" KillCount="15" />
 			</If>
-			<CustomBehavior File="CompleteLogQuest" QuestId="28745" />
+			<If Condition="((HasQuest(28745)) &amp;&amp; (IsQuestCompleted(28745)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="28745" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
 			<Objective QuestName="A Little Gamy" QuestId="28719" Type="KillMob" MobId="7443" KillCount="15" />
 			<Objective QuestName="Pride of the Dinner Table" QuestId="28641" Type="KillMob" MobId="7434" KillCount="15" />
 		<TurnIn QuestName="A Little Gamy" QuestId="28719" TurnInName="Francis Morcott" TurnInId="49436" />
@@ -4255,7 +4263,10 @@
 		
 		<PickUp QuestName="The Owlbeasts' Defense" QuestId="28838" GiverName="Haleh" GiverId="10929" />
 			<Objective QuestName="The Owlbeasts' Defense" QuestId="28838" Type="CollectItem" ItemId="65902" CollectCount="1" />
-			<CustomBehavior File="CompleteLogQuest" QuestId="28838" />
+			<If Condition="((HasQuest(28838)) &amp;&amp; (IsQuestCompleted(28838)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="28838" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
 		<PickUp QuestName="Magic Prehistoric" QuestId="28839" GiverName="Haleh" GiverId="10929" />
 		<PickUp QuestName="Razor Beak and Antlers Pointy" QuestId="28829" GiverName="Jadrag the Slicer" GiverId="50263" />
 			<While Condition="HasQuest(28839) &amp;&amp; !IsQuestCompleted(28839)">
@@ -4269,7 +4280,10 @@
 		<TurnIn QuestName="Razor Beak and Antlers Pointy" QuestId="28829" TurnInName="Jadrag the Slicer" TurnInId="50263" />
 		<PickUp QuestName="Chips off the Old Block" QuestId="28830" GiverName="Jadrag the Slicer" GiverId="50263" />
 		<PickUp QuestName="Damn You, Frostilicus" QuestId="28831" GiverName="Jadrag the Slicer" GiverId="50263" />
-			<CustomBehavior File="CompleteLogQuest" QuestId="28839" /> 
+			<If Condition="((HasQuest(28839)) &amp;&amp; (IsQuestCompleted(28839)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="28839" /> 
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
+			</If>
 		<PickUp QuestName="Winterwater" QuestId="28840" GiverName="Haleh" GiverId="10929" />
 			<Objective QuestName="Damn You, Frostilicus" QuestId="28831" Type="KillMob" MobId="50251" KillCount="1" />
 			<Objective QuestName="Winterwater" QuestId="28840" Type="CollectItem" ItemId="65903" CollectCount="7" />
@@ -4489,7 +4503,7 @@
 				<Objective QuestName="Demoniac Vessel" QuestId="25719" Type="CollectItem" ItemId="57177" CollectCount="4" />
 				<Objective QuestName="Demoniac Vessel" QuestId="25719" Type="CollectItem" ItemId="57178" CollectCount="20" />
 				<Objective QuestName="Demoniac Vessel" QuestId="25719" Type="CollectItem" ItemId="57179" CollectCount="2" />
-				<RunTo X="-12701.84" Y="-2807.339" Z="5.820333" />
+				<RunTo X="-12328.6" Y="-3015.38" Z="88.21774" /> 
 			 <While Condition="((HasQuest(25719)) &amp;&amp; (!IsQuestCompleted(25719)))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(57177)" NumOfTimes="4" WaitTime="1000" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(57178)" NumOfTimes="20" WaitTime="1000" />
@@ -4528,7 +4542,9 @@
 			<CustomBehavior File="Message" Text="End of Profile, loading BC Profile" LogColor="Orange" />
 
 		<CustomBehavior File="LoadProfile" ProfileName="..\1-68 Horde Questing" />
-			
+		<!--
+		<CustomBehavior File="LoadProfile" ProfileName="..\..\BC\[Fly][H-Quest] BC 58-68 [Kick]" />
+		-->
 			
 		
 	</QuestOrder>
