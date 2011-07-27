@@ -1327,7 +1327,7 @@
 		<TurnIn QuestName="Once Were Warriors" QuestId="9865" TurnInName="Saurfang the Younger" TurnInId="18229" /> 
 		<PickUp QuestName="He Will Walk The Earth..." QuestId="9866" GiverName="Saurfang the Younger" GiverId="18229" />
 			<If Condition="(HasQuest(9866))">
-				<CustomBehavior File="FlyTo" X="-1421.634" Y="7275.281" Z="25.64089" />
+				<CustomBehavior File="FlyTo" X="-1442.928" Y="7241.169" Z="25.66472" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
 		<TurnIn QuestName="He Will Walk The Earth..." QuestId="9866" TurnInName="Farseer Corhuk" TurnInId="18067" />
@@ -1340,8 +1340,13 @@
 		<PickUp QuestName="Stealing from Thieves" QuestId="9882" GiverName="Gezhe" GiverId="18265" />
 		<PickUp QuestName="Gava'xi" QuestId="9900" GiverName="Zerid" GiverId="18276" />
 		<PickUp QuestName="Matters of Security" QuestId="9925" GiverName="Zerid" GiverId="18276" />
-			<If Condition="HasQuest(9882)">
-				<CustomBehavior File="InteractWith" QuestId="9882" MobId="182258" ObjectType="Gameobject" Range="8" NumOfTimes="1" CollectionDistance="50" X="-2262.19" Y="8416.72" Z="-31.75497" />
+			<If Condition="((HasQuest(9882)) &amp;&amp; (!IsQuestCompleted(9882)))" >
+				<CustomBehavior File="FlyTo" X="-2735.892" Y="8566.932" Z="-39.06896" />
+				<CustomBehavior File="ForcedDismount" />
+			  <While Condition="((HasQuest(9882)) &amp;&amp; (!IsQuestCompleted(9882)))" >
+				<CustomBehavior File="InteractWith" QuestId="9882" ObjectType="Gameobject" MobId="182258" NumOfTimes="50" CollectionDistance="1000" X="-2735.892" Y="8566.932" Z="-39.06896" />
+			  </While>
+				<Objective QuestName="Stealing from Thieves" QuestId="9882" Type="CollectItem" CollectCount="10" Name="Oshu'gun Crystal Fragment" ItemId="25416" />
 			</If>
 			<If Condition="(HasQuest(9900)) &amp;&amp; (!IsQuestCompleted(9900))">
 				<CustomBehavior File="FlyTo" X="-2632.442" Y="7930.739" Z="-52.38733" />
