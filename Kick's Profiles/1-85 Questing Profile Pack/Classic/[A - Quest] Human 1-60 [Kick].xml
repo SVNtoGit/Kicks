@@ -3638,9 +3638,11 @@
 				<If Condition="!Styx.Logic.Combat.SpellManager.HasSpell(100)">
 					<CustomBehavior File="ForceSetVendor"  VendorType="Train" />
 				</If>
-				<If Condition="(HasQuest(26913)) &amp;&amp; (!IsQuestCompleted(26913))">
-					<CustomBehavior File="CastSpellOn" QuestId="26913" SpellId="100" MobId="44548" NumOfTimes="1" MobHpPercentLeft="100" MinRange="14" X="-8965.57" Y="-146.288" Z="81.50985" />
-				</If>
+				<While Condition="(HasQuest(26913)) &amp;&amp; (!IsQuestCompleted(26913))">
+					<RunTo X="-8949.039" Y="-149.3827" Z="81.85002" />
+					<CustomBehavior File="InteractWith" QuestId="26913" MobId="44548" />
+					<CustomBehavior File="CastSpellOn" QuestId="26913" SpellId="100" MobId="44548" NumOfTimes="2" MobHpPercentLeft="100" MinRange="18" X="-8965.57" Y="-146.288" Z="81.50985" />
+				</While>
 			<TurnIn QuestName="Charging into Battle" QuestId="26913" TurnInName="Llane Beshere" TurnInId="911" X="-8918.364" Y="-208.4109" Z="82.12605" />
 			<PickUp QuestName="Join the Battle!" QuestId="28789" GiverName="Llane Beshere" GiverId="911" X="-8918.364" Y="-208.4109" Z="82.12605" />
 			<TurnIn QuestName="Join the Battle!" QuestId="28789" TurnInName="Sergeant Willem" TurnInId="823" X="-8827.837" Y="-158.6233" Z="79.85906" />
@@ -4797,7 +4799,9 @@
 		<TurnIn QuestName="Morbent's Bane" QuestId="26754" TurnInName="Sven Yorgen" TurnInId="43861" />
 			<Objective QuestName="Bear In Mind" QuestId="26787" Type="CollectItem" ItemId="60334" CollectCount="8" />
 		<TurnIn QuestName="Bear In Mind" QuestId="26787" TurnInName="Jitters" TurnInId="288" X="-10767.1" Y="330.665" Z="37.52658" />
+			<If Condition="((!HasQuest(28699)) &amp;&amp; (!IsQuestCompleted(28699)))" >
 		<PickUp QuestName="Rebels Without a Clue" QuestId="26838" GiverName="Sister Elsington" GiverId="43731" />
+			</If>
 		<!-- <Objective QuestName="Mor'Ladim" QuestId="26795" Type="CollectItem" ItemId="3514" CollectCount="1" /> -->
 			<If Condition="((HasQuest(26795)) &amp;&amp; (IsQuestCompleted(26795)))" >
 				<CustomBehavior File="UserSettings" PullDistance="25" />
