@@ -76,7 +76,6 @@
 		<Vendor Name="Floyd Pinkus" Entry="16602" Type="Food" X="190.8758" Y="2610.927" Z="87.28392"/>
 
 		<!--Hellfire Peninsular Vendors-->
-		<Vendor Name="Floyd Pinkus" Entry="16602" Type="Food" X="190.8758" Y="2610.927" Z="87.28371" />
 		<Vendor Name="Reagan Mancuso" Entry="22225" Type="Repair" X="179.7871" Y="2605.4" Z="87.28379" />
 		<Vendor Name="Cookie One-Eye" Entry="16585" Type="Food" X="62.07954" Y="2719.007" Z="85.16457" />
 		<Vendor Name="Rohok" Entry="16583" Type="Repair" X="167.2784" Y="2795.669" Z="113.3653" />
@@ -617,7 +616,6 @@
 					<Vendor Name="Floyd Pinkus" Entry="16602" Type="Food" X="190.8758" Y="2610.927" Z="87.28392"/>
 
 					<!--Hellfire Peninsular Vendors-->
-					<Vendor Name="Floyd Pinkus" Entry="16602" Type="Food" X="190.8758" Y="2610.927" Z="87.28371" />
 					<Vendor Name="Reagan Mancuso" Entry="22225" Type="Repair" X="179.7871" Y="2605.4" Z="87.28379" />
 					<Vendor Name="Cookie One-Eye" Entry="16585" Type="Food" X="62.07954" Y="2719.007" Z="85.16457" />
 					<Vendor Name="Rohok" Entry="16583" Type="Repair" X="167.2784" Y="2795.669" Z="113.3653" />
@@ -670,7 +668,6 @@
 					
 					<!--Thrallmar Vendors-->
 					<Vendor Name="Reagan Mancuso" Entry="22225" Type="Repair" X="179.7871" Y="2605.4" Z="87.28392"/>
-					<Vendor Name="Floyd Pinkus" Entry="16602" Type="Food" X="190.8758" Y="2610.927" Z="87.28392"/>
 
 					<!--Hellfire Peninsular Vendors-->
 					<Vendor Name="Floyd Pinkus" Entry="16602" Type="Food" X="190.8758" Y="2610.927" Z="87.28371" />
@@ -815,23 +812,97 @@
 			<GrindTo Level="60"/>	
 			<!--FLYING MOUNT-->
 			
+			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &lt;= 245)" >
+				<!-- Mount is 40g, Training is 200g -->
+				<CustomBehavior File="UserDialog" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" Title="Get more Money." 
+				Text="You do not have the necessary amount of money to train 'Expert Riding' - please send some money; or farm for some money and continue when you have money" />
+			</If>
+			
 			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
 				<CustomBehavior File="ForceTrainRiding" MobId="35093" />
 				<If Condition="!HasItem(25474)">
 					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474" X="47.76153" Y="2742.022" Z="85.27119" />
 				</If>
 				<If Condition="HasItem(25474)">
+					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
 					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25474)" WaitTime="1000" />
 					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
 				</If>
+				<If Condition="Me.Class != WoWClass.DeathKnight">
 					<CustomBehavior File="FlyTo" X="-1822.253" Y="5348.094" Z="-12.42696"  />
 					<CustomBehavior File="ForcedDismount" />
-					<CustomBehavior File="ForceSetVendor"  VendorType="Train" />
+					<CustomBehavior File="ForceSetVendor" VendorType="Train" />
 					<RunTo X="-1753.695" Y="5445.141" Z="-12.42719" />
 					<CustomBehavior File="FlyTo" X="-218.8451" Y="5436.699" Z="21.64193" />
 					<CustomBehavior File="ForcedDismount" />
+				</If>
 			</If>
 			
+		<PickUp QuestName="Mission: Gateways Murketh and Shaadraz" QuestId="10129" GiverName="Forward Commander To'arch" GiverId="19273" />
+			<If Condition="HasQuest(10129) &amp;&amp; !IsQuestCompleted(10129)">
+				<!-- azenius plugin kicks in -->
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" MobId="19401" NumOfTimes="1" GossipOptions="1" WaitTime="1000" X="-24.09538" Y="2125.857" Z="112.7033" />
+				<CustomBehavior File="Message" Text="Plugin kicks-in." />
+			</If>
+		<TurnIn QuestName="Mission: Gateways Murketh and Shaadraz" QuestId="10129" TurnInName="Forward Commander To'arch" TurnInId="19273" />
+		<PickUp QuestName="Mission: The Abyssal Shelf" QuestId="10162" GiverName="Forward Commander To'arch" GiverId="19273" />
+		<PickUp QuestName="Return to Thrallmar" QuestId="10388" GiverName="Forward Commander To'arch" GiverId="19273" />
+			<While Condition="HasQuest(10162) &amp;&amp; !IsQuestCompleted(10162)">
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" MobId="19401" NumOfTimes="1" GossipOptions="1" WaitTime="1000" X="-24.09538" Y="2125.857" Z="112.7033" />
+				<CustomBehavior File="Message" Text="Plugin kicks-in." />
+			</While>
+		<TurnIn QuestName="Mission: The Abyssal Shelf" QuestId="10162" TurnInName="Forward Commander To'arch" TurnInId="19273" />
+			<If Condition="HasQuest(10388) &amp;&amp; Me.Race == WoWRace.BloodElf">
+		<PickUp QuestName="Falcon Watch" QuestId="9499" GiverName="Martik Tor'seldori" GiverId="16577" />
+			</If>
+			<If Condition="HasQuest(10388) &amp;&amp; Me.Race == WoWRace.Undead || Me.Race == WoWRace.Goblin || Me.Race == WoWRace.Troll || Me.Race == WoWRace.Tauren || Me.Race == WoWRace.Orc">
+		<PickUp QuestName="Falcon Watch" QuestId="9498" GiverName="Martik Tor'seldori" GiverId="16577" />
+			</If>
+		<TurnIn QuestName="Return to Thrallmar" QuestId="10388" TurnInName="Nazgrel" TurnInId="3230" />
+		<PickUp QuestName="Forge Camp: Mageddon" QuestId="10390" GiverName="Nazgrel" GiverId="3230" />
+		<PickUp QuestName="The Assassin" QuestId="9400" GiverName="Nazgrel" GiverId="3230" />
+			<If Condition="HasQuest(10390) &amp;&amp; !IsQuestCompleted(10390)">
+				<CustomBehavior File="FlyTo" X="355.3039" Y="2230.565" Z="118.9844" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+			<Objective QuestName="Forge Camp: Mageddon" QuestId="10390" Type="CollectItem" ItemId="29586" CollectCount="1" />
+			<Objective QuestName="Forge Camp: Mageddon" QuestId="10390" Type="KillMob" MobId="16947" KillCount="10" />
+			<If Condition="(HasItem(29590))" >
+		<PickUp QuestName="Vile Plans" QuestId="10393" GiverType="Item" GiverId="29590" />
+			</If>
+			<If Condition="HasQuest(10390) &amp;&amp; IsQuestCompleted(10390)">
+				<CustomBehavior File="FlyTo" X="182.8185" Y="2690.687" Z="87.98434" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Forge Camp: Mageddon" QuestId="10390" TurnInName="Nazgrel" TurnInId="3230" />
+			</If>
+		<PickUp QuestName="Cannons of Rage" QuestId="10391" GiverName="Nazgrel" GiverId="3230" />
+		<TurnIn QuestName="Vile Plans" QuestId="10393" TurnInName="Magister Bloodhawk" TurnInId="21175" />
+			<If Condition="HasQuest(10391) &amp;&amp; !IsQuestCompleted(10391)">
+				<CustomBehavior File="FlyTo" X="328.6621" Y="2229.448" Z="118.0093" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+			<Objective QuestName="Cannons of Rage" QuestId="10391" Type="KillMob" MobId="22461" KillCount="3" />
+			<If Condition="HasQuest(10391) &amp;&amp; IsQuestCompleted(10391)">
+				<CustomBehavior File="FlyTo" X="182.8185" Y="2690.687" Z="87.98434" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Cannons of Rage" QuestId="10391" TurnInName="Nazgrel" TurnInId="3230" />
+		<PickUp QuestName="Doorway to the Abyss" QuestId="10392" GiverName="Nazgrel" GiverId="3230" />
+			<If Condition="HasQuest(10392) &amp;&amp; !IsQuestCompleted(10392)">
+				<CustomBehavior File="FlyTo" X="626.4181" Y="2769.333" Z="227.032" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+			<Objective QuestName="Doorway to the Abyss" QuestId="10392" Type="KillMob" MobId="19298" KillCount="1" />
+			<Objective QuestName="Doorway to the Abyss" QuestId="10392" Type="CollectItem" ItemId="29795" CollectCount="1" />
+			<Objective QuestName="Doorway to the Abyss" QuestId="10392" Type="UseObject" ObjectId="182935" UseCount="1" />
+			<If Condition="HasQuest(10392) &amp;&amp; IsQuestCompleted(10392)">
+				<CustomBehavior File="FlyTo" X="182.8185" Y="2690.687" Z="87.98434" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Doorway to the Abyss" QuestId="10392" TurnInName="Nazgrel" TurnInId="3230" />
+		<PickUp QuestName="The Agony and the Darkness" QuestId="10389" GiverName="Magister Bloodhawk" GiverId="21175" />
 			<Objective QuestName="How to Serve Goblins" QuestId="10238" Type="UseObject" ObjectId="183941" UseCount="1" />
 			<Objective QuestName="How to Serve Goblins" QuestId="10238" Type="UseObject" ObjectId="183936" UseCount="1" />
 			<Objective QuestName="How to Serve Goblins" QuestId="10238" Type="UseObject" ObjectId="183940" UseCount="1" />
@@ -1290,6 +1361,7 @@
 			<Checkpoint Level="63" />
 			
 			<If Condition="((!HasQuest(9993)) &amp;&amp; (!IsQuestCompleted(9993)))" >
+				<If Condition="Me.Class != WoWClass.DeathKnight">
 				<CustomBehavior File="FlyTo" X="-1822.253" Y="5348.094" Z="-12.42696"  />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="ForceSetVendor"  VendorType="Train" />
@@ -1297,6 +1369,7 @@
 				
 				<CustomBehavior File="FlyTo" X="-2616.085" Y="4378.452" Z="34.94125" />
 				<CustomBehavior File="ForcedDismount" />
+				</If>
 			</If>
 		<PickUp QuestName="Olemba Seed Oil" QuestId="9993" GiverName="Rakoria" GiverId="18385" />
 		<PickUp QuestName="What's Wrong at Cenarion Thicket?" QuestId="9960" GiverName="Tooki" GiverId="18447" />
@@ -1408,7 +1481,9 @@
 			<If Condition="((!HasQuest(9889)) &amp;&amp; (!IsQuestCompleted(9889)))" >
 				<CustomBehavior File="FlyTo" X="-1822.253" Y="5348.094" Z="-12.42696"  />
 				<CustomBehavior File="ForcedDismount" />
+				<If Condition="Me.Class != WoWClass.DeathKnight">
 				<CustomBehavior File="ForceSetVendor" VendorType="Train" />
+				</If>
 				
 				<!-- insert flyto here -->
 		<PickUp QuestName="The Impotent Leader" QuestId="9888" GiverName="Jorin Deadeye" GiverId="18106" />
