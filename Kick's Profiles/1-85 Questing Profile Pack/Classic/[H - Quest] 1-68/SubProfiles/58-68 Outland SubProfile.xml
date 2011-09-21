@@ -725,6 +725,10 @@
 		<!--BEGIN HELLFIRE PENINSULAR QUESTING-->
 			<CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" TrainNewSkills="False" LearnFlightPaths="True" UseFlightPaths="True" PullDistance="30" />
 			
+			<If Condition="(Me.Level &lt; 63)" >
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" ExpiryTime="6" ExpiryAction="InputEnabled_Continue" Text="This profile doesn't fly until Zangarmarsh" />
+			</If>
+	
 			<If Condition="((!HasQuest(10120)) &amp;&amp; (!IsQuestCompleted(10120)))" >
 				<CustomBehavior File="UserSettings" UseFlightPaths="False" LearnFlightPaths="False" />
 		<PickUp QuestName="Arrival in Outland" QuestId="10120" GiverName="Lieutenant General Orion" GiverId="19253" />
@@ -971,7 +975,7 @@
 					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(23268)" WaitTime="1500" />
 				</While>
 			</While>
-			 <If Condition="!IsQuestCompleted(9373) &amp;&amp; !HasItem(23338)">
+			 <If Condition="!HasQuest(9373) &amp;&amp; !IsQuestCompleted(9373)">
 					<SetGrindArea>
 						<GrindArea>
 							<Factions>14</Factions>
@@ -1115,7 +1119,9 @@
 			
 			<If Condition="HasQuest(10286)">
 				<CustomBehavior File="Message" LogColor="SpringGreen" Text="Do not interfere, I'm waiting for an NPC to pass by (Quest = Arelion's Secret)." />
-				<CustomBehavior File="InteractWith" MobId="20159" NumOfTimes="1" GossipOptions="1" WaitTime="6000" X="-209.7142" Y="4441.576" Z="44.04697" />
+				<CustomBehavior File="InteractWith" QuestId="10286" MobId="20159" NumOfTimes="1" WaitForNpcs="False" GossipOptions="1" WaitTime="10000" CollectionDistance="1000" X="-620.6326" Y="4160.028" Z="63.34106" /> <!-- FW -->
+				<CustomBehavior File="InteractWith" QuestId="10286" MobId="20159" NumOfTimes="1" WaitForNpcs="False" GossipOptions="1" WaitTime="10000" CollectionDistance="1000" X="-209.7142" Y="4441.576" Z="44.04697" /> <!-- middle of map -->
+				<CustomBehavior File="InteractWith" QuestId="10286" MobId="20159" NumOfTimes="1" WaitForNpcs="False" GossipOptions="1" WaitTime="10000" CollectionDistance="1000" X="-211.1478" Y="5519.167" Z="21.9205" /> <!-- CR -->
 			</If>
 		<TurnIn QuestName="Arelion's Secret" QuestId="10286" TurnInName="Magister Aledis" TurnInId="20159" />
 		<PickUp QuestName="The Mistress Revealed" QuestId="10287" GiverName="Magister Aledis" GiverId="20159" />
@@ -1148,15 +1154,12 @@
 			</If>
 		<TurnIn QuestName="Demonic Contamination" QuestId="9372" TurnInName="Thiah Redmane" TurnInId="16991" />
 		<PickUp QuestName="Testing the Antidote" QuestId="10255" GiverName="Thiah Redmane" GiverId="16991" />
-			<If Condition="HasQuest(10255) &amp;&amp; !IsQuestCompleted(10255)">
-				<CustomBehavior File="CombatUseItemOn" NumOfTimes="1" MobId="16992" ItemId="23337" MaxRange="3" MobHpPercentLeft="99" X="-353.7725" Y="4635.455" Z="30.28903" />
-			</If>
+			<While Condition="HasQuest(10255) &amp;&amp; !IsQuestCompleted(10255)">
+				<CustomBehavior File="CombatUseItemOn" NumOfTimes="1" MobId="16880" ItemId="23337" MaxRange="3" MobHpPercentLeft="99" X="-353.7725" Y="4635.455" Z="30.28903" />
+			</While>
 		<TurnIn QuestName="Testing the Antidote" QuestId="10255" TurnInName="Thiah Redmane" TurnInId="16991" />
 			<Objective QuestName="Keep Thornfang Hill Clear!" QuestId="10159" Type="KillMob" MobId="19349" KillCount="8" />
 			<Objective QuestName="Keep Thornfang Hill Clear!" QuestId="10159" Type="KillMob" MobId="19350" KillCount="8" />
-			<If Condition="HasQuest(9472) &amp;&amp; !IsQuestCompleted(9472) &amp;&amp; !HasItem(29112)">
-				<CustomBehavior File="InteractWith" MobId="18907" NumOfTimes="1" BuyItemId="29112" GossipOptions="2" WaitTime="1000" X="-174.478" Y="5529.211" Z="29.40744" />
-			</If>
 		<TurnIn QuestName="Keep Thornfang Hill Clear!" QuestId="10159" TurnInName="Mahuram Stouthoof" TurnInId="16888" />
 			<Objective QuestName="Source of the Corruption" QuestId="9387" Type="CollectItem" ItemId="29113" CollectCount="5" />
 		<PickUp QuestName="Naladu" QuestId="10403" GiverName="Aylaan the Waterwaker" GiverId="20679" />
@@ -1183,10 +1186,12 @@
 		<TurnIn QuestName="Arzeth's Demise" QuestId="10369" TurnInName="Naladu" TurnInId="19361" />
 		<TurnIn QuestName="Source of the Corruption" QuestId="9387" TurnInName="Apothecary Azethen" TurnInId="16794" />
 		
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
-			<If Condition="HasQuest(9472) &amp;&amp; !IsQuestCompleted(9472)">
-				<CustomBehavior File="RunMacro" Macro="/target Viera Sunwhisper" NumOfTimes="1" WaitTime="1000" />
-				<CustomBehavior File="InteractWith"  MobId="17226" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="-657.8125" Y="4137.41" Z="64.41744" />
+			<While Condition="HasQuest(9472) &amp;&amp; !IsQuestCompleted(9472)">
+			 <If Condition="HasQuest(9472) &amp;&amp; !IsQuestCompleted(9472) &amp;&amp; !HasItem(29112)">
+				<!-- you need this item for 2nd part of quest -->
+				<CustomBehavior File="InteractWith" MobId="18907" NumOfTimes="1" BuyItemId="29112" GossipOptions="2" WaitTime="1000" X="-174.478" Y="5529.211" Z="29.40744" />
+			 </If>
+				<CustomBehavior File="InteractWith" MobId="17226" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="-657.8125" Y="4137.41" Z="64.41744" />
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="Misc\RunLua" Lua="CompleteQuest();" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
@@ -1201,7 +1206,8 @@
 					<RunTo X="-723.0621" Y="4166.346" Z="50.55888" />
 					<CustomBehavior File="WaitTimer" WaitTime="12000"/>
 					<CustomBehavior File="UseItemOn" MobState="Alive" ItemId="23693" Range="3" WaitTime="10000" MobId="17226" X="-723.0621" Y="4166.346" Z="50.55888" />
-			</If>
+					<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+			</While>
 		<TurnIn QuestName="Arelion's Mistress" QuestId="9472" TurnInName="Magistrix Carinda" TurnInId="16793" />
 			<While Condition="HasQuest(9397) &amp;&amp; !IsQuestCompleted(9397)">
 				 <CustomBehavior File="InteractWith" MobId="181582" ObjectType="GameObject" NumOfTimes="1" CollectionDistance="500" WaitTime="1" X="-1105.702" Y="4220.203" Z="17.05391" />
