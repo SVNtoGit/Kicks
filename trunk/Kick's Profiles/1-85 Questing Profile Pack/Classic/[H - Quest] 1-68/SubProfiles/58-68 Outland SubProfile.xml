@@ -871,7 +871,6 @@
 		<PickUp QuestName="Grillok Darkeye" QuestId="10834" GiverName="Zezzak" GiverId="22231" />
 		-->
 			<While Condition="HasQuest(10792) &amp;&amp; !IsQuestCompleted(10792)">
-			<CustomBehavior File="UserSettings" LootMobs="False" />
 				<If Condition="HasQuest(10792) &amp;&amp; !IsQuestCompleted(10792)">
 					<CustomBehavior File="CollectThings" MobId="16907" CollectUntil="RequiredCountReached" CollectItemId="31347" CollectItemCount="1" HuntingGroundRadius="200">
 						<Hotspot X="-1038.803" Y="2099.257" Z="61.55407" />
@@ -930,11 +929,14 @@
 		<TurnIn QuestName="In Case of Emergency..." QuestId="10161" TurnInName="Screaming Screed Luckheed" TurnInId="19367" />
 		<PickUp QuestName="Voidwalkers Gone Wild" QuestId="9351" GiverName="Screaming Screed Luckheed" GiverId="19367" />
 		<Objective QuestName="Voidwalkers Gone Wild" QuestId="9351" Type="CollectItem" ItemId="23218" CollectCount="10" />
-			<While Condition="HasQuest(10278) &amp;&amp; !IsQuestCompleted(10278)">
+			<If Condition="HasQuest(10278) &amp;&amp; !IsQuestCompleted(10278)">
+				<RunTo X="-1382.162" Y="3150.171" Z="25.7905" />
+			   <CustomBehavior File="WaitTimer" WaitTime="2000" />
+				<RunTo X="-1382.162" Y="3150.171" Z="25.7905" />
 			   <CustomBehavior File="UseItemTargetLocation" MobId="19681" WaitTime="2000" UseType="ToObject" ItemId="29027" X="-1382.162" Y="3150.171" Z="25.7905" />
 			   <CustomBehavior File="WaitTimer" WaitTime="10000" />
 			   <CustomBehavior File="KillUntilComplete" QuestId="10278" MobId="20145" X="-1382.162" Y="3150.171" Z="25.7905" />
-			</While>
+			</If>
 			<Objective QuestName="Ravager Egg Roundup" QuestId="9349" Type="CollectItem" ItemId="23217" CollectCount="12" />
 		<TurnIn QuestName="Voidwalkers Gone Wild" QuestId="9351" TurnInName="Screaming Screed Luckheed" TurnInId="19367" />
 		<TurnIn QuestName="Ravager Egg Roundup" QuestId="9349" TurnInName="Legassi" TurnInId="19344" />
@@ -980,7 +982,7 @@
 							</Hotspots>
 						</GrindArea>
 					</SetGrindArea>
-				<GrindTo Condition="HasItem(23338)" GoalText="Looking for ma' case." />
+				<GrindTo Condition="HasItem(23338)" GoalText="Getting DropQuest Item" />
 			<If Condition="HasItem(23338)" >
 		<PickUp QuestName="Missing Missive" QuestId="9373" GiverName="Eroded Leather Case" GiverType="Item" GiverId="23338" />
 			</If>
@@ -994,8 +996,13 @@
 			<Objective QuestName="Void Ridge" QuestId="10294" Type="CollectItem" ItemId="29161" CollectCount="40" />
 		<TurnIn QuestName="Void Ridge" QuestId="10294" TurnInName="Ogath the Mad" TurnInId="19683" />
 		<PickUp QuestName="From the Abyss" QuestId="10295" GiverName="Ogath the Mad" GiverId="19683" />
-			<While Condition="HasQuest(10295) &amp;&amp; !IsQuestCompleted(10295)">
-				<CustomBehavior File="Misc\RunLua" WaitTime="2000" NumOfTimes="1" Lua="UseItemByName(29226)" />
+			<While Condition="HasQuest(10295) &amp;&amp; !IsQuestCompleted(10295) &amp;&amp; HasItem(29226)">
+				<RunTo X="-1235.257" Y="1352.734" Z="3.723482" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<RunTo X="-1235.257" Y="1352.734" Z="3.723482" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" WaitTime="2000" Lua="UseItemByName(29226)" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for item cd {TimeRemaining}" />
 			</While>
 		<TurnIn QuestName="Apothecary Antonivich" QuestId="10835" TurnInName="Apothecary Antonivich" TurnInId="16588" />
 		<PickUp QuestName="A Burden of Souls" QuestId="10864" GiverName="Apothecary Antonivich" GiverId="16588" />
@@ -1017,7 +1024,7 @@
 		<TurnIn QuestName="Report to Nazgrel" QuestId="10875" TurnInName="Nazgrel" TurnInId="3230" />
 		<TurnIn QuestName="How to Serve Goblins" QuestId="10238" TurnInName="Foreman Razelcraz" TurnInId="16915" />
 		<PickUp QuestName="Shizz Work" QuestId="10629" GiverName="Foreman Razelcraz" GiverId="16915" />
-			<If Condition="HasQuest(10629) &amp;&amp; !IsQuestCompleted(10629)">
+			<If Condition="HasQuest(10629) &amp;&amp; !IsQuestCompleted(10629) &amp;&amp; HasItem(30803)">
 				<CustomBehavior File="Misc\RunLua" WaitTime="6000" NumOfTimes="1" Lua="UseItemByName(30803)" />
 			</If>
 			<While Condition="HasQuest(10629) &amp;&amp; !IsQuestCompleted(10629)">
@@ -1238,8 +1245,8 @@
 		<TurnIn QuestName="A Pilgrim's Plight" QuestId="9376" TurnInName="Taleris Dawngazer" TurnInId="17015" />
 
 
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
 		<!-- Kick stopped here for profile
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
 		-->
 
 
