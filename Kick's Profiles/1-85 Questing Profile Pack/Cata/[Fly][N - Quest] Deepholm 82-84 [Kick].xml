@@ -19,12 +19,7 @@
 		
 		
 	<Vendors>
-		<Vendor Name="Rocky Cliffedge" Entry="44972" Type="Repair" X="666.938" Y="1779.79" Z="341" /> <!-- Fractured Front - West -->
-		<Vendor Name="Earthmender Doros" Entry="45363" Type="Repair" X="54.9115" Y="-274.955" Z="208.6113" /> <!-- Twilight Overlook - SE -->
-		<Vendor Name="Dugsley Deepdelver" Entry="45294" Type="Repair" X="1052.99" Y="636.936" Z="-45.87071" /> <!-- Alliance -->
-		<!-- Horde Repair
-		<Vendor Name="Rixi &quot;The Digger&quot; Bombdigger" Entry="45293" Type="Repair" X="1091.19" Y="436.332" Z="-45.96808" />
-		-->
+		<!-- These are set in the SetVendor -->
 	</Vendors>
 	
 	<Mailboxes>
@@ -135,7 +130,7 @@
 		</Objective>
 	</Quest>
 
-	<Quest Name="Fragile Values" Id="26658">
+	<Quest Id="26658" Name="Fragile Values" >
         <Objective Type="CollectItem" ItemId="59323" CollectCount="1">
             <CollectFrom>
                 <Mob Name="Stone Trogg Beast Tamer" Id="43598" />
@@ -168,8 +163,24 @@
 				<CustomBehavior File="MountVehOnly" NpcMountId="45005" X="833.59" Y="1052.81" Z="-7.749647" />
 			</If>
 		-->
-		 <If Condition="(!StyxWoW.FlightChecksDisabled)">
-			<CustomBehavior File="UserDialog" StopOnContinue="true" Text="You must have the flying key or Lifetime to use this profile!" />
+		
+		<If Condition="Me.IsAlliance" >
+		 <SetVendor>
+		  <Vendors>
+			<Vendor Name="Rocky Cliffedge" Entry="44972" Type="Repair" X="666.938" Y="1779.79" Z="341" /> <!-- Fractured Front - West -->
+			<Vendor Name="Earthmender Doros" Entry="45363" Type="Repair" X="54.9115" Y="-274.955" Z="208.6113" /> <!-- Twilight Overlook - SE -->
+			<Vendor Name="Dugsley Deepdelver" Entry="45294" Type="Repair" X="1052.99" Y="636.936" Z="-45.87071" /> <!-- Alliance -->
+		  </Vendors>
+		 </SetVendor>
+		</If>
+		<If Condition="Me.IsHorde" >
+		 <SetVendor>
+		  <Vendors>
+			<Vendor Name="Rocky Cliffedge" Entry="44972" Type="Repair" X="666.938" Y="1779.79" Z="341" /> <!-- Fractured Front - West -->
+			<Vendor Name="Earthmender Doros" Entry="45363" Type="Repair" X="54.9115" Y="-274.955" Z="208.6113" /> <!-- Twilight Overlook - SE -->
+			<Vendor Name="Rixi &quot;The Digger&quot; Bombdigger" Entry="45293" Type="Repair" X="1091.19" Y="436.332" Z="-45.96808" /> <!-- Horde Repair -->
+		  </Vendors>
+		 </SetVendor>
 		</If>
 		
 			<If Condition="(HasQuest(27123))" >
