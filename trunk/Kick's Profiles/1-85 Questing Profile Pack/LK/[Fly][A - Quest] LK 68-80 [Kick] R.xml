@@ -6113,6 +6113,7 @@
 		<PickUp QuestName="The End of the Line" QuestId="12107" GiverName="Mage-Commander Evenstar" GiverId="26873" />
 			</If>
 			<If Condition="((HasQuest(12107)) &amp;&amp; (!IsQuestCompleted(12107)))" >
+			 <If Condition="((HasQuest(12107)) &amp;&amp; (!IsObjectiveComplete(1, 12107)))">
 				<CustomBehavior File="MyCTM" X="3075.246" Y="1371.93" Z="146.874" />
 				<CustomBehavior File="MyCTM" X="3056.683" Y="1390.501" Z="124.5216" />
 				<CustomBehavior File="MyCTM" X="3054.746" Y="1407.988" Z="125.1827" />
@@ -6123,9 +6124,12 @@
 				<CustomBehavior File="MyCTM" X="3075.627" Y="1372.794" Z="132.3547" />
 				<CustomBehavior File="MyCTM" X="3075.246" Y="1371.93" Z="146.874" />
 				<RunTo X="3121.376" Y="1345.549" Z="148.8011" />
+			 </If>
 				
+			 <If Condition="((HasQuest(12107)) &amp;&amp; (!IsObjectiveComplete(2, 12107)))">
 				<CustomBehavior File="FlyTo" DestName="Azure Dragonshrine" Distance="2" X="3084.562" Y="643.8665" Z="83.92097" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </If>
 			</If>
 			<If Condition="((HasQuest(12107)) &amp;&amp; (IsQuestCompleted(12107)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3498.927" Y="1999.767" Z="65.07062" />
@@ -6217,7 +6221,6 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Let Nothing Go To Waste" QuestId="11958" GiverName="Elder Ko'nani" GiverId="26194" />
 			</If>
-			<!--
 			 <If Condition="Me.ZoneId == 65" >
 			<If Condition="((!HasQuest(11960)) &amp;&amp; (!IsQuestCompleted(11960)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Daily Quest (Moa'ki Harbor)" X="2795.43" Y="911.594" Z="31.05032" />
@@ -6228,9 +6231,13 @@
 			<If Condition="((HasQuest(11960)) &amp;&amp; (!IsQuestCompleted(11960)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="3171.75" Y="967.9421" Z="113.3939" />
 				<CustomBehavior File="ForcedDismount" />
-				<Objective QuestName="Planning for the Future" QuestId="11960" Type="CollectItem" ItemId="35692" ItemName="Snowfall Glade Pup" CollectCount="12" />
+			 <While Condition="((HasQuest(11960)) &amp;&amp; (!IsQuestCompleted(11960)))" >
+				<CustomBehavior File="InteractWith" QuestId="11960" MobId="26200" Range="3" NumOfTimes="12" WaitForNpcs="False" CollectionDistance="1000" X="3269.098" Y="1086.91" Z="131.6981" />
+				<CustomBehavior File="InteractWith" QuestId="11960" MobId="26200" Range="3" NumOfTimes="12" WaitForNpcs="False" CollectionDistance="1000" X="3175.681" Y="1085.482" Z="129.5757" />
+				<CustomBehavior File="InteractWith" QuestId="11960" MobId="26200" Range="3" NumOfTimes="12" WaitForNpcs="False" CollectionDistance="1000" X="3175.809" Y="1090.245" Z="130.0686" />
+				<CustomBehavior File="InteractWith" QuestId="11960" MobId="26200" Range="3" NumOfTimes="12" WaitForNpcs="False" CollectionDistance="1000" X="3013.393" Y="1046.714" Z="106.0288" />
+			 </While>
 			</If>
-			-->
 			<If Condition="((HasQuest(11958)) &amp;&amp; (!IsQuestCompleted(11958)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="3171.75" Y="967.9421" Z="113.3939" />
 				<CustomBehavior File="ForcedDismount" />
