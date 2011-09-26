@@ -456,6 +456,20 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+	<Quest Id="12230" Name="Stealing from the Siegesmiths">
+		<Objective Type="CollectItem" ItemId="37248" CollectCount="6">
+			<CollectFrom>
+				<Mob Name="Scourge Siegesmith" Entry="27410" />
+				<Object Name="Siegesmith Bomb" Id="188671" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="3655.307" Y="-1162.005" Z="118.6765" />
+				<Hotspot X="3746.038" Y="-1129.999" Z="119.6062" />
+				<Hotspot X="3709.137" Y="-1236.066" Z="117.3894" />
+				<Hotspot X="3603.235" Y="-1299.064" Z="112.759" />
+			</Hotspots>
+		</Objective>
+	</Quest>		
 
 
 
@@ -4022,7 +4036,7 @@
 			<CustomBehavior File="Message" Text="Compiling Venomspite Quests" LogColor="Cornflowerblue" />
 
 			<If Condition="(HasQuest(12189))" >
-				<CustomBehavior File="FlyTo" X="3244.794" Y="-705.6263" Z="167.0694" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3244.794" Y="-705.6263" Z="167.0694" />
 				<CustomBehavior File="ForcedDismount" />  
 			</If>
 		<TurnIn QuestName="Imbeciles Abound!" QuestId="12189" TurnInName="Chief Plaguebringer Middleton" TurnInId="27172" />
@@ -4075,27 +4089,165 @@
 				<Objective QuestName="Emerald Dragon Tears" QuestId="12200" Type="CollectItem" ItemId="37124" CollectCount="8" />
 			</If>	
 			<If Condition="((HasQuest(12200)) &amp;&amp; (IsQuestCompleted(12200)))" >
-				<CustomBehavior File="FlyTo" X="3247.123" Y="-709.1177" Z="167.1347" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3247.463" Y="-706.8828" Z="167.1086" />
 				<CustomBehavior File="ForcedDismount" />  
 			</If>
 		<TurnIn QuestName="Emerald Dragon Tears" QuestId="12200" TurnInName="Chief Plaguebringer Middleton" TurnInId="27172" />
+			<!-- Vehicle quest - tanks are right there in Venomspite
+		<PickUp QuestName="Spread the Good Word" QuestId="12218" GiverName="Chief Plaguebringer Middleton" GiverId="27172" />
+			-->
+		<TurnIn QuestName="Let Them Not Rise!" QuestId="12211" TurnInName="Apothecary Vicky Levine" TurnInId="27248" />
+		<TurnIn QuestName="Wanted: The Scarlet Onslaught" QuestId="12205" TurnInName="High Executor Wroth" TurnInId="27243" />
+		<PickUp QuestName="No Mercy for the Captured" QuestId="12245" GiverName="Spy Mistress Repine" GiverId="27337" />
+		<TurnIn QuestName="Emerald Dragon Tears" QuestId="12200" TurnInName="Chief Plaguebringer Middleton" TurnInId="27172" />
+		<PickUp QuestName="Stealing from the Siegesmiths" QuestId="12230" GiverName="Deathguard Molder" GiverId="27320" />
+		<TurnIn QuestName="Materiel Plunder" QuestId="12209" TurnInName="Quartermaster Bartlett" TurnInId="27267" />
+			<!-- Unique quest - will require it's own behavior; is this quest avail earlier?
+		<PickUp QuestName="Fresh Remounts" QuestId="12214" GiverName="Hansel Bauer" GiverId="27028" X="3256.96" Y="-631.9784" Z="165.3288" />
+			-->
+			<If Condition="((HasQuest(12245)) &amp;&amp; (!IsQuestCompleted(12245)))" >
+			 <If Condition="HasQuest(12245) &amp;&amp; !IsObjectiveComplete(1, 12245)">
+				<CustomBehavior File="FlyTo" DestName="kill Schneider" X="2870.658" Y="-375.8069" Z="112.4627" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="12245" MobId="27376" MobState="Alive" GossipOptions="1, 1" WaitTime="2000" />
+				<CustomBehavior File="InteractWith" QuestId="12245" MobId="27376" MobState="Alive" Range="8" WaitTime="2000" />
+			 </If>
+			 <If Condition="HasQuest(12245) &amp;&amp; !IsObjectiveComplete(4, 12245)">
+				<CustomBehavior File="FlyTo" DestName="kill Chancelor" X="2870.632" Y="-431.2016" Z="118.1964" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="12245" MobId="27381" MobState="Alive" NumOfTimes="1" GossipOptions="1, 1" WaitTime="2000" />
+				<CustomBehavior File="InteractWith" QuestId="12245" MobId="27381" MobState="Alive" NumOfTimes="1" Range="8" WaitTime="2000" />
+			 </If>
+			<If Condition="HasQuest(12245) &amp;&amp; !IsObjectiveComplete(3, 12245)">
+				<CustomBehavior File="FlyTo" DestName="kill Burke" X="2774.778" Y="-454.8691" Z="117.0528" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="12245" MobId="27379" MobState="Alive" NumOfTimes="1" GossipOptions="1, 1" WaitTime="2000" />
+				<CustomBehavior File="InteractWith" QuestId="12245" MobId="27379" MobState="Alive" NumOfTimes="1" Range="8" WaitTime="2000" />
+			 </If>
+			 <If Condition="HasQuest(12245) &amp;&amp; !IsObjectiveComplete(2, 12245)">
+				<CustomBehavior File="FlyTo" DestName="kill Senior" X="2804.71" Y="-304.2551" Z="192.1059" />
+				<CustomBehavior File="FlyTo" DestName="kill Senior" X="2808.712" Y="-275.5136" Z="132.8345" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="12245" MobId="27378" MobState="Alive" NumOfTimes="1" GossipOptions="1, 1" WaitTime="2000" />
+				<CustomBehavior File="InteractWith" QuestId="12245" MobId="27378" MobState="Alive" NumOfTimes="1" Range="8" WaitTime="2000" />
+			 </If>
+			</If>
+			<If Condition="((HasQuest(12245)) &amp;&amp; (IsQuestCompleted(12245)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3247.463" Y="-706.8828" Z="167.1086" />
+				<CustomBehavior File="ForcedDismount" />  
+			</If>
+		<TurnIn QuestName="No Mercy for the Captured" QuestId="12245" TurnInName="High Executor Wroth" TurnInId="27243" />
+		<PickUp QuestName="Torture the Torturer" QuestId="12252" GiverName="High Executor Wroth" GiverId="27243" />
+			<If Condition="HasQuest(12252) &amp;&amp; !IsQuestCompleted(12252)">
+				<CustomBehavior File="FlyTo" DestName="kill the Torturer" X="2885.366" Y="-357.8479" Z="137.8366" />
+				<CustomBehavior File="ForcedDismount" />
 
+				<CustomBehavior File="CombatUseItemOn" QuestId="12252" ItemId="37314" MobId="27209" MobHpPercentLeft="99" X="2882.653" Y="-287.6786" Z="106.8803" />
+			</If>
+			<If Condition="(HasItem(37432))" >
+		<PickUp QuestName="The Rod of Compulsion" QuestId="12271" GiverType="Item" GiverName="Torturer's Rod" GiverId="37432" />
+			</If>
+			<If Condition="HasQuest(12252) &amp;&amp; IsQuestCompleted(12252)">
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3231.955" Y="-691.8605" Z="166.9278" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Torture the Torturer" QuestId="12252" TurnInName="High Executor Wroth" TurnInId="27243" />
+		<TurnIn QuestName="The Rod of Compulsion" QuestId="12271" TurnInName="High Executor Wroth" TurnInId="27243" />
+		<PickUp QuestName="The Denouncement" QuestId="12273" GiverName="High Executor Wroth" GiverId="27243" />
+			<If Condition="((HasQuest(12273)) &amp;&amp; (!IsQuestCompleted(12273)))" >
+				<CustomBehavior File="UserSettings" PullDistance="10" />
+			 <If Condition="((HasQuest(12273)) &amp;&amp; (!IsObjectiveComplete(3, 12273)))">
+				<CustomBehavior File="FlyTo" DestName="kill Goodman" X="2932.42" Y="-364.3284" Z="112.4632" />
+				<CustomBehavior File="ForcedDismount" />
 
+			  <While Condition="HasQuest(12273) &amp;&amp; !IsObjectiveComplete(3, 12273)">
+				<CustomBehavior File="CombatUseItemOn" ItemId="37438" MobId="27234" MobHpPercentLeft="99" NumOfTimes="2" MaxRange="10" X="2938.589" Y="-344.6704" Z="114.6564" />
+			  </While>
+			 </If>
+			 <If Condition="((HasQuest(12273)) &amp;&amp; (!IsObjectiveComplete(1, 12273)))">
+				<CustomBehavior File="FlyTo" DestName="kill Jordan" X="2885.224" Y="-350.2235" Z="112.4619" />
+				<CustomBehavior File="ForcedDismount" />
 
+			  <While Condition="HasQuest(12273) &amp;&amp; !IsObjectiveComplete(1, 12273)">
+				<CustomBehavior File="CombatUseItemOn" ItemId="37438" MobId="27237" MobHpPercentLeft="99" NumOfTimes="2" MaxRange="10" X="2938.589" Y="-344.6704" Z="114.6564" />
+			  </While>
+			 </If>
+			 <If Condition="((HasQuest(12273)) &amp;&amp; (!IsObjectiveComplete(4, 12273)))">
+				<CustomBehavior File="FlyTo" DestName="kill Mercer" X="2710.966" Y="-177.2142" Z="138.6055" />
+				<CustomBehavior File="ForcedDismount" />
 
+			  <While Condition="HasQuest(12273) &amp;&amp; !IsObjectiveComplete(4, 12273)">
+				<CustomBehavior File="CombatUseItemOn" ItemId="37438" MobId="27236" MobHpPercentLeft="99" NumOfTimes="2" MaxRange="10" X="2739.214" Y="-200.9335" Z="138.7781" />
+			  </While>
+			 </If>
+			 <If Condition="((HasQuest(12273)) &amp;&amp; (!IsObjectiveComplete(2, 12273)))">
+				<CustomBehavior File="FlyTo" DestName="kill Zierhut" X="2656.712" Y="-431.1052" Z="56.55772" />
+				<CustomBehavior File="ForcedDismount" />
 
-		
-		
-		
-		
+			  <While Condition="HasQuest(12273) &amp;&amp; !IsObjectiveComplete(2, 12273)">
+				<CustomBehavior File="CombatUseItemOn" ItemId="37438" MobId="27235" MobHpPercentLeft="99" NumOfTimes="2" MaxRange="10" X="2659.776" Y="-450.8735" Z="50.22113" />
+			  </While>
+			 </If>
+				<CustomBehavior File="UserSettings" PullDistance="30" />
+			</If>
+			<If Condition="HasQuest(12273) &amp;&amp; IsQuestCompleted(12273)">
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3231.955" Y="-691.8605" Z="166.9278" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="The Denouncement" QuestId="12273" TurnInName="High Executor Wroth" TurnInId="27243" />
+			<If Condition="((HasQuest(12230)) &amp;&amp; (!IsQuestCompleted(12230)))" >
+				<CustomBehavior File="FlyTo" DestName="get 6 Siegesmith Bombs" X="3661.737" Y="-1160.91" Z="119.622" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Stealing from the Siegesmiths" QuestId="12230" Type="CollectItem" ItemId="37248" CollectCount="6" />
+			</If>
+			<If Condition="((HasQuest(12230)) &amp;&amp; (IsQuestCompleted(12230)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3234.707" Y="-667.9856" Z="166.7894" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Stealing from the Siegesmiths" QuestId="12230" TurnInName="Deathguard Molder" TurnInId="27320" />
+		<PickUp QuestName="Bombard the Ballistae" QuestId="12232" GiverName="Deathguard Molder" GiverId="27320" />
+		<PickUp QuestName="A Means to an End" QuestId="12240" GiverName="Apothecary Vicky Levine" GiverId="27248" />
+		<PickUp QuestName="Need to Know" QuestId="12234" GiverName="Spy Mistress Repine" GiverId="27337" />
+
+	
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This profile currently only does up to Dragonblight; view my SVN daily for updates" />
 		
 		
-			<!-- Unique quest - will require it's own behavior
-		<PickUp QuestName="Fresh Remounts" QuestId="12214" GiverName="Hansel Bauer" GiverId="27028" />
-			-->
+		
+			<If Condition="((HasQuest(12232)) &amp;&amp; (!IsQuestCompleted(12232)))" >
+				<CustomBehavior File="FlyTo" DestName="bomb 5 ballista's" 
+				<CustomBehavior File="ForcedDismount" />
+				
+				
+				<Objective QuestName="Bombard the Ballistae" QuestId="12232" Type="CollectItem" ItemId="37259" CollectCount="1" />
+			</If>
+
+
+
+
+
+
 
 		
+	
+	
+	
+			<If Condition="((HasQuest(12232)) &amp;&amp; (IsQuestCompleted(12232)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3234.707" Y="-667.9856" Z="166.7894" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Bombard the Ballistae" QuestId="12232" TurnInName="Deathguard Molder" TurnInId="27320" />
+		
+
+			<Objective QuestName="A Means to an End" QuestId="12240" Type="KillMob" MobId="27238" KillCount="1" />
+			<Objective QuestName="A Means to an End" QuestId="12240" Type="CollectItem" ItemId="37300" CollectCount="1" />
+		<TurnIn QuestName="A Means to an End" QuestId="12240" TurnInName="Apothecary Vicky Levine" TurnInId="27248" />
+
+			<Objective QuestName="Need to Know" QuestId="12234" Type="CollectItem" ItemId="37268" CollectCount="1" />
+			<Objective QuestName="Need to Know" QuestId="12234" Type="CollectItem" ItemId="37267" CollectCount="1" />
+			<Objective QuestName="Need to Know" QuestId="12234" Type="CollectItem" ItemId="37269" CollectCount="1" />
+		<TurnIn QuestName="Need to Know" QuestId="12234" TurnInName="Spy Mistress Repine" TurnInId="27337" />
+
 		
 		
 		
