@@ -4699,7 +4699,6 @@
 				</SetGrindArea>
 			<GrindTo Level="74"/>
 			<Checkpoint Level="74" />
-		
 			<!-- Conquest Hold Quests -->
 			<CustomBehavior File="Message" Text="Compiling Conquest Hold Quests" LogColor="CornflowerBlue" />
 			
@@ -4776,37 +4775,20 @@
 		<PickUp QuestName="The Thane of Voldrune" GiverName="Sergeant Nazgrim" QuestId="12259" GiverId="27388" />
 			</If>
 			<If Condition="((!HasQuest(12259)) &amp;&amp; (!IsQuestCompleted(12259)))" >
-				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3200.116" Y="-2292.443" Z="107.6754" />
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3249.617" Y="-2249.884" Z="114.4631" />
 		<PickUp QuestName="The Thane of Voldrune" GiverName="Sergeant Nazgrim" QuestId="12259" GiverId="27388" />
 			</If>
 			<If Condition="HasQuest(12259) &amp;&amp; !IsQuestCompleted(12259)" >
-			<!-- myctm has issues because i'm in a vehicle i guess
+			 <If Condition="(!Me.IsOnTransport)" >
 				<CustomBehavior File="FlyTo" X="2787.775" Y="-2500.663" Z="47.61598" />	
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="InteractWith" QuestId="12259" MobId="27292" GossipOptions="1" X="2787.775" Y="-2500.663" Z="47.61598" />	
-				<CustomBehavior File="MyCTM" X="2904.802" Y="-2521.172" Z="139.7056" />
-				<CustomBehavior File="MyCTM" X="2935.46" Y="-2560.278" Z="111.3792" />
-				<CustomBehavior File="MyCTM" X="2942.664" Y="-2553.959" Z="117.986" />
-				
-			 <While Condition="((HasQuest(12259)) &amp;&amp; (!IsObjectiveComplete(1, 12259)))">
-				<CustomBehavior File="RunMacro" QuestId="12259" Macro="/click BonusActionButton1" NumOfTimes="1" WaitTime="1000" />
-				<CustomBehavior File="RunMacro" QuestId="12259" Macro="/click BonusActionButton2" NumOfTimes="1" WaitTime="1000" />
-				<CustomBehavior File="RunMacro" QuestId="12259" Macro="/click BonusActionButton3" NumOfTimes="1" WaitTime="1000" />
-			 </While>
-			 
-				<CustomBehavior File="Vehicles\FlyingVehicle" QuestId="12259" VehicleId="27292" NpcList="27377" Buttons="2, 1, 3" NpcScanRange="50" Precision="8"
-											StartPath="2916.317, -2541.085, 151.7224"
-											Path="2916.317, -2541.085, 151.7224 | 2964.133, -2562.98, 1137.4412"
-											EndPath="2787.775, -2500.663, 47.61598" />
-				
+			 </If>
+				<CustomBehavior File="12259" /> <!-- Kick -->
+			 <If Condition="(!Me.IsOnTransport)" >
 				<CustomBehavior File="EjectVeh" Eject="True" />
-			-->
-
-				<!--
-				<Vendor Name="Thane Torvald Eriksson" Entry="27377" Type="Repair" X="2966.517" Y="-2530.978" Z="126.5466" />
-				-->
+			 </If>
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
-			<!--
 			<If Condition="HasQuest(12259) &amp;&amp; IsQuestCompleted(12259)" >
 				<CustomBehavior File="FlyTo" X="3254.155" Y="-2236.979" Z="115.6835" />
 				<CustomBehavior File="ForcedDismount" />
@@ -4814,14 +4796,71 @@
 		<TurnIn QuestName="The Thane of Voldrune" TurnInName="Sergeant Nazgrim" QuestId="12259" TurnInId="27388" />
 		<PickUp QuestName="Onward to Camp Oneqwah" GiverName="Sergeant Nazgrim" QuestId="12451" GiverId="27388" />
 		<PickUp QuestName="My Enemy's Friend" GiverName="Conqueror Krenna" QuestId="12412" GiverId="26860" />
-			-->
+			<If Condition="((HasQuest(12412)) &amp;&amp; (!IsQuestCompleted(12412)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="3107.653" Y="-2922.717" Z="124.5273" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="My Enemy's Friend" QuestId="12412" Type="KillMob" MobId="27547" KillCount="1" />		
+				<Objective QuestName="My Enemy's Friend" QuestId="12412" Type="KillMob" MobId="27546" KillCount="8" />
+			</If>
+			 <If Condition="(HasItem(37830))" >
+		<PickUp QuestName="Mikhail's Journal" QuestId="12423" GiverType="Item" GiverId="37830" />
+			 </If>
+			<If Condition="((!HasQuest(12423)) &amp;&amp; (!IsQuestCompleted(12423)))" >
+				<CustomBehavior File="FlyTo" DestName="get DropQuest" X="3107.653" Y="-2922.717" Z="124.5273" />
+				<CustomBehavior File="ForcedDismount" />
+			
+					<SetGrindArea>
+						<GrindArea>
+							<Factions>16</Factions> <!-- [Silverbrook Hunter] -->
+							<Hotspots>
+								<Hotspot X="3107.653" Y="-2922.717" Z="124.5273" />
+								<Hotspot X="3094.876" Y="-2959.695" Z="121.6348" />
+								<Hotspot X="3071.757" Y="-2982.93" Z="118.1541" />
+								<Hotspot X="3091.24" Y="-3009.692" Z="117.7305" />
+								<Hotspot X="3130.11" Y="-3046.534" Z="121.6224" />
+								<Hotspot X="3164.457" Y="-3057.093" Z="131.7054" />
+								<Hotspot X="3185.838" Y="-3014.012" Z="130.5893" />
+								<Hotspot X="3169.353" Y="-2983.875" Z="126.8115" />
+								<Hotspot X="3144.871" Y="-2949.72" Z="123.5128" />
+							</Hotspots>
+						</GrindArea>
+					</SetGrindArea>
+				<GrindTo Condition="(HasItem(37830))" />
+				
+			 <If Condition="(HasItem(37830))" >
+		<PickUp QuestName="Mikhail's Journal" QuestId="12423" GiverType="Item" GiverId="37830" />
+			 </If>
 		
-		
-		
-		
-		
+			</If>
+			<If Condition="HasQuest(12423)">
+				<CustomBehavior File="FlyTo" X="3254.155" Y="-2236.979" Z="115.6835" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Mikhail's Journal" TurnInName="Conqueror Krenna" QuestId="12423" TurnInId="26860" />
+		<PickUp QuestName="Gorgonna" GiverName="Conqueror Krenna" QuestId="12424" GiverId="26860" />
+		<TurnIn QuestName="My Enemy's Friend" TurnInName="Conqueror Krenna" QuestId="12412" TurnInId="26860" />
+		<PickUp QuestName="Attack on Silverbrook" GiverName="Conqueror Krenna" QuestId="12413" GiverId="26860" />
+		<TurnIn QuestName="Gorgonna" TurnInName="Gorgonna" QuestId="12424" TurnInId="27102" />
+		<PickUp QuestName="Tactical Clemency" GiverName="Gorgonna" QuestId="12422" GiverId="27102" />
 		
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This profile currently only does up to beginning of Grizzly Hills; view my SVN daily for updates" />
+
+		
+		<!--
+		<PickUp QuestName="Good Troll Hunting" QuestId="12208" GiverName="Sergeant Thurkin" GiverId="27266" />
+		<PickUp QuestName="Eyes Above" QuestId="12453" GiverName="Windseer Grayhorn" GiverId="27262" />
+			<If Condition="HasQuest(12208)">
+				<CustomBehavior File="FlyTo" X="3843.28" Y="-1962.755" Z="208.4949" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Good Troll Hunting" QuestId="12208" TurnInName="Samir" TurnInId="26424" />
+		<PickUp QuestName="Filling the Cages" QuestId="11984" GiverName="Samir" GiverId="26424" />
+		-->
+	
+		
+		
+		
+		
 		
 		
 		
@@ -4859,9 +4898,9 @@
 
 	<!-- :O
 	
-	Left 4 Dead
-
-	Papercut Massacre
+	Left 4 Dead -	Papercut Massacre
+	
+	Because Of You - Echovalve
 
 		-->
 		

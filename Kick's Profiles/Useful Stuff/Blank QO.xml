@@ -129,12 +129,12 @@
 	
 	<QuestOrder>
 	
+		<!-- 	
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
 				<CustomBehavior File="Message" Text="Can't touch this; STOP! It's Kickazz time!" LogColor="Cornflowerblue" />
 				<CustomBehavior File="RunMacro" Macro="/dance" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="60000" GoalText="Using item {TimeRemaining}" />
 
-		<!-- 	
 			anzu - 23035
 			rivendare - 45412
 		-->
@@ -143,7 +143,20 @@
 		<RunTo X="4178.861" Y="5286.654" Z="39.60927" /> // upstairs \\
 		<RunTo X="4178.583" Y="5280.581" Z="26.69306" /> // downstairs \\
 		-->
-
+			<If Condition="((!HasQuest(12259)) &amp;&amp; (!IsQuestCompleted(12259)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3249.617" Y="-2249.884" Z="114.4631" />
+		<PickUp QuestName="The Thane of Voldrune" GiverName="Sergeant Nazgrim" QuestId="12259" GiverId="27388" />
+			</If>
+			<If Condition="HasQuest(12259) &amp;&amp; !IsQuestCompleted(12259)" >
+			 <If Condition="(!Me.IsOnTransport)" >
+				<CustomBehavior File="FlyTo" X="2787.775" Y="-2500.663" Z="47.61598" />	
+				<CustomBehavior File="ForcedDismount" />
+			 </If>
+				<CustomBehavior File="12259" /> <!-- Kick -->
+			 <If Condition="(!Me.IsOnTransport)" >
+				<CustomBehavior File="EjectVeh" Eject="True" />
+			 </If>
+			</If>
 	
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
 
