@@ -33,7 +33,6 @@
 		<Mob Name="Unbound Cyclone" Entry="832" />
 		<!-- Red Ridge/Lakeshire -->
 		<Mob Name="Ol' Gummers" Entry="43041" />
-		<Mob Name="Canyon Ettin" Entry="43094" />
 		<Mob Name="Blackrock Battle Worg" Entry="43340" />
 		<Mob Name="Blackrock Worg Captain" Entry="43341" />
 		<!-- Raven Hill -->
@@ -4420,9 +4419,11 @@
 			<!-- This quest has issues 	-->
 		<PickUp QuestName="Saving Foreman Oslow" QuestId="26520" GiverName="Ettin Control Orb" GiverId="204351" X="-8831.982" Y="-1939.935" Z="133.0036" />
 			<If Condition="((HasQuest(26520)) &amp;&amp; (!IsQuestCompleted(26520)))" >
-				<!-- while condition !hasaura -->
-				<CustomBehavior File="CombatUseItemOn" MobId="43094" ItemId="58895" NumOfTimes="1" MobHpPercentLeft="100" MaxRange="10" X="-9002.048" Y="-2133.902" Z="143.1395" />
-				<!-- waittimer 5 sec -->
+			 <While Condition="!Me.HasAura(&quot;Canyon Ettin Spawn Spell&quot;)" >
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="CombatUseItemOn" MobId="43094" ItemId="58895" NumOfTimes="1" MobHpPercentLeft="99" MaxRange="5" X="-9002.048" Y="-2133.902" Z="143.1395" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+			 </While>
 			 <While Condition="((HasQuest(26520)) &amp;&amp; (!IsQuestCompleted(26520)))" >
 				<RunTo X="-9274.12" Y="-2288.6" Z="68.15446" />
 				<CustomBehavior File="UseItemOn" QuestId="26520" MobId="43196" ItemId="58895" NumOfTimes="1" WaitTime="1000" Range="5" CollectionDistance="500" X="-9274.12" Y="-2288.6" Z="68.15446" />
