@@ -569,17 +569,6 @@
 		</Hotspots>
 	</Objective>
 </Quest>
-	<Quest Id="12328" Name="Ruuna's Request">
-<Objective Type="CollectItem" ItemId="37662" CollectCount="4">
-		<Hotspots>
-			<Hotspot X="4107.797" Y="-3556.954" Z="253.8599" />
-			<Hotspot X="4185.433" Y="-3599.292" Z="251.3749" />
-			<Hotspot X="4228.501" Y="-3665.454" Z="254.0626" />
-			<Hotspot X="4282.876" Y="-3674.236" Z="258.468" />
-			<Hotspot X="4277.359" Y="-3593.287" Z="246.1126" />
-		</Hotspots>
-	</Objective>
-</Quest>
 	<Quest Id="12176" Name="A Minor Substitution">
 <Objective Type="CollectItem" ItemId="37020" CollectCount="6">
 	<CollectFrom>
@@ -782,6 +771,30 @@
 	</Hotspots>
 </Objective>
 </Quest>
+	<Quest Id="12328" Name="Ruuna's Request">  
+		<Objective Type="CollectItem" ItemId="37662" CollectCount="4">
+			<CollectFrom>
+				<Mob Name="Fern Feeder Moth" Id="27421" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="4065.205" Y="-3541.63" Z="253.8196" />
+				<Hotspot X="4130.78" Y="-3579.832" Z="253.8712" />
+				<Hotspot X="4197.838" Y="-3609.374" Z="252.4939" />
+				<Hotspot X="4233.589" Y="-3650.256" Z="254.0152" />
+				<Hotspot X="4279.231" Y="-3679.737" Z="258.3845" />
+				<Hotspot X="4275.193" Y="-3582.432" Z="246.9826" />
+				<Hotspot X="4302.795" Y="-3716.324" Z="258.3702" />
+				<Hotspot X="4374.692" Y="-3683.64" Z="256.8278" />
+				<Hotspot X="4419.406" Y="-3731.527" Z="234.0352" />
+				<Hotspot X="4472.321" Y="-3766.881" Z="216.5788" />
+				<Hotspot X="4525.235" Y="-3734.605" Z="223.5926" />
+				<Hotspot X="4518.134" Y="-3837.134" Z="218.0197" />
+				<Hotspot X="4438.257" Y="-3826.27" Z="208.6996" />
+				<Hotspot X="4285.663" Y="-3733.341" Z="263.2779" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+
 
 
 
@@ -4871,7 +4884,145 @@
 		<TurnIn QuestName="Eyes Above" TurnInName="Windseer Grayhorn" QuestId="12453" TurnInId="27262" />
 		<PickUp QuestName="Vordrassil's Fall" GiverName="Windseer Grayhorn" QuestId="12207" GiverId="27262" />
 		<PickUp QuestName="The Darkness Beneath" GiverName="Windseer Grayhorn" QuestId="12213" GiverId="27262" />
+			<If Condition="HasQuest(12207) &amp;&amp; !IsQuestCompleted(12207)">
+				<CustomBehavior File="FlyTo" X="3927.718" Y="-2584.966" Z="206.415" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Vordrassil's Fall" QuestId="12207" Type="CollectItem" ItemId="37199" CollectCount="6" />
+			</If>
+			<If Condition="HasQuest(12213) &amp;&amp; !IsObjectiveComplete(3, 12213)">
+				<CustomBehavior File="FlyTo" X="3930.799" Y="-2600.958" Z="206.5849" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="HasQuest(12213) &amp;&amp; !IsObjectiveComplete(3, 12213)">
+				<UseItem ItemId="37173" QuestName="The Darkness Beneath" QuestId="12213" X="3979.872" Y="-2706.403" Z="164.8311" />
+			 </While>
+			</If>
+			<If Condition="HasQuest(12213) &amp;&amp; !IsObjectiveComplete(2, 12213)">
+				<CustomBehavior File="FlyTo" X="3763.256" Y="-2927.972" Z="272.3773" />
+				<CustomBehavior File="FlyTo" X="3813.463" Y="-2866.828" Z="219.7106" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="HasQuest(12213) &amp;&amp; !IsObjectiveComplete(2, 12213)">
+				<UseItem ItemId="37173" QuestName="The Darkness Beneath" QuestId="12213" X="3910.563" Y="-2803.458" Z="175.3991" />
+			 </While>
+			</If>
+			<If Condition="HasQuest(12213) &amp;&amp; !IsObjectiveComplete(1, 12213)">
+				<CustomBehavior File="FlyTo" X="3776.277" Y="-3206.204" Z="338.3256" />
+				<CustomBehavior File="FlyTo" X="3710.701" Y="-3242.004" Z="280.81" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="HasQuest(12213) &amp;&amp; !IsObjectiveComplete(1, 12213)">
+				<UseItem ItemId="37173" QuestName="The Darkness Beneath" QuestId="12213" X="3603.475" Y="-3268.788" Z="222.2524" />
+			 </While>
+			</If>
+			<If Condition="HasQuest(12425)" >
+				<CustomBehavior File="FlyTo" X="3838.521" Y="-3422.531" Z="293.1039" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Ruuna the Blind" TurnInName="Ruuna the Blind" QuestId="12425" TurnInId="27581" />
 		
+			<!-- Ruuna the Blind and Sasha Quests -->
+			<CustomBehavior File="Message" Text="Compiling Ruuna the Blind and Sasha Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((!HasQuest(12328)) &amp;&amp; (!IsQuestCompleted(12328)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3838.397" Y="-3426.487" Z="293.1047" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Ruuna's Request" QuestId="12328" GiverName="Ruuna the Blind" GiverId="27581" />
+			</If>
+			<If Condition="((HasQuest(12328)) &amp;&amp; (!IsQuestCompleted(12328)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="4065.205" Y="-3541.63" Z="253.8196" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Ruuna's Request" QuestId="12328" Type="CollectItem" ItemId="37662" CollectCount="4" />
+			</If>
+				<!-- Escort quest that bugs out
+			<If Condition="((!HasQuest(12027)) &amp;&amp; (!IsQuestCompleted(12027)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4343.607" Y="-3682.654" Z="257.0614" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Mr. Floppy's Perilous Adventure" QuestId="12027" GiverName="Emily" GiverId="26588" />
+				<CustomBehavior File="Escort" QuestId="12027" MobId="26589" X="-931.8848" Y="5283.565" Z="23.89816" />
+		<TurnIn QuestName="Mr. Floppy's Perilous Adventure" QuestId="12027" TurnInName="Squire Walter" TurnInId="26371" />
+			</If> -->
+			<If Condition="((HasQuest(12328)) &amp;&amp; (IsQuestCompleted(12328)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3838.397" Y="-3426.487" Z="293.1047" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Ruuna's Request" QuestId="12328" TurnInName="Ruuna the Blind" TurnInId="27581" />
+		<PickUp QuestName="Out of Body Experience" QuestId="12327" GiverName="Ruuna the Blind" GiverId="27581" />
+			</If>
+			<If Condition="((!HasQuest(12327)) &amp;&amp; (!IsQuestCompleted(12327)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3838.397" Y="-3426.487" Z="293.1047" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Out of Body Experience" QuestId="12327" GiverName="Ruuna the Blind" GiverId="27581" />
+			</If>
+			<If Condition="((HasQuest(12327)) &amp;&amp; (!IsQuestCompleted(12327)))" >
+				<CustomBehavior File="WaitTimer" WaitTime="1000" />
+				<UseItem QuestName="Gossamer Potion" QuestId="12327" ItemId="37661" X="3838.483" Y="-3425.155" Z="293.1031" />
+				<CustomBehavior File="WaitTimer" WaitTime="55000" GoalText="Waiting for event {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(12327)) &amp;&amp; (IsQuestCompleted(12327)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3838.397" Y="-3426.487" Z="293.1047" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Out of Body Experience" QuestId="12327" TurnInName="Ruuna the Blind" TurnInId="27581" />
+		<PickUp QuestName="Fate and Coincidence" QuestId="12329" GiverName="Ruuna the Blind" GiverId="27581" />
+			</If>
+			<If Condition="((!HasQuest(12329)) &amp;&amp; (!IsQuestCompleted(12329)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3838.397" Y="-3426.487" Z="293.1047" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Fate and Coincidence" QuestId="12329" GiverName="Ruuna the Blind" GiverId="27581" />
+			</If>
+			<If Condition="((HasQuest(12329)) &amp;&amp; (IsQuestCompleted(12329)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4070.222" Y="-4126.239" Z="212.4449" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Fate and Coincidence" QuestId="12329" TurnInName="Sasha" TurnInId="26935" />
+		<PickUp QuestName="Sasha's Hunt" QuestId="12134" GiverName="Sasha" GiverId="26935" />
+		<PickUp QuestName="Anatoly Will Talk" QuestId="12330" GiverName="Sasha" GiverId="26935" />
+			</If>
+			<If Condition="((!HasQuest(12134)) &amp;&amp; (!IsQuestCompleted(12134)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4070.222" Y="-4126.239" Z="212.4449" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Sasha's Hunt" QuestId="12134" GiverName="Sasha" GiverId="26935" />
+			</If>
+			<If Condition="((!HasQuest(12330)) &amp;&amp; (!IsQuestCompleted(12330)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4070.222" Y="-4126.239" Z="212.4449" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Anatoly Will Talk" QuestId="12330" GiverName="Sasha" GiverId="26935" />
+			</If>
+			<If Condition="((HasQuest(12134)) &amp;&amp; (!IsQuestCompleted(12134)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="4131.991" Y="-4282.938" Z="251.4625" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Sasha's Hunt" QuestId="12134" Type="KillMob" MobId="26389" MobName="Solstice Hunter" KillCount="12" />
+			</If>
+			<If Condition="((HasQuest(12330)) &amp;&amp; (!IsQuestCompleted(12330)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="4093.384" Y="-4411.058" Z="261.3578" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(12330)) &amp;&amp; (!IsQuestCompleted(12330)))" >
+				<CustomBehavior File="UserSettings" PullDistance="10" />
+				<RunTo QuestName="Anatoly Will Talk" QuestId="12330" X="4037.049" Y="-4413.58" Z="261.2349" />
+				<CustomBehavior File="UseItemOn"  MobId="27627" ItemId="37665" MobState="Alive" MobHpPercentLeft="100" NumOfTimes="1" WaitTime="2000" Range="30" CollectionDistance="100" X="4037.049" Y="-4413.58" Z="261.2349" />
+				<CustomBehavior File="InteractWith" QuestId="12330" MobId="27626" NumOfTimes="1" X="4033.066" Y="-4375.174" Z="262.1109" />
+				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for horse ride {TimeRemaining}" />
+				<CustomBehavior File="UserSettings" PullDistance="25" />
+			 </While>
+			</If>
+			<If Condition="((HasQuest(12134)) &amp;&amp; (IsQuestCompleted(12134)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4070.222" Y="-4126.239" Z="212.4449" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Sasha's Hunt" QuestId="12134" TurnInName="Sasha" TurnInId="26935" />
+			</If>
+			<If Condition="((HasQuest(12330)) &amp;&amp; (IsQuestCompleted(12330)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4070.222" Y="-4126.239" Z="212.4449" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Anatoly Will Talk" QuestId="12330" TurnInName="Sasha" TurnInId="26935" />
+			</If>
+			<If Condition="((!HasQuest(12411)) &amp;&amp; (!IsQuestCompleted(12411)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4070.222" Y="-4126.239" Z="212.4449" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="A Sister's Pledge" QuestId="12411" GiverName="Sasha" GiverId="26935" />
+			</If>
+			<If Condition="((HasQuest(12411)) &amp;&amp; (IsQuestCompleted(12411)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4035.35" Y="-4571.229" Z="198.1161" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="A Sister's Pledge" QuestId="12411" TurnInName="Anya" TurnInId="27646" />
+			<!-- Hour of the Worg -->
+			</If>
+			<!-- End of Ruuna / Sasha Quests -->
+
 
 
 		
@@ -4887,6 +5038,8 @@
 		
 		
 		
+		
+	
 		
 		
 		
