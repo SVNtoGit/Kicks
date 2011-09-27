@@ -143,21 +143,24 @@
 		<RunTo X="4178.861" Y="5286.654" Z="39.60927" /> // upstairs \\
 		<RunTo X="4178.583" Y="5280.581" Z="26.69306" /> // downstairs \\
 		-->
-			<If Condition="((!HasQuest(12259)) &amp;&amp; (!IsQuestCompleted(12259)))" >
-				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3249.617" Y="-2249.884" Z="114.4631" />
-		<PickUp QuestName="The Thane of Voldrune" GiverName="Sergeant Nazgrim" QuestId="12259" GiverId="27388" />
-			</If>
-			<If Condition="HasQuest(12259) &amp;&amp; !IsQuestCompleted(12259)" >
-			 <If Condition="(!Me.IsOnTransport)" >
-				<CustomBehavior File="FlyTo" X="2787.775" Y="-2500.663" Z="47.61598" />	
+		
+		
+		<PickUp QuestName="Raining Down Destruction" GiverName="Kurun" QuestId="11982" GiverId="26260" />
+			<If Condition="((HasQuest(11982)) &amp;&amp; (!IsQuestCompleted(11982)))" >
+			 <If Condition="(GetItemCount(35734) &lt; 5)" >
+				<CustomBehavior File="FlyTo" DestName="get rocks" X="5074.753" Y="-4531.734" Z="280.6435" />
 				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Raining Down Destruction" QuestId="11982" Type="CollectItem" ItemId="35734" CollectCount="5" />
 			 </If>
-				<CustomBehavior File="12259" /> <!-- Kick -->
-			 <If Condition="(!Me.IsOnTransport)" >
-				<CustomBehavior File="EjectVeh" Eject="True" />
-			 </If>
+				
+				<CustomBehavior File="FlyTo" DestName="throw rocks down" Distance="2" X="5004.226" Y="-4633.891" Z="291.8737" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UseItemTargetLocation" QuestId="11982" ItemId="35734" UseType="PointToObject" WaitTime="1500" MinRange="30" Range="90" MobId1="26268" MobId2="26270" X="5007.596" Y="-4633.813" Z="292.1327" />
+				
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
-	
+
+		
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
 
 		
