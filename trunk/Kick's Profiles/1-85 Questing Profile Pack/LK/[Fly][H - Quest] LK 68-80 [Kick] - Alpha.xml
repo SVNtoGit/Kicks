@@ -4705,13 +4705,8 @@
 			<If Condition="((HasQuest(12487)) &amp;&amp; (IsQuestCompleted(12487)))" >
 				<CustomBehavior File="FlyTo" X="3248.751" Y="-2247.338" Z="114.5363" />
 				<CustomBehavior File="ForcedDismount" />
+			</If>
 		<TurnIn QuestName="To Conquest Hold, But Be Careful!" QuestId="12487" TurnInName="Conqueror Krenna" TurnInId="26860" />
-		<PickUp QuestName="The Conqueror's Task" GiverName="Conqueror Krenna" QuestId="12468" GiverId="26860" />
-			</If>
-			<If Condition="((!HasQuest(12468)) &amp;&amp; (!IsQuestCompleted(12468)))" >
-				<CustomBehavior File="FlyTo" X="3248.751" Y="-2247.338" Z="114.5363" />
-				<CustomBehavior File="ForcedDismount" />
-			</If>
 		<PickUp QuestName="The Conqueror's Task" GiverName="Conqueror Krenna" QuestId="12468" GiverId="26860" />
 		<TurnIn QuestName="The Conqueror's Task" TurnInName="Sergeant Nazgrim" QuestId="12468" TurnInId="27388" />
 		<PickUp QuestName="A Show of Strength" GiverName="Sergeant Nazgrim" QuestId="12257" GiverId="27388" />
@@ -4832,7 +4827,7 @@
 			 </If>
 		
 			</If>
-			<If Condition="HasQuest(12423)">
+			<If Condition="HasQuest(12423) || HasQuest(12412)">
 				<CustomBehavior File="FlyTo" X="3254.155" Y="-2236.979" Z="115.6835" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
@@ -4842,11 +4837,6 @@
 		<PickUp QuestName="Attack on Silverbrook" GiverName="Conqueror Krenna" QuestId="12413" GiverId="26860" />
 		<TurnIn QuestName="Gorgonna" TurnInName="Gorgonna" QuestId="12424" TurnInId="27102" />
 		<PickUp QuestName="Tactical Clemency" GiverName="Gorgonna" QuestId="12422" GiverId="27102" />
-		
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This profile currently only does up to beginning of Grizzly Hills; view my SVN daily for updates" />
-
-		
-		<!--
 		<PickUp QuestName="Good Troll Hunting" QuestId="12208" GiverName="Sergeant Thurkin" GiverId="27266" />
 		<PickUp QuestName="Eyes Above" QuestId="12453" GiverName="Windseer Grayhorn" GiverId="27262" />
 			<If Condition="HasQuest(12208)">
@@ -4854,8 +4844,44 @@
 				<CustomBehavior File="ForcedDismount" />
 			</If>
 		<TurnIn QuestName="Good Troll Hunting" QuestId="12208" TurnInName="Samir" TurnInId="26424" />
+			<!-- this quest leads to a chain
 		<PickUp QuestName="Filling the Cages" QuestId="11984" GiverName="Samir" GiverId="26424" />
-		-->
+			-->
+			<If Condition="HasQuest(12422)" >
+				<CustomBehavior File="FlyTo" X="4465.343" Y="-2263.382" Z="181.2712" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Tactical Clemency" QuestId="12422" TurnInName="Captured Trapper" TurnInId="27497" />
+			<If Condition="HasQuest(12413) &amp;&amp; !IsQuestCompleted(12413)" >
+				<CustomBehavior File="FlyTo" X="4465.343" Y="-2263.382" Z="181.2712" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Attack on Silverbrook" QuestId="12413" Type="KillMob" MobId="27676" KillCount="8" />
+			</If>
+			<If Condition="HasQuest(12453) &amp;&amp; !IsQuestCompleted(12453)" >
+				<CustomBehavior File="FlyTo" X="3449.359" Y="-2995.806" Z="209.2073" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UseItemOn" QuestId="12453" MobId="26369" ItemId="37877" NumOfTimes="100" WaitTime="10000" CollectionDistance="100" Range="60" X="3449.359" Y="2995.806" Z="209.2073" />
+			</If>
+			<If Condition="HasQuest(12413) || HasQuest(12453)">
+				<CustomBehavior File="FlyTo" X="3254.155" Y="-2236.979" Z="115.6835" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Attack on Silverbrook" QuestId="12413" TurnInName="Conqueror Krenna" TurnInId="26860" />
+		<PickUp QuestName="Ruuna the Blind" GiverName="Gorgonna" QuestId="12425" GiverId="27102" />
+		<TurnIn QuestName="Eyes Above" TurnInName="Windseer Grayhorn" QuestId="12453" TurnInId="27262" />
+		<PickUp QuestName="Vordrassil's Fall" GiverName="Windseer Grayhorn" QuestId="12207" GiverId="27262" />
+		<PickUp QuestName="The Darkness Beneath" GiverName="Windseer Grayhorn" QuestId="12213" GiverId="27262" />
+		
+
+
+		
+	
+	
+	
+	
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This profile currently only does up to beginning of Grizzly Hills; view my SVN daily for updates" />
+
+		
 	
 		
 		
