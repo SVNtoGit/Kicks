@@ -63,13 +63,25 @@
 		<!-- Camp Oneqwah -->
 		<Vendor Name="Aiyan Coldwind" Entry="26680" Type="Food" X="3875.464" Y="-4544.989" Z="209.2661" />
 		<Vendor Name="Litoko Icetotem" Entry="26707" Type="Repair" X="3835.903" Y="-4541.95" Z="209.2766" />
-		
-		
-		
+
+		<!-- East GH -->
 		<Vendor Name="Ameenah" Entry="26474" Type="Sell" X="3844.036" Y="-1948.214" Z="208.7925" />
 		<Vendor Name="Hugh Glass" Entry="26484" Type="Food" X="4113.109" Y="-4738.284" Z="100.788" />
 		<Vendor Name="Datalore Smallsphere" Entry="29277" Type="Sell" X="4323.52" Y="-4996.394" Z="20.37892" />
 			
+			
+		<!-- Zul'Drak -->
+		<!-- Light's Breach -->
+		<Vendor Name="Amarante" Entry="28807" Type="Food" X="5142.171" Y="-2209.019" Z="236.5571" />
+		<Vendor Name="Engineer Reed" Entry="29688" Type="Repair" X="5542.131" Y="-1859.713" Z="238.2686" />
+	
+		<!-- Ebon Watch -->
+		<Vendor Name="Spiked" Entry="28867" Type="Food" X="5229.741" Y="-1315.265" Z="242.2772" />
+		
+		<!-- Zim'Torga -->
+		<Vendor Name="Ra'wiri" Entry="28830" Type="Food" X="5785.643" Y="-3590.281" Z="387.3023" />
+		<Vendor Name="Ba'kari" Entry="28855" Type="Repair" X="5769.661" Y="-3572.947" Z="387.2385" />
+		
 		
 		<!-- Other Vendors? -->
 		
@@ -100,8 +112,6 @@
 		<!-- Zul Drak -->
 		<Vendor Name="Arlen Brighthammer" Entry="28796" Type="Repair" X="5410.7" Y="-2658.249" Z="303.9539" />
 		<Vendor Name="Scabbard" Entry="28871" Type="Repair" X="5198.625" Y="-1314.162" Z="243.1399" />
-		<Vendor Name="Ba'kari" Entry="28855" Type="Repair" X="5769.661" Y="-3572.947" Z="387.2385" />
-		<Vendor Name="Spiked" Entry="28867" Type="Food" X="5229.741" Y="-1315.265" Z="242.2771" />
 
 		<!-- Icecrown @ Argent -->
 		<Vendor Name="Brollen Wheatbeard" Entry="33599" Type="Repair" X="8548.112" Y="933.3629" Z="547.2941" />
@@ -6404,7 +6414,7 @@
 		<PickUp QuestName="The Blessing of Zim'Abwa" QuestId="12565" GiverName="Hexxer Ubungo" GiverId="28062" />
 			</If>
 		<!-- <Objective QuestName="The Blessing of Zim'Abwa" QuestId="12565" Type="CollectItem" ItemId="38551" CollectCount="10" />	-->
-			<If Condition="((HasQuest(12565)) &amp;&amp; (IsQuestCompleted(12565)))" >
+			<While Condition="((HasQuest(12565)) &amp;&amp; (IsQuestCompleted(12565)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5251.833" Y="-2450.771" Z="293.5696" />
 				<CustomBehavior File="ForcedDismount" />
 				
@@ -6416,7 +6426,8 @@
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />	
 				<!-- Too Big
 		<TurnIn QuestName="The Blessing of Zim'Abwa" QuestId="12565" TurnInName="Zim'Abwa" TurnInId="190535" TurnInType="Object" X="5248.609" Y="-2441.381" Z="290.0513" /> -->
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</While>
 			<If Condition="((HasQuest(12505)) &amp;&amp; (IsQuestCompleted(12505)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6060.37" Y="-2617.953" Z="302.7481" />
 				<CustomBehavior File="ForcedDismount" />
@@ -6814,6 +6825,9 @@
 		<TurnIn QuestName="Pure Evil" QuestId="12584" TurnInName="Eitrigg" TurnInId="28244" />
 			</If>
 			<!-- End of The Argent Stand and surrounding area's Quests -->
+			
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
+			
 		
 			<If Condition="(Me.Level &lt; 76)" >
 				<CustomBehavior File="FlyTo" DestName="Grind Area" X="6285.17" Y="-896.4157" Z="409.7999" />
