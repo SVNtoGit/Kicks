@@ -68,7 +68,7 @@
 		
 		<Vendor Name="Ameenah" Entry="26474" Type="Sell" X="3844.036" Y="-1948.214" Z="208.7925" />
 		<Vendor Name="Hugh Glass" Entry="26484" Type="Food" X="4113.109" Y="-4738.284" Z="100.788" />
-		<Vendor Name="Datalore Smallsphere" Entry="29277" Type="Repair" X="4323.52" Y="-4996.394" Z="20.37892" />
+		<Vendor Name="Datalore Smallsphere" Entry="29277" Type="Sell" X="4323.52" Y="-4996.394" Z="20.37892" />
 			
 		
 		<!-- Other Vendors? -->
@@ -146,6 +146,7 @@
 	</AvoidMobs>
 
 	<Blackspots>
+		<Blackspot X="3468.381" Y="-5118.784" Z="237.0708" Radius="4.419354" />
 		<Blackspot X="2925.199" Y="6394.559" Z="91.6399" Radius="6.484929" />
 		<Blackspot X="2932.177" Y="6494.663" Z="79.08061" Radius="1.956746" />
 		<Blackspot X="2931.44" Y="6488.665" Z="78.77148" Radius="15.39137" />
@@ -786,6 +787,46 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+	<Quest Id="12113" Name="Nice to Meat You">  
+		<Objective Type="CollectItem" ItemId="36875" CollectCount="10"> <!-- Pig Meat -->
+			<CollectFrom>
+				<Mob Name="Longhoof Grazer" Id="26418" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="4232.858" Y="-4930.621" Z="31.30195" />
+				<Hotspot X="4181.421" Y="-4993.502" Z="17.52698" />
+				<Hotspot X="4138.564" Y="-5047.823" Z="22.80276" />
+				<Hotspot X="4150.611" Y="-5096.839" Z="18.2003" />
+				<Hotspot X="4223.501" Y="-5123.925" Z="12.54011" />
+				<Hotspot X="4150.723" Y="-5223.861" Z="7.618001" />
+				<Hotspot X="4048.182" Y="-5273.021" Z="12.21022" />
+				<Hotspot X="4016.625" Y="-5193.874" Z="14.70334" />
+				<Hotspot X="4074.802" Y="-5097.958" Z="19.78978" />
+				<Hotspot X="4162.018" Y="-5128.198" Z="14.5317" />
+				<Hotspot X="4232.361" Y="-5119.458" Z="12.11716" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="CollectItem" ItemId="36819" CollectCount="10"> <!-- Wolf Meat -->
+			<CollectFrom>
+				<Mob Name="Duskhowl Prowler" Id="27408" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="4294.779" Y="-4429.564" Z="174.0715" />
+				<Hotspot X="4260.857" Y="-4491.574" Z="186.0041" />
+				<Hotspot X="4222.157" Y="-4535.009" Z="169.1859" />
+				<Hotspot X="4227.523" Y="-4604.792" Z="136.4109" />
+				<Hotspot X="4181.396" Y="-4625.127" Z="136.7313" />
+				<Hotspot X="4136.197" Y="-4662.099" Z="106.9803" />
+				<Hotspot X="4207.982" Y="-4722.382" Z="78.7934" />
+				<Hotspot X="4246.033" Y="-4687.218" Z="85.81842" />
+				<Hotspot X="4286.348" Y="-4667.659" Z="94.03339" />
+				<Hotspot X="4368.932" Y="-4620.644" Z="98.76502" />
+				<Hotspot X="4273.872" Y="-4568.843" Z="141.8628" />
+				<Hotspot X="4293.672" Y="-4498.301" Z="169.1837" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+
 
 
 
@@ -5211,6 +5252,11 @@
 				<CustomBehavior File="FlyTo" X="4336.797" Y="-5291.788" Z="1.565421" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
+			<!-- End of ? Quests -->
+			
+			<!-- Gavrock Quests -->
+			<CustomBehavior File="Message" Text="Compiling Gavrock Quests" LogColor="Cornflowerblue" />
+
 		<TurnIn QuestName="Gavrock" TurnInName="Gavrock" QuestId="12081" TurnInId="26420" />
 		<PickUp QuestName="Runes of Compulsion" QuestId="12093" GiverName="Gavrock" GiverId="26420" />
 			<If Condition="((HasQuest(12279)) &amp;&amp; (!IsQuestCompleted(12279)))" >
@@ -5303,6 +5349,8 @@
 			<!-- End of Gavrock Quests -->
 			
 			<!-- Harkor's Camp Quests -->
+			<CustomBehavior File="Message" Text="Compiling Harkor's Camp Quests" LogColor="Cornflowerblue" />
+
 			<If Condition="((!HasQuest(12113)) &amp;&amp; (!IsQuestCompleted(12113)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4328.486" Y="-4987.943" Z="20.37805" />
 				<CustomBehavior File="ForcedDismount" />
@@ -5379,10 +5427,12 @@
 				<PickUp QuestName="Chill Out, Mon" QuestId="12137" GiverName="Gan'jo" GiverId="26924" X="4835.465" Y="-4755.643" Z="32.51737" />
 			</If>
 			<If Condition="((HasQuest(12137)) &amp;&amp; (!IsQuestCompleted(12137)))" >
+			 <If Condition="(!HasItem(36859))" >
 				<Objective QuestName="Chill Out, Mon" QuestId="12137" Type="CollectItem" ItemId="36859" ItemName="Snow of Eternal SLumber" CollectCount="1" />
 				<CustomBehavior File="InteractWith" QuestId="12137" MobId="26924" NumOfTimes="1" GossipOptions="1" X="4835.465" Y="-4755.643" Z="32.51737" />
+			 </If>
 			 <While Condition="((HasQuest(12137)) &amp;&amp; (!IsQuestCompleted(12137)))" >
-				<CustomBehavior File="UseItemOn" QuestId="12137" MobId="26812" ItemId="36859" NumOfTimes="1" WaitTime="17000" X="4831.968" Y="-4810.053" Z="25.59231" />
+				<CustomBehavior File="UseItemOn" QuestId="12137" MobId1="26812" MobId2="26811" ItemId="36859" NumOfTimes="1" WaitTime="17000" X="4831.968" Y="-4810.053" Z="25.59231" />
 				<CustomBehavior File="InteractWith" QuestId="12137" MobId="188525" WaitForNpcs="False" ObjectType="Gameobject" X="4831.968" Y="-4810.053" Z="25.59231" />
 			 </While>
 			</If>
@@ -5431,21 +5481,11 @@
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Nice to Meat You" QuestId="12113" TurnInName="Harkor" TurnInId="26884" />
 			</If>
-		
-		
-		
+			<!-- End of Harkor's Camp -->
+			
+			<!-- Dun Argol Quests -->
+			<CustomBehavior File="Message" Text="Compiling Dun Argol Quests" LogColor="Cornflowerblue" />
 
-
-		
-	
-	
-	
-	
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This profile currently only does up to beginning of Grizzly Hills; view my SVN daily for updates" />
-
-	
-		
-		
 			<If Condition="HasQuest(12165) &amp;&amp; !IsQuestCompleted(12165)">
 				<CustomBehavior File="FlyTo" X="3635.657" Y="-5069.076" Z="170.0985" />
 				<CustomBehavior File="ForcedDismount" />
@@ -5463,6 +5503,95 @@
 			</If>
 		<TurnIn QuestName="An Intriguing Plan" QuestId="12165" TurnInName="Prospector Rokar" TurnInId="27227" />
 		<PickUp QuestName="From the Ground Up" QuestId="12196" GiverName="Prospector Rokar" GiverId="27227" />
+			<If Condition="HasQuest(12196) &amp;&amp; !IsQuestCompleted(12196)">
+				<CustomBehavior File="FlyTo" X="3533.298" Y="-5115.13" Z="233.1422" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="From the Ground Up" QuestId="12196" Type="CollectItem" ItemId="36852" CollectCount="8" />
+			</If>
+			<Objective QuestName="The Overseer's Shadow" QuestId="12201" Type="CollectItem" ItemId="37035" CollectCount="1" />
+			<If Condition="HasQuest(12201) &amp;&amp; IsQuestCompleted(12201)">
+				<CustomBehavior File="FlyTo" X="3863.796" Y="-4526.803" Z="209.8488" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="The Overseer's Shadow" QuestId="12201" TurnInName="Scout Vor'takh" TurnInId="26666" />
+		<PickUp QuestName="Cultivating an Image" QuestId="12202" GiverName="Scout Vor'takh" GiverId="26666" />
+		<TurnIn QuestName="From the Ground Up" QuestId="12196" TurnInName="Prospector Rokar" TurnInId="27227" />
+		<PickUp QuestName="We Have the Power" QuestId="12197" GiverName="Prospector Rokar" GiverId="27227" />
+			<If Condition="HasQuest(12197) &amp;&amp; !IsQuestCompleted(12197)">
+				<CustomBehavior File="FlyTo" X="3529.33" Y="-5121.259" Z="233.628" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="HasQuest(12202) &amp;&amp; !IsQuestCompleted(12202)" >
+				<CustomBehavior File="UseItemOn" QuestId="12202" ItemId="37045" NumOfTimes="50" WaitTime="2500" Range="3" CollectionDistance="500" X="3459.4" Y="-5102.615" Z="236.8459" 
+								MobId1="26414" MobId2="26408" MobId3="27177" MobId4="26409" MobId5="26410" />
+			 </While>
+			</If>
+			<If Condition="HasQuest(12197) &amp;&amp; !IsObjectiveComplete(2, 12197)">
+				<CustomBehavior File="FlyTo" X="3529.33" Y="-5121.259" Z="233.628" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="We Have the Power" QuestId="12197" Type="CollectItem" ItemId="36858" CollectCount="1" />
+			</If>
+			<If Condition="HasQuest(12197) &amp;&amp; !IsObjectiveComplete(1, 12197)">
+				<CustomBehavior File="FlyTo" DestName="get Durar's Power Cell" X="3500.684" Y="-5081.588" Z="236.8463" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="We Have the Power" QuestId="12197" Type="CollectItem" ItemId="36857" CollectCount="1" />
+			</If>
+			<If Condition="HasQuest(12197) &amp;&amp; IsQuestCompleted(12197)">
+				<CustomBehavior File="FlyTo" X="3863.796" Y="-4526.803" Z="209.8488" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Cultivating an Image" QuestId="12202" TurnInName="Scout Vor'takh" TurnInId="26666" />
+		<PickUp QuestName="Loken's Orders" QuestId="12203" GiverName="Scout Vor'takh" GiverId="26666" />
+		<TurnIn QuestName="We Have the Power" QuestId="12197" TurnInName="Prospector Rokar" TurnInId="27227" />
+		<PickUp QuestName="... Or Maybe We Don't" QuestId="12198" GiverName="Prospector Rokar" GiverId="27227" />
+			<If Condition="HasQuest(12198) &amp;&amp; !IsQuestCompleted(12198)">
+				<CustomBehavior File="FlyTo" X="3744.688" Y="-5007.142" Z="123.4988" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="Misc\RunLua" WaitTime="1000" NumOfTimes="1" Lua="UseItemByName(36936)" />
+				
+			 <While Condition="HasQuest(12198) &amp;&amp; !IsQuestCompleted(12198)">
+						<CustomBehavior File="InteractWith" MobId="26407" MobState="Alive" WaitForNpcs="False" IgnoreCombat="True" NumOfTimes="1" CollectionDistance="1000" X="3744.688" Y="-5007.142" Z="123.4988" />
+						<CustomBehavior File="InteractWith" MobId="26407" MobState="Alive" WaitForNpcs="False" IgnoreCombat="True" NumOfTimes="1" CollectionDistance="1000" X="3670.754" Y="-5077.712" Z="162.0777" />
+						<CustomBehavior File="InteractWith" MobId="26407" MobState="Alive" WaitForNpcs="False" IgnoreCombat="True" NumOfTimes="1" CollectionDistance="1000" X="3625.567" Y="-4968.69" Z="178.4634" />
+					<!-- This is if the golem is no longer in our presence, basically just making sure he's out. -->
+					<CustomBehavior File="Misc\RunLua" WaitTime="1000" NumOfTimes="1" Lua="UseItemByName(36936)" />
+					<CustomBehavior File="WaitTimer" WaitTime="15100" />
+					<CustomBehavior File="Misc\RunLua" WaitTime="1000" NumOfTimes="1" Lua="UseItemByName(36936)" />
+			 </While>
+			</If>
+			<If Condition="((HasQuest(12203)) &amp;&amp; (!IsQuestCompleted(12203)))" >
+				<CustomBehavior File="FlyTo" X="3425.868" Y="-5343.767" Z="262.8449" />
+				<CustomBehavior File="ForcedDismount" />
+				
+			 <While Condition="HasQuest(12203) &amp;&amp; !IsQuestCompleted(12203)">
+				<RunTo X="3406.54" Y="-5390.551" Z="267.8558" />
+				<CustomBehavior File="Misc\RunLua" WaitTime="1000" NumOfTimes="1" Lua="UseItemByName(37071)" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" />
+				<CustomBehavior File="InteractWith" ObjectType="GameObject" MobId="188596" NumOfTimes="1" CollectionDistance="1000" X="3406.54" Y="-5390.551" Z="267.8558" />
+				<CustomBehavior File="WaitTimer" WaitTime="35000" />
+			 </While>
+				<CustomBehavior File="RunMacro" Macro="/Cancelaura Iron Rune Overseer Disguise" />
+			</If>
+			<If Condition="HasQuest(12203) &amp;&amp; IsQuestCompleted(12203)">
+				<CustomBehavior File="FlyTo" X="3863.796" Y="-4526.803" Z="209.8488" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Loken's Orders" QuestId="12203" TurnInName="Scout Vor'takh" TurnInId="26666" />
+		
+		
+		
+
+
+		
+	
+	
+	
+	
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This profile currently only does up to beginning of Grizzly Hills; view my SVN daily for updates" />
+
+		<TurnIn QuestName="... Or Maybe We Don't" QuestId="12198" TurnInName="Prospector Rokar" TurnInId="27227" />
+	
+		
+		
 		
 		
 		
