@@ -4081,13 +4081,17 @@
 				<Objective QuestName="The Book of Runes" QuestId="11350" Type="CollectItem" ItemId="33780" CollectCount="1" />
 				<Objective QuestName="The Book of Runes" QuestId="11350" Type="CollectItem" ItemId="33778" CollectCount="1" />
 				<Objective QuestName="The Book of Runes" QuestId="11350" Type="CollectItem" ItemId="33779" CollectCount="1" />
+				
+			 <While Condition="((HasQuest(11350)) &amp;&amp; (!IsQuestCompleted(11350)))" >
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Using item {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(33779)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Using item {TimeRemaining}" />
+			 </While>
 			</If>
 
 			<If Condition="((HasQuest(11350)) &amp;&amp; (IsQuestCompleted(11350)))" >
 				<CustomBehavior File="FlyTo" X="2653.775" Y="-4372.879" Z="279.5223" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(33779)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Using item {TimeRemaining}" />
 			</If>
 		<TurnIn QuestName="The Book of Runes" QuestId="11350" TurnInName="Longrunner Pembe" TurnInId="24362" />
 		<PickUp QuestName="Mastering the Runes" QuestId="11351" GiverName="Longrunner Pembe" GiverId="24362" />
@@ -7226,7 +7230,6 @@
 			</If>
 			<!-- End of The Argent Stand and surrounding area's Quests -->
 			
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
 			
 		
 			<If Condition="(Me.Level &lt; 76)" >
