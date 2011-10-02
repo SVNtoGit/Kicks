@@ -12,27 +12,86 @@
 	</Blackspots>
 
 	
-	<Quest Id="11283" Name="Baleheim Bodycount">
-		<Objective Type="KillMob" MobId="24231" KillCount="16">
-			<Hotspots>
-				<Hotspot X="1567.821" Y="-5453.013" Z="190.6584" />
-				<Hotspot X="1491.87" Y="-5322.734" Z="195.0556" />
-				<Hotspot X="1580.784" Y="-5284.747" Z="202.2445" />
-				<Hotspot X="1406.482" Y="-5318.167" Z="195.7301" />
-				<Hotspot X="1427.218" Y="-5209.985" Z="192.7828" />
-			</Hotspots>
-		</Objective>
-	</Quest>
-	
 	<QuestOrder>
 
+				<CustomBehavior File="13086" /> <!-- fly to cannon, use cannon to shoot shit -->
 
 
 
+<!--
+/*
+* Quest Behavior Name: #NAME#
+* QuestID: #ID#
+* Purpose: #Purpose (Go to 
+* Variables:
+*  MobId: #ID# [If Multiple: { ID1, ID2, ID3 }
+*  QuestId: #ID#
+*  VehicleId: #ID#
+*  TargetLocation: #X,Y,Z# (That format!, not X=Y=Z=)
+*  VehicleLocation: #X,Y,Z# 
+*  KillCount: #KC#
+* Extra-Variables:
+*  EatPoo: #Poop#
+* 
+* Description: #DESC# (If Not In Vehicle, Go to VehicleLocation, Enter Vehicle, Move to TargetLocation,
+* Face() Target, Use VehicleButton1, VehicleButton2, Cooldown: (GCD, 10sec, etc). Do Until KillCount.
+*/		
+-->
 
-		
+<!--
+/*
+* Quest Behavior Name: CannonFireDynamic
+* QuestID: 13086
+* Purpose: Fire a cannon at multiple npcs using 2 buttons
+* Variables: 
+*  MobId: MobId1="30575" MobId2="30593"
+*  QuestId: 13086
+*  VehicleId: 30236 (while outside and inside of vehicle)
+*	Range: 50 for button 2, 50 for button 1
+*  TargetLocation: dynamic - hotspot xyz
+*  VehicleLocation: 4 turrets - if you get kicked from your current one, move to next in line - if avail, mount it... if not, proceed to next (logic)
+<Hotspot X="6256.144" Y="91.78842" Z="410.8367" />
+<Hotspot X="6297.239" Y="53.59477" Z="410.778" />
+<Hotspot X="6218.974" Y="59.17393" Z="400.2893" />
+<Hotspot X="6162.534" Y="60.20402" Z="400.1804" />
+
+*  KillCount: obj2 - kill 3 drakes (30575); obj1 - kill 100 spiders (30593)
+* Extra-Variables:
+*  dunno?
+* 
+* Description: #DESC# (If Not In Vehicle, Go to VehicleLocation, Enter Vehicle, move turret to npc location and shoot #1 10 times, then #2; if npc is not dead of course.  if it is, move turrent point to new npc(s)
+* Face() Target, Use VehicleButton1 x10 (gcd 1000ms), VehicleButton2 (GCD 1000ms - but requires vehicle to have 1000 mana - which is 5 button pushes for #1 button), Cooldown: (GCD, 10sec, etc). Do Until KillCount.
+*/		
+-->
 
 
+
+<!-- 
+QuestId 13086
+Purpose:
+[8:32:18 PM] Kickazz006: alright what i need it to do is if i'm not in a vehicle, go to X and interact (sometimes you get blown out of vehicle if flying guy is attacking your tower)
+
+!isinvehicle takes priority
+
+in vehicle - objective 2 - auto angle and just hit 1 then 2 repeatedly until objective 2 is done (on mobM) then same for objective 1 on mobN
+
+http://www.wowhead.com/quest=13086 for more details
+
+basically - fly up to cannon, mount it, kill drakes (3), kill noob npcs (100)
+
+Example Task: Use Cannon for task (cannon is basically a 'straight fire' - no crazy angles; it angles down a little, but not too much)
+Req Var:  
+QuestId 
+MobIdn (for multiple)
+ObjectiveId would be nice - but not required
+VehId - for mounting and when you get punted out
+XYZ is the general area - there are 4 'towers' where cannons are and the bot needs to fly up to there and mount it by itself (a new one each time)
+
+Drake: 30575
+MobId2: 30593
+
+the cannon needs to be able to auto-fire at targets by itself (not just in a straight line - they move a lot)
+-->
 
 
 
