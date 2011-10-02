@@ -8033,21 +8033,26 @@
 				
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</While>
-			<If Condition="((HasQuest(12014)) &amp;&amp; (!IsQuestCompleted(12014)))" >
+			<If Condition="((HasQuest(12014)) &amp;&amp; (!IsObjectiveComplete(1, 12014)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="4968.709" Y="-4672.719" Z="221.4541" />
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="Steady as a Rock?" QuestId="12014" Type="CollectItem" ItemId="35837" ItemName="Portable Seismograph" CollectCount="1" />
-				
-			 <While Condition="((HasQuest(12014)) &amp;&amp; (!IsObjectiveComplete(2, 12014)))">
+			</If>
+			<If Condition="((HasQuest(12014)) &amp;&amp; (!IsObjectiveComplete(2, 12014)))">
 				<CustomBehavior File="FlyTo" DestName="Objective" Distance="1" X="5047.596" Y="-4815.183" Z="225.4905" />
 				<CustomBehavior File="ForcedDismount" />
+				
 				<RunTo X="5048.288" Y="-4819.783" Z="219.5013" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 				<RunTo X="5048.288" Y="-4819.783" Z="219.5013" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				
+			 <While Condition="((HasQuest(12014)) &amp;&amp; (!IsObjectiveComplete(2, 12014)))">
 				<UseItem QuestName="Steady as a Rock?" QuestId="12014" ItemId="35837" X="5048.288" Y="-4819.783" Z="219.5013" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-				<Objective QuestName="Steady as a Rock?" QuestId="12014" Type="CollectItem" ItemId="35819" ItemName="Thor Modan Stability Profile" CollectCount="1" CollectFrom="188367" />
+				<CustomBehavior File="InteractWith" QuestId="12014" MobId="188367" ObjectType="Gameobject" Range="4" WaitForNpcs="False" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<!-- <Objective QuestName="Steady as a Rock?" QuestId="12014" Type="CollectItem" ItemId="35819" ItemName="Thor Modan Stability Profile" CollectCount="1" CollectFrom="188367" /> -->
 			 </While>
 			</If>
 			<If Condition="((HasQuest(11993)) &amp;&amp; (IsQuestCompleted(11993)))" >
@@ -10080,7 +10085,7 @@
 				<CustomBehavior File="FlyTo" DestName="get Lifeblood Energy" X="5556.109" Y="3908.131" Z="-63.81953" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="Message" Text="You may get stuck here" LogColor="Orange" />
-				<CustomBehavior File="UseItemOn" QuestId="12805" MobId="29124" ItemId="40397" NumOfTimes="30" WaitTime="11000" Range="5" CollectionDistance="100" X="5556.195" Y="3908.116" Z="-72.41305" />
+				<CustomBehavior File="UseItemOn" QuestId="12805" MobId="29124" ItemId="40397" NumOfTimes="30" WaitTime="11000" Range="2" CollectionDistance="100" X="5556.195" Y="3908.116" Z="-72.41305" />
 			</If>
 			<If Condition="((HasQuest(12660)) &amp;&amp; (!IsQuestCompleted(12660)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="6099.332" Y="4462.296" Z="-85.28928" />
