@@ -130,11 +130,11 @@ namespace Styx.Bot.Quest_Behaviors
                     case Styx.Combat.CombatRoutine.WoWClass.Mage:
                         return SpellManager.Spells["Frostbolt"];
                     case Styx.Combat.CombatRoutine.WoWClass.Priest:
-                        return SpellManager.Spells["Shoot"];
+                        return SpellManager.Spells["Smite"];
                     case Styx.Combat.CombatRoutine.WoWClass.Shaman:
                         return SpellManager.Spells["Lightning Bolt"];
                     case Styx.Combat.CombatRoutine.WoWClass.Warlock:
-                        return SpellManager.Spells["Curse of Agony"];
+                        return SpellManager.Spells["Shadow Bolt"];
                     default: // should never get to here but adding this since the compiler complains
                         return SpellManager.Spells["Auto Attack"]; ;
                 }
