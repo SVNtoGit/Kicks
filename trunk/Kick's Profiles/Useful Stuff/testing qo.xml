@@ -14,22 +14,26 @@
 	
 	<QuestOrder>
 
+	<CustomBehavior File="UserSettings" LootMobs="False" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" PullDistance="10" />
 
 			<If Condition="((!HasQuest(12261)) &amp;&amp; (!IsQuestCompleted(12261)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4376" Y="1492" Z="124" />
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="No Place to Run" QuestId="12261" GiverName="Serinar" GiverId="26593" />
 			</If>
-			<If Condition="(HasQuest(12261))">
+			<If Condition="((HasQuest(12261)) &amp;&amp; (!IsQuestCompleted(12261)))" >
+			<!--
 				<RunTo X="4376" Y="1492" Z="124" />
+				-->
 				<CustomBehavior File="FlyTo" DestName="Objective" X="4384.706" Y="1305.638" Z="150.4314" />
 				<CustomBehavior File="ForcedDismount" />
 				<RunTo X="4384.706" Y="1305.638" Z="150.4314" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
 				<UseItem QuestName="No Place to Run" QuestId="12261" ItemId="37445" X="4384.706" Y="1305.638" Z="150.4314" />
 				<!--
-				<CustomBehavior File="Escort" QuestId="12261" MobId="27430" X="4377.28" Y="1285.45" Z="156.2455" />
+				<CustomBehavior File="Escort" QuestId="12261" MobId="27430" X="4384.706" Y="1305.638" Z="150.4314" />
 				-->
-				<CustomBehavior File="DefendObject" QuestId="12261" MobId="27430" MaxRange="15" X="4377.28" Y="1285.45" Z="156.2455" />
+				<CustomBehavior File="DefendObject" QuestId="12261" MobId="27430" MaxRange="15" X="4384.706" Y="1305.638" Z="150.4314" />
 			 </If>
 	
 
