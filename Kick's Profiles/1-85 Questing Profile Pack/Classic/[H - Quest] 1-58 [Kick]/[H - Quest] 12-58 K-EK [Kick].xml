@@ -1573,17 +1573,19 @@
 		<TurnIn QuestName="In Defense of Far Watch" QuestId="871" GiverName="Kargal Battlescar" TurnInId="3337"/>
 		<PickUp QuestName="The Far Watch Offensive" QuestId="872" GiverName="Kargal Battlescar" GiverId="3337"/>
 		<TurnIn QuestName="Plainstrider Menace" QuestId="844" GiverName="Halga Bloodeye" TurnInId="34258"/>
-	<If Condition="!HasItem(5063)">
-		<RunTo QuestId="872" X="-270.5075" Y="-3487.099" Z="57.18607" />
-		<If Condition="HasQuest(872)">
-			<CustomBehavior File="MyCTM" X="-288.2222" Y="-3489.942" Z="56.68801" />
-		</If>
-		<Objective QuestName="The Far Watch Offensive" QuestId="872" Type="CollectItem" Name="Kreenig Snarlsnout's Tusk" ItemId="5063" CollectCount="1"/>
-		<RunTo QuestId="872" X="-288.2222" Y="-3489.942" Z="56.68801" />
-		<If Condition="HasQuest(872)">
-			<CustomBehavior File="MyCTM" X="-270.5075" Y="-3487.099" Z="57.18607" />
-		</If>
-	</If>
+			<If Condition="((HasQuest(872)) &amp;&amp; (!IsQuestCompleted(872)))" >
+				<If Condition="!HasItem(5063)">
+					<RunTo QuestId="872" X="-270.5075" Y="-3487.099" Z="57.18607" />
+					<If Condition="HasQuest(872)">
+						<CustomBehavior File="MyCTM" X="-288.2222" Y="-3489.942" Z="56.68801" />
+					</If>
+					<Objective QuestName="The Far Watch Offensive" QuestId="872" Type="CollectItem" Name="Kreenig Snarlsnout's Tusk" ItemId="5063" CollectCount="1"/>
+					<RunTo QuestId="872" X="-288.2222" Y="-3489.942" Z="56.68801" />
+					<If Condition="HasQuest(872)">
+						<CustomBehavior File="MyCTM" X="-270.5075" Y="-3487.099" Z="57.18607" />
+					</If>
+				</If>
+			</If>
 		<Objective QuestName="The Far Watch Offensive" QuestId="872" Type="KillMob" MobId="3268" MobName="Razormane  Thornweaver" KillCount="5"/>
 		<Objective QuestName="The Far Watch Offensive" QuestId="872" Type="KillMob" MobId="3266" MobName="Razormane Defender" KillCount="5"/>
 		<TurnIn QuestName="The Far Watch Offensive" QuestId="872" GiverName="Kargal Battlescar" TurnInId="3337"/>
