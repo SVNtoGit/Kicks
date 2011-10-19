@@ -19,6 +19,7 @@
 		
 			<CustomBehavior File="Message" Text="Compiling  Quests" LogColor="Cornflowerblue" />
 
+				<CustomBehavior File="FlyTo" DestName="" 
 				<CustomBehavior File="ForcedDismount" />
 				
 			<If Condition="((HasQuest()) &amp;&amp; (!IsObjectiveComplete(1, )))">
@@ -95,6 +96,8 @@
 			 </If>
 			 <If Condition="Me.MapId == 0" >
 			 </If>
+			<If Condition="Me.ZoneId == 1657" >
+			</If>
 			 <If Condition="Me.ZoneId == 1657" >
 			 </If>
 			 <If Condition="(!Me.HasAura(&quot;string&quot;))" >
@@ -197,6 +200,9 @@
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
 		<!-- Kick stopped here for profile
 		-->
+		
+	<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="6" ExpiryAction="InputEnabled_Continue" Text="asdfasdfasdf" />
+		
 
 		<!--
 		-->
@@ -263,6 +269,9 @@
 			</While>	
 
 				===============
+				// This macro deletes an itemname \\
+	<CustomBehavior File="RunMacro" Macro="/run for bag = 0,4,1 do for slot = 1, 32, 1 do local name = GetContainerItemLink(bag,slot); if name and string.find(name,'Hallowed Helm') then PickupContainerItem(bag,slot); DeleteCursorItem(); end; end; end" />
+				
 				
 				<RunTo 
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
