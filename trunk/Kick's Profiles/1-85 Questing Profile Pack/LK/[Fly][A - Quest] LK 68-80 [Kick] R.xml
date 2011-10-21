@@ -8042,21 +8042,17 @@
 				
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</While>
-			<If Condition="((HasQuest(12014)) &amp;&amp; (!IsObjectiveComplete(1, 12014)))" >
+			<If Condition="((!HasQuest(12014)) &amp;&amp; (!IsQuestCompleted(12014)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="4968.709" Y="-4672.719" Z="221.4541" />
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="Steady as a Rock?" QuestId="12014" Type="CollectItem" ItemId="35837" ItemName="Portable Seismograph" CollectCount="1" />
-			</If>
-			<If Condition="((HasQuest(12014)) &amp;&amp; (!IsObjectiveComplete(2, 12014)))">
-				<CustomBehavior File="FlyTo" DestName="Objective" Distance="1" X="5047.596" Y="-4815.183" Z="225.4905" />
-				<CustomBehavior File="ForcedDismount" />
-				
+
+			 <While Condition="((!HasQuest(12014)) &amp;&amp; (!IsQuestCompleted(12014)))" >
 				<RunTo X="5048.288" Y="-4819.783" Z="219.5013" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 				<RunTo X="5048.288" Y="-4819.783" Z="219.5013" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 				
-			 <While Condition="((HasQuest(12014)) &amp;&amp; (!IsObjectiveComplete(2, 12014)))">
 				<UseItem QuestName="Steady as a Rock?" QuestId="12014" ItemId="35837" X="5048.288" Y="-4819.783" Z="219.5013" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 				<CustomBehavior File="InteractWith" QuestId="12014" MobId="188367" ObjectType="Gameobject" Range="4" WaitForNpcs="False" />
