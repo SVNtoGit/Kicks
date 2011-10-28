@@ -36,7 +36,7 @@
 				171 Second Street, Suite 300
 				San Francisco, California, 94105, USA.		
     -->
-   <Name>Hallow's Quests &amp; Achievements [Chinajade] $Revision$</Name>
+   <Name>Hallow's Dailies-MiniPet-Achievements [Chinajade] $Revision$</Name>
    <MinLevel>70</MinLevel>	<!-- 70, because we need a 'fast' mount -->
    <MaxLevel>86</MaxLevel>
    
@@ -236,7 +236,9 @@
 				X="-8857.192" Y="657.7342" Z="96.60722" />
 			<CustomBehavior File="ForcedDismount" />
 			
-			<CustomBehavior File="AbandonQuest" QuestId="8356" Type="All" />
+			<If Condition="HasQuest(8356)" >
+				<CustomBehavior File="AbandonQuest" QuestId="8356" Type="All" />
+			</If>
 			<CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="2500" />
 			<Pickup QuestName="Flex for Nougat" QuestId="8356"
 				GiverName="Innkeeper Allison"  GiverId="6740" />
@@ -377,17 +379,23 @@
 			</If>
 			
 			<If Condition="GetItemCount(17020) &lt; 5" >	<!-- Arcane Powder -->
+				<RunTo DestName="dumbass HBNav workaround"
+					X="-8852.922" Y="607.7866" Z="92.59505" />
 				<CustomBehavior File="InteractWith" MobId="1275"
 					BuyItemId="17020" BuyItemCount="5"
 					X="-8861.896" Y="624.5381" Z="95.99025" />
 				<CustomBehavior File="Misc\RunLua" Lua="CloseMerchant()" />
+				<RunTo DestName="outside" X="-8852.922" Y="607.7866" Z="92.59505" />
 			</If>
 
 			<If Condition="GetItemCount(3371) &lt; 5" >	<!-- Crystal Vial -->
+				<RunTo DestName="dumbass HBNav workaround"
+					X="-8836.829" Y="611.0883" Z="93.73184" />
 				<CustomBehavior File="InteractWith" MobId="1286"
 					BuyItemId="3371" BuyItemCount="5"
 					X="-8823.004" Y="598.5755" Z="95.57915"	/>
 				<CustomBehavior File="Misc\RunLua" Lua="CloseMerchant()" />
+				<RunTo DestName="outside" X="-8823.745" Y="616.9016" Z="94.79179" />
 			</If>
 			
 			<CustomBehavior File="FlyTo" DestName="The Shady Lady"
@@ -435,30 +443,35 @@
 		</If>
 		
 		<If Condition="!HasQuest(29413) &amp;&amp; !IsQuestCompleted(29413)" >
-			<!-- <Pickup QuestName="The Creepy Crate" QuestId="29413"
-			   GiverName="Anson's Crate" GiverId="209076" GiverType="Object"
-			   X="-8591.328" Y="799.1527" Z="106.5042" /> -->
 			<CustomBehavior File="InteractWith"
 				MobId="209076" ObjectType="Gameobject"
 				X="-8591.328" Y="799.1527" Z="106.5042"	/>
+			<CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="500" />
 			<CustomBehavior File="Misc\RunLua" Lua="GetQuestReward(1)" />
+			<CustomBehavior File="WaitTimer" WaitTime="1500" VariantTime="2000" />
 		</If>
 		
 		<If Condition="GetItemCount(71076) &gt; 0" >
 			<!-- Learn our new mini-pet spell -->
 			<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(71076)" />
+			<CustomBehavior File="Message" LogColor="CornflowerBlue"
+				Text="Grats on the new &quot;Creepy Crate&quot; mini-pet!" />
 		</If>
 
 		<!-- Quest: Hallow's End Treats for Jesper!: Gnomeregan & Ironforge -->
 		<If Condition="HasQuest(8311) &amp;&amp; (!HasItem(20494) || !HasItem(20490))" >
 			<CustomBehavior File="FlyTo" DestName="Gates of Ironforge"
 				X="-5040.197" Y="-812.6722" Z="495.1284" />
-
+			<CustomBehavior File="ForcedDismount" />
+			<CustomBehavior File="UserSettings" UseMount="false" />
+			
 			<!-- Hallow's End Treats for Jesper!: Ironforge Mint -->
 			<If Condition="HasQuest(8311) &amp;&amp; !HasItem(20490)" >
 				<RunTo DestName="Ironforge Innkeeper"
-					X="-4841.147" Y="-861.3002" Z="501.914" />		
-				<CustomBehavior File="AbandonQuest" QuestId="8353" Type="All" />
+					X="-4841.147" Y="-861.3002" Z="501.914" />
+				<If Condition="HasQuest(8353)" >
+					<CustomBehavior File="AbandonQuest" QuestId="8353" Type="All" />
+				</If>
 				<CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="2500" />
 				<Pickup QuestName="Chicken Clucking for a Mint" QuestId="8353"
 					GiverName="Innkeeper Firebrew"  GiverId="5111" />
@@ -473,7 +486,9 @@
 			<If Condition="HasQuest(8311) &amp;&amp; !HasItem(20494)" >
 				<RunTo DestName="Ironforge Mystic Ward"
 					X="-4589.013" Y="-999.1818" Z="503.6568"  />
-				<CustomBehavior File="AbandonQuest" QuestId="8355" Type="All" />
+				<If Condition="HasQuest(8355)" >
+					<CustomBehavior File="AbandonQuest" QuestId="8355" Type="All" />
+				</If>
 				<CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="2500" />
 				<Pickup QuestName="Incoming Gumdrop" QuestId="8355"
 					GiverName="Talvash del Kissel"  GiverId="6826" />
@@ -484,18 +499,21 @@
 					TurnInName="Talvash del Kissel"  TurnInId="6826" />	
 			</If>
 			
-			<CustomBehavior File="UserSettings" UseMount="false" />
 			<RunTo DestName="Gates of Ironforge" X="-5040.197" Y="-812.6722" Z="495.1284" />
 			<CustomBehavior File="UserSettings" Preset="UserOriginal" />
 		</If>
 		
 		<!-- Quest: A Time of Loss -->
-		<If Condition="HasQuest(29371) &amp;&amp; !IsQuestCompleted(29371)" >
+		<While Condition="HasQuest(29371) &amp;&amp; !IsQuestCompleted(29371)" >
 			<CustomBehavior File="FlyTo" DestName="Undercity Wickerman"
 				X="1765.216" Y="201.7121" Z="60.39965" />
 			<CustomBehavior File="ForcedDismount" />
 			<CustomBehavior File="UseItem" ItemId="68648" />
-		</If>
+			<CustomBehavior File="WaitTimer" WaitTime="500" VariantTime="500" />
+			<CustomBehavior File="FlyTo" DestName="airborne safety"
+				X="1765.216" Y="201.7121" Z="160.39965" />
+		</While>
+		
 				
 		
 		<!-- Quest: Hallow's End Treats for Jesper!: Darnassas Marzipan-->
@@ -544,7 +562,9 @@
 
 			<RunTo DestName="Darnassus Inn" X="10125.69" Y="2224.705" Z="1328.484" />
 			<CustomBehavior File="ForcedDismount" />
-			<CustomBehavior File="AbandonQuest" QuestId="8357" Type="All" />
+			<If Condition="HasQuest(8357)" >
+				<CustomBehavior File="AbandonQuest" QuestId="8357" Type="All" />
+			</If>
 			<CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="2500" />
 			<Pickup QuestName="Dancing for Marzipan" QuestId="8357"
 				GiverName="Innkeeper Saelienne"  GiverId="6735" />
@@ -584,6 +604,12 @@
 		
 		<If Condition="HasQuest(29054)" >
 			<TurnIn QuestName="Stink Bombs Away!" QuestId="29054"
+				TurnInName="Gretchen Fenlow"  TurnInId="51934"
+				X="-9117.248" Y="412.7083" Z="93.85802" />
+		</If>
+		
+		<If Condition="HasQuest(29144)" >	<!-- daily -->
+			<TurnIn QuestName="Clean Up in Stormwind" QuestId="29144"
 				TurnInName="Gretchen Fenlow"  TurnInId="51934"
 				X="-9117.248" Y="412.7083" Z="93.85802" />
 		</If>
@@ -680,8 +706,27 @@
 			<CustomBehavior File="Misc\RunLua" Lua="local id,n=0; for b=0,4 do for s=1,GetContainerNumSlots(b) do id=GetContainerItemID(b,s) if (id == 42609) then ClearCursor() PickupContainerItem(b,s) DeleteCursorItem() end end end" />
 			<CustomBehavior File="WaitTimer" WaitTime="500" VariantTime="2500" />
 		</If>
+			
 		
+		<!-- Deploy to a random place inside Stormwind -->
+		<If Condition="Chance(20.0)">
+			<CustomBehavior File="FlyTo" DestName="Elder's mailbox" X="-8859.798" Y="640.8622" Z="96.28608" />
+		<ElseIf Condition="Chance(20.0)">
+			<CustomBehavior File="FlyTo" DestName="Backgate Bank" X="-8360.063" Y="620.2231" Z="95.35557" />
+			</ElseIf>
+		<ElseIf Condition="Chance(20.0)">
+			<CustomBehavior File="FlyTo" DestName="Cathedral Square mailbox" X="-8657.595" Y="775.6388" Z="96.99747" />
+			</ElseIf>
+		<ElseIf Condition="Chance(20.0)">
+			<CustomBehavior File="FlyTo" DestName="Fishing pier mailbox"  X="-8826.954" Y="729.8922" Z="98.42244" />
+			</ElseIf>
+		<Else Condition="Chance(20.0)">
+			<CustomBehavior File="FlyTo" DestName="Canal mailbox" X="-8752.236" Y="561.497" Z="97.43406" />
+			</Else>
+		</If>
 		
+		<CustomBehavior File="ForcedDismount" />
+
 		<!--
 		  ========== All we can automate ==========
 		  -->
