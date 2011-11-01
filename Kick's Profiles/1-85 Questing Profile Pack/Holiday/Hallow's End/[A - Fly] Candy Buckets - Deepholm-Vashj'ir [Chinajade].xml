@@ -40,7 +40,7 @@
 				171 Second Street, Suite 300
 				San Francisco, California, 94105, USA.		
     -->
-   <Name>[A - Fly] Candy Buckets - Vashj'ir [Chinajade] $Revision$</Name>
+   <Name>[A - Fly] Candy Buckets - Deepholm-Vashj'ir [Chinajade] $Revision$</Name>
    <MinLevel>80</MinLevel>	<!-- 80 for Vashj'ir, 82 for Deepholm -->
    <MaxLevel>101</MaxLevel>
    
@@ -71,19 +71,7 @@
 				
 		<CustomBehavior File="UserDialog" AllowBotStop="true" ExpiryTime="120"
 				Title="Problem Areas..."
-				Text="Honorbuddy has an array of bugs in the areas we are about to go into...\nAs such, we've made the profile *very* stop/start friendly.  A stop/start usually works around the issue.\nWe're sorry we couldn't do better, but we're at the mercy of HBcore bugs.\n\nPlease disable these plugins known to interfere with proper profile operation:\n* Anti-Drown\n* Rarekiller (attempts to slowfall while swimming)\n* Unstuck Helper (interferes with swimming)\n\nWe've also seen problems with the Singular Hunter CC (trying to forever summon its pet in Deepholm)." />
-				
-		<If Condition="!IsQuestCompleted(24432)" >
-			<CustomBehavior File="UserDialog" AllowBotStop="true" ExpiryTime="120"
-				Title="You're missing the &quot;Sea Legs&quot; buff..."
-				Text="We'll get you the &quot;Sea Legs&quot; buff for Vashj'ir...\n\nYou MUST have this buff to 'open up' Vashj'ir by doing the first quest.  Otherwise, several of the Vashj'ir destinations will be too deep, and you'll drown trying to reach them.\nAlso, Honorbuddy is incapable of navigating Vashj'ir until you have the &quot;Sea Legs&quot; buff--as Vashj'ir is in the wrong 'phase' until the buff is acquired." />
-		<Else>
-			<!-- We should be good on fast flying for now, until we find otherwise...
-			<CustomBehavior File="UserDialog" AllowBotStop="true" ExpiryTime="120"
-				Text="You MUST have the 'fast flying' skill for Vashj'ir...\n\nWe will be crossing water that will cause fatigue.   The 'slow flying' skill is not fast enough to safely reach the other side.  (A fast flying skill will produce about 40% fatigue before recovery starts.)\n\nWe provide NO checks for these requirements.  You will simply get into a 'death loop' if you do not meet them." />
-			 -->
-			</Else>
-		</If>
+				Text="Honorbuddy (and plugins/CCs) have an array of bugs in the areas we are about to go...\nAs such, we've made the profile *very* stop/start friendly.  A stop/start usually works around the issue.\nWe're sorry we couldn't do better, but we're at the mercy of HBcore bugs.\n\nPlease disable these plugins known to interfere with proper profile operation:\n* Anti-Drown\n* Rarekiller (attempts to slowfall while swimming)\n* Unstuck Helper (interferes with swimming)\n\n\nOther Issues:\n* We've  seen problems with the Singular Hunter CC..\nIt tries unsuccessfully to forever summon its pet in Deepholm.  This prevents the profile from continuing with execution.\n\n* Toons sometimes have a problem detecting the water's surface (in Vashj'ir)...\nGnomes in particular have this problem.  This causes them to 'bounce' indefinitely.  A HB stop/start should fix this.  Occasionally, you will need to hit the spacebar to stop the bouncing before re-starting Honorbuddy." />
 
 		<CustomBehavior File="Message" LogColor="CornflowerBlue"
 			Text="Compiling Deepholm quests" />
@@ -133,7 +121,7 @@
 			
 			<!-- Quest: The Maelstrom -->
 			<If Condition="!HasQuest(27203) &amp;&amp; !IsQuestCompleted(27203)" >
-				<CustomBehavior File="UserDialog" AllowBotStop="true"
+				<CustomBehavior File="UserDialog" AllowBotStop="false"
 					SoundCueInterval="3"
 					Title="HONORBUDDY BUG..."
 					Text="HONORBUDDY BUG...\n\nHonorbuddy will 'bug out' by continuously attempting to pick up the next quest, &quot;The Maelstrom&quot;, from Naraat.\n\nWhen this happens, please just stop/start Honorbuddy and the profile will work around the problem." />
@@ -253,7 +241,19 @@
 				Text="Skipping Vashj'ir...\n\nYou must be Level 80 or higher to go to Vashj'ir.  Continuing with rest of profile." />
 			
 		<ElseIf Condition="!IsQuestCompleted(14482) || !IsQuestCompleted(28981) || !IsQuestCompleted(28982) || !IsQuestCompleted(28983) || !IsQuestCompleted(28985)" >
-
+				
+			<If Condition="!IsQuestCompleted(24432)" >
+				<CustomBehavior File="UserDialog" AllowBotStop="true" ExpiryTime="120"
+					Title="You're missing the &quot;Sea Legs&quot; buff..."
+					Text="We'll get you the &quot;Sea Legs&quot; buff for Vashj'ir...\n\nYou MUST have this buff to 'open up' Vashj'ir by doing the first quest.  Otherwise, several of the Vashj'ir destinations will be too deep, and you'll drown trying to reach them.\nAlso, Honorbuddy is incapable of navigating Vashj'ir until you have the &quot;Sea Legs&quot; buff--as Vashj'ir is in the wrong 'phase' until the buff is acquired." />
+			<Else>
+				<!-- We should be good on fast flying for now, until we find otherwise...
+				<CustomBehavior File="UserDialog" AllowBotStop="true" ExpiryTime="120"
+					Text="You MUST have the 'fast flying' skill for Vashj'ir...\n\nWe will be crossing water that will cause fatigue.   The 'slow flying' skill is not fast enough to safely reach the other side.  (A fast flying skill will produce about 40% fatigue before recovery starts.)\n\nWe provide NO checks for these requirements.  You will simply get into a 'death loop' if you do not meet them." />
+				 -->
+				</Else>
+			</If>
+			
 			<CustomBehavior File="Message" LogColor="CornflowerBlue"
 				Text="Compiling Vashj'ir quests" />
 			
@@ -782,10 +782,10 @@
 		
 		<CustomBehavior File="ForcedDismount" />
 
-			<!--
+		<!--
 		  ========== All we can automate ==========
 		  -->
-		<CustomBehavior File="UserDialog" StopOnContinue="true"
+		<CustomBehavior File="UserDialog" StopOnContinue="true" ExpiryTime="3600"
 				Text="END of the line." />
 		
 	</QuestOrder>
