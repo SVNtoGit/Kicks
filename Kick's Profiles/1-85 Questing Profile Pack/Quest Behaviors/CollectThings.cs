@@ -61,9 +61,9 @@
 // 
 // Exmaples:
 // <CustomBehavior File="CollectThings" ...other args... >
-//     <Hotspot X="4554.003" Y="-4718.743" Z="883.0464" />
-//     <Hotspot X="4578.725" Y="-4721.257" Z="882.8724" />
-//     <Hotspot X="4584.166" Y="-4693.487" Z="882.7331" />
+//     <Hotspot Name="Cathedral Square fishing dock" X="4554.003" Y="-4718.743" Z="883.0464" StartPoint="true" />
+//     <Hotspot Name="The Shady Lady" X="4578.725" Y="-4721.257" Z="882.8724" />
+//     <Hotspot Name="The Blue Recluse" X="4584.166" Y="-4693.487" Z="882.7331" StartPoint="true" />
 // </CustomBehavior>
 // 
 using System;
@@ -237,8 +237,8 @@ namespace BuddyWiki.CustomBehavior.CollectThings
                                             }}
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string      SubversionId { get { return ("$Id: CollectThings.cs 200 2011-07-17 11:15:03Z chinajade $"); } }
-        public override string      SubversionRevision { get { return ("$Revision: 200 $"); } }
+        public override string      SubversionId { get { return ("$Id: CollectThings.cs 209 2011-11-03 23:50:10Z chinajade $"); } }
+        public override string      SubversionRevision { get { return ("$Revision: 209 $"); } }
 
 
         ~CollectThings()
@@ -935,8 +935,8 @@ namespace BuddyWiki.CustomBehavior.CollectThings
             else
 	            { timeToWowObject = Me.Location.SurfacePathDistance(wowObject.Location) / Me.MovementInfo.RunSpeed; }
 
-            timeToWowObject *= 2.5;     // factor of safety
-            timeToWowObject = Math.Max(timeToWowObject, 20.0);  // 20sec hard lower-limit
+            timeToWowObject *= 4;     // factor of safety
+            timeToWowObject = Math.Max(timeToWowObject, 30.0);  // 30sec hard lower-limit
 
             return (TimeSpan.FromSeconds(timeToWowObject));
         }
