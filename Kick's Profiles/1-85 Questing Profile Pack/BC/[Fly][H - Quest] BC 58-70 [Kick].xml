@@ -37,6 +37,7 @@
 	</Mailboxes>
 
 	<Blackspots>
+		<Blackspot X="-900.2226" Y="1964.605" Z="67.76888" Radius="11.65521" />
 		<Blackspot X="-971.2239" Y="2171.647" Z="15.66353" Radius="5.156951" />
 		<Blackspot X="-1057.469" Y="2270.116" Z="24.84837" Radius="15" />
 		<Blackspot X="-1318.2" Y="2351.685" Z="88.95541" Radius="6.092066" />
@@ -1139,13 +1140,14 @@
 		<PickUp QuestName="Zeth'Gor Must Burn!" QuestId="10792" GiverName="Captain Darkhowl" GiverId="22107" />
 		<TurnIn QuestName="Boiling Blood" QuestId="10538" TurnInName="Apothecary Albreck" TurnInId="21279" />
 		<PickUp QuestName="Apothecary Antonivich" QuestId="10835" GiverName="Apothecary Albreck" GiverId="21279" />
-		<!-- <PickUp QuestName="The Eyes of Grillok" QuestId="10813" GiverName="Zezzak" GiverId="22231" />
+			<!-- 
+		<PickUp QuestName="The Eyes of Grillok" QuestId="10813" GiverName="Zezzak" GiverId="22231" />
 		<TurnIn QuestName="The Eyes of Grillok" QuestId="10813" TurnInName="Zezzak" TurnInId="22231" />
 		<PickUp QuestName="Grillok Darkeye" QuestId="10834" GiverName="Zezzak" GiverId="22231" />
-		-->
+			-->
 		
 			<While Condition="HasQuest(10792) &amp;&amp; !IsQuestCompleted(10792)">
-				<If Condition="HasQuest(10792) &amp;&amp; !IsQuestCompleted(10792)">
+				<If Condition="HasQuest(10792) &amp;&amp; !IsQuestCompleted(10792) &amp;&amp; (GetItemCount(31346) &lt; 1)">
 					<CustomBehavior File="CollectThings" MobId="16907" CollectUntil="RequiredCountReached" CollectItemId="31347" CollectItemCount="1" HuntingGroundRadius="200">
 						<Hotspot X="-1038.803" Y="2099.257" Z="61.55407" />
 						<Hotspot X="-904.7319" Y="1993.464" Z="67.18566" />
@@ -1157,40 +1159,52 @@
 				
 				<!-- if i ever make a flying hellfire one - change these to flyto's -->
 				<If Condition="HasQuest(10792) &amp;&amp; !IsQuestCompleted(10792)">
+					<!--
 					<RunTo X="-1044.199" Y="2052.024" Z="122.1656" />
+					-->
 					<RunTo X="-931.3527" Y="1990.143" Z="66.58702" />
 					<CustomBehavior File="ForcedDismount" />
-					<UseItem ItemId="31347" QuestId="10792" NumOfTimes="1" X="-903.3862" Y="1967.994" Z="68.75471" />
-					<CustomBehavior File="WaitTimer" WaitTime="5000" />
+				 <While Condition="HasItem(31347)">
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(31347)" WaitTime="1000" />
+					<CustomBehavior File="WaitTimer" WaitTime="2000" />
+				 </While>
 				</If>
 					
 				<If Condition="HasQuest(10792) &amp;&amp; !IsObjectiveComplete(2, 10792) &amp;&amp; HasItem(31346)">
+				<!--
 					<RunTo X="-951.2886" Y="1948.964" Z="67.21449" />
 					<CustomBehavior File="ForcedDismount" />
+				-->
 					<UseItem QuestId="10792" ItemId="31346" X="-951.2886" Y="1948.964" Z="67.21449" />
 					<CustomBehavior File="WaitTimer" WaitTime="5000" />
 				</If>
 				
 				<If Condition="HasQuest(10792) &amp;&amp; !IsObjectiveComplete(4, 10792) &amp;&amp; HasItem(31346)">
+				<!--
 					<RunTo X="-1044.199" Y="2052.024" Z="122.1656" />
 					<RunTo X="-1052.511" Y="2045.18" Z="138.4052" />
 					<CustomBehavior File="ForcedDismount" />
+				-->
 					<UseItem QuestId="10792" ItemId="31346" X="-1067.911" Y="2011.35" Z="67.4959" />
 					<CustomBehavior File="WaitTimer" WaitTime="5000" />
 				</If>
 				
 				<If Condition="HasQuest(10792) &amp;&amp; !IsObjectiveComplete(3, 10792) &amp;&amp; HasItem(31346)">
+				<!--
 					<RunTo X="-1044.199" Y="2052.024" Z="122.1656" />
 					<RunTo X="-1152.374" Y="2034.378" Z="67.42765" />
 					<CustomBehavior File="ForcedDismount" />
+				-->
 					<UseItem QuestId="10792" ItemId="31346" X="-1152.374" Y="2034.378" Z="67.42765" />
 					<CustomBehavior File="WaitTimer" WaitTime="5000" />
 				</If>
 				
 				<If Condition="HasQuest(10792) &amp;&amp; !IsObjectiveComplete(1, 10792) &amp;&amp; HasItem(31346)">
+				<!--
 					<RunTo X="-1190.299" Y="2039.665" Z="100.9923" />
 					<RunTo X="-1148.635" Y="1985.635" Z="73.73204" />
 					<CustomBehavior File="ForcedDismount" />
+				-->
 					<UseItem QuestId="10792" ItemId="31346" X="-1147.868" Y="1978.471" Z="73.59405" />
 					<CustomBehavior File="WaitTimer" WaitTime="5000" />
 				</If>
