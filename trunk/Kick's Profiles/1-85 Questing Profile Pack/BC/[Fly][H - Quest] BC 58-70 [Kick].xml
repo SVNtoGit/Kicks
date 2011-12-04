@@ -963,10 +963,10 @@
 			</If>
 			
 		<!--BEGIN HELLFIRE PENINSULAR QUESTING-->
-			<CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" TrainNewSkills="False" LearnFlightPaths="True" UseFlightPaths="True" PullDistance="30" />
+			<CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" TrainNewSkills="False" LearnFlightPaths="True" UseFlightPaths="True" PullDistance="20" />
 			
 			<If Condition="Me.ZoneId == 3483" >
-	<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="1" ExpiryTime="6" ExpiryAction="InputEnabled_Continue" Text="This profile doesn't fly until Zangarmarsh" />
+	<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="20" ExpiryAction="InputEnabled_Continue" Text="This profile doesn't fly until Zangarmarsh\n\nMake sure that Shak Questing / Azenius Plugin is enabled!!!!" />
 			</If>
 	
 			<If Condition="((!HasQuest(10120)) &amp;&amp; (!IsQuestCompleted(10120)))" >
@@ -983,7 +983,7 @@
 			<If Condition="(!IsQuestCompleted(10289))" >
 		<PickUp QuestName="Journey to Thrallmar" QuestId="10289" GiverName="Vlagga Freyfeather" GiverId="18930" />
 			</If>
-			<If Condition="(!HasQuest(10289))" >
+			<If Condition="(HasQuest(10289))" >
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" MobId="18930" GossipOptions="1" />
 			</If>
@@ -1009,23 +1009,42 @@
 		<TurnIn QuestName="Bonechewer Blood" QuestId="10450" TurnInName="Vurtok Axebreaker" TurnInId="21256" />
 		<TurnIn QuestName="Forward Base: Reaver's Fall" QuestId="10124" TurnInName="Forward Commander To'arch" TurnInId="19273" />
 		<PickUp QuestName="Disrupt Their Reinforcements" QuestId="10208" GiverName="Forward Commander To'arch" GiverId="19273" />
-			<While Condition="((HasQuest(10208)) &amp;&amp; (!IsQuestCompleted(10208)))" >
+			<If Condition="((HasQuest(10208)) &amp;&amp; (!IsQuestCompleted(10208)))" >
 				<Objective QuestName="Disrupt Their Reinforcements" QuestId="10208" Type="CollectItem" ItemId="28513" CollectCount="8" />
+				
+			 <While Condition="((HasQuest(10208)) &amp;&amp; (!IsObjectiveComplete(1, 10208)))">
+				<RunTo X="-107.9884" Y="1896.608" Z="79.06393" />
+				<RunTo X="-84.27579" Y="1881.582" Z="74.63772" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="10208" MobId="184290" ObjectType="Gameobject" Range="8" NumOfTimes="1" WaitTime="5000" CollectionDistance="1000" X="-84.27579" Y="1881.582" Z="74.63772" />
+				<!--
 				<Objective QuestName="Disrupt Their Reinforcements" QuestId="10208" Type="UseObject" ObjectId="184290" UseCount="1" />
-				<RunTo QuestId="10208" X="134.02" Y="1718.162" Z="39.92447" />
-				<RunTo QuestId="10208" X="146.2598" Y="1717.889" Z="38.41195" />
+				-->
+				<RunTo X="-63.95285" Y="1867.862" Z="68.97736" />
+			 </While>
+				
+			 <While Condition="((HasQuest(10208)) &amp;&amp; (!IsObjectiveComplete(2, 10208)))">
+				<RunTo X="118.7868" Y="1718.642" Z="41.60941" />
+				<RunTo X="147.3103" Y="1717.505" Z="38.22191" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="10208" MobId="184289" ObjectType="Gameobject" Range="8" NumOfTimes="1" WaitTime="5000" CollectionDistance="1000" X="146.2598" Y="1717.889" Z="38.41195" />
+				<!--
 				<Objective QuestName="Disrupt Their Reinforcements" QuestId="10208" Type="UseObject" ObjectId="184289" UseCount="1" />
-			</While>
+				-->
+				<RunTo X="118.7868" Y="1718.642" Z="41.60941" />
+			 </While>
+			</If>
 		<TurnIn QuestName="Disrupt Their Reinforcements" QuestId="10208" TurnInName="Forward Commander To'arch" TurnInId="19273" />
 		<PickUp QuestName="Mission: Gateways Murketh and Shaadraz" QuestId="10129" GiverName="Forward Commander To'arch" GiverId="19273" />
 			<If Condition="HasQuest(10129) &amp;&amp; !IsQuestCompleted(10129)">
 				<CustomBehavior File="ForcedDismount" />
+				<RunTo X="-24.09538" Y="2125.857" Z="112.7033" />
 				<CustomBehavior File="InteractWith" QuestId="10129" MobId="19401" GossipOptions="1" X="-24.09538" Y="2125.857" Z="112.7033" />
 				<CustomBehavior File="Message" Text="Azenius Plugin kicks-in." />
 			</If>
 		<TurnIn QuestName="Mission: Gateways Murketh and Shaadraz" QuestId="10129" TurnInName="Forward Commander To'arch" TurnInId="19273" />
-		<PickUp QuestName="Mission: The Abyssal Shelf" QuestId="10162" GiverName="Forward Commander To'arch" GiverId="19273" />
 		<PickUp QuestName="Return to Thrallmar" QuestId="10388" GiverName="Forward Commander To'arch" GiverId="19273" />
+		<PickUp QuestName="Mission: The Abyssal Shelf" QuestId="10162" GiverName="Forward Commander To'arch" GiverId="19273" />
 			<While Condition="HasQuest(10162) &amp;&amp; !IsQuestCompleted(10162)">
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" QuestId="10162" MobId="19401" GossipOptions="1" X="-24.09538" Y="2125.857" Z="112.7033" />
