@@ -416,7 +416,11 @@
         <UseItem QuestName="A Vision of the Past" QuestId="12754" ItemId="39645" X="1481.461" Y="-5989.479" Z="116.5384" />
         <CustomBehavior File="WaitTimer" WaitTime="12000" />
       </If>
-      <TurnIn QuestName="Ambush At The Overlook" QuestId="12754" TurnInName="Orbaz Bloodbane" TurnInId="28914" />
+		<If Condition="((HasQuest(12754)) &amp;&amp; (IsQuestCompleted(12754)))" >
+			<RunTo X="1405.699" Y="-5819.216" Z="131.2088" />
+			<CustomBehavior File="ForcedDismount" />
+		</If>
+     <TurnIn QuestName="Ambush At The Overlook" QuestId="12754" TurnInName="Orbaz Bloodbane" TurnInId="28914" />
 
       <!-- A Meeting With Fate - http://www.wowhead.com/quest=12755 -->
       <PickUp QuestName="A Meeting With Fate" QuestId="12755" GiverName="Orbaz Bloodbane" GiverId="28914" />
@@ -438,10 +442,10 @@
       <DisableRepair />
       <!-- An End To All Things... - http://www.wowhead.com/quest=12779 -->
       <PickUp QuestName="An End To All Things..." QuestId="12779" GiverName="The Lich King" GiverId="29110" X="2310.267" Y="-5742.212" Z="161.2074" />
+      <If Condition="HasQuest(12779)">
       <If Condition="!Me.IsOutdoors">
         <MoveTo X="2324.595" Y="-5729.186" Z="153.9202" />
       </If>
-      <If Condition="HasQuest(12779)">
         <CustomBehavior File="DeathknightStart\AnEndToAllThings" VehicleId="28670" ItemId="39700" AttackSpellId="53114" HealSpellId="53110" KillNpcId="29104" HealNpcId="29102">
           <Start X="1800.488" Y="-5774.659" Z="170.3334" />
           <End X="1752.615" Y="-5823.563" Z="234.6956" />
@@ -500,25 +504,76 @@
       </If>
 
       <!-- Horde -->
-      <If Condition="HasQuest(13189) &amp;&amp; Me.ZoneId == 139" >
-        <CustomBehavior File="InteractWith" MobId="193052" ObjectType="Gameobject" NumOfTimes="1" CollectionDistance="4" X="2348.233" Y="-5695.629" Z="382.2405" />
-        <CustomBehavior File="WaitTimer" WaitTime="20000" />
-      </If>
+ 		<If Condition="Me.IsHorde" >
+     <If Condition="HasQuest(13189) &amp;&amp; Me.ZoneId == 139" >
+ 		<CustomBehavior File="UserSettings" PullDistance="1" />
+		<CustomBehavior File="InteractWith" MobId="193052" ObjectType="Gameobject" NumOfTimes="1" CollectionDistance="4" X="2348.233" Y="-5695.629" Z="382.2405" />
+		<CustomBehavior File="WaitTimer" WaitTime="20000" />
+     </If>
       <If Condition="HasQuest(13189)" >
+			<!-- This behavior just says nothing more to do ... and turninid is invalid
         <CustomBehavior File="Misc\SafeQuestTurnin" QuestId="13189" QuestName="Warchief's Blessing" TurnInName="Garrosh Hellscream" TurnInId="39605" X="1637.828" Y="-4359.405" Z="26.75349" />
+			-->
+			<CustomBehavior File="UserSettings" PullDistance="1" />
+			<CustomBehavior File="NoCombatMoveTo" X="1669.178" Y="-4343.229" Z="28.36206" />
+		<TurnIn QuestName="Warchief's Blessing" QuestId="13189" TurnInName="Garrosh Hellscream" TurnInId="39605" X="1669.178" Y="-4343.229" Z="28.36206" />
       </If>
+			 <While Condition="Me.MapId == 1" >
+				<RunTo X="1772.016" Y="-4328.45" Z="-8.219744" />
+				<CustomBehavior File="InteractWith" MobId="195142" ObjectType="Gameobject" Range="2" NumOfTimes="1" CollectionDistance="1000" X="1772.016" Y="-4328.45" Z="-8.219744" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
+			 </While>
+			 <While Condition="Me.MapId == 0" >
+				<RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" />
+				<CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" />
+			 </While>
+	  
+			 <If Condition="Me.MapId == 530" >
+				<CustomBehavior File="LoadProfile" ProfileName="..\BC\[Fly][H - Quest] BC 58-70 [Kick]" />
+			 </If>
+		</If>
 
       <!-- Alliance -->
+ 		<If Condition="Me.IsAlliance" >
       <If Condition="HasQuest(13188) &amp;&amp; Me.ZoneId == 139" >
+		<CustomBehavior File="UserSettings" PullDistance="1" />
         <CustomBehavior File="InteractWith" MobId="193053" ObjectType="Gameobject" NumOfTimes="1" CollectionDistance="4"  X="2324.699" Y="-5659.518" Z="382.2405" />
-        <CustomBehavior File="WaitTimer" WaitTime="20000" />
+		<CustomBehavior File="WaitTimer" WaitTime="10000" />
       </If>
       <If Condition="HasQuest(13188)">
-        <CustomBehavior File="Misc\SafeQuestTurnin" QuestId="13188" QuestName="Where Kings Walk" TurnInName="King Varian Wrynn" TurnInId="29611" X="-8363.06" Y="232.236" Z="156.9907" />
-      </If>
+			<!-- This behavior just says nothing more to do ... and turninid is invalid
+          <CustomBehavior File="Misc\SafeQuestTurnin" QuestId="13188" QuestName="Where Kings Walk" TurnInName="King Varian Wrynn" TurnInId="29611" X="-8363.06" Y="232.236" Z="156.9907" />
+			-->
+			<CustomBehavior File="UserSettings" PullDistance="1" />
+			<CustomBehavior File="NoCombatMoveTo" X="-8363.06" Y="232.236" Z="156.9907" />
+ 		<TurnIn QuestId="13188" QuestName="Where Kings Walk" TurnInName="King Varian Wrynn" TurnInId="29611" X="-8363.06" Y="232.236" Z="156.9907" />
+		</If>
+		
+			<If Condition="Me.ZoneId == 1519" >
+				<RunTo X="-9006.36" Y="869.7172" Z="129.693" />
+				<CustomBehavior File="InteractWith" MobId="195141" ObjectType="Gameobject" Range="8" NumOfTimes="1" WaitTime="10000" CollectionDistance="1000" X="-9006.36" Y="869.7172" Z="129.693" />
+			</If>
+		
+			 <While Condition="Me.MapId == 0" >
+				<RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" />
+				<CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" />
+			 </While>
+	  
+			 <If Condition="Me.MapId == 530" >
+				<CustomBehavior File="LoadProfile" ProfileName="..\BC\[Fly][A - Quest] BC 58-70 [Kick]" />
+			 </If>
+		</If>
+	  
+	  
       <EnableRepair />
-      <CustomBehavior File="UserSettings" TrainNewSkills="true" />
+      <CustomBehavior File="UserSettings" TrainNewSkills="False" />
     </QuestOrder>
+	
+	
     <Blackspots>
       <!-- Stable Master Kitrik -->
       <Blackspot X="2205.902" Y="-5836.951" Z="101.2655" Radius="54.42151" />
