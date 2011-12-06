@@ -1843,12 +1843,18 @@
 			<Objective QuestName="Competition Schmompetition" QuestId="29086" Type="CollectItem" ItemId="68820" CollectCount="6" />
 		<TurnIn QuestName="Ignition" QuestId="858" TurnInName="Wizzlecrank's Shredder" TurnInId="3439" />
 		<PickUp QuestName="The Escape" QuestId="863" GiverName="Wizzlecrank's Shredder" GiverId="3439" />
-			<If Condition="((HasQuest(863)) &amp;&amp; (!IsQuestCompleted(863)))" >
+			<While Condition="((HasQuest(863)) &amp;&amp; (!IsQuestCompleted(863)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<CustomBehavior File="Escort" QuestId="863" MobId="3439" X="1106.418" Y="-3104.472" Z="82.7077" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="UserSettings" PullDistance="20" />
-			</If>
+			 <If Condition="((HasQuest(863)) &amp;&amp; (!IsQuestCompleted(863)))" >
+				<CustomBehavior File="AbandonQuest" QuestId="" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to abandon {TimeRemaining}" />
+		<PickUp QuestName="The Escape" QuestId="863" GiverName="Wizzlecrank's Shredder" GiverId="3439" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for bot {TimeRemaining}" />
+			 </If>
+			</While>
 		<TurnIn QuestName="Samophlange" QuestId="29021" TurnInType="Object" TurnInName="Control Console" TurnInId="4141" X="824.3635" Y="-2689.097" Z="91.78558" />
 		<PickUp QuestName="Samophlange" QuestId="29022" GiverType="Object" GiverName="Control Console" GiverId="4141" X="824.3635" Y="-2689.097" Z="91.78558" />
 			<While Condition="HasQuest(29022) &amp;&amp; !IsQuestCompleted(29022)">
