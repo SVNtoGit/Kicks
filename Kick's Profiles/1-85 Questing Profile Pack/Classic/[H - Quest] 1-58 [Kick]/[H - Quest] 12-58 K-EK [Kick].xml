@@ -45,6 +45,7 @@
 	</Mailboxes>
 	
 	<Blackspots>
+		<Blackspot X="3194.991" Y="-4524.944" Z="109.6325" Radius="7.255693" />
 		<Blackspot X="-63.63387" Y="356.5483" Z="121.313" Radius="20" />
 		<Blackspot X="1870.985" Y="-2284.976" Z="126.4141" Radius="20" />
 		<Blackspot X="-917.598" Y="-3727.04" Z="9.503609" Radius="2.761656" />
@@ -3284,19 +3285,28 @@
 		<PickUp QuestName="Suspicious Hoofprints" QuestId="27259" GiverName="Suspicious Footprint" GiverType="Object" GiverId="187273"  X="-3702.426" Y="-2534.043" Z="68.79895" />
 		<PickUp QuestName="Lieutenant Paval Reethe" QuestId="27260" GiverName="Thermadore Guard Badge" GiverId="21042" X="-3720.306" Y="-2538.469" Z="69.56582" />
 		<PickUp QuestName="The Black Shield" QuestId="27254" GiverName="Black Shield" GiverId="20992" X="-3733.356" Y="-2531.213" Z="69.63679" />
-		<TurnIn QuestName="The Black Shield" QuestId="27254" TurnInName="Krog" TurnInId="4926" />
-		<PickUp QuestName="The Black Shield" QuestId="27255" GiverName="Krog" GiverId="4926" />
-		<TurnIn QuestName="Lieutenant Paval Reethe" QuestId="27260" TurnInName="Krog" TurnInId="4926" />
 		<TurnIn QuestName="Suspicious Hoofprints" QuestId="27259" TurnInName="Krog" TurnInId="4926" />
+		<TurnIn QuestName="Lieutenant Paval Reethe" QuestId="27260" TurnInName="Krog" TurnInId="4926" />
 		<PickUp QuestName="Talk to Ogron" QuestId="27306" GiverName="Krog" GiverId="4926" />
+		<TurnIn QuestName="The Black Shield" QuestId="27254" TurnInName="Krog" TurnInId="4926" />
+			<If Condition="((!HasQuest(27255)) &amp;&amp; (!IsQuestCompleted(27255)))" >
+			<!-- The bot chain picks up this quest for some reason
+		<PickUp QuestName="The Black Shield" QuestId="27255" GiverName="Krog" GiverId="4926" />
+			-->
+				<CustomBehavior File="InteractWith" MobId="4926" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+			</If>
+			<If Condition="((HasQuest(27255)) &amp;&amp; (IsQuestCompleted(27255)))" >
+		<TurnIn QuestName="The Black Shield" QuestId="27255" TurnInName="Do'gol" TurnInId="5087" />
+			</If>
+		<PickUp QuestName="The Black Shield" QuestId="27256" GiverName="Do'gol" GiverId="5087" />
 		<TurnIn QuestName="Talk to Ogron" QuestId="27306" TurnInName="Ogron" TurnInId="4983" />
 		<PickUp QuestName="Questioning Reethe" QuestId="27261" GiverName="Ogron" GiverId="4983" />
 			<If Condition="((HasQuest(27261)) &amp;&amp; (!IsQuestCompleted(27261)))" >
 				<CustomBehavior File="Escort" MobId="4983" QuestId="27261" X="-3317.643" Y="-3125.356" Z="32.94566" />
 			</If>
 		<TurnIn QuestName="Questioning Reethe" QuestId="27261" TurnInName="Krog" TurnInId="4926" />
-		<TurnIn QuestName="The Black Shield" QuestId="27255" TurnInName="Do'gol" TurnInId="5087" />
-		<PickUp QuestName="The Black Shield" QuestId="27256" GiverName="Do'gol" GiverId="5087" />
 			<Objective QuestName="The Black Shield" QuestId="27256" Type="CollectItem" ItemId="5959" CollectCount="5" />
 		<TurnIn QuestName="The Black Shield" QuestId="27256" TurnInName="Do'gol" TurnInId="5087" />
 		<PickUp QuestName="The Black Shield" QuestId="27257" GiverName="Do'gol" GiverId="5087" />
