@@ -3118,13 +3118,17 @@
 		<PickUp QuestName="Smeed's Harnesses" QuestId="14341" GiverName="Nataka Longhorn" GiverId="11259" />
 		<TurnIn QuestName="Smeed's Harnesses" QuestId="14341" TurnInName="Smeed Scrabblescrew" TurnInId="11596" />
 		<PickUp QuestName="Kodo Roundup" QuestId="5561" GiverName="Smeed Scrabblescrew" GiverId="11596" />
-			<While Condition="((HasQuest(5561)) &amp;&amp; (!IsQuestCompleted(5561)))" >
+			<If Condition="((HasQuest(5561)) &amp;&amp; (!IsQuestCompleted(5561)))" >
+				<CustomBehavior File="UserSettings" UseMount="False" />
+			 <While Condition="((HasQuest(5561)) &amp;&amp; (!IsQuestCompleted(5561)))" >
 				<CustomBehavior File="UseItemOn" QuestId="5561" MobId1="4702" MobId2="4700" ItemId="13892" WaitTime="6000" Range="5" CollectionDistance="500" X="-1295.744" Y="1840.136" Z="52.33176" />
 				<RunTo X="-1406.287" Y="1495.758" Z="60.99207" />
-				<CustomBehavior File="WaitTimer" WaitTime="25000" GoalText="Waiting for Kodo {TimeRemaining}" />
-				<CustomBehavior File="InteractWith" QuestId="5561" MobId="11627" CollectionDistance="50" WaitForNpcs="False" X="-1408.956" Y="1504.514" Z="59.06141" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
-			</While>
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for Kodo {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="5561" MobId1="11627" MobId2="4700" MobId3="4702" CollectionDistance="100" WaitForNpcs="False" X="-1408.956" Y="1504.514" Z="59.06141" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for bot {TimeRemaining}" />
+			 </While>
+				<CustomBehavior File="UserSettings" UseMount="True" />
+			</If>
 		<TurnIn QuestName="Kodo Roundup" QuestId="5561" TurnInName="Smeed Scrabblescrew" TurnInId="11596" />
 			<While Condition="((HasQuest(14304)) &amp;&amp; (!IsQuestCompleted(14304)))" >
 				<CustomBehavior File="CombatUseItemOn" MobId="35412" ItemId="49138" MobHpPercentLeft="95" X="-855.6693" Y="1776.336" Z="63.88691" />
