@@ -4099,15 +4099,18 @@
 			<If Condition="((HasQuest(26728)) &amp;&amp; (IsQuestCompleted(26728)))" >
 		<TurnIn QuestName="Hero's Call: Duskwood!" QuestId="26728" TurnInName="Commander Althea Ebonlocke" TurnInId="264" X="-10561.29" Y="-1151.804" Z="28.01479" />
 			</If>
+			
 			<!-- Train riding horse -->
 			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 1">
 				<If Condition="Me.Race == WoWRace.Human">
+			<CustomBehavior File="Message" Text="Compiling Train 100 Speed Mount Function" LogColor="Orange" />
 					<RunTo X="-8780.128" Y="380.0052" Z="100.8152" />
 					<CustomBehavior File="InteractWith"  MobId="43693" WaitTime="1000" CollectionDistance="50" X="-8780.128" Y="380.0052" Z="100.8152" />
 					<CustomBehavior File="ForceTrainRiding"  MobId="43693" />
 					<CustomBehavior File="InteractWith"  MobId="43694" BuyItemId="2411" WaitTime="5000" CollectionDistance="50" X="-8780.128" Y="380.0052" Z="100.8152" />
 				</If>
 			</If>
+			
 			<If Condition="(HasItem(2411))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(2411)" />
 			</If>
@@ -5487,21 +5490,24 @@
 
 				<CustomBehavior File="Message" Text="Compiling Eastern Plaguelands Quests" LogColor="Green" />
 
-		<PickUp QuestName="Into the Woods" GiverName="Adrine Towhide" QuestId="27683" GiverId="44456" X="1796.26" Y="-1684.78" Z="60.16993" />
-		<TurnIn QuestName="Into the Woods" TurnInName="Fiona" QuestId="27683" TurnInId="45417" X="1916.45" Y="-2651.12" Z="60.62035" />
-		
 			<!-- Train 100% riding -->
-			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 150" >
+			<If Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 150) &amp;&amp; (Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &gt; 1)" >
+			<CustomBehavior File="Message" Text="Compiling Train 100 Speed Mount Function" LogColor="Orange" />
 				<CustomBehavior File="UserSettings" TrainNewSkills="True" />
 				<RunTo X="-8780.128" Y="380.0052" Z="100.8152" />
 				<CustomBehavior File="InteractWith" MobId="43693" CollectionDistance="50" X="-8780.128" Y="380.0052" Z="100.8152" />
 				<CustomBehavior File="ForceTrainRiding" MobId="43693" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
 			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 150" >
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" Text="Something went wrong! Train riding and press start" />
 			</If>
+			</If>
 			
+			<If Condition="((!HasQuest(28578)) &amp;&amp; (!IsQuestCompleted(28578)))" >
+		<PickUp QuestName="Into the Woods" GiverName="Adrine Towhide" QuestId="27683" GiverId="44456" X="1796.26" Y="-1684.78" Z="60.16993" />
+		<TurnIn QuestName="Into the Woods" TurnInName="Fiona" QuestId="27683" TurnInId="45417" X="1916.45" Y="-2651.12" Z="60.62035" />
+			</If>
+		
 			<If Condition="(!IsQuestCompleted(27527))" >
 		<PickUp QuestName="Gidwin Goldbraids" GiverName="Fiona" QuestId="27367" GiverId="45417" X="1916.45" Y="-2651.12" Z="60.62035" />
 		<PickUp QuestName="Tarenar Sunstrike" QuestId="27370" GiverName="Fiona" GiverId="45417" X="1916.45" Y="-2651.12" Z="60.62035" />
@@ -5608,6 +5614,7 @@
 		<PickUp QuestName="The Battle of Darrowshire" QuestId="27390" GiverName="Chromie" GiverId="10667" />
 			<If Condition="(HasQuest(27390)) &amp;&amp; (!IsQuestCompleted(27390))">
 				<CustomBehavior File="UserSettings" PullDistance="1" />
+			 <While Condition="((HasQuest(27390)) &amp;&amp; (!IsQuestCompleted(27390)))" >
 				<UseItem ItemId="15209" QuestName="The Battle of Darrowshire" QuestId="27390" X="1444.552" Y="-3699.923" Z="77.30455" />
 				<CustomBehavior File="WaitTimer" WaitTime="6000"/>
 				<!-- <CustomBehavior File="NoCombatMoveTo" QuestId="13892" X="1501.976" Y="-3672.762" Z="81.8891" /> -->
@@ -5615,11 +5622,14 @@
 				<!-- kill each of these, and then report to Joseph
 				<CustomBehavior File="KillUntilComplete" QuestId="27390" MobId="10946" MobId2="10938" X="-7756.146" Y="-1911.55" Z="133.724" /> -->
 				<CustomBehavior File="Message" Text="Waiting to kill Horgus" LogColor="Orange" />
-				<CustomBehavior File="InteractWith" QuestId="27390" MobId="10946" X="1480.323" Y="-3677.906" Z="79.32465" />
+				<CustomBehavior File="InteractWith" QuestId="27390" MobId="10946" IgnoreCombat="True" X="1480.323" Y="-3677.906" Z="79.32465" />
 				<CustomBehavior File="Message" Text="Waiting to kill Redpath" LogColor="Orange" />
-				<CustomBehavior File="InteractWith" QuestId="27390" MobId="10938" X="1480.323" Y="-3677.906" Z="79.32465" />
+				<CustomBehavior File="InteractWith" QuestId="27390" MobId="10938" IgnoreCombat="True" X="1480.323" Y="-3677.906" Z="79.32465" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for  {TimeRemaining}" />
 				
-				<CustomBehavior File="InteractWith" QuestId="27390" MobId="10936" X="1445.839" Y="-3700.236" Z="77.27372" />
+				<RunTo X="1445.839" Y="-3700.236" Z="77.27372" />
+				<CustomBehavior File="InteractWith" QuestId="27390" WaitForNpcs="False" IgnoreCombat="True" MobId="10936" X="1445.839" Y="-3700.236" Z="77.27372" />
+			 </While>
 				<CustomBehavior File="UserSettings" PullDistance="20" />
 			</If>
 		<TurnIn QuestName="The Battle of Darrowshire" QuestId="27390" TurnInName="Pamela Redpath" TurnInId="10926" />
@@ -6205,7 +6215,7 @@
 					</SetGrindArea>		
 				<GrindTo Level="47" />
 				
-			<If Condition="(Me.Level &lt;= 52)" >
+			<If Condition="(Me.Level &lt;= 52) &amp;&amp; ((!HasQuest(28582)) &amp;&amp; (!IsQuestCompleted(28582)))" > 
 		<PickUp QuestName="To the Aid of the Thorium Brotherhood" QuestId="28512" GiverName="Victoria Dolen" GiverId="46930" X="-6994.01" Y="-2542.61" Z="241.7139" />
 		<TurnIn QuestName="To the Aid of the Thorium Brotherhood" QuestId="28512" TurnInName="Jack Rockleg" TurnInId="47266" />
 			</If>

@@ -3491,7 +3491,10 @@
 			
 				</If>
 				<If Condition="Me.MapId == 0">
+			<If Condition="((!HasQuest(28578)) &amp;&amp; (!IsQuestCompleted(28578)))" >
 		<PickUp QuestName="Into the Woods" GiverName="Adrine Towhide" QuestId="27683" GiverId="44456" X="1796.26" Y="-1684.78" Z="60.16993" />
+		<TurnIn QuestName="Into the Woods" TurnInName="Fiona" QuestId="27683" TurnInId="45417" X="1916.45" Y="-2651.12" Z="60.62035" />
+			</If>
 				</If>
 			</If>
 
@@ -3657,21 +3660,21 @@
 		<PickUp QuestName="The Battle of Darrowshire" QuestId="27390" GiverName="Chromie" GiverId="10667" />
 			<If Condition="(HasQuest(27390)) &amp;&amp; (!IsQuestCompleted(27390))">
 				<CustomBehavior File="UserSettings" PullDistance="1" />
-			 <While Condition="(!IsObjectiveComplete(1, 27390))">
+			 <While Condition="((HasQuest(27390)) &amp;&amp; (!IsQuestCompleted(27390)))" >
 				<UseItem ItemId="15209" QuestName="The Battle of Darrowshire" QuestId="27390" X="1444.552" Y="-3699.923" Z="77.30455" />
 				<CustomBehavior File="WaitTimer" WaitTime="6000"/>
-				<!-- <CustomBehavior File="WaitTimer" WaitTime="40000"/> -->
 				<!-- <CustomBehavior File="NoCombatMoveTo" QuestId="13892" X="1501.976" Y="-3672.762" Z="81.8891" /> -->
 				<!-- <CustomBehavior File="Escort" QuestId="27390" MobId="10944" X="1472.468" Y="-3680.251" Z="78.3531" /> -->
 				<!-- kill each of these, and then report to Joseph
 				<CustomBehavior File="KillUntilComplete" QuestId="27390" MobId="10946" MobId2="10938" X="-7756.146" Y="-1911.55" Z="133.724" /> -->
 				<CustomBehavior File="Message" Text="Waiting to kill Horgus" LogColor="Orange" />
-				<CustomBehavior File="InteractWith" QuestId="27390" MobId="10946" X="1480.323" Y="-3677.906" Z="79.32465" />
+				<CustomBehavior File="InteractWith" QuestId="27390" MobId="10946" IgnoreCombat="True" X="1480.323" Y="-3677.906" Z="79.32465" />
 				<CustomBehavior File="Message" Text="Waiting to kill Redpath" LogColor="Orange" />
-				<CustomBehavior File="InteractWith" QuestId="27390" IgnoreCombat="True" MobId="10938" X="1480.323" Y="-3677.906" Z="79.32465" />
+				<CustomBehavior File="InteractWith" QuestId="27390" MobId="10938" IgnoreCombat="True" X="1480.323" Y="-3677.906" Z="79.32465" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for  {TimeRemaining}" />
 				
-				<CustomBehavior File="InteractWith" QuestId="27390" IgnoreCombat="True" MobId="10936" X="1445.839" Y="-3700.236" Z="77.27372" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<RunTo X="1445.839" Y="-3700.236" Z="77.27372" />
+				<CustomBehavior File="InteractWith" QuestId="27390" WaitForNpcs="False" IgnoreCombat="True" MobId="10936" X="1445.839" Y="-3700.236" Z="77.27372" />
 			 </While>
 				<CustomBehavior File="UserSettings" PullDistance="20" />
 			</If>
