@@ -2126,7 +2126,35 @@
 			</If>
 		<PickUp QuestName="It's Watching You!" QuestId="9951" GiverName="Warden Treelos" GiverId="18424" />
 			<Objective QuestName="Clues in the Thicket" QuestId="9971" Type="UseObject" ObjectId="183789" UseCount="1" />
-			<Objective QuestName="It's Watching You!" QuestId="9951" Type="KillMob" MobId="18438" KillCount="1" />
+			<If Condition="((HasQuest(9951)) &amp;&amp; (!IsQuestCompleted(9951)))" >
+				<CustomBehavior File="UserSettings" PullDistance="1" />
+			 <While Condition="((HasQuest(9951)) &amp;&amp; (!IsQuestCompleted(9951)))" >
+				<RunTo X="-1785.286" Y="4736.417" Z="29.30657" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				
+				<RunTo X="-1785.286" Y="4736.417" Z="29.30657" />
+				<CustomBehavior File="MyCTM" X="-1787.109" Y="4727.139" Z="33.12585" />
+				<CustomBehavior File="MyCTM" X="-1796.749" Y="4728.103" Z="36.73823" />
+				<CustomBehavior File="MyCTM" X="-1795.33" Y="4738.343" Z="41.24228" />
+				<CustomBehavior File="MyCTM" X="-1785.643" Y="4736.813" Z="46.25793" />
+				<CustomBehavior File="MyCTM" X="-1786.04" Y="4727.693" Z="50.07615" />
+				<CustomBehavior File="MyCTM" X="-1796.724" Y="4727.945" Z="53.85701" />
+				<CustomBehavior File="MyCTM" X="-1796.164" Y="4737.796" Z="57.65981" />
+				<CustomBehavior File="MyCTM" X="-1785.672" Y="4735.913" Z="60.774" />
+				<CustomBehavior File="MyCTM" X="-1788.434" Y="4726.386" Z="66.2175" />
+				<CustomBehavior File="MyCTM" X="-1795.663" Y="4728.736" Z="66.83092" />
+				
+				<CustomBehavior File="InteractWith" QuestId="9951" MobId="18438" X="-1794.005" Y="4734.645" Z="66.83144" />
+				<!--
+				<Objective QuestName="It's Watching You!" QuestId="9951" Type="KillMob" MobId="18438" KillCount="1" />
+				-->
+				
+				<RunTo X="-1794.005" Y="4734.645" Z="66.83144" />
+				<CustomBehavior File="MyCTM" X="-1798.63" Y="4726.559" Z="67.76959" />
+				<CustomBehavior File="MyCTM" X="-1808.817" Y="4703.691" Z="10.66988" />
+			 </While>
+				<CustomBehavior File="UserSettings" PullDistance="20" />
+			</If>
 			<Objective QuestName="Strange Energy" QuestId="9968" Type="CollectItem" ItemId="24279" CollectCount="4" />
 			<Objective QuestName="Strange Energy" QuestId="9968" Type="CollectItem" ItemId="25672" CollectCount="4" />
 		<TurnIn QuestName="It's Watching You!" QuestId="9951" TurnInName="Warden Treelos" TurnInId="18424" />
@@ -2134,7 +2162,7 @@
 		<TurnIn QuestName="Strange Energy" QuestId="9968" TurnInName="Earthbinder Tavgren" TurnInId="18446" />
 		<PickUp QuestName="By Any Means Necessary" QuestId="9978" GiverName="Earthbinder Tavgren" GiverId="18446" />
 			 <If Condition="(HasQuest(9978))" >
-				<CustomBehavior File="Message" Text="Waiting for Empoor to pass by - don't interfere" LogColor="Orange" />
+				<CustomBehavior File="Message" Text="Waiting for Empoor to pass by - don't interfere!\n\nIt could be 30s to 5min!" LogColor="Orange" />
 				<CustomBehavior File="InteractWith" MobId="18482" WaitForNpcs="True" GossipOptions="1" WaitTime="2000" X="-1945.773" Y="4687.774" Z="-2.231679" />
 			 </If>
 		<TurnIn QuestName="By Any Means Necessary" QuestId="9978" TurnInName="Empoor" TurnInId="18482" />
