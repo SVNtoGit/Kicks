@@ -1546,14 +1546,17 @@
 			<Objective QuestName="Magic of the Arakkoa" QuestId="9396" Type="CollectItem" ItemId="23483" CollectCount="4" />
 		<PickUp QuestName="The Road to Falcon Watch" QuestId="9375" GiverName="Wounded Blood Elf Pilgrim" GiverId="16993" />
 		
-			<While Condition="HasQuest(9375) &amp;&amp; !IsQuestCompleted(9375)">
+			<If Condition="((HasQuest(9375)) &amp;&amp; (!IsQuestCompleted(9375)))" >
 				<CustomBehavior File="UserSettings" LootMobs="false" PullDistance="10"/>
+			 <While Condition="HasQuest(9375) &amp;&amp; !IsQuestCompleted(9375)">
 				<CustomBehavior File="Escort" QuestId="9375" MobId="16993" X="-1137.522" Y="4269.742" Z="13.93649" />
-				<CustomBehavior File="Misc\RunLua" Lua="i=GetQuestLogIndexByID(9375) a,b,c,d,e,f,g,h,j=GetQuestLogTitle(i) if g==-1 then SelectQuestLogEntry(i) SetAbandonQuest(i) AbandonQuest(i) end" />
+				<CustomBehavior File="AbandonQuest" QuestId="9375" Type="Failed" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 		<PickUp QuestName="The Road to Falcon Watch" QuestId="9375" GiverName="Wounded Blood Elf Pilgrim" GiverId="16993" />
-			<CustomBehavior File="UserSettings" LootMobs="True" PullDistance="30"/>
-			</While>
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			 </While>
+				<CustomBehavior File="UserSettings" LootMobs="True" PullDistance="30"/>
+			</If>
 		<TurnIn QuestName="The Road to Falcon Watch" QuestId="9375" TurnInName="Taleris Dawngazer" TurnInId="17015" />
 		<PickUp QuestName="A Pilgrim's Plight" QuestId="9376" GiverName="Taleris Dawngazer" GiverId="17015" />
 		<TurnIn QuestName="Magic of the Arakkoa" QuestId="9396" TurnInName="Arcanist Calesthris Dawnstar" TurnInId="16792" />
@@ -2490,10 +2493,13 @@
 		<Pickup QuestName="The Skettis Offensive" QuestId="10879" GiverName="Defender Grashna" GiverId="22373" />
 			<While Condition="HasQuest(10879) &amp;&amp; !IsQuestCompleted(10879)">
 				<CustomBehavior File="UserSettings" LootMobs="false" PullDistance="10"/>
+			 <If Condition="((HasQuest(10879)) &amp;&amp; (!IsQuestCompleted(10879)))" >
 				<CustomBehavior File="Escort" QuestId="10879" MobId="22373" X="-1653.947" Y="5456.958" Z="-40.40611" />
-				<CustomBehavior File="Misc\RunLua" Lua="i=GetQuestLogIndexByID(10879) a,b,c,d,e,f,g,h,j=GetQuestLogTitle(i) if g==-1 then SelectQuestLogEntry(i) SetAbandonQuest(i) AbandonQuest(i) end" />
+				<CustomBehavior File="AbandonQuest" QuestId="10879" Type="Failed" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 		<Pickup QuestName="The Skettis Offensive" QuestId="10879" GiverName="Defender Grashna" GiverId="22373" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			 </If>
 				<CustomBehavior File="UserSettings" LootMobs="True" PullDistance="30"/>
 			</While>
 		<TurnIn QuestName="The Skettis Offensive" QuestId="10879" TurnInName="Rilak the Redeemed" TurnInId="22292" />
