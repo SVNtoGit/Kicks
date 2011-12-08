@@ -2312,14 +2312,17 @@
 			</If>
 		<PickUp QuestName="An Improper Burial" QuestId="10913" GiverName="Commander Ra'vaj" GiverId="22446" />
 		<PickUp QuestName="Digging Through Bones" QuestId="10922" GiverName="Chief Archaeologist Letoll" GiverId="22458" />
-			<While Condition="HasQuest(10922) &amp;&amp; !IsQuestCompleted(10922)">
+			<If Condition="HasQuest(10922) &amp;&amp; !IsQuestCompleted(10922)">
 				<CustomBehavior File="UserSettings" LootMobs="false" PullDistance="10"/>
+			 <While Condition="HasQuest(10922) &amp;&amp; !IsQuestCompleted(10922)">
 				<CustomBehavior File="Escort" QuestId="10922" MobId="22458" X="-3741.1" Y="5403.915" Z="-3.332826" />
-				<CustomBehavior File="Misc\RunLua" Lua="i=GetQuestLogIndexByID(10922) a,b,c,d,e,f,g,h,j=GetQuestLogTitle(i) if g==-1 then SelectQuestLogEntry(i) SetAbandonQuest(i) AbandonQuest(i) end" />
+				<CustomBehavior File="AbandonQuest" QuestId="10922" Type="Failed" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 		<PickUp QuestName="Digging Through Bones" QuestId="10922" GiverName="Chief Archaeologist Letoll" GiverId="22458" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </While>
 				<CustomBehavior File="UserSettings" LootMobs="True" PullDistance="30"/>
-			</While>
+			</If>
 			<If Condition="HasQuest(10922) &amp;&amp; IsQuestCompleted(10922)">
 				<CustomBehavior File="FlyTo" X="-3733.9" Y="5410.475" Z="-2.480758" />
 				<CustomBehavior File="ForcedDismount" />
