@@ -37,6 +37,7 @@
 	</Mailboxes>
 
 	<Blackspots>
+		<Blackspot X="-2258.327" Y="3225.85" Z="22.68609" Radius="4.797518" />
 		<Blackspot X="321.8214" Y="2826.288" Z="67.13671" Radius="3.851588" />
 		<Blackspot X="-1336.36" Y="2349.285" Z="89.04995" Radius="8.058788" />
 		<Blackspot X="-900.2226" Y="1964.605" Z="67.76888" Radius="11.65521" />
@@ -849,6 +850,19 @@
 		</Objective>
 	</Quest>
 
+	<Quest Id="10027" Name="Magical Disturbances">
+		<Objective Type="KillMob" MobId="18464" KillCount="10">
+			<Hotspots>
+				<Hotspot X="-2462.016" Y="3335.365" Z="-11.56659" />
+				<Hotspot X="-2442.916" Y="3402.206" Z="-17.84506" />
+				<Hotspot X="-2543.558" Y="3463.298" Z="-8.366662" />
+				<Hotspot X="-2323.109" Y="3487.81" Z="-17.11456" />
+				<Hotspot X="-2254.639" Y="3502.255" Z="-25.46214" />
+				<Hotspot X="-2270.948" Y="3595.091" Z="-15.04134" />
+				<Hotspot X="-2205.155" Y="3609.179" Z="-33.41777" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 
 
 	<QuestOrder IgnoreCheckPoints="True" >
@@ -1000,6 +1014,7 @@
 			<If Condition="((HasQuest(10289)) &amp;&amp; (IsQuestCompleted(10289)))" >
 		<TurnIn QuestName="Journey to Thrallmar" QuestId="10289" TurnInName="General Krakork" TurnInId="19255" />
 			</If>
+			<If Condition="(!IsQuestCompleted(9376))" >
 		<PickUp QuestName="Report to Nazgrel" QuestId="10291" GiverName="General Krakork" GiverId="19255" />
 		<TurnIn QuestName="Report to Nazgrel" QuestId="10291" TurnInName="Nazgrel" TurnInId="3230" />
 		<PickUp QuestName="Eradicate the Burning Legion" QuestId="10121" GiverName="Nazgrel" GiverId="3230" />
@@ -1583,6 +1598,7 @@
 		<TurnIn QuestName="The Mag'har" QuestId="9406" TurnInName="Nazgrel" TurnInId="3230" />
 			<Objective QuestName="A Pilgrim's Plight" QuestId="9376" Type="CollectItem" ItemId="23343" CollectCount="1" />
 		<TurnIn QuestName="A Pilgrim's Plight" QuestId="9376" TurnInName="Taleris Dawngazer" TurnInId="17015" />
+			</If>
 
 
 			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &lt;= 245)" >
@@ -1635,6 +1651,7 @@
 			<If Condition="((!HasQuest(9802)) &amp;&amp; (!IsQuestCompleted(9802)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="-220.1487" Y="5435.804" Z="21.73699" />
 			</If>
+			<If Condition="(!IsQuestCompleted(9816))" >
 		<PickUp QuestName="Plants of Zangarmarsh" QuestId="9802" GiverName="Lauranna Thar'well" GiverId="17909" X="-215.5434" Y="5437.267" Z="21.4277" />
 		<PickUp QuestName="The Umbrafen Tribe" QuestId="9747" GiverName="Ikeyen" GiverId="17956" X="-215.1667" Y="5433.431" Z="21.9556" />
 		<PickUp QuestName="A Warm Welcome" QuestId="9728" GiverName="Warden Hamoot" GiverId="17858" X="-252.3594" Y="5499.21" Z="66.59926" />
@@ -2046,6 +2063,7 @@
 		<TurnIn QuestName="Message to the Daggerfen" QuestId="10118" TurnInName="Shadow Hunter Denjai" TurnInId="18013" />
 		<TurnIn QuestName="Wanted: Chieftain Mummaki" QuestId="10117" TurnInName="Shadow Hunter Denjai" TurnInId="18013" />
 		<TurnIn QuestName="Have You Ever Seen One of These?" QuestId="9816" TurnInName="Witch Doctor Tor'gash" TurnInId="18014" />
+			</If>
 		
 			<If Condition="((HasQuest(9828)) &amp;&amp; (IsQuestCompleted(9828)))" >
 				<CustomBehavior File="FlyTo" X="101.6707" Y="5202.739" Z="21.01068" />
@@ -2094,6 +2112,7 @@
 				<CustomBehavior File="FlyTo" X="-1821.938" Y="5342.519" Z="-12.42718" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
+			<If Condition="(!IsQuestCompleted(10791))" >
 		<PickUp QuestName="A'dal" QuestId="10210" GiverName="Haggard War Veteran" GiverId="19684" X="-1702.186" Y="5374.703" Z="3.867954" />
 		<TurnIn QuestName="A'dal" Questid="10210" TurnInName="A'dal" TurnInId="18481" X="-1863.683" Y="5430.042" Z="-9.703983" />
 			<If Condition="!HasQuest(10037) &amp;&amp; !IsQuestCompleted(10037)">
@@ -2619,41 +2638,48 @@
 			<If Condition="HasQuest(9997) &amp;&amp; IsQuestCompleted(9997)" >
 				<CustomBehavior File="FlyTo" X="-2538.527" Y="3673.321" Z="2.009097" />
 				<CustomBehavior File="ForcedDismount" />
-			</If>
 		<TurnIn QuestName="Attack on Firewing Point" QuestId="9997" TurnInName="Sergeant Chawni" TurnInId="21007" />
+		<!--
+		<PickUp QuestName="The Final Code" QuestId="10447" GiverName="Sergeant Chawni" GiverId="21007" />
+		-->
+				<RunTo X="-2530.907" Y="3638.701" Z="2.360077" />
+			</If>
+			<!-- mesh issues and the quest is a pita
 		<PickUp QuestName="The Final Code" QuestId="10447" GiverName="Sergeant Chawni" GiverId="21007" />
 			<While Condition="!HasItem(29912) &amp;&amp; !IsQuestCompleted(10447)">
 			 <If Condition="!HasItem(29912) &amp;&amp; !IsQuestCompleted(10447)" >
 				<CustomBehavior File="FlyTo" X="-2311.075" Y="3079.805" Z="246.1002" />
 				<CustomBehavior File="ForcedDismount" />
 			 </If>
-			 <While Condition="!HasItem(29912) &amp;&amp; !IsQuestCompleted(10447)">
-				<CustomBehavior File="UserSettings" PullDistance="1" />
+			 <While Condition="!IsQuestCompleted(10447) &amp;&amp; (Me.Z &gt; 140)">
 				<CustomBehavior File="Misc\RunLua" Lua="SetCVar('AutoLootDefault', 1)" />
 				<CustomBehavior File="MyCTM" X="-2287.549" Y="3095.593" Z="152.8178" />
 				<CustomBehavior File="WaitTimer" WaitTime="180000" />
 				<CustomBehavior File="MyCTM" X="-2287.164" Y="3093.954" Z="152.8176" />
 				<CustomBehavior File="WaitTimer" WaitTime="8000" />
-				<CustomBehavior File="InteractWith" MobId="18554" Nav="CTM" NumOfTimes="1" GossipOptions="1" WaitTime="5000" X="-2287.164" Y="3093.954" Z="152.8176" />
-				<CustomBehavior File="InteractWith" MobId="182546" Nav="CTM" ObjectType="GameObject" NumOfTimes="1" GossipOptions="1" WaitTime="6000" X="-2312.409" Y="3079.504" Z="158.3856" />
+				
+				<CustomBehavior File="InteractWith" MobId="18554" Nav="CTM" NumOfTimes="1" GossipOptions="1" Range="4" WaitForNpcs="True" WaitTime="5000" X="-2287.164" Y="3093.954" Z="152.8176" />
+				<CustomBehavior File="InteractWith" MobId="182546" Nav="CTM" ObjectType="GameObject" NumOfTimes="1" Range="4" GossipOptions="1" WaitTime="6000" X="-2312.409" Y="3079.504" Z="158.3856" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-
-				<CustomBehavior File="UserSettings" PullDistance="20" />
 			 </While>
 			</While>
 		
 			<While Condition="HasQuest(10447) &amp;&amp; !IsQuestCompleted(10447)">
-				<RunTo X="-2344.365" Y="3230.343" Z="-3.374462" />
-				<CustomBehavior File="InteractWith" MobId="184725" ObjectType="GameObject" NumOfTimes="1" GossipOptions="1" WaitTime="8000" X="-2344.365" Y="3230.343" Z="-3.374462" />
-				<CustomBehavior File="UserSettings" PullDistance="30" />
+				<RunTo X="-2351.791" Y="3322.234" Z="-1.810038" />
+				<CustomBehavior File="FlyTo" X="-2344.464" Y="3226.481" Z="-3.375181" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" MobId="184725" ObjectType="GameObject" NumOfTimes="1" GossipOptions="1" WaitTime="8000" X="-2344.464" Y="3226.481" Z="-3.375181" />
 			</While>
 			
 			<If Condition="HasQuest(10447) &amp;&amp; IsQuestCompleted(10447)">
 				<CustomBehavior File="FlyTo" X="-2643.315" Y="4389.479" Z="35.60967" />
 				<CustomBehavior File="ForcedDismount" />
-			</If>
 		<TurnIn QuestName="The Final Code" QuestId="10447" TurnInName="Tooki" TurnInId="18447" />
 		<PickUp QuestName="Letting Earthbinder Tavgren Know" QuestId="10006" GiverName="Tooki" GiverId="18447" />
+				<RunTo X="-2530.907" Y="3638.701" Z="2.360077" />
+			</If>
+		<PickUp QuestName="Letting Earthbinder Tavgren Know" QuestId="10006" GiverName="Tooki" GiverId="18447" />
+			-->
 		<TurnIn QuestName="Patriarch Ironjaw" QuestId="10023" TurnInName="Malukaz" TurnInId="18384" />
 		<PickUp QuestName="Welcoming the Wolf Spirit" QuestId="10791" GiverName="Malukaz" GiverId="18384" />
 			<If Condition="HasQuest(10791) &amp;&amp; !IsQuestCompleted(10791)">
@@ -2661,11 +2687,15 @@
 				<CustomBehavior File="WaitTimer" WaitTime="4000" />
 			</If>
 		<TurnIn QuestName="Welcoming the Wolf Spirit" QuestId="10791" TurnInName="Malukaz" TurnInId="18384" />
+			</If>
+		<!--
 			<If Condition="HasQuest(10006)">
 				<CustomBehavior File="FlyTo" X="-1943.623" Y="4689.19" Z="-2.240221" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
 		<TurnIn QuestName="Letting Earthbinder Tavgren Know" QuestId="10006" TurnInName="Earthbinder Tavgren" TurnInId="18446" />
+		-->
+			
 			<If Condition="!HasQuest(9797) &amp;&amp; !IsQuestCompleted(9797)">
 				<CustomBehavior File="FlyTo" X="261.7116" Y="7860.628" Z="23.40682" />
 				<CustomBehavior File="ForcedDismount" />
@@ -2742,6 +2772,7 @@
 				<CustomBehavior File="FlyTo" X="-1455.254" Y="6340.136" Z="37.25015" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
+			<If Condition="(!IsQuestCompleted(9934))" >
 		<PickUp QuestName="Windroc Mastery" QuestId="9854" GiverName="Shado 'Fitz' Farstrider" GiverId="18200" />
 		<PickUp QuestName="Clefthoof Mastery" QuestId="9789" GiverName="Hemet Nesingwary" GiverId="18180" />
 		<PickUp QuestName="Talbuk Mastery" QuestId="9857" GiverName="Harold Lane" GiverId="18218" />
@@ -3261,6 +3292,8 @@
 				<CustomBehavior File="ForcedDismount" />
 			</If>
 		<TurnIn QuestName="Message to Garadar" QuestId="9934" TurnInName="Garrosh" TurnInId="18063" />
+			</If>
+		
 			<If Condition="((!HasQuest(9872)) &amp;&amp; (!IsQuestCompleted(9872)) &amp;&amp; (!HasItem(24558)))" >
 				<CustomBehavior File="FlyTo" X="-2066.492" Y="8108.036" Z="2.547558" />
 				<CustomBehavior File="ForcedDismount" />
