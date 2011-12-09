@@ -6014,9 +6014,14 @@
 		<PickUp QuestName="It's Goat Time, Baby" GiverName="Garyanne Fleezlebop" QuestId="27776" GiverId="46653" />
 		<TurnIn QuestName="Easily Swayed" TurnInName="Dolph Blastus" QuestId="27774" TurnInId="46652" />
 		<PickUp QuestName="A Strange Request" GiverName="Dolph Blastus" QuestId="27764" GiverId="46652" />
-			<While Condition="((HasQuest(27776)) &amp;&amp; (!IsQuestCompleted(27776)))" >
+			<If Condition="((HasQuest(27776)) &amp;&amp; (!IsQuestCompleted(27776)))" >
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UserSettings" UseMount="False" />
+			 <While Condition="((HasQuest(27776)) &amp;&amp; (!IsQuestCompleted(27776)))" >
 				<CustomBehavior File="UseItemOn" QuestId="27776" MobId="46393" ItemId="62397" NumOfTimes="12" WaitTime="3000" X="-6606.835" Y="-3917.877" Z="379.0245" />
-			</While>
+			 </While>
+				<CustomBehavior File="UserSettings" UseMount="True" />
+			</If>
 		<TurnIn QuestName="It's Goat Time, Baby" TurnInName="Garyanne Fleezlebop" QuestId="27776" TurnInId="46653" />
 		<PickUp QuestName="A Dwarf's Got Needs" GiverName="Sigrun Ironhew" QuestId="27823" GiverId="2860" X="-6610.99" Y="-3421.93" Z="279.2775" />
 			<Objective QuestName="A Dwarf's Got Needs" QuestId="27823" Type="CollectItem" CollectCount="15" ItemId="62510" />
@@ -6040,11 +6045,10 @@
 		<PickUp QuestName="Third Sample: Implanted Eggs" GiverName="Rhea" QuestId="27771" GiverId="46654" />
 			<If Condition="((HasQuest(27771)) &amp;&amp; (!IsQuestCompleted(27771)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
-				<CustomBehavior File="NoCombatMoveTo" X="-7014.23" Y="-3922.77" Z="263.8889"  />
-				<!-- CT doesn't work for this quest, dunno why
-				<CustomBehavior File="CollectThings" QuestId="27771" ObjectId="206321" CollectItemCount="3" CollectItemId="33126" PostInteractDelay="8000" > <Hotspot X="-7014.23" Y="-3922.77" Z="263.8889"  /> </CustomBehavior> -->
-				<!-- this will eventually loot them all -->
+				<CustomBehavior File="CollectThings" QuestId="27771" ObjectId="206321" CollectItemCount="3" CollectItemId="33126" PostInteractDelay="8000" X="-7014.23" Y="-3922.77" Z="263.8889" />
+				<!--  
 				<Objective QuestName="Third Sample: Implanted Eggs" QuestId="27771" Type="Collect" CollectCount="3" ItemId="62393" />
+				-->
 				<CustomBehavior File="NoCombatMoveTo" X="-6988.002" Y="-3942.721" Z="263.8894" />
 				<CustomBehavior File="UserSettings" PullDistance="20" />
 			</If>
