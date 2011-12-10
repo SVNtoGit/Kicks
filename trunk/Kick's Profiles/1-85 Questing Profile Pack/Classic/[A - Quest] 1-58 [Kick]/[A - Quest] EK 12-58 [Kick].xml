@@ -51,6 +51,8 @@
 		<!--<Mob Name="Flamekin Spitter" Entry="9776" />-->
 	</AvoidMobs>
 	<Blackspots>
+		<Blackspot X="-11401.3" Y="-3372.768" Z="7.469854" Radius="30" />
+		<Blackspot X="-10444.51" Y="-3273.528" Z="20.17945" Radius="150" />
 		<Blackspot X="3195.689" Y="-4524.528" Z="109.8055" Radius="7.547545" />
 		<Blackspot X="3194.991" Y="-4524.944" Z="109.6325" Radius="7.255693" />
 		<Blackspot X="1742.617" Y="-2257.318" Z="59.2599" Radius="7.466146" />
@@ -6783,15 +6785,19 @@
 		<TurnIn QuestName="Can't Take It With Them" TurnInName="Crazy Larry" QuestId="27599" TurnInId="45948" />
 		<TurnIn QuestName="Kill Gil" TurnInName="Crazy Larry" QuestId="27598" TurnInId="45948" />
 		<PickUp QuestName="In With a Bang" QuestId="27600" GiverName="Crazy Larry" GiverId="45948" />
-			<If Condition="((HasQuest(27600)) &amp;&amp; (!IsQuestCompleted(27600)))" >
+			<While Condition="((HasQuest(27600)) &amp;&amp; (!IsQuestCompleted(27600)))" >
 				<RunTo X="-10168.8" Y="-4177.78" Z="22.68565" />
+				<CustomBehavior File="UserSettings" UseMount="False" />
 				<CustomBehavior File="InteractWith" QuestId="27600" MobId="46245" NumOfTimes="1" GossipOptions="1" WaitTime="1" CollectionDistance="50" X="-10168.8" Y="-4177.78" Z="22.68565" />
 				<CustomBehavior File="WaitTimer" WaitTime="20000" />
+			 <If Condition="Me.Z &gt;= 9" >
 				<Objective QuestName="In With a Bang" QuestId="27600" Type="CollectItem" ItemId="61921" CollectCount="1" />
 				<Objective QuestName="In With a Bang" QuestId="27600" Type="CollectItem" ItemId="61922" CollectCount="1" />
 				<Objective QuestName="In With a Bang" QuestId="27600" Type="CollectItem" ItemId="61373" CollectCount="1" />
 				<CustomBehavior File="InteractWith"  MobId="206679" ObjectType="Gameobject" GossipOptions="1" NumOfTimes="1" WaitTime="12000" CollectionDistance="50" X="-9967.807" Y="-4542.876" Z="11.78482" />
-			</If>
+			 </If>
+				<CustomBehavior File="UserSettings" UseMount="True" />
+			</While>
 		<TurnIn QuestName="In With a Bang" QuestId="27600" TurnInName="Crazy Larry" TurnInId="45948" />
 		<PickUp QuestName="Baba Bogbrew" QuestId="27740" GiverName="Crazy Larry" GiverId="45948" />
 			<If Condition="(HasQuest(27740))" >
