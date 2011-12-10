@@ -3421,13 +3421,10 @@
 		<PickUp QuestName="The Brood of Onyxia" QuestId="27417" GiverName="Overlord Mok'Morokk" GiverId="4500" />
 		<TurnIn QuestName="The Brood of Onyxia" QuestId="27417" TurnInName="Draz'Zilb" TurnInId="4501" />
 		<PickUp QuestName="The Brood of Onyxia" QuestId="27415" GiverName="Draz'Zilb" GiverId="4501" />
-		<PickUp QuestName="WANTED: Goreclaw the Ravenous" QuestId="27412" GiverName="Wanted Poster" GiverType="Object" GiverId="186426" X="-4591.218" Y="-3166.982" Z="34.17097" />
 		<TurnIn QuestName="Justice Dispensed" QuestId="27297" TurnInName="Krog" TurnInId="4926" />
 		<PickUp QuestName="Bloodfen Feathers" QuestId="27407" GiverName="Brogg" GiverId="23579" />
-			<Objective QuestName="WANTED: Goreclaw the Ravenous" QuestId="27412" Type="KillMob" MobId="23873" KillCount="1" />
 			<Objective QuestName="Bloodfen Feathers" QuestId="27407" Type="CollectItem" ItemId="33085" CollectCount="5" />
 			<Objective QuestName="The Brood of Onyxia" QuestId="27415" Type="UseObject" ObjectId="20359" UseCount="5" />
-		<TurnIn QuestName="WANTED: Goreclaw the Ravenous" QuestId="27412" TurnInName="Drazzit Dripvalve" TurnInId="23572" />
 		<TurnIn QuestName="Bloodfen Feathers" QuestId="27407" TurnInName="Brogg" TurnInId="23579" />
 		<PickUp QuestName="Catch a Dragon by the Tail" QuestId="27413" GiverName="Gizzix Grimegurgle" GiverId="23570" />
 		<TurnIn QuestName="The Brood of Onyxia" QuestId="27415" TurnInName="Draz'Zilb" TurnInId="4501" />
@@ -4319,9 +4316,10 @@
 		<TurnIn QuestName="These Roots Were Made For Stompin'" QuestId="28221" TurnInName="Sapling Protector" TurnInId="48042" />
 			<If Condition="((HasQuest(28222)) &amp;&amp; (IsQuestCompleted(28222)))" >
 		<TurnIn QuestName="Singin' in the Sun" QuestId="28222" TurnInName="Sapling Protector" TurnInId="48042" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
 		
+		<!-- if this bugs out - interactwith and macro pickup -->
 		<PickUp QuestName="The Last Protector" QuestId="28224" GiverName="Flourishing Protector" GiverId="48044" />
 			<Objective QuestName="The Last Protector" QuestId="28224" Type="KillMob" MobId="7149" KillCount="1" />
 		<TurnIn QuestName="The Last Protector" QuestId="28224" TurnInName="Flourishing Protector" TurnInId="48044" />
@@ -4389,8 +4387,14 @@
 		<!-- Oil and Irony  and  Borrowed Bombs quests -->		
 		
 		<PickUp QuestName="Back to Business" QuestId="28372" GiverName="Fez Hobnob" GiverId="48469" />
+			<If Condition="(HasQuest(28372))" >
+				<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" PullDistance="25" />
+		<!--
+				<CustomBehavior File="InteractWith" MobId="43073" GossipOptions="2" X="6077.286" Y="-845.2375" Z="412.2502" />
+		-->
 		<TurnIn QuestName="Back to Business" QuestId="28372" TurnInName="Darla Drilldozer" TurnInId="48127" />
-		
+				<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="True" LearnFlightPaths="True" UseFlightPaths="True" PullDistance="25" />
+			</If>
 		
 		<!-- I don't know where these should go... i'd guess after 28264, test it! -->
 		<PickUp QuestName="Deadwood of the North" QuestId="28338" GiverName="Nafien" GiverId="15395" />
