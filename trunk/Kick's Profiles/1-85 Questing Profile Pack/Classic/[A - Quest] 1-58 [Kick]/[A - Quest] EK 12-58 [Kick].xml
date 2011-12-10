@@ -7158,6 +7158,7 @@
 				<!-- To BC -->
 			<CheckPoint Level="58" />
 			
+			<!--
 			<While Condition="(HasItem(10593))" >
 		<PickUp QuestName="One Draenei's Junk..." QuestId="25771" GiverName="Imperfect Draenethyst Fragment" GiverId="10593" GiverType="Item" />
 		<TurnIn QuestName="One Draenei's Junk..." QuestId="25771" TurnInName="Kum'isha the Collector" TurnInId="7363" X="-11360.43" Y="-2983.637" Z="0.7507853" />
@@ -7166,16 +7167,35 @@
 		<PickUp QuestName="Kum'isha's Endeavors" QuestId="25772" GiverName="Flawless Draenethyst Sphere" GiverId="8244" GiverType="Item" />
 		<TurnIn QuestName="Kum'isha's Endeavors" QuestId="25772" TurnInName="Kum'isha the Collector" TurnInId="7363" X="-11360.43" Y="-2983.637" Z="0.7507853" />
 			</While>
-			<While Condition="(HasItem(10752))" >
+			-->
+			
+			<If Condition="HasItem(10593) &amp;&amp; (Me.ZoneId == 4)" >
+				<CustomBehavior File="Message" Text="Selling and then Clearing out our Draenethyst Fragments\n\nNext is BC! - Do not interact!" LogColor="Cornflowerblue" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" />
+			<While Condition="HasItem(10593)" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(10593)" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/script AcceptQuest()" />
+				<CustomBehavior File="InteractWith" MobId="7363" X="-11360.43" Y="-2983.637" Z="0.7507853" />
+				<CustomBehavior File="RunMacro" Macro="/script SelectGossipActiveQuest(1)" />
+				<CustomBehavior File="RunMacro" Macro="/script CompleteQuest()" />
+				<CustomBehavior File="RunMacro" Macro="/script GetQuestReward(3)" />
+				<CustomBehavior File="RunMacro" Macro="/script GetQuestReward()" />
+				
+			 <While Condition="(HasItem(10752))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(10752)" WaitTime="2000" />
-			</While>
-			<While Condition="(HasItem(12122))" >
+			 </While>
+			 <While Condition="(HasItem(12122))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(12122)" WaitTime="2000" />
-			</While>
-			
+			 </While>
+			</While>	
+			</If>	
+
+			<If Condition="Me.ZoneId == 4" >
 				<CustomBehavior File="Message" Text="To BC We Go!" LogColor="Orange" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 			
-		<PickUp QuestName="Through the Dark Portal" GiverName="Watch Commander Relthorn Netherwane" QuestId="10119" GiverId="16841" X="-11814.47" Y="-3196.079" Z="-31.03" />
+		<PickUp QuestName="Through the Dark Portal" QuestId="10119" GiverName="Watch Commander Relthorn Netherwane" GiverId="16841" X="-11814.47" Y="-3196.079" Z="-31.03" />
+			</If>
 
 		<CustomBehavior File="LoadProfile" ProfileName="..\..\GoTo\EK to BC" /> 
 
