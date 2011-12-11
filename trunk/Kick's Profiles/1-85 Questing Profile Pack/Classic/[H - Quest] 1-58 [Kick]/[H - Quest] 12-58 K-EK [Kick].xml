@@ -4813,7 +4813,13 @@
 		<TurnIn QuestName="The Deserter" QuestId="8285" TurnInName="Hermit Ortell" TurnInId="15194" />
 			</If>
 		
+			<If Condition="((!HasQuest(25694)) &amp;&amp; (!IsQuestCompleted(25694)))" >
+			<If Condition="((!HasQuest(28858)) &amp;&amp; (!IsQuestCompleted(28858))) &amp;&amp; ((!HasQuest(28671)) &amp;&amp; (!IsQuestCompleted(28671)))" >
 		<PickUp QuestName="Call of the Warmatron" QuestId="28865" GiverName="Okril'lon Mage" GiverId="50587" />
+			</If>
+			<If Condition="((IsQuestCompleted(28858)) || (IsQuestCompleted(28671))) &amp;&amp; (Me.MapId == 1)" >
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must manually move to Blasted Lands since something went wrong!" />
+			</If>
 			<If Condition="HasQuest(28865) &amp;&amp; (Me.MapId == 1)">
 			
 			<CustomBehavior File="Message" Text="Porting to Blasted Lands" LogColor="Orange" />
@@ -4821,7 +4827,10 @@
 				<CustomBehavior File="InteractWith" MobId="207565" ObjectType="Gameobject" Range="8" X="-6777.022" Y="821.5496" Z="55.74715" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for port {TimeRemaining}" />
 			</If>
+			<If Condition="HasQuest(28865) &amp;&amp; (Me.MapId == 0)">
 		<TurnIn QuestName="Call of the Warmatron" QuestId="28865" TurnInName="Okrilla" TurnInId="41124" />
+			</If>
+			</If>
 			
 		<!--BEGIN BLASTED LANDS QUESTING-->
 
@@ -4922,6 +4931,16 @@
 		<TurnIn QuestName="Atrocities" QuestId="25703" TurnInName="Neptool" TurnInId="41354" />
 		<PickUp QuestName="False Idols" QuestId="25705" GiverName="Neptool" GiverId="41354" />
 		<PickUp QuestName="Neptool's Revenge" QuestId="25706" GiverName="Neptool" GiverId="41354" />
+			<!-- this quest needs override filled 
+			
+	<Quest Id="25705" Name="False Idols">
+		<Objective Type="UseObject" ObjectId="203289" UseCount="8">
+			<Hotspots>
+			</Hotspots>
+		</Objective>
+	</Quest>			
+				
+			-->
 			<Objective QuestName="False Idols" QuestId="25705" Type="UseObject" ObjectId="203289" UseCount="8" />
 			<Objective QuestName="Neptool's Revenge" QuestId="25706" Type="KillMob" MobId="41422" KillCount="8" />
 			<Objective QuestName="Neptool's Revenge" QuestId="25706" Type="KillMob" MobId="41423" KillCount="8" />
