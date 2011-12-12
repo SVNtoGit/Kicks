@@ -1625,18 +1625,24 @@
 		<PickUp QuestName="The Warchief's Mandate" QuestId="9405" GiverName="Nazgrel" GiverId="3230" />
 		<TurnIn QuestName="The Warchief's Mandate" QuestId="9405" TurnInName="Far Seer Regulkut" TurnInId="16574" />
 		<PickUp QuestName="A Spirit Guide" QuestId="9410" GiverName="Far Seer Regulkut" GiverId="16574" />
-			<If Condition="HasQuest(9410)">
+			<While Condition="((HasQuest(9410)) &amp;&amp; (!IsQuestCompleted(9410)))" >
 				<RunTo X="-23.15114" Y="3860.658" Z="82.12777" />
 				<RunTo X="-66.78585" Y="3847.217" Z="81.4315" />
 				<RunTo X="-22.45631" Y="3802.567" Z="92.88264" />
 				<CustomBehavior File="Misc\RunLua" WaitTime="2000" NumOfTimes="2" Lua="UseItemByName(23669)" />
 				<CustomBehavior File="WaitTimer" WaitTime="16000" />
-			</If>
-			<If Condition="HasQuest(9410)">
+
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<CustomBehavior File="Escort" EscortUntil="DestinationReached" MobId="17077" EscortDestX="514.5644" EscortDestY="3872.58" EscortDestZ="192.2494" X="-18.67767" Y="3803.105" Z="93.76311" />
-				<CustomBehavior File="UserSettings" PullDistance="30" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="UserSettings" PullDistance="20" />
+			 <If Condition="((HasQuest(9410)) &amp;&amp; (!IsQuestCompleted(9410)))" >
+				<CustomBehavior File="AbandonQuest" QuestId="9410" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to abandon {TimeRemaining}" />
+			<PickUp QuestName="A Spirit Guide" QuestId="9410" GiverName="Far Seer Regulkut" GiverId="16574" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </If>
+			</While>
 		<TurnIn QuestName="A Spirit Guide" QuestId="9410" TurnInName="Gorkan Bloodfist" TurnInId="16845" />
 		<PickUp QuestName="The Mag'har" QuestId="9406" GiverName="Gorkan Bloodfist" GiverId="16845" />
 		<TurnIn QuestName="The Mag'har" QuestId="9406" TurnInName="Nazgrel" TurnInId="3230" />
