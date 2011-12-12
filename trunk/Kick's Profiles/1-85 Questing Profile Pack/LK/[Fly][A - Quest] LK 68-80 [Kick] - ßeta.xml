@@ -4417,6 +4417,18 @@
 			<!-- Start Coldarra Quests -->
 			<CustomBehavior File="Message" Text="Compiling Coldarra Quests" LogColor="Cornflowerblue" />
 				
+			<If Condition="(Me.ZoneId == 3537) &amp;&amp; (Me.Z &gt;= 95)" > <!-- Borean -->
+				<ClearVendor />
+				<SetVendor>
+					<Vendors>
+						<Vendor Name="Archmage Berinand" Entry="25314" Type="Repair" X="3575.609" Y="6671.719" Z="195.109" />
+						<Vendor Name="Librarian Serrah" Entry="26110" Type="Food" X="3576.481" Y="6640.387" Z="195.0936" />
+					</Vendors>
+				</SetVendor>
+				
+				<ClearMailbox />
+			</If>
+
 			<If Condition="(HasItem(35671))" > <!-- For those noobs that like to restart and not use ball -->
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
 			</If>
@@ -4745,6 +4757,11 @@
 			</If>
 			<!-- Not picking up "Prisoner of War" for The Nexus -->
 			<!-- End of Coldarra Quests -->
+
+			<If Condition="Me.ZoneId == 3537" > <!-- Borean - clearing mailbox / Vendor from Coldarra -->
+				<ClearVendor />
+				<ClearMailbox />
+			</If>
 
 			<!-- lets fly and turn in the moa'ki harbor quest - then fly to grizzly hills corner, then hf -->
 			<If Condition="((HasQuest(12117)) &amp;&amp; (IsQuestCompleted(12117)))" >
