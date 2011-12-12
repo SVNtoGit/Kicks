@@ -37,6 +37,7 @@
 	</Mailboxes>
 
 	<Blackspots>
+		<Blackspot X="-622.974" Y="2356.054" Z="38.2112" Radius="0" />
 		<Blackspot X="-2258.327" Y="3225.85" Z="22.68609" Radius="4.797518" />
 		<Blackspot X="321.8214" Y="2826.288" Z="67.13671" Radius="3.851588" />
 		<Blackspot X="-1336.36" Y="2349.285" Z="89.04995" Radius="8.058788" />
@@ -1347,7 +1348,7 @@
 		<PickUp QuestName="Void Ridge" QuestId="10294" GiverName="Ogath the Mad" GiverId="19683" />
 			<Objective QuestName="Void Ridge" QuestId="10294" Type="CollectItem" ItemId="29161" CollectCount="40" />
 		<TurnIn QuestName="Void Ridge" QuestId="10294" TurnInName="Ogath the Mad" TurnInId="19683" />
-		<PickUp QuestName="From the Abyss" QuestId="10295" GiverName="Ogath the Mad" GiverId="19683" />
+		<PickUp QuestName="From the Abyss" QuestId="10295" GiverName="Ogath the Mad" GiverId="19683" X="-1326.434" Y="2344.15" Z="88.95521" />
 			<While Condition="HasQuest(10295) &amp;&amp; !IsQuestCompleted(10295) &amp;&amp; HasItem(29226)">
 				<RunTo X="-1235.257" Y="1352.734" Z="3.723482" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
@@ -1418,7 +1419,7 @@
 		<PickUp QuestName="Beneath Thrallmar" QuestId="10630" GiverName="Foreman Razelcraz" GiverId="16915" />
 			<Objective QuestName="Beneath Thrallmar" QuestId="10630" Type="KillMob" MobId="18976" KillCount="1" />
 		<TurnIn QuestName="Beneath Thrallmar" QuestId="10630" TurnInName="Foreman Razelcraz" TurnInId="16915" />
-		<TurnIn QuestName="From the Abyss" QuestId="10295" TurnInName="Ogath the Mad" TurnInId="19683" />
+		<TurnIn QuestName="From the Abyss" QuestId="10295" TurnInName="Ogath the Mad" TurnInId="19683" X="-1326.434" Y="2344.15" Z="88.95521" />
 		<TurnIn QuestName="The Assassin" QuestId="9400" TurnInName="Fel Orc Corpse" TurnInId="17062" />
 		<PickUp QuestName="A Strange Weapon" QuestId="9401" GiverName="Fel Orc Corpse" GiverId="17062" />
 		<PickUp QuestName="Arelion's Journal" QuestId="9374" GiverName="Magistrix Carinda" GiverId="16793" />
@@ -1808,7 +1809,10 @@
 		<TurnIn QuestName="A Damp, Dark Place" QuestId="9788" TurnInName="Ikeyen" TurnInId="17956" X="-215.1667" Y="5433.431" Z="21.9556" />
 		<TurnIn QuestName="Saving the Sporeloks" QuestId="10096" TurnInName="Lauranna Thar'well" TurnInId="17909" X="-215.5434" Y="5437.267" Z="21.4277" />
 		<TurnIn QuestName="A Warm Welcome" QuestId="9728" TurnInName="Warden Hamoot" TurnInId="17858" X="-252.3594" Y="5499.21" Z="66.59926" />
+			<If Condition="((HasQuest(9894)) &amp;&amp; (IsQuestCompleted(9894)))" >
 		<TurnIn QuestName="Safeguarding the Watchers" QuestId="9894" TurnInName="Windcaller Blackhoof" TurnInId="18070" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+			</If>
 			<!-- This quest is only available if you're friendly -->
 		<PickUp QuestName="Blessings of the Ancients" QuestId="9785" GiverName="Windcaller Blackhoof" GiverId="18070" X="-234.2691" Y="5434.766" Z="22.42206" />
 			<While Condition="((HasQuest(9785)) &amp;&amp; (!IsQuestCompleted(9785)))" >
@@ -2876,12 +2880,12 @@
 		<TurnIn QuestName="Talbuk Mastery" QuestId="9857" TurnInName="Harold Lane" TurnInId="18218" />
 		<PickUp QuestName="Talbuk Mastery" QuestId="9858" GiverName="Harold Lane" GiverId="18218" />
 		
-			<If Condition="((!HasQuest(9944)) &amp;&amp; (!IsQuestCompleted(9944)))" >
+			<If Condition="((!HasQuest(9944)) &amp;&amp; (!IsQuestCompleted(9944))) &amp;&amp; (IsQuestCompleted(9406))" >
 				<!-- Garadar Flyto -->
 				<CustomBehavior File="FlyTo" X="-1259.108" Y="7129.174" Z="57.30949" />
 				<CustomBehavior File="ForcedDismount" />
-			</If>
 		<PickUp QuestName="Missing Mag'hari Procession" QuestId="9944" GiverName="Matron Drakia" GiverId="18302" />
+			</If>
 			<If Condition="(HasQuest(9797))" >
 		<TurnIn QuestName="Reinforcements for Garadar" QuestId="9797" TurnInName="Captain Kroghan" TurnInId="18090" />
 			</If>
@@ -2927,17 +2931,21 @@
 			</If>
 		<TurnIn QuestName="The Missing War Party" QuestId="9864" TurnInName="Saurfang the Younger" TurnInId="18229" />
 		<PickUp QuestName="Once Were Warriors" QuestId="9865" GiverName="Saurfang the Younger" GiverId="18229" />
+			<If Condition="((HasQuest(9944)) &amp;&amp; (IsQuestCompleted(9944)))" >
 		<TurnIn QuestName="Missing Mag'hari Procession" QuestId="9944" TurnInName="Elder Yorley" TurnInId="18414" />
 		<PickUp QuestName="War on the Warmaul" QuestId="9945" GiverName="Elder Yorley" GiverId="18414" />
+			</If>
 		<PickUp QuestName="Finding the Survivors" QuestId="9948" GiverName="Elder Ungriz" GiverId="18415" />
 			<If Condition="HasQuest(9948) &amp;&amp; !IsQuestCompleted(9948)">
 				<CustomBehavior File="FlyTo" X="-1049.162" Y="8930.285" Z="99.97141" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
-			<Objective QuestName="War on the Warmaul" QuestId="9945" Type="KillMob" MobId="18065" KillCount="8" />
-			<Objective QuestName="War on the Warmaul" QuestId="9945" Type="KillMob" MobId="18037" KillCount="8" />
-			<Objective QuestName="War on the Warmaul" QuestId="9945" Type="KillMob" MobId="18065" KillCount="8" />
-			<Objective QuestName="War on the Warmaul" QuestId="9945" Type="KillMob" MobId="18037" KillCount="8" />
+			<If Condition="((HasQuest(9945)) &amp;&amp; (!IsQuestCompleted(9945)))" >
+				<Objective QuestName="War on the Warmaul" QuestId="9945" Type="KillMob" MobId="18065" KillCount="8" />
+				<Objective QuestName="War on the Warmaul" QuestId="9945" Type="KillMob" MobId="18037" KillCount="8" />
+				<Objective QuestName="War on the Warmaul" QuestId="9945" Type="KillMob" MobId="18065" KillCount="8" />
+				<Objective QuestName="War on the Warmaul" QuestId="9945" Type="KillMob" MobId="18037" KillCount="8" />
+			</If>
 			<Objective QuestName="Finding the Survivors" QuestId="9948" Type="CollectItem" ItemId="25604" CollectCount="5" />
 			<While Condition="HasQuest(9948) &amp;&amp; !IsQuestCompleted(9948)">
 	
@@ -2976,7 +2984,9 @@
 				<CustomBehavior File="FlyTo" X="-1292.729" Y="8505.237" Z="15.6399" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
+			<If Condition="((HasQuest(9945)) &amp;&amp; (IsQuestCompleted(9945)))" >
 		<TurnIn QuestName="War on the Warmaul" QuestId="9945" TurnInName="Elder Yorley" TurnInId="18414" />
+			</If>
 		<TurnIn QuestName="Finding the Survivors" QuestId="9948" TurnInName="Elder Ungriz" TurnInId="18415" />
 			<If Condition="HasQuest(9815) &amp;&amp; !IsQuestCompleted(9815)" >
 					<CustomBehavior File="FlyTo" X="-1291.684" Y="8000.696" Z="-96.12431" />
