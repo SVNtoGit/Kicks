@@ -1501,16 +1501,18 @@
 				<CustomBehavior File="InteractWith" MobId="16994" NumOfTimes="1" GossipOptions="1" WaitForNpcs="False" Range="2" WaitTime="6000" X="98.97932" Y="3512.318" Z="61.96777" />
 			</If>
 			
-			<While Condition="((HasQuest(10286)) &amp;&amp; (!IsQuestCompleted(10286)))" >
+			<While Condition="((HasQuest(10286)) &amp;&amp; (IsQuestCompleted(10286)))" >
 				<CustomBehavior File="Message" LogColor="SpringGreen" Text="Do not interfere, I'm waiting for an NPC to pass by (Quest = Arelion's Secret)." />
-				<CustomBehavior File="InteractWith" QuestId="10286" MobId="20159" NumOfTimes="1" WaitForNpcs="False" GossipOptions="1" WaitTime="5000" CollectionDistance="1000" X="-620.6326" Y="4160.028" Z="63.34106" /> <!-- FW -->
-				<CustomBehavior File="InteractWith" QuestId="10286" MobId="20159" NumOfTimes="1" WaitForNpcs="False" GossipOptions="1" WaitTime="5000" CollectionDistance="1000" X="-209.7142" Y="4441.576" Z="44.04697" /> <!-- middle of map -->
-				<CustomBehavior File="InteractWith" QuestId="10286" MobId="20159" NumOfTimes="1" WaitForNpcs="False" GossipOptions="1, 1" WaitTime="5000" CollectionDistance="1000" X="-211.1478" Y="5519.167" Z="21.9205" /> <!-- CR -->
+				<CustomBehavior File="InteractWith" MobId="20159" NumOfTimes="1" WaitForNpcs="False" GossipOptions="1, 1" WaitTime="5000" CollectionDistance="1000" X="-620.6326" Y="4160.028" Z="63.34106" /> <!-- FW -->
+				<CustomBehavior File="InteractWith" MobId="20159" NumOfTimes="1" WaitForNpcs="False" GossipOptions="1, 1" WaitTime="5000" CollectionDistance="1000" X="-209.7142" Y="4441.576" Z="44.04697" /> <!-- middle of map -->
+				<CustomBehavior File="InteractWith" MobId="20159" NumOfTimes="1" WaitForNpcs="False" GossipOptions="1, 1" WaitTime="5000" CollectionDistance="1000" X="-211.1478" Y="5519.167" Z="21.9205" /> <!-- CR -->
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</While>
 			<If Condition="((HasQuest(10286)) &amp;&amp; (IsQuestCompleted(10286)))" >
 				<CustomBehavior File="InteractWith" MobId="20159" WaitForNpcs="False" GossipOptions="1, 1" /> <!-- CR -->
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 		<TurnIn QuestName="Arelion's Secret" QuestId="10286" TurnInName="Magister Aledis" TurnInId="20159" />
+			</If>
 		<PickUp QuestName="The Mistress Revealed" QuestId="10287" GiverName="Magister Aledis" GiverId="20159" />
 		<TurnIn QuestName="Missing Missive" QuestId="9373" TurnInName="Thiah Redmane" TurnInId="16991" />
 		<TurnIn QuestName="Helping the Cenarion Post" QuestId="10442" TurnInName="Thiah Redmane" TurnInId="16991" />
