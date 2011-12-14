@@ -35,6 +35,7 @@
 	</Mailboxes>
 	
 	<Blackspots>
+		<Blackspot X="1598.488" Y="-4370.302" Z="21.23272" Radius="10" />
 		<Blackspot X="4949.953" Y="-1588.249" Z="1326.682" Radius="10" />
 		<Blackspot X="5721.819" Y="-3341.086" Z="1597.324" Radius="10" />
 		<Blackspot X="5135.974" Y="-1438.657" Z="1347.063" Radius="10" />
@@ -403,34 +404,52 @@
 	
 	<QuestOrder IgnoreCheckpoints="True" >
 	
-		<If Condition="Me.IsHorde &amp;&amp; !IsQuestCompleted(25316)" >
-			<CustomBehavior File="Message" Text="For Horde, this starts in Moonglade or Hyjal\n\nIf you experience issues, I need to know about them. Please report them to my thread" LogColor="Orange" />
-		</If>
-			
 	<CustomBehavior File="UserSettings" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" LootMobs="True" PullDistance="25" />
 	
-			<If Condition="(!IsQuestCompleted(25316))" >
+			<If Condition="Me.IsHorde &amp;&amp; !IsQuestCompleted(25316)" >
+			<If Condition="((!HasQuest(27721)) &amp;&amp; (!IsQuestCompleted(27721))) &amp;&amp; (Me.ZoneId == 1637)" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="1587.082" Y="-4369.409" Z="20.83522" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Warchief's Command: Mount Hyjal!" QuestId="27721" GiverName="Warchief's Command Board" GiverId="206109" X="1598.488" Y="-4370.302" Z="21.23272" GiverType="Object" />
+			</If>
+			<If Condition="((HasQuest(28790)) &amp;&amp; (IsQuestCompleted(28790))) &amp;&amp; (Me.ZoneId == 1637)" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2043.181" Y="-4381.469" Z="99.21494" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="A Personal Summons" QuestId="28790" TurnInName="Farseer Krogar" TurnInId="45244" X="2041.576" Y="-4384.234" Z="99.11556" />
+			</If>
+			<If Condition="((HasQuest(27721)) &amp;&amp; (!IsQuestCompleted(27721))) &amp;&amp; (Me.ZoneId == 1637)" >
+				<CustomBehavior File="FlyTo" DestName="Moonglade Port" X="1930.618" Y="-4200.932" Z="36.81593" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="27721" MobId="15188" GossipOptions="1" NumOfTimes="1" WaitTime="10000" CollectionDistance="1000" X="1896.11" Y="-4200.94" Z="37.24142" />
+			</If>
+			<If Condition="((HasQuest(27721)) &amp;&amp; (IsQuestCompleted(27721))) &amp;&amp; (Me.ZoneId == 493)" >
+		<TurnIn QuestName="Warchief's Command: Mount Hyjal!" QuestId="27721" TurnInName="Emissary Windsong" TurnInId="39865" />
+		<Pickup QuestName="As Hyjal Burns" QuestId="25316" GiverName="Emissary Windsong" GiverId="39865" />
+			</If>
+			</If>
+				
 			<!-- Ally -->
+			<If Condition="Me.IsAlliance &amp;&amp; (!IsQuestCompleted(25316))" >
 			<CustomBehavior File="Message" Text="Compiling Stormwind Quests" LogColor="Cornflowerblue" />
 
 	  <If Condition="Me.IsAlliance" >
-			<If Condition="(HasQuest(28825))" >
+			<If Condition="((!HasQuest(27726)) &amp;&amp; (!IsQuestCompleted(27726))) &amp;&amp; (Me.ZoneId == 1519)" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="-8347.439" Y="637.705" Z="95.39054" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Hero's Call: Mount Hyjal!" QuestId="27726" GiverName="Hero's Call Board" GiverId="206294" Type="Object" X="-8345.287" Y="638.1205" Z="95.42052" />
+			</If>
+			<If Condition="(HasQuest(28825)) &amp;&amp; (Me.ZoneId == 1519)" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-8212.959" Y="429.426" Z="118.0515" />
 		<TurnIn QuestName="A Personal Summons" QuestId="28825" TurnInName="Naraat the Earthspeaker" TurnInId="45226" />
 				<CustomBehavior File="FlyTo" X="-8343.735" Y="639.7267" Z="95.84552" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
-			<If Condition="((!HasQuest(27726)) &amp;&amp; (!IsQuestCompleted(27726)))" >
-				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="-8347.439" Y="637.705" Z="95.39054" />
-				<CustomBehavior File="ForcedDismount" />
-		<PickUp QuestName="Hero's Call: Mount Hyjal!" QuestId="27726" GiverName="Hero's Call Board" GiverId="206294" Type="Object" X="-8345.287" Y="638.1205" Z="95.42052" />
-			</If>
-			<If Condition="((HasQuest(27726)) &amp;&amp; (!IsQuestCompleted(27726)))" >
+			<If Condition="((HasQuest(27726)) &amp;&amp; (!IsQuestCompleted(27726))) &amp;&amp; (Me.ZoneId == 1519)" >
 				<CustomBehavior File="FlyTo" X="-8324.164" Y="287.0465" Z="156.8327" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" QuestId="27726" MobId="15187" NumOfTimes="1" GossipOptions="1" X="-8324.164" Y="287.0465" Z="156.8327" />
 			</If>
-			<If Condition="((HasQuest(27726)) &amp;&amp; (IsQuestCompleted(27726)))" >
+			<If Condition="((HasQuest(27726)) &amp;&amp; (IsQuestCompleted(27726))) &amp;&amp; (Me.ZoneId == 493)" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="7801.285" Y="-2430.893" Z="487.5896" />
 		<TurnIn QuestName="Hero's Call: Mount Hyjal!" QuestId="27726" TurnInName="Emissary Windsong" TurnInId="39865" />
 		<Pickup QuestName="As Hyjal Burns" QuestId="25316" GiverName="Emissary Windsong" GiverId="39865" />
@@ -445,7 +464,7 @@
 		<Pickup QuestName="As Hyjal Burns" QuestId="25316" GiverName="Emissary Windsong" GiverId="39865" />
 			</If>
 			<If Condition="(HasQuest(25316))" >
-			 <If Condition="Me.ZoneId == 493" >
+			 <If Condition="(Me.ZoneId == 493)" >
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="MountVehOnly" VehicleMountId="39140" X="7791.06" Y="-2445.54" Z="489.5634" />
 				<CustomBehavior File="WaitTimer" WaitTime="120000" GoalText="Waiting for ride {TimeRemaining}" />
