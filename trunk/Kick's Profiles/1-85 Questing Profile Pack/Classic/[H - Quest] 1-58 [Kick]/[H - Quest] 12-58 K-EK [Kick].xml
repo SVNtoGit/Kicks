@@ -3508,13 +3508,16 @@
 			<!-- fix this condition, i'm sure there's a 'port to somewhere' quest somewhere -->
 			<If Condition="(!IsQuestCompleted(27683))" > <!-- Into The Woods -->
 				<If Condition="Me.MapId == 1">
-			<CustomBehavior File="Message" Text="Going to Org to Train Riding" LogColor="Orange" />
+			<If Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 150)" >
+				<CustomBehavior File="Message" Text="Going to Org to Train Riding" LogColor="Orange" />
 
 				<!-- Org -->
 				<CustomBehavior File="ForceTrainRiding" MobId="44919" />
 
+			</If>
+			
 				<!-- Org to Undercity -->
-			<CustomBehavior File="Message" Text="Going to EK - EPL" LogColor="Orange" />
+			<CustomBehavior File="Message" Text="Going to EK - EPL to Quest!" LogColor="Orange" />
 			
 				<RunTo X="1840.468" Y="-4392.099" Z="135.2326" />
 
