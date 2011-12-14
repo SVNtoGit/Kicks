@@ -1423,11 +1423,11 @@
 			<While Condition="((HasQuest(11602)) &amp;&amp; (!IsQuestCompleted(11602)))" >
 				<CustomBehavior File="FlyTo" QuestId="11602" DestName="destroy 10 Egg Sacs" X="2834.425" Y="6050.424" Z="77.3279" />
 				<CustomBehavior File="ForcedDismount" QuestId="11602" />
-				<CustomBehavior File="InteractWith" QuestId="11602" MobId="187655" ObjectType="Gameobject" Range="3" WaitTime="3000" WaitForNpcs="False" NumOfTimes="10" CollectionDistance="500" X="2820.448" Y="6028.976" Z="109.8526" />
+				<CustomBehavior File="InteractWith" QuestId="11602" MobId="187655" ObjectType="Gameobject" Range="5" WaitTime="3000" WaitForNpcs="False" NumOfTimes="10" CollectionDistance="500" X="2820.448" Y="6028.976" Z="109.8526" />
 
 				<CustomBehavior File="FlyTo" QuestId="11602" DestName="destroy 10 Egg Sacs" X="2639.704" Y="6061.706" Z="52.9241" />
 				<CustomBehavior File="ForcedDismount" QuestId="11602" />
-				<CustomBehavior File="InteractWith" QuestId="11602" MobId="187655" ObjectType="Gameobject" Range="3" WaitTime="3000" WaitForNpcs="False" NumOfTimes="10" CollectionDistance="500" X="2639.704" Y="6061.706" Z="52.9241" />
+				<CustomBehavior File="InteractWith" QuestId="11602" MobId="187655" ObjectType="Gameobject" Range="5" WaitTime="3000" WaitForNpcs="False" NumOfTimes="10" CollectionDistance="500" X="2639.704" Y="6061.706" Z="52.9241" />
 
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</While>
@@ -8904,19 +8904,21 @@
 		<PickUp QuestName="Force of Nature" QuestId="12803" GiverName="Pilot Vic" GiverId="28746" />
 			</If>
 			<If Condition="((HasQuest(12699)) &amp;&amp; (!IsQuestCompleted(12699)))" >
-				<CustomBehavior File="FlyTo" DestName="Objective" X="5484.894" Y="4766.305" Z="-198.1657"/>
-				<CustomBehavior File="ForcedDismount" />
-				<UseItem QuestName="An Embarassing Incident" QuestId="12699" ItemId="40390" X="5484.894" Y="4766.305" Z="-198.1657"/>
-				<CustomBehavior File="CollectThings" CollectUntil="QuestComplete" QuestId="12699" ObjectId="190779" CollectItemId="39264" CollectItemCount="1" HuntingGroundRadius="200">
+			 <If Condition="(HasItem(40390))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(40390)" WaitTime="1000" />
+			 </If>
+				<!--
+			<While Condition="((HasQuest(12699)) &amp;&amp; (!IsQuestCompleted(12699)))" >
+				<CustomBehavior File="InteractWith" QuestId="12699" MobId1="190779" MobId2="190778" ObjectType="Gameobject" Nav="CTM" Range="4" NumOfTimes="5" CollectionDistance="1000" X="5451.476" Y="4832.998" Z="-200.1215" />
+				<CustomBehavior File="AscendInWater" />
+			</While>
+				-->
+				<CustomBehavior File="CollectThings" CollectUntil="QuestComplete" QuestId="12699" ObjectId1="190779" ObjectId2="190778" CollectItemId="39264" CollectItemCount="1" HuntingGroundRadius="200">
 					<Hotspot X="5459.62" Y="4852.446" Z="-212.2582" />
 					<Hotspot X="5430.349" Y="4815.282" Z="-212.9287" />
 					<Hotspot X="5497.794" Y="4794.864" Z="-207.666" />
 				</CustomBehavior>
 				<CustomBehavior File="AscendInWater" />
-				<!--
-				<CustomBehavior File="Message" Text="You might get stuck in the log here" LogColor="Orange" />
-				<Objective QuestName="An Embarassing Incident" QuestId="12699" Type="CollectItem" ItemId="39264" CollectCount="1" />
-				-->
 			</If>
 			<If Condition="((HasQuest(12699)) &amp;&amp; (IsQuestCompleted(12699)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5499.23" Y="4751.666" Z="-194.4337" />
