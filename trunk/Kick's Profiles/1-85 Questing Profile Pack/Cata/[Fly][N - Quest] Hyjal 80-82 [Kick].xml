@@ -2640,23 +2640,25 @@
 		<PickUp QuestName="Death to the Broodmother" QuestId="25553" GiverName="Aronus" GiverId="40816" />
 			</If>
 			<While Condition="((HasQuest(25553)) &amp;&amp; (!IsQuestCompleted(25553)))" >
-				<CustomBehavior File="FlyTo" DestName="Desperiona" X="3771.484" Y="-3235.282" Z="974.9063" />
+				<CustomBehavior File="FlyTo" DestName="Desperiona" Distance="2" X="3769.118" Y="-3236.159" Z="977.3709" />
 				<CustomBehavior File="ForcedDismount" />
 				<UseItem QuestId="25553" ItemId="55173" X="3774.15" Y="-3228.275" Z="971.3578" />
 				<CustomBehavior File="WaitTimer" WaitTime="20000" />
-				<CustomBehavior File="InteractWith" QuestId="25553" MobId="40974" X="3774.15" Y="-3228.275" Z="971.3578" />
+				<CustomBehavior File="InteractWith" QuestId="25553" MobId="40974" Range="10" MobState="Alive" X="3774.15" Y="-3228.275" Z="971.3578" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" />
 				<!--
 				<Objective QuestName="Death to the Broodmother" QuestId="25553" Type="KillMob" KillCount="1" MobId="40974" />
 				-->
 			</While>
 			<While Condition="((HasQuest(25550)) &amp;&amp; (!IsQuestCompleted(25550)))" >
-				<CustomBehavior File="FlyTo" DestName="King Moltron" X="3870.174" Y="-2782.979" Z="998.9706" />
+				<CustomBehavior File="FlyTo" DestName="King Moltron" Distance="2" X="3870.265" Y="-2782.629" Z="999.007" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="CombatUseItemOn" QuestId="25550" MobId="40998" ItemId="55179" MaxRange="40" MobHpPercentLeft="100" X="3870.174" Y="-2782.979" Z="998.9706" />
+				<CustomBehavior File="CombatUseItemOn" MobId="40998" ItemId="55179" MaxRange="40" MobHpPercentLeft="100" X="3870.174" Y="-2782.979" Z="998.9706" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" />
-				<CustomBehavior File="InteractWith" QuestId="25550" MobId="40998" X="3870.174" Y="-2782.979" Z="998.9706" />
+				<CustomBehavior File="InteractWith" QuestId="25550" MobId="40998" Range="10" MobState="Alive" X="3870.174" Y="-2782.979" Z="998.9706" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" />
+				
+				<CustomBehavior File="Message"  QuestId="25550" Text="If you chain die here, turn off agro generating spells and help turtle kill the King" LogColor="Orange" />
 				<!--
 				<Objective QuestName="Magma Monarch" QuestId="25550" Type="KillMob" MobId="40998" KillCount="1" />
 				-->
@@ -2674,16 +2676,21 @@
 		<PickUp QuestName="The Firelord" QuestId="25551" GiverName="Cenarius" GiverId="40773" />
 			</If>
 			<If Condition="((HasQuest(25551)) &amp;&amp; (!IsQuestCompleted(25551)))" >
+			 <If Condition="!Me.IsIndoors" >
 				<CustomBehavior File="FlyTo" DestName="kill Ragnaros in The Inner Spire" X="4306.478" Y="-3283.045" Z="1035.75" />
 				<CustomBehavior File="ForcedDismount" />
 				<RunTo X="4314.424" Y="-3281.886" Z="1035.53" />
 				<CustomBehavior File="MyCTM" X="4317.922" Y="-3287.787" Z="1036.09" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" />
+			 </If>
+				
+		 	 <If Condition="Me.IsIndoors" >
 				<RunTo X="3950.404" Y="-2827.787" Z="618.747" />
+			 </If>
 				
 				<CustomBehavior File="UserDialog" QuestId="25551" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="5" Text="Kill Ragnaros (make sure that you help out the guys on the side too!)" />
  			</If>
-			<!--
+				<!--
 				<CustomBehavior File="InteractWith" QuestId="25551" MobId="41631" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="20" X="3954.34" Y="-2826.02" Z="618.7477" />
 				<CustomBehavior File="WaitTimer" WaitTime="65000" />
 				<RunTo QuestId="25551" X="4011.9" Y="-3006.451" Z="575.3886" />
@@ -2693,14 +2700,26 @@
 				<Objective QuestName="The Firelord" QuestId="25551" Type="KillMob" MobId="41634" KillCount="1" />
 				<RunTo X="3946.585" Y="-2816.139" Z="618.7474" />
 				<RunTo X="3944.475" Y="-2810.046" Z="618.7474" />
-			-->
+				-->
 			<If Condition="((HasQuest(25551)) &amp;&amp; (IsQuestCompleted(25551)))" >
+		 	 <If Condition="Me.IsIndoors" >
+				<CustomBehavior File="InteractWith" MobId="203135" ObjectType="Gameobject" Range="8" X="4014.098" Y="-3010.202" Z="575.3902" />
+			
+			 <!--
 				<RunTo X="3946.574" Y="-2813.927" Z="618.747" />
 				<RunTo X="3945.829" Y="-2809.357" Z="618.7473" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" />
+			 -->
+			 </If>
+				
+			 <!--
+		 	 <If Condition="!Me.IsIndoors" >
 				<RunTo X="4300.611" Y="-3284.778" Z="1035.555" />
 				<CustomBehavior File="FlyTo" X="4082.757" Y="-3991.563" Z="971.6017" />
 				<CustomBehavior File="ForcedDismount" />
+			 </If> 
+				-->
+			 
 		<TurnIn QuestName="The Firelord" QuestId="25551" TurnInName="Commander Jarod Shadowsong" TurnInId="40772" />
 			</If>
 			
@@ -2708,19 +2727,24 @@
 			<If Condition="(Me.IsAlliance)" >
 		<PickUp QuestName="The Battle Is Won, The War Goes On" QuestId="27398" GiverName="Commander Jarod Shadowsong" GiverId="40772" />
 			<If Condition="(HasQuest(27398))" >
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(6948)" WaitTime="15000" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(6948)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for hearth {TimeRemaining}" />
 			</If>
-			<If Condition="((!HasQuest(27727)) &amp;&amp; (!IsQuestCompleted(27727)))" >
+			<If Condition="((!HasQuest(27727)) &amp;&amp; (!IsQuestCompleted(27727))) &amp;&amp; (Me.ZoneId == 1519)" >
 				<CustomBehavior File="FlyTo" X="-8344.381" Y="639.3972" Z="95.80094" />
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Hero's Call: Deepholm!" QuestId="27727" GiverName="Hero's Call Board" GiverId="206294" GiverType="Object" X="-8344.381" Y="639.3972" Z="95.80094" />
 			</If>
-			<If Condition="(HasQuest(27398))" >
+			<If Condition="(HasQuest(27398)) &amp;&amp; (Me.ZoneId == 1519)" >
 				<CustomBehavior File="FlyTo" X="-8214.752" Y="428.5352" Z="118.0506" />
 				<CustomBehavior File="ForcedDismount" />
-			</If>
 		<TurnIn QuestName="The Battle Is Won, The War Goes On" QuestId="27398" TurnInName="Naraat the Earthspeaker" TurnInId="45226" />
+			</If>
+			<If Condition="(HasQuest(27727)) &amp;&amp; (Me.ZoneId == 1519)" >
+				<CustomBehavior File="FlyTo" X="-8214.752" Y="428.5352" Z="118.0506" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Hero's Call: Deepholm!" QuestId="27727" TurnInName="Naraat the Earthspeaker" TurnInId="45226" />
+			</If>
 		<!-- The bot spam picks up this quest
 		<PickUp QuestName="The Maelstrom" QuestId="27203" GiverName="Naraat the Earthspeaker" GiverId="45226" />
 			<If Condition="(HasQuest(27203))" >
@@ -2738,15 +2762,12 @@
 			<!-- Horde -->
 			<If Condition="(Me.IsHorde)" >
 		<PickUp QuestName="The Battle Is Won, The War Goes On" QuestId="27399" GiverName="Commander Jarod Shadowsong" GiverId="40772" />
-			<If Condition="(HasQuest(27398))" >
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(6948)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for hearth {TimeRemaining}" />
-			</If>
-			<If Condition="(Me.ZoneId == 1637)" >
+			 <If Condition="(HasQuest(27399))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2043.181" Y="-4381.469" Z="99.21494" />
 				<CustomBehavior File="ForcedDismount" />
+				
 		<TurnIn QuestName="The Battle Is Won, The War Goes On" QuestId="27399" TurnInName="Farseer Krogar" TurnInId="45244" />
-			</If>
+			 </If>
 			</If>
 			
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" Text="End of Line!\n\nYes, I fight for the users!" />
