@@ -795,12 +795,13 @@
 			</If>
 		<TurnIn QuestName="A Slight Problem" TurnInName="Pyrium Lodestone" QuestId="26835" TurnInId="43897" />
 		<PickUp QuestName="Rescue the Stonefather... and Flint" GiverName="Pyrium Lodestone" QuestId="26836" GiverId="43897" />
-			<If Condition="((HasQuest(26836)) &amp;&amp; (!IsQuestCompleted(26836)))" >
+			<While Condition="((HasQuest(26836)) &amp;&amp; (!IsQuestCompleted(26836)))" >
 				<CustomBehavior File="FlyTo" X="1737.483" Y="1803.352" Z="357.1938" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="RunMacro" Macro="/tar bouldergut\n/starattack" NumOfTimes="1" WaitTime="2000" />
-				<Objective QuestName="Rescue the Stonefather... and Flint" QuestId="26836" Type="KillMob" MobId="44151" KillCount="1" />
-			</If>
+				
+				<CustomBehavior File="InteractWith" QuestId="26836" MobId="44151" X="1737.483" Y="1803.352" Z="357.1938" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+			</While>
 			<If Condition="((HasQuest(26836)) &amp;&amp; (IsQuestCompleted(26836)))" >
 				<CustomBehavior File="FlyTo" X="1026.221" Y="1894.968" Z="308.4362" />
 			</If>
@@ -842,24 +843,43 @@
 				<Objective QuestName="Core of Our Troubles" QuestId="26313" Type="Collect" CollectCount="6" ItemId="58168" />
 			</If>
 			<If Condition="((HasQuest(26314)) &amp;&amp; (!IsQuestCompleted(26314)))" >
-				<RunTo X="1240.292" Y="698.2245" Z="-60.43423" /> <!-- runto here, safe for the bot for UserDialog -->
-				<CustomBehavior File="UserDialog" QuestId="26314" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Go up to a Servant of Therzane and use the hook, then move away to trip him.  Kill 3\n\nComplete the Crumling Defenses quest - find the 3 npc's and help them kill their adds. They hav V's on top of their heads\n\nPress continue after both are finished" />
-				<CustomBehavior File="UseItemOn" QuestId="26314" MobId="42479" ItemId="58169" NumOfTimes="10" WaitTime="1000" CollectionDistance="500" X="1344.827" Y="723.7527" Z="-71.00774" />
+				<CustomBehavior File="UserSettings" PullDistance="1" />
+			 <While Condition="((HasQuest(26314)) &amp;&amp; (!IsQuestCompleted(26314)))" >
+				<CustomBehavior File="UseItemOn" QuestId="26314" MobId="42479" ItemId="58169" MobState="Alive" Range="15" CollectionDistance="500" X="1344.827" Y="723.7527" Z="-71.00774" />
+				<CustomBehavior File="NoCombatMoveTo" X="1393.409" Y="696.0425" Z="-62.57566" />
+			 </While>
+				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
 			<If Condition="((HasQuest(26312)) &amp;&amp; (!IsQuestCompleted(26312)))" >
-				<CustomBehavior File="UserSettings" PullDistance="25" />
-				<CustomBehavior File="UserDialog" QuestId="26314" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Find the 3 npc's and help them kill their adds. They hav V's on top of their heads\n\nPress continue after it's finished" />
-						<SetGrindArea>
-							<GrindArea>
-								<Factions>2288</Factions>
-								<Hotspots>
-									<Hotspot X="1309.637" Y="792.7252" Z="-67.22395" />
-									<Hotspot X="1392.035" Y="782.8607" Z="-60.11868" />
-									<Hotspot X="1338.195" Y="626.4639" Z="-65.10812" />
-								</Hotspots>
-							</GrindArea>
-						</SetGrindArea>
-					<GrindTo Condition="(IsQuestCompleted(26312))" GoalText="Quest 26312 Completion" />
+
+				<!-- 
+				
+			 <While Condition="((HasQuest(26312)) &amp;&amp; (!IsObjectiveComplete(3, 26312)))">
+				<RunTo X="1337.99" Y="625.8237" Z="-65.07861" />
+				<CustomBehavior File="InteractWith" QuestId="26312" MobId1="42781" MobId2="42780" NumOfTimes="8" CollectionDistance="10" WaitForNpcs="False" X="1337.99" Y="625.8237" Z="-65.07861" />
+			 </While>
+			 
+			 <While Condition="((HasQuest(26312)) &amp;&amp; (!IsObjectiveComplete(1, 26312)))">
+				<RunTo X="1393.872" Y="779.583" Z="-60.33494" />
+				<CustomBehavior File="InteractWith" QuestId="26312" MobId1="42781" MobId2="42780" NumOfTimes="8" CollectionDistance="10" WaitForNpcs="False" X="1393.872" Y="779.583" Z="-60.33494" />
+			 </While>
+			 
+			 <While Condition="((HasQuest(26312)) &amp;&amp; (!IsObjectiveComplete(2, 26312)))">
+				<RunTo X="1312.163" Y="789.0614" Z="-67.78454" />
+				<CustomBehavior File="InteractWith" QuestId="26312" MobId1="42781" MobId2="42780" NumOfTimes="8" CollectionDistance="10" WaitForNpcs="False" X="1312.163" Y="789.0614" Z="-67.78454" />
+			 </While>
+			 
+					hargoth X="1337.99" Y="625.8237" Z="-65.07861" /> obj 3
+
+					tawn X="1393.872" Y="779.583" Z="-60.33494" /> obj 1
+					42781 servant of therazane x1
+
+					myrla X="1312.163" Y="789.0614" Z="-67.78454" /> obj 2
+					42780 rumbler 2-3
+	
+				-->
+
+
 			</If>
 		<TurnIn QuestName="Crumbling Defenses" TurnInName="Earthcaller Torunscar" QuestId="26312" TurnInId="42730" />
 		<TurnIn QuestName="On Even Ground" TurnInName="Earthcaller Torunscar" QuestId="26314" TurnInId="42730" />
