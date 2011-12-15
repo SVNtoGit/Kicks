@@ -1529,35 +1529,11 @@
 				<CustomBehavior File="InteractWith" MobId="202928" Range="10" ObjectType="GameObject" />
 				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for event {TimeRemaining}" />
 				
-				<!-- interactwith 46925
-					<SetGrindArea><GrindArea>
-						<TargetMinLevel>80</TargetMinLevel>
-						<TargetMaxLevel>86</TargetMaxLevel>
-						<Factions>54 2146 2254</Factions>
-						<LootRadius>15</LootRadius>
-						<Hotspots>
-							<Hotspot X="4615.083" Y="-2706.957" Z="1144.991" />
-							<Hotspot X="4603.262" Y="-2712.175" Z="1145.31" />
-							<Hotspot X="4604.648" Y="-2698.224" Z="1142.323" />
-						</Hotspots>
-					</GrindArea></SetGrindArea>
-
-				<GrindTo Condition="((HasQuest(25502)) &amp;&amp; (IsQuestCompleted(25502)))" GoalText="Defending the Flameward" />
-				-->
-				
 				<CustomBehavior File="InteractWith" MobId="46925" Range="15" MobState="Alive" NumOfTimes="5" WaitForNpcs="False" />
 
 				<CustomBehavior File="UserSettings" PullDistance="20" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for lewts {TimeRemaining}" />
 			</While>
-		<!--
-			<If Condition="((HasQuest(25507)) &amp;&amp; (!IsQuestCompleted(25507)))" >
-				<CustomBehavior File="UserDialog" QuestId="25507" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Use the item near the angry turtle, then pull him.\nLoot the shell and run away" />
-			</If>
-			<If Condition="((HasQuest(25502)) &amp;&amp; (!IsQuestCompleted(25502)))" >
-				<CustomBehavior File="UserDialog" QuestId="25502" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Defend the Flameward\n\nGet the shell from the turtle\n\nGo to turnin and press continue" />
-			</If>
-		-->
 			<If Condition="((HasQuest(25502)) &amp;&amp; (IsQuestCompleted(25502)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4421.44" Y="-2081.387" Z="1211.043" />
 				<CustomBehavior File="ForcedDismount" />
@@ -1788,18 +1764,57 @@
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4190.144" Y="-2321.511" Z="1147.368" />
 		<PickUp QuestName="Egg Hunt" QuestId="25764" GiverName="Thisalee Crow" GiverId="41006" />
 			</If>
-			<If Condition="((HasQuest(25764)) &amp;&amp; (!IsQuestCompleted(25764)))" >
-				<CustomBehavior File="FlyTo" DestName="break eggs" X="3907.608" Y="-2252.185" Z="1181.825" />
-				<!-- this doesn't work properly
-				<CustomBehavior File="FlyTo" DestName="break eggs" X="3896.017" Y="-2281.62" Z="1159.325" />
-				<CustomBehavior File="ForcedDismount" />
-			 <While Condition="((HasQuest(25764)) &amp;&amp; (!IsQuestCompleted(25764)))" >
-				<CustomBehavior File="InteractWith" QuestId="25764" ObjectType="Gameobject" Range="10" MobId="203208" NumOfTimes="20" WaitTime="5000" />
-			 </While>
-				-->
-				<CustomBehavior File="UserDialog" QuestId="25764" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Use the purple things and defend the egg when it pops up - do this until the quest is completed" />
-				<CustomBehavior File="UserDialog" QuestId="25764" Title="title" StopOnContinue="True" SoundCue="Asterisk" SoundCueInterval="2" Text="HEY! STOP PRESSING CONTINUE W/O DOING QUESTS!" />
-			</If>
+			<While Condition="((HasQuest(25764)) &amp;&amp; (!IsQuestCompleted(25764)))" >
+			 <If Condition="((HasQuest(25764)) &amp;&amp; (!IsQuestCompleted(25764)))" >
+				<CustomBehavior File="FlyTo" QuestId="25764" DestName="break eggs" X="3886.757" Y="-2274.62" Z="1160.475" />
+				<CustomBehavior File="ForcedDismount" QuestId="25764" />
+				<CustomBehavior File="InteractWith" QuestId="25764" MobId1="41029" MobId2="41030" NumOfTimes="4" WaitForNpcs="False" MobState="Alive" CollectionDistance="15" X="3886.757" Y="-2274.62" Z="1160.475" />
+				<CustomBehavior File="InteractWith" QuestId="25764" ObjectType="Gameobject" Range="10" MobId="203208" WaitTime="1000" X="3886.757" Y="-2274.62" Z="1160.475" />
+				<CustomBehavior File="WaitTimer" QuestId="25764" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="25764" MobId1="41029" MobId2="41030" MobId3="41226" NumOfTimes="4" WaitForNpcs="False" MobState="Alive" CollectionDistance="15" X="3886.757" Y="-2274.62" Z="1160.475" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </If>
+				
+			 <If Condition="((HasQuest(25764)) &amp;&amp; (!IsQuestCompleted(25764)))" >
+				<CustomBehavior File="FlyTo" QuestId="25764" DestName="break eggs" X="3905.496" Y="-2217.797" Z="1122.622" />
+				<CustomBehavior File="ForcedDismount" QuestId="25764" />
+				<CustomBehavior File="InteractWith" QuestId="25764" MobId1="41029" MobId2="41030" NumOfTimes="4" WaitForNpcs="False" MobState="Alive" CollectionDistance="15" X="3905.496" Y="-2217.797" Z="1122.622" />
+				<CustomBehavior File="InteractWith" QuestId="25764" ObjectType="Gameobject" Range="10" MobId="203208" WaitTime="1000" X="3905.496" Y="-2217.797" Z="1122.622" />
+				<CustomBehavior File="WaitTimer" QuestId="25764" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="25764" MobId1="41029" MobId2="41030" MobId3="41226" NumOfTimes="4" WaitForNpcs="False" MobState="Alive" CollectionDistance="15" X="3905.496" Y="-2217.797" Z="1122.622" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </If>
+				
+			 <If Condition="((HasQuest(25764)) &amp;&amp; (!IsQuestCompleted(25764)))" >
+				<CustomBehavior File="FlyTo" QuestId="25764" DestName="break eggs" X="3967.543" Y="-2235.635" Z="1131.807" />
+				<CustomBehavior File="ForcedDismount" QuestId="25764" />
+				<CustomBehavior File="InteractWith" QuestId="25764" MobId1="41029" MobId2="41030" NumOfTimes="4" WaitForNpcs="False" MobState="Alive" CollectionDistance="15" X="3967.543" Y="-2235.635" Z="1131.807" />
+				<CustomBehavior File="InteractWith" QuestId="25764" ObjectType="Gameobject" Range="10" MobId="203208" WaitTime="1000" X="3967.543" Y="-2235.635" Z="1131.807" />
+				<CustomBehavior File="WaitTimer" QuestId="25764" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="25764" MobId1="41029" MobId2="41030" MobId3="41226" NumOfTimes="4" WaitForNpcs="False" MobState="Alive" CollectionDistance="15" X="3967.543" Y="-2235.635" Z="1131.807" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </If>
+				
+			 <If Condition="((HasQuest(25764)) &amp;&amp; (!IsQuestCompleted(25764)))" >
+				<CustomBehavior File="FlyTo" QuestId="25764" DestName="break eggs" X="4013.719" Y="-2204.809" Z="1133" />
+				<CustomBehavior File="ForcedDismount" QuestId="25764" />
+				<CustomBehavior File="InteractWith" QuestId="25764" MobId1="41029" MobId2="41030" NumOfTimes="4" WaitForNpcs="False" MobState="Alive" CollectionDistance="15" X="4013.719" Y="-2204.809" Z="1133" />
+				<CustomBehavior File="InteractWith" QuestId="25764" ObjectType="Gameobject" Range="10" MobId="203208" WaitTime="1000" X="4013.719" Y="-2204.809" Z="1133" />
+				<CustomBehavior File="WaitTimer" QuestId="25764" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="25764" MobId1="41029" MobId2="41030" MobId3="41226" NumOfTimes="4" WaitForNpcs="False" MobState="Alive" CollectionDistance="15" X="4013.719" Y="-2204.809" Z="1133" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </If>
+				
+			 <If Condition="((HasQuest(25764)) &amp;&amp; (!IsQuestCompleted(25764)))" >
+				<CustomBehavior File="FlyTo" QuestId="25764" DestName="break eggs" X="4018.46" Y="-2294.992" Z="1137.118" />
+				<CustomBehavior File="ForcedDismount" QuestId="25764" />
+				<CustomBehavior File="InteractWith" QuestId="25764" MobId1="41029" MobId2="41030" NumOfTimes="4" WaitForNpcs="False" MobState="Alive" CollectionDistance="15" X="4018.46" Y="-2294.992" Z="1137.118" />
+				<CustomBehavior File="InteractWith" QuestId="25764" ObjectType="Gameobject" Range="10" MobId="203208" WaitTime="1000" X="4018.46" Y="-2294.992" Z="1137.118" />
+				<CustomBehavior File="WaitTimer" QuestId="25764" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="25764" MobId1="41029" MobId2="41030" MobId3="41226" NumOfTimes="4" WaitForNpcs="False" MobState="Alive" CollectionDistance="15" X="4018.46" Y="-2294.992" Z="1137.118" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </If>
+			</While>
 			<If Condition="((HasQuest(25758)) &amp;&amp; (!IsQuestCompleted(25758)))" >
 				<CustomBehavior File="FlyTo" DestName="collect 8 Armor Plates" X="3976.243" Y="-2221.546" Z="1131.98" />
 				<CustomBehavior File="ForcedDismount" />
