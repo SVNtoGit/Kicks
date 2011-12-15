@@ -629,26 +629,36 @@
 				<CustomBehavior File="MyCTM" X="-233.3487" Y="654.575" Z="141.7787" />
 				<Objective QuestName="Bring Down the Avalanche" QuestId="27935" Type="KillMob" MobId="44372" KillCount="1" />
 				<CustomBehavior File="MyCTM" X="-189.8965" Y="660.8942" Z="115.1548" />
+				<CustomBehavior File="NoCombatMoveTo" X="459.53" Y="1628.21" Z="352.1236" />
 			</If>
 			<If Condition="((HasQuest(27935)) &amp;&amp; (IsQuestCompleted(27935)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
+		 	 <If Condition="Me.IsIndoors" >
+				<CustomBehavior File="NoCombatMoveTo" X="29.56291" Y="850.8975" Z="146.0896" />
 				<RunTo X="29.56291" Y="850.8975" Z="146.0896" />
+			 </If>
 				<CustomBehavior File="FlyTo" X="458.9504" Y="1634.358" Z="351.065" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="UserSettings" PullDistance="20" />
-			</If>
 		<TurnIn QuestName="Bring Down the Avalanche" QuestId="27935" TurnInName="Crag Rockcrusher" TurnInId="43071" X="459.53" Y="1628.21" Z="352.1236" />
 		<PickUp QuestName="Stonefather's Boon" GiverName="Crag Rockcrusher" QuestId="26499" GiverId="43071" X="459.53" Y="1628.21" Z="352.1236" />
+			</If>
 		<PickUp QuestName="We're Surrounded" GiverName="Earthbreaker Dolomite" QuestId="26500" GiverId="43160" X="428.764" Y="1613.22" Z="360.7727" />
 			<If Condition="((HasQuest(26499)) &amp;&amp; (!IsQuestCompleted(26499)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<CustomBehavior File="UseItemOn" QuestId="26499" MobId="43138" ItemId="58884" NumOfTimes="50" WaitTime="6000" CollectionDistance="500" X="385.9591" Y="1461.629" Z="350.2574" />
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
+			<!--
 			<Objective QuestName="We're Surrounded" QuestId="26500" Type="KillMob" KillCount="12" MobId="43134" />
+			-->
+			<CustomBehavior File="KillUntilComplete" QuestId="26500" MobId1="43134" X="382.6332" Y="1462.683" Z="350.5556" />
 			<If Condition="((HasQuest(26500)) &amp;&amp; (IsQuestCompleted(26500)))" >
+				<!--
 				<CustomBehavior File="FlyTo" X="458.9504" Y="1634.358" Z="351.065" />
 				<CustomBehavior File="ForcedDismount" />
+				-->
+				<CustomBehavior File="NoCombatMoveTo" X="459.53" Y="1628.21" Z="352.1236" />
 			</If>
 		<TurnIn QuestName="Stonefather's Boon" TurnInName="Crag Rockcrusher" QuestId="26499" TurnInId="43071" X="459.53" Y="1628.21" Z="352.1236" />
 		<PickUp QuestName="Sealing the Way" GiverName="Crag Rockcrusher" QuestId="26501" GiverId="43071" X="459.53" Y="1628.21" Z="352.1236" />
@@ -656,7 +666,27 @@
 		<PickUp QuestName="Thunder Stones" GiverName="Earthbreaker Dolomite" QuestId="26502" GiverId="43160" />
 			<Objective QuestName="Thunder Stones" QuestId="26502" Type="Collect" CollectCount="12" ItemId="58886" />
 			<If Condition="((HasQuest(26501)) &amp;&amp; (!IsQuestCompleted(26501)))" >
-				<CustomBehavior File="UserDialog" QuestId="26501" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="help the 4 dorfs standing on green rune's kill their adds, then give them the rock\n\nPress continue when objectives are complete" />
+			
+			 <While Condition="((HasQuest(26501)) &amp;&amp; (!IsObjectiveComplete(4, 26501)))">
+				<CustomBehavior File="InteractWith" QuestId="26501" MobId="43174" NumOfTimes="6" WaitForNpcs="False" MobState="Alive" CollectionDistance="15" X="488.2986" Y="1660.498" Z="347.5443" />
+				<CustomBehavior File="UseItemOn" QuestId="26501" MobId="43170" ItemId="58885" X="488.2986" Y="1660.498" Z="347.5443" />
+			 </While>
+			 
+			 <While Condition="((HasQuest(26501)) &amp;&amp; (!IsObjectiveComplete(3, 26501)))">
+				<CustomBehavior File="InteractWith" QuestId="26501" MobId="43174" NumOfTimes="6" WaitForNpcs="False" MobState="Alive" CollectionDistance="15" X="458.9515" Y="1726.074" Z="348.3336" />
+				<CustomBehavior File="UseItemOn" QuestId="26501" MobId="43170" ItemId="58885" X="458.9515" Y="1726.074" Z="348.3336" />
+			 </While>
+			 
+			 <While Condition="((HasQuest(26501)) &amp;&amp; (!IsObjectiveComplete(2, 26501)))">
+				<CustomBehavior File="InteractWith" QuestId="26501" MobId="43174" NumOfTimes="6" WaitForNpcs="False" MobState="Alive" CollectionDistance="15" X="423.6165" Y="1719.535" Z="349.2096" />
+				<CustomBehavior File="UseItemOn" QuestId="26501" MobId="43170" ItemId="58885" X="423.6165" Y="1719.535" Z="349.2096" />
+			 </While>
+			 
+			 <While Condition="((HasQuest(26501)) &amp;&amp; (!IsObjectiveComplete(1, 26501)))">
+				<CustomBehavior File="InteractWith" QuestId="26501" MobId="43174" NumOfTimes="6" WaitForNpcs="False" MobState="Alive" CollectionDistance="15" X="414.183" Y="1661.041" Z="348.3755" />
+				<CustomBehavior File="UseItemOn" QuestId="26501" MobId="43170" ItemId="58885" X="414.183" Y="1661.041" Z="348.3755" />
+			 </While>
+
 			</If>
 			<If Condition="((HasQuest(26501)) &amp;&amp; (IsQuestCompleted(26501)))" >
 				<CustomBehavior File="FlyTo" X="687.361" Y="1795.531" Z="333.4402" />
