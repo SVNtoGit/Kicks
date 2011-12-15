@@ -140,6 +140,10 @@
             </Hotspots>
         </Objective>
     </Quest>  
+
+
+
+
 	
 	<QuestOrder IgnoreCheckpoints="True" >
 	
@@ -150,21 +154,53 @@
 				<CustomBehavior File="ForcedDismount" />
 			</If>
 		<TurnIn QuestName="Hero's Call: Deepholm!" QuestId="27727" TurnInName="Naraat the Earthspeaker" TurnInId="45226" />
-		-->
-		<!-- Bot spams picking up this quest -->
-		<!-- 
+		
+		 Bot spams picking up this quest 
+		 
 		<PickUp QuestName="The Maelstrom" QuestId="27203" GiverName="Naraat the Earthspeaker" GiverId="45226" />
-			<If Condition="(HasQuest(27203))" >
+			<If Condition="((HasQuest(27203)) &amp;&amp; (Me.ZoneId == 1519))" >
 				<CustomBehavior File="InteractWith" ObjectType="Gameobject" MobId="205268" NumOfTimes="1" CollectionDistance="50" X="-8210.629" Y="428.1908" Z="118.0512" />
 			</If>
-		<TurnIn QuestName="The Maelstrom" QuestId="27203" TurnInName="Thrall" TurnInId="45042" />
-		<PickUp QuestName="Deepholm, Realm of Earth" QuestId="27123" GiverName="Thrall" GiverId="45042" />
+		<TurnIn QuestName="The Maelstrom" QuestId="27203" TurnInName="Thrall" TurnInId="45042" X="852.306" Y="1038.92" Z="-5.39752" />
+		<PickUp QuestName="Deepholm, Realm of Earth" QuestId="27123" GiverName="Thrall" GiverId="45042" X="852.306" Y="1038.92" Z="-5.39752" />
 			<If Condition="(HasQuest(27123))" >
 				<CustomBehavior File="MountVehOnly" NpcMountId="45005" X="833.59" Y="1052.81" Z="-7.749647" />
 			</If>
+		<TurnIn QuestName="Deepholm, Realm of Earth" QuestId="27123" TurnInName="Maruut Stonebinder" TurnInId="43065" />
 		-->
 		
-		<If Condition="Me.IsAlliance" >
+		
+		<!-- Horde Org to Deepholm Quests -->
+			<If Condition="Me.IsHorde" >	
+			 <If Condition="((HasQuest(27722)) &amp;&amp; (IsQuestCompleted(27722))) &amp;&amp; ((!HasQuest(27203)) &amp;&amp; (!IsQuestCompleted(27203)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="1587.082" Y="-4369.409" Z="20.83522" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Warchief's Command: Deepholm!" QuestId="27722" GiverName="Warchief's Command Board" GiverId="206109" X="1598.488" Y="-4370.302" Z="21.23272" GiverType="Object" />
+			</If>
+			 <If Condition="((HasQuest(27722)) &amp;&amp; (IsQuestCompleted(27722)))" >
+		<TurnIn QuestName="Warchief's Command: Deepholm!" QuestId="27722" TurnInName="Farseer Krogar" TurnInId="45244" X="2041.576" Y="-4384.234" Z="99.11546" />
+			</If>
+			 <If Condition="((!HasQuest(27203)) &amp;&amp; (!IsQuestCompleted(27203)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2044.42" Y="-4381.222" Z="99.21552" />
+		<PickUp QuestName="The Maelstrom" QuestId="27203" GiverName="Farseer Krogar" GiverId="45244" X="2041.576" Y="-4384.234" Z="99.11546" />
+			 </If>
+			 <If Condition="((HasQuest(27203)) &amp;&amp; (Me.ZoneId == 1637))" >
+				<CustomBehavior File="FlyTo" DestName="interactwith portal" X="2046.308" Y="-4378.438" Z="99.16264" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="InteractWith" MobId="205268" ObjectType="Gameobject" Range="8" X="2046.308" Y="-4378.438" Z="99.16264" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for portal {TimeRemaining}" />
+			 </If>
+		<TurnIn QuestName="The Maelstrom" QuestId="27203" TurnInName="Thrall" TurnInId="45042" X="852.306" Y="1038.92" Z="-5.39752" />
+		<PickUp QuestName="Deepholm, Realm of Earth" QuestId="27123" GiverName="Thrall" GiverId="45042" X="852.306" Y="1038.92" Z="-5.39752" />
+			<If Condition="(HasQuest(27123))" >
+				<CustomBehavior File="MountVehOnly" VehicleMountId="45005" X="833.59" Y="1052.81" Z="-7.749647" />
+				<CustomBehavior File="WaitTimer" WaitTime="120000" GoalText="Waiting for ride {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Deepholm, Realm of Earth" QuestId="27123" TurnInName="Maruut Stonebinder" TurnInId="43065" />
+			</If>
+		
+		<If Condition="Me.IsAlliance" > <!-- Set Vendor and Mailbox -->
 		 <SetVendor>
 		  <Vendors>
 			<Vendor Name="Rocky Cliffedge" Entry="44972" Type="Repair" X="666.938" Y="1779.79" Z="341" /> <!-- Fractured Front - West -->
@@ -172,8 +208,14 @@
 			<Vendor Name="Dugsley Deepdelver" Entry="45294" Type="Repair" X="1052.99" Y="636.936" Z="-45.87071" /> <!-- Alliance -->
 		  </Vendors>
 		 </SetVendor>
+		 <SetMailbox>
+			<Mailboxes>
+				<Mailbox X="1050.438" Y="635.0461" Z="-45.78476" /> <!-- Alliance -->
+			</Mailboxes>
+		 </SetMailbox>
 		</If>
-		<If Condition="Me.IsHorde" >
+
+		<If Condition="Me.IsHorde" > <!-- Set Vendor and Mailbox -->
 		 <SetVendor>
 		  <Vendors>
 			<Vendor Name="Rocky Cliffedge" Entry="44972" Type="Repair" X="666.938" Y="1779.79" Z="341" /> <!-- Fractured Front - West -->
@@ -181,14 +223,15 @@
 			<Vendor Name="Rixi &quot;The Digger&quot; Bombdigger" Entry="45293" Type="Repair" X="1091.19" Y="436.332" Z="-45.96808" /> <!-- Horde Repair -->
 		  </Vendors>
 		 </SetVendor>
+		 <SetMailbox>
+			<Mailboxes>
+				<Mailbox X="1089.276" Y="436.3907" Z="-45.83395" /> <!-- Horde -->
+			</Mailboxes>
+		 </SetMailbox>
 		</If>
 		
-			<If Condition="(HasQuest(27123))" >
-		<TurnIn QuestName="Deepholm, Realm of Earth" QuestId="27123" TurnInName="Maruut Stonebinder" TurnInId="43065" />
-			</If>
-		
-		<PickUp QuestName="Where's Goldmine?" GiverName="Earthcaller Yevaa" QuestId="26409" GiverId="42573" />
 		<PickUp QuestName="Gunship Down" GiverName="Maruut Stonebinder" QuestId="26245" GiverId="43065" />
+		<PickUp QuestName="Where's Goldmine?" GiverName="Earthcaller Yevaa" QuestId="26409" GiverId="42573" />
 		<PickUp QuestName="Elemental Energy" GiverName="Seer Kormo" QuestId="27136" GiverId="43397" />
 		<PickUp QuestName="The Earth Claims All" GiverName="Seer Kormo" QuestId="26244" GiverId="43397" />
 			<If Condition="(HasQuest(26409))" >
@@ -228,10 +271,15 @@
 				<CustomBehavior File="ForcedDismount" />
 			</If>
 		<TurnIn QuestName="Take Him to the Earthcaller" TurnInName="Earthcaller Yevaa" QuestId="26413" TurnInId="42573" />
+		<PickUp QuestName="To Stonehearth's Aid" GiverName="Earthcaller Yevaa" QuestId="26484" GiverId="42573" />
 			<If Condition="((HasQuest(27136)) &amp;&amp; (!IsQuestCompleted(27136)))" >
 				<CustomBehavior File="FlyTo" X="827.4088" Y="480.6955" Z="-30.24207" />
 				<CustomBehavior File="FlyTo" X="757.9017" Y="491.9359" Z="-41.91161" />
-				<CustomBehavior File="UserDialog" QuestId="27136" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Drop a totem to the East and kill 8 of the Lodestone &amp;/or Energized Geodes near it\n\nPress continue when objective is complete" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(27136)) &amp;&amp; (!IsQuestCompleted(27136)))" >
+				<CustomBehavior File="CombatUseItemOn" MobId1="43254" MobId2="43258" ItemId="60835" MobHpPercentLeft="99" MaxRange="8" X="759.001" Y="534.7874" Z="-69.82446" />
+				<CustomBehavior File="CombatUseItemOn" MobId1="43254" MobId2="43258" ItemId="60835" MobHpPercentLeft="99" MaxRange="8" X="663.0136" Y="509.0459" Z="-62.9198" />
+			 </While>
 			</If>
 			<If Condition="((HasQuest(26245)) &amp;&amp; (!IsQuestCompleted(26245)))" >
 				<CustomBehavior File="UserSettings" PullDistance="10" />
@@ -254,6 +302,15 @@
 				<CustomBehavior File="InteractWith" QuestId="26245" MobId="43032" NumOfTimes="1" CollectionDistance="50" X="274.7287" Y="192.144" Z="44.66671" />
 				
 				<CustomBehavior File="UserSettings" PullDistance="25" />
+			</If>
+			<If Condition="((!HasQuest(26246)) &amp;&amp; (!IsQuestCompleted(26246)))" >
+				<CustomBehavior File="FlyTo" X="269.8921" Y="283.6795" Z="125.5891" />
+				<CustomBehavior File="FlyTo" X="285.9052" Y="294.2417" Z="61.35521" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo X="288.7239" Y="318.5446" Z="60.93575" />
+				<CustomBehavior File="InteractWith" QuestId="26245" MobId="43048" NumOfTimes="1" CollectionDistance="50" X="288.194" Y="322.075" Z="60.8599" />
+		<Pickup QuestName="Captain's Log" QuestId="26246" GiverName="Captain's Log" GiverId="204274" GiverType="GameObject" X="288.7239" Y="318.5446" Z="60.93575" />
+				<RunTo X="282.8049" Y="290.5377" Z="61.39617" />
 			</If>
 				<Objective QuestName="The Earth Claims All" QuestId="26244" Type="KillMob" KillCount="5" MobId="43026" />
 			<If Condition="((HasQuest(26244)) &amp;&amp; (IsQuestCompleted(26244)))" >
@@ -521,7 +578,6 @@
 			</If>
 		<TurnIn QuestName="The World Pillar Fragment" TurnInName="Maruut Stonebinder" QuestId="26876" TurnInId="43065" />
 		<TurnIn QuestName="Blood of the Earthwarder" TurnInName="Seer Kormo" QuestId="26259" TurnInId="43397" />
-		<PickUp QuestName="To Stonehearth's Aid" GiverName="Earthcaller Yevaa" QuestId="26484" GiverId="42573" />
 			<If Condition="(HasQuest(26484))" >
 				<CustomBehavior File="FlyTo" X="855.4401" Y="494.1367" Z="-22.29656" />
 				<CustomBehavior File="FlyTo" X="460.0669" Y="1634.646" Z="350.9841" />
