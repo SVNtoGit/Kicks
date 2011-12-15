@@ -1942,7 +1942,7 @@
 		<TurnIn QuestName="The Hatchery Must Burn" QuestId="25810" TurnInName="Farden Talonshrike" TurnInId="40578" />
 		<PickUp QuestName="Flight in the Firelands" QuestId="25523" GiverName="Farden Talonshrike" GiverId="40578" />
 			<If Condition="(HasQuest(25523))" >
-				<CustomBehavior File="UserDialog" QuestId="25523" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Do this quest chain, then pickup Return to Aviana and press continue" />
+				// do stupid quest line \\
 			</If>
 		<PickUp QuestName="Return to Aviana" QuestId="25832" GiverName="Farden Talonshrike" GiverId="40578" />
 			<If Condition="(HasQuest(25832))" >
@@ -2100,9 +2100,6 @@
 				<CustomBehavior File="InteractWith" QuestId="25923" MobId="41498" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="4678.012" Y="-3660.107" Z="696.8307" />
 				<RunTo X="4435.125" Y="-3627.413" Z="640.5995" />
 				<CustomBehavior File="CombatUseItemOn" QuestId="25923" MobId="41614" ItemId="56207" NumOfTimes="20" MaxRange="8" CastingSpellId="77777" X="4435.125" Y="-3627.413" Z="640.5995" />
-			  <If Condition="((HasQuest(25923)) &amp;&amp; (!IsQuestCompleted(25923)))" >
-				<CustomBehavior File="UserDialog" QuestId="25923" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill the angry turtle, make sure you use your small turtle pet's spell when Nemises casts his spell\n\nPress continue after he's dead" />
-			  </If>
 			</If>
 		<TurnIn QuestName="Finish Nemesis" QuestId="25923" TurnInName="Garunda Mountainpeak" TurnInId="41498" />
 		<PickUp QuestName="Tortolla's Triumph" QuestId="25928" GiverName="Garunda Mountainpeak" GiverId="41498" />
@@ -2448,7 +2445,7 @@
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" QuestId="25315" MobId="202996" ObjectType="Gameobject" />
 				
-				<CustomBehavior File="UserDialog" QuestId="25315" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Please the crowd" />
+				<CustomBehavior File="UserDialog" QuestId="25315" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Please the crowd\n\nDon't go anywhere, you have a vehicle quest soon" />
 			
 			<!--
 			
@@ -2521,17 +2518,20 @@
 		<PickUp QuestName="Slash and Burn" QuestId="25608" GiverName="Commander Jarod Shadowsong" GiverId="40772" />
 			</If>
 			<If Condition="((HasQuest(25608)) &amp;&amp; (!IsQuestCompleted(25608)))" >
-				<!-- vehicle quest that you control -->
+				<!-- vehicle quest that you control 
+			 <If Condition="(!Me.IsOnTransport)" >
+			 </If>
+			 -->
 				<CustomBehavior File="ForcedDismount" />
 				<RunTo X="4073.321" Y="-4009.627" Z="971.1174" />
 				<CustomBehavior File="MountVehOnly" VehicleMountId="40934" X="4074.596" Y="-4009.47" Z="971.1025" />
 				<!-- <CustomBehavior File="FlyTo" X="4355.917" Y="-4242.729" Z="1012.348" /> -->
+				
 				<CustomBehavior File="UserDialog" QuestId="25608" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Complete the vehicle quest and go back to npc" />
 			</If>
 			<If Condition="((HasQuest(25608)) &amp;&amp; (IsQuestCompleted(25608)))" >
 				<CustomBehavior File="EjectVeh" Eject="True" />
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4082.432" Y="-3995.996" Z="971.5511" />
-				<!-- <CustomBehavior File="EjectVeh" Eject="1" /> -->
 		<TurnIn QuestName="Slash and Burn" QuestId="25608" TurnInName="Commander Jarod Shadowsong" TurnInId="40772" />
 				<CustomBehavior File="WaitTimer" WaitTime="90000" GoalText="Waiting for video {TimeRemaining}" />
 			</If>
@@ -2694,6 +2694,8 @@
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="The Firelord" QuestId="25551" TurnInName="Commander Jarod Shadowsong" TurnInId="40772" />
 			</If>
+			
+			<!-- Ally -->
 			<If Condition="(Me.IsAlliance)" >
 		<PickUp QuestName="The Battle Is Won, The War Goes On" QuestId="27398" GiverName="Commander Jarod Shadowsong" GiverId="40772" />
 			<If Condition="(HasQuest(27398))" >
@@ -2723,12 +2725,19 @@
 		<TurnIn QuestName="Deepholm, Realm of Earth" QuestId="27123" TurnInName="Maruut Stonebinder" TurnInId="43065" />
 		-->
 			</If>
+			
+			<!-- Horde -->
 			<If Condition="(Me.IsHorde)" >
 		<PickUp QuestName="The Battle Is Won, The War Goes On" QuestId="27399" GiverName="Commander Jarod Shadowsong" GiverId="40772" />
 			<If Condition="(HasQuest(27398))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(6948)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for hearth {TimeRemaining}" />
 			</If>
+			<If Condition="(Me.ZoneId == 1637)" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2043.181" Y="-4381.469" Z="99.21494" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="The Battle Is Won, The War Goes On" QuestId="27399" TurnInName="Farseer Krogar" TurnInId="45244" />
+			</If>
 			</If>
 			
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" Text="End of Line!\n\nYes, I fight for the users!" />
