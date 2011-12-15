@@ -1511,15 +1511,15 @@
 				<CustomBehavior File="FlyTo" DestName="get Nemises' Shell" X="4607.118" Y="-2437.628" Z="1147.097" />
 				<CustomBehavior File="ForcedDismount" />
 			 <While Condition="((HasQuest(25507)) &amp;&amp; (!IsQuestCompleted(25507)))" >
-				<!-- this doesn't work right
-				<CustomBehavior File="CombatUseItemOn" MobId="40340" ItemId="54744" MobHpPercentLeft="100" MaxRange="5" />
-				  --><!-- -->
+				<CustomBehavior File="CombatUseItemOn" MobId="40340" ItemId="54744" MobHpPercentLeft="100" MaxRange="15" X="4607.118" Y="-2437.628" Z="1147.097" />
+				  <!-- 
 				<CustomBehavior File="UseItemOn" QuestId="25507" MobId="40340" ItemId="54744" WaitTime="1000" MinRange="15" Range="25" CollectionDistance="500" />
+				-->
 				<CustomBehavior File="WaitTimer" WaitTime="7000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-				<CustomBehavior File="InteractWith" QuestId="25507" MobId="40340" WaitForNpcs="False" NumOfTimes="5" WaitTime="8000" IgnoreCombat="True" CollectionDistance="600" />
+				<CustomBehavior File="InteractWith" QuestId="25507" MobId="40340" WaitForNpcs="False" NumOfTimes="5" Range="10" WaitTime="8000" IgnoreCombat="True" CollectionDistance="600" />
 			 </While>
 			</If>
-			<If Condition="((HasQuest(25502)) &amp;&amp; (!IsQuestCompleted(25502)))" >
+			<While Condition="((HasQuest(25502)) &amp;&amp; (!IsQuestCompleted(25502)))" >
 				<CustomBehavior File="FlyTo" DestName="defend a Flameward" X="4635.615" Y="-2706.636" Z="1145.701" />
 				<CustomBehavior File="ForcedDismount" />
 				<RunTo X="4582.165" Y="-2701.421" Z="1140.713" />
@@ -1529,6 +1529,7 @@
 				<CustomBehavior File="InteractWith" MobId="202928" Range="10" ObjectType="GameObject" />
 				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for event {TimeRemaining}" />
 				
+				<!-- interactwith 46925
 					<SetGrindArea><GrindArea>
 						<TargetMinLevel>80</TargetMinLevel>
 						<TargetMaxLevel>86</TargetMaxLevel>
@@ -1542,10 +1543,13 @@
 					</GrindArea></SetGrindArea>
 
 				<GrindTo Condition="((HasQuest(25502)) &amp;&amp; (IsQuestCompleted(25502)))" GoalText="Defending the Flameward" />
+				-->
+				
+				<CustomBehavior File="InteractWith" MobId="46925" Range="15" MobState="Alive" NumOfTimes="5" WaitForNpcs="False" />
 
 				<CustomBehavior File="UserSettings" PullDistance="20" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for lewts {TimeRemaining}" />
-			</If>
+			</While>
 		<!--
 			<If Condition="((HasQuest(25507)) &amp;&amp; (!IsQuestCompleted(25507)))" >
 				<CustomBehavior File="UserDialog" QuestId="25507" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Use the item near the angry turtle, then pull him.\nLoot the shell and run away" />
@@ -1600,38 +1604,21 @@
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4615.122" Y="-1977.371" Z="1193.092" />
 		<TurnIn QuestName="Breaking the Bonds" QuestId="25514" TurnInName="Tortolla" TurnInId="40341" X="4620.516" Y="-1975.476" Z="1193.506" />
 			</If>
-			<While Condition="((HasQuest(25519)) &amp;&amp; (!IsQuestCompleted(25519)))" >
-				<!-- Doesn't work in water yet
-				<CustomBehavior File="FlightToggle" Flight="True" />
-				<Objective QuestName="Children of Tortolla" QuestId="25519" Type="KillMob" KillCount="6" MobId="40561" />
-				<RunTo QuestId="25519" X="4582.905" Y="-1904.58" Z="1185.876" />
-				<RunTo QuestId="25519" X="4589.813" Y="-1881.361" Z="1155.852" />
-				<RunTo QuestId="25519" X="4574.757" Y="-1906.25" Z="1159.83" />
-				<RunTo QuestId="25519" X="4563.851" Y="-1952.017" Z="1155.751" />
-				<RunTo X="4606.053" Y="-1986.912" Z="1188.332" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000"/>
-				<RunTo QuestId="25519" X="4554.923" Y="-1975.74" Z="1153.219" />
-				<RunTo QuestId="25519" X="4590.327" Y="-1976.79" Z="1148.667" />
-				<RunTo QuestId="25519" X="4591.826" Y="-2013.093" Z="1163.427" />
-				<RunTo QuestId="25519" X="4618.809" Y="-2015.651" Z="1156.916" />
-				<RunTo QuestId="25519" X="4572.083" Y="-2022.24" Z="1156.269" />
-				<RunTo X="4606.053" Y="-1986.912" Z="1188.332" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000"/> 
-				-->
-				<CustomBehavior File="MyCTM" QuestId="25519" X="4582.905" Y="-1904.58" Z="1185.876" />
-				<CustomBehavior File="MyCTM" QuestId="25519" X="4589.813" Y="-1881.361" Z="1155.852" />
-				<CustomBehavior File="MyCTM" QuestId="25519" X="4574.757" Y="-1906.25" Z="1159.83" />
-				<CustomBehavior File="MyCTM" QuestId="25519" X="4563.851" Y="-1952.017" Z="1155.751" />
-				<CustomBehavior File="MyCTM" X="4606.053" Y="-1986.912" Z="1187.832" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000"/>
-				<CustomBehavior File="MyCTM" QuestId="25519" X="4554.923" Y="-1975.74" Z="1153.219" />
-				<CustomBehavior File="MyCTM" QuestId="25519" X="4590.327" Y="-1976.79" Z="1148.667" />
-				<CustomBehavior File="MyCTM" QuestId="25519" X="4591.826" Y="-2013.093" Z="1163.427" />
-				<CustomBehavior File="MyCTM" QuestId="25519" X="4618.809" Y="-2015.651" Z="1156.916" />
-				<CustomBehavior File="MyCTM" QuestId="25519" X="4572.083" Y="-2022.24" Z="1156.269" />
-				<CustomBehavior File="MyCTM" X="4606.053" Y="-1986.912" Z="1187.832" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
-			</While>
+			<If Condition="((HasQuest(25519)) &amp;&amp; (!IsQuestCompleted(25519)))" >
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="CollectThings" QuestId="25519" MobId="40341" CollectUntil="QuestComplete" HuntingGroundRadius="200" >
+					<Hotspot X="4582.905" Y="-1904.58" Z="1185.876" />
+					<Hotspot X="4589.813" Y="-1881.361" Z="1155.852" />
+					<Hotspot X="4574.757" Y="-1906.25" Z="1159.83" />
+					<Hotspot X="4563.851" Y="-1952.017" Z="1155.751" />
+					<Hotspot X="4554.923" Y="-1975.74" Z="1153.219" />
+					<Hotspot X="4590.327" Y="-1976.79" Z="1148.667" />
+					<Hotspot X="4591.826" Y="-2013.093" Z="1163.427" />
+					<Hotspot X="4618.809" Y="-2015.651" Z="1156.916" />
+					<Hotspot X="4572.083" Y="-2022.24" Z="1156.269" />
+				</CustomBehavior>
+				<CustomBehavior File="AscendInWater" />
+			</If>
 			<If Condition="((HasQuest(25519)) &amp;&amp; (IsQuestCompleted(25519)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4615.122" Y="-1977.371" Z="1193.092" />
 		<TurnIn QuestName="Children of Tortolla" QuestId="25519" TurnInName="Tortolla" TurnInId="40341" X="4620.516" Y="-1975.476" Z="1193.506" />	
