@@ -402,6 +402,20 @@
 		</Objective>
 	</Quest>
 	
+	<Quest Id="25381" Name="Fighting Fire With ... Anything">
+		<Objective Type="KillMob" MobId="39939" KillCount="10">
+			<Hotspots>
+				<Hotspot X="5193.479" Y="-1424.29" Z="1356.529" />
+				<Hotspot X="5177.936" Y="-1300.185" Z="1364.862" />
+				<Hotspot X="5091.692" Y="-1331.489" Z="1353.947" />
+				<Hotspot X="5113.199" Y="-1393.07" Z="1348.123" />
+				<Hotspot X="5045.069" Y="-1403.761" Z="1338.97" />
+				<Hotspot X="5114.111" Y="-1463.974" Z="1344.255" />
+				<Hotspot X="5021.386" Y="-1504.301" Z="1332.249" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+
 	<QuestOrder IgnoreCheckpoints="True" >
 	
 	<CustomBehavior File="UserSettings" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" LootMobs="True" PullDistance="20" />
@@ -1296,12 +1310,12 @@
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4922.503" Y="-1868.73" Z="1337.241" />
 		<PickUp QuestName="A New Master" QuestId="25411" GiverName="Tyrus Blackhorn" GiverId="39933" />
 			</If>
-			<If Condition="((HasQuest(25411)) &amp;&amp; (!IsQuestCompleted(25411)))" >
+			<While Condition="((HasQuest(25411)) &amp;&amp; (!IsQuestCompleted(25411)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="5102.287" Y="-1435.251" Z="1343.722" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="UseItemOn" QuestId="25411" ItemId="53120" MobId="39974" CollectionDistance="500" NumOfTimes="1" WaitTime="5000" X="5020.353" Y="-1527.741" Z="1334.347" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</While>
 			<If Condition="((HasQuest(25411)) &amp;&amp; (IsQuestCompleted(25411)))" >
 		<TurnIn QuestName="A New Master" QuestId="25411" TurnInName="Subjugated Inferno Lord" TurnInId="40093" />
 		<PickUp QuestName="The Name Never Spoken" QuestId="25412" GiverName="Subjugated Inferno Lord" GiverId="40093" />
@@ -1371,18 +1385,17 @@
 				<CustomBehavior File="FlyTo" DestName="get Heart of Flame" X="5004.041" Y="-1595.913" Z="1328.387" />
 				<CustomBehavior File="ForcedDismount" />
 				<UseItem QuestName="Black Heart of Flame" QuestId="25428" ItemId="53464" X="5004.041" Y="-1595.913" Z="1328.387" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 				<Objective QuestName="Black Heart of Flame" QuestId="25428" Type="CollectItem" ItemId="53454" CollectCount="1" />
 			</If>
-			<If Condition="((HasQuest(25392)) &amp;&amp; (!IsQuestCompleted(25392)))" >
+			<While Condition="((HasQuest(25392)) &amp;&amp; (!IsQuestCompleted(25392)))" >
 				<CustomBehavior File="FlyTo" DestName="get Deer" X="5083.381" Y="-1455.294" Z="1341.938" />
 				<CustomBehavior File="ForcedDismount" />
-			 <While Condition="((HasQuest(25392)) &amp;&amp; (!IsQuestCompleted(25392)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
 				<CustomBehavior File="InteractWith" QuestId="25392" MobId="39999" NumOfTimes="3" CollectionDistance="500" X="5083.381" Y="-1455.294" Z="1341.938" />
 				<CustomBehavior File="FlyTo" DestName="Mylune" X="5127.402" Y="-1745.981" Z="1334.421" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
-			 </While>
-			</If>
+			</While>
 			<If Condition="((HasQuest(25392)) &amp;&amp; (IsQuestCompleted(25392)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5122.612" Y="-1748.052" Z="1334.405" />
 		<TurnIn QuestName="Oh, Deer!" TurnInName="Mylune" QuestId="25392" TurnInId="39930" />
