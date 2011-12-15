@@ -1514,25 +1514,32 @@
 		<PickUp QuestName="The Warchief's Mandate" QuestId="9405" GiverName="Nazgrel" GiverId="3230" />
 		<TurnIn QuestName="The Warchief's Mandate" QuestId="9405" TurnInName="Far Seer Regulkut" TurnInId="16574" />
 		<PickUp QuestName="A Spirit Guide" QuestId="9410" GiverName="Far Seer Regulkut" GiverId="16574" />
-			<While Condition="((HasQuest(9410)) &amp;&amp; (!IsQuestCompleted(9410)))" >
+			<While Condition="((HasQuest(9410)) &amp;&amp; (IsQuestCompleted(9410)))" >
 				<RunTo X="-17.75886" Y="3803.265" Z="94.09286" />
 				<CustomBehavior File="Misc\RunLua" WaitTime="2000" NumOfTimes="1" Lua="UseItemByName(23669)" />
-				<!--
 				<CustomBehavior File="WaitTimer" WaitTime="16000" />
-				-->
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<CustomBehavior File="Escort" EscortUntil="DestinationReached" MobId="17077" EscortDestX="514.5644" EscortDestY="3872.58" EscortDestZ="192.2494" X="-18.67767" Y="3803.105" Z="93.76311" />
-				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<RunTo X="524.2691" Y="3887.197" Z="189.8746" /> <!-- Gorkan -->
+				<!--
 			 <If Condition="((HasQuest(9410)) &amp;&amp; (!IsQuestCompleted(9410)))" >
 				<CustomBehavior File="AbandonQuest" QuestId="9410" Type="Failed" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to abandon {TimeRemaining}" />
 			<PickUp QuestName="A Spirit Guide" QuestId="9410" GiverName="Far Seer Regulkut" GiverId="16574" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			 </If>
+				-->
+				
+				<CustomBehavior File="InteractWith" MobId="16845" X="524.2691" Y="3887.197" Z="189.8746" />
+				<CustomBehavior File="Misc\RunLua" Lua="CompleteQuest();"/>
+				<CustomBehavior File="WaitTimer" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />	
+	
 				<CustomBehavior File="UserSettings" PullDistance="20" />
 			</While>
+			<!--
 		<TurnIn QuestName="A Spirit Guide" QuestId="9410" TurnInName="Gorkan Bloodfist" TurnInId="16845" X="524.2691" Y="3887.197" Z="189.8746" />
+			-->
 		<PickUp QuestName="The Mag'har" QuestId="9406" GiverName="Gorkan Bloodfist" GiverId="16845" X="524.2691" Y="3887.197" Z="189.8746" />
 		<TurnIn QuestName="The Mag'har" QuestId="9406" TurnInName="Nazgrel" TurnInId="3230" />
 			<Objective QuestName="A Pilgrim's Plight" QuestId="9376" Type="CollectItem" ItemId="23343" CollectCount="1" />
