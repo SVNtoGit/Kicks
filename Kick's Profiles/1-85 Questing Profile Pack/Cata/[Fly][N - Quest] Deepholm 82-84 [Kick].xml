@@ -147,32 +147,47 @@
 	
 	<QuestOrder IgnoreCheckpoints="True" >
 	
-		<!-- Disabling start section until the bot is fixed
-		<PickUp QuestName="Hero's Call: Deepholm!" QuestId="27727" GiverName="Hero's Call Board" GiverId="206294" GiverType="Object" X="-8344.381" Y="639.3972" Z="95.80094" />
-			<If Condition="(HasQuest(27727))" >
-				<CustomBehavior File="FlyTo" X="-8214.752" Y="428.5352" Z="118.0506" />
-				<CustomBehavior File="ForcedDismount" />
-			</If>
-		<TurnIn QuestName="Hero's Call: Deepholm!" QuestId="27727" TurnInName="Naraat the Earthspeaker" TurnInId="45226" />
-		
-		 Bot spams picking up this quest 
-		 
-		<PickUp QuestName="The Maelstrom" QuestId="27203" GiverName="Naraat the Earthspeaker" GiverId="45226" />
-			<If Condition="((HasQuest(27203)) &amp;&amp; (Me.ZoneId == 1519))" >
-				<CustomBehavior File="InteractWith" ObjectType="Gameobject" MobId="205268" NumOfTimes="1" CollectionDistance="50" X="-8210.629" Y="428.1908" Z="118.0512" />
-			</If>
-		<TurnIn QuestName="The Maelstrom" QuestId="27203" TurnInName="Thrall" TurnInId="45042" X="852.306" Y="1038.92" Z="-5.39752" />
-		<PickUp QuestName="Deepholm, Realm of Earth" QuestId="27123" GiverName="Thrall" GiverId="45042" X="852.306" Y="1038.92" Z="-5.39752" />
-			<If Condition="(HasQuest(27123))" >
-				<CustomBehavior File="MountVehOnly" NpcMountId="45005" X="833.59" Y="1052.81" Z="-7.749647" />
-			</If>
-		<TurnIn QuestName="Deepholm, Realm of Earth" QuestId="27123" TurnInName="Maruut Stonebinder" TurnInId="43065" />
-		-->
-		
-		
 			<CustomBehavior File="Message" Text="Compiling GoTo Deepholm Quests" LogColor="Green" />
 			
-		<!-- Horde Org to Deepholm Quests -->
+			<!-- Ally SW to Deepholm Quests -->
+			<If Condition="(Me.IsAlliance)" >
+			<If Condition="((!HasQuest(27727)) &amp;&amp; (!IsQuestCompleted(27727))) &amp;&amp; (Me.ZoneId == 1519)" >
+				<CustomBehavior File="FlyTo" X="-8344.381" Y="639.3972" Z="95.80094" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Hero's Call: Deepholm!" QuestId="27727" GiverName="Hero's Call Board" GiverId="206294" GiverType="Object" X="-8344.381" Y="639.3972" Z="95.80094" />
+			</If>
+			<If Condition="(HasQuest(27727)) &amp;&amp; (Me.ZoneId == 1519)" >
+				<CustomBehavior File="FlyTo" X="-8214.752" Y="428.5352" Z="118.0506" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Hero's Call: Deepholm!" QuestId="27727" TurnInName="Naraat the Earthspeaker" TurnInId="45226" />
+			</If>
+			<If Condition="((!HasQuest(27203)) &amp;&amp; (!IsQuestCompleted(27203))) &amp;&amp; (Me.ZoneId == 1519)" >
+				<CustomBehavior File="FlyTo" X="-8214.752" Y="428.5352" Z="118.0506" />
+				<CustomBehavior File="ForcedDismount" />
+				<!--
+		<PickUp QuestName="The Maelstrom" QuestId="27203" GiverName="Naraat the Earthspeaker" GiverId="45226" X="-8214.752" Y="428.5352" Z="118.0506" />
+			 	-->
+			 <While Condition="HasQuestAvailable(45226) &amp;&amp; !HasQuest(27203)" >
+				<CustomBehavior File="InteractWith" MobId="45226" X="-8214.752" Y="428.5352" Z="118.0506" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
+			 </While>
+			</If>
+			<If Condition="(HasQuest(27203)) &amp;&amp; (Me.ZoneId == 1519)" >
+				<CustomBehavior File="InteractWith" ObjectType="Gameobject" MobId="205268" NumOfTimes="1" CollectionDistance="50" X="-8210.629" Y="428.1908" Z="118.0512" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" />
+			</If>
+		<TurnIn QuestName="The Maelstrom" QuestId="27203" TurnInName="Thrall" TurnInId="45042" X="852.306" Y="1038.92" Z="-5.397021" />
+		<PickUp QuestName="Deepholm, Realm of Earth" QuestId="27123" GiverName="Thrall" GiverId="45042" X="852.306" Y="1038.92" Z="-5.397021" />
+			<If Condition="(HasQuest(27123)) &amp;&amp; (Me.ZoneId == 5416)" >
+				<CustomBehavior File="MountVehOnly" VehicleMountId="45005" X="833.59" Y="1052.81" Z="-7.749647" />
+				<CustomBehavior File="WaitTimer" WaitTime="120000" GoalText="Waiting for  {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Deepholm, Realm of Earth" QuestId="27123" TurnInName="Maruut Stonebinder" TurnInId="43065" />
+			</If>
+		
+			<!-- Horde Org to Deepholm Quests -->
 			<If Condition="Me.IsHorde" >	
 			 <If Condition="((HasQuest(27722)) &amp;&amp; (IsQuestCompleted(27722))) &amp;&amp; ((!HasQuest(27203)) &amp;&amp; (!IsQuestCompleted(27203)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="1587.082" Y="-4369.409" Z="20.83522" />
@@ -195,13 +210,15 @@
 			 </If>
 		<TurnIn QuestName="The Maelstrom" QuestId="27203" TurnInName="Thrall" TurnInId="45042" X="852.306" Y="1038.92" Z="-5.39752" />
 		<PickUp QuestName="Deepholm, Realm of Earth" QuestId="27123" GiverName="Thrall" GiverId="45042" X="852.306" Y="1038.92" Z="-5.39752" />
-			<If Condition="(HasQuest(27123))" >
+			<If Condition="(HasQuest(27123)) &amp;&amp; (Me.ZoneId == 5416)" >
 				<CustomBehavior File="MountVehOnly" VehicleMountId="45005" X="833.59" Y="1052.81" Z="-7.749647" />
 				<CustomBehavior File="WaitTimer" WaitTime="120000" GoalText="Waiting for ride {TimeRemaining}" />
 			</If>
 		<TurnIn QuestName="Deepholm, Realm of Earth" QuestId="27123" TurnInName="Maruut Stonebinder" TurnInId="43065" />
 			</If>
 		
+			<CustomBehavior File="Message" Text="Compiling Deepholm Quests" LogColor="Green" />
+			
 		<If Condition="Me.IsAlliance" > <!-- Set Vendor and Mailbox -->
 		 <SetVendor>
 		  <Vendors>
@@ -232,8 +249,6 @@
 		 </SetMailbox>
 		</If>
 		
-			<CustomBehavior File="Message" Text="Compiling Deepholm Quests" LogColor="Green" />
-			
 		<PickUp QuestName="Gunship Down" GiverName="Maruut Stonebinder" QuestId="26245" GiverId="43065" />
 		<PickUp QuestName="Where's Goldmine?" GiverName="Earthcaller Yevaa" QuestId="26409" GiverId="42573" />
 		<PickUp QuestName="Elemental Energy" GiverName="Seer Kormo" QuestId="27136" GiverId="43397" />
@@ -891,7 +906,6 @@
 			</If>
 		<TurnIn QuestName="Rocky Relations" TurnInName="Diamant the Patient" QuestId="26328" TurnInId="42467" X="1345.09" Y="169.493" Z="-56.77877" />
 		<PickUp QuestName="Hatred Runs Deep" GiverName="Diamant the Patient" QuestId="26376" GiverId="42467" X="1345.09" Y="169.493" Z="-56.77877" />
-		<!-- someone said this quest spam picked up -->
 		<PickUp QuestName="Unsolid Ground" GiverName="Diamant the Patient" QuestId="26377" GiverId="42467" />
 		<PickUp QuestName="Loose Stones" GiverName="Quartz Stonetender" QuestId="26375" GiverId="42899" />
 			<If Condition="((HasQuest(26375)) &amp;&amp; (!IsQuestCompleted(26375)))" >
@@ -899,19 +913,23 @@
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="UseItemOn" QuestId="26375" MobId="42900" ItemId="58254" NumOfTimes="20" WaitTime="2000" CollectionDistance="500" X="1452.368" Y="-28.17361" Z="-82.89997" />
 			</If>
-			<If Condition="((HasQuest(26377)) &amp;&amp; (!IsQuestCompleted(26377)))" >
-				<If Condition="(!HasItem(58783))" >
+			<While Condition="((HasQuest(26377)) &amp;&amp; (!IsQuestCompleted(26377)))" >
+				<While Condition="(!HasItem(58783))" >
 					<Objective QuestName="Unsolid Ground" QuestId="26377" Type="CollectItem" ItemId="58500" CollectCount="6" />
-					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(58500)" WaitTime="1000" />
-				</If>
-				<While Condition="(HasItem(58783))" >
-					<RunTo X="1446.199" Y="105.6118" Z="-82.49785" />
+					<RunTo X="1438.803" Y="77.85936" Z="-83.91199" />
 					<CustomBehavior File="WaitTimer" WaitTime="2000" />
-					<UseItem QuestName="Unsolid Ground" QuestId="26377" ItemId="58783" X="1446.199" Y="105.6118" Z="-82.49785" />
-					<CustomBehavior File="WaitTimer" WaitTime="2000"/>
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(58500)" WaitTime="1000" />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" />
+				</While>
+				<While Condition="(HasItem(58783))" >
+					<RunTo X="1438.803" Y="77.85936" Z="-83.91199" />
+					<CustomBehavior File="WaitTimer" WaitTime="2000" />
+					<UseItem QuestName="Unsolid Ground" QuestId="26377" ItemId="58783" X="1438.803" Y="77.85936" Z="-83.91199" />
+					<CustomBehavior File="WaitTimer" WaitTime="10000"/>
 					<RunTo X="1496.167" Y="163.5057" Z="-76.67078" />
 				</While>
-			</If>
+					<CustomBehavior File="WaitTimer" WaitTime="10000"/>
+			</While>
 			<Objective QuestName="Hatred Runs Deep" QuestId="26376" Type="KillMob" KillCount="1" MobId="42921" />
 			<Objective QuestName="Hatred Runs Deep" QuestId="26376" Type="KillMob" MobId="42917" KillCount="12" />
 			<If Condition="((HasQuest(26376)) &amp;&amp; (IsQuestCompleted(26376)))" >
