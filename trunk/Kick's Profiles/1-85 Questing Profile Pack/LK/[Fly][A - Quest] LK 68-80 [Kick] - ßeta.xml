@@ -6507,16 +6507,19 @@
 		<PickUp QuestName="Conversing With the Depths" QuestId="12032" GiverName="Elder Mana'loa" GiverId="188419" />
 				-->
 			</If>
-			<If Condition="((HasQuest(12032)) &amp;&amp; (!IsQuestCompleted(12032)))" >
+			<While Condition="((HasQuest(12032)) &amp;&amp; (!IsQuestCompleted(12032)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="2457.292" Y="1723.715" Z="76.43291" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="InteractWith" QuestId="12032" MobId="188422" ObjectType="Gameobject" X="2457.36" Y="1723.75" Z="59.83193" />
+				
+				<RunTo X="2456.661" Y="1719.555" Z="59.93533" />
+				<CustomBehavior File="InteractWith" QuestId="12032" MobId="188422" ObjectType="Gameobject" Range="8" X="2456.661" Y="1719.555" Z="59.93533" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for event {TimeRemaining}" />
 				<RunTo X="2455.553" Y="1717.125" Z="59.9511" />
 				<CustomBehavior File="WaitTimer" WaitTime="55000" GoalText="Waiting for event {TimeRemaining}" />
 				<CustomBehavior File="Message" Text="Geronimo!" LogColor="Orange" />
 				<CustomBehavior File="MyCTM" X="2434.546" Y="1709.331" Z="-1.577231" />
 				<RunTo X="2438.683" Y="1654.85" Z="0.3224503" />
-			</If>
+			</While>
 			<If Condition="((HasQuest(12032)) &amp;&amp; (IsQuestCompleted(12032)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2734.914" Y="887.6769" Z="6.624989" />
 				<CustomBehavior File="ForcedDismount" />
