@@ -308,11 +308,14 @@
 				<CustomBehavior File="FlyTo" X="285.9052" Y="294.2417" Z="61.35521" />
 				<CustomBehavior File="ForcedDismount" />
 				<RunTo X="288.7239" Y="318.5446" Z="60.93575" />
-				<CustomBehavior File="InteractWith" QuestId="26245" MobId="43048" NumOfTimes="1" CollectionDistance="50" X="288.194" Y="322.075" Z="60.8599" />
 		<Pickup QuestName="Captain's Log" QuestId="26246" GiverName="Captain's Log" GiverId="204274" GiverType="GameObject" X="288.7239" Y="318.5446" Z="60.93575" />
 				<RunTo X="282.8049" Y="290.5377" Z="61.39617" />
 			</If>
+			<If Condition="((HasQuest(26244)) &amp;&amp; (!IsQuestCompleted(26244)))" >
+				<CustomBehavior File="FlyTo" X="274.7287" Y="192.144" Z="44.66671" />
+				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="The Earth Claims All" QuestId="26244" Type="KillMob" KillCount="5" MobId="43026" />
+			</If>
 			<If Condition="((HasQuest(26244)) &amp;&amp; (IsQuestCompleted(26244)))" >
 				<CustomBehavior File="FlyTo" X="808.5197" Y="477.0212" Z="-42.63551" />
 				<CustomBehavior File="FlyTo" X="979.1311" Y="523.2492" Z="-49.33483" />
@@ -325,8 +328,9 @@
 			<If Condition="(HasQuest(26247))" >
 				<CustomBehavior File="FlyTo" X="782.0975" Y="479.5255" Z="-17.09823" />
 				<CustomBehavior File="FlyTo" X="1060.557" Y="28.51021" Z="353.1239" />
-				<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Get on the flying Alliance Airship\n\nTurn in the quest &amp; do *all* quests on the boat\n\n Sorry, but HB hasn't meshed the boat yet - I recommend pushing stop bot &amp; using combatbot until you're done!\nThe rope is on the deck, alcohol on 1st below, ogre on 2nd below\n\nOnce you have Return to the Temple of Earth - get off the boat and press start / continue" />
+				<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Get on the flying Alliance Airship\n\nTurn in the quest &amp; do *all* quests on the boat\n\n Sorry, but HB hasn't meshed the boat yet - I recommend pushing stop bot &amp; using combatbot until you're done!\nThe rope is on the deck, alcohol on 1st below, ogre on 2nd below\n\nOnce you have Return to the Temple of Earth - get off the boat and press start / continue" />
 			</If>
+			<!--
 		<TurnIn QuestName="Diplomacy First" TurnInName="Stormcaller Mylra" QuestId="26247" TurnInId="42684" X="1243.871" Y="-206.9482" Z="463.8944" />
 		<PickUp QuestName="The Admiral's Cabin" GiverName="Stormcaller Mylra" QuestId="26249" GiverId="42684" X="1243.871" Y="-206.9482" Z="463.8944" />
 		<PickUp QuestName="All Our Friends Are Dead" GiverName="Stormcaller Mylra" QuestId="26248" GiverId="42684" X="1243.871" Y="-206.9482" Z="463.8944" />
@@ -351,14 +355,21 @@
 		<TurnIn QuestName="Take No Prisoners" TurnInName="Stormcaller Mylra" QuestId="26251" TurnInId="42684" X="1243.871" Y="-206.9482" Z="463.8944" />
 		<PickUp QuestName="Some Spraining to Do" GiverName="Stormcaller Mylra" QuestId="26254" GiverId="42684" X="1243.871" Y="-206.9482" Z="463.8944" />
 			<If Condition="((HasQuest(26254)) &amp;&amp; (!IsQuestCompleted(26254)))" >
-			<!-- Mor'norokk interrogated
+			// Mor'norokk interrogated
 				<CustomBehavior File="MountVehOnly" NpcMountId="42716" X="0" Y="0" Z="0" />
 				Very dangerous because the gryphon is flying
-				-->
+				//
 				<CustomBehavior File="WaitTimer" WaitTime="130000"/>
 			</If>
 		<TurnIn QuestName="Some Spraining to Do" TurnInName="Stormcaller Mylra" QuestId="26254" TurnInId="42684" X="1243.871" Y="-206.9482" Z="463.8944" />
 		<PickUp QuestName="Return to the Temple of Earth" GiverName="Stormcaller Mylra" QuestId="26255" GiverId="42684" X="1243.871" Y="-206.9482" Z="463.8944" />
+			-->
+			<If Condition="(HasQuest(26247)) || (HasQuest(26249)) || (HasQuest(26248)) || (HasQuest(26427)) || (HasQuest(26251)) || (HasQuest(26250))" >
+				<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" StopOnContinue="True" SoundCue="Asterisk" SoundCueInterval="1" Text="HEY, DON'T PRESS CONTINUE W/O DOING QUESTS!!!!!!!" />
+			</If>
+			<If Condition="((!HasQuest(26255)) &amp;&amp; (!IsQuestCompleted(26255)))" >
+				<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" StopOnContinue="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Go back to the boat and finish all of the quests and pickup 'Return to the Temple of Earth'" />
+			</If>
 			<If Condition="(HasQuest(26255))" >
 				<CustomBehavior File="FlyTo" X="651.025" Y="454.257" Z="37.61259" />
 				<CustomBehavior File="FlyTo" X="991.7237" Y="520.3782" Z="-49.33371" />
@@ -366,23 +377,23 @@
 		<TurnIn QuestName="Return to the Temple of Earth" TurnInName="Maruut Stonebinder" QuestId="26255" TurnInId="43065" />
 		<PickUp QuestName="Deathwing's Fall" GiverName="Maruut Stonebinder" QuestId="26258" GiverId="43065" />
 		<PickUp QuestName="Blood of the Earthwarder" GiverName="Seer Kormo" QuestId="26259" GiverId="43397" />
-			<While Condition="(HasQuest(26258))" >
+			<If Condition="(HasQuest(26258))" >
 				<CustomBehavior File="FlyTo" X="768.7583" Y="-54.99282" Z="-38.02138" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 				<CustomBehavior File="CompleteLogQuest" QuestId="26258" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
-			</While>
+			</If>
 			<If Condition="((HasQuest(26256)) &amp;&amp; (!IsQuestCompleted(26256)))" >
 				<CustomBehavior File="FlyTo" X="791.1265" Y="-80.53692" Z="-60.67072" />
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="Bleed the Bloodshaper" QuestId="26256" Type="Collect" CollectCount="1" ItemId="60264" />
 			</If>
-			<Objective QuestName="Blood of the Earthwarder" QuestId="26259" Type="Collect" CollectCount="5" ItemId="59062" />
-			<While Condition="((HasQuest(26256)) &amp;&amp; (IsQuestCompleted(26256)))" >
+			<If Condition="((HasQuest(26256)) &amp;&amp; (IsQuestCompleted(26256)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 				<CustomBehavior File="CompleteLogQuest" QuestId="26256" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
-			</While>
+			</If>
+			<Objective QuestName="Blood of the Earthwarder" QuestId="26259" Type="Collect" CollectCount="5" ItemId="59062" />
 			<If Condition="((HasQuest(26261)) &amp;&amp; (!IsQuestCompleted(26261)))" >
 				<CustomBehavior File="InteractWith" QuestId="26261" ObjectType="Gameobject" MobId="205097" NumOfTimes="1" CollectionDistance="50" X="771.4025" Y="-150.602" Z="-41.03002" />
 				<RunTo X="770.2463" Y="-141.2649" Z="-41.23982" />
@@ -419,13 +430,13 @@
 				<RunTo X="905.0541" Y="-200.6554" Z="10.52298" />
 				<CustomBehavior File="FlyTo" X="704.9811" Y="-537.8411" Z="181.0341" />
 			</If>
-			<While Condition="((HasQuest(27007)) &amp;&amp; (IsQuestCompleted(27007)))" >
+			<If Condition="((HasQuest(27007)) &amp;&amp; (IsQuestCompleted(27007)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 				<CustomBehavior File="CompleteLogQuest" QuestId="27007" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
-			</While>
+			</If>
 			<If Condition="((HasQuest(27010)) &amp;&amp; (!IsQuestCompleted(27010)))" >
-				<CustomBehavior File="FlyTo" X="607.4448" Y="-608.0773" Z="148.9819" />
+				<CustomBehavior File="FlyTo" Distance="2" X="604.4011" Y="-604.96" Z="149.6786" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" QuestId="27010" ObjectType="Gameobject" MobId="205197" NumOfTimes="1" CollectionDistance="50" X="607.4448" Y="-608.0773" Z="148.9819" />
 				<CustomBehavior File="FlyTo" X="612.2271" Y="-735.7957" Z="146.4679" />
@@ -436,18 +447,18 @@
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
 				<CustomBehavior File="MyCTM" X="590.4069" Y="-767.3472" Z="143.1214" />
 				<CustomBehavior File="MyCTM" X="590.666" Y="-763.4443" Z="142.9584" />
-				<CustomBehavior File="MyCTM" X="590.3375" Y="-767.8875" Z="142.9584" />
+				<CustomBehavior File="MyCTM" X="590.4622" Y="-767.2647" Z="143.1225" />
 				<CustomBehavior File="MyCTM" X="593.5993" Y="-765.163" Z="142.9584" />
 				<CustomBehavior File="WaitTimer" WaitTime="60000"/>
 				<CustomBehavior File="MyCTM" X="609.1009" Y="-737.8065" Z="145.8933" />
 			  </While>
 			</If>
-			<While Condition="((HasQuest(27010)) &amp;&amp; (IsQuestCompleted(27010)))" >
+			<If Condition="((HasQuest(27010)) &amp;&amp; (IsQuestCompleted(27010)))" >
  				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 				<CustomBehavior File="CompleteLogQuest" QuestId="27010" />
 				<CustomBehavior File="MyCTM" X="609.1009" Y="-737.8065" Z="145.8933" />
 				<CustomBehavior File="UserSettings" PullDistance="25" />
-			</While>
+			</If>
 			<If Condition="(!IsQuestCompleted(27100))" >
 				<CustomBehavior File="FlyTo" DestName="get dropquest item" X="601.2639" Y="-606.6798" Z="149.963" />
 				<CustomBehavior File="ForcedDismount" />
@@ -476,11 +487,11 @@
 			<If Condition="((HasQuest(27100)) &amp;&amp; (!IsQuestCompleted(27100)))" >
 				<Objective QuestName="Twilight Research" QuestId="27100" Type="CollectItem" ItemId="60814" CollectCount="4" />
 			</If>
-			<While Condition="((HasQuest(27100)) &amp;&amp; (IsQuestCompleted(27100)))" >
+			<If Condition="((HasQuest(27100)) &amp;&amp; (IsQuestCompleted(27100)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 				<CustomBehavior File="CompleteLogQuest" QuestId="27100" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
-			</While>
+			</If>
 			<If Condition="(HasQuest(27101))" >
 				<CustomBehavior File="FlyTo" X="410.6022" Y="-373.5142" Z="42.72458" />
 				<CustomBehavior File="ForcedDismount" />
@@ -490,12 +501,12 @@
 			<If Condition="((HasQuest(27102)) &amp;&amp; (!IsQuestCompleted(27102)))" >
 			<Objective QuestName="Maziel's Ascendancy" QuestId="27102" Type="KillMob" MobId="44967" KillCount="1" />
 			</If>
-			<While Condition="((HasQuest(27102)) &amp;&amp; (IsQuestCompleted(27102)))" >
+			<If Condition="((HasQuest(27102)) &amp;&amp; (IsQuestCompleted(27102)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 				<CustomBehavior File="CompleteLogQuest" QuestId="27102" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 				<RunTo X="457.8258" Y="-449.9126" Z="45.94074" />
-			</While>
+			</If>
 			<If Condition="(HasQuest(27061))" >
 				<CustomBehavior File="FlyTo" X="-1.062901" Y="-236.3737" Z="202.5102" />
 		<TurnIn QuestName="The Twilight Overlook" QuestId="27061" TurnInName="Stormcaller Mylra" TurnInId="44010" X="3.289931" Y="-236.1146" Z="202.0685" />
@@ -608,11 +619,11 @@
 				<CustomBehavior File="InteractWith" QuestId="27934" MobId="47195" NumOfTimes="1" GossipOptions="1" CollectionDistance="50" X="151.431" Y="1486.929" Z="226.6143" />
 				<CustomBehavior File="WaitTimer" WaitTime="45000"/>
 			</If>
-			<While Condition="((HasQuest(27934)) &amp;&amp; (IsQuestCompleted(27934)))" >
+			<If Condition="((HasQuest(27934)) &amp;&amp; (IsQuestCompleted(27934)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 				<CustomBehavior File="CompleteLogQuest" QuestId="27934" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
-			</While>
+			</If>
 			<If Condition="((HasQuest(27935)) &amp;&amp; (!IsQuestCompleted(27935)))" >
 				<CustomBehavior File="MyCTM" X="-253.2673" Y="658.0421" Z="142.7941" />
 				<CustomBehavior File="MyCTM" X="-233.3487" Y="654.575" Z="141.7787" />
@@ -866,11 +877,11 @@
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
-			<While Condition="((HasQuest(26426)) &amp;&amp; (IsQuestCompleted(26426)))" >
+			<If Condition="((HasQuest(26426)) &amp;&amp; (IsQuestCompleted(26426)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 				<CustomBehavior File="CompleteLogQuest" QuestId="26426" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
-			</While>
+			</If>
 			<If Condition="(HasQuest(26869))" >
 				<RunTo X="1864.573" Y="-137.943" Z="-172.5729" />
 				<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Run around the block w/o getting eaten by the worm - use your ground mount\n\nPress continue when you've cleared the big worm\n\nDon't go far, you have to run back in a min" />
@@ -1174,11 +1185,11 @@
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="Decryption Made Easy" QuestId="27040" Type="UseObject" ObjectId="205145" UseCount="6" />
 			</If>
-			<While Condition="((HasQuest(27040)) &amp;&amp; (IsQuestCompleted(27040)))" >
+			<If Condition="((HasQuest(27040)) &amp;&amp; (IsQuestCompleted(27040)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 				<CustomBehavior File="CompleteLogQuest" QuestId="27040" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
-			</While>
+			</If>
 			<Objective QuestName="The Wrong Sequence" QuestId="27058" Type="UseObject" ObjectId="205161" UseCount="1" />
 			<While Condition="((HasQuest(27042)) &amp;&amp; (!IsQuestCompleted(27042)))" >
 
@@ -1240,11 +1251,11 @@
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="Decryption Made Easy" QuestId="27041" Type="UseObject" ObjectId="205145" UseCount="6" />
 			</If>
-			<While Condition="((HasQuest(27041)) &amp;&amp; (IsQuestCompleted(27041)))" >
+			<If Condition="((HasQuest(27041)) &amp;&amp; (IsQuestCompleted(27041)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 				<CustomBehavior File="CompleteLogQuest" QuestId="27041" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
-			</While>
+			</If>
 			<Objective QuestName="The Wrong Sequence" QuestId="27059" Type="UseObject" ObjectId="205161" UseCount="1" />
 			<If Condition="((HasQuest(27043)) &amp;&amp; (!IsQuestCompleted(27043)))" >
 
