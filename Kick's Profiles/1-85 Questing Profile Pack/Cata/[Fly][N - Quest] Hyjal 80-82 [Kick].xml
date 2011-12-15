@@ -2449,7 +2449,12 @@
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" QuestId="25315" MobId="202996" ObjectType="Gameobject" />
 				
-				<CustomBehavior File="UserDialog" QuestId="25315" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Please the crowd\n\nDon't go anywhere, you have a vehicle quest soon" />
+			 <While Condition="((HasQuest(25315)) &amp;&amp; (!IsQuestCompleted(25315)))" >
+				<CustomBehavior File="Misc\RunLua" Lua="VehicleMenuBarActionButton1:Click()" WaitTime="9000" />
+				<CustomBehavior File="Misc\RunLua" Lua="VehicleMenuBarActionButton2:Click()" WaitTime="9000" />
+			 </While>
+				
+				<CustomBehavior File="Misc\RunLua" Lua="VehicleMenuBarActionButton5:Click()" WaitTime="1000" />
 			
 			<!--
 			
@@ -2495,11 +2500,9 @@
 			
 			</If>
 			<If Condition="((HasQuest(25315)) &amp;&amp; (IsQuestCompleted(25315)))" >
-				<!-- does this work?
 				<CustomBehavior File="Misc\RunLua" Lua="VehicleMenuBarActionButton5:Click()" WaitTime="1000" />
-				-->
-				<!-- why doesn't me is on transport work? :(  			 <If Condition="(Me.IsOnTransport)" >  -->
-				<CustomBehavior File="RunMacro" Macro="/click BonusActionButton5" />
+				<!-- why doesn't me is on transport work? :(  			 <If Condition="(Me.IsOnTransport)" >  
+				<CustomBehavior File="RunMacro" Macro="/click BonusActionButton5" /> -->
 		<TurnIn QuestName="Graduation Speech" QuestId="25315" TurnInName="Commander Jarod Shadowsong" TurnInId="40619" />
 		<PickUp QuestName="Twilight Riot" QuestId="25531" GiverName="Commander Jarod Shadowsong" GiverId="40619" />
 			</If>
