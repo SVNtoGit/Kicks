@@ -318,10 +318,10 @@
 				<CustomBehavior File="FlyTo" X="-10966.13" Y="-1378.948" Z="35.53022" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" QuestId="27922" ObjectType="Gameobject" MobId="206579" NumOfTimes="1" CollectionDistance="50" X="-10966.13" Y="-1378.948" Z="35.53022" />
-				<CustomBehavior File="WaitTimer" WaitTime="30000"/>
+				<CustomBehavior File="WaitTimer" WaitTime="27000"/>
+				<RunTo X="-10962.53" Y="-1365.425" Z="35.26873" />
 			</If>
 			<If Condition="((HasQuest(27922)) &amp;&amp; (IsQuestCompleted(27922)))" >
-				<RunTo X="-10962.53" Y="-1365.425" Z="35.26873" />
 				<CustomBehavior File="FlyTo" X="-11003.82" Y="-1248.205" Z="13.24318" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="UserSettings" PullDistance="25" />
@@ -333,7 +333,7 @@
 			<Objective QuestName="Kavem the Callous" QuestId="28105" Type="Collect" CollectCount="1" ItemId="62817" />
 			<Objective QuestName="Budd's Plan" QuestId="27924" Type="Collect" CollectCount="6" ItemId="62821" />
 			<If Condition="((HasQuest(27923)) &amp;&amp; (!IsQuestCompleted(27923)))" >
-				<CustomBehavior File="UseItemOn" QuestId="27923" ObjectType="Gameobject" MobId="206684" ItemId="63027" NumOfTimes="7" WaitTime="5000" CollectionDistance="500" X="-11120.94" Y="-1345.808" Z="10.80509" />
+				<CustomBehavior File="UseItemOn" QuestId="27923" MobType="Gameobject" MobId="206684" ItemId="63027" NumOfTimes="7" Range="8" WaitTime="5000" CollectionDistance="500" X="-11120.94" Y="-1345.808" Z="10.80509" />
 			</If>
 			<If Condition="((HasQuest(27924)) &amp;&amp; (IsQuestCompleted(27924)))" >
 				<CustomBehavior File="FlyTo" X="-11003.75" Y="-1254.366" Z="13.24375" />
@@ -395,30 +395,25 @@
 				<RunTo X="-9903.598" Y="-14.33918" Z="54.44276" />
 			</If>
 		<TurnIn QuestName="The Prophet's Dying Words" QuestId="27602" TurnInName="Sand-Covered Hieroglyphs" TurnInId="205874" X="-9903.598" Y="-14.33918" Z="54.44276" />
+			<If Condition="((!HasQuest(27623)) &amp;&amp; (!IsQuestCompleted(27623)))" >
 		<Pickup QuestName="Colossal Guardians" QuestId="27623" GiverName="Sand-Covered Hieroglyphs" GiverId="205874" GiverType="Object" X="-9903.598" Y="-14.33918" Z="54.44276" />
+				<RunTo X="-9872.52" Y="-31.66143" Z="55.9774" />
+			</If>
 			<If Condition="((HasQuest(27623)) &amp;&amp; (!IsQuestCompleted(27623)))" >
-			<!-- 
-			<CustomBehavior File="InteractWith" QuestId="27623" MobId="46041" NumOfTimes="1" CollectionDistance="50" X="-9719.977" Y="-11.20982" Z="86.95419" /> 
-			-->
-				<!--
-				<RunTo X="-9875.921" Y="-31.09443" Z="55.75531" />
-				<CustomBehavior File="FlyTo" X="-9718.358" Y="-10.98884" Z="87.02832" />
+			 <If Condition="((HasQuest(27623)) &amp;&amp; (!IsObjectiveComplete(2, 27623)))">
+				<CustomBehavior File="FlyTo" DestName="get Stone of the Sun" X="-9718.972" Y="-15.90991" Z="87.30782" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="RunMacro" Macro="/target Colossus of the" NumOfTimes="1" WaitTime="1000" />
-				<CustomBehavior File="BasicInteractWith" QuestId="27623" MobId="46041" MoveTo="0" LUATarget="1" />
-				<CustomBehavior File="BasicInteractWith" QuestId="27623" MobId="46041" MoveTo="0" LUATarget="1" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
-				<Objective QuestName="Colossal Guardians" QuestId="27623" Type="CollectItem" ItemId="61971" CollectCount="1" />
-
-				<CustomBehavior File="FlyTo" X="-9584.882" Y="-109.9641" Z="95.46085" />
+			  <While Condition="((HasQuest(27623)) &amp;&amp; (!IsObjectiveComplete(2, 27623)))">
+				<CustomBehavior File="InteractWith" QuestId="27623" MobId="46041" Range="10" X="-9718.972" Y="-15.90991" Z="87.30782" />
+			  </While>
+			 </If>
+			 <If Condition="((HasQuest(27623)) &amp;&amp; (!IsObjectiveComplete(1, 27623)))">
+				<CustomBehavior File="FlyTo" DestName="get Stone of the Moon" X="-9583.441" Y="-107.0304" Z="94.68574" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="RunMacro" Macro="/target Colossus of the" NumOfTimes="1" WaitTime="1000" />
-				<CustomBehavior File="BasicInteractWith" QuestId="27623" MobId="46042" MoveTo="0" LUATarget="1" NumOfTimes="2" />
-				<CustomBehavior File="BasicInteractWith" QuestId="27623" MobId="46042" MoveTo="0" LUATarget="1" NumOfTimes="2" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
-				<Objective QuestName="Colossal Guardians" QuestId="27623" Type="CollectItem" ItemId="61970" CollectCount="1" />
-				-->
-				<CustomBehavior File="UserDialog" QuestId="27623" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Click the 2 Colossus' and kill them (West and North), Click 8 Orsis Survivor's (you can do this on mount) and kill 6 Scion's.  You'll be good for a while after that - Click continue profile when ready" />
+			  <While Condition="((HasQuest(27623)) &amp;&amp; (!IsObjectiveComplete(1, 27623)))">
+				<CustomBehavior File="InteractWith" QuestId="27623" MobId="46042" Range="10" X="-9718.972" Y="-15.90991" Z="87.30782" />
+			  </While>
+			 </If>
 			</If>
 			<If Condition="((HasQuest(27623)) &amp;&amp; (IsQuestCompleted(27623)))" >
 				<CustomBehavior File="FlyTo" X="-9878.453" Y="-30.08398" Z="55.52597" />
@@ -428,18 +423,14 @@
 		<TurnIn QuestName="Colossal Guardians" QuestId="27623" TurnInName="Sand-Covered Hieroglyphs" TurnInId="205874" X="-9903.598" Y="-14.33918" Z="54.44276" />
 		<Pickup QuestName="The Scepter of Orsis" QuestId="27706" GiverName="Sand-Covered Hieroglyphs" GiverId="205874" GiverType="Object" X="-9903.598" Y="-14.33918" Z="54.44276" />
 			<If Condition="((HasQuest(27706)) &amp;&amp; (!IsQuestCompleted(27706)))" >
-				<CustomBehavior File="InteractWith" QuestId="27706" ObjectType="Gameobject" MobId="205824" NumOfTimes="1" CollectionDistance="50" X="-9903.598" Y="-14.33918" Z="54.44276" />
+				<CustomBehavior File="InteractWith" QuestId="27706" ObjectType="Gameobject" MobId="205824" Range="5" NumOfTimes="1" CollectionDistance="50" X="-9903.598" Y="-14.33918" Z="54.44276" />
 				<RunTo X="-9875.921" Y="-31.09443" Z="55.75531" />
 			</If>
-			<If Condition="((HasQuest(27519)) &amp;&amp; (!IsQuestCompleted(27519)))" >
-			<!-- <CustomBehavior File="InteractWith" QuestId="27519" MobId="45715" NumOfTimes="10" CollectionDistance="500" X="-9777.606" Y="-67.91467" Z="68.70039" /> -->
-			<!-- <CustomBehavior File="RunMacro" Macro="/target Orsis Sur" NumOfTimes="2" WaitTime="1000" />
-				<CustomBehavior File="BasicInteractWith" QuestId="27623" MobId="45715" MoveTo="0" LUATarget="1" />
-			-->
-				<!-- stupid hb issue -->
-				<CustomBehavior File="UserDialog" QuestId="27519" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Click 8 Orsis Survivor's (you can do this on mount) and kill 6 Scion's.  You'll be good for a while after that - Click continue profile when ready" />
-			</If>
-		<Objective QuestName="Minions of Al'Akir" QuestId="27520" Type="KillMob" KillCount="6" MobId="45755" />
+			<While Condition="((HasQuest(27519)) &amp;&amp; (!IsQuestCompleted(27519)))" >
+				<CustomBehavior File="InteractWith" QuestId="27519" MobId="45715" NumOfTimes="10" Range="10" WaitForNpcs="False" CollectionDistance="1000" X="-9777.606" Y="-67.91467" Z="68.70039" />
+				<CustomBehavior File="InteractWith" QuestId="27519" MobId="45715" NumOfTimes="10" Range="10" WaitForNpcs="False" CollectionDistance="1000" X="-9586.483" Y="-28.86054" Z="101.5894" />
+			</While>
+			<Objective QuestName="Minions of Al'Akir" QuestId="27520" Type="KillMob" KillCount="6" MobId="45755" />
 			<If Condition="((HasQuest(27706)) &amp;&amp; (IsQuestCompleted(27706)))" >
 				<CustomBehavior File="FlyTo" X="-9593.458" Y="-353.7656" Z="96.08952" />
 				<CustomBehavior File="ForcedDismount" />
