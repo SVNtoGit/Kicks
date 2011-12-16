@@ -666,7 +666,9 @@
 			<!--
 			<Objective QuestName="We're Surrounded" QuestId="26500" Type="KillMob" KillCount="12" MobId="43134" />
 			-->
-			<CustomBehavior File="KillUntilComplete" QuestId="26500" MobId1="43134" X="382.6332" Y="1462.683" Z="350.5556" />
+			<If Condition="((HasQuest(26500)) &amp;&amp; (!IsQuestCompleted(26500)))" >
+				<CustomBehavior File="KillUntilComplete" QuestId="26500" MobId1="43134" X="382.6332" Y="1462.683" Z="350.5556" />
+			</If>
 			<If Condition="((HasQuest(26500)) &amp;&amp; (IsQuestCompleted(26500)))" >
 				<!--
 				<CustomBehavior File="FlyTo" X="458.9504" Y="1634.358" Z="351.065" />
@@ -1130,7 +1132,9 @@
 			</If>
 		<PickUp QuestName="Wrath of the Fungalmancer" GiverName="Ruberick" QuestId="26583" GiverId="43442" X="1899.87" Y="-439.658" Z="174.7042" />
 				<Objective QuestName="Corruption Destruction" QuestId="26585" Type="Collect" CollectCount="8" ItemId="59123" />
+			<If Condition="((HasQuest(26584)) &amp;&amp; (!IsQuestCompleted(26584)))" >
 				<CustomBehavior File="KillUntilComplete" QuestId="26584" MobId1="43513" X="1949.133" Y="-464.5629" Z="173.3717" />
+			</If>
 				<!--
 				<Objective QuestName="Shaken and Stirred" QuestId="26584" Type="KillMob" KillCount="8" MobId="43513" />
 				-->
@@ -1252,7 +1256,7 @@
 				<CustomBehavior File="ForcedDismount" />
 			</If>
 		<PickUp QuestName="Fly Over" QuestId="27006" GiverName="Prospector Brewer" GiverId="44802" />
-			<If Condition="((!HasQuest(44799)) &amp;&amp; (!IsQuestCompleted(44799)))" >
+			<If Condition="((!HasQuest(27004)) &amp;&amp; (!IsQuestCompleted(27004)))" >
 		<Pickup QuestName="The Twilight Plot" QuestId="27004" GiverName="Explorer Mowi" GiverId="44799" />
 				<RunTo X="918.0795" Y="503.5825" Z="-49.25048" />
 			</If>
@@ -1290,27 +1294,27 @@
 				<CustomBehavior File="FlyTo" X="335.4283" Y="985.6008" Z="62.52031" /> 
 				<CustomBehavior File="ForcedDismount" />
 				<RunTo X="335.4283" Y="985.6008" Z="62.52031" /> 
-				<CustomBehavior File="InteractWith" QuestId="27042" MobId="44885" X="335.4283" Y="985.6008" Z="62.52031" /> <!-- Air -->
+				<CustomBehavior File="InteractWith" QuestId="27042" MobId="44885" Range="10" X="335.4283" Y="985.6008" Z="62.52031" /> <!-- Air -->
 			 </While>
 				
 			 <While Condition="((HasQuest(27042)) &amp;&amp; (!IsObjectiveComplete(2, 27042)))">
 				<CustomBehavior File="FlyTo" X="537.2458" Y="976.4224" Z="78.05692" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="InteractWith" QuestId="27042" MobId="44886" X="537.2458" Y="976.4224" Z="78.05692" /> <!-- Water -->
+				<CustomBehavior File="InteractWith" QuestId="27042" MobId="44886" Range="10" X="537.2458" Y="976.4224" Z="78.05692" /> <!-- Water -->
 			 </While>
 
 			 <While Condition="((HasQuest(27042)) &amp;&amp; (!IsObjectiveComplete(1, 27042)))">
 				<CustomBehavior File="FlyTo" X="498.8905" Y="1203.825" Z="54.74298" />
 				<CustomBehavior File="ForcedDismount" />
 				<RunTo X="501.3299" Y="1208.534" Z="54.79808" />
-				<CustomBehavior File="InteractWith" QuestId="27042" MobId="44887" X="501.3299" Y="1208.534" Z="54.79808" /> <!-- Fire -->
+				<CustomBehavior File="InteractWith" QuestId="27042" MobId="44887" Range="10" X="501.3299" Y="1208.534" Z="54.79808" /> <!-- Fire -->
 			 </While>
 
 			 <While Condition="((HasQuest(27042)) &amp;&amp; (!IsObjectiveComplete(4, 27042)))">
 				<CustomBehavior File="FlyTo" X="575.9686" Y="999.1688" Z="220.58" />
 				<CustomBehavior File="FlyTo" X="649.3488" Y="1014.816" Z="181.0963" />	
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="InteractWith" QuestId="27042" MobId="44835" />
+				<CustomBehavior File="InteractWith" QuestId="27042" MobId="44835" Range="10" />
 			 </While>
 				
 				<!--
@@ -1325,7 +1329,19 @@
 		<TurnIn QuestName="Fight Fire and Water and Air with..." TurnInName="Prospector Brewer" QuestId="27042" TurnInId="44802" />
 		<TurnIn QuestName="The Wrong Sequence" QuestId="27058" TurnInName="Explorer Mowi" TurnInId="44799" />
 		<Pickup QuestName="That's No Pyramid" QuestId="28292" GiverName="Explorer Mowi" GiverId="44799" />
-
+			<If Condition="((HasQuest(28292)) &amp;&amp; (IsQuestCompleted(28292))) &amp;&amp; (Me.ZoneId == 5042)" >
+				<RunTo X="973.6232" Y="570.9096" Z="-46.0024" />
+				<CustomBehavior File="InteractWith" MobId="205272" ObjectType="Gameobject" Range="8" X="973.6232" Y="570.9096" Z="-46.0024" />
+				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for port {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(28292)) &amp;&amp; (IsQuestCompleted(28292))) &amp;&amp; (Me.ZoneId == 1519)" >
+				<CustomBehavior File="FlyTo" DestName="Turnin That's No Pyramid" X="-8319.21" Y="286.5901" Z="252.7348" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="That's No Pyramid!" QuestId="28292" TurnInName="Harrison Jones" TurnInId="44238" />
+				<RunTo X="-8321.864" Y="283.6451" Z="156.8326" />
+				<CustomBehavior File="FlyTo" DestName="Up" X="-8319.21" Y="286.5901" Z="252.7348" />
+				<CustomBehavior File="FlyTo" DestName="Naraat" X="-8210.729" Y="428.3751" Z="118.0511" />
+			</If>
 			</If>
 		
 		<!-- Horde quests that lead to Uldum -->
@@ -1399,7 +1415,7 @@
 				<CustomBehavior File="FlyTo" X="575.9686" Y="999.1688" Z="220.58" />
 				<CustomBehavior File="FlyTo" X="649.3488" Y="1014.816" Z="181.0963" />	
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="InteractWith" QuestId="27043" MobId="44835" />
+				<CustomBehavior File="InteractWith" QuestId="27043" MobId="44835" Range="10" />
 			 </While>
 				
 				<!--
@@ -1424,14 +1440,14 @@
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="That's No Pyramid!" QuestId="28293" TurnInName="Belloc Brightblade" TurnInId="47571" X="1668.57" Y="-4359.84" Z="26.77508" />
 			</If>
-
-			<!-- h only atm -->
-			<CustomBehavior File="LoadProfile" ProfileName="[Fly][N - Quest] Uldum 83-85 [Kick]" /> 
 			</If>
-		
-				<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Deepholm is completed.  Glop is left (Wrath of the Fungalmancer) and 5 dailies at Therazane.  There are 2 quests to Stonecore if you want to pick them up - Stormcaller Mylra and Therazane each have 1\n\nGo to SW / Org and turn in &quot;That's No Pyramid!&quot; once you want to go to Uldum" />
-				<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of Line" />
 
+			<CustomBehavior File="LoadProfile" ProfileName="[Fly][N - Quest] Uldum 83-85 [Kick]" /> 
+		
+			<!--
+			<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of Line" />
+			<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Deepholm is completed.  Glop is left (Wrath of the Fungalmancer) and 5 dailies at Therazane.  There are 2 quests to Stonecore if you want to pick them up - Stormcaller Mylra and Therazane each have 1\n\nGo to SW / Org and turn in &quot;That's No Pyramid!&quot; once you want to go to Uldum" />
+			-->
 
 			<!-- Speak to Earthmender Norsala(NPC Entry=43503) -->
 			<!-- Fungalmancer Glop
