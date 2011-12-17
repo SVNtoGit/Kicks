@@ -255,7 +255,15 @@
 		</Objective>
 	</Quest>	
 
-
+	<Quest Id="27755" Name="The Curse of the Tombs">
+		<Objective Type="KillMob" MobId="46590" KillCount="6">
+			<Hotspots>
+				<Hotspot X="-10415.71" Y="-1898.132" Z="84.44118" />
+				<Hotspot X="-10421.61" Y="-1829.618" Z="90.80956" />
+				<Hotspot X="-10514.46" Y="-1884.249" Z="90.32309" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 
 
 	<QuestOrder IgnoreCheckpoints="True" >
@@ -808,9 +816,11 @@
 			</If>
 		<TurnIn QuestName="The Defense of Nahom" TurnInName="Salhet" QuestId="28501" TurnInId="48761" />
 		<PickUp QuestName="The Push Westward" GiverName="Salhet" QuestId="28623" GiverId="48761" />
+			<If Condition="((!HasQuest(27755)) &amp;&amp; (!IsQuestCompleted(27755)))" >
 		<PickUp QuestName="The Curse of the Tombs" GiverName="Sun Prophet Tumet" QuestId="27755" GiverId="48501" />
-			<If Condition="((HasQuest(27755)) &amp;&amp; (!IsQuestCompleted(27755)))" >
 				<RunTo X="-9775.439" Y="-1704.986" Z="22.25718" />
+			</If>
+			<If Condition="((HasQuest(27755)) &amp;&amp; (!IsQuestCompleted(27755)))" >
 				<CustomBehavior File="FlyTo" X="-10412.32" Y="-1845.985" Z="90.32314" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
@@ -829,7 +839,9 @@
 					</SetGrindArea>
 				<GrindTo Condition="(HasItem(62483))" GoalText="QuestItem" />
 			</If>
+			<If Condition="(HasItem(62483))" >
 		<PickUp QuestName="Artificial Intelligence" QuestId="27760" GiverType="Item" GiverId="62483" />
+			</If>
 			<If Condition="((HasQuest(27755)) &amp;&amp; (IsQuestCompleted(27755)))" >
 				<CustomBehavior File="FlyTo" X="-9736.508" Y="-1697.246" Z="77.35265" />
 				<CustomBehavior File="FlyTo" X="-9775.439" Y="-1704.986" Z="22.25718" />
@@ -843,19 +855,15 @@
 		<Pickup QuestName="A Disarming Distraction" QuestId="27761" GiverName="A. I. D.A. Terminal" GiverId="206293" GiverType="GameObject" X="-10691.36" Y="-2147.385" Z="104.4498" />
 		<Pickup QuestName="Core Access Codes" QuestId="27777" GiverName="A. I. D.A. Terminal" GiverId="206293" GiverType="GameObject" X="-10691.36" Y="-2147.385" Z="104.4498" />
 			<While Condition="((HasQuest(27777)) &amp;&amp; (!IsQuestCompleted(27777)))" >
-				<CustomBehavior File="UserSettings" PullDistance="1" />
-				<CustomBehavior File="FlyTo" X="-10989.5" Y="-2100.123" Z="172.7249" />
-				<!--
-				<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Help your bot kill the guy by pressing on the controller.  Press continue and the bot will kill Twizz (press the controller a few times!)" />
-				-->
+				<CustomBehavior File="FlyTo" X="-10970.76" Y="-2092.311" Z="171.718" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="UserSettings" PullDistance="35" />
-				<CustomBehavior File="CombatUseItemOn" QuestId="27777" MobId="46587" ItemId="62542" MobHpPercentLeft="100" NumOfTimes="30" MaxRange="19" X="-10986.97" Y="-2100.066" Z="172.7457" />
+				<CustomBehavior File="CombatUseItemOn" QuestId="27777" MobId="46587" ItemId="62542" MobHpPercentLeft="100" NumOfTimes="200" MaxRange="19" X="-10986.97" Y="-2100.066" Z="172.7457" />
 				<Objective QuestName="Core Access Codes" QuestId="27777" Type="CollectItem" ItemId="62399" CollectCount="1" />
 			</While>
 			<If Condition="((HasQuest(27761)) &amp;&amp; (!IsQuestCompleted(27761)))" >
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 				<CustomBehavior File="FlyTo" X="-10664.89" Y="-2449.638" Z="143.2799" />
+				<!-- Possible w/o a UserDialog, but annoying -->
 				<CustomBehavior File="UserDialog" QuestId="27761" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Fly over the sparklies, use the Hologram while on mount, then disable clusters and bomb bots\n\nPress continue when you're done\n\nDon't go far, you get to command the fireball next!" />
 			</If>
 			<If Condition="((HasQuest(27777)) &amp;&amp; (IsQuestCompleted(27777)))" >
@@ -866,7 +874,8 @@
 		<TurnIn QuestName="Core Access Codes" QuestId="27777" TurnInName="A. I. D.A. Terminal" TurnInId="206293" X="-10691.36" Y="-2147.385" Z="104.4498" />
 		<Pickup QuestName="Hacking the Wibson" QuestId="27778" GiverName="A. I. D.A. Terminal" GiverId="206293" GiverType="GameObject" X="-10691.36" Y="-2147.385" Z="104.4498" />
 			<If Condition="((HasQuest(27778)) &amp;&amp; (!IsQuestCompleted(27778)))" >
-				<CustomBehavior File="FlyTo" X="-10628.38" Y="-2329.397" Z="144.914" />
+				<CustomBehavior File="FlyTo" X="-10643.23" Y="-2311.91" Z="180.1708" />
+				<CustomBehavior File="FlyTo" Distance="2" X="-10632.88" Y="-2332.946" Z="144.7375" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" QuestId="27778" ObjectType="Gameobject" MobId="206532" NumOfTimes="1" CollectionDistance="50" X="-10628.38" Y="-2329.397" Z="144.914" />
 				<CustomBehavior File="InteractWith" QuestId="27778" MobId="46715" NumOfTimes="1" CollectionDistance="50" X="-10628.38" Y="-2329.397" Z="144.914" />
@@ -876,9 +885,27 @@
 		<PickUp QuestName="Gnomebliteration" GiverName="Fusion Core" QuestId="27779" GiverId="46750" />
 			<If Condition="((HasQuest(27779)) &amp;&amp; (!IsQuestCompleted(27779)))" >
 				<CustomBehavior File="UserDialog" QuestId="27779" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Get in the ball and then run around and catch gnomes on fire\nStay out of the water\n\nGet out of vehicle, mount your flier and press continue when done, I'll fly you back\n\nDon't go too far, you have an escort quest soon" />
+				<!--
+				<CustomBehavior File="RunLikeHell" QuestId="27779" MobId="1" Range="20" NumOfTimes="8" AllowCombat="false" UseCTM="true" >
+					<Hotspot X="-10519.23" Y="-2322.479" Z="75.23986" />
+					<Hotspot X="-10434.27" Y="-2432.371" Z="46.64612" />
+					<Hotspot X="-10472.42" Y="-2603.771" Z="7.330875" />
+					<Hotspot X="-10417.87" Y="-2642.701" Z="4.552935" />
+					<Hotspot X="-10253.19" Y="-2674.121" Z="4.995976" />
+					<Hotspot X="-10209.86" Y="-2607.723" Z="16.33029" />
+					<Hotspot X="-10179.64" Y="-2407.452" Z="27.87493" />
+					<Hotspot X="-10180.5" Y="-2369.209" Z="27.42072" />
+					<Hotspot X="-10289.14" Y="-2388.685" Z="21.94059" />
+					<Hotspot X="-10282.93" Y="-2649.058" Z="10.56373" />
+					<Hotspot X="-10455.5" Y="-2644.314" Z="4.448581" />
+					<Hotspot X="-10522.29" Y="-2299.492" Z="77.12399" />
+				</CustomBehavior>
+				-->
+				<CustomBehavior File="EjectVeh" Eject="True" />
 			</If>
 			<If Condition="((HasQuest(27779)) &amp;&amp; (IsQuestCompleted(27779)))" >
-				<CustomBehavior File="FlyTo" X="-10640.03" Y="-2341.109" Z="144.753" />
+				<CustomBehavior File="FlyTo" X="-10608.1" Y="-2342.134" Z="176.1464" />
+				<CustomBehavior File="FlyTo" Distance="2" X="-10632.88" Y="-2332.946" Z="144.7375" />
 			</If>
 		<TurnIn QuestName="Gnomebliteration" TurnInName="Fusion Core" QuestId="27779" TurnInId="46750" />
 			<If Condition="(HasQuest(28623))" >
@@ -889,10 +916,13 @@
 		<PickUp QuestName="Bleeding the Enemy" GiverName="King Phaoris" QuestId="28483" GiverId="48564" />
 		<PickUp QuestName="Lieutenants of Darkness" GiverName="King Phaoris" QuestId="28480" GiverId="48564" />
 		<PickUp QuestName="Salhet's Gambit" GiverName="Salhet" QuestId="28486" GiverId="49345" />
-			<If Condition="((HasQuest(28486)) &amp;&amp; (!IsQuestCompleted(28486)))" >
+			<While Condition="((HasQuest(28486)) &amp;&amp; (!IsQuestCompleted(28486)))" >
 				<CustomBehavior File="FlyTo" X="-10970.18" Y="-905.196" Z="106.8122" />
-				<CustomBehavior File="UserDialog" QuestId="28486" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Escort the Captain up, then press continue" />
-			</If>
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="InteractWith" QuestId="28486" MobId="49244" X="-10969.05" Y="-904.8798" Z="106.6018" />
+				<CustomBehavior File="Escort" QuestId="28486" MobId="49253" X="-10969.05" Y="-904.8798" Z="106.6018" />
+			</While>
 			<If Condition="((HasQuest(28480)) &amp;&amp; (!IsQuestCompleted(28480)))" >
 				<CustomBehavior File="FlyTo" X="-11220.06" Y="-500.8987" Z="116.1857" />
 				<CustomBehavior File="ForcedDismount" />
@@ -963,7 +993,9 @@
 						</SetGrindArea>
 					<GrindTo Condition="(HasItem(62768))" GoalText="QuestItem" />
 			</If>
+			<If Condition="(HasItem(62768))" >
 		<PickUp QuestName="Efficient Excavations" QuestId="28132" GiverType="Item" GiverId="62768" />
+			</If>
 			<If Condition="((HasQuest(27900)) &amp;&amp; (IsQuestCompleted(27900)))" >
 				<CustomBehavior File="FlyTo" X="-10386.13" Y="-280.8733" Z="336.5973" />
 				<CustomBehavior File="ForcedDismount" />
@@ -988,7 +1020,7 @@
 			</If>
 		<PickUp QuestName="Tailgunner!" GiverName="Harrison Jones" QuestId="27905" GiverId="46978" />
 			<If Condition="(HasQuest(27905))" >
-				<CustomBehavior File="WaitTimer" WaitTime="240000"/>
+				<CustomBehavior File="WaitTimer" WaitTime="210000"/>
 			</If>
 		<TurnIn QuestName="Tailgunner!" TurnInName="Harrison Jones" QuestId="27905" TurnInId="48082" X="-9754.92" Y="-942.769" Z="106.7633" />
 			<If Condition="(HasQuest(28132))" >
