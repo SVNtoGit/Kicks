@@ -907,6 +907,28 @@
 			<If Condition="Me.ZoneId == 3483" >
 	<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="20" ExpiryAction="InputEnabled_Continue" Text="This profile doesn't fly until Zangarmarsh\n\nMake sure that Shak Questing / Azenius Plugin is enabled!!!!\n\nNote: This is just a warning and will go away in 30 seconds\n\nDiese Meldung ist nur eine Warnung udn wird in 30 Sekunden automatisch geschlossen" />
 			</If>
+			
+			<If Condition="Me.Level &gt;= 62" >
+			
+			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &lt;= 245)" >
+				<!-- Mount is 40g, Training is 200g -->
+				<CustomBehavior File="UserDialog" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" Title="Get more Money." 
+				Text="You do not have the necessary amount of money to train 'Expert Riding' - please send some money; or farm for some money and continue when you have money" />
+			</If>
+			
+			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
+				<CustomBehavior File="ForceTrainRiding" MobId="35093" />
+				<If Condition="!HasItem(25474)">
+					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474" X="47.76153" Y="2742.022" Z="85.27119" />
+				</If>
+				<If Condition="HasItem(25474)">
+					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25474)" WaitTime="1000" />
+					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
+				</If>
+			</If>
+			
+			</If>
 	
 		<CustomBehavior File="Message" Text="Compiling Hellfire Peninsula Quests" LogColor="Green" />
 
@@ -2067,6 +2089,28 @@
 			<Checkpoint Level="64" />
 			<!-- Terrokar Forest -->
 			
+			<If Condition="Me.Level &gt;= 62" >
+			
+			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &lt;= 245)" >
+				<!-- Mount is 40g, Training is 200g -->
+				<CustomBehavior File="UserDialog" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" Title="Get more Money." 
+				Text="You do not have the necessary amount of money to train 'Expert Riding' - please send some money; or farm for some money and continue when you have money" />
+			</If>
+			
+			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
+				<CustomBehavior File="ForceTrainRiding" MobId="35093" />
+				<If Condition="!HasItem(25474)">
+					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474" X="47.76153" Y="2742.022" Z="85.27119" />
+				</If>
+				<If Condition="HasItem(25474)">
+					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25474)" WaitTime="1000" />
+					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
+				</If>
+			</If>
+			
+			</If>
+		
 		<CustomBehavior File="Message" Text="Compiling Terrokar Forest Quests" LogColor="Green" />
 
 			<If Condition="((!HasQuest(10210)) &amp;&amp; (!IsQuestCompleted(10210)))" >
