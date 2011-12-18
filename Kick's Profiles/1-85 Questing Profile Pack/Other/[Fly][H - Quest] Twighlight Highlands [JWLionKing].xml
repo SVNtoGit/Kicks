@@ -268,84 +268,88 @@
 
 	<QuestOrder IgnoreCheckPoints="True" >
 
-	<PickUp QuestName="Warchief's Command: Twilight Highlands!" QuestId="28717" GiverName="Warchief's Command Board" GiverType="Object" GiverId="206109" X="1597.863" Y="-4371.962" Z="21.14435"/>
-		<If Condition="HasQuest(28717)" >
-			<CustomBehavior File="FlyTo" X="1601.009" Y="-4379.437" Z="20.73626" />
-			<CustomBehavior File="ForcedDismount" />
-			<TurnIn QuestName="Unfamiliar Waters" QuestId="28717" TurnInName="Garrosh Hellscream" TurnInId="39605"/>
-		</If>
-	<PickUp QuestName="Machines of War" QuestId="26293" GiverName="Garrosh Hellscream" GiverId="39605" />
-	<PickUp QuestName="Unfamiliar Waters" QuestId="26311" GiverName="Sauranok the Mystic" GiverId="42637" />
-	<If Condition="HasQuest(26293)" >
-		<CustomBehavior File="FlyTo" X="2486.644" Y="-4827.257" Z="142.1595"  />
-		<CustomBehavior File="ForcedDismount" />
+			<If Condition="((!HasQuest(28717)) &amp;&amp; (!IsQuestCompleted(28717))) &amp;&amp; (Me.MapId == 1)" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="1587.082" Y="-4369.409" Z="20.83522" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Warchief's Command: Twilight Highlands!" QuestId="28717" GiverName="Warchief's Command Board" GiverType="Object" GiverId="206109" X="1597.863" Y="-4371.962" Z="21.14435"/>
+			</If>
+			<If Condition="HasQuest(28717)" >
+				<CustomBehavior File="FlyTo" X="1601.009" Y="-4379.437" Z="20.73626" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Unfamiliar Waters" QuestId="28717" TurnInName="Garrosh Hellscream" TurnInId="39605"/>
+		<PickUp QuestName="Machines of War" QuestId="26293" GiverName="Garrosh Hellscream" GiverId="39605" />
+		<PickUp QuestName="Unfamiliar Waters" QuestId="26311" GiverName="Sauranok the Mystic" GiverId="42637" />
+			<If Condition="HasQuest(26293)" >
+				<CustomBehavior File="FlyTo" X="2486.644" Y="-4827.257" Z="142.1595"  />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
 		<TurnIn QuestName="Machines of War" QuestId="26293" TurnInName="Foreman Glibbs" TurnInId="42672"/>
-	</If>
-	<PickUp QuestName="Weapons of Mass Dysfunction" QuestId="26294" GiverName="Foreman Glibbs" GiverId="42672" />
-		<If Condition="((HasQuest(26294)) &amp;&amp; (!IsQuestCompleted(26294)))" >
-			  	<RunTo X="2393.649" Y="-4790.602" Z="126.3391" />
-				<CustomBehavior File="InteractWith" QuestId="26294" ObjectType="NPC" MobId="42673" NumOfTimes="1" CollectionDistance="50" X="2393.649" Y="-4790.602" Z="126.3391" />
-				<CustomBehavior File="InteractWith" QuestId="26294" ObjectType="NPC" MobId="42671" NumOfTimes="1" CollectionDistance="50" X="2393.649" Y="-4790.602" Z="126.3391" />
-		</If>
-		<If Condition="((HasQuest(26311)) &amp;&amp; (!IsQuestCompleted(26311)))" >
-			<CustomBehavior File="FlyTo" X="1924.018" Y="-4722.045" Z="35.85353"  />
-			<CustomBehavior File="ForcedDismount" />
-			  	<RunTo  X="1900.16" Y="-4744.264" Z="38.91815"  />
-				<CustomBehavior File="InteractWith" QuestId="26311" MobId="42638" NumOfTimes="1" WaitTime="100" CollectionDistance="20" X="4923.962" Y="-1874.592" Z="1334.207" />
+		<PickUp QuestName="Weapons of Mass Dysfunction" QuestId="26294" GiverName="Foreman Glibbs" GiverId="42672" />
+			<If Condition="((HasQuest(26294)) &amp;&amp; (!IsQuestCompleted(26294)))" >
+				<RunTo X="2393.649" Y="-4790.602" Z="126.3391" />
+				<CustomBehavior File="InteractWith" QuestId="26294" MobId="42673" NumOfTimes="1" CollectionDistance="50" X="2393.649" Y="-4790.602" Z="126.3391" />
+				<CustomBehavior File="InteractWith" QuestId="26294" MobId="42671" NumOfTimes="1" CollectionDistance="50" X="2393.649" Y="-4790.602" Z="126.3391" />
+			</If>
+			<If Condition="((HasQuest(26311)) &amp;&amp; (!IsQuestCompleted(26311)))" >
+				<CustomBehavior File="FlyTo" X="1924.018" Y="-4722.045" Z="35.85353"  />
+				<CustomBehavior File="ForcedDismount" />
+					<RunTo  X="1900.16" Y="-4744.264" Z="38.91815"  />
+					<CustomBehavior File="InteractWith" QuestId="26311" MobId="42638" NumOfTimes="1" WaitTime="100" CollectionDistance="20" X="4923.962" Y="-1874.592" Z="1334.207" />
+					<CustomBehavior File="RunMacro" Macro="/script SelectGossipOption(1) \n" NumOfTimes="1" WaitTime="1000" />
+					<CustomBehavior File="WaitTimer" WaitTime="48000"/>
+					<CustomBehavior File="InteractWith" QuestId="26311" MobId="42638" NumOfTimes="1" WaitTime="100" CollectionDistance="20" X="4923.962" Y="-1874.592" Z="1334.207" />
+					<CustomBehavior File="RunMacro" Macro="/script SelectGossipOption(1) \n" NumOfTimes="1" WaitTime="1000" />
+			</If>
+			<If Condition="HasQuest(26311)" >
+				<CustomBehavior File="FlyTo" X="1598.575" Y="-4380.861" Z="20.34094"  />
+				<CustomBehavior File="ForcedDismount" />			
+			</If>
+		<TurnIn QuestName="Unfamiliar Waters" QuestId="26311" TurnInName="Sauranok the Mystic" TurnInId="42637"/>
+		<TurnIn QuestName="Weapons of Mass Dysfunction" QuestId="26294" TurnInName="Garrosh Hellscream" TurnInId="39605"/>	
+		<PickUp QuestName="Where Is My Warfleet?" QuestId="26324" GiverName="Garrosh Hellscream" GiverId="39605" />
+			<If Condition="HasQuest(26324)" >
+				<CustomBehavior File="FlyTo" X="3527.193" Y="-6686.087" Z="96.35741"  />
+				<CustomBehavior File="ForcedDismount" />
+				<TurnIn QuestName="Where Is My Warfleet?" QuestId="26324" TurnInName="Warlord Krogg" TurnInId="42641"/>			
+			</If>
+		<PickUp QuestName="Ready the Air Force" QuestId="26358" GiverName="Captain Krazz" GiverId="42640" />
+		<PickUp QuestName="Ready the Navy" QuestId="26335" GiverName="Warlord Krogg" GiverId="42641" />
+		<PickUp QuestName="Ready the Ground Troops" QuestId="26374" GiverName="Warlord Krogg" GiverId="42641" />
+			<If Condition="HasQuest(26358)" >
+				<CustomBehavior File="FlyTo" X="3501.908" Y="-6379.38" Z="11.49476"  />
+				<CustomBehavior File="ForcedDismount" />
+				<TurnIn QuestName="Ready the Air Force" QuestId="26358" TurnInName="Fleep" TurnInId="42643"/>			
+			</If>
+		<PickUp QuestName="Smoot's Samophlange" QuestId="26361" GiverName="Fleep" GiverId="42643" />
+			<If Condition="HasQuest(26335)" >
+				<CustomBehavior File="FlyTo" X="3662.031" Y="-6343.345" Z="4.418347" />
+				<CustomBehavior File="ForcedDismount" />
+				<TurnIn QuestName="Ready the Navy" QuestId="26335" TurnInName="Foebreaker Blueprints" TurnInId="204050" X="3638.765" Y="-6323.591" Z="0.6367"/>			
+			</If>
+		<PickUp QuestName="Beating the Market" QuestId="26337" GiverName="Foebreaker Blueprints" GiverId="204050" GiverType="Object" X="3638.765" Y="-6323.591" Z="0.6367"/>
+			<If Condition="((HasQuest(26374)) &amp;&amp; (!IsQuestCompleted(26374)))" >
+				<CustomBehavior File="InteractWith" QuestId="26374" MobId="42646" NumOfTimes="12" WaitTime="2000" CollectionDistance="500" X="3607.491" Y="-6420.251" Z="11.49102" />
+			</If>
+			<If Condition="((HasQuest(26337)) &amp;&amp; (!IsQuestCompleted(26337)))" >
+				<CustomBehavior File="InteractWith" QuestId="26337" MobId="42777" NumOfTimes="1" WaitTime="2000" CollectionDistance="500" X="3596.417" Y="-6466.063" Z="20.23352" />
 				<CustomBehavior File="RunMacro" Macro="/script SelectGossipOption(1) \n" NumOfTimes="1" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="48000"/>
-				<CustomBehavior File="InteractWith" QuestId="26311" MobId="42638" NumOfTimes="1" WaitTime="100" CollectionDistance="20" X="4923.962" Y="-1874.592" Z="1334.207" />
-				<CustomBehavior File="RunMacro" Macro="/script SelectGossipOption(1) \n" NumOfTimes="1" WaitTime="1000" />
-		</If>
-		<If Condition="HasQuest(26311)" >
-			<CustomBehavior File="FlyTo" X="1598.575" Y="-4380.861" Z="20.34094"  />
-			<CustomBehavior File="ForcedDismount" />			
-		</If>
-	<TurnIn QuestName="Unfamiliar Waters" QuestId="26311" TurnInName="Sauranok the Mystic" TurnInId="42637"/>
-	<TurnIn QuestName="Weapons of Mass Dysfunction" QuestId="26294" TurnInName="Garrosh Hellscream" TurnInId="39605"/>	
-	<PickUp QuestName="Where Is My Warfleet?" QuestId="26324" GiverName="Garrosh Hellscream" GiverId="39605" />
-		<If Condition="HasQuest(26324)" >
-			<CustomBehavior File="FlyTo" X="3527.193" Y="-6686.087" Z="96.35741"  />
-			<CustomBehavior File="ForcedDismount" />
-			<TurnIn QuestName="Where Is My Warfleet?" QuestId="26324" TurnInName="Warlord Krogg" TurnInId="42641"/>			
-		</If>
-	<PickUp QuestName="Ready the Air Force" QuestId="26358" GiverName="Captain Krazz" GiverId="42640" />
-	<PickUp QuestName="Ready the Navy" QuestId="26335" GiverName="Warlord Krogg" GiverId="42641" />
-	<PickUp QuestName="Ready the Ground Troops" QuestId="26374" GiverName="Warlord Krogg" GiverId="42641" />
-		<If Condition="HasQuest(26358)" >
-			<CustomBehavior File="FlyTo" X="3501.908" Y="-6379.38" Z="11.49476"  />
-			<CustomBehavior File="ForcedDismount" />
-			<TurnIn QuestName="Ready the Air Force" QuestId="26358" TurnInName="Fleep" TurnInId="42643"/>			
-		</If>
-	<PickUp QuestName="Smoot's Samophlange" QuestId="26361" GiverName="Fleep" GiverId="42643" />
-		<If Condition="HasQuest(26335)" >
-			<CustomBehavior File="FlyTo" X="3662.031" Y="-6343.345" Z="4.418347" />
-			<CustomBehavior File="ForcedDismount" />
-			<TurnIn QuestName="Ready the Navy" QuestId="26335" TurnInName="Foebreaker Blueprints" TurnInId="204050" X="3638.765" Y="-6323.591" Z="0.6367"/>			
-		</If>
-	<PickUp QuestName="Beating the Market" QuestId="26337" GiverName="Foebreaker Blueprints" GiverId="204050" GiverType="Object" X="3638.765" Y="-6323.591" Z="0.6367"/>
-		<If Condition="((HasQuest(26374)) &amp;&amp; (!IsQuestCompleted(26374)))" >
-			<CustomBehavior File="InteractWith" QuestId="26374" MobId="42646" NumOfTimes="12" WaitTime="2000" CollectionDistance="500" X="3607.491" Y="-6420.251" Z="11.49102" />
-		</If>
-		<If Condition="((HasQuest(26337)) &amp;&amp; (!IsQuestCompleted(26337)))" >
-			<CustomBehavior File="InteractWith" QuestId="26337" MobId="42777" NumOfTimes="1" WaitTime="2000" CollectionDistance="500" X="3596.417" Y="-6466.063" Z="20.23352" />
-			<CustomBehavior File="RunMacro" Macro="/script SelectGossipOption(1) \n" NumOfTimes="1" WaitTime="1000" />
-		</If>
-		<If Condition="((HasQuest(26361)) &amp;&amp; (!IsQuestCompleted(26361)))" >
-			<CustomBehavior File="InteractWith" QuestId="26361" MobId="42644" NumOfTimes="1" WaitTime="4000" CollectionDistance="500" X="3537.149" Y="-6430.683" Z="21.05468"  />
-			<CustomBehavior File="InteractWith" QuestId="26361" ObjectType="Gameobject" MobId="204091" NumOfTimes="1" CollectionDistance="400" X="3537.149" Y="-6430.683" Z="21.05468"  />			
-		</If>
-		<If Condition="HasQuest(26361)" >
-			<CustomBehavior File="FlyTo" X="3501.908" Y="-6379.38" Z="11.49476"  />
-			<CustomBehavior File="ForcedDismount" />
-			<TurnIn QuestName="Smoot's Samophlange" QuestId="26361" TurnInName="Fleep" TurnInId="42643"/>			
-		</If>
-	<PickUp QuestName="Pre-Flight Checklist" QuestId="26372" GiverName="Fleep" GiverId="42643" />
-		<If Condition="HasQuest(26337)" >
-			<CustomBehavior File="FlyTo" X="3527.193" Y="-6686.087" Z="96.35741"  />
-			<CustomBehavior File="ForcedDismount" />
-			<TurnIn QuestName="Beating the Market" QuestId="26337" TurnInName="Warlord Krogg" TurnInId="42641"/>
-		</If>
+			</If>
+			<If Condition="((HasQuest(26361)) &amp;&amp; (!IsQuestCompleted(26361)))" >
+				<CustomBehavior File="InteractWith" QuestId="26361" MobId="42644" NumOfTimes="1" WaitTime="4000" CollectionDistance="500" X="3537.149" Y="-6430.683" Z="21.05468"  />
+				<CustomBehavior File="InteractWith" QuestId="26361" ObjectType="Gameobject" MobId="204091" NumOfTimes="1" CollectionDistance="400" X="3537.149" Y="-6430.683" Z="21.05468"  />			
+			</If>
+			<If Condition="HasQuest(26361)" >
+				<CustomBehavior File="FlyTo" X="3501.908" Y="-6379.38" Z="11.49476"  />
+				<CustomBehavior File="ForcedDismount" />
+				<TurnIn QuestName="Smoot's Samophlange" QuestId="26361" TurnInName="Fleep" TurnInId="42643"/>			
+			</If>
+		<PickUp QuestName="Pre-Flight Checklist" QuestId="26372" GiverName="Fleep" GiverId="42643" />
+			<If Condition="HasQuest(26337)" >
+				<CustomBehavior File="FlyTo" X="3527.193" Y="-6686.087" Z="96.35741"  />
+				<CustomBehavior File="ForcedDismount" />
+				<TurnIn QuestName="Beating the Market" QuestId="26337" TurnInName="Warlord Krogg" TurnInId="42641"/>
+			</If>
 		<TurnIn QuestName="Ready the Ground Troops" QuestId="26374" TurnInName="Warlord Krogg" TurnInId="42641"/>	
 		<TurnIn QuestName="Pre-Flight Checklist" QuestId="26372" TurnInName="Captain Krazz" TurnInId="42640" />
 		<PickUp QuestName="Twilight Skies" QuestId="28849" GiverName="Captain Krazz" GiverId="42640" />
@@ -567,7 +571,7 @@
 			<If Condition="((HasQuest(27622)) &amp;&amp; (!IsQuestCompleted(27622)))" >			
 					<CustomBehavior File="FlyTo"  X="-4327.193" Y="-6037.601" Z="13.14286" />
 					<CustomBehavior File="ForcedDismount" />
-					<CustomBehavior File="InteractWith" QuestId="27622" ObjectType="NPC" MobId="46100" NumOfTimes="1" CollectionDistance="5" X="-4327.193" Y="-6037.601" Z="13.14286" />
+					<CustomBehavior File="InteractWith" QuestId="27622" MobId="46100" NumOfTimes="1" CollectionDistance="5" X="-4327.193" Y="-6037.601" Z="13.14286" />
 					<CustomBehavior File="WaitTimer" WaitTime="12000"/>
 					<Objective QuestId="26622" QuestName="Mo' Better Shredder" Type="KillMob" MobId="45189" KillCount="1"/>					
 					<CustomBehavior File="UserDialog" Title="title" AllowBotStop="False" ExpiryTime="90" ExpiryAction="InputEnabled_Continue" Text="Wait while we defend the Shredder!" />

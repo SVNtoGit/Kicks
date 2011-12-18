@@ -1553,25 +1553,6 @@
 		<TurnIn QuestName="A Pilgrim's Plight" QuestId="9376" TurnInName="Taleris Dawngazer" TurnInId="17015" />
 			</If>
 
-
-			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &lt;= 245)" >
-				<!-- Mount is 40g, Training is 200g -->
-				<CustomBehavior File="UserDialog" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" Title="Get more Money." 
-				Text="You do not have the necessary amount of money to train 'Expert Riding' - please send some money; or farm for some money and continue when you have money" />
-			</If>
-			
-			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
-				<CustomBehavior File="ForceTrainRiding" MobId="35093" />
-				<If Condition="!HasItem(25474)">
-					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474" X="47.76153" Y="2742.022" Z="85.27119" />
-				</If>
-				<If Condition="HasItem(25474)">
-					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
-					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25474)" WaitTime="1000" />
-					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
-				</If>
-			</If>
-		
 			<If Condition="(Me.Level &lt; 62)" >
 				<CustomBehavior File="FlyTo" X="-432.939" Y="4289.709" Z="65.62749" />
 				<CustomBehavior File="ForcedDismount" />
@@ -1593,6 +1574,24 @@
 			<GrindTo Level="62"/>
 			<Checkpoint Level="62"/>
 
+			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &lt;= 245)" >
+				<!-- Mount is 40g, Training is 200g -->
+				<CustomBehavior File="UserDialog" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" Title="Get more Money." 
+				Text="You do not have the necessary amount of money to train 'Expert Riding' - please send some money; or farm for some money and continue when you have money" />
+			</If>
+			
+			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
+				<CustomBehavior File="ForceTrainRiding" MobId="35093" />
+				<If Condition="!HasItem(25474)">
+					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474" X="47.76153" Y="2742.022" Z="85.27119" />
+				</If>
+				<If Condition="HasItem(25474)">
+					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25474)" WaitTime="1000" />
+					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
+				</If>
+			</If>
+		
 		<CustomBehavior File="Message" Text="Compiling Zangarmarsh Quests" LogColor="Green" />
 		
 			<If Condition="((!HasQuest(9912)) &amp;&amp; (!IsQuestCompleted(9912)))" >
