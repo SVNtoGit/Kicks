@@ -232,7 +232,7 @@
 			 </If>
 			</If>
 		
-		<CustomBehavior File="UserSettings" TrainNewSkills="True" FindVendorsAutomatically="True" LootMobs="True" LootRadius="30" UseMount="True" PullDistance="20"  />
+		<CustomBehavior File="UserSettings" TrainNewSkills="False" FindVendorsAutomatically="True" LootMobs="True" LootRadius="30" UseMount="True" PullDistance="20"  />
 		
 			<!-- Kezan Quests -->
 			<CustomBehavior File="Message" Text="Compiling Kezan Quests" LogColor="Green" />
@@ -507,17 +507,16 @@
 				<Objective QuestName="447" QuestId="14125" Type="UseObject" ObjectId="201733" UseCount="1" />
 				<Objective QuestName="447" QuestId="14125" Type="UseObject" ObjectId="201734" UseCount="1" />
 				<CustomBehavior File="InteractWith" QuestId="14125" MobId="201736" ObjectType="Gameobject" Range="8" X="-8422.473" Y="1328.263" Z="102.0118" />
-				<CustomBehavior File="WaitTimer" WaitTime="20000" />
+				<CustomBehavior File="WaitTimer" WaitTime="16000" />
 			</If>
         <TurnIn QuestName="447" QuestId="14125" TurnInName="Claims Adjuster" TurnInId="37602" />
         <PickUp QuestName="Life Savings" QuestId="14126" GiverName="Sassy Hardwrench" GiverId="34668" />
 			<If Condition="((HasQuest(14126)) &amp;&amp; (IsQuestCompleted(14126)))" >
-				<!-- are these times reasonable? -->
 				<CustomBehavior File="InteractWith" MobId="34668" GossipOptions="1" X="-8423.619" Y="1323.341" Z="101.9566" />
-				<CustomBehavior File="WaitTimer" WaitTime="45000" GoalText="Waiting for ride {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="55000" GoalText="Waiting for ride {TimeRemaining}" />
         <TurnIn QuestName="Life Savings" QuestId="14126" TurnInName="Trade Prince Gallywix" TurnInId="35222" />
-				<CustomBehavior File="WaitTimer" WaitTime="80000" GoalText="Waiting for video {TimeRemaining}" />
-				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for revive {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="120000" GoalText="Waiting for video {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for revive {TimeRemaining}" />
 			</If>
 			<!-- End of Kezan Quests -->
 
@@ -526,6 +525,7 @@
 
 			<If Condition="((!HasQuest(14239)) &amp;&amp; (!IsQuestCompleted(14239)))" >
 				<!-- for some reason - hb doesn't like to find this npc with interactwith - it keeps saying waiting for npc to spawn -->
+				<!-- how do i turn off self heals / food? -->
 				<CustomBehavior File="BasicInteractWith" MobId="36608" />
                 <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />	
 			</If>
@@ -535,10 +535,10 @@
 		<PickUp QuestName="Goblin Escape Pods" QuestId="14001" GiverName="Geargrinder Gizmo" GiverId="36600" X="534.835" Y="3272.92" Z="0.171872" />
 			</Else></If>
 			<If Condition="((HasQuest(14474)) &amp;&amp; (!IsQuestCompleted(14474)))" >
-				<CustomBehavior File="InteractWith" QuestId="14474" MobId="195188" ObjectType="Gameobject" Range="2" NumOfTimes="20" CollectionDistance="500" X="628.9119" Y="3205.444" Z="-1.12628" />
+				<CustomBehavior File="InteractWith" QuestId="14474" MobId="195188" ObjectType="Gameobject" Range="3" NumOfTimes="20" CollectionDistance="500" X="628.9119" Y="3205.444" Z="-1.12628" />
 			</If>
 			<If Condition="((HasQuest(14001)) &amp;&amp; (!IsQuestCompleted(14001)))" >
-				<CustomBehavior File="InteractWith" QuestId="14001" MobId="195188" ObjectType="Gameobject" Range="2" NumOfTimes="20" CollectionDistance="500" X="628.9119" Y="3205.444" Z="-1.12628" />
+				<CustomBehavior File="InteractWith" QuestId="14001" MobId="195188" ObjectType="Gameobject" Range="3" NumOfTimes="20" CollectionDistance="500" X="628.9119" Y="3205.444" Z="-1.12628" />
 			</If>
 			<If Condition="((HasQuest(14474)) &amp;&amp; (IsQuestCompleted(14474)))" >
 		<TurnIn QuestName="Goblin Escape Pods" QuestId="14474" TurnInName="Sassy Hardwrench" TurnInId="35650" X="606.3121" Y="3127.444" Z="2.145028"/>
@@ -550,7 +550,7 @@
 		<PickUp QuestName="It's Our Problem Now" QuestId="14473" GiverName="Maxx Avalanche" GiverId="35786" />
 		<PickUp QuestName="Monkey Business" QuestId="14019" GiverName="Bamm Megabomb" GiverId="35758" />
 			<If Condition="((HasQuest(14019)) &amp;&amp; (!IsQuestCompleted(14019)))" >
-				<CustomBehavior File="UseItemOn" QuestId="14019" MobId="34699" NpcState="Alive" ItemId="49028" Range="30" CollectionDistance="400" NumOfTimes="50" X="653.9917" Y="3088.271" Z="5.650766" />
+				<CustomBehavior File="UseItemOn" QuestId="14019" MobId="34699" MobState="Alive" ItemId="49028" Range="30" CollectionDistance="400" NumOfTimes="50" X="653.9917" Y="3088.271" Z="5.650766" />
 			</If>
 			<Objective QuestName="Get Our Stuff Back!" QuestId="14014" Type="CollectItem" ItemId="46828" CollectCount="8" />
 			<Objective QuestName="It's Our Problem Now" QuestId="14473" Type="KillMob" MobId="36740" KillCount="6" />
@@ -561,11 +561,13 @@
 		<TurnIn QuestName="Help Wanted" QuestId="14248" TurnInName="Foreman Dampwick" TurnInId="35769" />
 		<PickUp QuestName="Capturing the Unknown" QuestId="14031" GiverName="Foreman Dampwick" GiverId="35769" />
 		<PickUp QuestName="Miner Troubles" QuestId="14021" GiverName="Foreman Dampwick" GiverId="35769" />
-			<If Condition="((HasQuest(14021)) &amp;&amp; (!IsQuestCompleted(14021)))" >
+			<While Condition="((HasQuest(14021)) &amp;&amp; (!IsQuestCompleted(14021)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<CustomBehavior File="Escort" QuestId="14021" MobId="35813" X="495.38" Y="2973.58" Z="7.705272" />
 				<CustomBehavior File="UserSettings" PullDistance="20" />
-			</If>
+		<PickUp QuestName="Miner Troubles" QuestId="14021" GiverName="Foreman Dampwick" GiverId="35769" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+			</While>
 		<PickUp QuestName="Orcs Can Write?" QuestId="14233" GiverName="Dead Orc Scout" GiverId="35837" />
  			<While Condition="((HasQuest(14031)) &amp;&amp; (!IsQuestCompleted(14031)))" >
 				<RunTo X="650.839" Y="2966.914" Z="1.922367" />
@@ -639,10 +641,15 @@
 			</If>
 		<TurnIn QuestName="To the Cliffs" QuestId="14240" TurnInName="Scout Brax" TurnInId="36112" />
 		<PickUp QuestName="Get to the Gyrochoppa!" QuestId="14241" GiverName="Scout Brax" GiverId="36112" />
-			<Objective QuestName="Get to the Gyrochoppa!" QuestId="14241" Type="CollectItem" ItemId="49424" CollectCount="1" />
+			<If Condition="((HasQuest(14241)) &amp;&amp; (!IsQuestCompleted(14241)))" >
+				<CustomBehavior File="UserSettings" LootMobs="True" PullDistance="1" />
+				<Objective QuestName="Get to the Gyrochoppa!" QuestId="14241" Type="CollectItem" ItemId="49424" CollectCount="1" />
+				<CustomBehavior File="UserSettings" LootMobs="False" />
+			</If>
 		<TurnIn QuestName="Get to the Gyrochoppa!" QuestId="14241" TurnInName="Gyrochoppa" TurnInId="36127" />
 			<If Condition="((!HasQuest(14242)) &amp;&amp; (!IsQuestCompleted(14242)))" >
 		<PickUp QuestName="Precious Cargo" QuestId="14242" GiverName="Gyrochoppa" GiverId="36127" />
+				<CustomBehavior File="UserSettings" PullDistance="20" LootMobs="True" />
 				<CustomBehavior File="WaitTimer" WaitTime="23000" GoalText="Waiting for ride {TimeRemaining}" />
 			</If>
 			<If Condition="((HasQuest(14242)) &amp;&amp; (!IsQuestCompleted(14242)))" >
