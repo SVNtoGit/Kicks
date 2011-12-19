@@ -21,8 +21,8 @@
 		<!-- Lost Isles -->
 		<Mob Name="The Hammer" Entry="36682" />
 		
-		<!-- Goblin Training Dummy-->
-		<Mob Name="Training Dummy" Entry="48304"/>		
+		<!-- Goblin Training Dummy -->
+		<Mob Name="Training Dummy" Entry="48304"/>
 	</AvoidMobs>
 	
 	<Mailboxes>
@@ -38,7 +38,8 @@
 		<Blackspot X="1127.207" Y="2977.799" Z="117.101" Radius="17.81779" /> <!-- Evading mob -->
 		<Blackspot X="861.4886" Y="2757.773" Z="119.2409" Radius="2.972308" /> <!-- stupid fence -->
 		<Blackspot X="847.2615" Y="2747.261" Z="118.2723" Radius="8.85731" /> <!-- stupid fence -->
-	
+		<Blackspot X="-8480.544" Y="1196.384" Z="41.95224" Radius="7.02141" />
+		
 		<!--Lost Isles Blackspots-->
 		<Blackspot X="2096.453" Y="2506.561" Z="2.859175" Radius="4.354099" />
 		<Blackspot X="930.7297" Y="2348.102" Z="4.860366" Radius="8.368254" />
@@ -222,14 +223,16 @@
 	
 	<QuestOrder IgnoreCheckPoints="True" >
 
+			<If Condition="(!IsQuestCompleted(14138))" >
 			<CustomBehavior File="RunMacro" Macro="/script SetCVar('AutoLootDefault', 1)" NumOfTimes="1" WaitTime="1000" />
-	<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="5" ExpiryTime="30" ExpiryAction="InputEnabled_Continue" Text="Make sure Auto Equip, Talented, and ItemForAura Plugins are enabled!!!" />
+	<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="5" ExpiryTime="30" ExpiryAction="InputEnabled_Continue" Text="Make sure Auto Equip, Talented, and ItemForAura Plugins are enabled!!!\n\nIf you have money - set food and drinks as well\n\nYou may also want to set a mail recipient!\n\nMake sure you copied over the quest behaviors from my SVN into your HB folder!" />
 			 <If Condition="(Me.ZoneId == 4737) || (Me.ZoneId == 4720)" >
 		<CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" ExpiryTime="6" ExpiryAction="InputEnabled_Continue" SoundCueInterval="2" 
 		Text="Make sure you copied the behaviors from my SVN Quest Behaviors folder into your Quest Behaviors folder!" />
 			 </If>
+			</If>
 		
-		<CustomBehavior File="UserSettings" TrainNewSkills="False" FindVendorsAutomatically="True" LootMobs="True" LootRadius="30" UseMount="True" PullDistance="20"  />
+		<CustomBehavior File="UserSettings" TrainNewSkills="True" FindVendorsAutomatically="True" LootMobs="True" LootRadius="30" UseMount="True" PullDistance="20"  />
 		
 			<!-- Kezan Quests -->
 			<CustomBehavior File="Message" Text="Compiling Kezan Quests" LogColor="Green" />
@@ -239,7 +242,7 @@
 		<PickUp QuestName="Trouble in the Mines" QuestId="14075" GiverName="Foreman Dampwick" GiverId="34872" X="-8403.528" Y="1314.922" Z="101.1055" />
 		<PickUp QuestName="Good Help is Hard to Find" QuestId="14069" GiverName="Foreman Dampwick" GiverId="34872" X="-8403.528" Y="1314.922" Z="101.1055" />
 			<If Condition="((HasQuest(14069)) &amp;&amp; (!IsQuestCompleted(14069)))" >
-			   <CustomBehavior File="InteractWith" QuestId="14069" MobId="34830" NumOfTimes="20" X="-8463.201" Y="1211.953" Z="43.20821" />
+			   <CustomBehavior File="InteractWith" QuestId="14069" MobId="34830" NumOfTimes="20" Range="6" WaitTime="3000" X="-8463.201" Y="1211.953" Z="43.20821" />
 			</If>
 			<Objective QuestName="Trouble in the Mines" QuestId="14075" Type="KillMob" MobId="34865" KillCount="6"/>
 		<TurnIn QuestName="Trouble in the Mines" QuestId="14075" TurnInName="Foreman Dampwick" TurnInId="34872" X="-8403.528" Y="1314.922" Z="101.1055" />
@@ -255,18 +258,25 @@
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(46856)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
 				<!-- Izzy -->
+			 <If Condition="((HasQuest(14071)) &amp;&amp; (!IsObjectiveComplete(2, 14071)))">
 				<RunTo X="-8504.775" Y="1339.797" Z="102.3404" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for buddy {TimeRemaining}" />
 				<CustomBehavior File="MyCTM" X="-8526.094" Y="1343.785" Z="102.703" />
-				<CustomBehavior File="MyCTM" X="-8524.339" Y="1318.744" Z="102.6102" />
-				<CustomBehavior File="MyCTM" X="-8505.754" Y="1313.606" Z="102.3406" />
+				<CustomBehavior File="MyCTM" X="-8525.232" Y="1324.522" Z="103.0455" />
+				<CustomBehavior File="MyCTM" X="-8487.297" Y="1309.863" Z="102.5114" />
+				<CustomBehavior File="MyCTM" X="-8409.936" Y="1329.976" Z="102.9056" />
+			 </If>
+			 <If Condition="((HasQuest(14071)) &amp;&amp; (!IsObjectiveComplete(4, 14071)))">
 				<!-- Gobber -->
 				<RunTo X="-8178.593" Y="1317.198" Z="28.18334" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for buddy {TimeRemaining}" />
+			 </If>
+			 <If Condition="((HasQuest(14071)) &amp;&amp; (!IsObjectiveComplete(3, 14071)))">
 				<!-- Ace -->
 				<RunTo X="-8069.68" Y="1480.573" Z="9.57618" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for buddy {TimeRemaining}" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </If>
 			</If>
 			<If Condition="((HasQuest(14071)) &amp;&amp; (IsQuestCompleted(14071)))" >
 				<RunTo X="-8418.677" Y="1336.317" Z="103.1284" />
@@ -336,47 +346,59 @@
 			</If>
 			<If Condition="Me.Class ==WoWClass.Hunter">
 		<PickUp QuestName="Steady Shot" QuestId="14007" GiverName="Bamm Megabomb" GiverId="34673"/>
-			<RunTo QuestId="14013" X="-8423.542" Y="1321.276" Z="102.1344"/>
-			<RunTo QuestId="14013" X="-8423.47" Y="1320.276" Z="102.2846"/>
-			<CustomBehavior File="CastSpellOn" QuestId="14007" SpellId="56641" NpcId="48304" NumOfTimes="3" MinRange="13" Range="15" X="-8427.5" Y="1305.22" Z="102.3335"/>
+			<CustomBehavior File="ForceSetVendor" QuestId="14007" DoSell="True" DoTrain="True" />
+			<RunTo QuestId="14007" X="-8423.542" Y="1321.276" Z="102.1344"/>
+			<RunTo QuestId="14007" X="-8423.47" Y="1320.276" Z="102.2846"/>
+			<CustomBehavior File="CastSpellOn" QuestId="14007" SpellId="56641" MobId="48304" NumOfTimes="3" MinRange="13" Range="15" X="-8427.5" Y="1305.22" Z="102.3335"/>
 		<TurnIn QuestName="Steady Shot" QuestId="14007" TurnInName="Bamm Megabomb" TurnInId="34673"/>
 			</If>
 			<If Condition="Me.Class ==WoWClass.Priest">
 		<PickUp QuestName="Flash Heal" QuestId="14009" GiverName="Sister Goldskimmer" GiverId="34692"/>
-			<CustomBehavior File="CastSpellOn" QuestId="14009" SpellId="2061" NpcId="48305" NumOfTimes="3" MinRange="13" Range="15" X="-8436.32" Y="1315.49" Z="102.2357"/>
+			<CustomBehavior File="ForceSetVendor" QuestId="14009" DoSell="True" DoTrain="True" />
+			<CustomBehavior File="CastSpellOn" QuestId="14009" SpellId="2061" MobId="48305" NumOfTimes="3" MinRange="13" Range="15" X="-8436.32" Y="1315.49" Z="102.2357"/>
 		<TurnIn QuestName="Flash Heal" QuestId="14009" TurnInName="Sister Goldskimmer" TurnInId="34692"/>
 			</If>
 			<If Condition="Me.Class ==WoWClass.Shaman">
 		<PickUp QuestName="Primal Strike" QuestId="14011" GiverName="Maxx Avalanche" GiverId="34695"/>
-			<CustomBehavior File="CastSpellOn" QuestId="14011" SpellId="73899" NpcId="48304" NumOfTimes="2" MinRange="3" Range="5" X="-8427.5" Y="1305.22" Z="102.3335"/>
+			<CustomBehavior File="ForceSetVendor" QuestId="14011" DoSell="True" DoTrain="True" />
+			<CustomBehavior File="CastSpellOn" QuestId="14011" SpellId="73899" MobId="48304" NumOfTimes="2" MinRange="3" Range="5" X="-8427.5" Y="1305.22" Z="102.3335"/>
 		<TurnIn QuestName="Primal Strike" QuestId="14011" TurnInName="Maxx Avalanche" TurnInId="34695"/>
 			</If>
 			<If Condition="Me.Class ==WoWClass.Mage">
 		<PickUp QuestName="Arcane Missiles" QuestId="14008" GiverName="Fizz Lighter" GiverId="34689"/>
-			<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="133" NpcId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
-			<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="5143" NpcId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
-			<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="133" NpcId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
-			<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="5143" NpcId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
+			<CustomBehavior File="ForceSetVendor" QuestId="14008" DoSell="True" DoTrain="True" />
+			<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="133" MobId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
+			<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="5143" MobId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
+			<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="133" MobId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
+			<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="5143" MobId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
 		<TurnIn QuestName="Arcane Missiles" QuestId="14008" TurnInName="Fizz Lighter" TurnInId="34689"/>
 			</If>
 			<If Condition="Me.Class ==WoWClass.Rogue">
 		<PickUp QuestName="Eviscerate" QuestId="14010" GiverName="Slinky Sharpshiv" GiverId="34693"/>
+			<CustomBehavior File="ForceSetVendor" QuestId="14010" DoSell="True" DoTrain="True" />
 			 <While Condition="((HasQuest(14010)) &amp;&amp; (!IsQuestCompleted(14010)))" >
-				<CustomBehavior File="CastSpellOn" QuestId="14010" SpellId="1752" NpcId="48304" NumOfTimes="1" MinRange="3" Range="5" X="-8427.5" Y="1305.22" Z="102.3335"/>
-				<CustomBehavior File="CastSpellOn" QuestId="14010" SpellId="2098" NpcId="48304" NumOfTimes="1" MinRange="3" Range="5" X="-8427.5" Y="1305.22" Z="102.3335"/>
+				<CustomBehavior File="CastSpellOn" QuestId="14010" SpellId="1752" MobId="48304" NumOfTimes="1" MinRange="3" Range="5" X="-8427.5" Y="1305.22" Z="102.3335"/>
+				<CustomBehavior File="CastSpellOn" QuestId="14010" SpellId="2098" MobId="48304" NumOfTimes="1" MinRange="3" Range="5" X="-8427.5" Y="1305.22" Z="102.3335"/>
 			 </While>
 		<TurnIn QuestName="Eviscerate" QuestId="14010" TurnInName="Slinky Sharpshiv" TurnInId="34693"/>
 			</If>
 			<If Condition="Me.Class ==WoWClass.Warlock">
 		<PickUp QuestName="Immolate" QuestId="14012" GiverName="Evol Fingers" GiverId="34696"/>
-			<CustomBehavior File="CastSpellOn" QuestId="14012" SpellId="348" NpcId="48304" NumOfTimes="3" MinRange="25" Range="30" X="-8427.5" Y="1305.22" Z="102.3335"/>
+			<CustomBehavior File="ForceSetVendor" QuestId="14012" DoSell="True" DoTrain="True" />
+			<CustomBehavior File="CastSpellOn" QuestId="14012" SpellId="348" MobId="48304" NumOfTimes="3" MinRange="25" Range="30" X="-8427.5" Y="1305.22" Z="102.3335"/>
 		<TurnIn QuestName="Immolate" QuestId="14012" TurnInName="Evol Fingers" TurnInId="34696"/>
 			</If>
 			<If Condition="Me.Class ==WoWClass.Warrior">
 		<PickUp QuestName="Charge" QuestId="14013" GiverName="Warrior-Matic NX-01" GiverId="34697"/>
-			<RunTo QuestId="14013" X="-8423.542" Y="1321.276" Z="102.1344"/>
-			<RunTo QuestId="14013" X="-8423.47" Y="1320.276" Z="102.2846"/>
-			<CustomBehavior File="CastSpellOn" QuestId="14013" SpellId="100" NpcId="48304" NumOfTimes="1" MinRange="25" Range="30" X="-8427.5" Y="1305.22" Z="102.3335"/>
+			<If Condition="!Styx.Logic.Combat.SpellManager.HasSpell(100)">
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoTrain="True" />
+			</If>
+			<If Condition="((HasQuest(14013)) &amp;&amp; (!IsQuestCompleted(14013)))" >
+				<RunTo QuestId="14013" X="-8416.95" Y="1327.14" Z="102.2866" />
+				<RunTo QuestId="14013" X="-8419.841" Y="1320.548" Z="102.3986" />
+				<CustomBehavior File="RunMacro" Macro="/tar Training Dummy" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="CastSpellOn" QuestId="14013" SpellId="100" MobId="48304" NumOfTimes="1" MinRange="10" Range="24" X="-8427.5" Y="1305.22" Z="102.3335"/>
+			</If>
 		<TurnIn QuestName="Charge" QuestId="14013" TurnInName="Warrior-Matic NX-01" TurnInId="34697"/>
 			</If>
 			<If Condition="Me.Gender == WoWGender.Male">
