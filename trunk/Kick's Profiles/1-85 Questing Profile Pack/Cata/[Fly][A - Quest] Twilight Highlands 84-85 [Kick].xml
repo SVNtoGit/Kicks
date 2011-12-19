@@ -1025,20 +1025,20 @@
 		<PickUp QuestName="A Fitting End" QuestId="28191" GiverName="Lirastrasza" GiverId="47902" />
 		<PickUp QuestName="Blackout" GiverName="Lirastrasza" QuestId="28173" GiverId="47902" />
 		<PickUp QuestName="Shining Through the Dark" QuestId="28175" GiverName="Velastrasza" GiverId="47904" />
-			<If Condition="((HasQuest(28173)) &amp;&amp; (!IsQuestCompleted(28173)))" >
-				<!-- I need this modified to kill the target (mount) that i'm on after i mount it
-				<CustomBehavior File="UseItemOn" QuestId="28173" MobId="46141" ItemId="63092" NumOfTimes="10" WaitTime="2000" Range="120" CollectionDistance="500" X="-4839.015" Y="-5714.229" Z="43.38332" />
-			 -->
-				<CustomBehavior File="UserDialog" QuestId="28173" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Use the chain on the drakes and kill them\n\nYet another CB I need made!" />
-			<!-- <Objective QuestName="Blackout" QuestId="28173" Type="KillMob" KillCount="8" MobId="46141" /> -->
-			</If>
 			<If Condition="((HasQuest(28175)) &amp;&amp; (!IsQuestCompleted(28175)))" >
 				<CustomBehavior File="FlyTo" X="-4875.326" Y="-5768.212" Z="30.99883" />
 				<CustomBehavior File="ForcedDismount" />
+				
 				<RunTo QuestId="28175" X="-4875.326" Y="-5768.212" Z="30.99883" />
 				<RunTo QuestId="28175" X="-4902.98" Y="-5817.152" Z="19.48027" />
 				<UseItem QuestName="Shining Through the Dark" QuestId="28175" ItemId="63139" X="-4902.98" Y="-5817.152" Z="19.48027" />
 			</If>
+			<While Condition="((HasQuest(28173)) &amp;&amp; (!IsQuestCompleted(28173)))" >
+	<CustomBehavior File="UserDialog" QuestId="28173" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Hook a drake and then kill it (x8)" />
+				<CustomBehavior File="UseItemOn" QuestId="28173" MobId="46141" MobState="Alive" ItemId="63092" WaitTime="3000" Range="90" CollectionDistance="500" X="-4839.015" Y="-5714.229" Z="43.38332" />
+				<CustomBehavior File="InteractWith" QuestId="28173" MobId="46141" MobState="Alive" WaitForNpcs="False" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
+			</While>
 			<Objective QuestName="A Fitting End" QuestId="28191" Type="KillMob" MobId="47797" KillCount="10" />
 		<TurnIn QuestName="A Fitting End" TurnInName="Lirastrasza" QuestId="28191" TurnInId="47902" />
 		<TurnIn QuestName="Blackout" TurnInName="Lirastrasza" QuestId="28173" TurnInId="47902" />
@@ -1133,8 +1133,10 @@
 				<CustomBehavior File="FlyTo" X="-4339.163" Y="-4572.238" Z="288.0059" />
 				<CustomBehavior File="FlyTo" X="-4337.607" Y="-4574.445" Z="223.7444" />
 				<CustomBehavior File="ForcedDismount" />
+				
 				<RunTo X="-4338.781" Y="-4576.362" Z="215.8291" />
 				<UseItem QuestName="Signal the Attack" QuestId="27498" ItemId="61511" X="-4338.781" Y="-4576.362" Z="215.8291" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
 			</While>
 			<If Condition="((HasQuest(27498)) &amp;&amp; (IsQuestCompleted(27498)))" >
 				<CustomBehavior File="FlyTo" X="-4339.163" Y="-4572.238" Z="288.0059" />
@@ -1147,11 +1149,14 @@
 				<CustomBehavior File="MyCTM" X="-4673.481" Y="-4476.534" Z="206" />
 				<CustomBehavior File="MyCTM" X="-4658.847" Y="-4427.581" Z="204.8296" />
 				<Objective QuestName="Four Heads are Better Than None" QuestId="27500" Type="CollectItem" ItemId="61924" CollectCount="1" />
+				
 				<Objective QuestName="Four Heads are Better Than None" QuestId="27500" Type="CollectItem" ItemId="61925" CollectCount="1" />
 				<CustomBehavior File="MyCTM" X="-4658.847" Y="-4427.581" Z="204.8296" />
 				<CustomBehavior File="MyCTM" X="-4672.15" Y="-4464.288" Z="205.7148" />
 				<CustomBehavior File="MyCTM" X="-4686.361" Y="-4500.315" Z="201.6887" />
+				
 				<Objective QuestName="Four Heads are Better Than None" QuestId="27500" Type="CollectItem" ItemId="61927" CollectCount="1" />
+				
 				<Objective QuestName="Four Heads are Better Than None" QuestId="27500" Type="CollectItem" ItemId="61926" CollectCount="1" />
 			</If>
 			<If Condition="((HasQuest(27500)) &amp;&amp; (IsQuestCompleted(27500)))" >
