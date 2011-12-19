@@ -45,6 +45,7 @@
 		<Blackspot X="906.4963" Y="2341.539" Z="4.734971" Radius="5.554554" />
 		<Blackspot X="931.5894" Y="2372.217" Z="5.438846" Radius="10.10506" />
 		<Blackspot X="973.3599" Y="2352.597" Z="5.212982" Radius="7.366249" />
+		<Blackspot X="2289.654" Y="1940.121" Z="34.33481" Radius="5" />
 		
 		<!--Lost Isles Blackspots-->
 		<Blackspot X="2096.453" Y="2506.561" Z="2.859175" Radius="4.354099" />
@@ -985,7 +986,7 @@
 		<TurnIn QuestName="Mine Disposal, the Goblin Way" QuestId="25058" TurnInName="Sassy Hardwrench" TurnInId="38387" />
 		<PickUp QuestName="The Pride of Kezan" QuestId="25066" GiverName="Sassy Hardwrench" GiverId="38387" />
 			<If Condition="((HasQuest(25066)) &amp;&amp; (!IsQuestCompleted(25066)))" >
-				<!-- <CustomBehavior File="InteractWith" QuestId="25066" MobId="38387" NumOfTimes="1" GossipOptions="1" CollectionDistance="10" X="1619.505" Y="2697.07" Z="88.21132"/> -->
+				<CustomBehavior File="InteractWith" QuestId="25066" MobId="38387" NumOfTimes="1" GossipOptions="1" CollectionDistance="10" X="1619.505" Y="2697.07" Z="88.21132"/>
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="25066" /> <!-- Azenius -->
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
@@ -1016,12 +1017,17 @@
 		<PickUp QuestName="Throw It On the Ground!" QuestId="25123" GiverName="Assistant Greely" GiverId="39199" X="1781.033" Y="1983.231" Z="173.0977" />
 			<If Condition="((HasQuest(25122)) &amp;&amp; (!IsQuestCompleted(25122)))" >
 				<Objective QuestName="Morale Boost" QuestId="25122" Type="CollectItem" ItemId="52484" CollectCount="20" />
-			 <While Condition="((HasQuest(25122)) &amp;&amp; (!IsQuestCompleted(25122)))" >
-				<CustomBehavior File="UseItemOn" MobState="Alive" QuestId="25122" ItemId="52484" Range="5" MobId="38745" NumOfTimes="6" X="1795.279" Y="1922.784" Z="172.6141" WaitTime="10000" />
+			 <While Condition="((HasQuest(25122)) &amp;&amp; (!IsObjectiveComplete(1, 25122)))">
 				<CustomBehavior File="UseItemOn" MobState="Alive" QuestId="25122" ItemId="52484" Range="5" MobId="38441" NumOfTimes="1" X="1763.078" Y="1810.266" Z="171.6499" />
+			 </While>
+			 <While Condition="((HasQuest(25122)) &amp;&amp; (!IsObjectiveComplete(2, 25122)))">
 				<CustomBehavior File="UseItemOn" MobState="Alive" QuestId="25122" ItemId="52484" Range="5" MobId="38647" NumOfTimes="1" X="1826.609" Y="1809.67" Z="173.2442" />	
+			 </While>
+			 <While Condition="((HasQuest(25122)) &amp;&amp; (!IsObjectiveComplete(3, 25122)))">
 				<CustomBehavior File="UseItemOn" MobState="Alive" QuestId="25122" ItemId="52484" Range="5" MobId="38746" NumOfTimes="1" X="1913.413" Y="1807.932" Z="170.1177" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </While>
+			 <While Condition="((HasQuest(25122)) &amp;&amp; (!IsObjectiveComplete(4, 25122)))">
+				<CustomBehavior File="UseItemOn" MobState="Alive" QuestId="25122" ItemId="52484" Range="15" MobId1="38409" MobId2="38745" NumOfTimes="50" X="1795.279" Y="1922.784" Z="172.6141" WaitTime="1100" />
 			 </While>
 			</If>
 		<TurnIn QuestName="Morale Boost" QuestId="25122" TurnInName="Assistant Greely" TurnInId="39199" />
@@ -1040,11 +1046,15 @@
 		<TurnIn QuestName="Light at the End of the Tunnel" QuestId="25125" TurnInName="Mine Cart" TurnInId="39341" />
 			<If Condition="((!HasQuest(25184)) &amp;&amp; (!IsQuestCompleted(25184)))" >
 		<PickUp QuestName="Wild Mine Cart Ride" QuestId="25184" GiverName="Mine Cart" GiverId="39341" />
+				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for ride {TimeRemaining}" />
 			</If>
 		<TurnIn QuestName="Wild Mine Cart Ride" QuestId="25184" TurnInName="Assistant Greely" TurnInId="38124" />
 		<PickUp QuestName="Shredder Shutdown" QuestId="25200" GiverName="Assistant Greely" GiverId="38124" />
+			<If Condition="((!HasQuest(25201)) &amp;&amp; (!IsQuestCompleted(25201)))" >
 		<PickUp QuestName="The Ultimate Footbomb Uniform" QuestId="25201" GiverName="Coach Crosscheck" GiverId="38738" />
+				<CustomBehavior File="UserSettings" PullDistance="20" />
+			</If>
 			<Objective QuestName="The Ultimate Footbomb Uniform" QuestId="25201" Type="CollectItem" ItemId="52530" CollectCount="8" />
 			<Objective QuestName="Shredder Shutdown" QuestId="25200" Type="KillMob" MobId="39354" KillCount="8" />
 		<TurnIn QuestName="Shredder Shutdown" QuestId="25200" TurnInName="Assistant Greely" TurnInId="38124" />
@@ -1115,9 +1125,21 @@
 
 		<PickUp QuestName="Final Confrontation" QuestId="25251" GiverName="Sassy Hardwrench" GiverId="38387" />
 			<If Condition="HasQuest(25251) &amp;&amp; !IsQuestCompleted(25251)">
+				<CustomBehavior File="UserSettings" PullDistance="1" />
+			 <If Condition="(!Me.HasAura(&quot;The Ultimate Footbomb Uniform&quot;))" >
+				<CustomBehavior File="InteractWith" MobId="39592" Range="10" X="2123.724" Y="2403.597" Z="45.00877" />
+				<RunTo X="2148.154" Y="2386.472" Z="44.60568" />
+				<RunTo X="2402.894" Y="2531.921" Z="4.459624" />
+			 </If>
 				<CustomBehavior File="25251"/>
+				<CustomBehavior File="EjectVeh" Eject="True" />
 			</If>
+			<If Condition="((HasQuest(25251)) &amp;&amp; (IsQuestCompleted(25251)))" >
+			 <If Condition="(!Me.HasAura(&quot;The Ultimate Footbomb Uniform&quot;))" >
+				<CustomBehavior File="EjectVeh" Eject="True" />
+			 </If>
 		<TurnIn QuestName="Final Confrontation" QuestId="25251" TurnInName="Sassy Hardwrench" TurnInId="38387" />
+			</If>
 			<If Condition="((!HasQuest(25265)) &amp;&amp; (!IsQuestCompleted(25265)))" >
 		<PickUp QuestName="Victory!" QuestId="25265" GiverName="Sassy Hardwrench" GiverId="38387" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for flight {TimeRemaining}" />
@@ -1125,8 +1147,9 @@
 		<TurnIn QuestName="Victory!" QuestId="25265" TurnInName="Thrall" TurnInId="38935" />
 		<PickUp QuestName="Warchief's Emissary" QuestId="25266" GiverName="Thrall" GiverId="38935" />
 			<If Condition="((HasQuest(25266)) &amp;&amp; (IsQuestCompleted(25266)) &amp;&amp; (Me.ZoneId == 4720))" >
-				<CustomBehavior File="InteractWith" MobId="38387" GossipOptions="1,1,1,1" WaitTime="5000" X="2388.219" Y="2461.356" Z="11.44789" />
-				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for port {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" MobId="38387" GossipOptions="1" WaitTime="5000" X="2388.219" Y="2461.356" Z="11.44789" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+				<CustomBehavior File="UserSettings" PullDistance="20" />
 			</If>
 		<TurnIn QuestName="Warchief's Emissary" QuestId="25266" TurnInName="Kor'kron Loyalist" TurnInId="39609" />
 		<!-- End of Lost Isles Quests -->
@@ -1136,14 +1159,14 @@
 
 			<If Condition="((!HasQuest(25267)) &amp;&amp; (!IsQuestCompleted(25267)))" >
 		<PickUp QuestName="Message for Garrosh" QuestId="25267" GiverName="Kor'kron Loyalist" GiverId="39609" />
-				<CustomBehavior File="WaitTimer" WaitTime="65000" GoalText="Waiting for ride {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="62000" GoalText="Waiting for ride {TimeRemaining}" />
 			</If>
 		<TurnIn QuestName="Message for Garrosh" QuestId="25267" TurnInName="Message for Garrosh" TurnInId="39605" X="1668.852" Y="-4343.63" Z="28.32091" />
 			<!-- End of Orgimmar Quests -->
 
 		
 		
-			<CustomBehavior File="LoadProfile" ProfileName="[H - Quest] 12-58 K-EK [Kick]" />
+			<CustomBehavior File="LoadProfile" ProfileName="..\[H - Quest] 12-58 K-EK [Kick]" />
 		
 	</QuestOrder>
 
