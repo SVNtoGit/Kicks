@@ -45,6 +45,7 @@
 	</Mailboxes>
 	
 	<Blackspots>
+		<Blackspot X="-521.8071" Y="-1275.366" Z="153.676" Radius="8.668756" />
 		<Blackspot X="3194.991" Y="-4524.944" Z="109.6325" Radius="7.255693" />
 		<Blackspot X="-63.63387" Y="356.5483" Z="121.313" Radius="20" />
 		<Blackspot X="1870.985" Y="-2284.976" Z="126.4141" Radius="20" />
@@ -87,6 +88,7 @@
 	</Blackspots>
 	
 	<AvoidMobs>
+		<Mob Name="Grimtotem Destroyer" Entry="23594" />
 		<Mob Name="Orbital Support Shredder" />
 		<Mob Name="Gnomebot Pounder" Entry="35203" />
 		<Mob Name="Gnome Engineer" Entry="35334" />
@@ -2751,9 +2753,11 @@
 		<TurnIn QuestName="Eyes and Ears: Malaka'jin" QuestId="26059" TurnInName="Witch Doctor Jin'Zil" TurnInId="3995" />
 		<PickUp QuestName="Da Voodoo: Stormer Heart" QuestId="26060" GiverName="Witch Doctor Jin'Zil" GiverId="3995" />
 		<PickUp QuestName="Da Voodoo: Ram Horns" QuestId="26061" GiverName="Witch Doctor Jin'Zil" GiverId="3995" />
+		<!--
 			<If Condition="(!IsQuestCompleted(24504)) || (!IsQuestCompleted(28549))" > 
 		<PickUp QuestName="Nura Pathfinder" QuestId="26069" GiverName="Witch Doctor Jin'Zil" GiverId="3995" />
 			</If>
+			-->
 		<PickUp QuestName="Fight On Their Stomachs" QuestId="26064" GiverName="Denni'ka" GiverId="3411" />
 			<Objective QuestName="Da Voodoo: Stormer Heart" QuestId="26060" Type="CollectItem" ItemId="56796" CollectCount="1" />
 			<Objective QuestName="Da Voodoo: Ram Horns" QuestId="26061" Type="CollectItem" ItemId="56797" CollectCount="6" />
@@ -2765,7 +2769,10 @@
 		<TurnIn QuestName="Fight On Their Stomachs" QuestId="26064" TurnInName="Denni'ka" TurnInId="3411" />
 			<Objective QuestName="Da Voodoo: Resonite Crystal" QuestId="26062" Type="CollectItem" ItemId="56795" CollectCount="8" />
 			<If Condition="((HasQuest(26066)) &amp;&amp; (!IsQuestCompleted(26066)))" >
+				<CustomBehavior File="UserSettings" PullDistance="6" />
+				<RunTo X="-85.64719" Y="321.8126" Z="119.569" />
 				<CustomBehavior File="CombatUseItemOn" QuestId="26066" ItemId="56794" MobId="11915" MobHpPercentLeft="100" MaxRange="5" X="-119.0355" Y="215.0531" Z="97.1964" />
+				<CustomBehavior File="UserSettings" PullDistance="20" />
 			</If>
 		<TurnIn QuestName="Reinforcements..." QuestId="26066" TurnInName="Subjugator Devo" TurnInId="42023" />
 		<TurnIn QuestName="Da Voodoo: Resonite Crystal" QuestId="26062" TurnInName="Witch Doctor Jin'Zil" TurnInId="3995" />
@@ -2786,6 +2793,15 @@
 				<CustomBehavior File="NoCombatMoveTo" X="187.9012" Y="-810.9161" Z="2.74902" />
 			</If>
 			<If Condition="((HasQuest(26068)) &amp;&amp; (IsQuestCompleted(26068)))" >
+				<CustomBehavior File="NoCombatMoveTo" X="300.9756" Y="-470.9445" Z="68.15604" />
+				<CustomBehavior File="NoCombatMoveTo" X="360.7888" Y="-580.2877" Z="21.36985" />
+				<CustomBehavior File="NoCombatMoveTo" X="332.8525" Y="-766.1451" Z="51.64524" />
+				<CustomBehavior File="NoCombatMoveTo" X="266.1536" Y="-790.2649" Z="59.9021" />
+				<CustomBehavior File="NoCombatMoveTo" X="217.2313" Y="-719.2886" Z="36.33087" />
+				<CustomBehavior File="NoCombatMoveTo" X="204.9687" Y="-788.3609" Z="8.091191" />
+				<CustomBehavior File="NoCombatMoveTo" X="74.38413" Y="-759.7072" Z="-17.00534" />
+				<CustomBehavior File="NoCombatMoveTo" X="-2.275285" Y="-632.5502" Z="-34.43112" />
+				<CustomBehavior File="NoCombatMoveTo" X="-55.39529" Y="-484.2809" Z="-31.13384" />
 		<TurnIn QuestName="Kobold Fury!" QuestId="26068" TurnInName="Subjugator Devo" TurnInId="42023" />
 				<CustomBehavior File="UserSettings" PullDistance="20" />
 			</If>
@@ -2872,9 +2888,11 @@
 		
 			<CustomBehavior File="Message" Text="Compiling S. Barrens Quests" LogColor="Green" />
 
+			<!--
 			<If Condition="(!IsQuestCompleted(24504)) || (!IsQuestCompleted(28549))" > 
 		<PickUp QuestName="Nura Pathfinder" QuestId="26069" GiverName="Witch Doctor Jin'Zil" GiverId="3995" />
 			</If>
+			-->
 			<If Condition="((HasQuest(26069)) &amp;&amp; (IsQuestCompleted(26069)))" >
 		<TurnIn QuestName="Nura Pathfinder" QuestId="26069" TurnInName="Nura Pathfinder" TurnInId="37135" />
 			</If>
@@ -2994,13 +3012,17 @@
 			<If Condition="(!IsQuestCompleted(14314))" >
 			<CustomBehavior File="Message" Text="Compiling N. Desolace Quests" LogColor="Cornflowerblue" />
 
+			<If Condition="((!HasQuest(14184)) &amp;&amp; (!IsQuestCompleted(14184))) &amp;&amp; ((!HasQuest(14188)) &amp;&amp; (!IsQuestCompleted(14188)))" >
 		<PickUp QuestName="My Time Has Passed" QuestId="14184" GiverName="Furien" GiverId="35286" />
+			</If>
 			<If Condition="((HasQuest(14184)) &amp;&amp; (IsQuestCompleted(14184)) &amp;&amp; (Me.Y &gt; 2000))" >
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="MountVehOnly" VehicleMountId="35287" X="188.8457" Y="1771.345" Z="91.06986" />
 				<CustomBehavior File="WaitTimer" WaitTime="50000" GoalText="Waiting for ride {TimeRemaining}" />
 			</If>
+			<If Condition="((HasQuest(14184)) &amp;&amp; (IsQuestCompleted(14184)))" >
 		<TurnIn QuestName="My Time Has Passed" QuestId="14184" TurnInName="Cerelia" TurnInId="35295" />
+			</If>
 		<PickUp QuestName="Avenge Furien!" QuestId="14188" GiverName="Furien" GiverId="35295" />
 		<TurnIn QuestName="Avenge Furien!" QuestId="14188" TurnInName="Sorrem" TurnInId="35298" />
 		<PickUp QuestName="Translation" QuestId="14189" GiverName="Sorrem" GiverId="35298" />
@@ -3079,6 +3101,9 @@
 			</If>
 		<TurnIn QuestName="Rider on the Storm" QuestId="14198" TurnInName="Cerelia" TurnInId="35295" />		
 			-->
+			<If Condition="(HasQuest(14198))" >
+				<CustomBehavior File="AbandonQuest" QuestId="14198" Type="All" />
+			</If>
 		<PickUp QuestName="Ethel Rethor" QuestId="14255" GiverName="Cerelia" GiverId="35295" />
 			<!-- End of N. Desolace Quests -->
 			
@@ -3354,10 +3379,16 @@
 			</If>
 		<PickUp QuestName="The Black Shield" QuestId="27256" GiverName="Do'gol" GiverId="5087" />
 		<TurnIn QuestName="Talk to Ogron" QuestId="27306" TurnInName="Ogron" TurnInId="4983" />
+		<!-- this bugs black shield out i think -->
 		<PickUp QuestName="Questioning Reethe" QuestId="27261" GiverName="Ogron" GiverId="4983" />
-			<If Condition="((HasQuest(27261)) &amp;&amp; (!IsQuestCompleted(27261)))" >
+			<While Condition="((HasQuest(27261)) &amp;&amp; (!IsQuestCompleted(27261)))" >
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText=" {TimeRemaining}" />
 				<CustomBehavior File="Escort" MobId="4983" QuestId="27261" X="-3317.643" Y="-3125.356" Z="32.94566" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText=" {TimeRemaining}" />
+				<CustomBehavior File="AbandonQuest" QuestId="27261" Type="Failed" />
+		<PickUp QuestName="Questioning Reethe" QuestId="27261" GiverName="Ogron" GiverId="4983" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText=" {TimeRemaining}" />
+			</While>
 		<TurnIn QuestName="Questioning Reethe" QuestId="27261" TurnInName="Krog" TurnInId="4926" />
 			<Objective QuestName="The Black Shield" QuestId="27256" Type="CollectItem" ItemId="5959" CollectCount="5" />
 		<TurnIn QuestName="The Black Shield" QuestId="27256" TurnInName="Do'gol" TurnInId="5087" />
@@ -3497,10 +3528,13 @@
 			<CustomBehavior File="Message" Text="Compiling Thousand Needles Quests" LogColor="Green" />
 
 		<PickUp QuestName="The Grimtotem are Coming" QuestId="25487" GiverName="Kanati Greycloud" GiverId="39895" />
-			<Objective QuestName="The Grimtotem are Coming" QuestId="25487" Type="KillMob" MobId="39947" KillCount="7" />
+			<If Condition="((HasQuest(25487)) &amp;&amp; (!IsQuestCompleted(25487)))" >
+				<CustomBehavior File="KillUntilComplete" QuestId="25487" MobId1="39947" X="-4299.653" Y="-923.1389" Z="80.8751" />
+				<Objective QuestName="The Grimtotem are Coming" QuestId="25487" Type="KillMob" MobId="39947" KillCount="7" />
+			</If>
 		<TurnIn QuestName="The Grimtotem are Coming" QuestId="25487" TurnInName="Motega Firemane" TurnInId="39963" />
 		<PickUp QuestName="Two If By Boat" QuestId="25489" GiverName="Motega Firemane" GiverId="39963" />
-			<If Condition="Me.X &lt; -4295 &amp;&amp; HasQuest(25489)">
+			<If Condition="(Me.X &lt; -4295) &amp;&amp; HasQuest(25489)">
 				<CustomBehavior File="WaitTimer" WaitTime="105000" />
 			</If>
 		<TurnIn QuestName="Two If By Boat" QuestId="25489" TurnInName="Pozzik" TurnInId="40028" X="-6157.863" Y="-3774.054" Z="33.50814" />
