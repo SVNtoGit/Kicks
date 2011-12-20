@@ -3501,10 +3501,14 @@
 	<Quest Id="28245" Name="Grunt Work">
 		<Objective Type="UseObject" ObjectId="206977" UseCount="7">
 			<Hotspots>
-				<Hotspot X="-8091.879" Y="-1785.222" Z="133.2797" />
-				<Hotspot X="-8137.838" Y="-1708.646" Z="137.3375" />
-				<Hotspot X="-8090.334" Y="-1543.194" Z="137.5194" />
-				<Hotspot X="-8039.598" Y="-1580.527" Z="134.5853" />			
+				<Hotspot X="-8130.066" Y="-1540.276" Z="136.3118" />
+				<Hotspot X="-8127.229" Y="-1588.298" Z="135.8655" />
+				<Hotspot X="-8133.396" Y="-1700.97" Z="136.5146" />
+				<Hotspot X="-8098.002" Y="-1779.484" Z="133.1521" />
+				<Hotspot X="-8159.1" Y="-1814.63" Z="133.5231" />
+				<Hotspot X="-8193.298" Y="-1702.914" Z="141.4564" />
+				<Hotspot X="-8139.08" Y="-1578.982" Z="133.5204" />
+				<Hotspot X="-8126.334" Y="-1520.232" Z="133.7842" />	
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -3591,8 +3595,12 @@
 
 				<CustomBehavior File="Message" Text="Compiling Westfall Quests" LogColor="Green" />
 
+			<If Condition="((!HasQuest(26378)) &amp;&amp; (!IsQuestCompleted(26378)))" >
 		<PickUp QuestName="Hero's Call: Westfall!" QuestId="26378" GiverName="Marshal McCree" GiverId="42256" X="-9468.153" Y="-1305.781" Z="44.15004" />
+			</If>
+			<If Condition="((HasQuest(26378)) &amp;&amp; (IsQuestCompleted(26378)))" >
 		<TurnIn QuestName="Hero's Call: Westfall!" QuestId="26378" TurnInName="Lieutenant Horatio Laine" TurnInId="42308" X="-9849.856" Y="914.9618" Z="30.27025" />
+			</If>
 			<If Condition="(!IsQuestCompleted(26761))" >
 		<PickUp QuestName="Murder Was The Case That They Gave Me" QuestId="26209" GiverName="Lieutenant Horatio Laine" GiverId="42308" />
 			<While Condition="((HasQuest(26209)) &amp;&amp; (!IsQuestCompleted(26209)))" >
@@ -6561,10 +6569,16 @@
 				<CustomBehavior File="CompleteLogQuest" QuestId="28246" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
 			</If>
-			<If Condition="((HasQuest(28245)) &amp;&amp; (!IsQuestCompleted(28245)))" >
-				<RunTo X="-8143.604" Y="-1578.953" Z="133.5232" />
-				<Objective QuestName="Grunt Work" QuestId="28245" Type="UseObject" ObjectId="206977" UseCount="7" />
-			</If>
+			<While Condition="((HasQuest(28245)) &amp;&amp; (!IsQuestCompleted(28245)))" >
+				<CustomBehavior File="InteractWith" QuestId="28245" MobId="206977" WaitForNpcs="False" ObjectType="Gameobject" Range="5" NumOfTimes="10" CollectionDistance="1000" X="-8130.066" Y="-1540.276" Z="136.3118" />
+				<CustomBehavior File="InteractWith" QuestId="28245" MobId="206977" WaitForNpcs="False" ObjectType="Gameobject" Range="5" NumOfTimes="10" CollectionDistance="1000" X="-8127.229" Y="-1588.298" Z="135.8655" />
+				<CustomBehavior File="InteractWith" QuestId="28245" MobId="206977" WaitForNpcs="False" ObjectType="Gameobject" Range="5" NumOfTimes="10" CollectionDistance="1000" X="-8133.396" Y="-1700.97" Z="136.5146" />
+				<CustomBehavior File="InteractWith" QuestId="28245" MobId="206977" WaitForNpcs="False" ObjectType="Gameobject" Range="5" NumOfTimes="10" CollectionDistance="1000" X="-8098.002" Y="-1779.484" Z="133.1521" />
+				<CustomBehavior File="InteractWith" QuestId="28245" MobId="206977" WaitForNpcs="False" ObjectType="Gameobject" Range="5" NumOfTimes="10" CollectionDistance="1000" X="-8159.1" Y="-1814.63" Z="133.5231" />
+				<CustomBehavior File="InteractWith" QuestId="28245" MobId="206977" WaitForNpcs="False" ObjectType="Gameobject" Range="5" NumOfTimes="10" CollectionDistance="1000" X="-8193.298" Y="-1702.914" Z="141.4564" />
+				<CustomBehavior File="InteractWith" QuestId="28245" MobId="206977" WaitForNpcs="False" ObjectType="Gameobject" Range="5" NumOfTimes="10" CollectionDistance="1000" X="-8139.08" Y="-1578.982" Z="133.5204" />
+				<CustomBehavior File="InteractWith" QuestId="28245" MobId="206977" WaitForNpcs="False" ObjectType="Gameobject" Range="5" NumOfTimes="10" CollectionDistance="1000" X="-8126.334" Y="-1520.232" Z="133.7842" />	
+			</While>
 		<TurnIn QuestName="Grunt Work" QuestId="28245" TurnInName="Quartermaster Kaoshin" TurnInId="48085" />		
 		<PickUp QuestName="The Kodocaller's Horn" QuestId="28252" GiverName="Quartermaster Kaoshin" GiverId="48085" />
 			<While Condition="((HasQuest(28252)) &amp;&amp; (!IsQuestCompleted(28252)))" >
@@ -6852,7 +6866,10 @@
 		<TurnIn QuestName="Reinforcements Denied" QuestId="27843" TurnInName="Joanna Blueheart" TurnInId="46676" />
 		<PickUp QuestName="Assault on Stonard" QuestId="27849" GiverName="Joanna Blueheart" GiverId="46676" />
 		<PickUp QuestName="Cutting Supply" QuestId="27851" GiverName="Joanna Blueheart" GiverId="46676" />
+			<!--
 			<Objective QuestName="Cutting Supply" QuestId="27851" Type="CollectItem" ItemId="62516" CollectCount="5" />
+			-->
+			<CustomBehavior File="InteractWith" QuestId="27851" MobId="206391" ObjectType="Gameobject" Range="6" NumOfTimes="50" CollectionDistance="1000" IgnoreCombat="True" X="-10454.53" Y="-3261.218" Z="20.1795" />
 			<While Condition="((HasQuest(27849)) &amp;&amp; (!IsQuestCompleted(27849)))" >
 				<!-- <Objective QuestName="Assault on Stonard" QuestId="27849" Type="KillMob" MobId="46870" KillCount="6" /> -->
 				<CustomBehavior File="KillUntilComplete" QuestId="27849" MobId="46870" X="-10407.87" Y="-3284.063" Z="20.17929" />
