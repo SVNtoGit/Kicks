@@ -4234,7 +4234,9 @@
 		<TurnIn QuestName="Break the Unbreakable" QuestId="28113" TurnInName="Arcanist Delaris" TurnInId="47341" />
 		<TurnIn QuestName="Fight the Power" QuestId="28102" TurnInName="Eridan Bluewind" TurnInId="9116" />
 		
+			<If Condition="((!HasQuest(28116)) &amp;&amp; (!IsQuestCompleted(28116)))" >
 		<PickUp QuestName="Jaedenar Awaits" QuestId="28152" GiverName="Eridan Bluewind" GiverId="9116" />
+			</If>
 		<PickUp QuestName="Open Their Eyes" QuestId="28288" GiverName="Arcanist Delaris" GiverId="47341" />
 
 			<If Condition="(HasQuest(28288)) &amp;&amp; (!IsQuestCompleted(28288))">
@@ -4244,7 +4246,9 @@
 				<CustomBehavior File="UserSettings" PullDistance="20" />
 			</If>
 		<TurnIn QuestName="Open Their Eyes" QuestId="28288" TurnInName="Arcanist Delaris" TurnInId="47341" />
+			<If Condition="((HasQuest(28152)) &amp;&amp; (IsQuestCompleted(28152)))" >
 		<TurnIn QuestName="Jaedenar Awaits" QuestId="28152" TurnInName="Greta Mosshoof" TurnInId="10922" />
+			</If>
 		
 		<PickUp QuestName="Crying Violet" QuestId="28116" GiverName="Greta Mosshoof" GiverId="10922" />
 		<PickUp QuestName="Forces of Jaedenar" QuestId="28121" GiverName="Jessir Moonbow" GiverId="11019" />
@@ -4440,33 +4444,57 @@
 				<CustomBehavior File="CompleteLogQuest" QuestId="28228" />
 			</If>
 			
-			<If Condition="(HasQuest(28217)) &amp;&amp; (!IsQuestCompleted(28217))">
+			<While Condition="(HasQuest(28217)) &amp;&amp; (!IsQuestCompleted(28217))">
 				<CustomBehavior File="InteractWith" QuestId="28217" MobId="47923" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="6427.38" Y="-962.9466" Z="423.1499" />
+				<CustomBehavior File="InteractWith" Range="7" MobId="47923" />
+				<!--
 				<Objective QuestName="Wanted: The Demon Hunter" QuestId="28217" Type="KillMob" MobId="47923" KillCount="1" />
-			</If>
+				-->
+			</While>
 		<TurnIn QuestName="Wanted: The Demon Hunter" QuestId="28217" TurnInName="Feronas Sindweller" TurnInId="47923" />
 		
 		<PickUp QuestName="A Destiny of Flame and Sorrow" QuestId="28218" GiverName="Feronas Sindweller" GiverId="47923" />
-			<If Condition="((HasQuest(28218)) &amp;&amp; (!IsQuestCompleted(28218)))" >
+			<While Condition="((HasQuest(28218)) &amp;&amp; (!IsQuestCompleted(28218)))" >
 				<!-- Escort kind of fails
 				<CustomBehavior File="Escort" QuestId="28218" MobId="47735" X="6431.376" Y="-954.6393" Z="423.1497" /> -->
 				<RunTo X="6431.376" Y="-954.6393" Z="423.1497" />
+				<!--
 				<CustomBehavior File="KillUntilComplete" QuestId="28218" MobId="47733" X="6431.376" Y="-954.6393" Z="423.1497" />
-			</If>
+				-->
+				<CustomBehavior File="InteractWith" MobId="47733" Range="7" X="6431.376" Y="-954.6393" Z="423.1497" />
+		<PickUp QuestName="A Destiny of Flame and Sorrow" QuestId="28218" GiverName="Feronas Sindweller" GiverId="47923" />
+			</While>
 		<TurnIn QuestName="A Destiny of Flame and Sorrow" QuestId="28218" TurnInName="Feronas Sindweller" TurnInId="47923" />
 		
 		<PickUp QuestName="The Skull of Gul'dan" QuestId="28256" GiverName="Feronas Sindweller" GiverId="47923" />
 			<If Condition="((HasQuest(28256)) &amp;&amp; (!IsQuestCompleted(28256)))" >
 				<!-- <CustomBehavior File="Escort" QuestId="28256" MobId="47733" X="6431.376" Y="-954.6393" Z="423.1497" /> -->
+				<!--
 				<RunTo X="6431.376" Y="-954.6393" Z="423.1497" />
 				<CustomBehavior File="KillUntilComplete" QuestId="28256" MobId1="47800" MobId2="47795" X="6431.376" Y="-954.6393" Z="423.1497" />
+				-->
+				<CustomBehavior File="InteractWith" MobId1="47800" MobId2="47795" Range="7" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="AbandonQuest" QuestId="28256" Type="Failed" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for  {TimeRemaining}" />
+		<PickUp QuestName="The Skull of Gul'dan" QuestId="28256" GiverName="Feronas Sindweller" GiverId="47923" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
 			</If>
 		<TurnIn QuestName="The Skull of Gul'dan" QuestId="28256" TurnInName="Feronas Sindweller" TurnInId="47923" />
 		
 		<PickUp QuestName="The Fall of Tichondrius" QuestId="28257" GiverName="Feronas Sindweller" GiverId="47923" />
-			<If Condition="(HasQuest(28257)) &amp;&amp; (!IsQuestCompleted(28257))">
+			<While Condition="((HasQuest(28257)) &amp;&amp; (!IsQuestCompleted(28257)))">
+				<!--
 				<CustomBehavior File="Escort" QuestId="28257" MobId="47819" X="6436.53" Y="-946.576" Z="423.15" />
-			</If>
+				-->
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" MobId1="47917" Range="7" />
+				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="AbandonQuest" QuestId="28257" Type="Failed" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for  {TimeRemaining}" />
+		<PickUp QuestName="The Fall of Tichondrius" QuestId="28257" GiverName="Feronas Sindweller" GiverId="47923" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
+			</While>
 		<TurnIn QuestName="The Fall of Tichondrius" QuestId="28257" TurnInName="Feronas Sindweller" TurnInId="47923" />
 		<PickUp QuestName="Deceivers In Our Midst" QuestId="28261" GiverName="Feronas Sindweller" GiverId="47923" />
 		
