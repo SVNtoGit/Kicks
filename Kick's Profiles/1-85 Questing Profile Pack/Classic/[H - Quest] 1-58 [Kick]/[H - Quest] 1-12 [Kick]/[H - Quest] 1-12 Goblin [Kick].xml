@@ -444,13 +444,19 @@
 			</If>
 
 		<PickUp QuestName="Pirate Party Crashers" QuestId="14115" GiverName="Sassy Hardwrench" GiverId="34668"/>
-			<Objective QuestName="Pirate Party Crashers" QuestId="14115" Type="KillMob" MobId="35200" KillCount="12"/>
+			<If Condition="(HasQuest(14115))" >
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+				<Objective QuestName="Pirate Party Crashers" QuestId="14115" Type="KillMob" MobId="35200" KillCount="12"/>
+			</If>
 			<If Condition="((HasQuest(14115)) &amp;&amp; (IsQuestCompleted(14115)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 		<TurnIn QuestName="Pirate Party Crashers" QuestId="14115" TurnInName="Sassy Hardwrench" TurnInId="34668"/>
 				<CustomBehavior File="UserSettings" PullDistance="20" />
 			</If>
 		<PickUp QuestName="The Uninvited Guest" QuestId="14116" GiverName="Sassy Hardwrench" GiverId="34668"/>
+			<If Condition="(HasQuest(14116))" >
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+			</If>
 		<TurnIn QuestName="The Uninvited Guest" QuestId="14116" TurnInName="Trade Prince Gallywix" TurnInId="35222"/>
 		<PickUp QuestName="A Bazillion Macaroons?!" QuestId="14120" GiverName="Trade Prince Gallywix" GiverId="35222"/>
 		<TurnIn QuestName="A Bazillion Macaroons?!" QuestId="14120" TurnInName="Sassy Hardwrench" TurnInId="34668"/>
@@ -668,6 +674,7 @@
 		<PickUp QuestName="Warchief's Revenge" QuestId="14243" GiverName="Thrall" GiverId="36161" />
 			<If Condition="((HasQuest(14243)) &amp;&amp; (!IsQuestCompleted(14243)))" >
 				<CustomBehavior File="NoControlVehicle" QuestId="14243" MobId="36176" NumOfTimes="99" AttackButton="1" MaxRange="100" WaitTime="2000"/>
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for  {TimeRemaining}" />
 			</If>
 			<If Condition="((HasQuest(14243)) &amp;&amp; (IsQuestCompleted(14243)))" >
 				<ClearVendor />
