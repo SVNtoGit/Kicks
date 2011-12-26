@@ -25,6 +25,8 @@
 		<Vendor Name="Jalin Lakedeep" Entry="43380" Type="Repair" X="5180.91" Y="-1716.01" Z="1339.965" />
 		<Vendor Name="Toron Rockhoof" Entry="43410" Type="Repair" X="5573.142" Y="-3603.472" Z="1570.72" />
 		<Vendor Name="Inoho Stronghide" Entry="43550" Type="Repair" X="4421.68" Y="-2095.55" Z="1205.802" />
+		
+		<Vendor Name="Lenedil Moonwing" Entry="43411" Type="Food" X="5523.79" Y="-3597.42" Z="1570.051" />
 	</Vendors>
 	
 	<Mailboxes>
@@ -35,6 +37,7 @@
 	</Mailboxes>
 	
 	<Blackspots>
+		<Blackspot X="4581.615" Y="-2547.878" Z="1122.884" Radius="30" />
 		<Blackspot X="1598.488" Y="-4370.302" Z="21.23272" Radius="10" />
 		<Blackspot X="4949.953" Y="-1588.249" Z="1326.682" Radius="10" />
 		<Blackspot X="5721.819" Y="-3341.086" Z="1597.324" Radius="10" />
@@ -714,15 +717,19 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Through the Dream" QuestId="25325" GiverName="Captain Saynna Stormrunner" GiverId="40139" />
 			</If>
-			<If Condition="((HasQuest(25325)) &amp;&amp; (!IsQuestCompleted(25325)))" >
+			<While Condition="((HasQuest(25325)) &amp;&amp; (!IsQuestCompleted(25325)))" >
 				<RunTo X="5704.213" Y="-3139.344" Z="1588.215" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="AbandonQuest" QuestId="25325" Type="Incomplete" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-			</If>
+		<PickUp QuestName="Through the Dream" QuestId="25325" GiverName="Captain Saynna Stormrunner" GiverId="40139" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</While>
 			<If Condition="((HasQuest(25325)) &amp;&amp; (!IsQuestCompleted(25325)))" >
 				<CustomBehavior File="Message" Text="If you see this message, then you probably died and need to drop Through the Dream and press start again" LogColor="Red" />
 			</If>
 			<If Condition="((HasQuest(25325)) &amp;&amp; (IsQuestCompleted(25325)))" >
-				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5705.028" Y="-3150.027" Z="1593.088" />
+				<RunTo X="5705.028" Y="-3150.027" Z="1593.088" />
 		<TurnIn QuestName="Through the Dream" QuestId="25325" TurnInName="Alysra" TurnInId="40178" X="5705.028" Y="-3150.027" Z="1593.088" />
 		<PickUp QuestName="Return to Nordrassil" QuestId="25578" GiverName="Alysra" GiverId="40178" X="5705.028" Y="-3150.027" Z="1593.088" />
 			</If>
