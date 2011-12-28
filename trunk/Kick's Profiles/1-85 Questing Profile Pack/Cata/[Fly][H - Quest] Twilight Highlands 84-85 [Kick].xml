@@ -1664,10 +1664,15 @@
 		<TurnIn QuestId="27742" QuestName="A Little on the Side" TurnInId="46513" TurnInName="Initiate Goldmine"/>
 		<TurnIn QuestId="27743" QuestName="While We're Here" TurnInId="46513" TurnInName="Initiate Goldmine"/>
 		<PickUp GiverId="46513" QuestId="27745" GiverName="Initiate Goldmine" QuestName="A Fiery Reunion"/>
-			<If Condition="((HasQuest(27745)) &amp;&amp; (!IsQuestCompleted(27745)))" >
+			<While Condition="((HasQuest(27745)) &amp;&amp; (!IsQuestCompleted(27745)))" >
 				<Objective QuestId="27745" QuestName="A Fiery Reunion" Type="Collect" ItemId="62394" CollectCount="1"/>
-				<UseItem ItemId="62394" QuestName="A Fiery Reunion" QuestId="27745" X="-5105.129" Y="-4352.916" Z="297.1186"  />
-			</If>
+				<RunTo X="-5105.129" Y="-4352.916" Z="297.1186"  />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
+				<RunTo X="-5105.129" Y="-4352.916" Z="297.1186"  />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62394)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for  {TimeRemaining}" />
+			</While>
 		<TurnIn QuestId="27745" QuestName="A Fiery Reunion" TurnInId="46243" TurnInName="Initiate Goldmine"/>
 		<PickUp GiverId="46243" QuestId="27783" GiverName="Initiate Goldmine" QuestName="Garona Needs You"/> 
 			<If Condition="((HasQuest(27783)) &amp;&amp; (IsQuestCompleted(27783)))" >
