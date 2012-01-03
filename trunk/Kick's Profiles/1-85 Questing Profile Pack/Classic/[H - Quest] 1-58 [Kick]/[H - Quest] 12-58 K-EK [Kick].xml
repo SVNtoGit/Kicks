@@ -3053,8 +3053,12 @@
 			<If Condition="((HasQuest(24601)) &amp;&amp; (IsQuestCompleted(24601)))" >
 		<TurnIn QuestName="The Nightmare Scar" QuestId="24601" TurnInName="Naralex" TurnInId="37570" />
 			</If>
+			<If Condition="((!HasQuest(24807)) &amp;&amp; (!IsQuestCompleted(24807)))" >
 		<PickUp QuestName="Winnoa Pineforest" QuestId="24807" GiverName="Naralex" GiverId="37570" />
+			</If>
+			<If Condition="((HasQuest(24807)) &amp;&amp; (IsQuestCompleted(24807)))" >
 		<TurnIn QuestName="Winnoa Pineforest" QuestId="24807" TurnInName="Winnoa Pineforest" TurnInId="37717" />
+			</If>
 		<!-- i got 'roadway plans' from somewhere in this zone -->
 		
 		<!-- Kick stopped here for S. Barrens.
@@ -3937,10 +3941,10 @@
 				<CustomBehavior File="CombatUseItemOn" QuestId="27453" MobId1="8520" MobId2="8519" ItemId="61284" MobHpPercentLeft="90" MaxRange="5" X="1712.365" Y="-4580.637" Z="77.61597" />
 			 </While>
 			</If>
-			<If Condition="((HasQuest(27453)) &amp;&amp; (IsQuestCompleted(27453)))" >
+			<While Condition="((HasQuest(27453)) &amp;&amp; (IsQuestCompleted(27453)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="27453" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+			</While>
 			<While Condition="((HasQuest(27454)) &amp;&amp; (!IsQuestCompleted(27454)))" >
 				<RunTo X="1689.716" Y="-4765.269" Z="78.3946" />
 				<UseItem QuestId="27454" ItemId="61283" X="1689.716" Y="-4765.269" Z="78.3946" />
@@ -4569,7 +4573,8 @@
 				<!--
 				<CustomBehavior File="KillUntilComplete" QuestId="28218" MobId="47733" X="6431.376" Y="-954.6393" Z="423.1497" />
 				-->
-				<CustomBehavior File="InteractWith" MobId="47733" Range="7" X="6431.376" Y="-954.6393" Z="423.1497" />
+				<CustomBehavior File="InteractWith" QuestId="28218" MobId="47733" Range="7" X="6431.376" Y="-954.6393" Z="423.1497" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
 		<PickUp QuestName="A Destiny of Flame and Sorrow" QuestId="28218" GiverName="Feronas Sindweller" GiverId="47923" />
 			</While>
 		<TurnIn QuestName="A Destiny of Flame and Sorrow" QuestId="28218" TurnInName="Feronas Sindweller" TurnInId="47923" />
@@ -4909,10 +4914,10 @@
 		
 		<PickUp QuestName="The Owlbeasts' Defense" QuestId="28838" GiverName="Haleh" GiverId="10929" />
 			<Objective QuestName="The Owlbeasts' Defense" QuestId="28838" Type="CollectItem" ItemId="65902" CollectCount="1" />
-			<If Condition="((HasQuest(28838)) &amp;&amp; (IsQuestCompleted(28838)))" >
+			<While Condition="((HasQuest(28838)) &amp;&amp; (IsQuestCompleted(28838)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="28838" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
 		<PickUp QuestName="Magic Prehistoric" QuestId="28839" GiverName="Haleh" GiverId="10929" />
 		<PickUp QuestName="Razor Beak and Antlers Pointy" QuestId="28829" GiverName="Jadrag the Slicer" GiverId="50263" />
 			<While Condition="HasQuest(28839) &amp;&amp; !IsQuestCompleted(28839)">
@@ -5081,12 +5086,16 @@
 		<PickUp QuestName="Watching Our Back" QuestId="25695" GiverName="Warlord Dar'toon" GiverId="19254" />
 			<While Condition="((HasQuest(25695)) &amp;&amp; (!IsQuestCompleted(25695)))" >
 				<!-- Kick's
-				<RunTo QuestId="25695" X="-11810.71" Y="-3233.016" Z="-30.09631" />
-				<CustomBehavior File="InteractWith" QuestId="25695" MobId="203226" ObjectType="Gameobject" WaitTime="15000" Range="8" X="-11810.71" Y="-3233.016" Z="-30.09631" />
 				-->
-				<!-- New XYZ -->
+				<RunTo X="-11811.42" Y="-3233.681" Z="-30.07505" />
+				<CustomBehavior File="WaitTimer" WaitTime="500" GoalText="Waiting for  {TimeRemaining}" />
+				<RunTo X="-11808.45" Y="-3232.96" Z="-29.96012" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="25695" MobId="203226" ObjectType="Gameobject" WaitTime="15000" Range="8" X="-11810.71" Y="-3233.016" Z="-30.09631" />
+				<!-- New XYZ
 				<RunTo QuestId="25695" X="-11808.03" Y="-3230.02" Z="-29.50424" />
-				<CustomBehavior File="InteractWith" QuestId="25695" MobId="203226" ObjectType="Gameobject" WaitTime="15000" Range="8" X="-11808.03" Y="-3230.02" Z="-29.50424" />
+				<CustomBehavior File="InteractWith" QuestId="25695" MobId="203226" ObjectType="Gameobject" WaitTime="15000" Range="8" X="-11808.03" Y="-3230.02" Z="-29.50424" /> 
+				-->
 			</While>
 		<TurnIn QuestName="Watching Our Back" QuestId="25695" TurnInName="Warlord Dar'toon" TurnInId="19254" />
 		<PickUp QuestName="The Sunveil Excursion" QuestId="25696" GiverName="Warlord Dar'toon" GiverId="19254" />
