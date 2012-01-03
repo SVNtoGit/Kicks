@@ -1898,9 +1898,14 @@
 				<CustomBehavior File="ForceTrainRiding"  MobId="35100" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 			  </If>
+				<If Condition="(HasItem(25472))" >
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25472)" />
+				</If>
 			</If>
-			<If Condition="(HasItem(25472))" >
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25472)" />
+			<If Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225)" >
+				<!-- Mount is 40g, Training is 200g -->
+				<CustomBehavior File="UserDialog" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" Title="Get more Money." 
+				Text="You do not have the necessary amount of money to train 'Expert Riding' - please send some money; or farm for some money and continue when you have money" />
 			</If>
 			
 		
