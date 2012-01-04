@@ -1770,11 +1770,14 @@
 		<PickUp QuestName="It's Gotta be the Horn" QuestId="865" GiverName="Mebok Mizzyrix" GiverId="3446" />
 		<PickUp QuestName="WANTED: Cap'n Garvey" QuestId="895" GiverType="Object" GiverId="3972" X="-921.4776" Y="-3723.168" Z="9.23311"/>
 		<PickUp QuestName="Investigate the Wreckage" QuestId="14066" GiverName="Gazrog" GiverId="3464"/>
-			<RunTo QuestId="14066" X="-772.7415" Y="-3193.571" Z="91.69006"/>
-			<If Condition="((HasQuest(14066)) &amp;&amp; (IsQuestCompleted(14066)))" >
+			<While Condition="((HasQuest(14066)) &amp;&amp; (!IsQuestCompleted(14066)))" >
+				<RunTo QuestId="14066" X="-772.7415" Y="-3193.571" Z="91.69006"/>
+				<CustomBehavior QuestId="14066" File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
+			<While Condition="((HasQuest(14066)) &amp;&amp; (IsQuestCompleted(14066)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="14066" /> <!-- Get 869 -->
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
 			<If Condition="((!HasQuest(869)) &amp;&amp; (!IsQuestCompleted(869)))" >
 		<PickUp QuestName="To Track a Thief" QuestId="869" GiverName="Gazrog" GiverId="3464"/>
 			</If>
@@ -1809,10 +1812,10 @@
 				<UseItem ItemId="46829" QuestName="Love it or Limpet" QuestId="14038" X="-1469.204" Y="-3967.555" Z="-1.641989" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</While>
-			<If Condition="((HasQuest(14038)) &amp;&amp; (IsQuestCompleted(14038)))" >
+			<While Condition="((HasQuest(14038)) &amp;&amp; (IsQuestCompleted(14038)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="14038" /> <!-- Get 14042 -->
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</While>
 			<Objective QuestName="A Captain's Vengeance" QuestId="891" Type="KillMob" MobId="34752" KillCount="1"/>
 			<Objective QuestName="Ammo Kerblammo" QuestId="14042" Type="UseObject" ObjectId="195203" UseCount="5" />
 			<Objective QuestName="WANTED: Cap'n Garvey" QuestId="895" Type="CollectItem" ItemId="5084" CollectCount="1" />
@@ -1850,10 +1853,10 @@
 				<RunTo QuestId="869" X="-552.7271" Y="-3422.826" Z="91.66428"/>
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
-			<If Condition="((HasQuest(869)) &amp;&amp; (IsQuestCompleted(869)))" >
+			<While Condition="((HasQuest(869)) &amp;&amp; (IsQuestCompleted(869)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="869" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
 			<!-- Ignoring Waptor Twapping from Kala'ma.  A CUIO quest I think.  Kala'ma is N/NW from Ratchet under a tree -->
 			<Objective QuestName="It's Gotta be the Horn" QuestId="865" Type="CollectItem" ItemId="46850" CollectCount="1"/>
 			<Objective QuestName="The Stolen Silver" QuestId="14067" Type="CollectItem" ItemId="5061" CollectCount="1"/>
@@ -1880,10 +1883,10 @@
 			<If Condition="((HasQuest(29087)) &amp;&amp; (!IsQuestCompleted(29087)))" >
 				<CustomBehavior File="InteractWith" QuestId="29087" MobId="52171" NumOfTimes="50" CollectionDistance="500" X="1022.07" Y="-3174.922" Z="84.61289" />
 			</If>
-			<If Condition="((HasQuest(29087)) &amp;&amp; (IsQuestCompleted(29087)))" >
+			<While Condition="((HasQuest(29087)) &amp;&amp; (IsQuestCompleted(29087)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="29087" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
 			<While Condition="((HasQuest(29089)) &amp;&amp; (!IsQuestCompleted(29089)))" >
 				<CustomBehavior File="InteractWith" QuestId="29089" MobId="208343" ObjectType="Gameobject" Range="4" WaitTime="7000" X="1069.279" Y="-3140.694" Z="66.86901" />
 			</While>
@@ -1982,15 +1985,15 @@
 		<PickUp QuestName="Harpy Raiders" QuestId="867" GiverName="Darsok Swiftdagger" GiverId="3449" />
 		<PickUp QuestName="Harpy Lieutenants" QuestId="875" GiverName="Darsok Swiftdagger" GiverId="3449" />
 			<Objective QuestName="Harpy Raiders" QuestId="867" Type="CollectItem" ItemId="5064" CollectCount="8" />
-			<If Condition="((HasQuest(867)) &amp;&amp; (IsQuestCompleted(867)))" >
+			<While Condition="((HasQuest(867)) &amp;&amp; (IsQuestCompleted(867)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="867" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
 			<Objective QuestName="Harpy Lieutenants" QuestId="875" Type="KillMob" MobId="3278" KillCount="6" />
-			<If Condition="((HasQuest(875)) &amp;&amp; (IsQuestCompleted(875)))" >
+			<While Condition="((HasQuest(875)) &amp;&amp; (IsQuestCompleted(875)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="875" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
 			<Objective QuestName="Serena Bloodfeather" QuestId="876" Type="CollectItem" ItemId="5067" CollectCount="1" />
 		<TurnIn QuestName="Serena Bloodfeather" QuestId="876" TurnInName="Darsok Swiftdagger" TurnInId="3449" />
 		<PickUp QuestName="Report to Thork" QuestId="29095" GiverName="Darsok Swiftdagger" GiverId="3449" />
@@ -3135,10 +3138,10 @@
 				<RunTo QuestId="14191" X="-92.28197" Y="756.6418" Z="126.2953" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
-			<If Condition="((HasQuest(14191)) &amp;&amp; (IsQuestCompleted(14191)))" >
+			<While Condition="((HasQuest(14191)) &amp;&amp; (IsQuestCompleted(14191)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="14191" />
-				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
 			<If Condition="((HasQuest(14360)) &amp;&amp; (!IsQuestCompleted(14360)))" >
 				<Objective QuestName="Nothing a Couple of Melons Won't Fix" QuestId="14360" Type="CollectItem" ItemId="48106" CollectCount="8" />
 				<RunTo X="-87.77672" Y="768.8437" Z="132.8921" />
@@ -3146,10 +3149,10 @@
 				<UseItem QuestId="14360" ItemId="48106" X="-87.77672" Y="768.8437" Z="132.8921" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
-			<If Condition="((HasQuest(14360)) &amp;&amp; (IsQuestCompleted(14360)))" >
+			<While Condition="((HasQuest(14360)) &amp;&amp; (IsQuestCompleted(14360)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="14360" />
-				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
 			<If Condition="((HasQuest(14195)) &amp;&amp; (!IsQuestCompleted(14195)))" >
 				<RunTo X="55.16868" Y="877.1237" Z="141.766" />
 			</If>
@@ -3784,10 +3787,10 @@
 		<TurnIn QuestName="Tarenar Sunstrike" TurnInName="Tarenar Sunstrike" QuestId="27370" TurnInId="45429" X="1692.83" Y="-3027.97" Z="77.3585" />
 		<PickUp QuestName="What I Do Best" QuestId="27371" GiverName="Tarenar Sunstrike" GiverId="45429" X="1692.83" Y="-3027.97" Z="77.3585" />
 			<Objective QuestName="What I Do Best" QuestId="27371" Type="KillMob" MobId="45444" KillCount="5" />
-			<If Condition="((HasQuest(27371)) &amp;&amp; (IsQuestCompleted(27371)))" >
+			<While Condition="((HasQuest(27371)) &amp;&amp; (IsQuestCompleted(27371)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="27371" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+			</While>
 			<Objective QuestName="A Gift For Fiona" QuestId="27372" Type="CollectItem" ItemId="60986" CollectCount="10" />
 		<TurnIn QuestName="A Gift For Fiona" QuestId="27372" TurnInName="Fiona" TurnInId="45417" />
 		<PickUp QuestName="Onward, to Light's Hope Chapel" QuestId="27373" GiverName="Fiona" GiverId="45417" />
@@ -3920,10 +3923,10 @@
 		<TurnIn QuestName="Honor and Strength" QuestId="27449" TurnInName="Vex'tul" TurnInId="45574" />
 			<Objective QuestName="Dark Garb" QuestId="27452" Type="CollectItem" ItemId="61280" CollectCount="1" />
 			<Objective QuestName="Dark Garb" QuestId="27452" Type="CollectItem" ItemId="61281" CollectCount="1" />
-			<If Condition="((HasQuest(27452)) &amp;&amp; (IsQuestCompleted(27452)))" >
+			<While Condition="((HasQuest(27452)) &amp;&amp; (IsQuestCompleted(27452)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="27452" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+			</While>
 			<While Condition="((HasQuest(27451)) &amp;&amp; (!IsQuestCompleted(27451)))" >
 				<Objective QuestName="To Kill With Purpose" QuestId="27451" Type="CollectItem" ItemId="15447" CollectCount="7" />
 				<RunTo X="2167.327" Y="-4561.854" Z="73.67051" />
@@ -3931,10 +3934,10 @@
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(15454)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="8000"/>
 			</While>
-			<If Condition="((HasQuest(27451)) &amp;&amp; (IsQuestCompleted(27451)))" >
+			<While Condition="((HasQuest(27451)) &amp;&amp; (IsQuestCompleted(27451)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="27451" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+			</While>
 			<If Condition="((HasQuest(27453)) &amp;&amp; (!IsQuestCompleted(27453)))" >
 				<RunTo X="1712.365" Y="-4580.637" Z="77.61597" />
 			 <While Condition="((HasQuest(27453)) &amp;&amp; (!IsQuestCompleted(27453)))" >
@@ -4093,23 +4096,27 @@
 			<Objective QuestName="Impatience" QuestId="27488" Type="CollectItem" ItemId="61318" CollectCount="1" />
 			<Objective QuestName="Out of the Ziggurat" QuestId="27481" Type="CollectItem" ItemId="61315" CollectCount="1" />
 			<Objective QuestName="Righteous Indignation" QuestId="27479" Type="CollectItem" ItemId="61313" CollectCount="30" />
-			<If Condition="((HasQuest(27481)) &amp;&amp; (IsQuestCompleted(27481)))" >
+			<While Condition="((HasQuest(27481)) &amp;&amp; (IsQuestCompleted(27481)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="27481" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="52000"/>
+			</While>
 			<If Condition="((HasQuest(27482)) &amp;&amp; (!IsQuestCompleted(27482)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<RunTo X="3457.617" Y="-5000.021" Z="200.1844" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
 				<UseItem QuestId="27482" ItemId="61316" X="3457.617" Y="-5000.021" Z="200.1844" />
 				<CustomBehavior File="WaitTimer" WaitTime="15000"/>
-			</If>
-			<If Condition="((HasQuest(27482)) &amp;&amp; (IsQuestCompleted(27482)))" >
-				<CustomBehavior File="CompleteLogQuest" QuestId="27482" />
+				<CustomBehavior File="MyCTM" X="3457.617" Y="-5000.021" Z="200.1844" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
+				<CustomBehavior File="MyCTM" X="3457.617" Y="-5000.021" Z="200.1844" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
 				<CustomBehavior File="MyCTM" X="3403.98" Y="-4950.062" Z="164.3234" />
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
+			<While Condition="((HasQuest(27482)) &amp;&amp; (IsQuestCompleted(27482)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="27482" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+			</While>
 		<TurnIn QuestName="Righteous Indignation" QuestId="27479" TurnInName="Deacon Andaal" TurnInId="45736" />
 		<TurnIn QuestName="Impatience" QuestId="27488" TurnInName="Tarenar Sunstrike" TurnInId="45729" />
 		<PickUp QuestName="Nobody to Blame but Myself" QuestId="27489" GiverName="Tarenar Sunstrike" GiverId="45729" X="2557.832" Y="-4765.901" Z="105.9834" />
@@ -4382,9 +4389,10 @@
 		<PickUp QuestName="Dousing the Flames of Protection" QuestId="28126" GiverName="Andalar Shadevale" GiverId="51664" X="4882.829" Y="-406.1042" Z="350.9761" />
 		
 			<Objective QuestName="The Demon Prince" QuestId="28129" Type="KillMob" MobId="9877" KillCount="1" />
-			<If Condition="(HasQuest(28129)) &amp;&amp; (IsQuestCompleted(28129))">
+			<While Condition="(HasQuest(28129)) &amp;&amp; (IsQuestCompleted(28129))">
 				<CustomBehavior File="CompleteLogQuest" QuestId="28129" /> <!-- Get 28131 -->
-			</If>	
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
+			</While>	
 			<If Condition="(HasQuest(28126)) &amp;&amp; (!IsQuestCompleted(28126))">
 			<!-- u need quest overrides here nat
 				<Objective QuestName="Dousing the Flames of Protection" QuestId="28126" Type="UseObject" ObjectId="176158" UseCount="1" />
@@ -4414,16 +4422,17 @@
 				<Objective QuestName="Twin Temptresses" QuestId="28131" Type="KillMob" MobId="9861" KillCount="1" />
 				<Objective QuestName="Twin Temptresses" QuestId="28131" Type="KillMob" MobId="9860" KillCount="1" />
 			</If>
-			<If Condition="(HasQuest(28131)) &amp;&amp; (IsQuestCompleted(28131))">
+			<While Condition="(HasQuest(28131)) &amp;&amp; (IsQuestCompleted(28131))">
 				<CustomBehavior File="CompleteLogQuest" QuestId="28131" /> <!-- Get 28153 -->
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
+			</While>
 			<If Condition="(HasQuest(28153)) &amp;&amp; (!IsQuestCompleted(28153))">
 				<Objective QuestName="Shadow Lord Fel'dan" QuestId="28153" Type="KillMob" MobId="9517" KillCount="1" />
 			</If>
-			<If Condition="(HasQuest(28153)) &amp;&amp; (IsQuestCompleted(28153))">
+			<While Condition="(HasQuest(28153)) &amp;&amp; (IsQuestCompleted(28153))">
 				<CustomBehavior File="CompleteLogQuest" QuestId="28153" /> <!-- Get 28155 -->
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
 			<!-- i didn't see 28155 in my log as a worgen -->
 			<If Condition="((!HasQuest(28155)) &amp;&amp; (!IsQuestCompleted(28155)))" >
 		<PickUp QuestName="Lord Banehollow" QuestId="28155" GiverName="Andalar Shadevale" GiverId="51664" X="4882.829" Y="-406.1042" Z="350.9761" />
@@ -4843,29 +4852,29 @@
 			<Objective QuestName="The Owls Have It" QuestId="28638" Type="KillMob" MobId="7455" KillCount="15" />
 			<Objective QuestName="Fresh Frostsabers" QuestId="28640" Type="KillMob" MobId="7431" KillCount="15" />
 			<Objective QuestName="A Taste for Bear" QuestId="28637" Type="KillMob" MobId="7444" KillCount="15" />
-			<If Condition="((HasQuest(28637)) &amp;&amp; (IsQuestCompleted(28637)))" >
+			<While Condition="((HasQuest(28637)) &amp;&amp; (IsQuestCompleted(28637)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="28637" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
 		<TurnIn QuestName="You Gotta Have Eggs" QuestId="28828" TurnInName="Jez Goodgrub" TurnInId="49396" />
-				<If Condition="((HasQuest(28640)) &amp;&amp; (IsQuestCompleted(28640)))" >
-			<CustomBehavior File="CompleteLogQuest" QuestId="28640" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
-			<If Condition="((HasQuest(28638)) &amp;&amp; (IsQuestCompleted(28638)))" >
+			<While Condition="((HasQuest(28640)) &amp;&amp; (IsQuestCompleted(28640)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="28640" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
+			<While Condition="((HasQuest(28638)) &amp;&amp; (IsQuestCompleted(28638)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="28638" /> <!-- 28745 -->
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
 		<PickUp QuestName="A Little Gamy" QuestId="28719" GiverName="Francis Morcott" GiverId="49436" />
 		<PickUp QuestName="Pride of the Dinner Table" QuestId="28641" GiverName="Jez Goodgrub" GiverId="49396" />
 		<!--<PickUp QuestName="Screechy Keen" QuestId="28745" GiverName="" GiverId="" />-->
 			<If Condition="HasQuest(28745)">
 				<Objective QuestName="Screechy Keen" QuestId="28745" Type="KillMob" MobId="7456" KillCount="15" />
 			</If>
-			<If Condition="((HasQuest(28745)) &amp;&amp; (IsQuestCompleted(28745)))" >
+			<While Condition="((HasQuest(28745)) &amp;&amp; (IsQuestCompleted(28745)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="28745" /> <!-- 28782 -->
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
 			<Objective QuestName="A Little Gamy" QuestId="28719" Type="KillMob" MobId="7443" KillCount="15" />
 			<Objective QuestName="Pride of the Dinner Table" QuestId="28641" Type="KillMob" MobId="7434" KillCount="15" />
 		<TurnIn QuestName="A Little Gamy" QuestId="28719" TurnInName="Francis Morcott" TurnInId="49436" />
@@ -4916,7 +4925,7 @@
 			<Objective QuestName="The Owlbeasts' Defense" QuestId="28838" Type="CollectItem" ItemId="65902" CollectCount="1" />
 			<While Condition="((HasQuest(28838)) &amp;&amp; (IsQuestCompleted(28838)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="28838" />
-				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for bot {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
 			</While>
 		<PickUp QuestName="Magic Prehistoric" QuestId="28839" GiverName="Haleh" GiverId="10929" />
 		<PickUp QuestName="Razor Beak and Antlers Pointy" QuestId="28829" GiverName="Jadrag the Slicer" GiverId="50263" />
@@ -4931,10 +4940,10 @@
 		<TurnIn QuestName="Razor Beak and Antlers Pointy" QuestId="28829" TurnInName="Jadrag the Slicer" TurnInId="50263" />
 		<PickUp QuestName="Chips off the Old Block" QuestId="28830" GiverName="Jadrag the Slicer" GiverId="50263" />
 		<PickUp QuestName="Damn You, Frostilicus" QuestId="28831" GiverName="Jadrag the Slicer" GiverId="50263" />
-			<If Condition="((HasQuest(28839)) &amp;&amp; (IsQuestCompleted(28839)))" >
+			<While Condition="((HasQuest(28839)) &amp;&amp; (IsQuestCompleted(28839)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="28839" /> 
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
 		<PickUp QuestName="Winterwater" QuestId="28840" GiverName="Haleh" GiverId="10929" />
 			<Objective QuestName="Damn You, Frostilicus" QuestId="28831" Type="KillMob" MobId="50251" KillCount="1" />
 			<Objective QuestName="Winterwater" QuestId="28840" Type="CollectItem" ItemId="65903" CollectCount="7" />
