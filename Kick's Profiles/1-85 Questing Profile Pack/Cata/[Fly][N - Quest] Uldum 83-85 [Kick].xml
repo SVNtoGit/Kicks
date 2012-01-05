@@ -8,7 +8,8 @@
 	
 	<SellGrey>True</SellGrey>
 	<SellWhite>True</SellWhite>
-	<SellGreen>False</SellGreen>
+	<SellGreen>True</SellGreen>
+	<SellBlue>False</SellBlue>
   
 	<MailWhite>True</MailWhite>
 	<MailGreen>True</MailGreen>
@@ -39,6 +40,7 @@
 	</Blackspots>
 	
 	<AvoidMobs>
+		<Mob Name="Myzerian" Entry="48374" />
 		<Mob Name="Unconscious Trooper" Id="46976" />		
 		<Mob Name="Myzerian" Entry="48444" />
 		<Mob Name="Slacking Laborer" Entry="47292" />
@@ -658,8 +660,8 @@
 			<If Condition="((HasQuest(27738)) &amp;&amp; (!IsQuestCompleted(27738)))" >
 				<!-- I need a no combat kite mob through eggs cb - QUEST IS BUGGED UNTIL BLIZZARD FIXES IT
 				-->
-				<CustomBehavior File="FlyTo" X="-11450.39" Y="-1173.161" Z="-2.64209" />
-				<CustomBehavior File="UserDialog" QuestId="27738" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Talk to Tahet, then defend him\n\nWatch out for the croc eggs in last phase\n\nPress continue after he's dead and I'll fly you back" />
+				<CustomBehavior File="FlyTo" X="-11452.82" Y="-1164.111" Z="17.70814" />
+				<CustomBehavior File="UserDialog" QuestId="27738" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill the Pit Master\n\nWatch out for the croc eggs in last phase\n\nPress continue after he's dead and I'll fly you back" />
 			</If>
 			<If Condition="((HasQuest(27738)) &amp;&amp; (IsQuestCompleted(27738)))" >
 				<CustomBehavior File="FlyTo" X="-10252.78" Y="-1071.176" Z="48.05891" />
@@ -710,7 +712,10 @@
 		<TurnIn QuestName="Venomblood Antidote" TurnInName="Sun Priest Asaris" QuestId="28145" TurnInId="47715" />
 			<If Condition="((!HasQuest(28502)) &amp;&amp; (!IsQuestCompleted(28502)))" >
 		<PickUp QuestName="The Bandit Warlord" GiverName="Sun Priest Asaris" QuestId="28502" GiverId="47715" />
-				<!-- stick a 'flyto ramkahen forcevendor sell repair mail here -->
+		
+				<CustomBehavior File="FlyTo" X="-9432.03" Y="-959.5723" Z="111.0111" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 			</If>
 			<If Condition="((HasQuest(28502)) &amp;&amp; (!IsQuestCompleted(28502)))" >
 				<CustomBehavior File="FlyTo" X="-8705.345" Y="-388.4914" Z="188.6454" />
@@ -795,10 +800,15 @@
 			</If>
 			<Objective QuestName="Shaping Up" QuestId="28210" Type="KillMob" MobId="45353" KillCount="8" />
 			<If Condition="((HasQuest(28210)) &amp;&amp; (IsQuestCompleted(28210)))" >
+				<CustomBehavior File="FlyTo" X="-10437.89" Y="-848.0066" Z="156.6284" />
+				<CustomBehavior File="FlyTo" X="-10325.1" Y="-875.1752" Z="121.99" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for Salhet {TimeRemaining}" />
+				<!-- re-enable this if ppl QQ
 				<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="If you see Salhet (the blue companion npc), press continue.  if you do not, fly back and forth a few times into the area\n\nDon't go far, you have to help Salhet in a minute" />
+				-->
 			</If>
-		<TurnIn QuestName="Shaping Up" QuestId="28210" TurnInName="Salhet" TurnInId="48022" />
-		<PickUp QuestName="Salhet's Secret" GiverName="Salhet" QuestId="28276" GiverId="48022" />
+		<TurnIn QuestName="Shaping Up" QuestId="28210" TurnInName="Salhet" TurnInId="48022" X="-10325.05" Y="-875.1732" Z="116.9631" />
+		<PickUp QuestName="Salhet's Secret" GiverName="Salhet" QuestId="28276" GiverId="48022" X="-10325.05" Y="-875.1732" Z="116.9631" />
 			<If Condition="(HasQuest(28276))" >
 				<CustomBehavior File="FlyTo" X="-10608.19" Y="-1085.496" Z="155.5119" Distance="1" />
 				<CustomBehavior File="ForcedDismount" />
@@ -823,6 +833,7 @@
 			</If>
 		<PickUp QuestName="Nahom Must Hold" GiverName="King Phaoris" QuestId="28561" GiverId="47684" />
 			<If Condition="(HasQuest(28561))" >
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 				<RunTo X="-9431.04" Y="-959.1478" Z="111.0122" />
 				<CustomBehavior File="FlyTo" X="-9775.439" Y="-1704.986" Z="22.25718" />
 			</If>
@@ -1386,12 +1397,22 @@
 			</If>
 		<TurnIn QuestName="See You on the Other Side!" TurnInName="Harrison Jones" QuestId="28613" TurnInId="47158" X="-8680.61" Y="203.859" Z="338.8123" />
 		<PickUp QuestName="Fortune and Glory" QuestId="27748" GiverName="Harrison Jones" GiverId="47158" />
-			<If Condition="((HasQuest(27748)) &amp;&amp; (!IsQuestCompleted(27748)))" >
+			<While Condition="((HasQuest(27748)) &amp;&amp; (!IsQuestCompleted(27748)))" >
+	<CustomBehavior File="UserDialog" QuestId="27748" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Help the bot kill the big guy" />
+				<!--
 				<RunTo X="-8759.043" Y="292.5631" Z="329.2171" />
-				<CustomBehavior File="WaitTimer" WaitTime="45000"/>
+				<CustomBehavior File="WaitTimer" WaitTime="60000"/>
 				<CustomBehavior File="KillUntilComplete" QuestId="27748" MobId1="46646" X="-8743.302" Y="268.9516" Z="329.2431" />
 				<Objective QuestName="Fortune and Glory" QuestId="27748" Type="KillMob" MobId="46646" KillCount="1" />
-			</If>
+				<CustomBehavior File="InteractWith" QuestId="27748" MobId="46646" NumOfTimes="500" WaitForNpcs="False" Range="8" X="-8743.302" Y="268.9516" Z="329.2431" />
+				<CustomBehavior File="WaitTimer" WaitTime="300000"/>
+				
+				<CustomBehavior File="AbandonQuest" QuestId="27748" Type="Incomplete" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+		<PickUp QuestName="Fortune and Glory" QuestId="27748" GiverName="Harrison Jones" GiverId="47158" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+				-->
+			</While>
 		<TurnIn QuestName="Fortune and Glory" TurnInName="Harrison Jones" QuestId="27748" TurnInId="49151" />
 		<PickUp QuestName="Harrison Jones and the Temple of Uldum" GiverName="Harrison Jones" QuestId="28612" GiverId="49151" />
 			<If Condition="(HasQuest(28612))" >
