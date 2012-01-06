@@ -4582,12 +4582,16 @@
 		<TurnIn QuestName="The Green Hills of Stranglethorn" QuestId="26269" TurnInName="Barnil Stonepot" TurnInId="716" X="-11621.53" Y="-70.29166" Z="16.24054" />
 		<TurnIn QuestName="Supply and Demand" QuestId="26343" TurnInName="Drizzlik" TurnInId="2495" X="-11654.91" Y="-45.62196" Z="16.23837" />
 		<PickUp QuestName="Some Assembly Required" QuestId="26344" GiverName="Drizzlik" GiverId="2495" X="-11654.91" Y="-45.62196" Z="16.23837" />
-			<Objective QuestName="Tiger Hunting" QuestId="185" Type="KillMob" MobId="681" KillCount="10" />
+			<If Condition="((HasQuest(185)) &amp;&amp; (!IsQuestCompleted(185)))" >
+				<Objective QuestName="Tiger Hunting" QuestId="185" Type="KillMob" MobId="681" KillCount="10" />
+			</If>
 			<While Condition="((HasQuest(185)) &amp;&amp; (IsQuestCompleted(185)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="185" /> <!-- Get 186 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
 			</While>
-			<Objective QuestName="Panther Hunting" QuestId="190" Type="KillMob" MobId="683" KillCount="10" />
+			<If Condition="((HasQuest(190)) &amp;&amp; (!IsQuestCompleted(190)))" >
+				<Objective QuestName="Panther Hunting" QuestId="190" Type="KillMob" MobId="683" KillCount="10" />
+			</If>
 			<While Condition="((HasQuest(190)) &amp;&amp; (IsQuestCompleted(190)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="190" /> <!-- Get 191 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
@@ -4595,32 +4599,32 @@
 			<Objective QuestName="The Fate of Kurzen" QuestId="26735" Type="CollectItem" ItemId="60214" CollectCount="1" />
 			<Objective QuestName="The Fate of Kurzen" QuestId="26735" Type="CollectItem" ItemId="60215" CollectCount="1" />
 			<Objective QuestName="Bad Medicine" QuestId="26732" Type="CollectItem" ItemId="2633" CollectCount="7" />
-				<If Condition="(!IsQuestCompleted(26738))" >
-					<If Condition="(!HasQuest(26738)" >
-						<SetGrindArea>
-							<GrindArea>
-								<Factions>16</Factions>
-								<Hotspots>
-									<Hotspot X="-11644.71" Y="-587.8811" Z="29.83519" />
-									<Hotspot X="-11670.18" Y="-583.8016" Z="29.69539" />
-									<Hotspot X="-11618.57" Y="-584.3976" Z="26.35336" />
-									<Hotspot X="-11566.79" Y="-555.5222" Z="28.68176" />
-									<Hotspot X="-11548.01" Y="-584.4315" Z="27.28496" />
-									<Hotspot X="-11565.46" Y="-593.7622" Z="28.17311" />
-									<Hotspot X="-11590.91" Y="-618.9689" Z="28.35822" />
-									<Hotspot X="-11621.33" Y="-635.7115" Z="29.28726" />
-									<Hotspot X="-11627.31" Y="-671.7649" Z="31.67522" />
-								</Hotspots>
-							</GrindArea>
-						</SetGrindArea>
-					<GrindTo Condition="(HasQuest(26738))" GoalText="Dino Egg" />
-					</If>
-				</If>
+			<If Condition="((!HasQuest(26738)) &amp;&amp; (!IsQuestCompleted(26738)))" >
+					<SetGrindArea>
+						<GrindArea>
+							<Factions>16</Factions>
+							<Hotspots>
+								<Hotspot X="-11644.71" Y="-587.8811" Z="29.83519" />
+								<Hotspot X="-11670.18" Y="-583.8016" Z="29.69539" />
+								<Hotspot X="-11618.57" Y="-584.3976" Z="26.35336" />
+								<Hotspot X="-11566.79" Y="-555.5222" Z="28.68176" />
+								<Hotspot X="-11548.01" Y="-584.4315" Z="27.28496" />
+								<Hotspot X="-11565.46" Y="-593.7622" Z="28.17311" />
+								<Hotspot X="-11590.91" Y="-618.9689" Z="28.35822" />
+								<Hotspot X="-11621.33" Y="-635.7115" Z="29.28726" />
+								<Hotspot X="-11627.31" Y="-671.7649" Z="31.67522" />
+							</Hotspots>
+						</GrindArea>
+					</SetGrindArea>
+				<GrindTo Condition="(HasQuest(26738))" GoalText="Dino Egg" />
+			</If>
 			<If Condition="(HasQuest(26738))" >
 		<TurnIn QuestName="Just Hatched" QuestId="26738" TurnInName="Corporal Sethman" TurnInId="1422" />
-		<PickUp QuestName="I Think She's Hungry" QuestId="26739" GiverName="Corporal Sethman" GiverId="1422" />
 			</If>
-			<Objective QuestName="Tiger Stalking" QuestId="186" Type="KillMob" MobId="682" KillCount="10" />
+		<PickUp QuestName="I Think She's Hungry" QuestId="26739" GiverName="Corporal Sethman" GiverId="1422" />
+			<If Condition="((HasQuest(186)) &amp;&amp; (!IsQuestCompleted(186)))" >
+				<Objective QuestName="Tiger Stalking" QuestId="186" Type="KillMob" MobId="682" KillCount="10" />
+			</If>
 			<While Condition="((HasQuest(186)) &amp;&amp; (IsQuestCompleted(186)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="186" /> <!-- Get 187 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
@@ -4676,28 +4680,38 @@
 		<TurnIn QuestName="Stopping Kurzen's Legacy" QuestId="26737" TurnInName="Lieutenant Doren" TurnInId="469" />
 		<PickUp QuestName="Bloodscalp Insight" QuestId="26742" GiverName="Berrin Burnquill" GiverId="43886" X="-11345" Y="-223.418" Z="75.65952" />
 		<PickUp QuestName="Water Elementals" QuestId="26729" GiverName="Emerine Junis" GiverId="43885" X="-11299.2" Y="-210.722" Z="76.14243" />
-			<Objective QuestName="Panther Stalking" QuestId="191" Type="KillMob" MobId="736" KillCount="10" />
+			<If Condition="((HasQuest(191)) &amp;&amp; (!IsQuestCompleted(191)))" >
+				<Objective QuestName="Panther Stalking" QuestId="191" Type="KillMob" MobId="736" KillCount="10" />
+			</If>
 			<While Condition="((HasQuest(191)) &amp;&amp; (IsQuestCompleted(191)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="191" /> <!-- Get 192 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
 			</While>
-			<Objective QuestName="Raptor Hunting" QuestId="194" Type="KillMob" MobId="685" KillCount="10" />
+			<If Condition="((HasQuest(194)) &amp;&amp; (!IsQuestCompleted(194)))" >
+				<Objective QuestName="Raptor Hunting" QuestId="194" Type="KillMob" MobId="685" KillCount="10" />
+			</If>
 			<While Condition="((HasQuest(194)) &amp;&amp; (IsQuestCompleted(194)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="194" /> <!-- Get 195 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
 			</While>
-			<Objective QuestName="Tiger Prowess" QuestId="187" Type="KillMob" MobId="1085" KillCount="5" />
+			<If Condition="((HasQuest(187)) &amp;&amp; (!IsQuestCompleted(187)))" >
+				<Objective QuestName="Tiger Prowess" QuestId="187" Type="KillMob" MobId="1085" KillCount="5" />
+			</If>
 			<While Condition="((HasQuest(187)) &amp;&amp; (IsQuestCompleted(187)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="187" /> <!-- Get 188 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
 			</While>
-			<Objective QuestName="Tiger Mastery" QuestId="188" Type="CollectItem" ItemId="3879" CollectCount="1" />
+			<If Condition="((HasQuest(188)) &amp;&amp; (!IsQuestCompleted(188)))" >
+				<Objective QuestName="Tiger Mastery" QuestId="188" Type="CollectItem" ItemId="3879" CollectCount="1" />
+			</If>
 			<Objective QuestName="Deep Roots" QuestId="26744" Type="CollectItem" ItemId="60295" CollectCount="1" />
 			<Objective QuestName="Bloodscalp Insight" QuestId="26742" Type="CollectItem" ItemId="23679" CollectCount="1" />
 			<If Condition="HasQuestAvailable(42736)" >
 		<PickUp QuestName="Favored Skull" QuestId="26745" GiverName="Lashtail Hatchling" GiverId="42736" />
 			</If>
-			<Objective QuestName="Raptor Stalking" QuestId="195" Type="KillMob" MobId="686" KillCount="10" />
+			<If Condition="((HasQuest(195)) &amp;&amp; (!IsQuestCompleted(195)))" >
+				<Objective QuestName="Raptor Stalking" QuestId="195" Type="KillMob" MobId="686" KillCount="10" />
+			</If>
 			<While Condition="((HasQuest(195)) &amp;&amp; (IsQuestCompleted(195)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="195" /> <!-- Get 196 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
@@ -4718,19 +4732,21 @@
 
 		<PickUp QuestName="Favored Skull" QuestId="26745" GiverName="Lashtail Hatchling" GiverId="42736" />
 			</If>
-			<Objective QuestName="Water Elementals" QuestId="26729" Type="CollectItem" ItemId="3923" CollectCount="6" />
+			<If Condition="((HasQuest(26729)) &amp;&amp; (!IsQuestCompleted(26729)))" >
+				<Objective QuestName="Water Elementals" QuestId="26729" Type="CollectItem" ItemId="3923" CollectCount="6" />
+			</If>
 			<If Condition="((HasQuest(26729)) &amp;&amp; (IsQuestCompleted(26729)))" >
 				<RunTo X="-12129.76" Y="955.2557" Z="4.604999" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(60273)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
-		<TurnIn QuestName="Water Elementals" QuestId="26729" TurnInName="Emerine Junis" TurnInId="43885" />
-		<PickUp QuestName="You Can Take the Murloc Out of the Ocean..." QuestId="26730" GiverName="Emerine Junis" GiverId="43885" />
+		<TurnIn QuestName="Water Elementals" QuestId="26729" TurnInName="Emerine Junis" TurnInId="43885" X="-12129.76" Y="955.2557" Z="4.604999" />
+		<PickUp QuestName="You Can Take the Murloc Out of the Ocean..." QuestId="26730" GiverName="Emerine Junis" GiverId="43885" X="-12129.76" Y="955.2557" Z="4.604999" />
 			</If>
 			<If Condition="((!HasQuest(26730)) &amp;&amp; (!IsQuestCompleted(26730)))" >
 				<RunTo X="-12129.76" Y="955.2557" Z="4.604999" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(60273)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
-		<PickUp QuestName="You Can Take the Murloc Out of the Ocean..." QuestId="26730" GiverName="Emerine Junis" GiverId="43885" />
+		<PickUp QuestName="You Can Take the Murloc Out of the Ocean..." QuestId="26730" GiverName="Emerine Junis" GiverId="43885" X="-12129.76" Y="955.2557" Z="4.604999" />
 			</If>
 			<If Condition="((HasQuest(26730)) &amp;&amp; (!IsQuestCompleted(26730)))" >
 				<Objective QuestName="You Can Take the Murloc Out of the Ocean..." QuestId="26730" Type="CollectItem" ItemId="60274" CollectCount="6" />
@@ -4751,7 +4767,9 @@
 		<PickUp QuestName="A Nose for This Sort of Thing" QuestId="26746" GiverName="Osborn Obnoticus" GiverId="43884" X="-11305.2" Y="-188.778" Z="75.53226" />
 		<TurnIn QuestName="Bloodscalp Insight" QuestId="26742" TurnInName="Berrin Burnquill" TurnInId="43886" X="-11345" Y="-223.418" Z="75.65952" />
 		<PickUp QuestName="Sacred to the Bloodscalp" QuestId="26743" GiverName="Berrin Burnquill" GiverId="43886" X="-11345" Y="-223.418" Z="75.65952" />
+			<If Condition="((HasQuest(188)) &amp;&amp; (IsQuestCompleted(188)))" >
 		<TurnIn QuestName="Tiger Mastery" QuestId="188" TurnInName="Ajeck Rouack" TurnInId="717" X="-11636.22" Y="-80.82813" Z="16.23934" />
+			</If>
 			<Objective QuestName="Sacred to the Bloodscalp" QuestId="26743" Type="CollectItem" ItemId="60270" CollectCount="1" />
 			<Objective QuestName="Sacred to the Bloodscalp" QuestId="26743" Type="CollectItem" ItemId="60271" CollectCount="1" />
 			<Objective QuestName="Sacred to the Bloodscalp" QuestId="26743" Type="CollectItem" ItemId="60272" CollectCount="1" />
@@ -4782,12 +4800,16 @@
 				<CustomBehavior File="UserSettings" PullDistance="25" UseMount="True" />
 			</If>
 			<Objective QuestName="Excelsior" QuestId="26345" Type="CollectItem" ItemId="4105" CollectCount="1" />
-			<Objective QuestName="Raptor Prowess" QuestId="196" Type="KillMob" MobId="687" KillCount="10" />
+			<If Condition="((HasQuest(196)) &amp;&amp; (!IsQuestCompleted(196)))" >
+				<Objective QuestName="Raptor Prowess" QuestId="196" Type="KillMob" MobId="687" KillCount="10" />
+			</If>
 			<While Condition="((HasQuest(196)) &amp;&amp; (IsQuestCompleted(196)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="196" /> <!-- Get 197 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
 			</While>
-			<Objective QuestName="Panther Prowess" QuestId="192" Type="KillMob" MobId="684" KillCount="5" />
+			<If Condition="((HasQuest(192)) &amp;&amp; (!IsQuestCompleted(192)))" >
+				<Objective QuestName="Panther Prowess" QuestId="192" Type="KillMob" MobId="684" KillCount="5" />
+			</If>
 			<While Condition="((HasQuest(192)) &amp;&amp; (IsQuestCompleted(192)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="192" /> <!-- Get 193 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
@@ -4814,11 +4836,17 @@
 		<TurnIn QuestName="Panther Mastery" QuestId="193" TurnInName="Sir S. J. Erlgadin" TurnInId="718" X="-11625.49" Y="-48.63889" Z="16.23897" />
 			</If>
 		<TurnIn QuestName="Excelsior" QuestId="26345" TurnInName="Drizzlik" TurnInId="2495" X="-11654.91" Y="-45.62196" Z="16.23837" />
+			<If Condition="HasQuestAvailable(715)" >
 		<PickUp QuestName="Big Game Hunter" QuestId="208" GiverName="Hemet Nesingwary Jr." GiverId="715" X="-11644.39" Y="-67.60243" Z="16.23887" />
-			<Objective QuestName="Big Game Hunter" QuestId="208" Type="CollectItem" ItemId="3880" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(208)) &amp;&amp; (!IsQuestCompleted(208)))" >
+				<Objective QuestName="Big Game Hunter" QuestId="208" Type="CollectItem" ItemId="3880" CollectCount="1" />
+			</If>
 			<Objective QuestName="The Mind's Eye" QuestId="26781" Type="CollectItem" ItemId="3616" CollectCount="1" />
 		<TurnIn QuestName="The Mind's Eye" QuestId="26781" TurnInName="Livingston Marshal" TurnInId="44019" />
+			<If Condition="((HasQuest(208)) &amp;&amp; (IsQuestCompleted(208)))" >
 		<TurnIn QuestName="Big Game Hunter" QuestId="208" TurnInName="Hemet Nesingwary Jr." TurnInId="715" X="-11644.39" Y="-67.60243" Z="16.23887" />
+			</If>
 			<Objective QuestName="A Physical Specimen" QuestId="26747" Type="CollectItem" ItemId="58179" CollectCount="1" />
 			<Objective QuestName="Population Con-Troll" QuestId="26751" Type="KillMob" MobId="701" KillCount="7" />
 			<Objective QuestName="Population Con-Troll" QuestId="26751" Type="KillMob" MobId="588" KillCount="7" />
