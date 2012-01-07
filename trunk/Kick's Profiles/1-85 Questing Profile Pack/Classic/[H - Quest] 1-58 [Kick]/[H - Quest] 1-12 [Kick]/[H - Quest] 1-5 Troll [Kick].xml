@@ -489,10 +489,14 @@
 		<PickUp QuestName="Territorial Fetish" QuestId="24813" GiverName="Morakki" GiverId="38442" />
 			<CustomBehavior File="CollectThings" CollectUntil="QuestComplete" QuestId="24812" MobId1="38301" MobId2="38300" HuntingGroundRadius="200" X="-841.8256" Y="-5603.839" Z="3.291721" />
 		<TurnIn QuestName="No More Mercy" QuestId="24812" TurnInName="Morakki" TurnInId="38442" />
-			<CustomBehavior File="UseItemOn" QuestId="24813" MobId="202113" ItemId="52065" NumOfTimes="100" MobType="GameObject" WaitTime="2000" Range="3" CollectionDistance="1000" X="-723.6396" Y="-5613.34" Z="-9.4165" />
+			<If Condition="((HasQuest(24813)) &amp;&amp; (!IsQuestCompleted(24813)))" >
+				<CustomBehavior File="UserSettings" PullDistance="1" />
+				<CustomBehavior File="UseItemOn" QuestId="24813" MobId="202113" ItemId="52065" NumOfTimes="100" MobType="GameObject" WaitTime="2000" Range="3" CollectionDistance="1000" X="-723.6396" Y="-5613.34" Z="-9.4165" />
+			</If>
 		<TurnIn QuestName="Territorial Fetish" QuestId="24813" TurnInName="Morakki" TurnInId="38442" />
 		<PickUp QuestName="An Ancient Enemy" QuestId="24814" GiverName="Morakki" GiverId="38442" />
 			<If Condition="((HasQuest(24814)) &amp;&amp; (!IsQuestCompleted(24814)))" >
+				<CustomBehavior File="UserSettings" PullDistance="20" />
 				<CustomBehavior File="InteractWith" MobId="38225" GossipOptions="1, 1, 1" NumOfTimes="1" WaitTime="1000" X="-743.6827" Y="-5615.54" Z="24.9367" />
 				<CustomBehavior File="WaitTimer" WaitTime="20000" />
 				<While Condition="!IsQuestCompleted(24814) &amp;&amp; HasQuest(24814)">
