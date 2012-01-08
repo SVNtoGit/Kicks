@@ -186,7 +186,7 @@
 
 			<CustomBehavior File="RunMacro" Macro="/script SetCVar('AutoLootDefault', 1)" NumOfTimes="1" WaitTime="1000" />
 	<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="5" ExpiryTime="30" ExpiryAction="InputEnabled_Continue" Text="Make sure Auto Equip, Talented, and ItemForAura Plugins are enabled!!!\n\nIf you have money - set food and drinks as well\n\nYou may also want to set a mail recipient!" />
-	<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="True" LearnFlightPaths="True" UseFlightPaths="True" PullDistance="25" />
+	<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="True" LearnFlightPaths="False" UseFlightPaths="False" PullDistance="25" />
 
 		<PickUp QuestName="The First Step" QuestId="14449" GiverName="Chief Hawkwind" GiverId="2981"/>
 		<TurnIn QuestName="The First Step" QuestId="14449" TurnInName="Grull Hawkwind" TurnInId="2980" X="-3014.514" Y="-458.646" Z="45.41115"/>
@@ -328,8 +328,10 @@
 
 		<TurnIn QuestName="Rites of the Earthmother" QuestId="23733" TurnInName="Dyami Windsoar" TurnInId="36803" />
 		<PickUp QuestName="Rite of the Winds" QuestId="24215" GiverName="Dyami Windsoar" GiverId="36803" />
-			<If Condition="HasQuest(24215)">
-				<CustomBehavior File="UseItem" QuestId="24215" ItemId="49652" NumOfTimes="1" WaitTime="20000" X="-2933.432" Y="-38.93042" Z="190.0488" />
+			<If Condition="(HasQuest(24215))" >
+				<RunTo WaitTime="20000" X="-2933.432" Y="-38.93042" Z="190.0488" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(49652)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="45000" GoalText="Waiting for  {TimeRemaining}" />
 			</If>
 	   <TurnIn QuestName="Rite of the Winds" QuestId="24215" TurnInName="Ahmo Thunderhorn" TurnInId="36644" />
 		
