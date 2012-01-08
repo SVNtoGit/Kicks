@@ -40,6 +40,7 @@
 	</Mailboxes>
 	
 	<Blackspots>
+		<Blackspot X="5205.53" Y="-1940.111" Z="1367.597" Radius="7.320899" />
 		<Blackspot X="4690.373" Y="-3325.476" Z="1035.672" Radius="13.44701" />
 		<Blackspot X="4581.615" Y="-2547.878" Z="1122.884" Radius="30" />
 		<Blackspot X="1598.488" Y="-4370.302" Z="21.23272" Radius="10" />
@@ -648,10 +649,12 @@
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5190.782" Y="-2954.331" Z="1560.822" />
 		<TurnIn QuestName="Flamebreaker" QuestId="25323" TurnInName="Malfurion Stormrage" TurnInId="39857" />
 		<PickUp QuestName="The Return of Baron Geddon" QuestId="25464" GiverName="Malfurion Stormrage" GiverId="39857" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 			</If>
 			<If Condition="((!HasQuest(25464)) &amp;&amp; (!IsQuestCompleted(25464)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5190.782" Y="-2954.331" Z="1560.822" />
 		<PickUp QuestName="The Return of Baron Geddon" QuestId="25464" GiverName="Malfurion Stormrage" GiverId="39857" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 			</If>
 			<If Condition="((HasQuest(25464)) &amp;&amp; (!IsQuestCompleted(25464)))" >
 				<CustomBehavior File="FlyTo" X="5449.664" Y="-2853.457" Z="1520.727" />
@@ -844,7 +847,7 @@
 			</If>
 			<If Condition="((HasQuest(25273)) &amp;&amp; (IsQuestCompleted(25273)))" >
 		<TurnIn QuestName="Lycanthoth the Corruptor" QuestId="25273" TurnInName="Spirit of Goldrinn" TurnInId="39627" X="5138.492" Y="-2306.841" Z="1278.755" />
-				<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Waiting for event {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="55000" GoalText="Waiting for event {TimeRemaining}" />
 		<PickUp QuestName="The Shrine Reclaimed" QuestId="25280" GiverName="Spirit of Goldrinn" GiverId="39627" X="5367.26" Y="-2188.07" Z="1291.621" />
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5351.258" Y="-2127.681" Z="1280.52" />
 		<TurnIn QuestName="The Shrine Reclaimed" QuestId="25280" TurnInName="Ian Duran" TurnInId="39433" X="5353.563" Y="-2127.177" Z="1280.52" />
@@ -2139,10 +2142,18 @@
 		<TurnIn QuestName="The Time for Mercy has Passed" QuestId="25910" TurnInName="Garunda Mountainpeak" TurnInId="41498" />
 		<PickUp QuestName="Finish Nemesis" QuestId="25923" GiverName="Garunda Mountainpeak" GiverId="41498" />
 			<If Condition="((HasQuest(25923)) &amp;&amp; (!IsQuestCompleted(25923)))" >
+		 	 <If Condition="(!Me.IsIndoors)" >
+				<!-- Added this incase we died and rezzed at spirit healer -->
+				<CustomBehavior File="FlyTo" DestName="The Third Flamegate" X="4637.39" Y="-3689.15" Z="954.4733" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo X="4678.29" Y="-3657.86" Z="696.7037" />
+			 </If>
+		 	 <If Condition="(Me.IsIndoors)" >
 				<!-- Aura = Turtle-Power!  -->
 				<CustomBehavior File="InteractWith" QuestId="25923" MobId="41498" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="4678.012" Y="-3660.107" Z="696.8307" />
 				<RunTo X="4435.125" Y="-3627.413" Z="640.5995" />
 				<CustomBehavior File="CombatUseItemOn" QuestId="25923" MobId="41614" ItemId="56207" NumOfTimes="20" MaxRange="8" CastingSpellId="77777" X="4435.125" Y="-3627.413" Z="640.5995" />
+			 </If>
 			</If>
 		<TurnIn QuestName="Finish Nemesis" QuestId="25923" TurnInName="Garunda Mountainpeak" TurnInId="41498" />
 		<PickUp QuestName="Tortolla's Triumph" QuestId="25928" GiverName="Garunda Mountainpeak" GiverId="41498" />
