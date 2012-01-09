@@ -26,6 +26,7 @@
 	</Mailboxes>
 	
 	<Blackspots>
+		<Blackspot X="-188.4103" Y="-5103.829" Z="21.32771" Radius="40" />
 		<Blackspot X="1201.564" Y="-4246.877" Z="22.68234" Radius="9.993239" />
 		<Blackspot X="1600.477" Y="-4369.628" Z="21.04583" Radius="7.354329" />
 		<Blackspot X="1284.119" Y="-4595.935" Z="21.71741" Radius="24.57922" />
@@ -317,9 +318,14 @@
 			<Objective QuestName="Lost But Not Forgotten" QuestId="25193" Type="CollectItem" ItemId="60615" CollectCount="250" />
 		<TurnIn QuestName="Lost But Not Forgotten" QuestId="25193" TurnInName="Misha Tor'kren" TurnInId="3193" />
 		<PickUp QuestName="Spirits Be Praised" QuestId="25189" GiverName="Grandmatron Tekla" GiverId="39325" />
-			<If Condition="((HasQuest(25189)) &amp;&amp; (!IsQuestCompleted(25189)))" >
+			<While Condition="((HasQuest(25189)) &amp;&amp; (!IsQuestCompleted(25189)))" >
 				<CustomBehavior File="Escort" QuestId="25189" MobId="39325" X="563.5504" Y="-4104.283" Z="16.76228" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="AbandonQuest" QuestId="25189" Type="Failed" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
+		<PickUp QuestName="Spirits Be Praised" QuestId="25189" GiverName="Grandmatron Tekla" GiverId="39325" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
+			</While>
 		<TurnIn QuestName="Spirits Be Praised" QuestId="25189" TurnInName="Raggaran" TurnInId="39326" />
 		<PickUp QuestName="Raggaran's Rage" QuestId="25190" GiverName="Raggaran" GiverId="39326" />
 			<Objective QuestName="Raggaran's Rage" QuestId="25190" Type="KillMob" MobId="3111" KillCount="4" />
