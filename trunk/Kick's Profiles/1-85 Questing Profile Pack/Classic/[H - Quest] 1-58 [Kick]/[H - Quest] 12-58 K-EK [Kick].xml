@@ -2240,12 +2240,21 @@
 			<If Condition="((!HasQuest(13653)) &amp;&amp; (!IsQuestCompleted(13653)))" >
 		<PickUp QuestName="Crisis at Splintertree" QuestId="13653" GiverName="Gorka" GiverId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
 			</If>
-			<If Condition="HasQuest(13653) &amp;&amp; !IsQuestCompleted(13653)" >
-				<CustomBehavior File="InteractWith" MobId="33421" GossipOptions="1" X="1580.942" Y="-2506.081" Z="98.00504" />
-				<RunTo X="1578.856" Y="-2467.245" Z="99.14853" />
+			<While Condition="HasQuest(13653) &amp;&amp; !IsQuestCompleted(13653)" >
+			 <While Condition="(!Me.IsOnTransport)" >
+				<CustomBehavior File="InteractWith" MobId="33421" GossipOptions="1" WaitTime="4000" X="1580.942" Y="-2506.081" Z="98.00504" />
+				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for ride {TimeRemaining}" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="WaitTimer" WaitTime="65000" GoalText="Waiting for ride {TimeRemaining}" />
+				<If Condition="(Me.HasAura(&quot;Ghost Wolf&quot;))" >
+					<CustomBehavior File="RunMacro" Macro="/cancelaura Ghost Wolf" NumOfTimes="1" WaitTime="1000" />
+					<CustomBehavior File="RunMacro" Macro="/cancelaura Ghost Wolf" NumOfTimes="1" WaitTime="1000" />
+					<CustomBehavior File="RunMacro" Macro="/cancelaura Ghost Wolf" NumOfTimes="1" WaitTime="1000" />
+					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for ride {TimeRemaining}" />
 			</If>
+			 </While>
+			
+				<CustomBehavior File="WaitTimer" WaitTime="75000" GoalText="Waiting for ride {TimeRemaining}" />
+			</While>
 		<TurnIn QuestName="Crisis at Splintertree" QuestId="13653" TurnInName="Kadrak" TurnInId="8582" />
 			<!--
 			 This quest sometimes bugs out because blizzard sucks at coding, I can't disable it w/o a 20 quest set being disabled 
