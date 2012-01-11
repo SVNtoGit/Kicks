@@ -4,9 +4,9 @@
 	<!-- Go to Dorf District in SW, run through portal, run to transport (middle one)
 	 -->
 	
-	<RunTo X="-8400.309" Y="568.4033" Z="92.07951" /> // before entrance
-	<RunTo X="-8357.711" Y="515.2424" Z="84.40929" /> // before portal
-	<RunTo X="-8355.626" Y="512.6131" Z="84.40929" /> // zoning point
+	<RunTo X="-8400.309" Y="568.4033" Z="92.07951" /> <!-- before entrance -->
+	<RunTo X="-8357.711" Y="515.2424" Z="84.40929" /> <!-- before portal -->
+	<RunTo X="-8355.626" Y="512.6131" Z="84.40929" /> <!-- zoning point -->
 	<CustomBehavior File="WaitTimer" WaitTime="5000"/>
 	<RunTo X="16.67565" Y="2490.77" Z="-4.291226" />
 	 
@@ -28,6 +28,24 @@
 	<RunTo X="-5046.48" Y="-799.5207" Z="495.1272" />
 	<CustomBehavior File="WaitTimer" WaitTime="5000"/>
 						
+				<If Condition="Me.Race == WoWRace.Gnome">
+		<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="True" LearnFlightPaths="True" UseFlightPaths="True" PullDistance="25" />
+					<RunTo X="-5454.171" Y="-621.048" Z="393.3968" />
+					<CustomBehavior File="ForceTrainRiding" MobId="7954" />
+					<CustomBehavior File="InteractWith" MobId="7955" BuyItemId="8595" WaitTime="5000" X="-5454.171" Y="-621.048" Z="393.3968" />
+					<If Condition="(HasItem(8595))" >
+						<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(8595)" />
+					</If>
+				</If>
+				<If Condition="Me.Race == WoWRace.Dwarf">
+		<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="True" LearnFlightPaths="True" UseFlightPaths="True" PullDistance="25" />
+					<RunTo X="-5524.354" Y="-1349.868" Z="398.6641" />
+					<CustomBehavior File="ForceTrainRiding" MobId="4772" />
+					<CustomBehavior File="InteractWith" MobId="1261" BuyItemId="5873" WaitTime="5000" X="-5539.55" Y="-1322.55" Z="398.8653" />
+					<If Condition="(HasItem(5873))" >
+						<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(5873)" />
+					</If>
+				</If>
 						
 						
 	<!-- Run through portal from IF to IF tram 
