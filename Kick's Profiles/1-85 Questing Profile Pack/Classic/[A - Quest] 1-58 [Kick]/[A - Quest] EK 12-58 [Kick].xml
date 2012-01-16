@@ -5113,7 +5113,7 @@
 				<CustomBehavior File="InteractWith" QuestId="26595" MobId="43377" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="100" X="-13828.66" Y="-120.4664" Z="15.43339" />
 				<Objective QuestName="Kill-Collect" QuestId="26595" Type="CollectItem" ItemId="3924" CollectCount="1" />
 			</While>
-			<If Condition="((HasQuest(26602)) &amp;&amp; (!IsQuestCompleted(26602)))" >
+			<While Condition="((HasQuest(26602)) &amp;&amp; (!IsQuestCompleted(26602)))" >
 				<RunTo X="-14651.41" Y="151.1608" Z="3.41511" />
 			  <If Condition="(HasItem(61381))" >
 				<UseItem QuestId="26602" ItemId="61381" X="-14651.41" Y="151.1608" Z="3.41511" />
@@ -5127,7 +5127,7 @@
 				<Objective QuestName="A Dish Best Served Huge" QuestId="26602" Type="KillMob" MobId="1494" KillCount="1" />
 				-->
 				<CustomBehavior File="InteractWith" MobId="1494" />
-			</If>
+			</While>
 		<TurnIn QuestName="A Dish Best Served Huge" QuestId="26602" TurnInName="Captain Hecklebury Smotts" TurnInId="2500" />
 		<PickUp QuestName="Mok'rash the Cleaver" QuestId="26601" GiverName="Captain Hecklebury Smotts" GiverId="2500" />
 			<If Condition="((HasQuest(26601)) &amp;&amp; (!IsQuestCompleted(26601)))" >
@@ -5478,12 +5478,16 @@
 		<PickUp QuestName="Northridge Lumber Mill" QuestId="26935" GiverName="Field Agent Kaartish" GiverId="44454" X="1792.488" Y="-1701.953" Z="60.18" />
 		<TurnIn QuestName="I Ain't Sayin' You a Gourd-Digger..." QuestId="26956" TurnInName="Selyria Groenveld" TurnInId="44457" />
 		<TurnIn QuestName="Zen'Kiki, the Druid" QuestId="26953" TurnInName="Adrine Towhide" TurnInId="44456" />
+			<If Condition="((HasQuest(26954)) &amp;&amp; (!IsQuestCompleted(26954)))" >
+				<CustomBehavior File="AbandonQuest" QuestId="26954" Type="Incomplete" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000"/>
+			</If>
 		<PickUp QuestName="A Different Approach" QuestId="26954" GiverName="Adrine Towhide" GiverId="44456" />
 			<While Condition="((HasQuest(26954)) &amp;&amp; (!IsQuestCompleted(26954)))" >
-			 <While Condition="((HasQuest(26954)) &amp;&amp; (!IsQuestCompleted(26954)) &amp;&amp; (!Me.HasAura(&quot;Escorting Zen'Kiki&quot;)))" >
+			 <If Condition="((HasQuest(26954)) &amp;&amp; (!IsQuestCompleted(26954)) &amp;&amp; (!Me.HasAura(&quot;Escorting Zen'Kiki&quot;)))" >
 				<CustomBehavior File="InteractWith" MobId="44456" Range="4" GossipOptions="1, 1" X="1796.26" Y="-1684.78" Z="60.16992" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
-			 </While>
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+			 </If>
 				
 				<RunTo X="1825.681" Y="-1900.42" Z="120.7658" />
 				<CustomBehavior File="ForcedDismount" />
