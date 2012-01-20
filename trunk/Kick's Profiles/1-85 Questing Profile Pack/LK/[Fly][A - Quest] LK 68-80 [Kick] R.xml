@@ -6027,10 +6027,17 @@
 		<PickUp QuestName="Flight of the Wintergarde Defender" QuestId="12237" GiverName="Gryphon Commander Urik" GiverId="27317" />
 			</If>
 			<If Condition="((HasQuest(12237)) &amp;&amp; (!IsQuestCompleted(12237)))" >
-				<UseItem QuestName="Flight of the Wintergarde Defender" QuestId="12237" ItemId="37287" X="3703.753" Y="-698.9519" Z="215.5364" />
-				<CustomBehavior File="MountVehOnly" VehicleMountId="27258" X="3703.753" Y="-698.9519" Z="215.5364" />
 			<While Condition="((HasQuest(12237)) &amp;&amp; (!IsQuestCompleted(12237)))" >
-			
+			 <If Condition="(!Me.IsOnTransport)" >
+				<CustomBehavior File="FlyTo" DestName="Start Point" X="3703.753" Y="-698.9519" Z="215.5364" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<UseItem QuestName="Flight of the Wintergarde Defender" QuestId="12237" ItemId="37287" X="3703.753" Y="-698.9519" Z="215.5364" />
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="MountVehOnly" VehicleMountId="27258" X="3703.753" Y="-698.9519" Z="215.5364" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
+			 </If>
+			 <If Condition="(Me.IsOnTransport)" >
 				<CustomBehavior File="Vehicles\FlyingVehicle"
 				QuestId="12237" VehicleId="27258" NpcList="27315, 27336" PickUpPassengerButton="1" DropPassengerButton="2" SpeedButton="3" 
 				StartPath="3677.748, -755.317, 232.0767 | 3681.729, -1021.153, 199.096 | 3691.888, -1128.765, 135.9474"		
@@ -6039,6 +6046,7 @@
 				 3667.331, -1096.301, 131.8572 | 3641.226, -1216.414, 132.4473 | 3642.252, -1308.858, 133.6576 |
 				 3547.872, -1363.139, 116.9346 | 3602.878, -1267.035, 125.4067 | 3649.872, -1133.756, 129.4781"
 				EndPath="3581.456, -914.9228, 248.048 | 3710.879, -697.133, 217.4217" />
+			 </If>
 	
 			</While>
 				<CustomBehavior File="EjectVeh" Eject="true" />
