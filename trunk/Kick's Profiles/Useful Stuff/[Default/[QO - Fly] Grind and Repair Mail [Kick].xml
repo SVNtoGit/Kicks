@@ -2,7 +2,7 @@
     <Name>QO Fly Dummy Grind</Name> 
   
     <MinLevel>1</MinLevel> 
-    <MaxLevel>86</MaxLevel> 
+    <MaxLevel>91</MaxLevel> 
     
     <TargetElites>False</TargetElites>
 
@@ -12,6 +12,7 @@
     <SellGrey>True</SellGrey>
     <SellWhite>False</SellWhite>
     <SellGreen>False</SellGreen>
+	
     <MailWhite>True</MailWhite>
     <MailGreen>True</MailGreen>
     <MailBlue>True</MailBlue>
@@ -34,27 +35,27 @@
    
 		<While Condition="(Me.Level &gt; 1)" >
 		
-			<If Condition="(Me.FreeBagSlots &gt; 6) || (Me.LowestDurabilityPercent &gt; 20.0)" >
+			<If Condition="(Me.FreeBagSlots &gt; 4) || (Me.LowestDurabilityPercent &gt; 20.0)" >
 				<CustomBehavior File="FlyTo" X Y Z  Name="Profile Start" />
 				<CustomBehavior File="ForcedDismount" />
 		
 				<SetGrindArea><GrindArea>
-					<TargetMinLevel>70</TargetMinLevel>
+					<TargetMinLevel>1</TargetMinLevel>
 					<TargetMaxLevel>86</TargetMaxLevel>
 					<Factions></Factions> <!-- [] -->
-					<MaxDistance>30</MaxDistance>
+					<MaxDistance>100</MaxDistance>
 					<Hotspots>
-					
+						
 					</Hotspots>
 				</GrindArea></SetGrindArea>
-			<GrindTo Condition="(Me.FreeBagSlots &lt;= 6) || (Me.LowestDurabilityPercent &lt; 20.0)" GoalText="Farming" />
+			<GrindTo Condition="(Me.FreeBagSlots &lt;= 4) || (Me.LowestDurabilityPercent &lt; 20.0)" GoalText="Farming" />
 			</If>
 		
-			<If Condition="(Me.FreeBagSlots &lt;= 6) || (Me.LowestDurabilityPercent &lt;= 20.0)" >
+			<If Condition="(Me.FreeBagSlots &lt;= 4) || (Me.LowestDurabilityPercent &lt;= 20.0)" >
 			
-				<CustomBehavior File="Message" Text="Doing a vendor run at XX" LogColor="Red" />
+				<CustomBehavior File="Message" Text="Doing a vendor run at XX Location" LogColor="Red" />
 				
-				<CustomBehavior File="FlyTo" X Y Z  Name="Repair Run" />
+				<CustomBehavior File="FlyTo" Name="Repair Run" X Y Z  />
 				<CustomBehavior File="ForcedDismount" />
 
 				<SetVendor><Vendors>
