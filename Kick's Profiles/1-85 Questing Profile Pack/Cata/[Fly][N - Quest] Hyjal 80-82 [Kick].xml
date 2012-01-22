@@ -104,6 +104,7 @@
 	</Blackspots>
 	
 	<AvoidMobs>
+		<Mob Name="Azralon the Gatekeeper" Entry="40814" />
 		<Mob Name="Smolderos the Carbonizer" Entry="39348" />
 		<Mob Name="Blazing Trainer" Entry="40434" />
 		<Mob Name="Twilight Juggernaut" Entry="41031" />
@@ -657,11 +658,13 @@
 				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 			</If>
 			<If Condition="((HasQuest(25464)) &amp;&amp; (!IsQuestCompleted(25464)))" >
+				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<CustomBehavior File="FlyTo" X="5449.664" Y="-2853.457" Z="1520.727" />
 				<CustomBehavior File="ForcedDismount" />
 			  <While Condition="((HasQuest(25464)) &amp;&amp; (!IsQuestCompleted(25464)))" >
 				<CustomBehavior File="MountHyjal\BaronGeddon" QuestId="25464" MobId="40147" ItemId="54463" AuraId="74813" X="5421.708" Y="-2777.452" Z="1515.463" />
 			  </While>
+				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
 			<If Condition="((HasQuest(25464)) &amp;&amp; (IsQuestCompleted(25464)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5190.782" Y="-2954.331" Z="1560.822" />
@@ -1551,7 +1554,7 @@
 		<PickUp QuestName="Prepping the Soil" QuestId="25502" GiverName="Rayne Feathersong" GiverId="40331" X="4411.69" Y="-2077.85" Z="1210.7" />
 			</If>
 			<While Condition="((HasQuest(25502)) &amp;&amp; (!IsQuestCompleted(25502)))" >
-				<CustomBehavior File="FlyTo" DestName="defend a Flameward" X="4635.615" Y="-2706.636" Z="1145.701" />
+				<CustomBehavior File="FlyTo" DestName="defend a Flameward" X="4623.557" Y="-2720.262" Z="1149.039" />
 				<CustomBehavior File="ForcedDismount" />
 				<RunTo X="4582.165" Y="-2701.421" Z="1140.713" />
 				<RunTo X="4608.294" Y="-2707.581" Z="1146.11" />
@@ -2591,18 +2594,41 @@
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4082.432" Y="-3995.996" Z="971.5511" />
 		<PickUp QuestName="Slash and Burn" QuestId="25608" GiverName="Commander Jarod Shadowsong" GiverId="40772" />
 			</If>
-			<If Condition="((HasQuest(25608)) &amp;&amp; (!IsQuestCompleted(25608)))" >
-				<!-- vehicle quest that you control 
+			<While Condition="((HasQuest(25608)) &amp;&amp; (!IsQuestCompleted(25608)))" >
 			 <If Condition="(!Me.IsOnTransport)" >
-			 </If>
-			 -->
-				<RunTo X="4073.321" Y="-4009.627" Z="971.1174" />
+				<CustomBehavior File="FlyTo" DestName="Vehicle" X="4073.321" Y="-4009.627" Z="971.1174" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="MountVehOnly" VehicleMountId="40934" X="4074.596" Y="-4009.47" Z="971.1025" />
-				<!-- <CustomBehavior File="FlyTo" X="4355.917" Y="-4242.729" Z="1012.348" /> -->
-				
+			 </If>
+			 <!-- Enable on next release
+			 <If Condition="(Me.IsOnTransport)" >
+				<While Condition="((HasQuest(25608)) &amp;&amp; (!IsObjectiveComplete(1, 25608)))">
+					<CustomBehavior File="VehicleBehavior" AttackButton="2" VehicleId="40025" VehicleMountId="40934" MobId1="40573" 
+												StartObjectivePointX="4391.007" StartObjectivePointY="-4399.501" StartObjectivePointZ="939.4135" 
+												StartPointX="4084.388" StartPointY="-3996.015" StartPointZ="971.3682" VehicleType="1"/>
+				</While>
+
+				<While Condition="((HasQuest(25608)) &amp;&amp; (!IsObjectiveComplete(2, 25608)))">
+					<CustomBehavior File="VehicleBehavior" QuestId="25608" AttackButton="1" VehicleId="40025" MobId1="40564" MobId2="40562" VehicleMountId="40934" FireHeight="1" 
+												StartObjectivePointX="4391.007" StartObjectivePointY="-4399.501" StartObjectivePointZ="939.4135" 
+												StartPointX="4084.388" StartPointY="-3996.015" StartPointZ="971.3682" 
+												EndPointX="4084.388" EndPointY="-3996.015" EndPointZ="971.3682" VehicleType="2"  >
+						  <Start X="4362.628" Y="-4308.745" Z="938.3419"  />
+						  <Path X="4379.361" Y="-4416.606" Z="931.0206" />
+						  <Path X="4452.269" Y="-4502.572" Z="924.985" />
+						  <Path X="4561.679" Y="-4637.112" Z="928.1306" />
+						  <Path X="4594.852" Y="-4570.126" Z="915.2373" />
+						  <Path X="4487.234" Y="-4506.711" Z="911.7497" />
+						  <Path X="4438.627" Y="-4425.22" Z="919.3046" />
+						  <Path X="4514.863" Y="-4298.843" Z="921.6279" />
+					</CustomBehavior>
+				</While>
+			 </If>
+			 -->
+				<!--
 				<CustomBehavior File="UserDialog" QuestId="25608" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Complete the vehicle quest and go back to npc" />
-			</If>
+				-->
+			</While>
 			<If Condition="((HasQuest(25608)) &amp;&amp; (IsQuestCompleted(25608)))" >
 				<CustomBehavior File="EjectVeh" Eject="True" />
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4082.432" Y="-3995.996" Z="971.5511" />
