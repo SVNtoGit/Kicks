@@ -2144,7 +2144,7 @@
 		<TurnIn QuestName="The Strength of Tortolla" QuestId="25915" TurnInName="Garunda Mountainpeak" TurnInId="41498" />
 		<TurnIn QuestName="The Time for Mercy has Passed" QuestId="25910" TurnInName="Garunda Mountainpeak" TurnInId="41498" />
 		<PickUp QuestName="Finish Nemesis" QuestId="25923" GiverName="Garunda Mountainpeak" GiverId="41498" />
-			<If Condition="((HasQuest(25923)) &amp;&amp; (!IsQuestCompleted(25923)))" >
+			<While Condition="((HasQuest(25923)) &amp;&amp; (!IsQuestCompleted(25923)))" >
 		 	 <If Condition="(!Me.IsIndoors)" >
 				<!-- Added this incase we died and rezzed at spirit healer -->
 				<CustomBehavior File="FlyTo" DestName="The Third Flamegate" X="4637.39" Y="-3689.15" Z="954.4733" />
@@ -2153,11 +2153,13 @@
 			 </If>
 		 	 <If Condition="(Me.IsIndoors)" >
 				<!-- Aura = Turtle-Power!  -->
+			 <While Condition="(!Me.HasAura(&quot;Turtle-Power!&quot;))" >
 				<CustomBehavior File="InteractWith" QuestId="25923" MobId="41498" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="4678.012" Y="-3660.107" Z="696.8307" />
 				<RunTo X="4435.125" Y="-3627.413" Z="640.5995" />
-				<CustomBehavior File="CombatUseItemOn" QuestId="25923" MobId="41614" ItemId="56207" NumOfTimes="20" MaxRange="8" CastingSpellId="77777" X="4435.125" Y="-3627.413" Z="640.5995" />
+			 </While>
+				<CustomBehavior File="CombatUseItemOn" MobId="41614" ItemId="56207" MaxRange="8" UseOnce="False" CastingSpellId="77777" X="4435.125" Y="-3627.413" Z="640.5995" />
 			 </If>
-			</If>
+			</While>
 		<TurnIn QuestName="Finish Nemesis" QuestId="25923" TurnInName="Garunda Mountainpeak" TurnInId="41498" />
 		<PickUp QuestName="Tortolla's Triumph" QuestId="25928" GiverName="Garunda Mountainpeak" GiverId="41498" />
 			<!-- End of Crucible of Flame Quests -->
@@ -2626,8 +2628,8 @@
 			 </If>
 			 -->
 				<!--
-				<CustomBehavior File="UserDialog" QuestId="25608" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Complete the vehicle quest and go back to npc" />
 				-->
+				<CustomBehavior File="UserDialog" QuestId="25608" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Complete the vehicle quest and go back to npc" />
 			</While>
 			<If Condition="((HasQuest(25608)) &amp;&amp; (IsQuestCompleted(25608)))" >
 				<CustomBehavior File="EjectVeh" Eject="True" />
