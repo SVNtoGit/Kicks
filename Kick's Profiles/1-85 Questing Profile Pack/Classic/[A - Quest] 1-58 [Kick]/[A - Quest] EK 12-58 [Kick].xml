@@ -4187,8 +4187,6 @@
 			
 		<!-- Begin Mount Procedure -->
 		<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue == 0 &amp;&amp; Me.Silver &gt;= 450" >
-				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" DoTrain="True" />
-		
 				<CustomBehavior File="Message" Text="Compiling Train 60 Speed Mount Function" LogColor="Orange" />
 
 				<If Condition="Me.Race == WoWRace.Human">
@@ -4208,6 +4206,7 @@
 					<If Condition="(HasItem(8595))" >
 						<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(8595)" />
 					</If>
+					<CustomBehavior File="InteractWith" MobId="43701" NumOfTimes="1" CollectionDistance="1000" WaitTime="1000" X="-5664.08" Y="-497.684" Z="397.3409" /> <!-- Kharanos FP Master -->
 				</If>
 				<If Condition="Me.Race == WoWRace.Dwarf">
 		<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="True" LearnFlightPaths="True" UseFlightPaths="True" PullDistance="25" />
@@ -4217,6 +4216,7 @@
 					<If Condition="(HasItem(5873))" >
 						<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(5873)" />
 					</If>
+					<CustomBehavior File="InteractWith" MobId="43701" NumOfTimes="1" CollectionDistance="1000" WaitTime="1000" X="-5664.08" Y="-497.684" Z="397.3409" /> <!-- Kharanos FP Master -->
 				</If>
 				<If Condition="Me.Race == WoWRace.NightElf">
 				 <!-- Get on at SW, off at Rut'theran Village (Darnassus) -->
@@ -4322,7 +4322,12 @@
 		</If>
 		
 			<If Condition="(!IsQuestCompleted(26787))" >
+			
+			<If Condition="((!HasQuest(26618)) &amp;&amp; (!IsQuestCompleted(26618)))" >
+				<RunTo X="-10561.29" Y="-1151.804" Z="28.01479" />
 		<PickUp QuestName="Wolves at Our Heels" QuestId="26618" GiverName="Commander Althea Ebonlocke" GiverId="264" X="-10561.29" Y="-1151.804" Z="28.01479" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+			</If>
 		<PickUp QuestName="Seasoned Wolf Kabobs" QuestId="26620" GiverName="Chef Grual" GiverId="272" X="-10499.35" Y="-1157.982" Z="28.08711" />
 		<PickUp QuestName="Dusky Crab Cakes" QuestId="26623" GiverName="Chef Grual" GiverId="272" X="-10499.35" Y="-1157.982" Z="28.08711" />
 		<PickUp QuestName="Worgen in the Woods" QuestId="26688" GiverName="Calor" GiverId="663" X="-10580.9" Y="-1200.49" Z="27.60442" />
@@ -5428,7 +5433,7 @@
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<Objective QuestName="Brute Strength" QuestId="27163" Type="KillMob" MobId="44318" KillCount="1" />
 				<Objective QuestName="Scholomancer" QuestId="27162" Type="KillMob" MobId="44323" KillCount="1" />
-				<CustomBehavior File="UserSettings" PullDistance="1" />
+				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
 		<TurnIn QuestName="Scholomancer" QuestId="27162" TurnInName="Thassarian" TurnInId="44453" />
 		<TurnIn QuestName="Brute Strength" QuestId="27163" TurnInName="Thassarian" TurnInId="44453" />
