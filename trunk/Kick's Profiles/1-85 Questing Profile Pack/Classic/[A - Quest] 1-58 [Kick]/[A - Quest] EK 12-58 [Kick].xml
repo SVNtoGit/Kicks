@@ -3555,6 +3555,18 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+	<Quest Id="27982" Name="Twilight Collars">
+		<Objective Type="CollectItem" ItemId="62822" CollectCount="20">
+			<Hotspots>
+				<Hotspot X="-6485.102" Y="-899.1957" Z="324.1177" />
+				<Hotspot X="-6503.146" Y="-831.8179" Z="315.2327" />
+				<Hotspot X="-6633.28" Y="-855.416" Z="244.1445" />
+				<Hotspot X="-6693.459" Y="-827.2592" Z="244.1447" />
+				<Hotspot X="-6631.855" Y="-756.9582" Z="248.6954" />
+				<Hotspot X="-6648.517" Y="-675.2543" Z="233.7553" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 	 <!-- End of Quest Overrides -->
   
 	<QuestOrder IgnoreCheckpoints="True" >
@@ -5690,6 +5702,9 @@
 		<PickUp QuestName="Gahrron's Withering Cauldron" QuestId="27053" GiverName="Field Agent Kaartish" GiverId="44454" /> -->
 			<While Condition="((HasQuest(27017)) &amp;&amp; (!IsQuestCompleted(27017)))" >
 				<RunTo X="1678.689" Y="-2354.822" Z="60.76595" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
+				<RunTo X="1678.689" Y="-2354.822" Z="60.76595" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
 				<CustomBehavior File="MyCTM" X="1667.303" Y="-2371.476" Z="61.66805" />
 				<CustomBehavior File="InteractWith" QuestId="27017" ObjectType="Gameobject" MobId="205154" NumOfTimes="1" CollectionDistance="5" X="1667.303" Y="-2371.476" Z="61.66805" />
 				<CustomBehavior File="InteractWith" QuestId="27017" ObjectType="Gameobject" MobId="205153" NumOfTimes="1" CollectionDistance="5" X="1661.705" Y="-2374.568" Z="66.43208" />
@@ -5782,13 +5797,18 @@
 				<CustomBehavior File="InteractWith" MobId="43693" CollectionDistance="50" X="-8780.128" Y="380.0052" Z="100.8152" />
 				<CustomBehavior File="ForceTrainRiding" MobId="43693" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+				
+				<CustomBehavior File="InteractWith" MobId="352" CollectionDistance="50" X="-8835.292" Y="490.3976" Z="109.6163" /> <!-- SW FP Master -->
 			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 150" >
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" Text="Something went wrong! Train riding and press start" />
 			</If>
 			</If>
 			
 			<If Condition="(!IsQuestCompleted(27533))" >
+			<If Condition="((!HasQuest(27367)) &amp;&amp; (!IsQuestCompleted(27367)))" >
+				<RunTo X="1916.45" Y="-2651.12" Z="60.62035" />
 		<PickUp QuestName="Gidwin Goldbraids" GiverName="Fiona" QuestId="27367" GiverId="45417" X="1916.45" Y="-2651.12" Z="60.62035" />
+			</If>
 		<PickUp QuestName="Tarenar Sunstrike" QuestId="27370" GiverName="Fiona" GiverId="45417" X="1916.45" Y="-2651.12" Z="60.62035" />
 		<TurnIn QuestName="Gidwin Goldbraids" TurnInName="Gidwin Goldbraids" QuestId="27367" TurnInId="45428" X="2736.42" Y="-2454.52" Z="68.69714" />
 		<PickUp QuestName="Just Encased" GiverName="Gidwin Goldbraids" QuestId="27368" GiverId="45428" X="2736.42" Y="-2454.52" Z="68.69714" />
