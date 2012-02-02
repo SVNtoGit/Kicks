@@ -125,7 +125,6 @@
 
 	<Vendors>
 		<Vendor Name="Arlen Brighthammer" Entry="28796" Type="Repair" X="5410.7" Y="-2658.249" Z="303.9552" />
-		<Vendor Name="Archmage Berinand" Entry="25314" Type="Repair" X="3575.609" Y="6671.719" Z="195.1089" />
 		<Vendor Name="Lanudal Silverhart" Entry="30241" Type="Repair" X="5056.556" Y="-591.7134" Z="219.9718" />
 		<Vendor Name="Tonraq" Entry="27188" Type="Repair" X="2891.413" Y="4079.36" Z="2.214931" /> <!-- Unu'pe -->
 		<Vendor Name="Xark Bolthammer" Entry="29907" Type="Repair" X="6097.559" Y="-1071.257" Z="404.4124" />
@@ -166,7 +165,7 @@
 		<Mob Name="Midsummer Celebrant" Entry="16781" />
 		<Mob Name="Tormented Drakkari" Entry="26965" />
 		<AvoidMob Name="Corrupted Rager" Entry="21223" />
-		<AvoidMob Name="Carrion Condor" Entry="26174" />
+		<!--<AvoidMob Name="Carrion Condor" Entry="26174" />-->
 		<AvoidMob Name="Mildred the Cruel" Entry="29885" />
 		<AvoidMob Name="Nexus Drake Hatchling" Entry="26127" />
 		<AvoidMob Name="Taunka'le Longrunner" Entry="26790" />
@@ -215,6 +214,7 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+
 	<Quest Id="12874" Name="Fervor of the Frostborn">
 		<Objective Type="KillMob" MobId="30142" KillCount="1">
 			<Hotspots>
@@ -3591,6 +3591,7 @@
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="The Spare Suit" QuestId="11565" TurnInName="King Mrgl-Mrgl" TurnInId="25197" />
 		<Pickup QuestName="Surrender... Not!" QuestId="11566" GiverName="King Mrgl-Mrgl" GiverId="25197" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" />
 			</If>
 			<If Condition="((!HasQuest(11565)) &amp;&amp; (!IsQuestCompleted(11565)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4406.787" Y="6146.939" Z="1.147705" />
@@ -3606,6 +3607,7 @@
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4364.292" Y="6062.239" Z="0.2587225" />
 				<CustomBehavior File="ForcedDismount" />
 		<Pickup QuestName="Surrender... Not!" QuestId="11566" GiverName="King Mrgl-Mrgl" GiverId="25197" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" />
 			</If>
 			<If Condition="((HasQuest(12728)) &amp;&amp; (!IsQuestCompleted(12728)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="4153.776" Y="6245.318" Z="30.95657" />
@@ -6634,6 +6636,7 @@
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35838)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Waiting for Tuggie {TimeRemaining}" />
 				<Objective QuestName="Meat on the Hook" QuestId="12017" Type="KillMob" MobId="26510" KillCount="1" />
+				<CustomBehavior File="AscendInWater" />
 				<RunTo X="2711.815" Y="943.4164" Z="0.4194623" />
 			</If>
 			<If Condition="((HasQuest(12017)) &amp;&amp; (IsQuestCompleted(12017)))" >
@@ -7122,20 +7125,19 @@
 				<CustomBehavior File="ForcedDismount" QuestId="12047" />
 				<CustomBehavior File="InteractWith" QuestId="12047" MobId="188441" ObjectType="Gameobject" NumOfTimes="20" WaitForNpcs="False" X="4536.981" Y="272.262" Z="91.09337" />
 				
-				<!-- <Objective QuestName="Something That Doesn't Melt" QuestId="12047" Type="CollectItem" ItemId="36730" CollectCount="12" /> -->
 			</While>
 			<If Condition="((HasQuest(12047)) &amp;&amp; (IsQuestCompleted(12047)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4703.98" Y="557.6345" Z="123.743" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Something That Doesn't Melt" QuestId="12047" TurnInName="Zivlix" TurnInId="26661" />
-				<!-- Lumber Hack -->
 			</If>
+				<!-- Lumber Hack -->
 			<If Condition="((HasQuest(12049)) &amp;&amp; (IsQuestCompleted(12049)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4698.147" Y="545.3454" Z="121.1313" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Hard to Swallow" QuestId="12049" TurnInName="Xink" TurnInId="26660" />
-				<!-- Harp on This! -->
 			</If>
+				<!-- Harp on This! -->
 			<!-- End of Wyrmrest and N / W / S Quests -->
 			
 			<!-- Wintergarde Keep Quests -->
@@ -8147,6 +8149,10 @@
 				<CustomBehavior File="UseItemTargetLocation" QuestId="11982" ItemId="35734" UseType="PointToObject" WaitTime="1500" MinRange="30" Range="90" MobId1="26268" MobId2="26270" X="5007.596" Y="-4633.813" Z="292.1327" />
 				
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<RunTo X="5017.887" Y="-4629.757" Z="293.9718" />
+				<CustomBehavior File="RunMacro" Macro="/petpassive" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="RunMacro" Macro="/petassist" />
 			</If>
 			<If Condition="((HasQuest(11982)) &amp;&amp; (IsQuestCompleted(11982)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4894.704" Y="-4564.427" Z="350.8008" />
@@ -9674,11 +9680,13 @@
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="An Offering for Soo-rahm" QuestId="12543" TurnInName="Oracle Soo-rahm" TurnInId="28191" />
 		<PickUp QuestName="The Bones of Nozronn" QuestId="12544" GiverName="Oracle Soo-rahm" GiverId="28191" />
+				<RunTo X="5355.839" Y="5832.821" Z="-74.11243" />
 			</If>
 			<If Condition="((!HasQuest(12544)) &amp;&amp; (!IsQuestCompleted(12544)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5356.455" Y="5816.797" Z="-74.19667" />
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="The Bones of Nozronn" QuestId="12544" GiverName="Oracle Soo-rahm" GiverId="28191" />
+				<RunTo X="5355.839" Y="5832.821" Z="-74.11243" />
 			</If>
 			<If Condition="((HasQuest(12544)) &amp;&amp; (!IsQuestCompleted(12544)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="5210.412" Y="5791.234" Z="-70.80236" />
