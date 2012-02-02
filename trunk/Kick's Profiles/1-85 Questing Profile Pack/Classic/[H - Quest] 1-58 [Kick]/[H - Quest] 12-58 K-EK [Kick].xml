@@ -4222,7 +4222,9 @@
 			</If>
 			
 		<TurnIn QuestName="Frederick's Fish Fancy" QuestId="27450" TurnInName="Frederick Calston" TurnInId="45575" />
+			<If Condition="((HasQuest(27454)) &amp;&amp; (IsQuestCompleted(27454)))" >
 		<TurnIn QuestName="Just a Drop in the Bucket" QuestId="27454" TurnInName="Betina Bigglezink" TurnInId="11035" />		
+			</If>
 		<TurnIn QuestName="Boys Will Be Boys" QuestId="27455" TurnInName="Gidwin Goldbraids" TurnInId="45431" />		
 		<PickUp QuestName="A Boyhood Dream" QuestId="27463" GiverName="Gidwin Goldbraids" GiverId="45431" />
 			<If Condition="((!HasQuest(27458)) &amp;&amp; (!IsQuestCompleted(27458)))" >
@@ -4736,6 +4738,12 @@
 		<PickUp QuestName="Fight the Power" QuestId="28102" GiverName="Eridan Bluewind" GiverId="9116" />
 		
 			<If Condition="(HasQuest(28113)) &amp;&amp; (!IsQuestCompleted(28113))">
+				<!-- Is this quest skippable? we keep getting stuck at firegate -->
+				<RunTo X="4574.997" Y="-391.7386" Z="304.154" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<RunTo X="4574.997" Y="-391.7386" Z="304.154" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				
 				<UseItem ItemId="63031" QuestName="Touch the Untouchable" QuestId="28113" X="4574.997" Y="-391.7386" Z="304.154" />
 				<Objective QuestName="Break the Unbreakable" QuestId="28113" Type="KillMob" MobId="9454" KillCount="1" />
 			</If>	
