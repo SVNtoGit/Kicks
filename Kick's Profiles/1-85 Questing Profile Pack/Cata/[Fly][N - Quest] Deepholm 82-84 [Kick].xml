@@ -394,7 +394,7 @@
 			<If Condition="((!HasQuest(26249)) &amp;&amp; (!IsQuestCompleted(26249)))" >
 		<PickUp QuestName="The Admiral's Cabin" QuestId="26249" GiverName="Stormcaller Mylra" GiverId="42684" />
 			</If>
-			<If Condition="((HasQuest(26248)) &amp;&amp; (!IsQuestCompleted(26248)))" >
+			<While Condition="((HasQuest(26248)) &amp;&amp; (!IsQuestCompleted(26248)))" >
 				<CustomBehavior File="MyCTM" X="35.80745" Y="6.665432" Z="40.07978" UseRelative="true" />
 				<CustomBehavior File="UseItem" ItemId="58167" TargetNearest="true" WaitTime="6000" />
 				<CustomBehavior File="Misc\RunLua" Lua="ClearTarget();" WaitTime="1000" />
@@ -450,7 +450,7 @@
 				<CustomBehavior File="MyCTM" X="41.69745" Y="-45.99956" Z="25.03208" UseRelative="true" />
 				<CustomBehavior File="MyCTM" X="43.56645" Y="-14.56479" Z="39.64294" UseRelative="true" />
 				<CustomBehavior File="MyCTM" X="48.80468" Y="10.19899" Z="40.28959" UseRelative="true" />
-			</If>
+			</While>
 			<If Condition="((HasQuest(26248)) &amp;&amp; (IsQuestCompleted(26248)))" >
 		<TurnIn QuestName="All Our Friends Are Dead" QuestId="26248" TurnInName="Stormcaller Mylra" TurnInId="42684" />
 			</If>
@@ -512,15 +512,25 @@
 				<CustomBehavior File="MyCTM" X="21.55033" Y="13.56128" Z="9.60075" UseRelative="true" />
 				<CustomBehavior File="MyCTM" X="-9.380485" Y="21.79715" Z="9.63817" UseRelative="true" />
 				<CustomBehavior File="MyCTM" X="-22.70483" Y="22.14055" Z="9.606565" UseRelative="true" />
+				<CustomBehavior File="Misc\RunLua" Lua="ClearTarget();" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro {TimeRemaining}" />
+				
 				<CustomBehavior File="MyCTM" X="-35.76991" Y="19.04531" Z="9.889443" UseRelative="true" />
+				<CustomBehavior File="Misc\RunLua" Lua="ClearTarget();" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro {TimeRemaining}" />
+				
 				<CustomBehavior File="MyCTM" X="-56.21096" Y="11.15907" Z="9.621389" UseRelative="true" />
+				<CustomBehavior File="Misc\RunLua" Lua="ClearTarget();" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro {TimeRemaining}" />
+				
 				<CustomBehavior File="MyCTM" X="-63.04924" Y="9.7408" Z="9.602109" UseRelative="true" />
+				<CustomBehavior File="Misc\RunLua" Lua="ClearTarget();" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro {TimeRemaining}" />
+				
 				<CustomBehavior File="MyCTM" X="-65.41539" Y="1.786498" Z="9.602109" UseRelative="true" />
+				<CustomBehavior File="Misc\RunLua" Lua="ClearTarget();" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro {TimeRemaining}" />
+				
 				
 				<!-- Ogre -->
 				<CustomBehavior File="MyCTM" X="-65.41539" Y="1.786498" Z="9.602109" UseRelative="true" />
@@ -712,6 +722,7 @@
 				<CustomBehavior File="MyCTM" X="590.666" Y="-763.4443" Z="142.9584" />
 				<CustomBehavior File="MyCTM" X="590.4622" Y="-767.2647" Z="143.1225" />
 				<CustomBehavior File="MyCTM" X="593.5993" Y="-765.163" Z="142.9584" />
+				<CustomBehavior File="MyCTM" X="594.1125" Y="-771.1629" Z="143.5877" />
 				<CustomBehavior File="WaitTimer" WaitTime="60000"/>
 				<CustomBehavior File="MyCTM" X="609.1009" Y="-737.8065" Z="145.8933" />
 			  </While>
@@ -981,6 +992,7 @@
 		<TurnIn QuestName="Shatter Them!" TurnInName="Gravel Longslab" QuestId="26537" TurnInId="43168" />
 		<PickUp QuestName="Troggzor the Earthinator" GiverName="Gravel Longslab" QuestId="26625" GiverId="43168" />
 			<While Condition="((HasQuest(26625)) &amp;&amp; (!IsQuestCompleted(26625)))" >
+				<!-- we're in combat here... lets run away from quest giver to get out of combat before flying -->
 				<CustomBehavior File="FlyTo" X="884.9449" Y="1898.102" Z="325.2913" />
 				<CustomBehavior File="ForcedDismount" />
 				<RunTo X="876.4286" Y="1901.728" Z="331.1512" />

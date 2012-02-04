@@ -560,28 +560,67 @@
 			</If>
 		<TurnIn QuestName="Trespassers in the Water" TurnInName="High Priest Amet" QuestId="27837" TurnInId="46135" />
 		<TurnIn QuestName="Stopping the Spread" TurnInName="High Priest Amet" QuestId="27836" TurnInId="46135" />
+			<If Condition="((!HasQuest(28611)) &amp;&amp; (!IsQuestCompleted(28611)))" >
 		<PickUp QuestName="The Defilers' Ritual" QuestId="28611" GiverName="High Priest Amet" GiverId="46135" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+			</If>
 			<If Condition="((HasQuest(28611)) &amp;&amp; (!IsQuestCompleted(28611)))" >
-				<RunTo X="-9765.177" Y="-700.8525" Z="100.4728" />
+			 <If Condition="(Me.Z &gt; 80)" >
 				<CustomBehavior File="FlyTo" X="-9696.501" Y="-794.7971" Z="102.2886" />
 				<CustomBehavior File="ForcedDismount" />
+				
 				<CustomBehavior File="UserSettings" PullDistance="5" />
 				<CustomBehavior File="MyCTM" X="-9687.747" Y="-772.587" Z="52.81313" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
+			</If>
+				
+			 <If Condition="(Me.Z &lt; 80)" >
+				<CustomBehavior File="MyCTM" X="-9705.629" Y="-687.7986" Z="71.99752" />
+				<CustomBehavior File="MyCTM" X="-9686.33" Y="-689.7313" Z="71.73323" />
+				
+	<CustomBehavior File="UserDialog" QuestId="28611" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Kill Zakhan" />
+			 </If>
+				
+			 <While Condition="((HasQuest(28611)) &amp;&amp; (!IsQuestCompleted(28611)))" >
 				<CustomBehavior File="MyCTM" X="-9686.576" Y="-676.929" Z="73.39931" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
 				<CustomBehavior File="MyCTM" X="-9685.55" Y="-653.5897" Z="74.90195" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="28611" MobId="49156" Range="6" X="-9685.55" Y="-653.5897" Z="74.90195" />
+				<CustomBehavior File="InteractWith" QuestId="28611" MobId="49156" Range="6" X="-9685.55" Y="-653.5897" Z="74.90195" />
 				<CustomBehavior File="InteractWith" QuestId="28611" MobId="49148" Range="6" X="-9685.55" Y="-653.5897" Z="74.90195" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
+			 </While>
 				<!--
 				<Objective QuestName="The Defilers' Ritual" QuestId="28611" Type="KillMob" MobId="49148" KillCount="1" />
 				-->
+			 <If Condition="(Me.Z &lt; 80)" >
+			  <If Condition="(Me.Z &gt; 55)" >
+				<CustomBehavior File="MyCTM" X="-9705.629" Y="-687.7986" Z="71.99752" />
 				<CustomBehavior File="MyCTM" X="-9686.576" Y="-676.929" Z="73.39931" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
 				<CustomBehavior File="MyCTM" X="-9687.747" Y="-772.587" Z="52.81313" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
+			 </If>
+			  <If Condition="(Me.Z &lt; 55)" >
 				<CustomBehavior File="MyCTM" X="-9696.501" Y="-794.7971" Z="95.2886" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
+			 </If>
+				<CustomBehavior File="UserSettings" PullDistance="25" />
+			 </If>
+			</If>
+			<If Condition="((HasQuest(28611)) &amp;&amp; (IsQuestCompleted(28611))) &amp;&amp; (Me.Z &lt; 80) &amp;&amp; (Me.Y &gt -875)" >
+			  <If Condition="(Me.Z &gt; 55)" >
+				<CustomBehavior File="MyCTM" X="-9705.629" Y="-687.7986" Z="71.99752" />
+				<CustomBehavior File="MyCTM" X="-9686.576" Y="-676.929" Z="73.39931" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="MyCTM" X="-9687.747" Y="-772.587" Z="52.81313" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
+			 </If>
+			  <If Condition="(Me.Z &lt; 55)" >
+				<CustomBehavior File="MyCTM" X="-9696.501" Y="-794.7971" Z="95.2886" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
+			 </If>
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
 		<TurnIn QuestName="The Defilers' Ritual" TurnInName="High Priest Amet" QuestId="28611" TurnInId="46135" />
