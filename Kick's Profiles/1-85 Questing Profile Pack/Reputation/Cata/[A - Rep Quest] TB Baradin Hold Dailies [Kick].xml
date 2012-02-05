@@ -155,7 +155,22 @@
 
 		<CustomBehavior File="UserSettings" TrainNewSkills="False" LootMobs="True" PullDistance="25"  />
 		
-			<!-- <RunTo X="-1225.118" Y="979.6929" Z="119.7149" /> -->
+			<!-- If I am in EK, take the SW portal -->
+			 <If Condition="(Me.MapId == 0)" >
+				<CustomBehavior File="FlyTo" DestName="SW Portal" X="-8208.783" Y="445.8443" Z="117.9366" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="InteractWith" MobId="206594" ObjectType="Gameobject" Range="4" X="-8208.508" Y="449.4972" Z="117.7234" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+			 </If>
+	
+			<!-- 
+			<RunTo X="-1225.118" Y="979.6929" Z="119.7149" />
+			-->
+			<If Condition="(Me.ZoneId == 5389)" >
+				<!-- Run to BH if we're in Peninsula -->
+				<RunTo X="-1225.118" Y="979.6929" Z="119.7149" />
+			</If>
 	
 			<!-- This is the MobId, not QuestId -->
 			<While Condition="HasQuestAvailable(48066)" >
@@ -183,8 +198,6 @@
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
 			</While>
-	
-
 
 			<If Condition="HasQuest(28118) &amp;&amp; !IsQuestCompleted(28118)"> <!-- BH -->
 				<!--
@@ -252,13 +265,6 @@
 				<Objective QuestName="A Huge Problem" QuestId="28122" Type="KillMob" MobId="47593" KillCount="1" />
 			</If> 
 			
-			
-
-
-
-	
-			
-			
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 			
 			<!-- Turn In -->
@@ -305,12 +311,17 @@
 		<TurnIn QuestName="Food From Below" QuestId="28232" TurnInName="Marshal Fallows" TurnInId="48074" />
 			</If>
 
-
+			<If Condition="(Me.ZoneId == 5095)" >
+				<RunTo X="-345.2877" Y="1035.014" Z="22.08401" />
+			</If>
+			<If Condition="(Me.ZoneId == 5389)" >
+				<!-- Portal to SW -->
+				<CustomBehavior File="InteractWith" MobId="208227" ObjectType="GameObject" CollectionDistance="200" WaitTime="1000" X="-345.2877" Y="1035.014" Z="22.08401" />
+			</If>
 
 		
 		
-	<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" 
-	Text="End of BH Dailies\n\nIf you have quests completed, or quests still available, please let me know what they are (just simply copy and paste the &quot;Quest Order&quot; code into a pm)" />
+	<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of BH Dailies" />
 
 
 

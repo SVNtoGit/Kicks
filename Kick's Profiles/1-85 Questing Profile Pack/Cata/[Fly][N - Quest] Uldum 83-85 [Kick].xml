@@ -40,6 +40,7 @@
 	</Blackspots>
 	
 	<AvoidMobs>
+		<Mob Name="Uldum Watcher [PH]" Entry="44842" />
 		<Mob Name="Myzerian" Entry="48374" />
 		<Mob Name="Unconscious Trooper" Id="46976" />		
 		<Mob Name="Myzerian" Entry="48444" />
@@ -577,6 +578,7 @@
 			 <If Condition="(Me.Z &lt; 80)" >
 				<CustomBehavior File="MyCTM" X="-9705.629" Y="-687.7986" Z="71.99752" />
 				<CustomBehavior File="MyCTM" X="-9686.33" Y="-689.7313" Z="71.73323" />
+				<CustomBehavior File="MyCTM" X="-9700.046" Y="-681.6902" Z="74.03061" />
 				
 	<CustomBehavior File="UserDialog" QuestId="28611" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Kill Zakhan" />
 			 </If>
@@ -596,7 +598,6 @@
 				-->
 			 <If Condition="(Me.Z &lt; 80)" >
 			  <If Condition="(Me.Z &gt; 55)" >
-				<CustomBehavior File="MyCTM" X="-9705.629" Y="-687.7986" Z="71.99752" />
 				<CustomBehavior File="MyCTM" X="-9686.576" Y="-676.929" Z="73.39931" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
 				<CustomBehavior File="MyCTM" X="-9687.747" Y="-772.587" Z="52.81313" />
@@ -605,6 +606,7 @@
 			  <If Condition="(Me.Z &lt; 55)" >
 				<CustomBehavior File="MyCTM" X="-9696.501" Y="-794.7971" Z="95.2886" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="AscendInWater" />
 			 </If>
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			 </If>
@@ -668,10 +670,14 @@
 		<TurnIn QuestName="Field Work" TurnInName="Harrison Jones" QuestId="27179" TurnInId="45180" />
 		<TurnIn QuestName="Just the Tip" QuestId="27176" TurnInName="Harrison Jones" TurnInId="45180" />
 		<PickUp QuestName="On to Something" GiverName="Harrison Jones" QuestId="27196" GiverId="45180" />
-			<If Condition="((HasQuest(27196)) &amp;&amp; (!IsQuestCompleted(27196)))" >
+			<While Condition="((HasQuest(27196)) &amp;&amp; (!IsQuestCompleted(27196)))" >
+				<CustomBehavior File="FlyTo" X="-9210.19" Y="-1557.09" Z="65.4521" />	
+				<CustomBehavior File="ForcedDismount" />
+
 				<CustomBehavior File="InteractWith" QuestId="27196" MobId="45180" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="-9210.19" Y="-1557.09" Z="65.4521" />
 				<RunTo X="-9153.039" Y="-1533.677" Z="71.0817" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
+			</While>
 			<If Condition="((HasQuest(27838)) &amp;&amp; (IsQuestCompleted(27838)))" >
 				<CustomBehavior File="FlyTo" X="-9939.002" Y="-811.1786" Z="104.6673" />	
 			</If>
@@ -1241,6 +1247,15 @@
 			<If Condition="((HasQuest(27990)) &amp;&amp; (!IsQuestCompleted(27990)))" >
 				<RunTo X="-10695.45" Y="1117.557" Z="21.96807" />
 				<CustomBehavior File="UserDialog" QuestId="27990" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Jump in the Siege Tank, kill 7 giants, press continue" />
+				<!-- this tank behavior doesn't work properly 
+			 <If Condition="((HasQuest(27990)) &amp;&amp; (!IsQuestCompleted(27990)))" >
+				<CustomBehavior File="InteractWith" QuestId="27990" MobId="47732" NumOfTimes="1" CollectionDistance="1000" WaitTime="1000" X="-10696.6" Y="1124.12" Z="21.4624" />
+			  <While Condition="((HasQuest(27990)) &amp;&amp; (!IsQuestCompleted(27990)))" > // objective 1 not completed, instead of !ICQ
+				<CustomBehavior File="NoControlVehicle" VehicleMountId="47732" QuestId="27990" TargetId="47385" NumOfTimes="50" AttackButton="1" GoHomeButton="5" MaxRange="200" WaitTime="2000" />
+			  </While>
+				<CustomBehavior File="WaitTimer" WaitTime="45000"/>
+			</If>
+				-->
 				<!-- <Vendor Name="Schnottz's Siege Tank" Entry="47732" Type="Repair" X="-10696.6" Y="1124.12" Z="21.46244" /> -->
 				<RunTo X="-10674.65" Y="930.8799" Z="26.338" />
 			</If>
@@ -1321,10 +1336,15 @@
 		<TurnIn QuestName="Two Tents" TurnInName="Sullah" QuestId="28274" TurnInId="48431" X="-8931.12" Y="607.832" Z="151.3403" />
 		<PickUp QuestName="Master Trapper" GiverName="Sullah" QuestId="28350" GiverId="48431" X="-8931.12" Y="607.832" Z="151.3403" />
 		<PickUp QuestName="Camel Tow" GiverName="Sullah" QuestId="28352" GiverId="48431" X="-8931.12" Y="607.832" Z="151.3403" />
+			<If Condition="((!HasQuest(28351)) &amp;&amp; (!IsQuestCompleted(28351)))" >
 		<PickUp QuestName="Unlimited Potential" GiverName="Sullah" QuestId="28351" GiverId="48431" X="-8931.12" Y="607.832" Z="151.3403" />
+				<RunTo X="-8939.084" Y="616.0905" Z="152.4868" />
+				<CustomBehavior File="FlyTo" X="-9031.588" Y="600.4504" Z="152.0052" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
 			<While Condition="((HasQuest(28351)) &amp;&amp; (!IsQuestCompleted(28351)))" >
-				<CustomBehavior File="CombatUseItemOn" MobId="51217" ItemId="67232" MobHpPercentLeft="30" MaxRange="5" NumOfTimes="3" WaitTime="1000" X="-9488.513" Y="608.8749" Z="151.5234" />
-				<CustomBehavior File="CombatUseItemOn" MobId="51217" ItemId="67232" MobHpPercentLeft="30" MaxRange="5" NumOfTimes="2" WaitTime="1000" X="-9112.144" Y="680.4509" Z="182.0577" />
+				<CustomBehavior File="CombatUseItemOn" MobId="51217" ItemId="67232" MobHpPercentLeft="25" MaxRange="5" NumOfTimes="3" WaitTime="1000" X="-9488.513" Y="608.8749" Z="151.5234" />
+				<CustomBehavior File="CombatUseItemOn" MobId="51217" ItemId="67232" MobHpPercentLeft="25" MaxRange="5" NumOfTimes="2" WaitTime="1000" X="-9112.144" Y="680.4509" Z="182.0577" />
 			</While>
 			<While Condition="((HasQuest(28352)) &amp;&amp; (!IsQuestCompleted(28352)))" >
 				<CustomBehavior File="CombatUseItemOn" MobId="51193" ItemId="67241" MobHpPercentLeft="20" MaxRange="5" NumOfTimes="2" WaitTime="1000" X="-9488.513" Y="608.8749" Z="151.5234" />
@@ -1361,7 +1381,10 @@
 				<CustomBehavior File="FlyTo" X="-8939.145" Y="614.2534" Z="152.2594" />
 			</If>
 		<TurnIn QuestName="Stirred the Hornet's Nest" TurnInName="Sullah" QuestId="28363" TurnInId="48431" X="-8931.12" Y="607.832" Z="151.2996" />
+			<If Condition="((!HasQuest(28367)) &amp;&amp; (!IsQuestCompleted(28367)))" >
 		<PickUp QuestName="Shroud of the Makers" QuestId="28367" GiverName="Sullah" GiverId="48431" />
+				<RunTo X="-8938.621" Y="613.7538" Z="152.1947" />
+			</If>
 			<If Condition="((HasQuest(28367)) &amp;&amp; (!IsQuestCompleted(28367)))" >
 			<!--
 				<CustomBehavior File="UserSettings" PullDistance="1" /> -->
@@ -1415,6 +1438,7 @@
 				<RunTo X="-8999.92" Y="33.83717" Z="-21.77813" />
 				<CustomBehavior File="FlyTo" X="-9010.063" Y="-0.512009" Z="6.553023" />
 				<CustomBehavior File="FlyTo" X="-8987.383" Y="26.89229" Z="-17.9613" />
+				<CustomBehavior File="MyCTM" X="-8988.87" Y="26.1875" Z="-17.98613" />
 		<TurnIn QuestName="I'll Do It By Hand" TurnInName="Harrison Jones" QuestId="28404" TurnInId="48558" />
 				<CustomBehavior File="WaitTimer" WaitTime="45000"/>
 			</If>

@@ -222,6 +222,15 @@
 	<QuestOrder>
 
 		<CustomBehavior File="UserSettings" TrainNewSkills="False" LootMobs="True" PullDistance="15"  />
+		
+			<!-- If I am in EK, take the SW portal -->
+			 <If Condition="(Me.MapId == 0)" >
+				<CustomBehavior File="FlyTo" DestName="SW Portal" X="-8208.783" Y="445.8443" Z="117.9366" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="InteractWith" MobId="206594" ObjectType="Gameobject" Range="4" X="-8208.508" Y="449.4972" Z="117.7234" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+			 </If>
 	
 			<!-- This is the MobId, not QuestId -->
 			<While Condition="HasQuestAvailable(48250)" >
@@ -249,14 +258,6 @@
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
 			</While>
-	
-	
-	
-	
-	
-	
-	
-	
 	
 			<!-- Quests Peninsula -->  
 			<If Condition="((HasQuest(27992)) &amp;&amp; (!IsQuestCompleted(27992)))" > <!-- TB -->
@@ -429,11 +430,9 @@
 			</If>
 			
 		
+			<If Condition="(Me.ZoneId == 5389)" >
 		<RunTo X="-360.6322" Y="1053.228" Z="22.03205" />
-		
-
-
-
+			</If>
 	
 			<If Condition="((HasQuest(27992)) &amp;&amp; (IsQuestCompleted(27992)))" > <!-- TB -->
 		<TurnIn QuestName="Magnets, How Do They Work?" QuestId="27992" TurnInName="Lieutenant Farnsworth" TurnInId="48250" />
@@ -500,6 +499,11 @@
 			</If>
 			<If Condition="((HasQuest(27949)) &amp;&amp; (IsQuestCompleted(27949)))" > <!-- TB -->
 		<TurnIn QuestName="The Forgotten" QuestId="27949" TurnInName="Lieutenant Farnsworth" TurnInId="48250" />
+			</If>
+			
+			<If Condition="(Me.ZoneId == 5389)" >
+				<!-- Portal to SW -->
+				<CustomBehavior File="InteractWith" MobId="208227" ObjectType="GameObject" CollectionDistance="200" WaitTime="1000" X="-345.2877" Y="1035.014" Z="22.08401" />
 			</If>
 
 
