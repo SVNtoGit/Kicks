@@ -345,17 +345,17 @@
 			</If>
 			<Objective QuestName="Cataclysm in the Catacombs" QuestId="27092" Type="KillMob" MobId="44816" KillCount="1" />
 		<TurnIn QuestName="Cataclysm in the Catacombs" QuestId="27092" TurnInName="Pile of Explosives" TurnInId="205198" X="-8484.703" Y="845.5828" Z="72.70779" />
+			<If Condition="((!HasQuest(27106)) &amp;&amp; (!IsQuestCompleted(27106)))" >
 		<PickUp QuestName="A Villian Unmasked" QuestId="27106" GiverName="Pile of Explosives" GiverId="205198" X="-8484.703" Y="845.5828" Z="72.70779" />
-			<If Condition="((HasQuest(27106)) &amp;&amp; (!IsQuestCompleted(27106)))" >
 				<RunTo X="-8603.621" Y="790.2954" Z="101.9315" />
 				<CustomBehavior File="FlyTo" X="-8442.632" Y="332.6037" Z="142.268" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="InteractWith" QuestId="27106" MobId="2439" NumOfTimes="1" GossipOptions="1" WaitTime="20000" CollectionDistance="50" X="-8355.21" Y="243.974" Z="155.3491" />
-				<RunTo X="-8370.99" Y="245.901" Z="155.3476" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
-				<CustomBehavior File="RunMacro" Macro="/Target Major Samuelson\n/startattack" NumOfTimes="10" WaitTime="1000" />
 			</If>
-			<Objective QuestName="A Villian Unmasked" QuestId="27106" Type="KillMob" MobId="2439" KillCount="1" />
+			<While Condition="((HasQuest(27106)) &amp;&amp; (!IsQuestCompleted(27106)))" >
+				<CustomBehavior File="InteractWith" QuestId="27106" MobId="2439" NumOfTimes="1" GossipOptions="1" WaitTime="20000" CollectionDistance="50" X="-8355.21" Y="243.974" Z="155.3491" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000"/>
+				<CustomBehavior File="InteractWith" QuestId="27106" MobId="2439" NumOfTimes="1" WaitForNpcs="False" Range="4" X="-8370.99" Y="245.901" Z="155.3476" />
+			</While>
 		<TurnIn QuestName="A Villian Unmasked" QuestId="27106" TurnInName="King Varian Wrynn" TurnInId="29611" />
 		<PickUp QuestName="Twilight Shores" GiverName="King Varian Wrynn" QuestId="28238" GiverId="29611" />
 			<If Condition="(HasQuest(28238))" >
