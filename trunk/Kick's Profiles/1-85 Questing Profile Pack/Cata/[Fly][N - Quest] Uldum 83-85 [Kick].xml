@@ -1447,28 +1447,59 @@
 				<CustomBehavior File="FlyTo" X="-8254.185" Y="-119.8352" Z="320.1796" />
 				<CustomBehavior File="ForcedDismount" />
 				<RunTo X="-8259.235" Y="-120.0095" Z="320.2148" />
-				<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="The bot can't interactwith Harrison while he's on the machine, complete quest and get next, then do that quest, too" />
 				<!--
-				<CustomBehavior File="InteractWith" QuestId="28482" MobId="48698" NumOfTimes="1" CollectionDistance="50" X="-8259.235" Y="-120.0095" Z="320.2148" />
-				<CustomBehavior File="CompleteLogQuest" QuestId="28482" />
-				<CustomBehavior File="BasicInteractWith" MobId="48698" />
-				<CustomBehavior File="BasicInteractWith"  MobId="48698" MoveTo="0" LUATarget="1" />
+				<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="The bot can't interactwith Harrison while he's on the machine, complete quest and get next, then do that quest, too" />
+				<CustomBehavior File="InteractWith" MobId="48698" NumOfTimes="1" CollectionDistance="50" X="-8259.235" Y="-120.0095" Z="320.2148" />
 				-->
+				<CustomBehavior File="InteractWith" MobId="48698" Range="8" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />	
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
 			</If>
+			<!--
 		<TurnIn QuestName="Sullah's Gift" TurnInName="Harrison Jones" QuestId="28482" TurnInId="48698" X="-8259.717" Y="-120.2817" Z="320.2212" />
 		<PickUp QuestName="Fire From the Sky" GiverName="Harrison Jones" QuestId="28497" GiverId="48698" />
+			-->
+			<If Condition="((!HasQuest(28497)) &amp;&amp; (!IsQuestCompleted(28497)))" >
+				<CustomBehavior File="FlyTo" X="-8254.185" Y="-119.8352" Z="320.1796" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo X="-8259.235" Y="-120.0095" Z="320.2148" />
+				
+				<CustomBehavior File="InteractWith" MobId="48698" Range="8" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+			</If>
 			<If Condition="((HasQuest(28497)) &amp;&amp; (!IsQuestCompleted(28497)))" >
-				<CustomBehavior File="UserDialog" QuestId="28497" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Jump in Harrison's vehicle and kill 100 troopers, then turn in quest - it takes 5 seconds for your cast to land\n\nTurn in quest and get next quest\n\nWatch the cutscene and press continue" />
+				<CustomBehavior File="InteractWith" QuestId="28497" MobId="48699" X="-8259.235" Y="-120.0095" Z="320.2148" />
+				<CustomBehavior File="UserDialog" QuestId="28497" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill 100 troopers" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
 				<CustomBehavior File="EjectVeh" Eject="True" />
 			</If>
 			<If Condition="((HasQuest(28497)) &amp;&amp; (IsQuestCompleted(28497)))" >
+			<!--
 		<TurnIn QuestName="Fire From the Sky" TurnInName="Harrison Jones" QuestId="28497" TurnInId="48698" />
 		<PickUp QuestName="See You on the Other Side!" GiverName="Harrison Jones" QuestId="28613" GiverId="48698" />
+			-->
+				<CustomBehavior File="InteractWith" MobId="48698" Range="8" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/script GetQuestReward(3)" />	
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />	
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+				
+				<CustomBehavior File="WaitTimer" WaitTime="50000"/>
+			</If>
+			<If Condition="((!HasQuest(28613)) &amp;&amp; (!IsQuestCompleted(28613)))" >
+				<CustomBehavior File="InteractWith" MobId="48698" Range="8" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+				
 				<CustomBehavior File="WaitTimer" WaitTime="50000"/>
 			</If>
 		<TurnIn QuestName="See You on the Other Side!" TurnInName="Harrison Jones" QuestId="28613" TurnInId="47158" X="-8680.61" Y="203.859" Z="338.8123" />
 		<PickUp QuestName="Fortune and Glory" QuestId="27748" GiverName="Harrison Jones" GiverId="47158" />
 			<While Condition="((HasQuest(27748)) &amp;&amp; (!IsQuestCompleted(27748)))" >
+				<RunTo X="-8759.043" Y="292.5631" Z="329.2171" />
+				<CustomBehavior File="WaitTimer" WaitTime="60000"/>
 	<CustomBehavior File="UserDialog" QuestId="27748" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Help the bot kill the big guy" />
 				<!--
 				<RunTo X="-8759.043" Y="292.5631" Z="329.2171" />
