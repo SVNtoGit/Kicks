@@ -609,7 +609,31 @@
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
 			</While>
-			<If Condition="((HasQuest(26427)) &amp;&amp; (!IsQuestCompleted(26427)))" >
+			<If Condition="(HasQuest(26250))" >
+				<!-- in case we fuck things up and are on top of the boat -->
+			 <If Condition="(StyxWoW.Me.RelativeLocation.Z &gt;= 35) &amp;&amp; (StyxWoW.Me.RelativeLocation.Z &lt;= 50)" >
+				<CustomBehavior File="MyCTM" X="42.99941" Y="10.04477" Z="40.31339" UseRelative="true" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				<CustomBehavior File="MyCTM" X="42.53273" Y="43.00214" Z="25.03499" UseRelative="true" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				<CustomBehavior File="MyCTM" X="36.13846" Y="40.9158" Z="25.03182" UseRelative="true" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				<CustomBehavior File="MyCTM" X="35.0429" Y="26.59221" Z="25.03182" UseRelative="true" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				<CustomBehavior File="MyCTM" X="15.95851" Y="19.02911" Z="20.39463" UseRelative="true" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				<CustomBehavior File="MyCTM" X="16.00153" Y="-0.0402813" Z="20.41242" UseRelative="true" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				<CustomBehavior File="MyCTM" X="32.64093" Y="0.05423314" Z="23.40985" UseRelative="true" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				<CustomBehavior File="MyCTM" X="31.89062" Y="6.748028" Z="23.28113" UseRelative="true" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				<CustomBehavior File="MyCTM" X="29.61083" Y="7.542316" Z="23.28564" UseRelative="true" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+			 </If>
+			
+			<!-- Main Deck -->
+			 <If Condition="(StyxWoW.Me.RelativeLocation.Z &gt;= 20) &amp;&amp; (StyxWoW.Me.RelativeLocation.Z &lt;= 30)" >
 				<CustomBehavior File="MyCTM" X="31.29601" Y="7.276014" Z="23.28161" UseRelative="true" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
 				<CustomBehavior File="MyCTM" X="32.79471" Y="-0.6772506" Z="23.40973" UseRelative="true" />
@@ -621,10 +645,13 @@
 				<CustomBehavior File="MyCTM" X="-36.41161" Y="-2.344127" Z="20.44871" UseRelative="true" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
 				
+			 <If Condition="((HasQuest(26427)) &amp;&amp; (!IsQuestCompleted(26427)))" >
 				<!-- Rope -->
 				<CustomBehavior File="BasicUseObject" ObjectId="204279" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+			 </If>
 				
+				<!-- Main Deck to Downstairs -->
 				<CustomBehavior File="MyCTM" X="-15.35909" Y="-0.1946619" Z="21.00595" UseRelative="true" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
 				<CustomBehavior File="MyCTM" X="8.800615" Y="-0.1312425" Z="9.49471" UseRelative="true" />
@@ -633,13 +660,18 @@
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
 				<CustomBehavior File="MyCTM" X="42.21944" Y="5.315071" Z="9.60805" UseRelative="true" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+			 </If>
 				
+			 <If Condition="((HasQuest(26427)) &amp;&amp; (!IsQuestCompleted(26427)))" >
 				<!-- Bottle -->
 				<CustomBehavior File="BasicUseObject" ObjectId="204280" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
-			</If>
-			<If Condition="(HasQuest(26250))" >
-			<If Condition="(StyxWoW.Me.RelativeLocation.Z &lt; 10) &amp;&amp; (!IsQuestComplete(26251)) &amp;&amp; (!IsQuestComplete(26250))" >
+			 </If>
+			 
+			 <!-- In case we stop / start while downstairs -->
+			 <If Condition="(StyxWoW.Me.RelativeLocation.Z &lt; 15)" >
+				<CustomBehavior File="MyCTM" X="42.21944" Y="5.315071" Z="9.60805" UseRelative="true" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
 				<CustomBehavior File="MyCTM" X="38.08214" Y="3.45525" Z="9.606401" UseRelative="true" />
 				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for agro {TimeRemaining}" />
 				<CustomBehavior File="MyCTM" X="38.08214" Y="3.45525" Z="9.606401" UseRelative="true" />
@@ -723,9 +755,9 @@
 				<CustomBehavior File="MyCTM" X="10.80053" Y="-0.07902846" Z="9.507506" UseRelative="true" />
 				<CustomBehavior File="InteractWith" QuestId="26251" MobId="42885" WaitForNpcs="False" CollectionDistance="5" Nav="CTM" />
 			 </While>
-			</If>
+			 </If>
 			
-			<If Condition="(StyxWoW.Me.RelativeLocation.Z &gt;= 5) &amp;&amp; (StyxWoW.Me.RelativeLocation.Z &lt;= 24)" >
+			 <If Condition="(StyxWoW.Me.RelativeLocation.Z &gt;= 5) &amp;&amp; (StyxWoW.Me.RelativeLocation.Z &lt;= 24)" >
 				<CustomBehavior File="MyCTM" X="-19.73059" Y="-0.05332798" Z="20.70652" UseRelative="true" /> <!-- Top of stairs on main deck -->
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
 				<CustomBehavior File="MyCTM" X="-22.02628" Y="0.1442543" Z="20.66306" UseRelative="true" />
@@ -742,13 +774,13 @@
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
 				<CustomBehavior File="MyCTM" X="29.11332" Y="7.613872" Z="23.28598" UseRelative="true" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
-			</If>
+			 </If>
 				
-			<If Condition="(HasQuest(26427))" >
+			  <If Condition="(HasQuest(26427))" >
 		<TurnIn QuestName="Without a Captain or Crew" QuestId="26427" TurnInName="First Mate Moody" TurnInId="43082" />
-			</If>
+			  </If>
 				
-			<If Condition="StyxWoW.Me.RelativeLocation.Z &gt;= 20" >
+			 <If Condition="StyxWoW.Me.RelativeLocation.Z &gt;= 20" >
 				<CustomBehavior File="MyCTM" X="31.66438" Y="7.555029" Z="23.27952" UseRelative="true" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
 				<CustomBehavior File="MyCTM" X="32.16122" Y="0.06784701" Z="23.40979" UseRelative="true" />
@@ -767,9 +799,9 @@
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
 				<CustomBehavior File="MyCTM" X="48.74694" Y="11.17493" Z="40.42634" UseRelative="true" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
-			</If>
+			 </If>
 				
-			<If Condition="(HasQuest(26251))" >
+			 <If Condition="(HasQuest(26251))" >
 		<TurnIn QuestName="Take No Prisoners" QuestId="26251" TurnInName="Stormcaller Mylra" TurnInId="42684" />
 			</If>
 		<TurnIn QuestName="On Second Thought, Take One Prisoner" QuestId="26250" TurnInName="Stormcaller Mylra" TurnInId="42684" />
