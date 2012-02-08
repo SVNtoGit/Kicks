@@ -5556,13 +5556,9 @@
 		<TurnIn QuestName="A Bloodmage's Gotta Eat Too" QuestId="25690" TurnInName="Bloodmage Drazial" TurnInId="7505" />
 		<TurnIn QuestName="The First Step" QuestId="25685" TurnInName="Bloodmage Lynnore" TurnInId="7506" />
 		<PickUp QuestName="Blood Ritual" QuestId="25686" GiverName="Bloodmage Lynnore" GiverId="7506" />
-			<If Condition="HasQuest(25686)">
-					<CustomBehavior File="InteractWith" MobId="7506" GossipOptions="1" />
-					<!--
-				<CustomBehavior File="BasicInteractWith"  MoveTo="1" MobId="7506" />
-				<CustomBehavior File="RunMacro" Macro="/script SelectGossipOption(1)" NumOfTimes="1" WaitTime="10000"/>
-					-->
-			</If>
+			<While Condition="((HasQuest(25686)) &amp;&amp; (!IsQuestCompleted(25686)))" >
+				<CustomBehavior File="InteractWith" MobId="7506" GossipOptions="1" Range="8" />
+			</While>
 		<TurnIn QuestName="Blood Ritual" QuestId="25686" TurnInName="Bloodmage Lynnore" TurnInId="7506" />
 
 		<PickUp QuestName="Ogre Combat" QuestId="25675" GiverName="Master Aitokk" GiverId="41125" />
