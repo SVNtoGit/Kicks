@@ -1942,7 +1942,7 @@
 		<PickUp QuestName="Return to the Marsh" QuestId="9732" GiverName="Amythiel Mistwalker" GiverId="16885" X="-314.8192" Y="4711.438" Z="18.33707" />
 			</If>
 			<If Condition="(HasQuest(9732))" >
-				<CustomBehavior File="FlyTo" X="-143.4519" Y="5533.816" Z="31.06601" />
+				<CustomBehavior File="FlyTo" X="-143.4519" Y="5533.816" Z="31.06601" Distance="2" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Return to the Marsh" QuestId="9732" TurnInName="Ysiel Windsinger" TurnInId="17841" X="-143.4519" Y="5533.816" Z="31.06601" />
 			</If>
@@ -2367,7 +2367,7 @@
 		<PickUp QuestName="Strange Energy" QuestId="9968" GiverName="Earthbinder Tavgren" GiverId="18446" />
 		<PickUp QuestName="Clues in the Thicket" QuestId="9971" GiverName="Earthbinder Tavgren" GiverId="18446" />
 			<If Condition="HasQuest(9971) &amp;&amp; !IsQuestCompleted(9971)" >
-				<CustomBehavior File="FlyTo" DestName="Flying to 'Warden Treelos' (Picking up Quest = It's Watching You!)." X="-1844.434" Y="4692.944" Z="8.80941" />
+				<CustomBehavior File="FlyTo" DestName="Flying to 'Warden Treelos' (Picking up Quest = It's Watching You!)." X="-1790.573" Y="4698.428" Z="12.23734" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
 		<PickUp QuestName="It's Watching You!" QuestId="9951" GiverName="Warden Treelos" GiverId="18424" />
@@ -2940,13 +2940,15 @@
 			-->
 		<TurnIn QuestName="Patriarch Ironjaw" QuestId="10023" TurnInName="Malukaz" TurnInId="18384" />
 		<PickUp QuestName="Welcoming the Wolf Spirit" QuestId="10791" GiverName="Malukaz" GiverId="18384" />
-			<If Condition="HasQuest(10791) &amp;&amp; !IsQuestCompleted(10791)">
+			<While Condition="HasQuest(10791) &amp;&amp; !IsQuestCompleted(10791)">
 				<RunTo X="-2655.62" Y="4391.473" Z="36.13333" />
 				<UseItem ItemId="31344" QuestId="10791" NumOfTimes="1" X="-2667.054" Y="4377.325" Z="36.21084" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="25000" />
+			</While>
 			</If>
 			<If Condition="((HasQuest(10791)) &amp;&amp; (IsQuestCompleted(10791)))" >
+				<CustomBehavior File="FlyTo" DestName="Stonebreaker Hold" X="-2651.536" Y="4396.26" Z="36.21259" />
+				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Welcoming the Wolf Spirit" QuestId="10791" TurnInName="Malukaz" TurnInId="18384" />
 				<RunTo X="-2650.843" Y="4396.41" Z="36.13869" />
 			</If>
@@ -2961,8 +2963,8 @@
 			<If Condition="!HasQuest(9797) &amp;&amp; !IsQuestCompleted(9797)">
 				<CustomBehavior File="FlyTo" X="261.7116" Y="7860.628" Z="23.40682" />
 				<CustomBehavior File="ForcedDismount" />
-			</If>
 		<PickUp QuestName="Reinforcements for Garadar" QuestId="9797" GiverName="Messenger Gazgrigg" GiverId="18091" />
+			</If>
 	   
 			<If Condition="(Me.Level &lt; 66)" >
 				<CustomBehavior File="FlyTo" X="-1535.106" Y="7594.53" Z="-5.453713" />
@@ -3773,6 +3775,10 @@
 			<Objective QuestName="Silkwing Cocoons" QuestId="10617" Type="CollectItem" ItemId="30791" CollectCount="8" />	
 		<TurnIn QuestName="The Softest Wings" QuestId="10618" TurnInName="Silmara" TurnInId="21896" />
 		<TurnIn QuestName="Silkwing Cocoons" QuestId="10617" TurnInName="Taerek" TurnInId="21895" />
+			<If Condition="((HasQuest(10860)) &amp;&amp; (IsQuestCompleted(10860)))" >
+				<CustomBehavior File="FlyTo" DestName="Mok'nathal Village" X="2200.936" Y="4748.813" Z="157.1842" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
 		<TurnIn QuestName="Mok'Nathal Treats" QuestId="10860" TurnInName="Matron Varah" TurnInId="21088" />
 	<!--END Blade's Edge Mountains Questing-->
 
@@ -4834,5 +4840,10 @@
 		
 		
 	</QuestOrder>
+	
+	<ProtectedItems>
+		<Item Name="Raptor Ribs" Id="31670" />
+		<Item Name="Serpent Flesh" Id="31671" />
+	</ProtectedItems>
 
 </HBProfile>
