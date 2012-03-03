@@ -91,8 +91,19 @@
 	</Vendors>
 	
 	<!--Kalimdor Main Overrides-->
-
 	<Quest Id="24574" Name="To Harvest Chaos">
+		<Objective Type="CollectItem" ItemId="49883" CollectCount="1">
+			<CollectFrom>
+				<Mob Id="37092" Name="Outgrowth" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="-1545.388" Y="-1802.803" Z="91.67889" />
+				<Hotspot X="-1579.533" Y="-1861.757" Z="93.69714" />
+				<Hotspot X="-1652.029" Y="-2012.186" Z="92.35602" />
+				<Hotspot X="-1586.544" Y="-2117.938" Z="94.68221" />
+				<Hotspot X="-1633.573" Y="-2266.211" Z="97.01817" />			
+			</Hotspots>
+		</Objective>
 		<Objective Type="KillMob" MobId="37092" KillCount="5">
 			<Hotspots>
 				<Hotspot X="-1545.388" Y="-1802.803" Z="91.67889" />
@@ -2158,11 +2169,13 @@
 			</If>
 			<If Condition="Me.Race == WoWRace.Tauren" >
 				<CustomBehavior File="ForceTrainRiding" MobId="3690" />
-				<If Condition="!HasItem(15277)" >
-					<CustomBehavior File="InteractWith" MobId="3685" BuyItemId="15277" WaitTime="5000" X="-2279.796" Y="-392.0697" Z="-9.396863" />
-				</If>
+				<While Condition="!HasItem(15277)" >
+					<CustomBehavior File="InteractWith" MobId="3685" BuyItemId="15277" WaitTime="5000" Range="2" X="-2279.796" Y="-392.0697" Z="-9.396863" />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
+				</While>
 				<If Condition="HasItem(15277)" >
-						<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(15277)" WaitTime="1000" />
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(15277)" WaitTime="1000" />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
 				</If>
 			</If>
 			<If Condition="Me.Race == WoWRace.Undead" >
@@ -2349,7 +2362,9 @@
 			 <If Condition="((HasQuest(13712)) &amp;&amp; (!IsQuestCompleted(13712)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
 				<CustomBehavior File="AbandonQuest" QuestId="13712" Type="Incomplete" />
+				<CustomBehavior File="NoCombatMoveTo" X="1236.776" Y="-2251.217" Z="91.92881" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+				<RunTo X="-441.8" Y="-2596.08" Z="96.06" /> <!-- Crossroads -->
 		<PickUp QuestName="To the Rescue!" QuestId="13712" GiverName="Kadrak" GiverId="8582" X="1236.776" Y="-2251.217" Z="91.92881" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
 				<RunTo X="-441.8" Y="-2596.08" Z="96.06" /> <!-- Crossroads -->
