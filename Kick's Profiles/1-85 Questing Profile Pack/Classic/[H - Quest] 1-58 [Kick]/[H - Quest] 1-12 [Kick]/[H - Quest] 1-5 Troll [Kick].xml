@@ -477,9 +477,17 @@
 		<TurnIn QuestName="Consort of the Sea Witch" QuestId="24625" TurnInName="Tegashi" TurnInId="37987" />
 		<TurnIn QuestName="Saving the Young" QuestId="24623" TurnInName="Kijara" TurnInId="37969" />
 		<PickUp QuestName="Young and Vicious" QuestId="24626" GiverName="Kijara" GiverId="37969" />
-			<CustomBehavior QuestId="24626" File="WaitTimer" WaitTime="10000" />
-			<CustomBehavior File="UseItemOn" QuestId="24626" ItemId="50053" Range="15" MobId="38002" X="-1550.751" Y="-5311.479" Z="8.237605" />
-			<RunTo QuestId="24626" X="-1304.525" Y="-5443.421" Z="14.68565" />
+			<While Condition="((HasQuest(24626)) &amp;&amp; (!IsQuestCompleted(24626)))" >
+				<CustomBehavior QuestId="24626" File="WaitTimer" WaitTime="10000" />
+				<CustomBehavior File="UseItemOn" QuestId="24626" ItemId="50053" Range="10" WaitForNpcs="False" MobId="38002" X="-1550.751" Y="-5311.479" Z="8.237605" />
+				<CustomBehavior QuestId="24626" File="WaitTimer" WaitTime="3000" />
+				<RunTo QuestId="24626" X="-1304.525" Y="-5443.421" Z="14.68565" />
+				<CustomBehavior QuestId="24626" File="WaitTimer" WaitTime="10000" />
+				<CustomBehavior File="AbandonQuest" QuestId="24626" Type="Incomplete" />
+				<CustomBehavior QuestId="24626" File="WaitTimer" WaitTime="10000" />
+		<PickUp QuestName="Young and Vicious" QuestId="24626" GiverName="Kijara" GiverId="37969" />
+				<CustomBehavior QuestId="24626" File="WaitTimer" WaitTime="2000" />
+			</While>
 		<TurnIn QuestName="Young and Vicious" QuestId="24626" TurnInName="Moraya" TurnInId="38005" />
 		<TurnIn QuestName="Crab Fishin'" QuestId="25037" TurnInName="Tora'jin" TurnInId="39007" />
 		<PickUp QuestName="Breaking the Line" QuestId="25035" GiverName="Tortunga" GiverId="38440" />
