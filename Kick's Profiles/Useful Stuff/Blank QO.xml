@@ -129,7 +129,6 @@
 			 </If>
 			 <If Condition="(!Me.HasAura(&quot;string&quot;))" >
 			 </If>
-				<CustomBehavior File="FlightToggle" Flight="False" />
 				<CustomBehavior File="FlyTo" DestName="" 
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="MyCTM" 
@@ -268,8 +267,20 @@
 
 		-->
 		
-		
-		
+				<CustomBehavior File="FlyTo" X="-7016.889" Y="-3350.479" Z="241.6674" />
+				<CustomBehavior File="AbandonQuest" QuestId="27789" Type="Incomplete" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for abandon {TimeRemaining}" />
+				
+		<PickUp QuestName="Troggish Troubles" QuestId="27789" GiverName="Dr. Hieronymus Blam" GiverId="46664" />
+			<If Condition="((HasQuest(27789)) &amp;&amp; (!IsQuestCompleted(27789)))" >
+				<RunTo X="-7016.889" Y="-3350.479" Z="241.6674" />
+				<CustomBehavior File="FlyTo" X="-6986.367" Y="-3411.497" Z="241.6663" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="NoControlVehicle" QuestId="27789" TypeId="5" VehicleId="46707" VehicleMountId="46707"
+											MobId1="46711" MobIdSecondary1="46712" AttackButton="1" AttackButtonSecondary="2" MaxRange="100" OftenToUse="700" />
+			</If>
+				<CustomBehavior File="FlyTo" X="-7016.889" Y="-3350.479" Z="241.6674" />
 	
 		
 		
@@ -305,7 +316,6 @@
 				<CustomBehavior File="ForcedDismount" />
 			</If>
 	
-				<CustomBehavior File="Misc\RunLua" Lua="i=GetQuestLogIndexByID(12069) a,b,c,d,e,f,g,h,j=GetQuestLogTitle(i) if g==-1 then SelectQuestLogEntry(i) SetAbandonQuest(i) AbandonQuest(i) end" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 	
 				<CustomBehavior File="Misc\RunLua" Lua="" WaitTime="1000" />
