@@ -6727,7 +6727,24 @@
 				<CustomBehavior File="UsePetAbility" AttackButton="2" WaitTime="1000" />
 			</While>
 			<Objective QuestName="The Sorrow and the Fury" QuestId="27831" Type="KillMob" MobId="46916" KillCount="12" />
-		<TurnIn QuestName="The Sorrow and the Fury" QuestId="27831" TurnInName="Rhea" TurnInId="46654" />
+			<While Condition="((HasQuest(27831)) &amp;&amp; (IsQuestCompleted(27831)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="27831" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
+			</While>
+		<TurnIn QuestName="The Hidden Clutch" QuestId="27832" TurnInName="Rhea" TurnInId="46654" X="-6537.37" Y="-2392.14" Z="293.2635" />
+		<PickUp QuestName="Rheastrasza's Gift" QuestId="27858" GiverName="Rhea" GiverId="46654" X="-6537.37" Y="-2392.14" Z="293.2635" />
+			<If Condition="((HasQuest(27858)) &amp;&amp; (!IsQuestCompleted(27858)))" >
+				<CustomBehavior File="WaitTimer" WaitTime="95000" GoalText="Waiting for Rhea {TimeRemaining}" />
+			</If>
+			<While Condition="((HasQuest(27858)) &amp;&amp; (IsQuestCompleted(27858)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="27858" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
+			</While>
+		<TurnIn QuestName="Devastation" QuestId="27930" TurnInName="Rhea's Final Note" TurnInId="206504" X="-6471.985" Y="-2480.643" Z="306.2125" />
+			<If Condition="((!HasQuest(27859)) &amp;&amp; (!IsQuestCompleted(27859)))" >
+				<CustomBehavior File="InteractWith" MobId="46664" Range="8" X="-6479.14" Y="-2454.24" Z="306.8487" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />	
+			</If>
 			-->
 			
 		
@@ -7268,8 +7285,8 @@
 			</While>
 			<While Condition="((HasQuest(28415)) &amp;&amp; (!IsQuestCompleted(28415)))" >
 				<CustomBehavior File="Message" Text="Users might get stuck here - this should be fixed next HB release (ignore mobs in blackspots)" LogColor="Orange" />
-				<CustomBehavior File="InteractWith" QuestId="28415" MobId="48671" NumOfTimes="3" CollectionDistance="100" X="-8071.622" Y="-2559.003" Z="136.9341" />
-				<CustomBehavior File="InteractWith" QuestId="28415" MobId="48671" NumOfTimes="3" CollectionDistance="100" X="-8238.42" Y="-2368.583" Z="154.7202" />
+				<CustomBehavior File="InteractWith" QuestId="28415" MobId="48671" NumOfTimes="7" IgnoreMobsInBlackspots="True" WaitForNpcs="False" CollectionDistance="300" X="-8071.622" Y="-2559.003" Z="136.9341" />
+				<CustomBehavior File="InteractWith" QuestId="28415" MobId="48671" NumOfTimes="7" IgnoreMobsInBlackspots="True" WaitForNpcs="False" CollectionDistance="300" X="-8238.42" Y="-2368.583" Z="154.7202" />
 			</While>
 			<Objective QuestName="Blackened Ashes" QuestId="28311" Type="CollectItem" ItemId="63421" CollectCount="9" />
 			<While Condition="((HasQuest(28312)) &amp;&amp; (!IsQuestCompleted(28312)))" >
