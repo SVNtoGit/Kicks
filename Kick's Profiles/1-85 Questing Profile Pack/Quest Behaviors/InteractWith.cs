@@ -109,7 +109,7 @@ namespace Styx.Bot.Quest_Behaviors.InteractWith
                 WaitForNpcs = GetAttributeAsNullable<bool>("WaitForNpcs", false, null, null) ?? true;
                 WaitTime = GetAttributeAsNullable<int>("WaitTime", false, ConstrainAs.Milliseconds, null) ?? 3000;
                 IgnoreCombat = GetAttributeAsNullable<bool>("IgnoreCombat", false, null, null) ?? false;
-                IgnoreMobsInBlackspots = GetAttributeAsNullable<bool>("IgnoreMobsInBlackspots", false, null, null) ?? false;
+                IgnoreMobsInBlackspots = GetAttributeAsNullable<bool>("IgnoreMobsInBlackspots", false, null, null) ?? true;
 
                 for (int i = 0; i < GossipOptions.Length; ++i)
                 { GossipOptions[i] -= 1; }
@@ -231,8 +231,8 @@ namespace Styx.Bot.Quest_Behaviors.InteractWith
 
 
                         List<WoWUnit> baseTargets = ObjectManager.GetObjectsOfType<WoWUnit>()
-                                                               .Where(obj => obj.IsValid && !_npcBlacklist.Contains(obj.Guid) && !BehaviorBlacklist.Contains(obj.Guid) && 
-                                                                   (!NotMoving || !obj.IsMoving) && !BlacklistIfPlayerNearby(obj) && (!IgnoreMobsInBlackspots || Targeting.IsTooNearBlackspot(ProfileManager.CurrentProfile.Blackspots, obj.Location)) &&
+                                                               .Where(obj => obj.IsValid && !_npcBlacklist.Contains(obj.Guid) && !BehaviorBlacklist.Contains(obj.Guid) &&
+                                                                   (!NotMoving || !obj.IsMoving) && (!IgnoreMobsInBlackspots || (IgnoreMobsInBlackspots && !Targeting.IsTooNearBlackspot(ProfileManager.CurrentProfile.Blackspots, obj.Location))) &&
                                                                     MobIds.Contains((int)obj.Entry) &&
                                                                    !Me.Minions.Contains(obj) &&
                                                                    obj.DistanceSqr < CollectionDistance * CollectionDistance)
@@ -240,7 +240,7 @@ namespace Styx.Bot.Quest_Behaviors.InteractWith
                         //Fix for undead-quest (and maybe some more), these npcs are minions
                         if (baseTargets.Count == 0) baseTargets = ObjectManager.GetObjectsOfType<WoWUnit>()
                                                                   .Where(obj => obj.IsValid && !_npcBlacklist.Contains(obj.Guid) && !BehaviorBlacklist.Contains(obj.Guid) &&
-                                                                      (!NotMoving || !obj.IsMoving) && !BlacklistIfPlayerNearby(obj) && (!IgnoreMobsInBlackspots || Targeting.IsTooNearBlackspot(ProfileManager.CurrentProfile.Blackspots, obj.Location)) &&
+                                                                      (!NotMoving || !obj.IsMoving) && (!IgnoreMobsInBlackspots || (IgnoreMobsInBlackspots && !Targeting.IsTooNearBlackspot(ProfileManager.CurrentProfile.Blackspots, obj.Location))) &&
                                                                        MobIds.Contains((int)obj.Entry) &&
                                                                       obj.DistanceSqr < CollectionDistance * CollectionDistance)
                                                                   .OrderBy(obj => obj.DistanceSqr).ToList();
@@ -341,7 +341,8 @@ namespace Styx.Bot.Quest_Behaviors.InteractWith
                                         {
                                             TreeRoot.StatusText = "Interacting with - " + CurrentObject.Name;
                                             CurrentObject.Interact();
-                                            _npcBlacklist.Add(CurrentObject.Guid);
+                                            if (CurrentObject != null)
+                                                _npcBlacklist.Add(CurrentObject.Guid);
 
                                             Thread.Sleep(2000);
                                             Counter++;
