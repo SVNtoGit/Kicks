@@ -6969,7 +6969,40 @@
 			</If>
 		<PickUp QuestName="The Mountain-Lord's Support" QuestId="28035" GiverName="Mountain-Lord Rendan" GiverId="47393" />
 		<TurnIn QuestName="The Mountain-Lord's Support" QuestId="28035" TurnInName="Overseer Oilfist" TurnInId="14625" />
-			<!-- add the nocontrolvehicle here, and add an override to the turnin npc -->
+			<!-- add the nocontrolvehicle here, and add an override to the turnin npc
+		<PickUp QuestName="Operation: Stir the Cauldron" QuestId="28052" GiverName="Overseer Oilfist" GiverId="14625" />
+			<If Condition="((HasQuest(28052)) &amp;&amp; (!IsQuestCompleted(28052)))" >
+			 <If Condition="(!Me.IsOnTransport)" >
+				<CustomBehavior File="InteractWith" QuestId="28052" MobId="2941" GossipOptions="2" X="-6559.06" Y="-1169.38" Z="309.7966" />
+			 </If>
+			 <If Condition="(Me.IsOnTransport)" >
+				<CustomBehavior File="WaitTimer" WaitTime="80000" GoalText="Waiting for flight {TimeRemaining}" />
+			 </If>
+			</If>
+		<TurnIn QuestName="Operation: Stir the Cauldron" QuestId="28052" TurnInName="Mountain-Lord Rendan" TurnInId="47393" X="-6868.26" Y="-1233.31" Z="176.803" />
+		<PickUp QuestName="Slavery is Bad" QuestId="28054" GiverName="Mountain-Lord Rendan" GiverId="47393" X="-6868.26" Y="-1233.31" Z="176.803" />
+		<PickUp QuestName="Sweet, Horrible Freedom" QuestId="28055" GiverName="Mountain-Lord Rendan" GiverId="47393" X="-6868.26" Y="-1233.31" Z="176.803" />
+		<PickUp QuestName="Rise, Obsidion" QuestId="28056" GiverName="Mountain-Lord Rendan" GiverId="47393" X="-6868.26" Y="-1233.31" Z="176.803" />
+			<If Condition="((HasQuest(28056)) &amp;&amp; (!IsQuestCompleted(28056)))">
+				<CustomBehavior File="UserSettings" PullDistance="5" />
+				<CustomBehavior File="InteractWith" ObjectType="Gameobject" MobId="161536" WaitTime="500" Range="4" X="-6760.008" Y="-1166.511" Z="187.1132" />
+				<RunTo X="-6475.894" Y="-1246.911" Z="180.2551" />
+				<CustomBehavior File="UserSettings" PullDistance="25" />
+			 <While Condition="((HasQuest(28056)) &amp;&amp; (!IsQuestCompleted(28056)))">
+				<CustomBehavior File="InteractWith" ObjectType="Gameobject" MobId="148498" GossipOptions="1" WaitTime="1000" Range="8" X="-6475.894" Y="-1246.911" Z="180.2551" />
+				<CustomBehavior File="WaitTimer" WaitTime="25000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="28056" MobId="8400" WaitForNpcs="False" MobState="Alive" />
+				<CustomBehavior File="InteractWith" QuestId="28056" MobId="8391" WaitForNpcs="False" />
+			 </While>
+			</If>
+			<While Condition="((HasQuest(28055)) &amp;&amp; (!IsQuestCompleted(28055)))">
+				<CustomBehavior File="InteractWith" QuestId="28055" MobId="5843" NumOfTimes="100" GossipOptions="1" WaitForNpcs="False" WaitTime="1000" CollectionDistance="150" X="-6669.781" Y="-1191.464" Z="181.3028" />
+			</While>
+			<Objective QuestName="Slavery is Bad" QuestId="28054" Type="KillMob" MobId="5844" KillCount="10" />
+		<TurnIn QuestName="Slavery is Bad" QuestId="28054" TurnInName="Evonice Sootsmoker" TurnInId="14628" X="-6527.08" Y="-1299.62" Z="200.929" />
+		<TurnIn QuestName="Sweet, Horrible Freedom" QuestId="28055" TurnInName="Evonice Sootsmoker" TurnInId="14628" X="-6527.08" Y="-1299.62" Z="200.929" />
+		<TurnIn QuestName="Rise, Obsidion" QuestId="28056" TurnInName="Evonice Sootsmoker" TurnInId="14628" />
+			-->
 			
 			
 					<SetGrindArea>
@@ -7157,6 +7190,12 @@
 				<CustomBehavior File="InteractWith" QuestId="28245" MobId="206977" WaitForNpcs="False" ObjectType="Gameobject" Range="5" NumOfTimes="10" CollectionDistance="1000" X="-8139.08" Y="-1578.982" Z="133.5204" />
 				<CustomBehavior File="InteractWith" QuestId="28245" MobId="206977" WaitForNpcs="False" ObjectType="Gameobject" Range="5" NumOfTimes="10" CollectionDistance="1000" X="-8126.334" Y="-1520.232" Z="133.7842" />	
 			</While>
+			<If Condition="((HasQuest(28245)) &amp;&amp; (HasItem(63357)))" >
+			 <If Condition="(!Me.HasAura(&quot;Blackrock Disguise&quot;))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(63357)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for  {TimeRemaining}" />
+			 </If>
+			</If>
 		<TurnIn QuestName="Grunt Work" QuestId="28245" TurnInName="Quartermaster Kaoshin" TurnInId="48085" />		
 		<PickUp QuestName="The Kodocaller's Horn" QuestId="28252" GiverName="Quartermaster Kaoshin" GiverId="48085" />
 			<While Condition="((HasQuest(28252)) &amp;&amp; (!IsQuestCompleted(28252)))" >
