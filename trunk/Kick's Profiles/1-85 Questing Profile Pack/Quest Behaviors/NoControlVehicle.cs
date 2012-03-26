@@ -54,14 +54,16 @@ namespace Styx.Bot.Quest_Behaviors
                 MaxRange = GetAttributeAsNullable<double>("MaxRange", false, ConstrainAs.Range, null) ?? 1;
                 MountedPoint = WoWPoint.Empty;
                 NumOfTimes = GetAttributeAsNullable<int>("NumOfTimes", false, ConstrainAs.RepeatCount, new[] { "TimesToUse" }) ?? 1;
+                Range = GetAttributeAsNullable<double>("Range", false, ConstrainAs.Range, null) ?? 400;
                 OftenToUse = GetAttributeAsNullable<int>("OftenToUse", false, ConstrainAs.Milliseconds, null) ?? 1000;
                 QuestId = GetAttributeAsNullable<int>("QuestId", false, ConstrainAs.QuestId(this), null) ?? 0;
-                SpellType = GetAttributeAsNullable<int>("TypeId", false, new ConstrainTo.Domain<int>(0, 5), null) ?? 2;
+                SpellType = GetAttributeAsNullable<int>("TypeId", false, new ConstrainTo.Domain<int>(0, 6), null) ?? 2;
+                ItemId = GetAttributeAsNullable<int>("ItemId", false, ConstrainAs.ItemId, null) ?? 1;
                 TargetIds = GetNumberedAttributesAsArray<int>("TargetId", 1, ConstrainAs.MobId, new[] { "MobId", "NpcId" });
-                TargetIdsSecondary = GetNumberedAttributesAsArray<int>("TargetIdSecondary", 0, ConstrainAs.MobId, new[] { "MobIdSecondary", "NpcIdSecondary" });
                 VehicleId = GetAttributeAsNullable<int>("VehicleId", false, ConstrainAs.VehicleId, null) ?? 0;
                 VehicleMountId = GetAttributeAsNullable<int>("VehicleMountId", false, ConstrainAs.VehicleId, new[] { "NpcMountId", "NpcMountID" }) ?? 1;
                 WaitTime = GetAttributeAsNullable<int>("WaitTime", false, ConstrainAs.Milliseconds, null) ?? 0;
+
 
                 Counter = 1;
             }
@@ -92,22 +94,27 @@ namespace Styx.Bot.Quest_Behaviors
         public QuestCompleteRequirement QuestRequirementComplete { get; private set; }
         public QuestInLogRequirement QuestRequirementInLog { get; private set; }
         public int SpellType { get; private set; }
+        public int ItemId { get; private set; }
         public int[] TargetIds { get; private set; }
-        public int[] TargetIdsSecondary { get; private set; }
         public int NumOfTimes { get; private set; }
         public int WaitTime { get; private set; }
         public int VehicleId { get; private set; }
         public int VehicleMountId { get; private set; }
+        public double Range { get; private set; }
 
         // Private variables for internal state
         private bool _isBehaviorDone;
         private bool _isDisposed;
         private Composite _root;
+        private Helpers.WaitTimer _timer;
 
         // Private properties
         private int Counter { get; set; }
         private bool InVehicle { get { return Lua.GetReturnVal<int>("if IsPossessBarVisible() or UnitInVehicle('player') then return 1 else return 0 end", 0) == 1; } }
         private LocalPlayer Me { get { return (ObjectManager.Me); } }
+
+        private readonly List<ulong> _npcBlacklist = new List<ulong>();
+
         private List<WoWUnit> NpcList
         {
             get
@@ -116,30 +123,12 @@ namespace Styx.Bot.Quest_Behaviors
                 {
                     return (ObjectManager.GetObjectsOfType<WoWUnit>()
                                             .Where(u => TargetIds.Contains((int)u.Entry)
-                                                        && (VehicleList[0].Location.Distance(u.Location) <= MaxRange) && !u.Dead)
+                                                        && (VehicleList[0].Location.Distance(u.Location) <= MaxRange) && !u.Dead && !_npcBlacklist.Contains(u.Guid))
                                             .OrderBy(u => u.Distance)
                                             .ToList());
                 }
                 return (ObjectManager.GetObjectsOfType<WoWUnit>()
-                                        .Where(u => TargetIds.Contains((int)u.Entry) && !u.Dead)
-                                        .OrderBy(u => u.Distance)
-                                        .ToList());
-            }
-        }
-        private List<WoWUnit> NpcListSecondary
-        {
-            get
-            {
-                if (VehicleList.Count > 0)
-                {
-                    return (ObjectManager.GetObjectsOfType<WoWUnit>()
-                                            .Where(u => TargetIdsSecondary.Contains((int)u.Entry)
-                                                        && (VehicleList[0].Location.Distance(u.Location) <= MaxRange) && !u.Dead)
-                                            .OrderBy(u => u.Distance)
-                                            .ToList());
-                }
-                return (ObjectManager.GetObjectsOfType<WoWUnit>()
-                                        .Where(u => TargetIdsSecondary.Contains((int)u.Entry) && !u.Dead)
+                                        .Where(u => TargetIds.Contains((int)u.Entry) && !u.Dead && !_npcBlacklist.Contains(u.Guid))
                                         .OrderBy(u => u.Distance)
                                         .ToList());
             }
@@ -161,6 +150,14 @@ namespace Styx.Bot.Quest_Behaviors
                 return (ObjectManager.GetObjectsOfType<WoWUnit>()
                                      .Where(ret => (ret.Entry == VehicleId) && !ret.Dead)
                                      .ToList());
+            }
+        }
+
+        public WoWItem UseItem
+        {
+            get
+            {
+                return StyxWoW.Me.CarriedItems.FirstOrDefault(ret => ret.Entry == ItemId);
             }
         }
 
@@ -241,66 +238,64 @@ namespace Styx.Bot.Quest_Behaviors
                         })
                     ),
 
-                    new Decorator(c => NpcVehicleList.Count > 0 && !InVehicle,
-                        new Action(c =>
-                        {
-                            if (!NpcVehicleList[0].WithinInteractRange)
-                            {
-                                Navigator.MoveTo(NpcVehicleList[0].Location);
-                                TreeRoot.StatusText = "Moving To Vehicle - " + NpcVehicleList[0].Name + " Yards Away: " + NpcVehicleList[0].Location.Distance(Me.Location);
-                            }
-                            else
-                            {
-                                NpcVehicleList[0].Interact();
-                                MountedPoint = Me.Location;
-                            }
+                    new Decorator(ret => NpcVehicleList.Count > 0 && !InVehicle,
+                            new PrioritySelector(
+                                new Decorator(ret => !NpcVehicleList[0].WithinInteractRange,
+                                    new Sequence(
+                                        new Action(ret => Navigator.MoveTo(NpcVehicleList[0].Location)),
+                                        new Action(ret => TreeRoot.StatusText = "Moving To Vehicle - " + NpcVehicleList[0].Name + " Yards Away: " + NpcVehicleList[0].Location.Distance(Me.Location))
+                                        )),
+                                new Decorator(ret => NpcVehicleList[0].WithinInteractRange,
+                                    new Sequence(
+                                        new Action(ret => NpcVehicleList[0].Interact()),
+                                        new Action(ret => MountedPoint = Me.Location)
+                                       // new Action(c => RunStatus.Success)
+                                        )))
 
-                        })
-                    ),
-                    new Decorator(c => InVehicle && SpellType == 1,
-                        new Action(c =>
-                        {
-                            if (NpcList.Count == 0 || NpcList[0].Location.Distance(VehicleList[0].Location) > 15)
-                            {
-                                TreeRoot.StatusText = "Waiting for Mob to Come Into Range or Appear.";
-                                return RunStatus.Running;
-                            }
-                            else if (NpcList.Count >= 1 && NpcList[0].Location.Distance(VehicleList[0].Location) <= 15)
-                            {
-                                TreeRoot.StatusText = "Attacking: " + NpcList[0].Name + ", AttackButton: " + AttackButton;
-                                NpcList[0].Target();
-                                Lua.DoString("CastPetAction({0})", AttackButton);
-                                Thread.Sleep(WaitTime);
-                                Counter++;
-                                return RunStatus.Success;
-                            }
-                            return RunStatus.Running;
-                        })),
+                   ),
 
-                    new Decorator(c => InVehicle && SpellType == 2,
-                        new Action(c =>
-                        {
-                            if (NpcList.Count >= 1)
-                            {
-                                Thread.Sleep(OftenToUse);
+                   new Decorator(ret => InVehicle && SpellType == 1,
+                            new PrioritySelector(
+                                new Decorator(ret => NpcList.Count == 0 || NpcList[0].Location.Distance(VehicleList[0].Location) > 15,
+                                    new Sequence(
+                                        new Action(ret => TreeRoot.StatusText = "Waiting for Mob to Come Into Range or Appear.")
+                                        //new Action(c => RunStatus.Running)
+                                            )),
+                                new Decorator(ret => NpcList.Count >= 1 && NpcList[0].Location.Distance(VehicleList[0].Location) <= 15,
+                                    new Sequence(
+                                        new Action(ret => TreeRoot.StatusText = "Attacking: " + NpcList[0].Name + ", AttackButton: " + AttackButton),
+                                        new Action(ret => NpcList[0].Target()),
+                                        new Action(ret => Lua.DoString("CastPetAction({0})", AttackButton)),
+                                        new Action(ret => Counter++)
+                                       // new Action(ret => RunStatus.Success)
+                                        )))
 
-                                TreeRoot.StatusText = "Attacking: " + NpcList[0].Name + ", AttackButton: " + AttackButton + ", Times Used: " + Counter;
+                   ),
 
-                                if ((Counter > NumOfTimes && QuestId == 0) || (Me.QuestLog.GetQuestById((uint)QuestId) != null && Me.QuestLog.GetQuestById((uint)QuestId).IsCompleted && QuestId > 0))
-                                {
-                                    Lua.DoString("VehicleExit()");
-                                    _isBehaviorDone = true;
-                                    return RunStatus.Success;
-                                }
-                                NpcList[0].Target();
-                                Lua.DoString("CastPetAction({0})", AttackButton);
-                                LegacySpellManager.ClickRemoteLocation(NpcList[0].Location);
-                                Thread.Sleep(WaitTime);
-                                Counter++;
-                                return RunStatus.Running;
-                            }
-                            return RunStatus.Running;
-                        })),
+                   new Decorator(ret => InVehicle && SpellType == 2 && _timer.IsFinished,
+                            new PrioritySelector(
+                                new Decorator(ret => (Counter > NumOfTimes && QuestId == 0) || (Me.QuestLog.GetQuestById((uint)QuestId) != null && Me.QuestLog.GetQuestById((uint)QuestId).IsCompleted && QuestId > 0),
+                                    new Sequence(
+                                        new Action(ret => Lua.DoString("VehicleExit()")),
+                                        new Action(ret => _isBehaviorDone = true)
+                                        //new Action(c => RunStatus.Running)
+                                            )),
+                                new Decorator(ret => NpcList.Count >= 1,
+                                    new Sequence(
+                                        new Action(ret => TreeRoot.StatusText = "Attacking: " + NpcList[0].Name + ", AttackButton: " + AttackButton + ", Times Used: " + Counter),
+                                        new Action(ret => NpcList[0].Target()),
+                                        new Action(ret => Lua.DoString("CastPetAction({0})", AttackButton)),
+                                        new Action(ret => LegacySpellManager.ClickRemoteLocation(NpcList[0].Location)),
+                                        new Action(ret => _timer.Reset()),
+                                        new Action(ret => Counter++)//,
+                                        //new Action(ret => RunStatus.Running)
+                                        ))//,
+                               /* new Decorator(ret => NpcList.Count == 0,
+                                    new Sequence(
+                                        new Action(ret => RunStatus.Running)
+                                        ))*/
+
+                   )),
 
                    new Decorator(c => InVehicle && SpellType == 3,
                        new PrioritySelector(
@@ -324,71 +319,98 @@ namespace Styx.Bot.Quest_Behaviors
 
                                             Thread.Sleep(WaitTime);
                                             Counter++;
-                                            return RunStatus.Success;
+                                            //return RunStatus.Success;
                                         }))))),
 
-                    new Decorator(c => InVehicle && SpellType == 4,
-                        new Action(c =>
-                        {
-                            if (NpcList.Count >= 1)
-                            {
-                                using (new FrameLock())
-                                {
-                                    if ((Counter > NumOfTimes && QuestId == 0) || (Me.QuestLog.GetQuestById((uint)QuestId) != null && Me.QuestLog.GetQuestById((uint)QuestId).IsCompleted && QuestId > 0))
-                                    {
-                                        Lua.DoString("VehicleExit()");
-                                        _isBehaviorDone = true;
-                                        return RunStatus.Success;
-                                    }
-                                    NpcList[0].Target();
-                                    WoWMovement.ClickToMove(NpcList[0].Location);
-                                    Lua.DoString("CastPetAction({0})", AttackButton);
-                                    LegacySpellManager.ClickRemoteLocation(NpcList[0].Location);
-                                    Counter++;
-                                    return RunStatus.Running;
-                                }
-                            }
-                            return RunStatus.Running;
-                        })),
+                    new Decorator(ret => InVehicle && SpellType == 4 && _timer.IsFinished,
+                            new PrioritySelector(
+                                new Decorator(ret => (Counter > NumOfTimes && QuestId == 0) || (Me.QuestLog.GetQuestById((uint)QuestId) != null && Me.QuestLog.GetQuestById((uint)QuestId).IsCompleted && QuestId > 0),
+                                    new Sequence(
+                                        new Action(ret => Lua.DoString("VehicleExit()")),
+                                        new Action(ret => _isBehaviorDone = true)
+                                        //new Action(c => RunStatus.Running)
+                                            )),
+                                new Decorator(ret => NpcList.Count >= 1,
+                                    new Sequence(
+                                        new Action(ret => TreeRoot.StatusText = "Attacking: " + NpcList[0].Name + ", AttackButton: " + AttackButton + ", Times Used: " + Counter),
+                                        new Action(ret => NpcList[0].Target()),
+                                        new Action(ret => WoWMovement.ClickToMove(NpcList[0].Location)),
+                                        new Action(ret => Lua.DoString("CastPetAction({0})", AttackButton)),
+                                        new Action(ret => LegacySpellManager.ClickRemoteLocation(NpcList[0].Location)),
+                                        new Action(ret => _timer.Reset()),
+                                        new Action(ret => Counter++)
+                                        //new Action(ret => RunStatus.Running)
+                                        ))//,
+                                //new Decorator(ret => NpcList.Count == 0,
+                                   // new Sequence(
+                                        //new Action(ret => RunStatus.Running)
+                                      //  ))
 
-                   new Decorator(c => InVehicle && SpellType == 5,
-                        new Action(c =>
-                        {
-                            if (NpcList.Count >= 1 || NpcListSecondary.Count >= 1)
-                            {
-                                using (new FrameLock())
-                                {
-                                    if ((Counter > NumOfTimes && QuestId == 0) || (Me.QuestLog.GetQuestById((uint)QuestId) != null && Me.QuestLog.GetQuestById((uint)QuestId).IsCompleted && QuestId > 0))
-                                    {
-                                        Lua.DoString("VehicleExit()");
-                                        _isBehaviorDone = true;
-                                        return RunStatus.Success;
-                                    }
+                   )),
 
-                                    if (NpcList.Count > 0)
-                                    {
-                                        NpcList[0].Target();
-                                        WoWMovement.ConstantFace(Me.CurrentTargetGuid);
-                                        Lua.DoString("CastPetAction({0})", AttackButton);
-                                    }
+                   new Decorator(ret => InVehicle && SpellType == 5 && _timer.IsFinished,
+                            new PrioritySelector(
+                                new Decorator(ret => (Counter > NumOfTimes && QuestId == 0) || (Me.QuestLog.GetQuestById((uint)QuestId) != null && Me.QuestLog.GetQuestById((uint)QuestId).IsCompleted && QuestId > 0),
+                                    new Sequence(
+                                        new Action(ret => TreeRoot.StatusText = "Finished Quest or Counter, Exiting Vehicle"),
+                                        new Action(ret => Lua.DoString("VehicleExit()")),
+                                        new Action(ret => _isBehaviorDone = true)
+                                        //new Action(c => RunStatus.Running)
+                                            )),
+                                new Decorator(ret => NpcList.Count >= 1,
+                                    new Sequence(
+                                        new Action(ret => TreeRoot.StatusText = "Attacking: " + NpcList[0].Name + ", AttackButton: " + AttackButton + ", Times Used: " + Counter),
+                                        new Action(ret => Lua.DoString("CastPetAction({0})", AttackButton2)),
+                                        new Action(ret => NpcList[0].Target()),
+                                        new Action(ret => WoWMovement.ConstantFace(Me.CurrentTargetGuid)),
+                                        new Action(ret => Lua.DoString("CastPetAction({0})", AttackButton)),
+                                        new Action(ret => _timer.Reset()),
+                                        new Action(ret =>
+                                                       {
+                                                           if(QuestId == 0)
+                                                                Counter++;
+                                                       })
+                                        //new Action(ret => RunStatus.Running)
+                                        )),
+                                new Decorator(ret => NpcList.Count == 0,
+                                    new Sequence(
+                                        new Action(ret => TreeRoot.StatusText = "Waiting for Mobs to Appear")
+                                        //new Action(ret => RunStatus.Success)
+                                        ))
 
-                                    if (NpcListSecondary.Count > 0)
-                                    {
-                                        NpcListSecondary[0].Target();
-                                        WoWMovement.ConstantFace(Me.CurrentTargetGuid);
-                                        Lua.DoString("CastPetAction({0})", AttackButton);
-                                    }
+                   )),
 
-                                    Lua.DoString("CastPetAction({0})", AttackButton2);
+                   new Decorator(ret => InVehicle && SpellType == 6 && _timer.IsFinished,
+                            new PrioritySelector(
+                                new Decorator(ret => (Counter > NumOfTimes && QuestId == 0) || (Me.QuestLog.GetQuestById((uint)QuestId) != null && Me.QuestLog.GetQuestById((uint)QuestId).IsCompleted && QuestId > 0),
+                                    new Sequence(
+                                        new Action(ret => Lua.DoString("VehicleExit()")),
+                                        new Action(ret => _isBehaviorDone = true)
+                //new Action(c => RunStatus.Running)
+                                            )),
+                                new Decorator(ret => NpcList.Count >= 1 && NpcList[0].DistanceSqr <= Range * Range && UseItem != null && UseItem.Cooldown == 0,
+                                    new Sequence(
+                                        new Action(ret => TreeRoot.StatusText = "Attacking: " + NpcList[0].Name + ", AttackButton: " + AttackButton + ", Times Used: " + Counter),
+                                        new Action(ret => UseItem.UseContainerItem()),
+                                        new Action(ret => NpcList[0].Target()),
+                                        new Action(ret => _npcBlacklist.Add(NpcList[0].Guid)),
+                                        new Action(ret => LegacySpellManager.ClickRemoteLocation(NpcList[0].Location)),
+                                        new Action(ret => _timer.Reset()),
+                                        new Action(ret =>
+                                        {
+                                            if (QuestId == 0)
+                                                Counter++;
+                                        })
+                //new Action(ret => RunStatus.Running)
+                                        )),
+                                new Decorator(ret => NpcList.Count == 0,
+                                    new Sequence(
+                                        new Action(ret => TreeRoot.StatusText = "Waiting for Mobs to Appear")
+                //new Action(ret => RunStatus.Success)
+                                        ))
 
-                                    if(QuestId == 0)
-                                        Counter++;
+                   ))
 
-                                    return RunStatus.Running;
-                                }
-                            }
-                            return RunStatus.Running;
-                        }))
                 ));
         }
 
@@ -424,6 +446,20 @@ namespace Styx.Bot.Quest_Behaviors
                 PlayerQuest quest = StyxWoW.Me.QuestLog.GetQuestById((uint)QuestId);
 
                 TreeRoot.GoalText = this.GetType().Name + ": " + ((quest != null) ? ("\"" + quest.Name + "\"") : "In Progress");
+
+                _timer = new Helpers.WaitTimer(new TimeSpan(0, 0, 0, 0, WaitTime));
+
+                _timer.Reset();
+            }
+
+            if (TreeRoot.Current != null && TreeRoot.Current.Root != null && TreeRoot.Current.Root.LastStatus != RunStatus.Running)
+            {
+                var currentRoot = TreeRoot.Current.Root;
+                var root = currentRoot as GroupComposite;
+                if (root != null)
+                {
+                    root.InsertChild(0, CreateBehavior());
+                }
             }
         }
 
