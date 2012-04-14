@@ -2480,8 +2480,12 @@
 				<CustomBehavior File="ForcedDismount" />
 				<RunTo QuestId="25496" X="4772.958" Y="-4246.385" Z="891.9493" />
 				
+			 <While Condition="((HasQuest(25496)) &amp;&amp; (!IsQuestCompleted(25496)))" >
 				<CustomBehavior File="InteractWith" QuestId="25496" MobId="40409" NumOfTimes="1" GossipOptions="1" WaitTime="18000" CollectionDistance="100" X="4739.027" Y="-4231.847" Z="894.4716" />
-				<Objective QuestName="Grudge Match" QuestId="25496" Type="KillMob" MobId="40409" KillCount="1" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="25496" MobId="40409" NumOfTimes="1" WaitTime="2000" WaitForNpcs="False" CollectionDistance="100" X="4739.027" Y="-4231.847" Z="894.4716" />
+				<!-- <Objective QuestName="Grudge Match" QuestId="25496" Type="KillMob" MobId="40409" KillCount="1" /> -->
+			 </While>
 			</If>
 			<If Condition="((HasQuest(25496)) &amp;&amp; (IsQuestCompleted(25496)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4600.238" Y="-4756.223" Z="889.6208" />
