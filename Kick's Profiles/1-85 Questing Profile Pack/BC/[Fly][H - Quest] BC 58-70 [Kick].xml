@@ -1244,7 +1244,10 @@
 			<Objective QuestName="I Work... For the Horde!" QuestId="10086" Type="CollectItem" ItemId="67420" CollectCount="8" />
 			<Objective QuestName="Bonechewer Blood" QuestId="10450" Type="CollectItem" ItemId="30327" CollectCount="12" />
 		<TurnIn QuestName="I Work... For the Horde!" QuestId="10086" TurnInName="Megzeg Nukklebust" TurnInId="21283" />
+			<If Condition="((HasQuest(10450)) &amp;&amp; (IsQuestCompleted(10450)))">
 		<TurnIn QuestName="Bonechewer Blood" QuestId="10450" TurnInName="Vurtok Axebreaker" TurnInId="21256" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+			</If>
 		<TurnIn QuestName="Forward Base: Reaver's Fall" QuestId="10124" TurnInName="Forward Commander To'arch" TurnInId="19273" />
 		<PickUp QuestName="Disrupt Their Reinforcements" QuestId="10208" GiverName="Forward Commander To'arch" GiverId="19273" />
 			<If Condition="((HasQuest(10208)) &amp;&amp; (!IsQuestCompleted(10208)))" >
@@ -1276,19 +1279,20 @@
 			</If>
 		<TurnIn QuestName="Disrupt Their Reinforcements" QuestId="10208" TurnInName="Forward Commander To'arch" TurnInId="19273" />
 		<PickUp QuestName="Mission: Gateways Murketh and Shaadraz" QuestId="10129" GiverName="Forward Commander To'arch" GiverId="19273" />
-			<If Condition="HasQuest(10129) &amp;&amp; !IsQuestCompleted(10129)">
+			<While Condition="HasQuest(10129) &amp;&amp; !IsQuestCompleted(10129)">
 				<RunTo X="-24.09538" Y="2125.857" Z="112.7033" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" QuestId="10129" MobId="19401" GossipOptions="1" X="-24.09538" Y="2125.857" Z="112.7033" />
 				<CustomBehavior File="Message" Text="Azenius Plugin kicks-in." />
-			</If>
+			</While>
 		<TurnIn QuestName="Mission: Gateways Murketh and Shaadraz" QuestId="10129" TurnInName="Forward Commander To'arch" TurnInId="19273" />
 		<PickUp QuestName="Return to Thrallmar" QuestId="10388" GiverName="Forward Commander To'arch" GiverId="19273" />
 		<PickUp QuestName="Mission: The Abyssal Shelf" QuestId="10162" GiverName="Forward Commander To'arch" GiverId="19273" />
 			<While Condition="HasQuest(10162) &amp;&amp; !IsQuestCompleted(10162)">
+				<RunTo X="-24.09538" Y="2125.857" Z="112.7033" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" QuestId="10162" MobId="19401" GossipOptions="1" X="-24.09538" Y="2125.857" Z="112.7033" />
-				<CustomBehavior File="Message" Text="Plugin kicks-in." />
+				<CustomBehavior File="Message" Text="Azenius Plugin kicks-in." />
 			</While>
 		<TurnIn QuestName="Mission: The Abyssal Shelf" QuestId="10162" TurnInName="Forward Commander To'arch" TurnInId="19273" />
 		<TurnIn QuestName="Return to Thrallmar" QuestId="10388" TurnInName="Nazgrel" TurnInId="3230" />
