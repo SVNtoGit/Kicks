@@ -719,8 +719,7 @@
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
 			</If>
 			<If Condition="((HasQuest(27738)) &amp;&amp; (!IsQuestCompleted(27738)))" >
-				<!-- I need a no combat kite mob through eggs cb - QUEST IS BUGGED UNTIL BLIZZARD FIXES IT
-				-->
+				<!-- I need a no combat kite mob through eggs cb -->
 				<CustomBehavior File="FlyTo" X="-11452.82" Y="-1164.111" Z="17.70814" />
 				<CustomBehavior File="UserDialog" QuestId="27738" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill the Pit Master\n\nWatch out for the croc eggs in last phase\n\nPress continue after he's dead and I'll fly you back" />
 			</If>
@@ -761,10 +760,10 @@
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
 		<TurnIn QuestName="Ancient Weapons" TurnInName="High Commander Kamses" QuestId="27839" TurnInId="46134" />
-			<If Condition="((HasQuest(28145)) &amp;&amp; (!IsQuestCompleted(28145)))" >
+			<While Condition="((HasQuest(28145)) &amp;&amp; (!IsQuestCompleted(28145)))" >
 				<CustomBehavior File="FlyTo" X="-9067.526" Y="-930.2636" Z="148.6229" />
-				<CustomBehavior File="UseItemOn" QuestId="28145" MobId="45859" ItemId="63086" NumOfTimes="15" WaitTime="4000" CollectionDistance="500" X="-8831.353" Y="-611.8653" Z="180.2863" />
-			</If>
+				<CustomBehavior File="UseItemOn" QuestId="28145" MobId="45859" ItemId="63086" NumOfTimes="500" WaitTime="4000" CollectionDistance="500" X="-8831.353" Y="-611.8653" Z="180.2863" />
+			</While>
 			<Objective QuestName="Relics of the Sun King" QuestId="28141" Type="Collect" CollectCount="4" ItemId="63081" />
 			<If Condition="((HasQuest(28145)) &amp;&amp; (IsQuestCompleted(28145)))" >
 				<CustomBehavior File="FlyTo" X="-9171.189" Y="-841.3754" Z="138.2338" />
@@ -892,10 +891,12 @@
 		<TurnIn QuestName="The High Council's Decision" TurnInName="King Phaoris" QuestId="28533" TurnInId="47684" />
 				<CustomBehavior File="WaitTimer" WaitTime="100000"/>
 			</If>
+			<If Condition="((!HasQuest(28561)) &amp;&amp; (!IsQuestCompleted(28561)))" >
 		<PickUp QuestName="Nahom Must Hold" GiverName="King Phaoris" QuestId="28561" GiverId="47684" />
-			<If Condition="(HasQuest(28561))" >
 				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 				<RunTo X="-9431.04" Y="-959.1478" Z="111.0122" />
+			</If>
+			<If Condition="(HasQuest(28561))" >
 				<CustomBehavior File="FlyTo" X="-9775.439" Y="-1704.986" Z="22.25718" />
 			</If>
 		<TurnIn QuestName="Nahom Must Hold" TurnInName="Salhet" QuestId="28561" TurnInId="48761" />
@@ -1137,8 +1138,6 @@
 				<CustomBehavior File="FlyTo" X="-10412.96" Y="-380.4969" Z="284.8906" />
 		<TurnIn QuestName="Ignition" TurnInName="Titan Mechanism" QuestId="27903" TurnInId="50401" />
 				<CustomBehavior File="WaitTimer" WaitTime="45000"/>
-				<!-- The airplane doesn't lose any hp, ignoring it for now
-				<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Pickup Tailgunner and then defend until you're at the Dam" /> -->
 			</If>
 		<PickUp QuestName="Tailgunner!" GiverName="Harrison Jones" QuestId="27905" GiverId="46978" />
 			<If Condition="(HasQuest(27905))" >
@@ -1554,8 +1553,10 @@
 			</If>
 			<If Condition="((HasQuest(28633)) &amp;&amp; (IsQuestCompleted(28633)))" >
 		<TurnIn QuestName="The Coffer of Promise" TurnInName="Brann Bronzebeard" QuestId="28633" TurnInId="49351" />
+			 <If Condition="(Me.IsAlliance)" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(6948)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for hearth {TimeRemaining}" />
+			 </If>
 			</If>
 		<!-- not picking up The Heart of the Matter - instance quest -->
 
@@ -1575,7 +1576,7 @@
 				<CustomBehavior File="LoadProfile" ProfileName="[Fly][H - Quest] Twilight Highlands 84-85 [Kick]" /> 
 			</If>
 		
-		<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of Line" />
+		<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Something went wrong and we couldn't load TH profile!" />
 
 	</QuestOrder>
 	
