@@ -239,7 +239,7 @@
 			 </If>
 			</If>
 		
-		<CustomBehavior File="UserSettings" TrainNewSkills="False" FindVendorsAutomatically="True" LootMobs="True" LootRadius="30" UseMount="True" PullDistance="25"  />
+		<CustomBehavior File="UserSettings" TrainNewSkills="False" FindVendorsAutomatically="True" LootMobs="True" LootRadius="30" UseMount="True" PullDistance="15"  />
 		
 			<!-- Kezan Quests -->
 			<CustomBehavior File="Message" Text="Compiling Kezan Quests" LogColor="Green" />
@@ -372,12 +372,20 @@
 		<TurnIn QuestName="Primal Strike" QuestId="14011" TurnInName="Maxx Avalanche" TurnInId="34695"/>
 			</If>
 			<If Condition="Me.Class ==WoWClass.Mage">
+			<If Condition="((!HasQuest(14008)) &amp;&amp; (!IsQuestCompleted(14008)))" >
 		<PickUp QuestName="Arcane Missiles" QuestId="14008" GiverName="Fizz Lighter" GiverId="34689"/>
-			<CustomBehavior File="ForceSetVendor" QuestId="14008" DoSell="True" DoTrain="True" />
-			<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="133" MobId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
-			<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="5143" MobId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
-			<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="133" MobId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
-			<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="5143" MobId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
+				<CustomBehavior File="ForceSetVendor" QuestId="14008" DoSell="True" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
+				<CustomBehavior File="ForceSetVendor" QuestId="14008" DoTrain="True" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Using item {TimeRemaining}" />
+			</If>
+			<While Condition="((HasQuest(14008)) &amp;&amp; (!IsQuestCompleted(14008)))" >
+				<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="133" MobId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
+				<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="5143" MobId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
+				<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="133" MobId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
+				<CustomBehavior File="CastSpellOn" QuestId="14008" SpellId="5143" MobId="48304" NumOfTimes="1" MinRange="10" Range="12" X="-8427.5" Y="1305.22" Z="102.3335"/>
+			</While>
 		<TurnIn QuestName="Arcane Missiles" QuestId="14008" TurnInName="Fizz Lighter" TurnInId="34689"/>
 			</If>
 			<If Condition="Me.Class ==WoWClass.Rogue">
@@ -515,13 +523,13 @@
 				<CustomBehavior File="ForceSetVendor" DoTrain="True" />
 			</If>
         <PickUp QuestName="447" QuestId="14125" GiverName="Sassy Hardwrench" GiverId="34668" />
- 			<If Condition="((HasQuest(14125)) &amp;&amp; (!IsQuestCompleted(14125)))" >
+ 			<While Condition="((HasQuest(14125)) &amp;&amp; (!IsQuestCompleted(14125)))" >
 				<Objective QuestName="447" QuestId="14125" Type="UseObject" ObjectId="201735" UseCount="1" />
 				<Objective QuestName="447" QuestId="14125" Type="UseObject" ObjectId="201733" UseCount="1" />
 				<Objective QuestName="447" QuestId="14125" Type="UseObject" ObjectId="201734" UseCount="1" />
-				<CustomBehavior File="InteractWith" QuestId="14125" MobId="201736" ObjectType="Gameobject" Range="8" X="-8422.473" Y="1328.263" Z="102.0118" />
+				<CustomBehavior File="InteractWith" QuestId="14125" MobId="201736" ObjectType="Gameobject" Range="6" X="-8422.473" Y="1328.263" Z="102.0118" />
 				<CustomBehavior File="WaitTimer" WaitTime="16000" />
-			</If>
+			</While>
         <TurnIn QuestName="447" QuestId="14125" TurnInName="Claims Adjuster" TurnInId="37602" />
         <PickUp QuestName="Life Savings" QuestId="14126" GiverName="Sassy Hardwrench" GiverId="34668" />
 			<If Condition="((HasQuest(14126)) &amp;&amp; (IsQuestCompleted(14126)))" >
