@@ -3536,11 +3536,14 @@
 	<QuestOrder IgnoreCheckpoints="True" >
 	
 		<If Condition="Me.IsHorde" >
-			<CustomBehavior File="RunMacro" Macro="/exit" NumOfTimes="1" WaitTime="500" />
-			<CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" NumOfTimes="1" WaitTime="500" />
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You must be Alliance to run this profile" />
 		</If>
-	  
+			<!-- making sure we're in goldshire -->
+			
+			 <If Condition="(Me.ZoneId == 3524) || (Me.ZoneId == 3557) || (Me.ZoneId == 1657) || (Me.ZoneId == 141)" >
+				<CustomBehavior File="UserDialog" SoundCue="Exclamation" SoundCueInterval="2" Text="You cannot be in Draenei or Night Elf Territory.  Please go to Stormwind and press start!" />
+			 </If>
+  
 			<CustomBehavior File="Message" Text="Compiling Elwynn Forest Quests" LogColor="Green" />
 			
 			<CustomBehavior File="RunMacro" Macro="/script SetCVar('AutoLootDefault', 1)" NumOfTimes="1" WaitTime="1000" />

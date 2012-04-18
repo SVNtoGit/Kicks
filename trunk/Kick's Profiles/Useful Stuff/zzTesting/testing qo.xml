@@ -46,6 +46,61 @@
 -->
 
 
+		
+				<!-- Going to SW -->
+				<CustomBehavior File="Message" Text="Compiling GoTo SW functions" LogColor="Cornflowerblue" />
+
+			 <If Condition="Me.ZoneId == 141 &amp;&amp; (Me.Z &gt; 1000)" > <!-- Teldrassil (Higher) -->
+				<CustomBehavior File="Message" Text="Running to Darnassus Port" LogColor="Cornflowerblue" />
+
+				<RunTo X="9948.389" Y="2614.481" Z="1316.236" />
+			 </If>
+			 <If Condition="Me.ZoneId == 1657" > <!-- Darnassus -->
+				<CustomBehavior File="Message" Text="Running through Darnassus Port" LogColor="Cornflowerblue" />
+
+				<RunTo X="9939.934" Y="2611.165" Z="1316.505" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				<CustomBehavior File="MyCTM" X="9945.16" Y="2611.509" Z="1316.286" />
+				<CustomBehavior File="WaitTimer" WaitTime="1500"/>
+				<CustomBehavior File="Misc\RunLua" Lua="StrafeLeftStart(GetTime()*1000 + 1000);" />
+				<CustomBehavior File="WaitTimer" WaitTime="1550" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="StrafeLeftStop(GetTime()*1000 + 1000);" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
+			  <While Condition="Me.ZoneId == 1657" > <!-- Darnassus -->
+				<CustomBehavior File="WaitTimer" WaitTime="1500"/>
+				<CustomBehavior File="Misc\RunLua" Lua="StrafeRightStart(GetTime()*1000 + 1000);" />
+				<CustomBehavior File="WaitTimer" WaitTime="1500" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="StrafeRightStop(GetTime()*1000 + 1000);" />
+				<CustomBehavior File="WaitTimer" WaitTime="1500"/>
+				<CustomBehavior File="Misc\RunLua" Lua="StrafeLeftStart(GetTime()*1000 + 1000);" />
+				<CustomBehavior File="WaitTimer" WaitTime="1500" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="StrafeLeftStop(GetTime()*1000 + 1000);" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
+			  </While>
+			 </If>
+			 <If Condition="Me.ZoneId == 141 &amp;&amp; (Me.Z &lt; 100)" > <!-- Teldrassil (Rut'theran Village) -->
+				<CustomBehavior File="Message" Text="Running to use boat to SW" LogColor="Cornflowerblue" />
+
+				<RunTo X="8177.54" Y="1003.079" Z="6.646164" />
+			 
+			 
+				<!-- Get on at Rut'theran Village, off at SW -->
+				<CustomBehavior File="UseTransport" TransportId="176310" 
+											WaitAtX="8177.54" WaitAtY="1003.079" WaitAtZ="6.646164" 
+											GetOffX="-8642.001" GetOffY="1330.353" GetOffZ="5.232954" 
+											StandOnX="8171.327" StandOnY="1005.99" StandOnZ="6.213342" 
+											TransportStartX="8162.587" TransportStartY="1005.365" TransportStartZ="0.005638145"
+											TransportEndX="-8650.719" TransportEndY="1346.051" TransportEndZ="-0.0382334" />
+			 </If>
+
+			 
+			 
+
+				<CustomBehavior File="Message" Text="Loading Kick's Human Profile" LogColor="Orange" />
+
+				<CustomBehavior File="LoadProfile" ProfileName="[A - Quest] EK 5-12 [Kick]" /> 
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
+
 
 
 
