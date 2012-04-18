@@ -55,6 +55,10 @@
 		<!--<Mob Name="Flamekin Spitter" Entry="9776" />-->
 	</AvoidMobs>
 	<Blackspots>
+		<Blackspot X="-6620.953" Y="-1262.234" Z="208.9529" Radius="3" />
+		<Blackspot Radius="97.78474" Z="62.63173" Y="-1582.799" X="1547.348"/> 
+		<Blackspot Radius="62.75486" Z="68.0831" Y="-1683.205" X="1506.223"/>
+		<Blackspot X="-13690.15" Y="-292.5242" Z="7.613537" Radius="7.932938" />
 		<Blackspot X="1710.523" Y="-5315.092" Z="74.01481" Radius="10" />
 		<Blackspot X="-6622.956" Y="-1261.47" Z="209.3482" Radius="5" />
 		<Blackspot X="-8436.149" Y="-2525.568" Z="131.9759" Radius="15" />
@@ -4634,6 +4638,7 @@
 				 </If>
 					<CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" PullDistance="25" />
 
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" DoTrain="True" />
 		</If>
 		
 			<If Condition="(!IsQuestCompleted(26787))" >
@@ -5739,7 +5744,13 @@
 					<CustomBehavior File="InteractWith" MobId="49635" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="-14471.73" Y="469.4871" Z="30.7543" />
 					<CustomBehavior File="WaitTimer" WaitTime="4000" />
 					<CustomBehavior File="BasicInteractWith" MobId="49637" />
-					<CustomBehavior File="WaitTimer" WaitTime="2000" />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" />
+				</If>
+				<If Condition="(Me.ZoneId == 5287)" > <!-- S. STV -->
+					<RunTo X="-8835.292" Y="490.3976" Z="109.6164" /> <!-- SW -->
+					<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" DoTrain="True" />
+					<CustomBehavior File="InteractWith" MobId="352" X="-8835.292" Y="490.3976" Z="109.6164" /> <!-- SW FP Master -->
+					<RunTo X="958.281" Y="-1419.22" Z="66.30537" /> <!-- WPL -->
 				</If>
 			</If>
 			<If Condition="(HasQuest(28749))" >
@@ -6155,12 +6166,13 @@
 			<!-- Train 100% riding -->
 			<If Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 150) &amp;&amp; (Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &gt; 1)" >
 			<CustomBehavior File="Message" Text="Compiling Train 100 Speed Mount Function" LogColor="Orange" />
-				<CustomBehavior File="UserSettings" TrainNewSkills="True" />
+				<CustomBehavior File="UserSettings" TrainNewSkills="True" UseFlightPaths="True" />
 				<RunTo X="-8780.128" Y="380.0052" Z="100.8152" />
 				<CustomBehavior File="InteractWith" MobId="43693" CollectionDistance="50" X="-8780.128" Y="380.0052" Z="100.8152" />
 				<CustomBehavior File="ForceTrainRiding" MobId="43693" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
 				
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" DoTrain="True" />
 				<CustomBehavior File="InteractWith" MobId="352" CollectionDistance="50" X="-8835.292" Y="490.3976" Z="109.6163" /> <!-- SW FP Master -->
 			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 150" >
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" Text="Something went wrong! Train riding and press start" />
@@ -6177,6 +6189,11 @@
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
+			 <If Condition="Me.ZoneId == 1519" > <!-- SW -->
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" DoTrain="True" />
+				<CustomBehavior File="UserSettings" UseFlightPaths="True" />
+				<CustomBehavior File="InteractWith" MobId="352" CollectionDistance="50" X="-8835.292" Y="490.3976" Z="109.6163" /> <!-- SW FP Master -->
+			 </If>
 				<RunTo X="1916.45" Y="-2651.12" Z="60.62035" />
 		<PickUp QuestName="Gidwin Goldbraids" GiverName="Fiona" QuestId="27367" GiverId="45417" X="1916.45" Y="-2651.12" Z="60.62035" />
 			</If>
