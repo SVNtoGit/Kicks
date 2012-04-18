@@ -1,0 +1,371 @@
+Kick's Vehicle Behaviors QQ:
+
+
+<!-- Non-cata - Vehicles -->
+
+Troggish Troubles in Badlands (Neutral) - Natfoth made the syntax for it, but it kept lagging or something so he never gave me the copy.  (He's out on vacation atm).  Shak / Azenius plugin does this, but I hate plugins
+		<PickUp QuestName="Troggish Troubles" QuestId="27789" GiverName="Dr. Hieronymus Blam" GiverId="46664" />
+The syntax is in the profile for this (or best that I could guess)
+
+
+ I need some sort of a combat UseItemTargetLocation
+		<PickUp QuestName="The Endless Flow" QuestId="27161" GiverName="Lang Loosegrip" GiverId="44467" />
+I think natfoth was fiddling with this... he may have even made it, but I don't have the behavior or syntax
+
+
+Gay Horse quest in WPL - Ally, maybe neutral... dunno.
+		<PickUp QuestName="Learning the Ropes" QuestId="27000" GiverName="Nathaniel Dumah" GiverId="11616" />
+There are 2 of these quests... they're very annoying but they open up another level or 2.  First one is ez... but the 2nd one sucks hard
+
+
+flying vehicle quest in burning steppes.  I have this quest kind of scripted - but there are minor issues with it
+		<PickUp QuestName="Assault on Dreadmaul Rock" QuestId="28320" GiverName="John J. Keeshan" GiverId="48306" />
+the flying vehicle flies around but singular keeps wanting to target shit and kill it ... and it interrupts the behavior
+		
+		
+ol'blasty moving boat in s.stv
+		<PickUp QuestName="Ol' Blasty" QuestId="26647" GiverName="Ironpatch" GiverId="2547" />
+moving cannon on a boat shooting at moving target
+
+
+and then another quest w/ that cannon on stationary targets
+
+
+redridge commando quest x2
+		<PickUp QuestName="Prisoners of War" QuestId="26646" GiverName="John J. Keeshan" GiverId="43458" />
+King scripted the 2 quests but he had issues...so I just kinda skipped them while i was developing
+
+
+icecrown Turret quest
+		<PickUp QuestName="The Last Line Of Defense" QuestId="13086" GiverName="Siegemaster Fezzik" GiverId="30657" />
+you gotta fly up to a tower, mount turret, and kill 100 spiders and 3 flying drakes.  there are 2 buttons
+
+
+
+
+<!-- Cata - run the profiles and check for userdialog's.  but here are minor explanations of the issues before you start the profiles -->
+
+<!-- Hyjal -->
+Not a vehicle behavior... but the last quest in Hyjal is ragnaros fight.  I need it to dps ragnaros, dps the stupid fire adds on the sides when they come up... 
+get away from the fire wave that spawns, and then go back and kill rag.  spriests - do not use shadow word death or they'll die
+
+<!-- Deepholm -->
+
+		<PickUp QuestName="Resonating Blow" QuestId="26659" GiverName="Terrath the Steady" GiverId="42466" />
+- use item at gong, hop up a bunch of rocks and kill a drake that comes over while jumping on more rocks before your rock falls down
+
+
+		<PickUp QuestName="The Twilight Flight" GiverName="Boden the Imposing" QuestId="26831" GiverId="44080" />
+engage this mob, dps him until he runs like a little bitch... then press the button that pops up so you jump onto the other drake that he's on (if you're melee. ranged don't have to do this)
+
+for this quest, we keep aoe'ing stuff and dieing (3-10 mobs at a time).  the mobs are in combat with the npcs so they can easily tank them.  after we die, the bot doesn't want to get back to body (at least a few months ago it didn't)
+		<PickUp QuestName="Undying Twilight" GiverName="Maruut Stonebinder" QuestId="26875" GiverId="43818" />
+			<If Condition="((HasQuest(26875)) &amp;&amp; (!IsQuestCompleted(26875)))" >
+				<CustomBehavior File="UserDialog" AllowBotStop="True" QuestId="26875" SoundCue="Exclamation" SoundCueInterval="1" Text="Kill the guys for this quest - we keep dying and can't get back to our body!" />
+				<!--
+				<CustomBehavior File="KillUntilComplete" QuestId="26875" MobId1="44683" MobId2="44680" X="1108.672" Y="478.9672" Z="-44.51689" />
+				<Objective QuestName="Undying Twilight" QuestId="26875" Type="KillMob" MobId="44680" KillCount="12" />
+				<Objective QuestName="Undying Twilight" QuestId="26875" Type="KillMob" MobId="44683" KillCount="1" />		
+				-->
+			</If>
+		<TurnIn QuestName="Undying Twilight" TurnInName="Earthcaller Torunscar" QuestId="26875" TurnInId="43835" />
+
+
+<!-- Uldum -->
+
+			famous pit master - gotta kite him through the eggs to kill him
+			<If Condition="((HasQuest(27738)) &amp;&amp; (!IsQuestCompleted(27738)))" >
+				<!-- I need a no combat kite mob through eggs cb -->
+				<CustomBehavior File="FlyTo" X="-11452.82" Y="-1164.111" Z="17.70814" />
+				<CustomBehavior File="UserDialog" QuestId="27738" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill the Pit Master\n\nWatch out for the croc eggs in last phase\n\nPress continue after he's dead and I'll fly you back" />
+			</If>
+
+		this is the lions quest - command them to kill the 30 hyena's
+		<PickUp QuestName="Salhet the Tactician" GiverName="Salhet" QuestId="28277" GiverId="48237" />
+			<If Condition="((HasQuest(28277)) &amp;&amp; (!IsQuestCompleted(28277)))" >
+				<CustomBehavior File="UserDialog" QuestId="28277" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Talk to Salhet and help him" />
+				<CustomBehavior File="EjectVeh" Eject="True" />
+			</If>
+		<TurnIn QuestName="Salhet the Tactician" TurnInName="Salhet" QuestId="28277" TurnInId="48237" />
+		
+		this is the defend the city quest - where packs of guys come in, and then those really tall colossus guys too
+		<PickUp QuestName="The Defense of Nahom" GiverName="Salhet" QuestId="28501" GiverId="48761" />
+			<If Condition="((HasQuest(28501)) &amp;&amp; (!IsQuestCompleted(28501)))" >
+				<RunTo X="-9766.647" Y="-1688.25" Z="22.25573" />
+				<CustomBehavior File="UserDialog" QuestId="28501" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Talk with the sergeant and defend the city" />
+				<CustomBehavior File="EjectVeh" Eject="True" />
+			</If>
+		<TurnIn QuestName="The Defense of Nahom" TurnInName="Salhet" QuestId="28501" TurnInId="48761" />
+
+		this quest is annoying - you gotta fly to a location, drop a hologram thing, wait for the mobs to become friendly so they don't kill you... interact with an object (x3).  the do the same for the 4 bombs u gotta kill
+			<If Condition="((HasQuest(27761)) &amp;&amp; (!IsQuestCompleted(27761)))" >
+				<CustomBehavior File="UserSettings" PullDistance="25" />
+				<CustomBehavior File="FlyTo" X="-10664.89" Y="-2449.638" Z="143.2799" />
+				<!-- Possible w/o a UserDialog, but annoying -->
+				<CustomBehavior File="UserDialog" QuestId="27761" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" 
+				Text="Fly over the sparklies, use the Hologram while on mount, then disable clusters and bomb bots\n\nPress continue when you're done\n\nDon't go far, you get to command the fireball next!" />
+			</If>
+
+		run like hell doesn't work properly in this vehicle.  the hotspots are valid if you want to just use them.  This is the 'fireball vehicle' quest
+		<PickUp QuestName="Gnomebliteration" GiverName="Fusion Core" QuestId="27779" GiverId="46750" />
+			<If Condition="((HasQuest(27779)) &amp;&amp; (!IsQuestCompleted(27779)))" >
+				<CustomBehavior File="UserDialog" QuestId="27779" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Get in the ball and then run around and catch gnomes on fire\nStay out of the water\n\nGet out of vehicle, mount your flier and press continue when done, I'll fly you back\n\nDon't go too far, you have an escort quest soon" />
+				<!--
+				<CustomBehavior File="RunLikeHell" QuestId="27779" MobId="1" Range="20" NumOfTimes="8" AllowCombat="false" UseCTM="true" >
+					<Hotspot X="-10519.23" Y="-2322.479" Z="75.23986" />
+					<Hotspot X="-10434.27" Y="-2432.371" Z="46.64612" />
+					<Hotspot X="-10472.42" Y="-2603.771" Z="7.330875" />
+					<Hotspot X="-10417.87" Y="-2642.701" Z="4.552935" />
+					<Hotspot X="-10253.19" Y="-2674.121" Z="4.995976" />
+					<Hotspot X="-10209.86" Y="-2607.723" Z="16.33029" />
+					<Hotspot X="-10179.64" Y="-2407.452" Z="27.87493" />
+					<Hotspot X="-10180.5" Y="-2369.209" Z="27.42072" />
+					<Hotspot X="-10289.14" Y="-2388.685" Z="21.94059" />
+					<Hotspot X="-10282.93" Y="-2649.058" Z="10.56373" />
+					<Hotspot X="-10455.5" Y="-2644.314" Z="4.448581" />
+					<Hotspot X="-10522.29" Y="-2299.492" Z="77.12399" />
+				</CustomBehavior>
+				-->
+				<CustomBehavior File="EjectVeh" Eject="True" />
+			</If>
+			<If Condition="((HasQuest(27779)) &amp;&amp; (IsQuestCompleted(27779)))" >
+				<CustomBehavior File="FlyTo" X="-10608.1" Y="-2342.134" Z="176.1464" />
+				<CustomBehavior File="FlyTo" Distance="2" X="-10632.88" Y="-2332.946" Z="144.7375" />
+			</If>
+		<TurnIn QuestName="Gnomebliteration" TurnInName="Fusion Core" QuestId="27779" TurnInId="46750" />
+
+		moving tank quest.. you shoot colossus's x7 in a moving tank, the cannon has an angle to it
+		<PickUp QuestName="Battlezone" GiverName="Commander Schnottz" QuestId="27990" GiverId="47159" />
+			<If Condition="((HasQuest(27990)) &amp;&amp; (!IsQuestCompleted(27990)))" >
+				<RunTo X="-10695.45" Y="1117.557" Z="21.96807" />
+				<CustomBehavior File="UserDialog" QuestId="27990" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Jump in the Siege Tank, kill 7 giants, press continue" />
+				<!-- this tank behavior doesn't work properly 
+			 <If Condition="((HasQuest(27990)) &amp;&amp; (!IsQuestCompleted(27990)))" >
+				<CustomBehavior File="InteractWith" QuestId="27990" MobId="47732" NumOfTimes="1" CollectionDistance="1000" WaitTime="1000" X="-10696.6" Y="1124.12" Z="21.4624" />
+			  <While Condition="((HasQuest(27990)) &amp;&amp; (!IsQuestCompleted(27990)))" > // objective 1 not completed, instead of !ICQ
+				<CustomBehavior File="NoControlVehicle" VehicleMountId="47732" QuestId="27990" TargetId="47385" NumOfTimes="50" AttackButton="1" GoHomeButton="5" MaxRange="200" WaitTime="2000" />
+			  </While>
+				<CustomBehavior File="WaitTimer" WaitTime="45000"/>
+			</If>
+				-->
+				<!-- <Vendor Name="Schnottz's Siege Tank" Entry="47732" Type="Repair" X="-10696.6" Y="1124.12" Z="21.46244" /> -->
+				<RunTo X="-10674.65" Y="930.8799" Z="26.338" />
+			</If>
+		<TurnIn QuestName="Battlezone" TurnInName="Commander Schnottz" QuestId="27990" TurnInId="47940" />
+
+			this quest is gay... you gotta use the cloak and stealth around mobs while disabling the crates.  it's hard even by hand... and you have to make sure you avoid that stupid flying dragon
+			<If Condition="((!HasQuest(28367)) &amp;&amp; (!IsQuestCompleted(28367)))" >
+		<PickUp QuestName="Shroud of the Makers" QuestId="28367" GiverName="Sullah" GiverId="48431" />
+				<RunTo X="-8938.621" Y="613.7538" Z="152.1947" />
+			</If>
+			<If Condition="((HasQuest(28367)) &amp;&amp; (!IsQuestCompleted(28367)))" >
+			<!--
+				<CustomBehavior File="UserSettings" PullDistance="1" /> -->
+				<CustomBehavior File="FlyTo" X="-8780.344" Y="-45.74711" Z="212.6467" />
+				<!--
+				<CustomBehavior File="ForcedDismount" />
+				<UseItem QuestName="Shroud of the Makers" QuestId="28367" ItemId="63699" X="-9106.229" Y="-122.9653" Z="142.4367" />
+				-->
+				<CustomBehavior File="UserDialog" QuestId="28367" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Use the cloak and then sabotage the powder kegs while stealthed without dying.  Watch for the dragon!\n\nWatch the cutscene :D" />
+			<!-- <Objective QuestName="Shroud of the Makers" QuestId="28367" Type="UseObject" ObjectId="207127" UseCount="7" />
+				<CustomBehavior File="UserSettings" PullDistance="25" /> -->
+			</If>
+		<TurnIn QuestName="Shroud of the Makers" TurnInName="Harrison Jones" QuestId="28367" TurnInId="48186" />
+
+			this is the catapult quest where you have to shoot the stupid troopers that move in groups of 10 or so.  it is also the daily
+			<If Condition="((HasQuest(28497)) &amp;&amp; (!IsQuestCompleted(28497)))" >
+				<CustomBehavior File="InteractWith" QuestId="28497" MobId="48699" X="-8259.235" Y="-120.0095" Z="320.2148" />
+				<CustomBehavior File="UserDialog" QuestId="28497" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill 100 troopers" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+				<CustomBehavior File="EjectVeh" Eject="True" />
+			</If>
+
+			the bot has various issues killing this guy (and targetting them) as well as avoiding the shadow things on the ground
+		<PickUp QuestName="Fortune and Glory" QuestId="27748" GiverName="Harrison Jones" GiverId="47158" />
+			<While Condition="((HasQuest(27748)) &amp;&amp; (!IsQuestCompleted(27748)))" >
+				<RunTo X="-8759.043" Y="292.5631" Z="329.2171" />
+				<CustomBehavior File="WaitTimer" WaitTime="60000"/>
+	<CustomBehavior File="UserDialog" QuestId="27748" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Help the bot kill the big guy" />
+				<!--
+				<RunTo X="-8759.043" Y="292.5631" Z="329.2171" />
+				<CustomBehavior File="WaitTimer" WaitTime="60000"/>
+				<CustomBehavior File="KillUntilComplete" QuestId="27748" MobId1="46646" X="-8743.302" Y="268.9516" Z="329.2431" />
+				<Objective QuestName="Fortune and Glory" QuestId="27748" Type="KillMob" MobId="46646" KillCount="1" />
+				<CustomBehavior File="InteractWith" QuestId="27748" MobId="46646" NumOfTimes="500" WaitForNpcs="False" Range="8" X="-8743.302" Y="268.9516" Z="329.2431" />
+				<CustomBehavior File="WaitTimer" WaitTime="300000"/>
+				
+				<CustomBehavior File="AbandonQuest" QuestId="27748" Type="Incomplete" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+		<PickUp QuestName="Fortune and Glory" QuestId="27748" GiverName="Harrison Jones" GiverId="47158" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+				-->
+			</While>
+		<TurnIn QuestName="Fortune and Glory" TurnInName="Harrison Jones" QuestId="27748" TurnInId="49151" />
+
+
+<!-- Twilight Highlands -->
+
+		<!-- Alliance -->
+		
+			this quest - you must go around and save the gryphons.
+			1 - some you just have to kill the tracker and the little stub things around the gryphon (stakes in ground)
+			2 - some you have to heal the gryphon up (not all classes can do this.  heals and bandages both work)
+			3 - you just have to simply interactwith and gossipoptions 1
+			4 - I can't remember if there is a 4th
+			<If Condition="((HasQuest(27811)) &amp;&amp; (!IsQuestCompleted(27811)))" >
+				<CustomBehavior File="FlyTo" X="-4570.547" Y="-5394.241" Z="132.5735" />
+				<CustomBehavior File="UserDialog" QuestId="27811" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Save 8 gryphons, then press continue and bot will turn in" />
+			</If>
+
+			jump on a gryphon and then throw hammers at guys to kill them.  i think there's a 2nd button here for a shield if you're being attacked
+			the 2nd part of this quest it flies up and you have to throw hammers at the boss guy... then kill the boss guy.  said boss guy has various abilities that you have to run out on
+		<PickUp QuestName="Dropping the Hammer" GiverName="Keegan Firebeard" QuestId="27817" GiverId="46804" />
+			<If Condition="((HasQuest(27817)) &amp;&amp; (!IsQuestCompleted(27817)))" >
+				<CustomBehavior File="UserDialog" QuestId="27817" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Jump on a Gryphon and kill the noobs" />
+			</If>
+			
+			this escort has various issues... you have to escort him and kill a bunch of mobs.  i think this one I kept dieing for various reasons and then the bot stood there like a DERP
+		<!-- Accompany Cayden through Dunwald Market Row-->
+		<PickUp QuestName="Once More Into The Fire" GiverName="Cayden Dunwald" QuestId="27648" GiverId="46174" />
+			<If Condition="((HasQuest(27648)) &amp;&amp; (!IsQuestCompleted(27648)))" >
+				<!-- gossip x 4 Insert Escort CB here - escort fails  -->
+				<CustomBehavior File="UserDialog" QuestId="27648" Title="Escort" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Escort teh dorf\n\nPress continue when done" />
+			</If>
+		<TurnIn QuestName="Once More Into The Fire" TurnInName="Cayden Dunwald" QuestId="27648" TurnInId="46174" X="-4677.28" Y="-4850.72" Z="162.4915" />
+			
+			i think I can script this one if i put some effort into it (like i did with deepholm boat)
+			<If Condition="((HasQuest(28410)) &amp;&amp; (!IsQuestCompleted(28410)))" >
+				<CustomBehavior File="FlyTo" X="-3266.066" Y="-6390.385" Z="294.888" />
+				<CustomBehavior File="UserDialog" QuestId="28410" Title="Escort" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Find the Zeppelin flying around and board it, then steal the cloth (on the lower level in a box)\nJump off into water\nMount your flyer and press continue" />
+				<!-- <Objective QuestName="Something Stolen" QuestId="28410" Type="Collect" CollectCount="1" ItemId="64318" /> -->
+			</If>
+			
+			we must talk to grundy and then kill the big guy.  i think there are other guys there.  i can't remember if we died here before
+			<If Condition="((HasQuest(28655)) &amp;&amp; (!IsQuestCompleted(28655)))" >
+			<!-- kill mob 49234 -->
+				<CustomBehavior File="UserDialog" QuestId="28655" Title="Escort" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Talk to Grundy and watch the cutscene and defend the wedding ceremony" />
+			</If>
+			
+			we have to kill tentacles here and then go and stand in the bubble to get our debuff off, then go to next (x4)
+			<If Condition="((HasQuest(27379)) &amp;&amp; (!IsQuestCompleted(27379)))" >
+				<CustomBehavior File="UserDialog" QuestId="27379" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill the tentacles and save the 4 npc's\nMake sure you don't get digested!\nAfter that, kill the brain!" />
+			</If>
+			
+			we must kill the brain, but we also must go to the bubble and get our debuff off
+			<If Condition="((HasQuest(27380)) &amp;&amp; (!IsQuestCompleted(27380)))" >
+				<CustomBehavior File="UserDialog" QuestId="27380" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill the brain!" />
+			</If>
+			
+			we have to escort our guys up the way... but the bot likes to pull a bunch of mobs.  I don't recall the issue on why i userdialogged
+		<PickUp QuestName="Paving the Way" GiverName="Highbank Lieutenant" QuestId="28107" GiverId="47611" />
+			<If Condition="((HasQuest(28108)) &amp;&amp; (!IsQuestCompleted(28108)))" >
+				<RunTo X="-3614.075" Y="-4000.089" Z="113.5322" />
+				<CustomBehavior File="UserSettings" PullDistance="25" />
+				<CustomBehavior File="UserDialog" QuestId="28108" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" 
+				Text="Talk with the Lt and escort the squad up the canyon to the Dragonmaw Gate\nTalk with the LT at gate and use hand gestures button" />
+				<!-- Dragonmaw Gate opened -->
+			</If>
+			<Objective QuestName="Paving the Way" QuestId="28107" Type="KillMob" MobId="47406" KillCount="30" />
+		<TurnIn QuestName="If The Key Fits" QuestId="28108" TurnInName="Highbank Lieutenant" TurnInId="47611" />
+			
+			same issue as above
+		<PickUp QuestName="Pressing Forward" GiverName="Highbank Lieutenant" QuestId="28109" GiverId="47611" />
+			<If Condition="((HasQuest(28109)) &amp;&amp; (!IsQuestCompleted(28109)))" >
+				<CustomBehavior File="UserDialog" QuestId="28109" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" 
+				Text="Talk with the Lt and escort the squad to Calen, just get passed the gate and walk the road to get credit\nTalk with Calen passed the gate\nI used my flying mount and flew on the left side of the mountains for less agro\n\nDon't go far, after the cutscene, you have to mount a drake" />
+				<!-- Grim Batol entrance secured -->
+			</If>
+		<TurnIn QuestName="Pressing Forward" TurnInName="Calen" QuestId="28109" TurnInId="47605" X="-4144.29" Y="-3603.65" Z="213.7864" />
+			
+			flying vehicle quest
+		<PickUp QuestName="Battle of Life and Death" GiverName="Calen" QuestId="28758" GiverId="49810" X="-2699.601" Y="-3183.016" Z="179.0589" />
+			<If Condition="((HasQuest(28758)) &amp;&amp; (!IsQuestCompleted(28758)))" >
+				<CustomBehavior File="MountVehOnly" VehicleMountId="49910" X="-2685.983" Y="-3178.316" Z="179.9467" />
+				<CustomBehavior File="UserDialog" QuestId="28758" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill 8 drakes\nTarget, press 1, it comes to you, press 3\n\nDon't go far, you have another quest to do" />
+				<!-- You control veh, veh has a fireball, heal, and one for when you're near the drake to kill it, similar to the hyjal quest
+					Basically, cast fireball on target, it comes to you, press finishing strike and it's dead.  very easy quest -->
+				<!-- Twilight Shadowdrake
+				<Objective QuestName="Battle of Life and Death" QuestId="28758" Type="KillMob" KillCount="8" MobId="49873" /> -->
+			</If>
+			<!-- another cutscene -->
+		<TurnIn QuestName="Battle of Life and Death" TurnInName="Calen" QuestId="28758" TurnInId="47605" />
+			
+			minor issues with this quest... i think we kept falling to our death.  we have to hook a drake and then kill it... at a low % we have to hook another drake
+			<While Condition="((HasQuest(28173)) &amp;&amp; (!IsQuestCompleted(28173)))" >
+				<CustomBehavior File="UserDialog" QuestId="28173" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Hook a drake and then kill it (x8)" />
+				<CustomBehavior File="UseItemOn" QuestId="28173" MobId="46141" MobState="Alive" ItemId="63092" WaitTime="3000" Range="90" CollectionDistance="500" X="-4839.015" Y="-5714.229" Z="43.38332" />
+				<CustomBehavior File="InteractWith" QuestId="28173" MobId="46141" MobState="Alive" WaitForNpcs="False" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
+			</While>
+			
+			I think we kept trying to kill the adds here.  also we kept standing in fire.  we have to kill obsidia while not standing in fire ad ignoring the adds i think
+		<PickUp QuestName="Last of Her Kind" GiverName="Baleflame" QuestId="28247" GiverId="47905" />
+			<If Condition="((HasQuest(28247)) &amp;&amp; (!IsQuestCompleted(28247)))" >
+				<CustomBehavior File="UserDialog" QuestId="28247" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill Obsidia\n\nThe next popup isn't for a while, but I would stay near the computer while running this, these mobs are mean" />
+			<!-- 
+				<RunTo X="-5382.613" Y="-4814.223" Z="36.60852" />
+				<CustomBehavior File="WaitTimer" WaitTime="20000"/>
+				Obsidia defeated - weird, there's no objective here
+			-->
+			</If>
+			
+			this quest just kind of sucks
+		<PickUp QuestName="Coup de Grace" QuestId="27702" GiverName="Master Mathias Shaw" GiverId="45796" />
+			<If Condition="((HasQuest(27702)) &amp;&amp; (!IsQuestCompleted(27702)))" >
+				<CustomBehavior File="FlyTo" X="-4917.87" Y="-4482.262" Z="448.9375" />
+				<CustomBehavior File="UserDialog" QuestId="27702" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Wait here for a drake (x5) to fall down to the ground, then go in and smack it before it gets back up!\nLook for Lirastrazsa blowing them up\n\nThe bot will fly you back" />
+				<Objective QuestName="Coup de Grace" QuestId="27702" Type="KillMob" MobId="46416" KillCount="5" />
+			</If>
+			
+			this quest sucks in general.  last quest in TH
+			<PickUp QuestName="Skullcrusher the Mountain" GiverName="The Hammer of Twilight" QuestId="27787" GiverId="46717" />
+			<If Condition="((HasQuest(27787)) &amp;&amp; (!IsQuestCompleted(27787)))" >
+				<CustomBehavior File="WaitTimer" WaitTime="90000" />
+				<CustomBehavior File="FlyTo" X="-5247.098" Y="-4828.865" Z="444.3882" />
+				<CustomBehavior File="UserDialog" QuestId="27787" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Help kill Skullcrusher by running around and clicking on the altar's for buffs!\n\nThe bot will turn in for you\n\n Don't go far, we're done in TH" />
+				<!--
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Skullcrusher the Mountain" QuestId="27787" Type="KillMob" KillCount="1" MobId="46732" />
+				-->
+			</If>
+			<If Condition="((HasQuest(27787)) &amp;&amp; (IsQuestCompleted(27787)))" >
+				<CustomBehavior File="WaitTimer" WaitTime="30000"/>
+				<CustomBehavior File="FlyTo" X="-4178.347" Y="-4726.565" Z="126.7915" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
+		<TurnIn QuestName="Skullcrusher the Mountain" TurnInName="Kurdran Wildhammer" QuestId="27787" TurnInId="45668" />
+		
+			
+			
+			
+			
+			
+			
+			
+		<!-- Horde - I dunno the specifics of these since i haven't fiddled with horde at all ... other than a once-over. run it and see -->	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+
+
+
+
+
+
+
+

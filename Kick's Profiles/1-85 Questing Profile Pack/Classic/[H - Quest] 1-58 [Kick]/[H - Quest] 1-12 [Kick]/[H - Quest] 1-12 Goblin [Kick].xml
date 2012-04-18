@@ -232,11 +232,8 @@
 
 			<If Condition="(!IsQuestCompleted(14138))" >
 			<CustomBehavior File="RunMacro" Macro="/script SetCVar('AutoLootDefault', 1)" NumOfTimes="1" WaitTime="1000" />
-	<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="5" ExpiryTime="30" ExpiryAction="InputEnabled_Continue" Text="Make sure Auto Equip, Talented, and ItemForAura Plugins are enabled!!!\n\nIf you have money - set food and drinks as well\n\nYou may also want to set a mail recipient!\n\nMake sure you copied over the quest behaviors from my SVN into your HB folder!" />
-			 <If Condition="(Me.ZoneId == 4737) || (Me.ZoneId == 4720)" >
-		<CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" ExpiryTime="6" ExpiryAction="InputEnabled_Continue" SoundCueInterval="2" 
-		Text="Make sure you copied the behaviors from my SVN Quest Behaviors folder into your Quest Behaviors folder!" />
-			 </If>
+	<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="5" ExpiryTime="30" ExpiryAction="InputEnabled_Continue" 
+	Text="Make sure Auto Equip, Talented, and ItemForAura Plugins are enabled!!!\n\nIf you have money - set food and drinks as well\n\nYou may also want to set a mail recipient!\n\nMake sure you copied over the quest behaviors from my SVN into your HB folder!\n\nMake sure Shak Azenius plugin is copied over and enabled!" />
 			</If>
 		
 		<CustomBehavior File="UserSettings" TrainNewSkills="False" FindVendorsAutomatically="True" LootMobs="True" LootRadius="30" UseMount="True" PullDistance="15"  />
@@ -723,9 +720,9 @@
  			<If Condition="((HasQuest(24741)) &amp;&amp; (!IsQuestCompleted(24741)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 			 <While Condition="((HasQuest(24741)) &amp;&amp; (!IsQuestCompleted(24741)))" >
-				<CustomBehavior File="UseItemOn" QuestId="24741" ItemId="50232" MobId="201972" Range="2" MobType="Gameobject" CollectionDistance="200" X="847.8337" Y="2072.448" Z="92.66414" />
+				<CustomBehavior File="UseItemOn" QuestId="24741" ItemId="50232" MobId="201972" Range="2" ObjectType="Gameobject" CollectionDistance="200" X="847.8337" Y="2072.448" Z="92.66414" />
 				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for raptor {TimeRemaining}" />
-				<CustomBehavior File="InteractWith" QuestId="24741" MobId="201974" WaitTime="2000" WaitForNpcs="False" MobType="Gameobject" CollectionDistance="200" X="847.8337" Y="2072.448" Z="92.66414" />
+				<CustomBehavior File="InteractWith" QuestId="24741" MobId="201974" WaitTime="2000" WaitForNpcs="False" ObjectType="Gameobject" CollectionDistance="200" X="847.8337" Y="2072.448" Z="92.66414" />
 			 </While>
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
@@ -987,13 +984,15 @@
 			 <While Condition="((HasQuest(25058)) &amp;&amp; (!IsQuestCompleted(25058)))" >
 				<CustomBehavior File="UseItemTargetLocation" QuestId="25058" ItemId="52280" MobId="202472" ObjectType="GameObject" MinRange="10" Range="30" UseType="ToObject" WaitTime="3000" X="1785.145" Y="2922.805" Z="6.375556" />
 			 </While>
-				<CustomBehavior File="UserSettings" PullDistance="25" LootMobs="True" />
+				<CustomBehavior File="UserSettings" PullDistance="5" LootMobs="True" />
 			</If>
 			<Objective QuestName="The Heads of the SI:7" QuestId="25093" Type="CollectItem" ItemId="52346" CollectCount="1" />
 			<Objective QuestName="The Heads of the SI:7" QuestId="25093" Type="CollectItem" ItemId="52349" CollectCount="1" />
 			<Objective QuestName="The Heads of the SI:7" QuestId="25093" Type="CollectItem" ItemId="52347" CollectCount="1" />
+			<If Condition="((HasQuest(25024)) &amp;&amp; (!IsQuestCompleted(25024)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" LootMobs="False" />
-			<Objective QuestName="Repel the Paratroopers" QuestId="25024" Type="KillMob" MobId="39042" KillCount="10" />
+				<Objective QuestName="Repel the Paratroopers" QuestId="25024" Type="KillMob" MobId="39042" KillCount="10" />
+			</If>
 			<If Condition="((HasQuest(25024)) &amp;&amp; (IsQuestCompleted(25024)))" >
 		<TurnIn QuestName="Repel the Paratroopers" QuestId="25024" TurnInName="Thrall" TurnInId="38935" />
 			</If>
@@ -1150,7 +1149,7 @@
 				<CustomBehavior File="EjectVeh" Eject="True" />
 			</If>
 			<If Condition="((HasQuest(25251)) &amp;&amp; (IsQuestCompleted(25251)))" >
-			 <If Condition="(!Me.HasAura(&quot;The Ultimate Footbomb Uniform&quot;))" >
+			 <If Condition="(Me.HasAura(&quot;The Ultimate Footbomb Uniform&quot;))" >
 				<CustomBehavior File="EjectVeh" Eject="True" />
 			 </If>
 		<TurnIn QuestName="Final Confrontation" QuestId="25251" TurnInName="Sassy Hardwrench" TurnInId="38387" />
@@ -1166,7 +1165,7 @@
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
-		<TurnIn QuestName="Warchief's Emissary" QuestId="25266" TurnInName="Kor'kron Loyalist" TurnInId="39609" />
+		<TurnIn QuestName="Warchief's Emissary" QuestId="25266" TurnInName="Kor'kron Loyalist" TurnInId="39609" X="1463.828" Y="-5010.762" Z="11.68734" />
 		<!-- End of Lost Isles Quests -->
 		
 			<!-- Orgrimmar Quests -->
