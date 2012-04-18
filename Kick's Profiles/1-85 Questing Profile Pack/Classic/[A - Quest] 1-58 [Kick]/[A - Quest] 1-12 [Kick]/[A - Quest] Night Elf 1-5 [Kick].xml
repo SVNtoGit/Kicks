@@ -161,8 +161,6 @@
   <QuestOrder>
   
 		<If Condition="Me.IsHorde" >
-			<CustomBehavior File="RunMacro" Macro="/exit" NumOfTimes="1" WaitTime="500" />
-			<CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" NumOfTimes="1" WaitTime="500" />
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You must be Alliance to run this profile" />
 		</If>
 	  
@@ -339,9 +337,25 @@
 			 <If Condition="Me.ZoneId == 1657" > <!-- Darnassus -->
 				<CustomBehavior File="Message" Text="Running through Darnassus Port" LogColor="Cornflowerblue" />
 
-				<RunTo X="9948.389" Y="2614.481" Z="1316.236" />
-				<CustomBehavior File="MyCTM" X="9947.438" Y="2621.536" Z="1317.558" />
-				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for port {TimeRemaining}" />
+				<RunTo X="9939.934" Y="2611.165" Z="1316.505" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				<CustomBehavior File="MyCTM" X="9945.16" Y="2611.509" Z="1316.286" />
+				<CustomBehavior File="WaitTimer" WaitTime="1500"/>
+				<CustomBehavior File="Misc\RunLua" Lua="StrafeLeftStart(GetTime()*1000 + 1000);" />
+				<CustomBehavior File="WaitTimer" WaitTime="1550" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="StrafeLeftStop(GetTime()*1000 + 1000);" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
+			  <While Condition="Me.ZoneId == 1657" > <!-- Darnassus -->
+				<CustomBehavior File="WaitTimer" WaitTime="1500"/>
+				<CustomBehavior File="Misc\RunLua" Lua="StrafeRightStart(GetTime()*1000 + 1000);" />
+				<CustomBehavior File="WaitTimer" WaitTime="1500" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="StrafeRightStop(GetTime()*1000 + 1000);" />
+				<CustomBehavior File="WaitTimer" WaitTime="1500"/>
+				<CustomBehavior File="Misc\RunLua" Lua="StrafeLeftStart(GetTime()*1000 + 1000);" />
+				<CustomBehavior File="WaitTimer" WaitTime="1500" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="StrafeLeftStop(GetTime()*1000 + 1000);" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
+			  </While>
 			 </If>
 			 <If Condition="Me.ZoneId == 141 &amp;&amp; (Me.Z &lt; 100)" > <!-- Teldrassil (Rut'theran Village) -->
 				<CustomBehavior File="Message" Text="Running to use boat to SW" LogColor="Cornflowerblue" />
