@@ -1,0 +1,101 @@
+<HBProfile>
+  
+	<Name>[A] Tol Barad - lumber farm</Name>
+	<MinLevel>1</MinLevel>
+	<MaxLevel>86</MaxLevel>
+  
+	<MinDurability>0.1</MinDurability>
+	<MinFreeBagSlots>2</MinFreeBagSlots>
+  
+	<MailGrey>False</MailGrey>
+	<MailWhite>False</MailWhite>
+	<MailGreen>False</MailGreen>
+	<MailBlue>False</MailBlue>
+	<MailPurple>False</MailPurple>
+  
+	<SellGrey>True</SellGrey>
+	<SellWhite>False</SellWhite>
+	<SellGreen>False</SellGreen>
+	<SellBlue>False</SellBlue>
+	<SellPurple>False</SellPurple>
+  
+	<TargetElites>False</TargetElites>
+
+	<Vendors>
+		<Vendor Name="Kevin Geissler" Entry="48251" Type="Repair" X="-374.3594" Y="1052.682" Z="21.98276" />
+	</Vendors>
+  
+	<AvoidMobs>
+		<Mob Name="Hellscream Guard" Entry="48355" />
+	</AvoidMobs>
+   
+	<Blackspots>
+		<Blackspot X="-208.4654" Y="1923.03" Z="6.496054" Radius="10" />
+		<Blackspot X="-163.6802" Y="1901.315" Z="1.837813" Radius="21" />
+		<Blackspot X="-233.2661" Y="932.4844" Z="56.06354" Radius="5.391528" />
+		<Blackspot X="-1239.66" Y="789.2374" Z="119.4402" Radius="4.119291" />
+		<Blackspot X="-210.7993" Y="1893.085" Z="3.463458" Radius="3" />
+		<Blackspot X="-241.1258" Y="1976.168" Z="2.882153" Radius="10" />
+		<Blackspot X="-128.5792" Y="1974.804" Z="2.428172" Radius="30" />
+		<Blackspot X="-135.9444" Y="1953.226" Z="2.619907" Radius="5" />
+		<Blackspot X="-548.1035" Y="1101.35" Z="95.06052" Radius="5" />
+	</Blackspots>
+   
+ 
+	<QuestOrder>
+
+		<CustomBehavior File="UserSettings" TrainNewSkills="False" LootMobs="True" PullDistance="25"  />
+		
+				<!--
+					<While Condition="GetItemCount(49655) &gt;= 10" >
+						<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(49655)" />
+						<CustomBehavior File="WaitTimer" WaitTime="2400" GoalText="Using item {TimeRemaining}" />
+					</While>
+					
+					<CustomBehavior File="UserDialog" AllowBotStop="True" Text="!" />
+				-->
+					
+			<!-- If I am in EK, take the SW portal -->
+			 <If Condition="(Me.MapId == 0) &amp;&amp; (Me.ZoneId != 5389) &amp;&amp; (Me.ZoneId != 5095)" >
+				<CustomBehavior File="FlyTo" DestName="SW Portal" X="-8208.783" Y="445.8443" Z="117.9366" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="InteractWith" MobId="206594" ObjectType="Gameobject" Range="4" X="-8208.508" Y="449.4972" Z="117.7234" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+			 </If>
+			 
+			 
+			 
+				<While Condition="true" >
+					<SetGrindArea>
+						<GrindArea>
+							<Factions>14</Factions>
+							<TargetMinLevel>80</TargetMinLevel> 
+							<TargetMaxLevel>101</TargetMaxLevel> 
+							<Hotspots>      
+								<Hotspot X="-171.778" Y="1819.987" Z="2.382959" />
+								<Hotspot X="-169.2128" Y="1854.615" Z="2.381234" />
+								<Hotspot X="-143.9433" Y="1883.545" Z="2.701078" />
+								<Hotspot X="-104.023" Y="1885.17" Z="13.57504" />
+								<Hotspot X="-77.69406" Y="1946.163" Z="13.05492" />
+								<Hotspot X="-123.534" Y="1945.22" Z="2.516392" />
+								<Hotspot X="-167.7639" Y="1854.616" Z="2.382911" />
+								<Hotspot X="-196.328" Y="1880.655" Z="2.384005" />
+							</Hotspots>
+						</GrindArea>  
+					</SetGrindArea>
+				<GrindTo Condition="False" />
+
+				<!--
+				<GrindTo Condition="GetItemCount(49655) &gt;= 10" />
+					<If Condition="GetItemCount(49655) &gt;= 10" >
+						<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(49655)" />
+						<CustomBehavior File="WaitTimer" WaitTime="3500" GoalText="Using item {TimeRemaining}" />
+					</If>
+				-->
+				</While>
+
+
+ </QuestOrder> 
+  
+</HBProfile>
