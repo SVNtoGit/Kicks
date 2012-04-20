@@ -2830,37 +2830,28 @@
 		 	 <If Condition="Me.IsIndoors" >
 				<RunTo X="3950.404" Y="-2827.787" Z="618.747" />
 			 </If>
-				
-				<CustomBehavior File="UserDialog" QuestId="25551" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="5" Text="Kill Ragnaros (make sure that you help out the guys on the side too!)" />
- 			</If>
-				<!--
-				<CustomBehavior File="InteractWith" QuestId="25551" MobId="41631" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="20" X="3954.34" Y="-2826.02" Z="618.7477" />
+				<!--<CustomBehavior File="UserDialog" QuestId="25551" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="5" Text="Kill Ragnaros (make sure that you help out the guys on the side too!)" />-->
+
+				<CustomBehavior File="InteractWith" QuestId="25551" MobId="40803" GossipOptions="1" X="3954.5" Y="-2825.82" Z="618.7477" />
 				<CustomBehavior File="WaitTimer" WaitTime="65000" />
-				<RunTo QuestId="25551" X="4011.9" Y="-3006.451" Z="575.3886" />
-				<RunTo QuestId="25551" X="4012.888" Y="-3033.029" Z="575.3331" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000" />
-				<CustomBehavior File="RunMacro" Macro="/Target Ragnaros\n/startattack" NumOfTimes="1" WaitTime="1000" />
-				<Objective QuestName="The Firelord" QuestId="25551" Type="KillMob" MobId="41634" KillCount="1" />
-				<RunTo X="3946.585" Y="-2816.139" Z="618.7474" />
-				<RunTo X="3944.475" Y="-2810.046" Z="618.7474" />
-				-->
+				<CustomBehavior File="Rag"/>
+			
+			  <If Condition="((HasQuest(25551)) &amp;&amp; (!IsQuestCompleted(25551)))" >
+				<CustomBehavior File="AbandonQuest" QuestId="25551" Type="Failed" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to abandon {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="125000" GoalText="Waiting for Cenarius to respawn{TimeRemaining}" />
+				<RunTo X="3954.5" Y="-2825.82" Z="618.7477" />
+		<PickUp QuestName="The Firelord" QuestId="25551" GiverName="Cenarius" GiverId="40803" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for bot {TimeRemaining}" />
+			  </If>
+			</If>
 			<If Condition="((HasQuest(25551)) &amp;&amp; (IsQuestCompleted(25551)))" >
 		 	 <If Condition="Me.IsIndoors" >
-			 
-			 <!--
-				<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Using item {TimeRemaining}" />
-				<CustomBehavior File="InteractWith" MobId="203135" ObjectType="Gameobject" Range="8" X="4014.098" Y="-3010.202" Z="575.3902" />
-			 -->
-			
 				<RunTo X="3946.574" Y="-2813.927" Z="618.747" />
 				<RunTo X="3945.829" Y="-2809.357" Z="618.7473" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" />
 			 </If>
-				
 		 	 <If Condition="!Me.IsIndoors" >
-			 <!--
-				<RunTo X="4300.611" Y="-3284.778" Z="1035.555" />
-				-->
 				<CustomBehavior File="FlyTo" X="4082.757" Y="-3991.563" Z="971.6017" />
 				<CustomBehavior File="ForcedDismount" />
 			 </If> 
