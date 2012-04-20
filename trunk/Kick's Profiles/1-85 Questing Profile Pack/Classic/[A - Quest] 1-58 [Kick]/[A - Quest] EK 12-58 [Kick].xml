@@ -6793,11 +6793,9 @@
 		<TurnIn QuestName="Rhea Revealed" QuestId="27769" TurnInName="Rheastrasza" TurnInId="46655" X="-6991.14" Y="-3944.46" Z="263.8891" />
 		<PickUp QuestName="The Venerable Doctor Blam" GiverName="Rheastrasza" QuestId="27772" GiverId="46655" X="-6991.14" Y="-3944.46" Z="263.8891" />
 		<TurnIn QuestName="The Venerable Doctor Blam" TurnInName="Dr. Hieronymus Blam" QuestId="27772" TurnInId="46664" />
-		<!--
 		<PickUp QuestName="Troggish Troubles" QuestId="27789" GiverName="Dr. Hieronymus Blam" GiverId="46664" />
 			<If Condition="((HasQuest(27789)) &amp;&amp; (!IsQuestCompleted(27789)))" >
-				<CustomBehavior File="NoControlVehicle" QuestId="27789" TypeId="5" VehicleId="46707" VehicleMountId="46707"
-											MobId1="46711" MobIdSecondary1="46712" AttackButton="1" AttackButtonSecondary="2" MaxRange="200" OftenToUse="700" />
+				<CustomBehavior File="TroggishTroubles" />
 			</If>
 		<TurnIn QuestName="Troggish Troubles" TurnInName="Dr. Hieronymus Blam" QuestId="27789" TurnInId="46664" />	
 		<PickUp QuestName="Dustwind Dig" GiverName="Dr. Hieronymus Blam" QuestId="27791" GiverId="46664" />
@@ -6808,13 +6806,14 @@
 			<Objective QuestName="All's Fair in Love, War, and Archaeology" QuestId="27792" Type="Collect" CollectCount="1" ItemId="62487" />
 			<Objective QuestName="All's Fair in Love, War, and Archaeology" QuestId="27792" Type="Collect" CollectCount="1" ItemId="62488" />
 		<TurnIn QuestName="All's Fair in Love, War, and Archaeology" TurnInName="Lead Prospector Durdin" QuestId="27792" TurnInId="46760" />
+		<!-- See if these quests give users issues ... if so, re-comment them -->
 		<PickUp QuestName="The Sentinel's Pawn" QuestId="27797" GiverName="Lead Prospector Durdin" GiverId="46760" />
 		<PickUp QuestName="The Warden's Pawn" QuestId="27796" GiverName="Lead Prospector Durdin" GiverId="46760" />
 			<If Condition="((HasQuest(27797)) &amp;&amp; (IsQuestCompleted(27797)))" >
 		<TurnIn QuestName="The Sentinel's Pawn" QuestId="27797" TurnInId="206336" TurnInType="Object" X="-6895.912" Y="-3375.265" Z="202.3273" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
-			<If Condition="((HasQuest(27709)) &amp;&amp; (!IsQuestCompleted(27709)))" >
+			<While Condition="((HasQuest(27709)) &amp;&amp; (!IsQuestCompleted(27709)))" >
 				<RunTo QuestId="27709" Distance="1" X="-6896.788" Y="-3394.938" Z="202.2851" />
 				<CustomBehavior File="InteractWith" QuestId="27709" MobId="46395" CollectionDistance="3" WaitTime="500" NumOfTimes="1" X="-6896.788" Y="-3394.938" Z="202.2851" />
 				<CustomBehavior File="InteractWith" QuestId="27709" MobId="46395" CollectionDistance="3" WaitTime="500" NumOfTimes="1" X="-6896.788" Y="-3394.938" Z="202.2851" />
@@ -6831,7 +6830,14 @@
 				<RunTo QuestId="27709" Distance="1" X="-6940.63" Y="-3377.553" Z="202.2837" />
 				<CustomBehavior File="InteractWith" QuestId="27709" MobId="46395" CollectionDistance="3" WaitTime="500" NumOfTimes="1" X="-6940.63" Y="-3377.553" Z="202.2837" />
 				<CustomBehavior File="InteractWith" QuestId="27709" MobId="46395" CollectionDistance="3" WaitTime="500" NumOfTimes="1" X="-6940.63" Y="-3377.553" Z="202.2837" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 <If Condition="((HasQuest(27709)) &amp;&amp; (!IsQuestCompleted(27709)))" >
+				<CustomBehavior File="AbandonQuest" QuestId="27709" Type="All" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to abandon {TimeRemaining}" />
+		<PickUp QuestName="The Sentinel's Game" QuestId="27709" GiverId="206336" GiverType="Object" X="-6895.912" Y="-3375.265" Z="202.3273" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			 </If>
+			</While>
 			<While Condition="((HasQuest(27709)) &amp;&amp; (IsQuestCompleted(27709)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="27709" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
@@ -6840,7 +6846,7 @@
 		<TurnIn QuestName="The Warden's Pawn" QuestId="27796" TurnInId="206335" TurnInType="Object" X="-6966.718" Y="-3444.807" Z="200.8968" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
-			<If Condition="((HasQuest(27693)) &amp;&amp; (!IsQuestCompleted(27693)))" >
+			<While Condition="((HasQuest(27693)) &amp;&amp; (!IsQuestCompleted(27693)))" >
 				<CustomBehavior File="MyCTM" X="-6971.978" Y="-3451.407" Z="200.8966" />
 				<CustomBehavior File="MyCTM" X="-6967.186" Y="-3447.955" Z="200.8966" />
 				<CustomBehavior File="InteractWith" QuestId="27693" MobId="46344" NumOfTimes="1" CollectionDistance="2" Nav="CTM" Range="2" WaitTime="500" X="-6967.036" Y="-3447.406" Z="200.8969" />
@@ -6876,7 +6882,15 @@
 				<CustomBehavior File="MyCTM" X="-6968.533" Y="-3445.148" Z="200.8966" />
 				<CustomBehavior File="MyCTM" X="-6964.489" Y="-3445.224" Z="200.8969" />
 				<CustomBehavior File="InteractWith" QuestId="27693" MobId="46344" NumOfTimes="1" CollectionDistance="2" Nav="CTM" Range="2" WaitTime="500" X="-6964.489" Y="-3445.224" Z="200.8969" />
-			</If>
+				
+				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 <If Condition="((HasQuest(27693)) &amp;&amp; (!IsQuestCompleted(27693)))" >
+				<CustomBehavior File="AbandonQuest" QuestId="27693" Type="All" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to abandon {TimeRemaining}" />
+		<PickUp QuestName="The Warden's Game" QuestId="27693" GiverId="206335" GiverType="Object" X="-6966.718" Y="-3444.807" Z="200.8968" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			 </If>
+			</While>
 			<While Condition="((HasQuest(27693)) &amp;&amp; (IsQuestCompleted(27693)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="27693" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
@@ -6894,14 +6908,14 @@
 			<If Condition="((HasQuest(27912)) &amp;&amp; (IsQuestCompleted(27912)))" >
 		<TurnIn QuestName="The Titans' Trove" QuestId="27912" TurnInName="Trove of the Watchers" TurnInId="206374" TurnInType="Object" X="-6942.352" Y="-3445.687" Z="197.6486" />
 		<PickUp QuestName="Return to Blam" QuestId="27794" GiverName="Trove of the Watchers" GiverId="206374" GiverType="Object" X="-6942.352" Y="-3445.687" Z="197.6486" />
+				<CustomBehavior File="InteractWith" MobId="44409" X="-6594.81" Y="-3406.54" Z="279.2865" />
 			</If>
 			<If Condition="(IsQuestCompleted(27912)) &amp;&amp; (!IsQuestCompleted(27794))" >
 		<PickUp QuestName="Return to Blam" QuestId="27794" GiverName="Trove of the Watchers" GiverId="206374" GiverType="Object" X="-6942.352" Y="-3445.687" Z="197.6486" />
+				<CustomBehavior File="InteractWith" MobId="44409" X="-6594.81" Y="-3406.54" Z="279.2865" />
 			</If>
-			<If Condition="((HasQuest(27794)) &amp;&amp; (IsQuestCompleted(27794)))" >
 		<TurnIn QuestName="Return to Blam" QuestId="27794" TurnInName="Dr. Hieronymus Blam" TurnInId="46664" />
 		<PickUp QuestName="Into the Dragon's Mouth" QuestId="27826" GiverName="Dr. Hieronymus Blam" GiverId="46664" />
-			</If>
 		<TurnIn QuestName="Into the Dragon's Mouth" QuestId="27826" TurnInName="Rhea" TurnInId="46654" />
 		<PickUp QuestName="The Swift, the Fierce, and the Stout" QuestId="27827" GiverName="Rhea" GiverId="46654" />
 		<PickUp QuestName="Half-Ton Holdouts" GiverName="Terrance Storm" QuestId="27833" GiverId="46972" X="-7027.43" Y="-2540.72" Z="251.7944" />
@@ -6960,7 +6974,6 @@
 			<Objective QuestName="Half-Ton Holdouts" QuestId="27833" Type="KillMob" KillCount="12" MobId="2717" />
 		<TurnIn QuestName="Survival of the Fattest" TurnInName="Victoria Dolen" QuestId="27825" TurnInId="46930" X="-6994.01" Y="-2542.61" Z="241.7139" />
 		<TurnIn QuestName="Half-Ton Holdouts" TurnInName="Terrance Storm" QuestId="27833" TurnInId="46972" X="-7027.43" Y="-2540.72" Z="251.7944" />
-			uncomment down to here -->
 			<!-- These 2 quests - both involve elites that are hard to kill; You can pick up this quest from Rhea in Dragon's Mouth camp
 			<Objective QuestName="Their Hunt Continues" QuestId="27830" Type="KillMob" MobId="46860" KillCount="1" />
 			<Objective QuestName="Their Hunt Continues" QuestId="27830" Type="KillMob" MobId="46917" KillCount="6" />
