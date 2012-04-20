@@ -77,8 +77,8 @@ namespace Styx.Bot.Quest_Behaviors
         private LocalPlayer Me { get { return (ObjectManager.Me); } }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: ForcedMount.cs 219 2012-03-02 13:28:00Z raphus $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 219 $"); } }
+        public override string SubversionId { get { return ("$Id: ForcedMount.cs 227 2012-04-14 15:43:10Z raphus $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 227 $"); } }
 
 
         ~ForcedMount()
@@ -126,12 +126,12 @@ namespace Styx.Bot.Quest_Behaviors
             else
             {
                 MountHelper.FlyingMounts.First().CreatureSpell.Cast();
-				Thread.Sleep(2500);
              while (StyxWoW.Me.IsCasting)
                 { Thread.Sleep(200); }
             }
 
             // Hop off the ground. Kthx
+			Thread.Sleep(2500);
             Navigator.PlayerMover.Move(WoWMovement.MovementDirection.JumpAscend);
             Thread.Sleep(250);
             Navigator.PlayerMover.MoveStop();
