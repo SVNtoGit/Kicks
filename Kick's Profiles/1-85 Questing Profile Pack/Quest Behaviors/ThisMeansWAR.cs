@@ -159,8 +159,8 @@ namespace Styx.Bot.Quest_Behaviors
                                                     _movetoPoint =
                                                         WoWMathHelper.CalculatePointFrom(_lumberMillLocation,
                                                                                         _currentTarget.
-                                                                                            Location, -7);
-                                                    if (_movetoPoint.DistanceSqr(Me.Location) >8 * 8)
+                                                                                            Location, -6);
+                                                    if (_movetoPoint.DistanceSqr(Me.Location) >4 * 4)
                                                     {
                                                         Navigator.MoveTo(_movetoPoint);
                                                         return RunStatus.Running;
