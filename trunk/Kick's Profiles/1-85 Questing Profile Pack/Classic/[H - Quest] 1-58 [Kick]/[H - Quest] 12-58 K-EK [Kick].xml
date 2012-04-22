@@ -5717,49 +5717,39 @@
 		<PickUp QuestName="A Talking Totem" QuestId="28100" GiverName="Grazle" GiverId="11554" />
 		<PickUp QuestName="Culling the Corrupted" QuestId="28148" GiverName="Taronn Redfeather" GiverId="10921" />
 		<TurnIn QuestName="A Talking Totem" QuestId="28100" TurnInName="Totem of Ruumbo" TurnInId="206585" />
-		
 		<PickUp QuestName="Ruumbo Demands Honey" GiverName="Totem of Ruumbo" QuestId="27989" GiverId="206585" GiverType="Object" X="3854.473" Y="-1322.416" Z="211.9353" />
 		<PickUp QuestName="Ruumbo Demands Justice" GiverName="Totem of Ruumbo" QuestId="27994" GiverId="206585" GiverType="Object" X="3854.473" Y="-1322.416" Z="211.9353" />
-		
 			<If Condition="(HasQuest(27989)) &amp;&amp; (!IsQuestCompleted(27989))">
 				<CustomBehavior File="UseItemOn" QuestId="27989" MobId="47308" ItemId="62819" NumOfTimes="50" Range="5" CollectionDistance="500" X="3800.639" Y="-1279.833" Z="207.1756" />
 			</If>
 			<Objective QuestName="Ruumbo Demands Justice" QuestId="27994" Type="KillMob" MobId="47329" KillCount="15" />
-		
 		<TurnIn QuestName="Ruumbo Demands Justice" QuestId="27994" TurnInName="Totem of Ruumbo" TurnInId="206585" />
 		<TurnIn QuestName="Ruumbo Demands Honey" QuestId="27989" TurnInName="Totem of Ruumbo" TurnInId="206585" />
-		
 		<PickUp QuestName="Dance for Ruumbo!" GiverName="Totem of Ruumbo" QuestId="27995" GiverId="206585" GiverType="Object" X="3854.473" Y="-1322.416" Z="211.9353" />
 			<If Condition="((HasQuest(27995)) &amp;&amp; (!IsQuestCompleted(27995)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for dance {TimeRemaining}" />
 			</If>
-		
 			<Objective QuestName="Culling the Corrupted" QuestId="28148" Type="CollectItem" ItemId="63088" CollectCount="10" />
 			<Objective QuestName="The Corruption of the Jadefire" QuestId="27997" Type="KillMob" MobId="7105" KillCount="12" />
-
 		<TurnIn QuestName="The Corruption of the Jadefire" QuestId="27997" TurnInName="Tenell Leafrunner" TurnInId="10923" />
 		<TurnIn QuestName="Culling the Corrupted" QuestId="28148" TurnInName="Taronn Redfeather" TurnInId="10921" />
 		<TurnIn QuestName="Dance for Ruumbo!" QuestId="27995" TurnInName="Grazle" TurnInId="11554" />
-		
 		<PickUp QuestName="An Arcane Ally" QuestId="28150" GiverName="Tenell Leafrunner" GiverId="10923" />
 		<TurnIn QuestName="An Arcane Ally" QuestId="28150" TurnInName="Arcanist Delaris" TurnInId="47341" />
-		
 		<PickUp QuestName="Do the Imp-Possible" QuestId="28000" GiverName="Arcanist Delaris" GiverId="47341" />
-			<While Condition="(HasQuest(28000)) &amp;&amp; (!IsQuestCompleted(28000))">
-	
+			<If Condition="(HasQuest(28000)) &amp;&amp; (!IsQuestCompleted(28000))">
 			<If Condition="(Me.Level &gt;= 81)" >
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="5" Text="You are too high for this Combat UseItemOn quest, please manually do it!" />
 			</If>
-		
-				<CustomBehavior File="CombatUseItemOn" QuestId="28000" ItemId="62899" MobId="47339" MobHpPercentLeft="15" X="4287.259" Y="-1112.751" Z="323.6652" />
-			</While>
-			<Objective QuestName="Do the Imp-Possible" QuestId="28000" Type="KillMob" MobId="47365" KillCount="1" />
+			 <CustomBehavior File="CombatUseItemOn" UseOnce="True" ItemId="62899" MobId="47339" MobHpPercentLeft="15" X="4287.259" Y="-1112.751" Z="323.6652" />
+			 <If Condition="(Me.HasAura(&quot;Enchanted Imp Sack&quot;))" >
+				<RunTo X="4327.813" Y="-745.0688" Z="284.447" />
+			 </If>
+			</If>
 		<TurnIn QuestName="Do the Imp-Possible" QuestId="28000" TurnInName="Arcanist Delaris" TurnInId="47341" />
-		
 		<PickUp QuestName="See the Invisible" QuestId="28049" GiverName="Impsy" GiverId="47366" X="4329.05" Y="-740.825" Z="284.4487" />
 			<Objective QuestName="See the Invisible" QuestId="28049" Type="CollectItem" ItemId="62918" CollectCount="8" />
 		<TurnIn QuestName="See the Invisible" QuestId="28049" TurnInName="Impsy" TurnInId="47366" />
-		
 		<PickUp QuestName="Touch the Untouchable" QuestId="28044" GiverName="Impsy" GiverId="47366" />
 			<If Condition="(HasQuest(28044)) &amp;&amp; (!IsQuestCompleted(28044))">
 				<UseItem ItemId="62920" QuestName="Touch the Untouchable" QuestId="28044" X="4176.143" Y="-684.9738" Z="282.7856" />
@@ -5769,14 +5759,11 @@
 				<CustomBehavior File="CompleteLogQuest" QuestId="28044" /> <!-- Get null -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
 			</While>
-		
 		<PickUp QuestName="Break the Unbreakable" QuestId="28113" GiverName="Arcanist Delaris" GiverId="47341" />
 		<PickUp QuestName="Fight the Power" QuestId="28102" GiverName="Eridan Bluewind" GiverId="9116" />
-		
 			<If Condition="(HasQuest(28102)) &amp;&amp; (!IsQuestCompleted(28102))">
 				<CustomBehavior File="KillUntilComplete" QuestId="28102" MobId1="7110" MobId2="7106" X="4494.9" Y="-552.0205" Z="290.3582" />
 			</If>
-				<!-- Is this quest skippable? we keep getting stuck at firegate -->
 			<If Condition="(HasQuest(28113)) &amp;&amp; (!IsQuestCompleted(28113))">
 				<RunTo X="4574.997" Y="-391.7386" Z="304.154" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
@@ -5791,15 +5778,12 @@
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(63031)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 			</If>	
-		
 		<TurnIn QuestName="Break the Unbreakable" QuestId="28113" TurnInName="Arcanist Delaris" TurnInId="47341" />
 		<TurnIn QuestName="Fight the Power" QuestId="28102" TurnInName="Eridan Bluewind" TurnInId="9116" />
-		
 			<If Condition="((!HasQuest(28116)) &amp;&amp; (!IsQuestCompleted(28116)))" >
 		<PickUp QuestName="Jaedenar Awaits" QuestId="28152" GiverName="Eridan Bluewind" GiverId="9116" />
 			</If>
 		<PickUp QuestName="Open Their Eyes" QuestId="28288" GiverName="Arcanist Delaris" GiverId="47341" />
-
 			<If Condition="(HasQuest(28288)) &amp;&amp; (!IsQuestCompleted(28288))">
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<CustomBehavior File="UseItemOn" QuestId="28288" ItemId="63395" MobId="47369" NumOfTimes="50" X="4016.465" Y="-841.2407" Z="273.751" />
@@ -5810,13 +5794,10 @@
 			<If Condition="((HasQuest(28152)) &amp;&amp; (IsQuestCompleted(28152)))" >
 		<TurnIn QuestName="Jaedenar Awaits" QuestId="28152" TurnInName="Greta Mosshoof" TurnInId="10922" />
 			</If>
-		
 		<PickUp QuestName="Crying Violet" QuestId="28116" GiverName="Greta Mosshoof" GiverId="10922" />
 		<PickUp QuestName="Forces of Jaedenar" QuestId="28121" GiverName="Jessir Moonbow" GiverId="11019" />
-		
 			<Objective QuestName="Crying Violet" QuestId="28116" Type="CollectItem" ItemId="63032" CollectCount="8" />
 			<Objective QuestName="Forces of Jaedenar" QuestId="28121" Type="KillMob" MobId="7125" KillCount="12" />
-
 		<TurnIn QuestName="Crying Violet" QuestId="28116" TurnInName="Andalar Shadevale" TurnInId="51664" X="4882.829" Y="-406.1042" Z="350.9761" />
 		<TurnIn QuestName="Forces of Jaedenar" QuestId="28121" TurnInName="Andalar Shadevale" TurnInId="51664" X="4882.829" Y="-406.1042" Z="350.9761" />
 		<PickUp QuestName="Purity From Corruption" QuestId="28119" GiverName="Andalar Shadevale" GiverId="51664" X="4882.829" Y="-406.1042" Z="350.9761" />
