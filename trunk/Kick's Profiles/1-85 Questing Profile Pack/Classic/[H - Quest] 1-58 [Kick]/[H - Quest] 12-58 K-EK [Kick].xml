@@ -1,7 +1,7 @@
 <HBProfile>
-	<Name>[H - Quest] 12-58 K-EK [Kick]</Name>
+	<Name>[H - Quest] 12-58 K and EK [Kick]</Name>
 	<MinLevel>1</MinLevel>
-	<MaxLevel>86</MaxLevel>
+	<MaxLevel>101</MaxLevel>
 	
 	<MinDurability>0.3</MinDurability>
 	<MinFreeBagSlots>3</MinFreeBagSlots>
@@ -1808,7 +1808,6 @@
 			</GrindArea>
 		</SetGrindArea>
 		<GrindTo Level="13"/>
-		<Checkpoint Level="13"/>
 		
 		<PickUp QuestName="The Forgotten Pools" QuestId="870" GiverName="Apothecary Helbrim" GiverId="3448"/>
 		<PickUp QuestName="Hunting the Huntress" QuestId="903" GiverName="Sergra Darkthorn" GiverId="3338"/>
@@ -2888,7 +2887,28 @@
 		<TurnIn QuestName="Demon Duty" QuestId="13806" TurnInName="Locke Okarr" TurnInId="11820" />
 		<TurnIn QuestName="Satyr Horns" QuestId="6441" TurnInName="Pixel" TurnInId="12724" />
 		<!-- End of Splintertree Post Quests -->
-		<!-- checkpoint something here -->
+		
+		<SetGrindArea>
+			<GrindArea>
+				<TargetMinLevel>18</TargetMinLevel>
+				<TargetMaxLevel>21</TargetMaxLevel>
+				<Factions>1514</Factions>
+				<Hotspots>
+					<Hotspot X="1280.953" Y="-2231.483" Z="92.15885"/>
+					<Hotspot X="1272.132" Y="-2203.077" Z="92.28832"/>
+					<Hotspot X="1288.737" Y="-2212.074" Z="91.90065"/>
+					<Hotspot X="1289.755" Y="-2233.392" Z="91.77265"/>
+					<Hotspot X="1304.565" Y="-2220.53" Z="91.686"/>
+					<Hotspot X="1326.461" Y="-2299.802" Z="93.7626"/>
+					<Hotspot X="1407.091" Y="-2326.954" Z="94.02001"/>
+					<Hotspot X="1478.907" Y="-2291.215" Z="93.16885"/>
+					<Hotspot X="1517.571" Y="-2236.472" Z="94.89737"/>
+				</Hotspots>
+			</GrindArea>
+		</SetGrindArea>
+		<GrindTo Level="20"/>
+		<Checkpoint Level="23"/>
+		
 
 			<!-- Zoram'gar Outpost Quests -->
 			<CustomBehavior File="Message" Text="Compiling Zoram'gar Outpost Quests" LogColor="Cornflowerblue" />
@@ -6587,11 +6607,10 @@
 			</GrindArea>
 		</SetGrindArea>
 		<GrindTo Level="55"/>
+		<Checkpoint Level="55" />
 		<!--END WINTERSPRING QUESTING-->	
 		
-		<!-- Hero's Call: Silithus! -->
-		<Checkpoint Level="55" />
-		
+			<!-- Hero's Call: Silithus! -->
 			<While Condition="(HasItem(20768))" > <!-- Oozing Bag -->
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(20768)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for loot {TimeRemaining}" />
@@ -6606,6 +6625,7 @@
 			</While>
 		
 			<CustomBehavior File="Message" Text="Compiling Silithus Quests" LogColor="Green" />
+			
 			 <If Condition="(Me.MapId == 1)" >
 			  <If Condition="(Me.Level &lt; 47)" >
 	<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="True" LearnFlightPaths="True" UseFlightPaths="True" PullDistance="25" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
@@ -6740,6 +6760,8 @@
 					</Mailboxes>
 				</SetMailbox>
 		
+			 </If>
+			 
 			<If Condition="((!HasQuest(8277)) &amp;&amp; (!IsQuestCompleted(8277))) &amp;&amp; ((!HasQuest(8278)) &amp;&amp; (!IsQuestCompleted(8278)))" >
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
@@ -6809,7 +6831,6 @@
 		<TurnIn QuestName="Call of the Warmatron" QuestId="28865" TurnInName="Okrilla" TurnInId="41124" />
 			</If>
 			</If>
-			 </If>
 			
 			<!--BEGIN BLASTED LANDS QUESTING-->
 
@@ -6828,6 +6849,70 @@
 				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for loot {TimeRemaining}" />
 			</While>
 		
+			<If Condition="((!HasQuest(25694)) &amp;&amp; (!IsQuestCompleted(25694))) &amp;&amp; (Me.MapId == 1)" >
+			<If Condition="((!HasQuest(28858)) &amp;&amp; (!IsQuestCompleted(28858))) &amp;&amp; ((!HasQuest(28671)) &amp;&amp; (!IsQuestCompleted(28671)))" >
+		<PickUp QuestName="Call of the Warmatron" QuestId="28865" GiverName="Okril'lon Mage" GiverId="50587" />
+			</If>
+			<If Condition="((IsQuestCompleted(28858)) || (IsQuestCompleted(28671))) &amp;&amp; (Me.MapId == 1)" >
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must manually move to Blasted Lands since something went wrong!" />
+			</If>
+			<If Condition="HasQuest(28865) &amp;&amp; (Me.MapId == 1)">
+			
+			<CustomBehavior File="Message" Text="Porting to Blasted Lands" LogColor="Orange" />
+
+				<CustomBehavior File="InteractWith" MobId="207565" ObjectType="Gameobject" Range="8" X="-6777.022" Y="821.5496" Z="55.74715" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for port {TimeRemaining}" />
+			</If>
+			<If Condition="HasQuest(28865) &amp;&amp; (Me.MapId == 0)">
+		<TurnIn QuestName="Call of the Warmatron" QuestId="28865" TurnInName="Okrilla" TurnInId="41124" />
+			</If>
+			</If>
+			 
+			 <If Condition="Me.MapId == 0" >
+	<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="False" LearnFlightPaths="True" UseFlightPaths="True" PullDistance="25" />
+	
+				<ClearVendor />
+				<SetVendor>
+					<Vendors>
+					<!--Blasted Lands-->
+					<Vendor Name="Quartermaster Dekrok" Entry="44343" Type="Food" X="-11781.4" Y="-3170.5" Z="-28.91287" />
+					<Vendor Name="Quartermaster Dekrok" Entry="44343" Type="Repair" X="-11781.4" Y="-3170.5" Z="-28.91287" />
+					<Vendor Name="Salaran" Entry="44339" Type="Repair" X="-12334.6" Y="-3036.81" Z="88.2162" />
+					<Vendor Name="Janella" Entry="44340" Type="Food" X="-12366.9" Y="-3008.16" Z="90.32679" />	
+					</Vendors>
+				</SetVendor>
+				
+				<ClearMailbox />
+				<SetMailbox>
+					<Mailboxes>
+						<!-- Stonard -->
+						<Mailbox X="-10461.98" Y="-3265.855" Z="20.1791" />
+					</Mailboxes>
+				</SetMailbox>
+				
+			 </If>
+			 
+			<SetGrindArea>
+				<GrindArea>
+					<Name>Grind to Level 56</Name>
+					<Factions>90 954 49 189 38</Factions>
+					<TargetMinLevel>52</TargetMinLevel>
+					<TargetMaxLevel>57</TargetMaxLevel>
+					<Hotspots>
+						<Hotspot X="-11679.47" Y="-3240.334" Z="14.43274" />
+						<Hotspot X="-11661.4" Y="-3282.436" Z="21.96123" />
+						<Hotspot X="-11673.14" Y="-3344.655" Z="14.36171" />
+						<Hotspot X="-11642.94" Y="-3363.378" Z="8.520746" />
+						<Hotspot X="-11575.1" Y="-3375.574" Z="8.673609" />
+						<Hotspot X="-11509.89" Y="-3356.05" Z="9.266379" />
+						<Hotspot X="-11474.74" Y="-3300.114" Z="9.979373" />
+						<Hotspot X="-11489.39" Y="-2999.58" Z="10.21174" />
+					</Hotspots>
+				</GrindArea>
+			</SetGrindArea>
+			<GrindTo Level="56"/>
+			<Checkpoint Level="56"/>
+			
 			<If Condition="(!IsQuestCompleted(25720))" >
 			<If Condition="((!HasQuest(25694)) &amp;&amp; (!IsQuestCompleted(25694)))" >
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
@@ -6841,34 +6926,12 @@
 		<PickUp QuestName="Protecting Our Rear" QuestId="25694" GiverName="Warlord Dar'toon" GiverId="19254" />
 			</If>
 		
-			<If Condition="Me.ZoneId == 4" > <!-- Blasted Lands -->
-				<ClearVendor />
-				<SetVendor>
-					<Vendors>
-						<!-- Blasted Lands -->
-						<Vendor Name="Quartermaster Dekrok" Entry="44343" Type="Food" X="-11781.4" Y="-3170.5" Z="-28.91287" />
-						<Vendor Name="Quartermaster Dekrok" Entry="44343" Type="Repair" X="-11781.4" Y="-3170.5" Z="-28.91287" />
-						<Vendor Name="Salaran" Entry="44339" Type="Repair" X="-12334.6" Y="-3036.81" Z="88.2162" />
-						<Vendor Name="Janella" Entry="44340" Type="Food" X="-12366.9" Y="-3008.16" Z="90.32679" />	
-					</Vendors>
-				</SetVendor>
-				
-				<ClearMailbox />
-				<SetMailbox>
-					<Mailboxes>
-						<!-- Stonard -->
-						<Mailbox X="-10461.98" Y="-3265.855" Z="20.1791" />
-					</Mailboxes>
-				</SetMailbox>
-			</If>
-		
 			<Objective QuestName="Protecting Our Rear" QuestId="25694" Type="KillMob" MobId="41164" KillCount="1" />
 			<Objective QuestName="Protecting Our Rear" QuestId="25694" Type="KillMob" MobId="41166" KillCount="1" />
 			<Objective QuestName="Protecting Our Rear" QuestId="25694" Type="KillMob" MobId="41165" KillCount="1" />
 		<TurnIn QuestName="Protecting Our Rear" QuestId="25694" TurnInName="Warlord Dar'toon" TurnInId="19254" />
 		<PickUp QuestName="Watching Our Back" QuestId="25695" GiverName="Warlord Dar'toon" GiverId="19254" />
 			<While Condition="((HasQuest(25695)) &amp;&amp; (!IsQuestCompleted(25695)))" >
-				<!-- Kick's	-->
 				<RunTo X="-11811.42" Y="-3233.681" Z="-30.07505" />
 				<CustomBehavior File="WaitTimer" WaitTime="500" GoalText="Waiting for  {TimeRemaining}" />
 				<RunTo X="-11808.45" Y="-3232.96" Z="-29.96012" />
@@ -6954,52 +7017,6 @@
 			<Objective QuestName="Neptool's Revenge" QuestId="25706" Type="KillMob" MobId="41405" KillCount="4" />
 		<TurnIn QuestName="Neptool's Revenge" QuestId="25706" TurnInName="Neptool" TurnInId="41354" />
 		<TurnIn QuestName="False Idols" QuestId="25705" TurnInName="Neptool" TurnInId="41354" />
-		
-			<SetGrindArea>
-				<GrindArea>
-					<Name>Grind to Level 57</Name>
-					<Factions>90 954 49 189 38</Factions>
-					<TargetMinLevel>52</TargetMinLevel>
-					<TargetMaxLevel>57</TargetMaxLevel>
-					<Hotspots>
-						<Hotspot X="-11679.47" Y="-3240.334" Z="14.43274" />
-						<Hotspot X="-11661.4" Y="-3282.436" Z="21.96123" />
-						<Hotspot X="-11673.14" Y="-3344.655" Z="14.36171" />
-						<Hotspot X="-11642.94" Y="-3363.378" Z="8.520746" />
-						<Hotspot X="-11575.1" Y="-3375.574" Z="8.673609" />
-						<Hotspot X="-11509.89" Y="-3356.05" Z="9.266379" />
-						<Hotspot X="-11474.74" Y="-3300.114" Z="9.979373" />
-						<Hotspot X="-11489.39" Y="-2999.58" Z="10.21174" />
-					</Hotspots>
-				</GrindArea>
-			</SetGrindArea>
-			<GrindTo Level="57"/>
-			<!-- <Checkpoint Level="57"/> -->
-		
-			 <If Condition="Me.MapId == 0" >
-	<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="False" LearnFlightPaths="True" UseFlightPaths="True" PullDistance="25" />
-	
-				<ClearVendor />
-				<SetVendor>
-					<Vendors>
-					<!--Blasted Lands-->
-					<Vendor Name="Quartermaster Dekrok" Entry="44343" Type="Food" X="-11781.4" Y="-3170.5" Z="-28.91287" />
-					<Vendor Name="Quartermaster Dekrok" Entry="44343" Type="Repair" X="-11781.4" Y="-3170.5" Z="-28.91287" />
-					<Vendor Name="Salaran" Entry="44339" Type="Repair" X="-12334.6" Y="-3036.81" Z="88.2162" />
-					<Vendor Name="Janella" Entry="44340" Type="Food" X="-12366.9" Y="-3008.16" Z="90.32679" />	
-					</Vendors>
-				</SetVendor>
-				
-				<ClearMailbox />
-				<SetMailbox>
-					<Mailboxes>
-						<!-- Stonard -->
-						<Mailbox X="-10461.98" Y="-3265.855" Z="20.1791" />
-					</Mailboxes>
-				</SetMailbox>
-				
-			 </If>
-			 
 		<PickUp QuestName="The Demons and the Druid" QuestId="25717" GiverName="Rohan Sunveil" GiverId="42344" />
 			<Objective QuestName="The Demons and the Druid" QuestId="25717" Type="KillMob" MobId="41470" KillCount="5" />
 			<Objective QuestName="The Demons and the Druid" QuestId="25717" Type="KillMob" MobId="41471" KillCount="5" />
