@@ -1559,7 +1559,7 @@
         <Hotspot X="-11641.18" Y="-3059.619" Z="10.63637" />
       </Hotspots>
     </Objective>
-  </Quest>
+	</Quest>
 	
 	
 	<QuestOrder IgnoreCheckPoints="False" >
@@ -6523,7 +6523,6 @@
 		<PickUp QuestName="Magic Prehistoric" QuestId="28839" GiverName="Haleh" GiverId="10929" />
 		<PickUp QuestName="Razor Beak and Antlers Pointy" QuestId="28829" GiverName="Jadrag the Slicer" GiverId="50263" />
 			<While Condition="HasQuest(28839) &amp;&amp; !IsQuestCompleted(28839)">
-				<!-- These totems do disappear when used so if someone else is doing the same quest we bug out -->
 				<!-- change this to objective -->
 				<CustomBehavior File="InteractWith" QuestId="28839" ObjectType="GameObject" MobId="207421" NumOfTimes="1" Range="5" CollectionDistance="10" X="5763.891" Y="-4992.519" Z="809.2988" />
 				<CustomBehavior File="InteractWith" QuestId="28839" ObjectType="GameObject" MobId="207423" NumOfTimes="1" Range="5" CollectionDistance="10" X="5612.038" Y="-5027.156" Z="808.2819" />
@@ -6755,10 +6754,9 @@
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
 			
 			<CustomBehavior File="Message" Text="Going to Silithus" LogColor="Orange" />
-
-				<CustomBehavior File="UserSettings" PullDistance="1" />
+			<CustomBehavior File="UserSettings" PullDistance="1" />
 			 <If Condition="Me.ZoneId == 618" > <!-- Winterspring -->
-				<RunTo X="6797.63" Y="-4741.784" Z="701.4995" /> <!-- Ally Everlook FP - change to horde -->
+				<CustomBehavior File="InteractWith" MobId="11139" X="6815.121" Y="-4610.124" Z="710.6705" />
 				<RunTo X="-4566.069" Y="-3225.39" Z="34.65636" /> <!-- Mudsprocket FP -->
 			 </If>
 		<PickUp QuestName="Deadly Desert Venom" QuestId="8277" GiverName="Beetix Ficklespragg" GiverId="15189" />
@@ -6813,8 +6811,28 @@
 			</If>
 			</If>
 			
-			<!--BEGIN BLASTED LANDS QUESTING-->
-
+			<SetGrindArea>
+				<GrindArea>
+					<Name>Grind to Level 56</Name>
+					<Factions>90 954 49 189 38</Factions>
+					<TargetMinLevel>52</TargetMinLevel>
+					<TargetMaxLevel>57</TargetMaxLevel>
+					<Hotspots>
+						<Hotspot X="-11679.47" Y="-3240.334" Z="14.43274" />
+						<Hotspot X="-11661.4" Y="-3282.436" Z="21.96123" />
+						<Hotspot X="-11673.14" Y="-3344.655" Z="14.36171" />
+						<Hotspot X="-11642.94" Y="-3363.378" Z="8.520746" />
+						<Hotspot X="-11575.1" Y="-3375.574" Z="8.673609" />
+						<Hotspot X="-11509.89" Y="-3356.05" Z="9.266379" />
+						<Hotspot X="-11474.74" Y="-3300.114" Z="9.979373" />
+						<Hotspot X="-11489.39" Y="-2999.58" Z="10.21174" />
+					</Hotspots>
+				</GrindArea>
+			</SetGrindArea>
+			<GrindTo Level="56"/>
+			<Checkpoint Level="56"/>
+			
+			<!-- BEGIN BLASTED LANDS QUESTING -->
 			<CustomBehavior File="Message" Text="Compiling Blasted Lands Quests" LogColor="Green" />
 
 			<While Condition="(HasItem(20768))" > <!-- Oozing Bag -->
@@ -6831,6 +6849,12 @@
 			</While>
 		
 			<If Condition="((!HasQuest(25694)) &amp;&amp; (!IsQuestCompleted(25694))) &amp;&amp; (Me.MapId == 1)" >
+				<CustomBehavior File="Message" Text="Going to Silithus to go to Blasted Lands" LogColor="Cornflowerblue" />
+				<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="False" LearnFlightPaths="True" UseFlightPaths="True" PullDistance="25" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
+		 <If Condition="(Me.ZoneId == 618)" >
+				<CustomBehavior File="InteractWith" MobId="11139" X="6815.121" Y="-4610.124" Z="710.6705" />
+				<RunTo X="-4566.069" Y="-3225.39" Z="34.65636" /> <!-- Mudsprocket FP -->
+			 </If>
 			<If Condition="((!HasQuest(28858)) &amp;&amp; (!IsQuestCompleted(28858))) &amp;&amp; ((!HasQuest(28671)) &amp;&amp; (!IsQuestCompleted(28671)))" >
 		<PickUp QuestName="Call of the Warmatron" QuestId="28865" GiverName="Okril'lon Mage" GiverId="50587" />
 			</If>
@@ -6839,7 +6863,7 @@
 			</If>
 			<If Condition="HasQuest(28865) &amp;&amp; (Me.MapId == 1)">
 			
-			<CustomBehavior File="Message" Text="Porting to Blasted Lands" LogColor="Orange" />
+				<CustomBehavior File="Message" Text="Porting to Blasted Lands" LogColor="Orange" />
 
 				<CustomBehavior File="InteractWith" MobId="207565" ObjectType="Gameobject" Range="8" X="-6777.022" Y="821.5496" Z="55.74715" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for port {TimeRemaining}" />
@@ -6873,27 +6897,6 @@
 				
 			 </If>
 			 
-			<SetGrindArea>
-				<GrindArea>
-					<Name>Grind to Level 56</Name>
-					<Factions>90 954 49 189 38</Factions>
-					<TargetMinLevel>52</TargetMinLevel>
-					<TargetMaxLevel>57</TargetMaxLevel>
-					<Hotspots>
-						<Hotspot X="-11679.47" Y="-3240.334" Z="14.43274" />
-						<Hotspot X="-11661.4" Y="-3282.436" Z="21.96123" />
-						<Hotspot X="-11673.14" Y="-3344.655" Z="14.36171" />
-						<Hotspot X="-11642.94" Y="-3363.378" Z="8.520746" />
-						<Hotspot X="-11575.1" Y="-3375.574" Z="8.673609" />
-						<Hotspot X="-11509.89" Y="-3356.05" Z="9.266379" />
-						<Hotspot X="-11474.74" Y="-3300.114" Z="9.979373" />
-						<Hotspot X="-11489.39" Y="-2999.58" Z="10.21174" />
-					</Hotspots>
-				</GrindArea>
-			</SetGrindArea>
-			<GrindTo Level="56"/>
-			<Checkpoint Level="56"/>
-			
 			<If Condition="(!IsQuestCompleted(25720))" >
 			<If Condition="((!HasQuest(25694)) &amp;&amp; (!IsQuestCompleted(25694)))" >
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
