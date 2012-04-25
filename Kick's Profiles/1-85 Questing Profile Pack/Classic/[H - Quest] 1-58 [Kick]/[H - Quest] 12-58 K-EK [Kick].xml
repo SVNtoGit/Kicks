@@ -6590,7 +6590,7 @@
 		<Checkpoint Level="55" />
 		<!--END WINTERSPRING QUESTING-->	
 		
-			<!-- Hero's Call: Silithus! -->
+			<!-- Silithus Questing -->
 			<While Condition="(HasItem(20768))" > <!-- Oozing Bag -->
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(20768)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for loot {TimeRemaining}" />
@@ -6742,6 +6742,7 @@
 		
 			 </If>
 			 
+			<If Condition="(!IsQuestCompleted(8285))" >
 			<If Condition="((!HasQuest(8277)) &amp;&amp; (!IsQuestCompleted(8277))) &amp;&amp; ((!HasQuest(8278)) &amp;&amp; (!IsQuestCompleted(8278)))" >
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
@@ -6753,20 +6754,17 @@
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
 			
-			<CustomBehavior File="Message" Text="Going to Silithus" LogColor="Orange" />
-			<CustomBehavior File="UserSettings" PullDistance="1" />
+			 <CustomBehavior File="UserSettings" PullDistance="1" />
 			 <If Condition="Me.ZoneId == 618" > <!-- Winterspring -->
+				<CustomBehavior File="Message" Text="Going to Silithus" LogColor="Orange" />
 				<CustomBehavior File="InteractWith" MobId="11139" X="6815.121" Y="-4610.124" Z="710.6705" />
-				<RunTo X="-4566.069" Y="-3225.39" Z="34.65636" /> <!-- Mudsprocket FP -->
+				<RunTo X="1639.75" Y="-4316.71" Z="21.12019" /> <!-- Org -->
+				<CustomBehavior File="ForceSetVendor" DoTrain="True" DoSell="True" DoRepair="True" DoMail="True" />
 			 </If>
 		<PickUp QuestName="Deadly Desert Venom" QuestId="8277" GiverName="Beetix Ficklespragg" GiverId="15189" />
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
-			<If Condition="(!IsQuestCompleted(8285))" >
-			<If Condition="((!HasQuest(8280)) &amp;&amp; (!IsQuestCompleted(8280)))" >
-				<CustomBehavior File="UserSettings" TrainNewSkills="False" />
 		<PickUp QuestName="Securing the Supply Lines" QuestId="8280" GiverName="Windcaller Proudhorn" GiverId="15191" />
-			</If>
 		<PickUp QuestName="Secret Communication" QuestId="8318" GiverName="Bor Wildmane" GiverId="15306" />
 		<PickUp QuestName="Twilight Geolords" QuestId="8320" GiverName="Huum Wildmane" GiverId="15270" />
 		
@@ -6793,15 +6791,15 @@
 			</If>
 		
 			<If Condition="((!HasQuest(25694)) &amp;&amp; (!IsQuestCompleted(25694)))" >
-			<If Condition="((!HasQuest(28858)) &amp;&amp; (!IsQuestCompleted(28858))) &amp;&amp; ((!HasQuest(28671)) &amp;&amp; (!IsQuestCompleted(28671)))" >
-		<PickUp QuestName="Call of the Warmatron" QuestId="28865" GiverName="Okril'lon Mage" GiverId="50587" />
-			</If>
 			<If Condition="((IsQuestCompleted(28858)) || (IsQuestCompleted(28671))) &amp;&amp; (Me.MapId == 1)" >
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must manually move to Blasted Lands since something went wrong!" />
 			</If>
+			<If Condition="((!HasQuest(28858)) &amp;&amp; (!IsQuestCompleted(28858))) &amp;&amp; ((!HasQuest(28671)) &amp;&amp; (!IsQuestCompleted(28671)))" >
+		<PickUp QuestName="Call of the Warmatron" QuestId="28865" GiverName="Okril'lon Mage" GiverId="50587" />
+			</If>
 			<If Condition="HasQuest(28865) &amp;&amp; (Me.MapId == 1)">
 			
-			<CustomBehavior File="Message" Text="Porting to Blasted Lands" LogColor="Orange" />
+				<CustomBehavior File="Message" Text="Porting to Blasted Lands" LogColor="Orange" />
 
 				<CustomBehavior File="InteractWith" MobId="207565" ObjectType="Gameobject" Range="8" X="-6777.022" Y="821.5496" Z="55.74715" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for port {TimeRemaining}" />
@@ -6851,15 +6849,17 @@
 			<If Condition="((!HasQuest(25694)) &amp;&amp; (!IsQuestCompleted(25694))) &amp;&amp; (Me.MapId == 1)" >
 				<CustomBehavior File="Message" Text="Going to Silithus to go to Blasted Lands" LogColor="Cornflowerblue" />
 				<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="False" LearnFlightPaths="True" UseFlightPaths="True" PullDistance="25" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
-		 <If Condition="(Me.ZoneId == 618)" >
+			 <If Condition="Me.ZoneId == 618" > <!-- Winterspring -->
+				<CustomBehavior File="Message" Text="Going to Silithus" LogColor="Orange" />
 				<CustomBehavior File="InteractWith" MobId="11139" X="6815.121" Y="-4610.124" Z="710.6705" />
-				<RunTo X="-4566.069" Y="-3225.39" Z="34.65636" /> <!-- Mudsprocket FP -->
+				<RunTo X="1639.75" Y="-4316.71" Z="21.12019" /> <!-- Org -->
+				<CustomBehavior File="ForceSetVendor" DoTrain="True" DoSell="True" DoRepair="True" DoMail="True" />
 			 </If>
-			<If Condition="((!HasQuest(28858)) &amp;&amp; (!IsQuestCompleted(28858))) &amp;&amp; ((!HasQuest(28671)) &amp;&amp; (!IsQuestCompleted(28671)))" >
-		<PickUp QuestName="Call of the Warmatron" QuestId="28865" GiverName="Okril'lon Mage" GiverId="50587" />
-			</If>
 			<If Condition="((IsQuestCompleted(28858)) || (IsQuestCompleted(28671))) &amp;&amp; (Me.MapId == 1)" >
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must manually move to Blasted Lands since something went wrong!" />
+			</If>
+			<If Condition="((!HasQuest(28858)) &amp;&amp; (!IsQuestCompleted(28858))) &amp;&amp; ((!HasQuest(28671)) &amp;&amp; (!IsQuestCompleted(28671)))" >
+		<PickUp QuestName="Call of the Warmatron" QuestId="28865" GiverName="Okril'lon Mage" GiverId="50587" />
 			</If>
 			<If Condition="HasQuest(28865) &amp;&amp; (Me.MapId == 1)">
 			
