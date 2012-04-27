@@ -2769,11 +2769,19 @@
 		<TurnIn QuestName="Clues in the Thicket" QuestId="9971" TurnInName="Earthbinder Tavgren" TurnInId="18446" X="-1947.203" Y="4689.501" Z="-2.189576" />
 		<TurnIn QuestName="Strange Energy" QuestId="9968" TurnInName="Earthbinder Tavgren" TurnInId="18446" X="-1947.203" Y="4689.501" Z="-2.189576" />
 		<PickUp QuestName="By Any Means Necessary" QuestId="9978" GiverName="Earthbinder Tavgren" GiverId="18446" />
-			 <If Condition="(HasQuest(9978))" >
+			<While Condition="(HasQuest(9978))" >
 				<CustomBehavior File="Message" Text="Waiting for Empoor to pass by - don't interfere!\n\nIt could be 30s to 5min!" LogColor="Orange" />
 				<CustomBehavior File="InteractWith" MobId="18482" WaitForNpcs="True" GossipOptions="1" WaitTime="2000" X="-1945.773" Y="4687.774" Z="-2.231679" />
-			 </If>
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+
+				<CustomBehavior File="Message" Text="Waiting for Empoor to pass by - don't interfere!\n\nIt could be 30s to 5min!" LogColor="Orange" />
+				<CustomBehavior File="InteractWith" MobId="18482" WaitForNpcs="True" GossipOptions="1" WaitTime="2000" X="-1945.773" Y="4687.774" Z="-2.231679" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />	
+			</While>
+			<!--
 		<TurnIn QuestName="By Any Means Necessary" QuestId="9978" TurnInName="Empoor" TurnInId="18482" />
+			-->
 			<!-- add this chain
 		<PickUp QuestName="Wind Trader Lathrai" QuestId="9979" GiverName="Empoor" GiverId="18482" />
 			-->
