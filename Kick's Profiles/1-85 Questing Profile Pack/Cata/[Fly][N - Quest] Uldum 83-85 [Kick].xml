@@ -977,14 +977,54 @@
 				<Objective QuestName="Core Access Codes" QuestId="27777" Type="CollectItem" ItemId="62399" CollectCount="1" />
 			</While>
 			<If Condition="((HasQuest(27761)) &amp;&amp; (!IsQuestCompleted(27761)))" >
-				<CustomBehavior File="UserSettings" PullDistance="25" />
-				<CustomBehavior File="FlyTo" X="-10664.89" Y="-2449.638" Z="143.2799" />
-				<!-- Possible w/o a UserDialog, but annoying -->
-				<CustomBehavior File="UserDialog" QuestId="27761" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Fly over the sparklies, use the Hologram while on mount, then disable clusters and bomb bots\n\nPress continue when you're done\n\nDon't go far, you get to command the fireball next!" />
+				<CustomBehavior File="UserSettings" PullDistance="1"/>
+			 <While Condition="((HasQuest(27761)) &amp;&amp; (!IsObjectiveComplete(3, 27761)))">
+				<CustomBehavior File="FlyTo" DestName="1st Sparkles" X="-10704.05" Y="-2455.384" Z="133.0618"  />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="0" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for item cd {TimeRemaining}" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="0" />
+				<CustomBehavior File="InteractWith" QuestId="27761" MobId="206397" ObjectType="Gameobject" Range="4.75"  WaitTime="300" />
+				
+				<CustomBehavior File="ForcedMount" MountType="Flying" />
+			 	<CustomBehavior File="FlyTo" DestName="Up" X="-10702.17" Y="-2455.62" Z="133.2423" />
+			 </While>
+			
+			 <While Condition="((HasQuest(27761)) &amp;&amp; (!IsObjectiveComplete(2, 27761)))">
+				<CustomBehavior File="FlyTo" DestName="2nd Sparkles" X="-10678.92" Y="-2452.069" Z="110.3572" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="0" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for item cd {TimeRemaining}" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="0" />
+				<CustomBehavior File="InteractWith" QuestId="27761" MobId="206396" ObjectType="Gameobject" Range="4.75" WaitTime="300"/>
+				
+				<CustomBehavior File="ForcedMount" MountType="Flying" />
+				<CustomBehavior File="FlyTo" DestName="Up"  X="-10678.92" Y="-2452.069" Z="110.3572" />
+			 </While>
+
+			 <While Condition="((HasQuest(27761)) &amp;&amp; (!IsObjectiveComplete(1, 27761)))">
+				<CustomBehavior File="FlyTo" DestName="3rd Sparkles" X="-10589.87" Y="-2437.749" Z="103.84882"  />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="0" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for item cd {TimeRemaining}" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="0" />
+				<CustomBehavior File="InteractWith" QuestId="27761" MobId="206395" ObjectType="Gameobject" Range="4.75"  WaitTime="300"/>
+				
+				<CustomBehavior File="ForcedMount" MountType="Flying" />
+				<CustomBehavior File="FlyTo" DestName="Up" X="-10591.21" Y="-2443.066" Z="114.61473" />
+			 </While>
+			
+			 <If Condition="((HasQuest(27761)) &amp;&amp; (!IsObjectiveComplete(4, 27761)))">
+			  <While Condition="((HasQuest(27761)) &amp;&amp; (!IsObjectiveComplete(4, 27761)))">
+				<CustomBehavior File="BomberMan" />
+			  </While>
+				<CustomBehavior File="FlyTo" DestName="Up" X="-10591.21" Y="-2443.066" Z="114.61473" />
+			 </If>
 			</If>
 			<If Condition="((HasQuest(27777)) &amp;&amp; (IsQuestCompleted(27777)))" >
 				<CustomBehavior File="FlyTo" X="-10692.67" Y="-2147.128" Z="104.4498" />
 				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UserSettings" PullDistance="25"/>
 			</If>
 		<TurnIn QuestName="A Disarming Distraction" QuestId="27761" TurnInName="A. I. D.A. Terminal" TurnInId="206293" X="-10691.36" Y="-2147.385" Z="104.4498" />
 		<TurnIn QuestName="Core Access Codes" QuestId="27777" TurnInName="A. I. D.A. Terminal" TurnInId="206293" X="-10691.36" Y="-2147.385" Z="104.4498" />
