@@ -1,5 +1,5 @@
 <HBProfile>
-	<Name>[H - Fly] QO 68-80 [Kick]</Name>
+	<Name>[Fly][H - Quest] 68-80 [Kick]</Name>
 	<MinLevel>68</MinLevel>
 	<MaxLevel>101</MaxLevel>
   
@@ -179,6 +179,7 @@
 	</AvoidMobs>
 
 	<Blackspots>
+		<Blackspot X="2617.533" Y="6208.208" Z="59.38242" Radius="10" />
 		<Blackspot X="1708.781" Y="-4113.34" Z="270.6194" Radius="10" />
 		<Blackspot X="2471.515" Y="-5252.6" Z="281.3463" Radius="60" />
 		<Blackspot X="2438.667" Y="-5148.612" Z="277.2173" Radius="100" />
@@ -1418,14 +1419,11 @@
 	
 
 		<If Condition="Me.IsAlliance" >
-			<CustomBehavior File="RunMacro" Macro="/exit" NumOfTimes="1" WaitTime="500" />
-			<CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" NumOfTimes="1" WaitTime="500" />
 			<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You must be Horde to run this profile" />
 		</If>
 	
 	
 	<CustomBehavior File="UserSettings" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" LootMobs="True" PullDistance="25" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
-	
 		<CustomBehavior File="Message" Text="If the bot takes more than 10 seconds to move, it is compiling quests to see where you are - it's about 1 minute per zone completed" LogColor="Orange" />
 
 			<CustomBehavior File="Message" Text="Compiling Borean Tundra Quests" LogColor="Green" />
@@ -1445,19 +1443,30 @@
  				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
  				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
  				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
-       <PickUp QuestName="Hellscream's Vigil" QuestId="11585" GiverName="Warsong Recruitment Officer" GiverId="25273" />
+				
+       <PickUp QuestName="Hellscream's Vigil" QuestId="11585" GiverName="Warsong Recruitment Officer" GiverId="25273" X="2822.696" Y="6171.691" Z="121.9802" />
 			</If>
 		
 			<!-- Train riding -->
 			<If Condition="(!HasSpell(54197))">
 				<CustomBehavior File="Message" Text="Training Riding" LogColor="Cornflowerblue" />
 				
-				<If Condition="Me.Gold &gt;= 401" >
-					<RunTo X="2773.588" Y="6144.316" Z="208.7535" />
-					<CustomBehavior File="InteractWith"  MobId="35135" WaitTime="1000" CollectionDistance="50" X="2773.588" Y="6144.316" Z="208.7535" />
-					<CustomBehavior File="ForceTrainRiding" MobId="35135" />
-					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting {TimeRemaining}"  />
-				</If>
+			  <!-- Warsong Hold Elevator Going Up -->
+		 	 <If Condition="(Me.Z &lt; 190)" >
+				<RunTo X="2869.177" Y="6215.224" Z="104.2853" />
+				<CustomBehavior File="UseTransport" TransportId="188521" 
+											WaitAtX="2869.177" WaitAtY="6215.224" WaitAtZ="104.2853"
+											GetOffX="2880.96" GetOffY="6225.813" GetOffZ="208.7495" 
+											TransportStartX="2877.649" TransportStartY="6223.188" TransportStartZ="104.8859" 
+											TransportEndX="2892.18" TransportEndY="6236.337" TransportEndZ="208.908"
+											StandOnX="2878.604" StandOnY="6223.707" StandOnZ="105.3792"  />
+			 </If>
+			 <If Condition="Me.Gold &gt;= 401" >
+				<RunTo X="2773.588" Y="6144.316" Z="208.7535" />
+				<CustomBehavior File="InteractWith"  MobId="35135" WaitTime="1000" CollectionDistance="50" X="2773.588" Y="6144.316" Z="208.7535" />
+				<CustomBehavior File="ForceTrainRiding" MobId="35135" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting {TimeRemaining}"  />
+			 </If>
 			</If>
 			<If Condition="(!HasSpell(54197))">
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" StopOnContinue="True" Text="You don't have enough money to fly!" />
@@ -1479,8 +1488,11 @@
 			<If Condition="((HasQuest(11611)) &amp;&amp; (!IsQuestCompleted(11611)))" >
 				<CustomBehavior File="FlyTo" DestName="free 5 peons" X="2599.496" Y="6101.533" Z="53.81347" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="UserSettings" PullDistance="10" />
+				<CustomBehavior File="UserSettings" PullDistance="5" />
+				<!--
 				<CustomBehavior File="KillUntilComplete" QuestId="11611" MobId1="25284" X="2599.496" Y="6101.533" Z="53.81347" />
+				-->
+				<CustomBehavior File="InteractWith" QuestId="11611" MobId="25284" NumOfTimes="1000" X="2599.496" Y="6101.533" Z="53.81347" />
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
 			<If Condition="((HasQuest(11598)) &amp;&amp; (!IsQuestCompleted(11598)))" >
