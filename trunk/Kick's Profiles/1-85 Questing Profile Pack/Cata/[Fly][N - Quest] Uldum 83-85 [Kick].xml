@@ -1500,10 +1500,14 @@
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
 			</If>
 			<If Condition="((HasQuest(28497)) &amp;&amp; (!IsQuestCompleted(28497)))" >
+			 <If Condition="(!Me.IsOnTransport)" >
 				<CustomBehavior File="InteractWith" QuestId="28497" MobId="48699" X="-8259.235" Y="-120.0095" Z="320.2148" />
-				<CustomBehavior File="UserDialog" QuestId="28497" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill 100 troopers" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+				<CustomBehavior File="WaitTimer" WaitTime="6000"/>
+			 </If>
+			 <If Condition="(Me.IsOnTransport)" >
+				<CustomBehavior File="FireFromSky" QuestId="28497" />
 				<CustomBehavior File="EjectVeh" Eject="True" />
+			 </If>
 			</If>
 			<If Condition="((HasQuest(28497)) &amp;&amp; (IsQuestCompleted(28497)))" >
 			<!--
@@ -1530,7 +1534,7 @@
 			<While Condition="((HasQuest(27748)) &amp;&amp; (!IsQuestCompleted(27748)))" >
 				<RunTo X="-8759.043" Y="292.5631" Z="329.2171" />
 				<CustomBehavior File="WaitTimer" WaitTime="60000"/>
-	<CustomBehavior File="UserDialog" QuestId="27748" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Help the bot kill the big guy" />
+				<CustomBehavior File="UserDialog" QuestId="27748" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Help the bot kill the big guy" />
 				<!--
 				<RunTo X="-8759.043" Y="292.5631" Z="329.2171" />
 				<CustomBehavior File="WaitTimer" WaitTime="60000"/>
@@ -1545,9 +1549,9 @@
 				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
 				-->
 			</While>
-		<TurnIn QuestName="Fortune and Glory" TurnInName="Harrison Jones" QuestId="27748" TurnInId="49151" />
-		<PickUp QuestName="Harrison Jones and the Temple of Uldum" GiverName="Harrison Jones" QuestId="28612" GiverId="49151" />
-			<If Condition="(HasQuest(28612))" >
+		<TurnIn QuestName="Fortune and Glory" QuestId="27748" TurnInName="Harrison Jones" TurnInId="49151" />
+			<If Condition="((!HasQuest(28612)) &amp;&amp; (!IsQuestCompleted(28612)))" >
+		<PickUp QuestName="Harrison Jones and the Temple of Uldum" QuestId="28612" GiverName="Harrison Jones" GiverId="49151" />
 				<CustomBehavior File="WaitTimer" WaitTime="190000"/>
 			</If>
 		<TurnIn QuestName="Harrison Jones and the Temple of Uldum" TurnInName="Brann Bronzebeard" QuestId="28612" TurnInId="49204" />
@@ -1583,7 +1587,7 @@
 			</If>
 			
 			<If Condition="(Me.IsAlliance)" >
-		<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="5" Text="Go to SW and load the TH profile" />
+				<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="5" Text="Go to SW and load the TH profile" />
 			</If>
 			
 			<!-- Horde -->
