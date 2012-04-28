@@ -392,7 +392,7 @@
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
 			</If>
 			<If Condition="(HasQuest(26247)) || (HasQuest(26249)) || (HasQuest(26248)) || (HasQuest(26427)) || (HasQuest(26251)) || (HasQuest(26250)) || (HasQuest(26254))" >
-				<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" StopOnContinue="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You DC'd or stop and started; please do the boat quests and press start" />
+				<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" StopOnContinue="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You DC'd or stop and started; please do the boat quests and press start\n\nDo not forget the guy in the cabin" />
 			</If>
 			<If Condition="((!HasQuest(26248)) &amp;&amp; (!IsQuestCompleted(26248)))" >
 		<PickUp QuestName="All Our Friends Are Dead" QuestId="26248" GiverName="Stormcaller Mylra" GiverId="42684" />
@@ -1462,10 +1462,6 @@
 				<CustomBehavior File="ForcedDismount" />
 				<UseItem QuestName="Resonating Blow" QuestId="26659" ItemId="60266" X="1958.72" Y="1388.78" Z="180.4252" />
 				<CustomBehavior File="WaitTimer" WaitTime="20000" />
-				<!--
-				<CustomBehavior File="UserDialog" QuestId="26659" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Jump up the rocks and kill the dragon\n\nPress continue when you're back on the ground" />
-				<Objective QuestName="Resonating Blow" QuestId="26659" Type="KillMob" MobId="43641" KillCount="1" />
-				-->
 				<CustomBehavior File="ResonatingBlow" MobId="43641" QuestId="26659" />
 			</If>
 		<TurnIn QuestName="Resonating Blow" TurnInName="Terrath the Steady" QuestId="26659" TurnInId="42466" />
@@ -1613,14 +1609,13 @@
 		<TurnIn QuestName="Word In Stone" TurnInName="Maruut Stonebinder" QuestId="26833" TurnInId="43818" />
 		<PickUp QuestName="Undying Twilight" GiverName="Maruut Stonebinder" QuestId="26875" GiverId="43818" />
 			<If Condition="((HasQuest(26875)) &amp;&amp; (!IsQuestCompleted(26875)))" >
-				<CustomBehavior File="UserDialog" AllowBotStop="True" QuestId="26875" SoundCue="Exclamation" SoundCueInterval="120" Text="Kill the guys for this quest - we keep dying and can't get back to our body!" />
-				<!--
-				<CustomBehavior File="KillUntilComplete" QuestId="26875" MobId1="44683" MobId2="44680" X="1108.672" Y="478.9672" Z="-44.51689" />
-				<Objective QuestName="Undying Twilight" QuestId="26875" Type="KillMob" MobId="44680" KillCount="12" />
-				<Objective QuestName="Undying Twilight" QuestId="26875" Type="KillMob" MobId="44683" KillCount="1" />		
-				-->
+				<CustomBehavior File="UserSettings" PullDistance="1" LootMobs="False"/>
+				<CustomBehavior File="UndyingTwilight" />
 			</If>
+			<If Condition="((HasQuest(26875)) &amp;&amp; (IsQuestCompleted(26875)))" >
 		<TurnIn QuestName="Undying Twilight" TurnInName="Earthcaller Torunscar" QuestId="26875" TurnInId="43835" />
+				<CustomBehavior File="UserSettings" PullDistance="25" LootMobs="True"/>
+			</If>
 		<PickUp QuestName="The Binding" GiverName="Earthcaller Torunscar" QuestId="26971" GiverId="43835" />
 			<RunTo QuestId="26971" X="1048.962" Y="638.7558" Z="-46.0676" />
 			<Objective QuestName="The Binding" QuestId="26971" Type="KillMob" KillCount="1" MobId="43837" />
@@ -1837,11 +1832,6 @@
 
 			<CustomBehavior File="LoadProfile" ProfileName="[Fly][N - Quest] Uldum 83-85 [Kick]" /> 
 		
-			<!--
-			<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of Line" />
-			<CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Deepholm is completed.  Glop is left (Wrath of the Fungalmancer) and 5 dailies at Therazane.  There are 2 quests to Stonecore if you want to pick them up - Stormcaller Mylra and Therazane each have 1\n\nGo to SW / Org and turn in &quot;That's No Pyramid!&quot; once you want to go to Uldum" />
-			-->
-
 			<!-- Speak to Earthmender Norsala(NPC Entry=43503) -->
 			<!-- Fungalmancer Glop
 			<Objective QuestName="Wrath of the Fungalmancer" QuestId="26583" Type="KillMob" KillCount="1" MobId="43372" />
