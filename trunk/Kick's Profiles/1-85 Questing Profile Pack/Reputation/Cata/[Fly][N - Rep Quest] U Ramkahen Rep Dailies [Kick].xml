@@ -110,8 +110,13 @@
 				<CustomBehavior File="ForcedDismount" />
 			</If>
 			<If Condition="((HasQuest(28736)) &amp;&amp; (!IsQuestCompleted(28736)))" >
+			 <If Condition="(!Me.IsOnTransport)" >
 				<CustomBehavior File="InteractWith" QuestId="28736" MobId="49499" NumOfTimes="1" CollectionDistance="1000" WaitTime="1000" X="-8261.232" Y="-119.3941" Z="320.1581" />
-				<CustomBehavior File="UserDialog" QuestId="28736" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Blow up 100 troops" />
+				<CustomBehavior File="WaitTimer" WaitTime="6000"/>
+			 </If>
+			 <If Condition="(Me.IsOnTransport)" >
+				<CustomBehavior File="FireFromSky" QuestId="28736" />
+				<CustomBehavior File="EjectVeh" Eject="True" />
 			</If>
 			<If Condition="((HasQuest(28736)) &amp;&amp; (IsQuestCompleted(28736)))" >
 				<CustomBehavior File="FlyTo" X="-8260.661" Y="-120.9111" Z="357.38" />
