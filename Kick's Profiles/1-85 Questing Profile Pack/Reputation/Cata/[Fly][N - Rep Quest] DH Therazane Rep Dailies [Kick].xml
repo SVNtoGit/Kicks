@@ -139,7 +139,7 @@
 			<!-- If I am in Org - Take Deepholm Portal -->
 			<If Condition="(Me.IsHorde) &amp;&amp; (Me.MapId == 1) &amp;&amp; (Me.ZoneId != 5042)" >
 				<CustomBehavior File="Message" Text="We are in Org, using portal to Deepholm" LogColor="Cornflowerblue" />
-				<CustomBehavior File="FlyTo" DestName="Org Portal" X="2061.375" Y="-4387.435" Z="98.0477" />
+				<CustomBehavior File="FlyTo" DestName="Org Deepholm Portal" X="2061.375" Y="-4387.435" Z="98.0477" />
 				<CustomBehavior File="ForcedDismount" />
 				
 				<CustomBehavior File="InteractWith" MobId="207689" ObjectType="Gameobject" Range="4" X="2061.375" Y="-4387.435" Z="98.0477" />
@@ -149,7 +149,7 @@
 			<!-- If I am in SW - Take Deepholm Portal -->
 			<If Condition="(Me.IsAlliance) &amp;&amp; (Me.MapId == 0) &amp;&amp; (Me.ZoneId != 5042)" >
 				<CustomBehavior File="Message" Text="We are in SW, using portal to Deepholm" LogColor="Cornflowerblue" />
-				<CustomBehavior File="FlyTo" DestName="Deepholm SW Portal" X="-8220.372" Y="448.172" Z="117.6194" />
+				<CustomBehavior File="FlyTo" DestName="SW Deepholm Portal" X="-8220.372" Y="448.172" Z="117.6194" />
 				<CustomBehavior File="ForcedDismount" />
 				
 				<CustomBehavior File="InteractWith" MobId="207693" ObjectType="Gameobject" Range="4" X="-8220.372" Y="448.172" Z="117.6194" />
@@ -306,13 +306,13 @@
 			</If>
 			<!-- End of Ricket -->
 			
-			<If Condition="((HasQuest(27051)) || (HasQuest(27046)) || (HasQuest(27047))) " >
+			<If Condition="((HasQuest(27051)) || (HasQuest(27046)) || (HasQuest(27047))) &amp;&amp; (Me.Z &lt;= 140)" >
 				<RunTo X="1931.028" Y="82.98725" Z="-151.6313" />
 			</If>
-			
-			
 
-			<!-- Turnin Quests -->
+			<If Condition="(HasQuest(27051)) || (HasQuest(28390)) || (HasQuest(27049)) || (HasQuest(27050))" >
+				<CustomBehavior File="FlyTo" X="2318.96" Y="13.63075" Z="170.0272" />
+			</If>
 			
 			<If Condition="((HasQuest(27051)) &amp;&amp; (IsQuestCompleted(27051)))" >
 				<CustomBehavior File="FlyTo" X="2318.96" Y="13.63075" Z="170.0272" />
@@ -332,6 +332,11 @@
 			<If Condition="((HasQuest(27050)) &amp;&amp; (IsQuestCompleted(27050)))" >
 				<CustomBehavior File="FlyTo" X="2318.96" Y="13.63075" Z="170.0272" />
 		<TurnIn QuestName="Fungal Fury" QuestId="27050" TurnInName="Gorsik the Tumultuous" TurnInId="43804" />
+			</If>
+			
+			<!-- Turnin Quests -->
+			<If Condition="(HasQuest(28488)) || (HasQuest(27046)) || (HasQuest(27047)) || (HasQuest(28391))" >
+				<CustomBehavior File="FlyTo" X="2348.442" Y="160.104" Z="180.4897" />
 			</If>
 			
 			<If Condition="((HasQuest(27046)) &amp;&amp; (IsQuestCompleted(27046)))" >
@@ -374,6 +379,9 @@
 			</If>
 			
 			
+		<If Condition="(IsQuestCompleted(28633))">
+			<CustomBehavior File="LoadProfile" ProfileName="..\[Fly][N - Rep Quest] U Ramkahen Rep Dailies [Kick]" /> 
+		</If> 
 			
 			
 			
