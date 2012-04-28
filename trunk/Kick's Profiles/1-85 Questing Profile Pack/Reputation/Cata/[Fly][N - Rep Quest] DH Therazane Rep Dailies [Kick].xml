@@ -105,7 +105,7 @@
 	
 	<QuestOrder>
 	
-		<CustomBehavior File="UserSettings" TrainNewSkills="False" LootMobs="True" PullDistance="35"  />
+		<CustomBehavior File="UserSettings" TrainNewSkills="False" LootMobs="True" PullDistance="10"  />
 		
 		<!-- If I am in Dalaran, take the portal to Main City -->
 		<If Condition="(Me.ZoneId == 4395)" >
@@ -165,7 +165,7 @@
 			<If Condition="(Me.ZoneId == 5042)" >
 				<If Condition="(Me.Z &lt;= -34) &amp;&amp; (Me.Z &gt;= -70) &amp;&amp; (Me.X &lt;= 1240) &amp;&amp; (Me.X &gt;= 810) &amp;&amp; (Me.Y &lt;= 800) &amp;&amp; (Me.Y &gt;= 323)" >
 					<CustomBehavior File="Message" Text="We are inside of Temple of the Earth, using portal to Therazane" LogColor="Cornflowerblue" />
-					<CustomBehavior File="InteractWith" MobId="205359" ObjectType="Gameobject" Range="4" X="1081.299" Y="539.0078" Z="-44.27971" />
+					<CustomBehavior File="InteractWith" MobId="205359" ObjectType="Gameobject" Range="4" WaitForNpcs="False" X="1081.299" Y="539.0078" Z="-44.27971" />
 				</If>
 			</If>
 
@@ -238,11 +238,9 @@
 			</If>
 			
 			<If Condition="((HasQuest(28390)) &amp;&amp; (!IsQuestCompleted(28390)))" >
-				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<CustomBehavior File="FlyTo" X="1883.638" Y="-447.7057" Z="264.4557" />
 				<CustomBehavior File="FlyTo" X="1818.808" Y="-446.6318" Z="179.1952" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="UserSettings" PullDistance="25" />
 				<RunTo X="1712.635" Y="-505.8574" Z="165.0125" />
 				<CustomBehavior File="Message" Text="Waiting for Npc to respawn (someone must be on the quest if you're standing here) - You may have issues with this quest that i have not seen" LogColor="FireBrick" />
 
@@ -253,32 +251,31 @@
 			</If>
 			
 			<If Condition="((HasQuest(28488)) &amp;&amp; (!IsQuestCompleted(28488)))" >
-				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<CustomBehavior File="FlyTo" X="1953.962" Y="107.5812" Z="16.37628" />
 				<CustomBehavior File="FlyTo" X="1931.028" Y="82.98725" Z="-151.6313" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="UserSettings" PullDistance="25" />
 				<RunTo X="1871.173" Y="-79.94258" Z="-176.0063" />
 				<RunTo X="1796.39" Y="-86.41425" Z="-160.2971" />
 				<CustomBehavior File="Message" Text="Waiting for Npc to respawn (someone must have done it before you if you're standing here)" LogColor="FireBrick" />
+			 <While Condition="((HasQuest(28488)) &amp;&amp; (!IsQuestCompleted(28488)))" >
 				<CustomBehavior File="InteractWith" QuestId="28488" MobId="48639" NumOfTimes="1" Range="10" CollectionDistance="5000" WaitTime="1000" X="2136.153" Y="-238.9335" Z="-166.953" />
-				<CustomBehavior File="WaitTimer" WaitTime="4000" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" />
+			 </While>
 				<Objective QuestName="Beneath the Surface" QuestId="28488" Type="CollectItem" ItemId="64404" CollectCount="1" />
 			</If>
 			
             <If Condition="((HasQuest(27047)) &amp;&amp; (!IsQuestCompleted(27047)))" >
               <If Condition="(!HasQuest(28488))" >
-                <CustomBehavior File="UserSettings" PullDistance="1" />
                 <CustomBehavior File="FlyTo" X="1953.962" Y="107.5812" Z="16.37628" />
                 <CustomBehavior File="FlyTo" X="1931.028" Y="82.98725" Z="-151.6313" />
-                <CustomBehavior File="UserSettings" PullDistance="25" />
               </If>
 				<RunTo X="1868.743" Y="-144.0033" Z="-172.2514" />
 				<RunTo X="1992.723" Y="-187.5528" Z="-177.3703" />
 
                 <CustomBehavior File="Misc\RunLua" Lua="ClearTarget()" />
                 <Objective QuestName="Motes" QuestId="27047" Type="CollectItem" ItemId="60791" CollectCount="10" />
-            </If>			
+            </If>
+			
 			<If Condition="((HasQuest(27046)) &amp;&amp; (!IsQuestCompleted(27046)))" >
 				<Objective QuestName="Fear of Boring" QuestId="27046" Type="KillMob" MobId="44257" KillCount="10" />
 				<RunTo X="1992.723" Y="-187.5528" Z="-177.3703" />
@@ -293,7 +290,7 @@
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
 			</While>
 			<If Condition="((HasQuest(27048)) &amp;&amp; (!IsQuestCompleted(27048)))" >
-	<CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Please do this quest manually" />
+				<CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Please do this quest manually - blow up rocks and take the chunks" />
 				<!-- blue = 207381 Deep Alabaster Crystal Chunk -->
 				<!-- purple = 207381 Deep Alabaster Crystal Chunk -->
 				<!-- -->
