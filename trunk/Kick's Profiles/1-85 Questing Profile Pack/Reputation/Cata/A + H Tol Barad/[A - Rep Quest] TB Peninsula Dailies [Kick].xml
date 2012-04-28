@@ -222,9 +222,25 @@
 
 		<CustomBehavior File="UserSettings" TrainNewSkills="False" UseMount="True" LootMobs="True" PullDistance="25"  />
 		
+		<!-- If I am in Dalaran, take the portal to Main City -->
+		<If Condition="(Me.ZoneId == 4395)" >
+			 <If Condition="Me.IsAlliance" >
+				<CustomBehavior File="Message" Text="We are in Dalaran, using portal to SW" LogColor="Cornflowerblue" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo X="5718.221" Y="721.2461" Z="641.7213" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="InteractWith" MobId="190960" ObjectType="Gameobject" Range="4" X="5718.221" Y="721.2461" Z="641.7213" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+			  <If Condition="(Me.ZoneId == 1519)" >
+				<RunTo X="-8988.831" Y="860.4624" Z="125.7445" />
+			  </If>
+			 </If>
+		</If>
+		
 			<!-- If I am in EK, take the SW portal -->
 			 <If Condition="(Me.MapId == 0) &amp;&amp; (Me.ZoneId != 5389) &amp;&amp; (Me.ZoneId != 5095)" >
-				<CustomBehavior File="FlyTo" DestName="SW Portal" X="-8208.783" Y="445.8443" Z="117.9366" />
+				<CustomBehavior File="FlyTo" DestName="TB SW Portal" X="-8208.783" Y="445.8443" Z="117.9366" />
 				<CustomBehavior File="ForcedDismount" />
 				
 				<CustomBehavior File="InteractWith" MobId="206594" ObjectType="Gameobject" Range="4" X="-8208.508" Y="449.4972" Z="117.7234" />
