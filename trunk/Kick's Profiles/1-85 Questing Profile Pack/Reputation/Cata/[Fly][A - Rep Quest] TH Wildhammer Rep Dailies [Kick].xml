@@ -98,14 +98,38 @@
 	</Quest>
 	
 	<QuestOrder>
+	
 		<If Condition="Me.IsHorde" >
-			<CustomBehavior File="RunMacro" Macro="/exit" NumOfTimes="1" WaitTime="500" />
-			<CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" NumOfTimes="1" WaitTime="500" />
 			<CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You must be Alliance to run this profile" />
 		</If>
 		
 		<CustomBehavior File="UserSettings" TrainNewSkills="False" LootMobs="True" PullDistance="35"  />
 
+		<!-- If I am in Dalaran, take the portal to Main City -->
+		<If Condition="(Me.ZoneId == 4395)" >
+			 <If Condition="Me.IsAlliance" >
+				<CustomBehavior File="Message" Text="We are in Dalaran, using portal to SW" LogColor="Cornflowerblue" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo X="5718.221" Y="721.2461" Z="641.7213" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="InteractWith" MobId="190960" ObjectType="Gameobject" Range="4" X="5718.221" Y="721.2461" Z="641.7213" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+			  <If Condition="(Me.ZoneId == 1519)" >
+				<RunTo X="-8988.831" Y="860.4624" Z="125.7445" />
+			  </If>
+			 </If>
+		</If>
+		
+			<!-- If I am in EK, take the SW portal -->
+			 <If Condition="(Me.MapId == 0) &amp;&amp; (Me.ZoneId != 5389) &amp;&amp; (Me.ZoneId != 5095)" >
+				<CustomBehavior File="FlyTo" DestName="SW TH Portal" 
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="InteractWith" MobId="206594" ObjectType="Gameobject" Range="4" 
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+			 </If>
+	
 			<If Condition="((!HasQuest(28860)) &amp;&amp; (!IsQuestCompleted(28860)))" >
 				<CustomBehavior File="FlyTo" X="-3203.28" Y="-5016.308" Z="119.995" />
 				<CustomBehavior File="ForcedDismount" />

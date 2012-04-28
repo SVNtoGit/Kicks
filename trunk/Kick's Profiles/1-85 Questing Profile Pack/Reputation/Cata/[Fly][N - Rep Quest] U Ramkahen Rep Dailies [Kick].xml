@@ -106,10 +106,11 @@
 
 			<If Condition="((!HasQuest(28736)) &amp;&amp; (!IsQuestCompleted(28736)))" >
 				<CustomBehavior File="FlyTo" X="-8259.667" Y="-119.7054" Z="324.5576" />
-				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Fire From the Sky" QuestId="28736" GiverName="Weathered Nomad" GiverId="49523" />
+				<CustomBehavior File="ForcedDismount" />
 			</If>
 			<If Condition="((HasQuest(28736)) &amp;&amp; (!IsQuestCompleted(28736)))" >
+				<CustomBehavior File="InteractWith" QuestId="28736" MobId="49499" NumOfTimes="1" CollectionDistance="1000" WaitTime="1000" X="-8261.232" Y="-119.3941" Z="320.1581" />
 				<CustomBehavior File="UserDialog" QuestId="28736" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Blow up 100 troops" />
 			</If>
 			<If Condition="((HasQuest(28736)) &amp;&amp; (IsQuestCompleted(28736)))" >
@@ -117,6 +118,12 @@
 				<CustomBehavior File="FlyTo" X="-8259.667" Y="-119.7054" Z="324.5576" />
 		<TurnIn QuestName="Fire From the Sky" QuestId="28736" TurnInName="Weathered Nomad" TurnInId="49523" />
 			</If>
+			
+			<If Condition="(Me.ZoneId == 5034)" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(6948)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for hearth {TimeRemaining}" />
+			</If>
+			
 
 	
 		<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of the Ramkahen Rep Dailies" />
