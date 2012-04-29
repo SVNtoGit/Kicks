@@ -25,14 +25,14 @@ using Action = TreeSharp.Action;
 
 namespace Styx.Bot.Quest_Behaviors
 {
-    public class FireFromSky : CustomForcedBehavior
+    public class FortuneAndGlory : CustomForcedBehavior
     {
-        ~FireFromSky()
+        ~FortuneAndGlory()
         {
             Dispose(false);
         }
 
-        public FireFromSky(Dictionary<string, string> args)
+        public FortuneAndGlory(Dictionary<string, string> args)
             : base(args)
         {
             try
@@ -41,7 +41,7 @@ namespace Styx.Bot.Quest_Behaviors
                 //    http://www.thebuddyforum.com/mediawiki/index.php?title=Honorbuddy_Programming_Cookbook:_QuestId_for_Custom_Behaviors
                 // ...and also used for IsDone processing.
                 //Location = GetAttributeAsNullable<WoWPoint>("", true, ConstrainAs.WoWPointNonEmpty, null) ??WoWPoint.Empty;
-                QuestId = GetAttributeAsNullable<int>("QuestId", true, ConstrainAs.QuestId(this), null) ?? 0;
+                QuestId = 27748;//GetAttributeAsNullable<int>("QuestId", true, ConstrainAs.QuestId(this), null) ?? 0;
                 //MobIds = GetAttributeAsNullable<int>("MobId", true, ConstrainAs.MobId, null) ?? 0;
                 QuestRequirementComplete = QuestCompleteRequirement.NotComplete;
                 QuestRequirementInLog = QuestInLogRequirement.InLog;
@@ -123,7 +123,7 @@ namespace Styx.Bot.Quest_Behaviors
 
         public bool IsQuestComplete()
         {
-            var quest = StyxWoW.Me.QuestLog.GetQuestById((uint) QuestId);
+            var quest = StyxWoW.Me.QuestLog.GetQuestById((uint)QuestId);
             return quest == null || quest.IsCompleted;
         }
 
@@ -134,31 +134,22 @@ namespace Styx.Bot.Quest_Behaviors
             {
                 return new Decorator(ret => IsQuestComplete(), new Action(delegate
                                                                                            {
-                                                                                                TreeRoot.StatusText =
-                                                                                                    "Finished!";
-                                                                                                _isBehaviorDone = true;
-                                                                                                return RunStatus.Success;
-                                                                                            }));
+                                                                                               TreeRoot.StatusText =
+                                                                                                   "Finished!";
+                                                                                               _isBehaviorDone = true;
+                                                                                               return RunStatus.Success;
+                                                                                           }));
             }
         }
 
 
-        public int UnfriendlyUnitsNearTarget(float distance, WoWUnit who)
-        {
-            var dist = distance * distance;
-            var curTarLocation = who.Location;
-            return ObjectManager.GetObjectsOfType<WoWUnit>().Count(p =>  p.IsAlive && (p.Entry == 48720 || p.Entry == 48713) && p.Location.DistanceSqr(curTarLocation) <= dist);
-			// (p.Entry == 48720 || p.Entry == 48713) changed to (p.Entry == 48720)
-        }
- 
-        public List<WoWUnit> Enemies
+
+        public WoWUnit Enemey
         {
             get
             {
                 return
-                    ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.IsAlive && (u.Entry == 48720 || u.Entry == 48713)).OrderByDescending(z => UnfriendlyUnitsNearTarget(10, z)).ToList();
-					// (u.Entry == 48720 || u.Entry == 48713) changed to (u.Entry == 48720)
-
+                    ObjectManager.GetObjectsOfType<WoWUnit>().FirstOrDefault(u => u.IsAlive && u.Entry == 46646);
             }
         }
 
@@ -167,62 +158,44 @@ namespace Styx.Bot.Quest_Behaviors
         {
             get
             {
-                return new Decorator(ret => Me.PetSpells[0].Cooldown == false, Fire);
+                return new Decorator(ret => Me.CurrentTarget == Enemey, DoDps);
             }
         }
 
-		/*
-        protected WoWPoint getEstimatedPosition(WoWUnit who,double time)
-        {
-            var targetVelocity = 1.50;
-            var targetStartingPoint = who.MovementInfo.Position;
-            double x = targetStartingPoint.X +
-               targetVelocity * time * who.MovementInfo.DirectionSinX;//Math.Sin(who.Rotation);
-            double y = targetStartingPoint.Y +
-               targetVelocity * time * who.MovementInfo.DirectionCosY;//Math.Cos(who.Rotation);
-            return new WoWPoint(x, y,who.Z);
-        }
-		*/
 
-        public Composite Fire
+        public Composite TargetHim
         {
             get
             {
-                return new Action(delegate
-                                      {
-                                          ObjectManager.Update();
-                                          Lua.DoString("CastPetAction(1);");
-                                          //LegacySpellManager.ClickRemoteLocation(getEstimatedPosition(Enemies[0],7));
-
-										  // middle
-										  if ((Enemies[0].Z >= 230) && (Enemies[0].Z < 240))
-                                          {
-                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 15));
-                                          }
-										  // middle right
-                                          else if ((Enemies[0].Z >= 235) && (Enemies[0].Z <= 280))
-                                          {
-                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 11));
-                                          }
-										  // top
-                                          else if ((Enemies[0].Z >= 280) && (Enemies[0].Z <= 310))
-                                          {
-                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 15));
-                                          }
-										  // bottom
-                                          else if (Enemies[0].Z <= 231)
-                                          {
-                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 18));
-                                          }
-                                          Logging.Write(UnfriendlyUnitsNearTarget(10,Enemies[0]).ToString());
-                                      });
+                return new Decorator(ret => Me.CurrentTarget != Enemey, new Action(r => Enemey.Target()));
             }
         }
- 
- 
+
+
+        public Composite WaitAround
+        {
+            get
+            {
+                return new Decorator(ret => Enemey != null && Enemey.HealthPercent > 26, new ActionAlwaysSucceed());
+            }
+        }
+
+        public Composite Kick
+        {
+            get
+            {
+                return new Decorator(ret => Me.CurrentTarget.IsCasting && Me.CurrentTarget.CastingSpellId == 87990 && SpellManager.CanCast(PullMob()),
+                    new Action(delegate
+                                   { var x = PullMob();
+                                       SpellManager.Cast(x);
+                                   }
+                                   ));
+            }
+        }
+
         protected override Composite CreateBehavior()
         {
-            return _root ?? (_root = new Decorator(ret => !_isBehaviorDone, new PrioritySelector(DoneYet,ShootStuff)));
+            return _root ?? (_root = new Decorator(ret => !_isBehaviorDone, new PrioritySelector(DoneYet, WaitAround,TargetHim, Kick, ShootStuff)));
         }
 
 
@@ -244,6 +217,51 @@ namespace Styx.Bot.Quest_Behaviors
                 return (_isBehaviorDone // normal completion
                         || !UtilIsProgressRequirementsMet(QuestId, QuestRequirementInLog, QuestRequirementComplete));
             }
+        }
+
+
+        public string PullMob()
+        {
+            string spell = "";
+
+            switch (Me.Class)
+            {
+                case WoWClass.Mage:
+                    spell = "Counterspell";
+                    break;
+                case WoWClass.Druid:
+                    spell = "dsad";
+                    break;
+                case WoWClass.Paladin:
+                    spell = "Rebuke";
+                    break;
+                case WoWClass.Priest:
+                    spell = "dasd";
+                    break;
+                case WoWClass.Shaman:
+                    spell = "Wind Shear";
+                    break;
+                case WoWClass.Warlock:
+                    spell = "dsad";
+                    break;
+                case WoWClass.DeathKnight:
+                    spell = "Mind Freeze";
+                    break;
+                case WoWClass.Hunter:
+                    spell = "Silencing Shot";
+                    break;
+                case WoWClass.Warrior:
+                    spell = "Pummel";
+                    break;
+                case WoWClass.Rogue:
+                    spell = "Kick";
+                    break;
+
+            }
+
+            return spell;
+
+
         }
 
 
@@ -270,12 +288,12 @@ namespace Styx.Bot.Quest_Behaviors
                     var currentRoot = TreeRoot.Current.Root;
                     if (currentRoot is GroupComposite)
                     {
-                        var root = (GroupComposite) currentRoot;
+                        var root = (GroupComposite)currentRoot;
                         root.InsertChild(0, CreateBehavior());
                     }
                 }
 
-                PlayerQuest quest = StyxWoW.Me.QuestLog.GetQuestById((uint) QuestId);
+                PlayerQuest quest = StyxWoW.Me.QuestLog.GetQuestById((uint)QuestId);
 
                 TreeRoot.GoalText = this.GetType().Name + ": " +
                                     ((quest != null) ? ("\"" + quest.Name + "\"") : "In Progress");
