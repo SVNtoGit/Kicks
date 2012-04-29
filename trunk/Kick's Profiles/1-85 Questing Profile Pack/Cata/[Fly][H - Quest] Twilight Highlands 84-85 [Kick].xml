@@ -1719,20 +1719,23 @@
 				<CustomBehavior File="ForcedDismount" />
 			</If>
 		<TurnIn QuestId="27798" QuestName="Water of Life" TurnInId="45675" TurnInName="Garona Halforcen" X="-4494.646" Y="-4347.238" Z="322.4197" />
-			<If Condition="((!HasQuest(27712)) &amp;&amp; (!IsQuestCompleted(27712)))" >
+			<If Condition="((!HasQuest(27712)) &amp;&amp; (!IsQuestCompleted(27712))) &amp;&amp; ((!HasQuest(28885)) &amp;&amp; (!IsQuestCompleted(28885)))" >
 				<CustomBehavior File="FlyTo" X="-4494.646" Y="-4347.238" Z="322.4197" />
 				<CustomBehavior File="ForcedDismount" />
-			</If>
 		<PickUp GiverId="45675" QuestId="27712" GiverName="Garona Halforcen" QuestName="Back to the Elementium Depths" X="-4494.646" Y="-4347.238" Z="322.4197" />
+			</If>
 			<If Condition="((HasQuest(27712)) &amp;&amp; (IsQuestCompleted(27712)))" >
 				<CustomBehavior File="FlyTo" X="-5269.996" Y="-4419.426" Z="402.7706" />
 				<CustomBehavior File="ForcedDismount" />
-			</If>
 		<TurnIn QuestId="27712" QuestName="Back to the Elementium Depths" TurnInId="46243" TurnInName="Initiate Goldmine"/>
+			</If>
+			<If Condition="((!HasQuest(28885)) &amp;&amp; (!IsQuestCompleted(28885)))" >
+				<CustomBehavior File="FlyTo" X="-5269.996" Y="-4419.426" Z="402.7706" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
 		<PickUp GiverId="46243" QuestId="28885" GiverName="Initiate Goldmine" QuestName="Mr. Goldmine's Wild Ride"/>
 			<If Condition="((HasQuest(28885)) &amp;&amp; (!IsQuestCompleted(28885)))" >
-				<CustomBehavior File="InteractWith" QuestId="28885" MobId="46243" NumOfTimes="1" WaitTime="100" CollectionDistance="20" X="-5269.996" Y="-4419.426" Z="402.7706" />
-				<CustomBehavior File="RunMacro" Macro="/script SelectGossipOption(1) \n" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="InteractWith" QuestId="27720" MobId="46243" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="-5274.83" Y="-4417.14" Z="402.7521" />
 				<CustomBehavior File="WaitTimer" WaitTime="35000"/>
 			</If>
 		<TurnIn QuestId="28885" QuestName="Mr. Goldmine's Wild Ride" TurnInId="46513" TurnInName="Initiate Goldmine"/>
@@ -1806,6 +1809,11 @@
 		<TurnIn QuestId="27788" QuestName="Skullcrusher the Mountain" TurnInId="45658" TurnInName="Warlord Zaela"/>
   			
 			
+			<If Condition="(Me.ZoneId == 4922)" >
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(6948)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for hearth {TimeRemaining}" />
+			</If>
 			
 			
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Profile\n\nCheers!" />
