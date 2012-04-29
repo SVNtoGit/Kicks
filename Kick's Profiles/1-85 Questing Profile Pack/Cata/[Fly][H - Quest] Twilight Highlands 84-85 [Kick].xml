@@ -840,33 +840,56 @@
  		<TurnIn QuestId="28589" QuestName="Everything But the Kitchen Sink" TurnInId="48993" TurnInName="Captain Krazz"/>
 			<If Condition="((!HasQuest(28590)) &amp;&amp; (!IsQuestCompleted(28590)))" >
 		<PickUp GiverId="48993" QuestId="28590" GiverName="Captain Krazz" QuestName="Reprisal" />
-				<CustomBehavior File="WaitTimer" WaitTime="25000"/>
+				<CustomBehavior File="WaitTimer" WaitTime="15000"/>
 			</If>
-			<If Condition="HasQuest(28590)">
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Bot cannot Nav while on zeppelin.  Please turn in and complete all quests while on zeppelin.  Once finished, get off the zeppelin and hit continue profile." />
+			<If Condition="HasQuest(28590) &amp;&amp; (!Me.IsOnTransport)">
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Get back on the Zeppelin!" />
 			</If>
-			<!-- we jump into a cannon here and shoot shit
-			<PickUp QuestName="Off The Wall" QuestId="28591" GiverName="Patch" GiverId="49378" />
-				<Objective QuestName="Off The Wall" QuestId="28591" Type="KillMob" MobId="49124" KillCount="80" />
-				<Objective QuestName="Off The Wall" QuestId="28591" Type="KillMob" MobId="49025" KillCount="12" />
-				<Objective QuestName="Off The Wall" QuestId="28591" Type="KillMob" MobId="49060" KillCount="4" />
-			<TurnIn QuestName="Off The Wall" QuestId="28591" TurnInName="Patch" TurnInId="49378" /> // turn in on boat
-				
-				<Vendor Name="Skyshredder Turret" Entry="49135" Type="Repair" X="-4980.201" Y="-6693.067" Z="43.37754" /> 
-				
-				fire cannon at keep.  1 for machine gun (must press a lot - 0.05 sec cd). 2 for cannon fire - 10 sec cd 
-				
-				after turning in, you get these 3 quests (from guys on zepp)
-				
-			<PickUp QuestName="Of Utmost Importance" QuestId="28593" GiverName="Patch" GiverId="49378" />
-			<PickUp QuestName="Highbank, Crybank" QuestId="28594" GiverName="Patch" GiverId="49378" />
-			<PickUp QuestName="Parting Packages" QuestId="28592" GiverName="Ticker" GiverId="49002" />
-			-->
-			
-			<If Condition="((!HasQuest(28593)) &amp;&amp; (!IsQuestCompleted(28593)))" >
-				<CustomBehavior File="UserDialog" StopOnContinue="True" SoundCue="Exclamation" SoundCueInterval="1" Text="I told you to do the quest while on the zeppelin!!!" />
+			<If Condition="HasQuest(28590) &amp;&amp; (Me.IsOnTransport)">
+			 <If Condition="StyxWoW.Me.RelativeLocation.X &lt;= -15" >
+				<CustomBehavior File="MyCTM" X="-15" Y="-8" Z="-15.67825" UseRelative="true" />
+			 </If>
+			 <If Condition="StyxWoW.Me.RelativeLocation.X &lt;= -10" >
+				<CustomBehavior File="MyCTM" X="-10.35429" Y="-12.26513" Z="-16.94962" UseRelative="true" />
+			 </If>
+			 <If Condition="StyxWoW.Me.RelativeLocation.X &lt;= 5" >
+				<CustomBehavior File="MyCTM" X="5.392699" Y="-10.35845" Z="-17.85651" UseRelative="true" />
+			 </If>
+		<TurnIn QuestName="Reprisal" QuestId="28590" TurnInName="Patch" TurnInId="49378" />
+		<PickUp QuestName="Off The Wall" QuestId="28591" GiverName="Patch" GiverId="49378" />
 			</If>
-		
+			<If Condition="((!HasQuest(28591)) &amp;&amp; (!IsQuestCompleted(28591)))" >
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You must have died or DC'd.  Get back on the Zepp, pickup quest Off The Wall and press continue!" />
+		<PickUp QuestName="Off The Wall" QuestId="28591" GiverName="Patch" GiverId="49378" />
+			</If>
+			<If Condition="((HasQuest(28591)) &amp;&amp; (!IsQuestCompleted(28591)))" >
+			 <If Condition="(!Me.IsOnTransport)">
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Get back on the Zeppelin!" />
+			 </If>
+			 <If Condition="StyxWoW.Me.RelativeLocation.X &gt;= -4" >
+				<CustomBehavior File="MyCTM" X="-4.97787" Y="-0.483695" Z="-17.77635" UseRelative="true" />
+			 </If>
+				<CustomBehavior File="InteractWith" QuestId="28591" MobId="49135" Nav="CTM" />
+				<CustomBehavior File="UserDialog" QuestId="28590" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill stuff in cannon" />
+				<!-- we need to use any of the other 3 turrets if they're taken.  the code is in the Troggish Troubles Behavior -->
+				<CustomBehavior File="EjectVeh" />
+			</If>
+			<If Condition="((HasQuest(28591)) &amp;&amp; (IsQuestCompleted(28591)))" >
+			 <If Condition="(!Me.IsOnTransport)">
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Get back on the Zeppelin!" />
+			 </If>
+				<CustomBehavior File="EjectVeh" />
+			 <If Condition="StyxWoW.Me.RelativeLocation.X &lt; -4" >
+				<CustomBehavior File="MyCTM" X="5.469335" Y="-10.34701" Z="-17.85083" UseRelative="true" />
+			 </If>
+		<TurnIn QuestName="Off The Wall" QuestId="28591" TurnInName="Patch" TurnInId="49378" />
+		<PickUp QuestName="Of Utmost Importance" QuestId="28593" GiverName="Patch" GiverId="49378" />
+		<PickUp QuestName="Highbank, Crybank" QuestId="28594" GiverName="Patch" GiverId="49378" />
+		<PickUp QuestName="Parting Packages" QuestId="28592" GiverName="Ticker" GiverId="49379" />
+			</If>
+			<If Condition="((!HasQuest(28592)) &amp;&amp; (!IsQuestCompleted(28592))) || ((!HasQuest(28593)) &amp;&amp; (!IsQuestCompleted(28593))) || ((!HasQuest(28594)) &amp;&amp; (!IsQuestCompleted(28594)))" >
+				<CustomBehavior File="UserDialog" StopOnContinue="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Something happened, go and pickup the 3 quests from the Zepp flying around Highbank" />
+			</If>
 			<If Condition="((HasQuest(28593)) &amp;&amp; (!IsQuestCompleted(28593)))" >
 				<CustomBehavior File="FlyTo" X="-4884.299" Y="-6632.446" Z="9.817961" />
 				<CustomBehavior File="ForcedDismount" />
