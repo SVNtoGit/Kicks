@@ -397,8 +397,33 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Twilight Skies" QuestId="26388" GiverName="Friz Groundspin" GiverId="50367" X="2664.98" Y="-6168.65" Z="138.1064" />
 			</If>
+			<If Condition="((HasQuest(26388)) &amp;&amp; (!IsQuestCompleted(26388)))">
+			 <While Condition="(!Me.IsOnTransport) &amp;&amp; (Me.ZoneId == 16)" >
+				<CustomBehavior File="FlyTo" X="2713.458" Y="-6176.286" Z="152.7628" />
+				<CustomBehavior File="FlyTo" Distance="1" X="2676.36" Y="-6185.225" Z="141.4517" />
+				<CustomBehavior File="Message" Text="Waiting for Zepp to Twilight Highlands - do not interact with toon!" LogColor="Orange" />
+				<CustomBehavior File="InteractWith" MobId="42195" CollectionDistance="12" Nav="CTM" WaitForNpcs="True" Range="2" WaitTime="1000" X="2676.36" Y="-6185.225" Z="140.4517" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" MobId="42243" CollectionDistance="12" Nav="CTM" WaitForNpcs="False" Range="2" WaitTime="1000" />
+				<CustomBehavior File="InteractWith" MobId="42195" CollectionDistance="12" Nav="CTM" WaitForNpcs="False" Range="2" WaitTime="1000" />
+			 </While>
+			 <If Condition="(Me.IsOnTransport)" >
+				<CustomBehavior File="Message" Text="We're on the Zepp to TH, waiting - do not interact with the toon!" LogColor="Orange" />
+			  <While Condition="(Me.IsOnTransport) &amp;&amp; (!IsQuestCompleted(26388))" >
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for ride to end {TimeRemaining}" />
+			  </While>
+			 </If>
+			</If>
+		<!-- ignore this comment
+	203626	Unknown	18.46490478515625	<2668.305, -6171.972, 156.8819>
 		
-		<!-- 
+<Vendor Name="Captain Krazz" Entry="42195" Type="Repair" X="2676.36" Y="-6185.225" Z="140.4517" />
+<Hotspot X="2666.461" Y="-6174.473" Z="138.6545" />		
+
+				<RunTo X="2665.995" Y="-6173.499" Z="138.5683" />
+				<CustomBehavior File="InteractWith" MobId="42195" CollectionDistance="11" Nav="CTM" X="2676.36" Y="-6185.225" Z="140.4517" />
+		
+		
 		TransportId="203626"
 		<Hotspot X="2665.844" Y="-6173.555" Z="138.5409" /> // wait here for zepp (azshara)
 		
@@ -430,15 +455,16 @@
 			
 			<Vendor Name="Garrosh's Airship" Entry="42268" Type="Repair" X="-2771.81" Y="-7076.737" Z="233.8254" />
 			
-		-->
-			<!-- <If Condition="Me.ZoneId == 16"> -->
+		
+			<If Condition="Me.ZoneId == 16">
+			
 			<If Condition="((HasQuest(26388)) &amp;&amp; (!IsQuestCompleted(26388))) &amp;&amp; (Me.ZoneId == 16)" >
 				<RunTo X="2665.995" Y="-6173.499" Z="138.5683" />
-				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="ForcedMount" MountType="Flying" />
 				
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Wait for the zepp - ride it to Twilight Highlands and jump off when it tells you to!" />
 				
-				<!--
+				
 				<CustomBehavior File="Message" Text="Waiting for Zepp to Twilight Highlands - don't interfere" LogColor="Orange" />
 		
 				<CustomBehavior File="UseTransport" TransportId="203626"
@@ -450,12 +476,12 @@
 											
 				<CustomBehavior File="Message" Text="Waiting for explosion and drop - don't interfere" LogColor="Orange" />
 				<CustomBehavior File="WaitTimer" WaitTime="60000" GoalText="Waiting for drop {TimeRemaining}" />
-				-->
 			</If>
-		 	 <If Condition="((HasQuest(26388)) &amp;&amp; (!IsQuestCompleted(26388))) &amp;&amp; Me.ZoneId == 4922">
-				<CustomBehavior File="FlyTo" X="-3918.478" Y="-6785.054" Z="9.278725"  />
+				-->
+			<If Condition="((HasQuest(26388)) &amp;&amp; (IsQuestCompleted(26388)))">
+				<CustomBehavior File="FlyTo" X="-3907.708" Y="-6783.142" Z="10.06358" />
 				<CustomBehavior File="ForcedDismount" />
-			 </If>
+			</If>
 		<TurnIn QuestName="Twilight Skies" QuestId="26388" TurnInName="Admiral Stonefist" TurnInId="42978" />
 		<PickUp QuestName="Stalled Negotiations" QuestId="26539" GiverName="Admiral Stonefist" GiverId="42978" />
 		<PickUp QuestName="Emergency Aid" QuestId="26538" GiverName="Warlord Krogg" GiverId="43193" />

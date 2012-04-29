@@ -17,47 +17,23 @@
 
 	<CustomBehavior File="UserSettings" LootMobs="False" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" PullDistance="10" />
 
-	
-			 <If Condition="(!Me.IsOnTransport) &amp;&amp; (Me.ZoneId == 16)" >
+			<If Condition="((HasQuest(26388)) &amp;&amp; (!IsQuestCompleted(26388)))">
+			 <While Condition="(!Me.IsOnTransport) &amp;&amp; (Me.ZoneId == 16)" >
 				<CustomBehavior File="FlyTo" X="2713.458" Y="-6176.286" Z="152.7628" />
 				<CustomBehavior File="FlyTo" Distance="1" X="2676.36" Y="-6185.225" Z="141.4517" />
 				<CustomBehavior File="Message" Text="Waiting for Zepp to Twilight Highlands - do not interact with toon!" LogColor="Orange" />
-				<CustomBehavior File="InteractWith" MobId="42195" CollectionDistance="12" Nav="CTM" WaitForNpcs="True" Range="1" X="2676.36" Y="-6185.225" Z="140.4517" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for ride to end {TimeRemaining}" />
-				<CustomBehavior File="InteractWith" MobId="42195" CollectionDistance="12" Nav="CTM" WaitForNpcs="True" Range="1" X="2676.36" Y="-6185.225" Z="140.4517" />
+				<CustomBehavior File="InteractWith" MobId="42195" CollectionDistance="12" Nav="CTM" WaitForNpcs="True" Range="2" WaitTime="1000" X="2676.36" Y="-6185.225" Z="140.4517" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="InteractWith" MobId="42195" CollectionDistance="12" Nav="CTM" WaitForNpcs="True" Range="1" />
-			 </If>
-			 <If Condition="(Me.IsOnTransport) &amp;&amp; (Me.ZoneId == 16)" >
+				<CustomBehavior File="InteractWith" MobId="42243" CollectionDistance="12" Nav="CTM" WaitForNpcs="False" Range="2" WaitTime="1000" />
+				<CustomBehavior File="InteractWith" MobId="42195" CollectionDistance="12" Nav="CTM" WaitForNpcs="False" Range="2" WaitTime="1000" />
+			 </While>
+			 <If Condition="(Me.IsOnTransport)" >
 				<CustomBehavior File="Message" Text="We're on the Zepp to TH, waiting - do not interact with the toon!" LogColor="Orange" />
-			  <While Condition="(Me.IsOnTransport)" >
+			  <While Condition="(Me.IsOnTransport) &amp;&amp; (!IsQuestCompleted(26388))" >
 				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for ride to end {TimeRemaining}" />
 			  </While>
 			 </If>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+			</If>
 		<!-- 
 	203626	Unknown	18.46490478515625	<2668.305, -6171.972, 156.8819>
 		
@@ -122,10 +98,10 @@
 				<CustomBehavior File="WaitTimer" WaitTime="60000" GoalText="Waiting for drop {TimeRemaining}" />
 			</If>
 				-->
-		 	 <If Condition="((HasQuest(26388)) &amp;&amp; (!IsQuestCompleted(26388))) &amp;&amp; Me.ZoneId == 4922">
-				<CustomBehavior File="FlyTo" X="-3918.478" Y="-6785.054" Z="9.278725"  />
+			<If Condition="((HasQuest(26388)) &amp;&amp; (IsQuestCompleted(26388)))">
+				<CustomBehavior File="FlyTo" X="-3907.708" Y="-6783.142" Z="10.06358" />
 				<CustomBehavior File="ForcedDismount" />
-			 </If>
+			</If>
 
 
 
