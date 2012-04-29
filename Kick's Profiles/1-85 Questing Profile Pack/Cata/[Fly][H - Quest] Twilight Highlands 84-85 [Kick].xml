@@ -617,7 +617,13 @@
 		<PickUp GiverId="44024" QuestId="26798" GiverName="Artesh" QuestName="The Warchief Will be Pleased"/> 
 			<If Condition="((HasQuest(26798)) &amp;&amp; (IsQuestCompleted(26798)))" >
 				<While Condition="Me.ZoneId == 4922">	
-					<CustomBehavior File="MyCTM" X="-4050.148" Y="-6321.541" Z="38.17258" />
+					<CustomBehavior File="MyCTM" X="-4050.995" Y="-6328.813" Z="38.17325" />
+					<CustomBehavior File="WaitTimer" WaitTime="1500"/>
+					<CustomBehavior File="MyCTM" X="-4048.711" Y="-6327.553" Z="38.17325" />
+					<CustomBehavior File="WaitTimer" WaitTime="1500"/>
+					<CustomBehavior File="Misc\RunLua" Lua="StrafeLeftStart(GetTime()*1000 + 1000);" />
+					<CustomBehavior File="WaitTimer" WaitTime="1550" GoalText="Waiting for  {TimeRemaining}" />
+					<CustomBehavior File="Misc\RunLua" Lua="StrafeLeftStop(GetTime()*1000 + 1000);" />
 					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
 				 <If Condition="Me.ZoneId == 4922">	
 					<CustomBehavior File="MyCTM" X="-4050.955" Y="-6320.769" Z="38.17323" />	
@@ -637,9 +643,10 @@
 			<If Condition="((HasQuest(26830)) &amp;&amp; (!IsQuestCompleted(26830)))" >			
 				<CustomBehavior File="FlyTo" X="1735.556" Y="-4284.97" Z="101.3324" />
 				<CustomBehavior File="ForcedDismount" />
-				
+			 <While Condition="((HasQuest(26830)) &amp;&amp; (!IsQuestCompleted(26830)))" >			
 				<CustomBehavior File="InteractWith" QuestId="26830" MobId="44160" Range="8" GossipOptions="1, 1, 1, 1, 1" X="4923.962" Y="-1874.592" Z="1334.207" />
 				<CustomBehavior File="WaitTimer" WaitTime="8000"/>			
+			 </While>
 			</If>
 			<If Condition="((HasQuest(26830)) &amp;&amp; (IsQuestCompleted(26830)))" >
 				<CustomBehavior File="FlyTo" X="1598.575" Y="-4380.861" Z="20.34094"  />
@@ -809,12 +816,21 @@
 		<TurnIn QuestId="28586" QuestName="Pool Pony Rescue" TurnInId="49441" TurnInName="Flashbang Rothman"/>
 		<PickUp GiverId="48993" QuestId="28589" GiverName="Captain Krazz" QuestName="Everything But the Kitchen Sink"/>
 			<If Condition="((HasQuest(28589)) &amp;&amp; (!IsQuestCompleted(28589)))" >
+			 <If Condition="(!Me.IsOnTransport)" >
 				<CustomBehavior File="FlyTo"  X="-2799.626" Y="-6482.494" Z="229.3199" />
 				<CustomBehavior File="ForcedDismount" />
 				
 				<CustomBehavior File="InteractWith" QuestId="28589" MobId="49680" Range="8" CollectionDistance="50" X="-2804.243" Y="-6481.615" Z="229.1361" />
+			 </If>
+			 <If Condition="(Me.IsOnTransport)" >
 				<CustomBehavior File="UserDialog" QuestId="28589" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill 15 Stormtalons" />
+				<!-- I believe 26058 behavior can be modified for this quest... or any of the turrets.  check the questid specific behaviors ##### -->
+				<!-- Here is a dummy push button for now for shits and grins -->
+			  <While Condition="((HasQuest(28589)) &amp;&amp; (!IsQuestCompleted(28589)))" >
+				<CustomBehavior File="Misc\RunLua" Lua="VehicleMenuBarActionButton1:Click()" WaitTime="0" QuestId="28589" NumOfTimes="1000" />
+			  </While>
 				<CustomBehavior File="EjectVeh" Eject="True" />
+			 </If>
 			</If>
 			<If Condition="((HasQuest(28589)) &amp;&amp; (IsQuestCompleted(28589)))" >
 				<CustomBehavior File="EjectVeh" Eject="True" />
