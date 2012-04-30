@@ -275,6 +275,14 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+	<Quest Id="27703" Name="Coup de Grace">
+		<Objective Type="KillMob" MobId="46416" KillCount="5">
+			<Hotspots>
+				<Hotspot X="-4593.921" Y="-4357.735" Z="315.5551" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	
 
 	<QuestOrder IgnoreCheckPoints="True" >
 	
@@ -1432,13 +1440,17 @@
 			<If Condition="((HasQuest(28175)) &amp;&amp; (!IsQuestCompleted(28175)))" >
 				<CustomBehavior File="FlyTo" X="-4878.059" Y="-5769.519" Z="30.42722" />
 				<CustomBehavior File="ForcedDismount" />
-				
+			 <While Condition="((HasQuest(28175)) &amp;&amp; (!IsQuestCompleted(28175)))" >
 				<RunTo X="-4896.633" Y="-5804.343" Z="18.90398" />			
 				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
 				<UseItem ItemId="63139" QuestName="Shining Through the Dark" QuestId="28175" X="-4896.633" Y="-5804.343" Z="18.90398" />			
+				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
+			 </While>
+				<RunTo X="-4876.192" Y="-5768.017" Z="30.94737" />
 			</If>
 			<While Condition="((HasQuest(28173)) &amp;&amp; (!IsQuestCompleted(28173)))" >
 				<CustomBehavior File="UserDialog" QuestId="28173" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Hook a drake and then kill it (x8)" />
+				<!-- bot never casts abilities as melee while on these things! -->
 				<CustomBehavior File="UseItemOn" QuestId="28173" MobId="46141" MobState="Alive" ItemId="63092" WaitTime="3000" Range="90" CollectionDistance="500" X="-4839.015" Y="-5714.229" Z="43.38332" />
 				<CustomBehavior File="InteractWith" QuestId="28173" MobId="46141" MobState="Alive" WaitForNpcs="False" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
@@ -1468,12 +1480,14 @@
 		<TurnIn QuestId="28176" QuestName="Following the Young Home" TurnInId="47905" TurnInName="Baleflame"/>
 			<If Condition="((!HasQuest(28247)) &amp;&amp; (!IsQuestCompleted(28247)))" >
 		<PickUp GiverId="47905" QuestId="28247" GiverName="Baleflame" QuestName="Last of Her Kind"/>
-				<CustomBehavior File="WaitTimer" WaitTime="21000"/>
+				<CustomBehavior File="WaitTimer" WaitTime="25000"/>
 			</If>
-			<If Condition="((HasQuest(28247)) &amp;&amp; (!IsQuestCompleted(28247)))" >
-				<CustomBehavior File="KillUntilComplete" QuestId="28247" MobId="47929" X="-5356.411" Y="-4807.879" Z="37.82688" />
+			<While Condition="((HasQuest(28247)) &amp;&amp; (!IsQuestCompleted(28247)))" >
+				<CustomBehavior File="InteractWith" QuestId="28247" MobId="47929" X="-5356.411" Y="-4807.879" Z="37.82688" />
+				<CustomBehavior File="WaitTimer" WaitTime="25000"/>
 				<RunTo X="-5106.006" Y="-5390.282" Z="21.37931" />
-			</If>
+			</While>
+			<CustomBehavior File="UserDialog" QuestId="28247" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="I need a behavior that gtfo's of the fire pools for weak classes" />
 			<If Condition="((HasQuest(28247)) &amp;&amp; (IsQuestCompleted(28247)))" >
 				<CustomBehavior File="FlyTo" X="-4610.006" Y="-5549.871" Z="76.10477" />
 				<CustomBehavior File="ForcedDismount" />
@@ -1550,19 +1564,22 @@
 			<If Condition="((HasQuest(27501)) &amp;&amp; (!IsQuestCompleted(27501)))" >
 				<CustomBehavior File="FlyTo" X="-4656.019" Y="-4559.758" Z="201.2725" />
 				<CustomBehavior File="ForcedDismount" />
+				
 				<RunTo X="-4692.407" Y="-4504.801" Z="201.7763" />
 				<CustomBehavior File="MyCTM" X="-4673.481" Y="-4476.534" Z="206" />
 				<CustomBehavior File="MyCTM" X="-4658.847" Y="-4427.581" Z="204.8296" />
-				<Objective QuestName="Four Heads are Better Than None" QuestId="27501" Type="CollectItem" ItemId="61924" CollectCount="1" />
 				
+				<Objective QuestName="Four Heads are Better Than None" QuestId="27501" Type="CollectItem" ItemId="61924" CollectCount="1" />
 				<Objective QuestName="Four Heads are Better Than None" QuestId="27501" Type="CollectItem" ItemId="61925" CollectCount="1" />
+				
 				<CustomBehavior File="MyCTM" X="-4658.847" Y="-4427.581" Z="204.8296" />
 				<CustomBehavior File="MyCTM" X="-4672.15" Y="-4464.288" Z="205.7148" />
 				<CustomBehavior File="MyCTM" X="-4686.361" Y="-4500.315" Z="201.6887" />
 				
 				<Objective QuestName="Four Heads are Better Than None" QuestId="27501" Type="CollectItem" ItemId="61927" CollectCount="1" />
-				
 				<Objective QuestName="Four Heads are Better Than None" QuestId="27501" Type="CollectItem" ItemId="61926" CollectCount="1" />
+				
+				<RunTo X="-4656.019" Y="-4559.758" Z="201.2725" />
 			</If>
 			<If Condition="((HasQuest(27501)) &amp;&amp; (IsQuestCompleted(27501)))" >
 				<CustomBehavior File="FlyTo" X="-4801.942" Y="-4823.528" Z="196.1211" />
@@ -1570,15 +1587,15 @@
 			</If>
 		<TurnIn QuestId="27501" QuestName="Four Heads are Better than None" TurnInId="45665" TurnInName="Lady Cozwynn" />
 		<PickUp GiverId="45665" QuestId="27503" GiverName="Lady Cozwynn" QuestName="Up to the Citadel" />
-			<If Condition="((HasQuest(27503)) &amp;&amp; (!IsQuestCompleted(27503)))" >
+			<While Condition="((HasQuest(27503)) &amp;&amp; (!IsQuestCompleted(27503)))" >
 				<CustomBehavior File="FlyTo" X="-4405.82" Y="-4489.63" Z="207.3248" />
 				<CustomBehavior File="ForcedDismount" />
 				
 				<CustomBehavior File="InteractWith" QuestId="27503" MobId="46117" GossipOptions="1" WaitTime="100" CollectionDistance="20" X="-4405.82" Y="-4489.63" Z="207.325" />
 
 				<RunTo X="-4460.575" Y="-4421.045" Z="261.6596" />
-				<CustomBehavior File="WaitTimer" WaitTime="70000"/>
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="75000"/>
+			</While>
 			<If Condition="((HasQuest(27503)) &amp;&amp; (IsQuestCompleted(27503)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="27503" />
 				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for bot {TimeRemaining}" />
@@ -1599,7 +1616,7 @@
 				<CustomBehavior File="FlyTo" X="-4580.59" Y="-4342.616" Z="317.3085" />
 				<CustomBehavior File="ForcedDismount" />
 				
-				<CustomBehavior File="KillUntilComplete" QuestId="27653" MobId="46202" MobId2="46205" X="-4521.16" Y="-4278.121" Z="322.4566" />
+				<Objective QuestName="Dark Assassins" QuestId="27653" Type="Collect" CollectCount="5" ItemId="62033" />
 			</If>
 			<If Condition="((HasQuest(27655)) &amp;&amp; (!IsQuestCompleted(27655)))" >
 				<Objective QuestName="Bring the Hammer Down" QuestId="27655" Type="KillMob" MobId="46205" KillCount="10" />
@@ -1613,21 +1630,35 @@
 		<PickUp GiverId="45675" QuestId="27689" GiverName="Garona Halforcen" QuestName="Distract Them for Me" X="-4494.646" Y="-4347.238" Z="322.4197" />
 		<PickUp GiverId="45675" QuestId="27696" GiverName="Garona Halforcen" QuestName="The Elementium Axe" X="-4494.646" Y="-4347.238" Z="322.4197" />
 			<If Condition="((HasQuest(27689)) &amp;&amp; (!IsQuestCompleted(27689)))" >
-				<CustomBehavior File="UserSettings" QuestId="27689" LootMobs="true" PullDistance="5" />
+				<CustomBehavior File="UserSettings" QuestId="27689" LootMobs="true" PullDistance="2" />
+				
+			 <If Condition="((HasQuest(27689)) &amp;&amp; (!IsObjectiveComplete(2, 27689)))">
 				<CustomBehavior File="FlyTo" X="-4656.644" Y="-4355.709" Z="293.5922" />
 				<CustomBehavior File="ForcedDismount" />
-				
 				<Objective QuestId="27689" QuestName="Distract Them for Me" Type="KillMob" MobId="46342" KillCount="1"/>
+			 </If>
 				
+			 <If Condition="((HasQuest(27689)) &amp;&amp; (!IsObjectiveComplete(3, 27689)))">
 				<CustomBehavior File="FlyTo" X="-5123.473" Y="-4652.714" Z="354.8128" />
 				<CustomBehavior File="ForcedDismount" />
-				
 				<Objective QuestId="27689" QuestName="Distract Them for Me" Type="KillMob" MobId="46343" KillCount="1"/>
+				<RunTo X="-5108.261" Y="-4653.769" Z="379.3274" />
+			 </If>
 				
-				<CustomBehavior File="FlyTo" X="-5231.643" Y="-4692.413" Z="368.085" />
+ 			 <If Condition="((HasQuest(27696)) &amp;&amp; (!IsQuestCompleted(27696)))" >
+				<CustomBehavior File="FlyTo" X="-5108.95" Y="-4554.29" Z="348.3362" />
 				<CustomBehavior File="ForcedDismount" />
 				
+				<Objective QuestId="27696" QuestName="The Elementium Axe" Type="Collect" ItemId="62230" CollectCount="1"/>
+				<RunTo X="-5112.707" Y="-4607.055" Z="356.1811" />
+			 </If>
+			 
+			 <If Condition="((HasQuest(27689)) &amp;&amp; (!IsObjectiveComplete(1, 27689)))">
+				<CustomBehavior File="FlyTo" X="-5231.643" Y="-4692.413" Z="368.085" />
+				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestId="27689" QuestName="Distract Them for Me" Type="KillMob" MobId="46341" KillCount="1"/>
+				<RunTo X="-5245.57" Y="-4702.249" Z="367.9798" />
+			 </If>
 			</If>
  			<If Condition="((HasQuest(27696)) &amp;&amp; (!IsQuestCompleted(27696)))" >
 				<CustomBehavior File="FlyTo" X="-5108.95" Y="-4554.29" Z="348.3362" />
@@ -1658,8 +1689,9 @@
 				<CustomBehavior File="UserSettings" QuestId="27703" LootMobs="true" PullDistance="5" />
 				<CustomBehavior File="FlyTo" X="-4584.019" Y="-4352.706" Z="316.3566" />
 				<CustomBehavior File="ForcedDismount" />
-				
-				<CustomBehavior File="KillUntilComplete" QuestId="27703" MobId="46416" X="-4593.921" Y="-4357.735" Z="315.5551" />
+				<CustomBehavior File="UserDialog" QuestId="27703" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Wait here for a drake (x5) to fall down to the ground, then go in and smack it before it gets back up!\nLook for Lirastrazsa blowing them up\n\nThe bot will fly you back" />
+				<Objective QuestName="Coup de Grace" QuestId="27703" Type="KillMob" MobId="46416" KillCount="5" />
+				<!-- I could probably jerry rig this with flyto's and interactwith waitfornpcs false -->
 			</If>
 			<If Condition="((HasQuest(27703)) &amp;&amp; (IsQuestCompleted(27703)))" >
 				<CustomBehavior File="FlyTo" X="-4494.646" Y="-4347.238" Z="322.4197" />
@@ -1786,10 +1818,11 @@
 			<If Condition="((!HasQuest(28885)) &amp;&amp; (!IsQuestCompleted(28885)))" >
 				<CustomBehavior File="FlyTo" X="-5269.996" Y="-4419.426" Z="402.7706" />
 				<CustomBehavior File="ForcedDismount" />
-			</If>
 		<PickUp GiverId="46243" QuestId="28885" GiverName="Initiate Goldmine" QuestName="Mr. Goldmine's Wild Ride"/>
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+			</If>
 			<If Condition="((HasQuest(28885)) &amp;&amp; (!IsQuestCompleted(28885)))" >
-				<CustomBehavior File="InteractWith" QuestId="27720" MobId="46243" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="-5274.83" Y="-4417.14" Z="402.7521" />
+				<CustomBehavior File="InteractWith" QuestId="28885" MobId="46243" GossipOptions="1" X="-5274.83" Y="-4417.14" Z="402.7521" />
 				<CustomBehavior File="WaitTimer" WaitTime="35000"/>
 			</If>
 		<TurnIn QuestId="28885" QuestName="Mr. Goldmine's Wild Ride" TurnInId="46513" TurnInName="Initiate Goldmine"/>
