@@ -37,7 +37,38 @@
 	
 		<CustomBehavior File="UserSettings" LearnFlightPaths="False" UseFlightPaths="False" TrainNewSkills="False" />
 				
-		<If Condition="Me.MapId == 571" >
+		 <If Condition="(Me.MapId == 571) &amp;&amp; (Me.Class == WoWClass.DeathKnight)" >
+			<While Condition="Me.Zone != 139" >
+				<CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(50977)" />
+				<CustomBehavior File="WaitTimer" WaitTime="12000" GoalText="Waiting for port {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" MobId="190942" ObjectType="Gameobject" Range="6" WaitForNpcs="False" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+			</While>
+			
+			<If Condition="Me.ZoneId == 139" >
+				<ClearVendor />
+				
+				<SetVendor>
+					<Vendors>
+						<Vendor Name="Lady Alistra" Entry="29195" Type="Repair" X="2488.616" Y="-5654.104" Z="376.9503" />
+					</Vendors>
+				</SetVendor>
+				
+				<CustomBehavior File="ForceSetVendor" DoTrain="True" />
+				<ClearVendor />
+			
+				<CustomBehavior File="UserSettings" UseFlightPaths="True" />
+				<CustomBehavior File="InteractWith" MobId="29480" X="2348.626" Y="-5669.289" Z="382.2406" />
+			 </If>
+				
+			  <If Condition="(Me.IsAlliance) &amp;&amp; (Me.MapId == 0)" >
+				<RunTo X="-8290.925" Y="1405.826" Z="4.721312" />
+			  </If>
+			  
+				<CustomBehavior File="UserSettings" UseFlightPaths="False" />
+		 </If>
+	 
+		 <If Condition="(Me.MapId == 571) &amp;&amp; (Me.Class != WoWClass.DeathKnight)" >
 			<CustomBehavior File="FlyTo" X="2231.537" Y="5135.816" Z="5.345537" />
 			<CustomBehavior File="ForcedDismount" />
 			<!-- Valiance Keep to SW dock -->
