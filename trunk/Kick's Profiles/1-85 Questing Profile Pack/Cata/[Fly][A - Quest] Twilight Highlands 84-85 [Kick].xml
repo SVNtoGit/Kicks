@@ -862,23 +862,55 @@
 		<PickUp QuestName="Devoured" GiverName="Earthcaller Yevaa" QuestId="27377" GiverId="47991" />
 			<If Condition="(HasQuest(27377))" >
 				<CustomBehavior File="WaitTimer" WaitTime="60000"/>
-		<TurnIn QuestName="Devoured" TurnInName="Thrall" QuestId="27377" TurnInId="48051" />
+		<TurnIn QuestName="Devoured" TurnInName="Thrall" QuestId="27377" TurnInId="48051" X="850.66" Y="1038.87" Z="-5.326503" />
 				<CustomBehavior File="WaitTimer" WaitTime="120000"/>
 			</If>
 			<If Condition="(HasQuest(27378))" >
 		<TurnIn QuestName="The Worldbreaker" QuestId="27378" TurnInName="Earthcaller Yevaa" TurnInId="48059" />
 			</If>
-			<If Condition="((HasQuest(27379)) &amp;&amp; (!IsQuestCompleted(27379)))" >
-				<CustomBehavior File="UserDialog" QuestId="27379" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill the tentacles and save the 4 npc's\nMake sure you don't get digested!\nAfter that, kill the brain!" />
-			</If>
+			<While Condition="((HasQuest(27379)) &amp;&amp; (!IsQuestCompleted(27379)))" >
+				<!-- If we have issues not completing this quest - the id's are the tenacle id's -->
+				<!-- 48790 - objective 2 -->
+				<CustomBehavior File="UserSettings" PullDistance="1" /> 
+				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2708.387" Y="-5051.469" Z="-127.416" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+
+				<!-- 48794 - objective 3 -->
+				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2644.237" Y="-5045.764" Z="-126.7448" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000"/>
+				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2618.116" Y="-5025.306" Z="-128.9939" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+
+				<!-- 48739 - objective 1 -->
+				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2592.106" Y="-4976.218" Z="-126.8942" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000"/>
+				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2619.898" Y="-4920.118" Z="-127.5887" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				
+				<!-- 48796 - objective 4 -->
+				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2670.88" Y="-4894.899" Z="-127.6802" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000"/>
+				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2706.908" Y="-4928.091" Z="-131.0934" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				
+				<CustomBehavior File="UserSettings" PullDistance="10" /> 
+			</While>
 		<TurnIn QuestName="The Terrors of Iso'rath" QuestId="27379" TurnInName="Earthcaller Yevaa" TurnInId="48059" />
 		<PickUp QuestName="Nightmare" GiverName="Earthcaller Yevaa" QuestId="27380" GiverId="48059" />
-		<!--
-			<Hotspot X="-2692.689" Y="-4990.76" Z="-128.7908" />
-			<Vendor Name="Brain of Iso'rath" Entry="47960" Type="Repair" X="-2663.08" Y="-4984.941" Z="-110.2458" />
-		-->
 			<If Condition="((HasQuest(27380)) &amp;&amp; (!IsQuestCompleted(27380)))" >
+				<CustomBehavior File="UserSettings" UseMount="False" />
+				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="UserDialog" QuestId="27380" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill the brain!" />
+				<!--
+					<Hotspot X="-2692.689" Y="-4990.76" Z="-128.7908" />
+					<Vendor Name="Brain of Iso'rath" Entry="47960" Type="Repair" X="-2663.08" Y="-4984.941" Z="-110.2458" />
+				-->
+				<!-- we must not be mounted while on this quest!
+					I need a behavior that runs to yellow circle when we're at a % of acids ... or after a certain amount of time.  we also can't get back to our body if we die in here
+					<Objective QuestId="27380" QuestName="Nightmare" Type="KillMob" MobId="47960" KillCount="1"/>
+					If we die ... it's a long flight back!
+				-->
+				<CustomBehavior File="UserSettings" UseMount="True" />
 			</If>
 		<TurnIn QuestName="Nightmare" TurnInName="Earthcaller Torunscar" QuestId="27380" TurnInId="45332" />
 			<!-- Consumed by Nightmare achievement -->

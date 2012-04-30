@@ -1181,52 +1181,79 @@
 		<TurnIn QuestId="27300" QuestName="Pushing Back" TurnInId="45332" TurnInName="Earthcaller Torunscar"/>
 		<TurnIn QuestId="27302" QuestName="Simple Solutions" TurnInId="45432" TurnInName="Initiate Goldmine"/>
 		<TurnIn QuestId="27303" QuestName="Mercy for the Bound" TurnInId="45386" TurnInName="Earthcaller Yevaa" />
+			<If Condition="((!HasQuest(27376)) &amp;&amp; (!IsQuestCompleted(27376)))" >
+				<CustomBehavior File="FlyTo" X="-2526.97" Y="-4758.58" Z="180.4824" />
+				<CustomBehavior File="ForcedDismount" />
+			</If>
 		<PickUp GiverId="45332" QuestId="27376" GiverName="Earthcaller Torunscar" QuestName="The Maw of Iso'rath"/>
 			<If Condition="((HasQuest(27376)) &amp;&amp; (!IsQuestCompleted(27376)))" >
 				<CustomBehavior File="MountVehOnly" VehicleMountId="45435" X="-2530.04" Y="-4784.1" Z="179.9247" />
 				<CustomBehavior File="WaitTimer" WaitTime="90000"/>
+			</If>
+			<If Condition="((HasQuest(27376)) &amp;&amp; (!IsQuestCompleted(27376))) &amp;&amp; (Me.Z &gt;= 8)" >
+				<CustomBehavior File="FlyTo" X="-2658.011" Y="-4985.127" Z="255.6108" />
+				<CustomBehavior File="MyCTM" X="-2667.644" Y="-4988.289" Z="-128.808" />
 			</If>
 		<TurnIn QuestId="27376" QuestName="The Maw of Iso'rath" TurnInId="47991" TurnInName="Earthcaller Yevaa"/>
 		<PickUp GiverId="47991" QuestId="27377" GiverName="Earthcaller Yevaa" QuestName="Devoured"/>
 			<While Condition="((HasQuest(27377)) &amp;&amp; (!IsQuestCompleted(27377)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting to die  {TimeRemaining}" />
 			</While>
+			<If Condition="((HasQuest(48051)) &amp;&amp; (IsQuestCompleted(48051)))" >
+				<CustomBehavior File="WaitTimer" WaitTime="15000"/>
 		<TurnIn QuestId="27377" QuestName="Devoured" TurnInId="48051" TurnInName="Thrall" X="850.66" Y="1038.87" Z="-5.326503" />
+			</If>
 			<If Condition="((!HasQuest(27378)) &amp;&amp; (!IsQuestCompleted(27378)))" >
+				<CustomBehavior File="UserSettings" UseMount="False" />
 		<PickUp GiverId="48051" QuestId="27378" GiverName="Thrall" QuestName="The  Worldbreaker" X="850.66" Y="1038.87" Z="-5.326503" />
-				<CustomBehavior File="WaitTimer" WaitTime="60000" GoalText="Waiting for death {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="75000" GoalText="Waiting for death {TimeRemaining}" />
+				<CustomBehavior File="UserSettings" UseMount="True" />
 			</If>
 		<TurnIn QuestId="27378" QuestName="The Worldbreaker" TurnInId="48059" TurnInName="Earthcaller Yevaa" X="-2740.83" Y="-5004.543" Z="-127.1394" />
 		<PickUp GiverId="48734" QuestId="27379" GiverName="Stormcaller Mylra" QuestName="The Terrors of Iso'rath" X="-2740.83" Y="-5004.543" Z="-127.1394" />
 			<While Condition="((HasQuest(27379)) &amp;&amp; (!IsQuestCompleted(27379)))" >
+				<!-- If we have issues not completing this quest - the id's are the tenacle id's -->
+				<!-- 48790 - objective 2 -->
 				<CustomBehavior File="UserSettings" PullDistance="1" /> 
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2708.387" Y="-5051.469" Z="-127.416" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
-				<!-- 48790 -->
+
+				<!-- 48794 - objective 3 -->
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2644.237" Y="-5045.764" Z="-126.7448" />
 				<CustomBehavior File="WaitTimer" WaitTime="15000"/>
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2618.116" Y="-5025.306" Z="-128.9939" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
-				<!-- ? i missed this 1 -->
+
+				<!-- 48739 - objective 1 -->
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2592.106" Y="-4976.218" Z="-126.8942" />
 				<CustomBehavior File="WaitTimer" WaitTime="15000"/>
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2619.898" Y="-4920.118" Z="-127.5887" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
-				<!-- 48739 -->
+				
+				<!-- 48796 - objective 4 -->
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2670.88" Y="-4894.899" Z="-127.6802" />
 				<CustomBehavior File="WaitTimer" WaitTime="15000"/>
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2706.908" Y="-4928.091" Z="-131.0934" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
-				<!-- 48796 -->
+				
 				<CustomBehavior File="UserSettings" PullDistance="10" /> 
 			</While>
 		<TurnIn QuestId="27379" QuestName="The Terrors of Iso'rath" TurnInId="48059" TurnInName="Earthcaller Yevaa"/>
 		<PickUp GiverId="48059" QuestId="27380" GiverName="Earthcaller Yevaa" QuestName="Nightmare"/>
 			<If Condition="((HasQuest(27380)) &amp;&amp; (!IsQuestCompleted(27380)))" >
-				<CustomBehavior File="UserDialog" QuestId="27380" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="kill the brain" />
-				<!-- need a behavior that runs to yellow circle when we're at a % of acids ... or after a certain amount of time.  we also can't get back to our body if we die in here
-					<Objective QuestId="27380" QuestName="Nightmare" Type="KillMob" MobId="47960" KillCount="1"/>
+				<CustomBehavior File="UserSettings" UseMount="False" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UserDialog" QuestId="27380" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill the brain!" />
+				<!--
+					<Hotspot X="-2692.689" Y="-4990.76" Z="-128.7908" />
+					<Vendor Name="Brain of Iso'rath" Entry="47960" Type="Repair" X="-2663.08" Y="-4984.941" Z="-110.2458" />
 				-->
+				<!-- we must not be mounted while on this quest!
+					I need a behavior that runs to yellow circle when we're at a % of acids ... or after a certain amount of time.  we also can't get back to our body if we die in here
+					<Objective QuestId="27380" QuestName="Nightmare" Type="KillMob" MobId="47960" KillCount="1"/>
+					If we die ... it's a long flight back!
+				-->
+				<CustomBehavior File="UserSettings" UseMount="True" />
 			</If>
 		<TurnIn QuestId="27380" QuestName="Nightmare" TurnInId="45332" TurnInName="Earthcaller Torunscar"/>
 		<PickUp GiverId="48264" QuestId="27486" GiverName="Golluck Rockfist" QuestName="Warm Welcome"/>
