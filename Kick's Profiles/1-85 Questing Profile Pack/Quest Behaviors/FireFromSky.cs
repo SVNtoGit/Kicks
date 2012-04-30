@@ -147,7 +147,7 @@ namespace Styx.Bot.Quest_Behaviors
         {
             var dist = distance * distance;
             var curTarLocation = who.Location;
-            return ObjectManager.GetObjectsOfType<WoWUnit>().Count(p =>  p.IsAlive && (p.Entry == 48720 || p.Entry == 48713) && p.Location.DistanceSqr(curTarLocation) <= dist);
+            return ObjectManager.GetObjectsOfType<WoWUnit>().Count(p =>  p.IsAlive && (p.Entry == 48713) && p.Location.DistanceSqr(curTarLocation) <= dist);
 			// (p.Entry == 48720 || p.Entry == 48713) changed to (p.Entry == 48720)
         }
  
@@ -156,7 +156,7 @@ namespace Styx.Bot.Quest_Behaviors
             get
             {
                 return
-                    ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.IsAlive && (u.Entry == 48720 || u.Entry == 48713)).OrderByDescending(z => UnfriendlyUnitsNearTarget(10, z)).ToList();
+                    ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.IsAlive && (u.Entry == 48713)).OrderByDescending(z => UnfriendlyUnitsNearTarget(10, z)).ToList();
 					// (u.Entry == 48720 || u.Entry == 48713) changed to (u.Entry == 48720)
 
             }
@@ -194,26 +194,58 @@ namespace Styx.Bot.Quest_Behaviors
                                           Lua.DoString("CastPetAction(1);");
                                           //LegacySpellManager.ClickRemoteLocation(getEstimatedPosition(Enemies[0],7));
 
-										  // middle
-										  if ((Enemies[0].Z >= 230) && (Enemies[0].Z < 240))
-                                          {
-                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 15));
-                                          }
-										  // middle right
-                                          else if ((Enemies[0].Z >= 235) && (Enemies[0].Z <= 280))
+										  /*
+										  // bottom left
+                                          if ((Enemies[0].Z >= 200) && (Enemies[0].Z <= 213))
                                           {
                                               LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 11));
                                           }
+										  */
+										  // middle left
+                                          if ((Enemies[0].Z >= 219) && (Enemies[0].Z <= 228))
+                                          {
+                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 11));
+                                          }
+										  // middle flat - i should change this to 2x x/y's for vector changes
+										  else if ((Enemies[0].Z >= 235) && (Enemies[0].Z <= 240))
+                                          {
+                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 16));
+                                          }
+										  //
+										  /* this doesn't quite work the way i want it to
+										  // Middle Flat - Left
+										  else if (((Enemies[0].Z >= 236) && (Enemies[0].Z <= 240)) && ((Enemies[0].Y >= -57) && (Enemies[0].Y <= -44)) && ((Enemies[0].X >= -8534) && (Enemies[0].X <= -8515)))
+                                          {
+                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 16));
+                                          }
+										  // Middle Flat - Right
+										  else if (((Enemies[0].Z >= 236) && (Enemies[0].Z <= 240)) && ((Enemies[0].Y >= -40) && (Enemies[0].Y <= -15)) && ((Enemies[0].X >= -8509) && (Enemies[0].X <= -8507)))
+                                          {
+                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 16));
+                                          }
+										  */
+										  // middle right
+                                          else if ((Enemies[0].Z >= 244) && (Enemies[0].Z <= 253))
+                                          {
+                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 12));
+                                          }
+										  // middle top right
+                                          else if ((Enemies[0].Z >= 262) && (Enemies[0].Z <= 272))
+                                          {
+                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 11));
+                                          }
+										  // top right
+                                          else if ((Enemies[0].Z >= 282) && (Enemies[0].Z <= 292))
+                                          {
+                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 16));
+                                          }
 										  // top
-                                          else if ((Enemies[0].Z >= 280) && (Enemies[0].Z <= 310))
+                                          else if ((Enemies[0].Z >= 292) && (Enemies[0].Z <= 307))
                                           {
-                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 15));
+                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 12));
                                           }
-										  // bottom
-                                          else if (Enemies[0].Z <= 231)
-                                          {
-                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 18));
-                                          }
+										  
+										  
                                           Logging.Write(UnfriendlyUnitsNearTarget(10,Enemies[0]).ToString());
                                       });
             }
