@@ -1240,20 +1240,36 @@
 			</While>
 		<TurnIn QuestId="27379" QuestName="The Terrors of Iso'rath" TurnInId="48059" TurnInName="Earthcaller Yevaa"/>
 		<PickUp GiverId="48059" QuestId="27380" GiverName="Earthcaller Yevaa" QuestName="Nightmare"/>
-			<If Condition="((HasQuest(27380)) &amp;&amp; (!IsQuestCompleted(27380)))" >
-				<CustomBehavior File="UserSettings" UseMount="False" />
+			<While Condition="((HasQuest(27380)) &amp;&amp; (!IsQuestCompleted(27380)))" >
+				<CustomBehavior File="UserSettings" UseMount="False"  PullDistance="1" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="UserDialog" QuestId="27380" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill the brain!" />
-				<!--
-					<Hotspot X="-2692.689" Y="-4990.76" Z="-128.7908" />
-					<Vendor Name="Brain of Iso'rath" Entry="47960" Type="Repair" X="-2663.08" Y="-4984.941" Z="-110.2458" />
-				-->
+				<CustomBehavior File="NoCombatMoveTo" QuestId="27380" X="-2697.923" Y="-4989.122" Z="-128.8218" />
+				<CustomBehavior File="WaitTimer" QuestId="27380" WaitTime="2000"/>
+				<CustomBehavior File="InteractWith" QuestId="27380" MobId="47960" Range="39" WaitForNpcs="False" X="-2663.08" Y="-4984.941" Z="-128.8642" />
+				<CustomBehavior File="WaitTimer" QuestId="27380" WaitTime="2000"/>
+				<!-- CC should take over and kill the brain, although we may want to kill the bloods if they are within 5 yards of us (and us not move at all) -->
+			</While>
 				<!-- we must not be mounted while on this quest!
 					I need a behavior that runs to yellow circle when we're at a % of acids ... or after a certain amount of time.  we also can't get back to our body if we die in here
 					<Objective QuestId="27380" QuestName="Nightmare" Type="KillMob" MobId="47960" KillCount="1"/>
 					If we die ... it's a long flight back!
+					
+					actually, i think we can stand at this hotspot for melee and casters and just kill the brain from here w/o a behavior at all!
+					<Hotspot X="-2697.923" Y="-4989.122" Z="-128.8218" /> // we can melee from this spot, which is exactly where Earthmender Duarn stands and keeps a bubble up most of the time!! woot
+					Information about Brain of Iso'rath
+					Name = Brain of Iso'rath
+					Wowhead Id = 47960
+					Faction = 16 [Monster]
+					Location = <-2663.08, -4984.941, -128.8642>
+
+					<Vendor Name="Brain of Iso'rath" Entry="47960" Type="Repair" X="-2663.08" Y="-4984.941" Z="-128.8642" />
 				-->
-				<CustomBehavior File="UserSettings" UseMount="True" />
+			<If Condition="((HasQuest(27380)) &amp;&amp; (IsQuestCompleted(27380)))" >
+			 <If Condition="(Me.Z &lt;= 0)" >
+				<CustomBehavior File="WaitTimer" WaitTime="20000"/>
+			 </If>
+				<CustomBehavior File="UserSettings" UseMount="True" PullDistance="15" />
 			</If>
 		<TurnIn QuestId="27380" QuestName="Nightmare" TurnInId="45332" TurnInName="Earthcaller Torunscar"/>
 		<PickUp GiverId="48264" QuestId="27486" GiverName="Golluck Rockfist" QuestName="Warm Welcome"/>
@@ -1276,12 +1292,16 @@
 		<TurnIn QuestId="27504" QuestName="Even Dragons Bleed" TurnInId="45522" TurnInName="Velastrasza"/>
  		<PickUp GiverId="45522" QuestId="27505" GiverName="Velastrasza" QuestName="Draconic Mending"/>
 		<PickUp GiverId="45562" QuestId="27506" GiverName="Baleflame" QuestName="Life from Death"/>
-			<While Condition="((HasQuest(27506)) &amp;&amp; (!IsQuestCompleted(27506)))" >
-				<CustomBehavior File="UseItemOn" QuestId="27506" MobType="Npc" MobId="45748" ItemId="61323" NumOfTimes="20" WaitTime="6000" CollectionDistance="1000" X="-3300.927" Y="-3959.798" Z="202.4109" />
-			</While>
-			<While Condition="((HasQuest(27505)) &amp;&amp; (!IsQuestCompleted(27505)))" >
+			<If Condition="((HasQuest(27506)) &amp;&amp; (!IsQuestCompleted(27506)))" >
+				<CustomBehavior File="UserSettings" PullDistance="15" />
+			 <While Condition="((HasQuest(27506)) &amp;&amp; (!IsQuestCompleted(27506)))" >
+				<CustomBehavior File="UseItemOn" QuestId="27506" MobId="45748" ItemId="61323" NumOfTimes="20" WaitTime="5000" WaitForNpcs="False" CollectionDistance="500" X="-3265.26" Y="-3903.53" Z="203.1656" />
+				<CustomBehavior File="UseItemOn" QuestId="27506" MobId="45748" ItemId="61323" NumOfTimes="20" WaitTime="5000" WaitForNpcs="False" CollectionDistance="500" X="-3306.48" Y="-4000.77" Z="199.9698" />
+			 </While>
+			</If>
+			<If Condition="((HasQuest(27505)) &amp;&amp; (!IsQuestCompleted(27505)))" >
 				<CustomBehavior File="KillUntilComplete" QuestId="27505" MobId="45748" X="-3283.091" Y="-3899.76" Z="202.7806" />
-			</While>
+			</If>
 			<If Condition="((HasQuest(27506)) &amp;&amp; (IsQuestCompleted(27506)))" >
 				<CustomBehavior File="FlyTo" X="-3255.73" Y="-4010.93" Z="216.3619" />
 				<CustomBehavior File="ForcedDismount" />
