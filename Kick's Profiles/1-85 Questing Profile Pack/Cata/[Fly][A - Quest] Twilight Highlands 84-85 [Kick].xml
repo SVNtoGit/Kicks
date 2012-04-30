@@ -953,31 +953,22 @@
 		<PickUp QuestName="Far from the Nest" GiverName="Lirastrasza" QuestId="27508" GiverId="45518" />
 		<PickUp QuestName="Encroaching Twilight" GiverName="Calen" QuestId="27507" GiverId="45528" />
 		<PickUp QuestName="Breach in the Defenses" GiverName="Calen" QuestId="27509" GiverId="45528" />
-			<!-- This area really sucks, good luck -->
-			<If Condition="((HasQuest(27508)) &amp;&amp; (!IsQuestCompleted(27508)))" >
-				<RunTo X="-3089.174" Y="-3981.428" Z="266.0727" />
-				<CustomBehavior File="FlyTo" X="-2786.156" Y="-3616.039" Z="180.8918" />
-				<CustomBehavior File="ForcedDismount" />
-			  <While Condition="((HasQuest(27508)) &amp;&amp; (!IsQuestCompleted(27508)))" >
-				<CustomBehavior File="InteractWith" QuestId="27508" MobId="45651" NumOfTimes="4" CollectionDistance="500" X="-2775.295" Y="-3605.477" Z="182.4047" />
-				<CustomBehavior File="InteractWith" QuestId="27508" MobId="45651" NumOfTimes="4" CollectionDistance="500" X="-2711.058" Y="-3541.207" Z="182.0811" />
-			  </While>
-			</If>
-			<Objective QuestName="Far from the Nest" QuestId="27508" Type="Collect" CollectCount="6" ItemId="61317" />
 			<If Condition="((HasQuest(27509)) &amp;&amp; (!IsQuestCompleted(27509)))" >
-				<CustomBehavior File="FlyTo" X="-2786.156" Y="-3616.039" Z="180.8918" />
+				<CustomBehavior File="FlyTo" X="-2740.624" Y="-3416.947" Z="183.6452" />
 				<CustomBehavior File="ForcedDismount" />
-				<RunTo QuestId="27509" X="-2748.095" Y="-3388.626" Z="183.0267" />
-				<CustomBehavior File="MyCTM" X="-2750.292" Y="-3381.521" Z="183.2588" />
-			  <While Condition="((HasQuest(27509)) &amp;&amp; (!IsQuestCompleted(27509)))" >
-				<CustomBehavior File="MyCTM" X="-2750.292" Y="-3381.521" Z="183.2588" />
-				<UseItem QuestName="Breach in the Defenses" QuestId="27509" ItemId="61385" X="-2750.292" Y="-3381.521" Z="183.2588" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" />
-			  </While>
-				<CustomBehavior File="MyCTM" X="-2748.095" Y="-3388.626" Z="183.0267" />
-				<RunTo X="-2786.156" Y="-3616.039" Z="180.8918" />
+			 <While Condition="((HasQuest(27509)) &amp;&amp; (!IsQuestCompleted(27509)))" >
+				<UseItem ItemId="61385" QuestName="Breach in the Defenses" QuestId="27509" X="-2750.427" Y="-3381.387" Z="183.2534" />
+			 </While>
 			</If>
-			<Objective QuestName="Encroaching Twilight" QuestId="27507" Type="KillMob" MobId="45616" KillCount="12" />
+			<While Condition="((HasQuest(27508)) &amp;&amp; (!IsQuestCompleted(27508)))" >
+				<CustomBehavior File="InteractWith" QuestId="27508" MobId="45682" NumOfTimes="20" X="-2774.995" Y="-3583.556" Z="180.6056" />
+			</While>
+			<If Condition="((HasQuest(27507)) &amp;&amp; (!IsQuestCompleted(27507)))" >
+				<CustomBehavior File="FlyTo" X="-2736.729" Y="-3446.427" Z="182.9745" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="KillUntilComplete" QuestId="27507" MobId="45748" X="-2736.729" Y="-3446.427" Z="182.9745" />
+			</If>
 			<If Condition="((HasQuest(27509)) &amp;&amp; (IsQuestCompleted(27509)))" >
 				<CustomBehavior File="FlyTo" X="-3089.174" Y="-3981.428" Z="266.0727" />
 				<CustomBehavior File="ForcedDismount" />
@@ -987,7 +978,6 @@
 		<TurnIn QuestName="Breach in the Defenses" QuestId="27509" TurnInName="Calen" TurnInId="45528" />
 		<PickUp QuestName="Mathias' Command" GiverName="Calen" QuestId="28101" GiverId="45528" />
 			<If Condition="(HasQuest(28101))" >
-				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<CustomBehavior File="FlyTo" X="-3523.97" Y="-3810.868" Z="91.53625" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
@@ -1023,15 +1013,21 @@
 			<If Condition="((HasQuest(28109)) &amp;&amp; (!IsQuestCompleted(28109)))" >
 				<CustomBehavior File="UserDialog" QuestId="28109" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Talk with the Lt and escort the squad to Calen, just get passed the gate and walk the road to get credit\nTalk with Calen passed the gate\nI used my flying mount and flew on the left side of the mountains for less agro\n\nDon't go far, after the cutscene, you have to mount a drake" />
 				<!-- Grim Batol entrance secured -->
+				<!-- Go through gate
+			 <If Condition="(Me.X &gt;= -4000)" >
+				<RunTo X="-3966.215" Y="-4004.878" Z="173.4402" />
+				<RunTo X="-3974.134" Y="-3977.598" Z="176.3019" />
+			 </If>
+			-->
 			</If>
 		<TurnIn QuestName="Pressing Forward" TurnInName="Calen" QuestId="28109" TurnInId="47605" X="-4144.29" Y="-3603.65" Z="213.7864" />
 		<PickUp QuestName="Enter the Dragon Queen" GiverName="Alexstrasza the Life-Binder" QuestId="28712" GiverId="47603" />
-			<If Condition="(HasQuest(28712))" >
-				<CustomBehavior File="FlyTo" X="-2727.011" Y="-3217.718" Z="178.8673" />
+			<If Condition="((HasQuest(28712)) &amp;&amp; (IsQuestCompleted(28712)))" >
+				<CustomBehavior File="FlyTo" X="-2733.861" Y="-3221.23" Z="178.9149" />
 				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestId="28712" QuestName="Enter the Dragon Queen" TurnInId="49417" TurnInName="Lirastrasza"/>
+				<CustomBehavior File="WaitTimer" WaitTime="210000"/>
 			</If>
-		<TurnIn QuestName="Enter the Dragon Queen" TurnInName="Lirastrasza" QuestId="28712" TurnInId="49417" />
-		<!-- Fun cutscene -->
 		<PickUp QuestName="Battle of Life and Death" GiverName="Calen" QuestId="28758" GiverId="49810" X="-2699.601" Y="-3183.016" Z="179.0589" />
 			<If Condition="((HasQuest(28758)) &amp;&amp; (!IsQuestCompleted(28758)))" >
 				<CustomBehavior File="MountVehOnly" VehicleMountId="49910" X="-2685.983" Y="-3178.316" Z="179.9467" />
@@ -1040,8 +1036,8 @@
 					Basically, cast fireball on target, it comes to you, press finishing strike and it's dead.  very easy quest -->
 				<!-- Twilight Shadowdrake
 				<Objective QuestName="Battle of Life and Death" QuestId="28758" Type="KillMob" KillCount="8" MobId="49873" /> -->
+				<CustomBehavior File="WaitTimer" WaitTime="145000"/>
 			</If>
-			<!-- another cutscene -->
 		<TurnIn QuestName="Battle of Life and Death" TurnInName="Calen" QuestId="28758" TurnInId="47605" />
 		<PickUp QuestName="And the Sky Streaked Red" GiverName="Calen" QuestId="28171" GiverId="47605" />
 		<TurnIn QuestName="And the Sky Streaked Red" TurnInName="Lirastrasza" QuestId="28171" TurnInId="47902" />
