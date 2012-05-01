@@ -136,7 +136,7 @@
 		</If>
 		
 			<!-- If I am in Org - Take Deepholm Portal -->
-			<If Condition="(Me.IsHorde) &amp;&amp; (Me.MapId == 1) &amp;&amp; (Me.ZoneId != 5042)" >
+			<If Condition="(Me.IsHorde) &amp;&amp; (Me.ZoneId == 1637)" >
 				<CustomBehavior File="Message" Text="We are in Org, using portal to Deepholm" LogColor="Cornflowerblue" />
 				<CustomBehavior File="FlyTo" DestName="Org Deepholm Portal" X="2061.375" Y="-4387.435" Z="98.0477" />
 				<CustomBehavior File="ForcedDismount" />
@@ -146,7 +146,7 @@
 			</If>
 		
 			<!-- If I am in SW - Take Deepholm Portal -->
-			<If Condition="(Me.IsAlliance) &amp;&amp; (Me.MapId == 0) &amp;&amp; (Me.ZoneId != 5042)" >
+			<If Condition="(Me.IsAlliance) &amp;&amp; (Me.ZoneId == 1519)" >
 				<CustomBehavior File="Message" Text="We are in SW, using portal to Deepholm" LogColor="Cornflowerblue" />
 				<CustomBehavior File="FlyTo" DestName="SW Deepholm Portal" X="-8220.372" Y="448.172" Z="117.6194" />
 				<CustomBehavior File="ForcedDismount" />
@@ -245,12 +245,15 @@
 				<CustomBehavior File="FlyTo" X="1818.808" Y="-446.6318" Z="179.1952" />
 				<CustomBehavior File="ForcedDismount" />
 			 </If>
+			 <While Condition="((HasQuest(28390)) &amp;&amp; (!IsQuestCompleted(28390)))" >
 				<RunTo X="1712.635" Y="-505.8574" Z="165.0125" />
 				<CustomBehavior File="Message" Text="Waiting for Npc to respawn (someone must be on the quest if you're standing here) - You may have issues with this quest that i have not seen" LogColor="FireBrick" />
 
 				<CustomBehavior File="InteractWith" QuestId="28390" MobId="43503" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="1713.21" Y="-507.658" Z="164.8813" />
 				<CustomBehavior File="WaitTimer" WaitTime="7000" />
-				<Objective QuestName="Glop, Son of Glop" QuestId="28390" Type="KillMob" MobId="43372" KillCount="1" />
+				<!-- <Objective QuestName="Glop, Son of Glop" QuestId="28390" Type="KillMob" MobId="43372" KillCount="1" /> -->
+				<CustomBehavior File="InteractWith" QuestId="28390" MobId="43503" NumOfTimes="1000" WaitForNpcs="False" Range="8" X="1713.21" Y="-507.658" Z="164.8813" />
+			 </While>
 				<RunTo X="1839.602" Y="-458.6029" Z="181.2831" /> <!-- outside hotspot -->
 			</If>
 			
