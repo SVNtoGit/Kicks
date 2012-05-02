@@ -240,11 +240,11 @@
 	<QuestOrder>
 	
 			<If Condition="Me.IsHorde" >
-				<CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You must be Alliance to run this profile" />
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You must be Alliance to run this profile" />
 			</If>
 
 			<If Condition="(Me.MapId != 0)" >
-				<CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You must be in Eastern Kingdoms to run this profile!" />
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You must be in Eastern Kingdoms to run this profile!" />
 			</If>
 
 	<CustomBehavior File="UserSettings" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" LootMobs="True" PullDistance="25" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
@@ -532,6 +532,7 @@
 			<If Condition="((HasQuest(27811)) &amp;&amp; (!IsQuestCompleted(27811)))" >
 				<CustomBehavior File="FlyTo" X="-4570.547" Y="-5394.241" Z="132.5735" />
 				<CustomBehavior File="UserDialog" QuestId="27811" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Save 8 gryphons, then press continue and bot will turn in" />
+				<!-- I can prob do something like flyto location and interactwith wait for npcs false for all of these and eventually get them done by jerry rigging it -->
 			</If>
 			<If Condition="((HasQuest(27811)) &amp;&amp; (IsQuestCompleted(27811)))" >
 				<CustomBehavior File="FlyTo" X="-4272.818" Y="-5115.096" Z="26.41771" />
@@ -813,7 +814,9 @@
 			</If>
 			<If Condition="((HasQuest(28410)) &amp;&amp; (!IsQuestCompleted(28410)))" >
 				<CustomBehavior File="FlyTo" X="-3266.066" Y="-6390.385" Z="294.888" />
-				<CustomBehavior File="UserDialog" QuestId="28410" Title="Escort" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Find the Zeppelin flying around and board it, then steal the cloth (on the lower level in a box)\nJump off into water\nMount your flyer and press continue" />
+				<CustomBehavior File="UserDialog" QuestId="28410" Title="Escort" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" 
+				Text="Find the Zeppelin flying around and board it, then steal the cloth (on the lower level in a box)\nJump off into water\nMount your flyer and press continue" />
+				<!-- Kick can prob script this -->
 				<!-- <Objective QuestName="Something Stolen" QuestId="28410" Type="Collect" CollectCount="1" ItemId="64318" /> -->
 			</If>
 			<If Condition="((HasQuest(28410)) &amp;&amp; (IsQuestCompleted(28410)))" >
@@ -876,14 +879,19 @@
 			<If Condition="(HasQuest(27378))" >
 		<TurnIn QuestName="The Worldbreaker" QuestId="27378" TurnInName="Earthcaller Yevaa" TurnInId="48059" />
 			</If>
+		<PickUp GiverId="48734" QuestId="27379" GiverName="Stormcaller Mylra" QuestName="The Terrors of Iso'rath" X="-2740.83" Y="-5004.543" Z="-127.1394" />
 			<While Condition="((HasQuest(27379)) &amp;&amp; (!IsQuestCompleted(27379)))" >
 				<!-- If we have issues not completing this quest - the id's are the tenacle id's -->
 				<!-- 48790 - objective 2 -->
 				<CustomBehavior File="UserSettings" PullDistance="1" /> 
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2708.387" Y="-5051.469" Z="-127.416" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2708.387" Y="-5051.469" Z="-127.416" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
 
 				<!-- 48794 - objective 3 -->
+				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2644.237" Y="-5045.764" Z="-126.7448" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2644.237" Y="-5045.764" Z="-126.7448" />
 				<CustomBehavior File="WaitTimer" WaitTime="15000"/>
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2618.116" Y="-5025.306" Z="-128.9939" />
@@ -891,11 +899,15 @@
 
 				<!-- 48739 - objective 1 -->
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2592.106" Y="-4976.218" Z="-126.8942" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
+				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2592.106" Y="-4976.218" Z="-126.8942" />
 				<CustomBehavior File="WaitTimer" WaitTime="15000"/>
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2619.898" Y="-4920.118" Z="-127.5887" />
 				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
 				
 				<!-- 48796 - objective 4 -->
+				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2670.88" Y="-4894.899" Z="-127.6802" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2670.88" Y="-4894.899" Z="-127.6802" />
 				<CustomBehavior File="WaitTimer" WaitTime="15000"/>
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27379" X="-2706.908" Y="-4928.091" Z="-131.0934" />
@@ -903,18 +915,21 @@
 				
 				<CustomBehavior File="UserSettings" PullDistance="10" /> 
 			</While>
-		<TurnIn QuestName="The Terrors of Iso'rath" QuestId="27379" TurnInName="Earthcaller Yevaa" TurnInId="48059" />
+		<TurnIn QuestId="27379" QuestName="The Terrors of Iso'rath" TurnInId="48059" TurnInName="Earthcaller Yevaa"/>
 		<PickUp GiverId="48059" QuestId="27380" GiverName="Earthcaller Yevaa" QuestName="Nightmare"/>
-			<While Condition="((HasQuest(27380)) &amp;&amp; (!IsQuestCompleted(27380)))" >
+			<If Condition="((HasQuest(27380)) &amp;&amp; (!IsQuestCompleted(27380)))" >
 				<CustomBehavior File="UserSettings" UseMount="False"  PullDistance="1" />
 				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="Nightmare" />
+			</If>
+				<!--
 				<CustomBehavior File="UserDialog" QuestId="27380" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill the brain!" />
 				<CustomBehavior File="NoCombatMoveTo" QuestId="27380" X="-2697.923" Y="-4989.122" Z="-128.8218" />
 				<CustomBehavior File="WaitTimer" QuestId="27380" WaitTime="2000"/>
 				<CustomBehavior File="InteractWith" QuestId="27380" MobId="47960" Range="39" WaitForNpcs="False" X="-2663.08" Y="-4984.941" Z="-128.8642" />
 				<CustomBehavior File="WaitTimer" QuestId="27380" WaitTime="2000"/>
+				-->
 				<!-- CC should take over and kill the brain, although we may want to kill the bloods if they are within 5 yards of us (and us not move at all) -->
-			</While>
 				<!-- we must not be mounted while on this quest!
 					I need a behavior that runs to yellow circle when we're at a % of acids ... or after a certain amount of time.  we also can't get back to our body if we die in here
 					<Objective QuestId="27380" QuestName="Nightmare" Type="KillMob" MobId="47960" KillCount="1"/>
@@ -1011,7 +1026,9 @@
 			<If Condition="((HasQuest(28108)) &amp;&amp; (!IsQuestCompleted(28108)))" >
 				<RunTo X="-3614.075" Y="-4000.089" Z="113.5322" />
 				<CustomBehavior File="UserSettings" PullDistance="25" />
-				<CustomBehavior File="UserDialog" QuestId="28108" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Talk with the Lt and escort the squad up the canyon to the Dragonmaw Gate\nTalk with the LT at gate and use hand gestures button" />
+				<CustomBehavior File="UserDialog" QuestId="28108" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" 
+				Text="Talk with the Lt and escort the squad up the canyon to the Dragonmaw Gate\nTalk with the LT at gate and use hand gestures button" />
+				<!-- Kick can prob script this -->
 				<!-- Dragonmaw Gate opened -->
 			</If>
 			<Objective QuestName="Paving the Way" QuestId="28107" Type="KillMob" MobId="47406" KillCount="30" />
@@ -1019,7 +1036,8 @@
 		<TurnIn QuestName="Paving the Way" QuestId="28107" TurnInName="Highbank Lieutenant" TurnInId="47611" />
 		<PickUp QuestName="Pressing Forward" GiverName="Highbank Lieutenant" QuestId="28109" GiverId="47611" />
 			<If Condition="((HasQuest(28109)) &amp;&amp; (!IsQuestCompleted(28109)))" >
-				<CustomBehavior File="UserDialog" QuestId="28109" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Talk with the Lt and escort the squad to Calen, just get passed the gate and walk the road to get credit\nTalk with Calen passed the gate\nI used my flying mount and flew on the left side of the mountains for less agro\n\nDon't go far, after the cutscene, you have to mount a drake" />
+				<CustomBehavior File="UserDialog" QuestId="28109" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" 
+				Text="Talk with the Lt and escort the squad to Calen, just get passed the gate and walk the road to get credit\nTalk with Calen passed the gate\nI used my flying mount and flew on the left side of the mountains for less agro" />
 				<!-- Grim Batol entrance secured -->
 				<!-- Go through gate
 			 <If Condition="(Me.X &gt;= -4000)" >
@@ -1038,13 +1056,18 @@
 			</If>
 		<PickUp QuestName="Battle of Life and Death" GiverName="Calen" QuestId="28758" GiverId="49810" X="-2699.601" Y="-3183.016" Z="179.0589" />
 			<If Condition="((HasQuest(28758)) &amp;&amp; (!IsQuestCompleted(28758)))" >
+			 <If Condition="(!Me.IsOnTransport)" >
 				<CustomBehavior File="MountVehOnly" VehicleMountId="49910" X="-2685.983" Y="-3178.316" Z="179.9467" />
-				<CustomBehavior File="UserDialog" QuestId="28758" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill 8 drakes\nTarget, press 1, it comes to you, press 3\n\nDon't go far, you have another quest to do" />
+			 </If>
+			 <If Condition="(Me.IsOnTransport)" >
+				<CustomBehavior File="LifeAndDeath" />
+			 </If>
+				<CustomBehavior File="WaitTimer" WaitTime="145000"/>
 				<!-- You control veh, veh has a fireball, heal, and one for when you're near the drake to kill it, similar to the hyjal quest
+				<CustomBehavior File="UserDialog" QuestId="28758" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill 8 drakes\nTarget, press 1, it comes to you, press 3\n\nDon't go far, you have another quest to do" />
 					Basically, cast fireball on target, it comes to you, press finishing strike and it's dead.  very easy quest -->
 				<!-- Twilight Shadowdrake
 				<Objective QuestName="Battle of Life and Death" QuestId="28758" Type="KillMob" KillCount="8" MobId="49873" /> -->
-				<CustomBehavior File="WaitTimer" WaitTime="145000"/>
 			</If>
 		<TurnIn QuestName="Battle of Life and Death" TurnInName="Calen" QuestId="28758" TurnInId="47605" />
 		<PickUp QuestName="And the Sky Streaked Red" GiverName="Calen" QuestId="28171" GiverId="47605" />
@@ -1064,11 +1087,14 @@
 				<RunTo X="-4876.192" Y="-5768.017" Z="30.94737" />
 			</If>
 			<While Condition="((HasQuest(28173)) &amp;&amp; (!IsQuestCompleted(28173)))" >
-				<CustomBehavior File="UserDialog" QuestId="28173" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Hook a drake and then kill it (x8)" />
-				<!-- bot never casts abilities as melee while on these things! -->
+				<CustomBehavior File="UserSettings" PullDistance="1" LootMobs="False" />
+				<CustomBehavior File="Blackout" />
+				<CustomBehavior File="UserSettings" PullDistance="25" LootMobs="True" />
+				<!-- bot never casts abilities as melee while on these things! 
 				<CustomBehavior File="UseItemOn" QuestId="28173" MobId="46141" MobState="Alive" ItemId="63092" WaitTime="3000" Range="90" CollectionDistance="500" X="-4839.015" Y="-5714.229" Z="43.38332" />
 				<CustomBehavior File="InteractWith" QuestId="28173" MobId="46141" MobState="Alive" WaitForNpcs="False" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
+				-->
 			</While>
 			<If Condition="((HasQuest(28191)) &amp;&amp; (!IsQuestCompleted(28191)))" >
 				<CustomBehavior File="KillUntilComplete" QuestId="28191" MobId="47796" MobId2="47797" X="-3445.307" Y="-3730.911" Z="71.66142" />
@@ -1390,7 +1416,8 @@
 		<PickUp QuestName="Coup de Grace" QuestId="27702" GiverName="Master Mathias Shaw" GiverId="45796" />
 			<If Condition="((HasQuest(27702)) &amp;&amp; (!IsQuestCompleted(27702)))" >
 				<CustomBehavior File="FlyTo" X="-4917.87" Y="-4482.262" Z="448.9375" />
-				<CustomBehavior File="UserDialog" QuestId="27702" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Wait here for a drake (x5) to fall down to the ground, then go in and smack it before it gets back up!\nLook for Lirastrazsa blowing them up\n\nThe bot will fly you back" />
+				<CustomBehavior File="UserDialog" QuestId="27702" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" 
+				Text="Wait here for a drake (x5) to fall down to the ground, then go in and smack it before it gets back up!\nLook for Lirastrazsa blowing them up\n\nThe bot will fly you back" />
 				<Objective QuestName="Coup de Grace" QuestId="27702" Type="KillMob" MobId="46416" KillCount="5" />
 				<!-- I could probably jerry rig this with flyto's and interactwith waitfornpcs false -->
 			</If>
