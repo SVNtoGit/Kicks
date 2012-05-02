@@ -239,12 +239,12 @@ namespace Styx.Bot.Quest_Behaviors
                                           {
                                               LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 16));
                                           }
-										  // top
+										  /* top
                                           else if ((Enemies[0].Z >= 292) && (Enemies[0].Z <= 307))
                                           {
-                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 12));
+                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 22));
                                           }
-										  
+										  */
 										  
                                           Logging.Write(UnfriendlyUnitsNearTarget(10,Enemies[0]).ToString());
                                       });
