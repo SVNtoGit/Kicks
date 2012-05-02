@@ -6736,7 +6736,7 @@
 			 </If>
 				<CustomBehavior File="12259" /> <!-- Kick -->
 			 <If Condition="(!Me.IsOnTransport)" >
-				<CustomBehavior File="EjectVeh" Eject="True" />
+				<CustomBehavior File="EjectVeh" />
 			 </If>
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
@@ -9571,7 +9571,7 @@
 				EndPath="6545.917, 348.2747, 580.2816 | 6216.801, 4.160139, 416.227" />
 	
 			 </While>
-				<CustomBehavior File="EjectVeh" Eject="1" />
+				<CustomBehavior File="EjectVeh" />
 			</If>
 			<If Condition="((HasQuest(13045)) &amp;&amp; (IsQuestCompleted(13045)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6254.646" Y="-39.17417" Z="438.3206" />
@@ -9857,6 +9857,260 @@
 			</If>
 			</If>
 			<!-- End of Crystalweb Caverns Quests -->
+			
+			<!-- This starts the Sons of Hodir Chain -->
+				<CustomBehavior File="Message" Text="Compiling SoH Starter Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((!HasQuest(12843)) &amp;&amp; (!IsQuestCompleted(12843)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6122.198" Y="-1067.789" Z="402.9616" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="They Took Our Men!" QuestId="12843" GiverName="Gretchen Fizzlespark" GiverId="29473" />
+		<PickUp QuestName="Equipment Recovery" QuestId="12844" GiverName="Gretchen Fizzlespark" GiverId="29473" />
+			</If>
+			<If Condition="((!HasQuest(12844)) &amp;&amp; (!IsQuestCompleted(12844)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6122.198" Y="-1067.789" Z="402.9616" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Equipment Recovery" QuestId="12844" GiverName="Gretchen Fizzlespark" GiverId="29473" />
+			</If>
+			<If Condition="((HasQuest(12844)) &amp;&amp; (!IsQuestCompleted(12844)))" >
+				<CustomBehavior File="FlyTo" DestName="Sifreldar Village" X="6599.201" Y="-988.3707" Z="840.3089" />
+				<CustomBehavior File="FlyTo" DestName="collect 8 K3 Equipment's" X="6668.205" Y="-1025.524" Z="767.0791" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Equipment Recovery" QuestId="12844" Type="CollectItem" CollectCount="8" ItemId="40726" />
+			</If>
+			<If Condition="((HasQuest(12843)) &amp;&amp; (!IsQuestCompleted(12843)))" >
+				<CustomBehavior File="FlyTo" DestName="get 5 keys" X="6721.84" Y="-1054.548" Z="766.6909" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(12843)) &amp;&amp; (!IsQuestCompleted(12843)))" >
+				<Objective QuestName="They Took Our Men!" QuestId="12843" GiverName="Gretchen Fizzlespark" Type="CollectItem" CollectCount="5" ItemId="40641" />
+				<CustomBehavior File="InteractWith" QuestId="12843" ObjectType="Gameobject" MobId="191544" NumOfTimes="10" Range="8" CollectionDistance="500" X="6721.84" Y="-1054.548" Z="766.6909" />
+			 </While>
+			</If>
+			<If Condition="((HasQuest(12843)) &amp;&amp; (IsQuestCompleted(12843)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6122.364" Y="-1067.258" Z="402.8506" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="They Took Our Men!" QuestId="12843" TurnInName="Gretchen Fizzlespark" TurnInId="29473" />
+			 <If Condition="((HasQuest(12844)) &amp;&amp; (IsQuestCompleted(12844)))" >
+		<TurnIn QuestName="Equipment Recovery" QuestId="12844" TurnInName="Gretchen Fizzlespark" TurnInId="29473" />
+		<PickUp QuestName="Leave No Goblin Behind" QuestId="12846" GiverName="Gretchen Fizzlespark" GiverId="29473" />
+			 </If>
+			</If>
+			<If Condition="((HasQuest(12844)) &amp;&amp; (IsQuestCompleted(12844)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6122.364" Y="-1067.258" Z="402.8506" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Equipment Recovery" QuestId="12844" TurnInName="Gretchen Fizzlespark" TurnInId="29473" />
+		<PickUp QuestName="Leave No Goblin Behind" QuestId="12846" GiverName="Gretchen Fizzlespark" GiverId="29473" />
+			</If>
+			<!-- End of K3 Quests -->
+			
+			<!-- Lok'lira the Crone Quests - Mine -->
+				<CustomBehavior File="Message" Text="Compiling Lok'lira the Crone Quests - Mine" LogColor="Cornflowerblue" />
+
+			<If Condition="((!HasQuest(12846)) &amp;&amp; (!IsQuestCompleted(12846)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6122.364" Y="-1067.258" Z="402.8506" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Leave No Goblin Behind" QuestId="12846" GiverName="Gretchen Fizzlespark" GiverId="29473" />
+			</If>
+			<If Condition="((HasQuest(12846)) &amp;&amp; (IsQuestCompleted(12846)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6894.713" Y="-1108.836" Z="802.9475" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Leave No Goblin Behind" QuestId="12846" TurnInName="Lok'lira the Crone" TurnInId="29481" />
+		<PickUp QuestName="The Crone's Bargain" QuestId="12841" GiverName="Lok'lira the Crone" GiverId="29481" />
+			</If>
+			<If Condition="((!HasQuest(12841)) &amp;&amp; (!IsQuestCompleted(12841)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6894.713" Y="-1108.836" Z="802.9475" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Crone's Bargain" QuestId="12841" GiverName="Lok'lira the Crone" GiverId="29481" />
+			</If>
+			<If Condition="((HasQuest(12841)) &amp;&amp; (!IsQuestCompleted(12841)))" >
+				<Objective QuestName="The Crone's Bargain" QuestId="12841" Type="Collect" CollectCount="1" ItemId="40690" />
+			</If>
+			<If Condition="((HasQuest(12841)) &amp;&amp; (IsQuestCompleted(12841)))" >
+		<TurnIn QuestName="The Crone's Bargain" QuestId="12841" TurnInName="Lok'lira the Crone" TurnInId="29481" />
+		<PickUp QuestName="Mildred the Cruel" QuestId="12905" GiverName="Lok'lira the Crone" GiverId="29481" />
+			</If>
+			<If Condition="((!HasQuest(12905)) &amp;&amp; (!IsQuestCompleted(12905)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6894.713" Y="-1108.836" Z="802.9475" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Mildred the Cruel" QuestId="12905" GiverName="Lok'lira the Crone" GiverId="29481" />
+			</If>
+			<If Condition="((HasQuest(12905)) &amp;&amp; (IsQuestCompleted(12905)))" >
+		<TurnIn QuestName="Mildred the Cruel" QuestId="12905" TurnInName="Mildred the Cruel" TurnInId="29885" />
+		<PickUp QuestName="Discipline" QuestId="12906" GiverName="Mildred the Cruel" GiverId="29885" />
+			</If>
+			<If Condition="((!HasQuest(12906)) &amp;&amp; (!IsQuestCompleted(12906)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6894.713" Y="-1108.836" Z="802.9475" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Discipline" QuestId="12906" GiverName="Mildred the Cruel" GiverId="29885" />
+			</If>
+			<While Condition="((HasQuest(12906)) &amp;&amp; (!IsQuestCompleted(12906)))" >
+				<CustomBehavior File="UseItemOn" QuestId="12906" MobId="30146" ItemId="42837" NumOfTimes="6" WaitTime="6000" CollectionDistance="200" X="6929.614" Y="-1316.467" Z="831.2584" />
+			</While>
+			<If Condition="((HasQuest(12906)) &amp;&amp; (IsQuestCompleted(12906)))" >
+		<TurnIn QuestName="Discipline" QuestId="12906" TurnInName="Mildred the Cruel" TurnInId="29885" />
+		<PickUp QuestName="Examples to be Made" QuestId="12907" GiverName="Mildred the Cruel" GiverId="29885" />
+			</If>
+			<If Condition="((!HasQuest(12907)) &amp;&amp; (!IsQuestCompleted(12907)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6894.713" Y="-1108.836" Z="802.9475" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Examples to be Made" QuestId="12907" GiverName="Mildred the Cruel" GiverId="29885" />
+			</If>
+			<If Condition="((HasQuest(12907)) &amp;&amp; (!IsQuestCompleted(12907)))" >
+				<Objective QuestName="Examples to be Made" QuestId="12907" Type="KillMob" MobId="30147" KillCount="1" />
+			</If>
+			<If Condition="((HasQuest(12907)) &amp;&amp; (IsQuestCompleted(12907)))" >
+		<TurnIn QuestName="Examples to be Made" QuestId="12907" TurnInName="Mildred the Cruel" TurnInId="29885" />
+		<PickUp QuestName="A Certain Prisoner" QuestId="12908" GiverName="Mildred the Cruel" GiverId="29885" />
+			</If>
+			<If Condition="((!HasQuest(12908)) &amp;&amp; (!IsQuestCompleted(12908)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6894.713" Y="-1108.836" Z="802.9475" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="A Certain Prisoner" QuestId="12908" GiverName="Mildred the Cruel" GiverId="29885" />
+			</If>
+			<If Condition="((HasQuest(12908)) &amp;&amp; (IsQuestCompleted(12908)))" >
+		<TurnIn QuestName="A Certain Prisoner" QuestId="12908" TurnInName="Lok'lira the Crone" TurnInId="29481" />
+		<PickUp QuestName="A Change of Scenery" QuestId="12921" GiverName="Lok'lira the Crone" GiverId="29481" />
+			</If>
+			<If Condition="((!HasQuest(12921)) &amp;&amp; (!IsQuestCompleted(12921)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6894.713" Y="-1108.836" Z="802.9475" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="A Change of Scenery" QuestId="12921" GiverName="Lok'lira the Crone" GiverId="29481" />
+			</If>
+			<!-- End of Lok'lira the Crone Quests - Mine -->
+			
+			<!-- Lok'lira the Crone Quests - B Village -->
+				<CustomBehavior File="Message" Text="Compiling Lok'lira the Crone Quests - B Village" LogColor="Cornflowerblue" />
+
+			<If Condition="((HasQuest(12921)) &amp;&amp; (IsQuestCompleted(12921)))" >
+		<TurnIn QuestName="A Change of Scenery" QuestId="12921" TurnInName="Lok'lira the Crone" TurnInId="29975" />
+		<PickUp QuestName="Is That Your Goblin?" GiverName="Lok'lira the Crone" QuestId="12969" GiverId="29975" />
+			</If>
+			<If Condition="((!HasQuest(12969)) &amp;&amp; (!IsQuestCompleted(12969)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6894.713" Y="-1108.836" Z="802.9475" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Is That Your Goblin?" QuestId="12969" GiverName="Lok'lira the Crone" GiverId="29975" />
+			</If>
+			<If Condition="((HasQuest(12969)) &amp;&amp; (!IsQuestCompleted(12969)))" >
+				<CustomBehavior File="FlyTo" DestName="rescue Goblin" X="6889.727" Y="-1589.999" Z="821.0803" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(12969)) &amp;&amp; (!IsQuestCompleted(12969)))" >
+				<CustomBehavior File="InteractWith" QuestId="12969" MobId="30154" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="500" X="6889.727" Y="-1589.999" Z="821.0803" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+			 </While>
+			</If>
+			<If Condition="((HasQuest(12969)) &amp;&amp; (IsQuestCompleted(12969)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6921.689" Y="-1539.909" Z="834.6035" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Is That Your Goblin?" QuestId="12969" TurnInName="Lok'lira the Crone" TurnInId="29975" />
+		<PickUp QuestName="The Hyldsmeet" QuestId="12970" GiverName="Lok'lira the Crone" GiverId="29975" />
+			</If>
+			<If Condition="((!HasQuest(12970)) &amp;&amp; (!IsQuestCompleted(12970)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6921.689" Y="-1539.909" Z="834.6035" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Hyldsmeet" QuestId="12970" GiverName="Lok'lira the Crone" GiverId="29975" />
+			</If>
+			<If Condition="((HasQuest(12970)) &amp;&amp; (!IsQuestCompleted(12970)))" >
+				<CustomBehavior File="FlyTo" DestName="Lok'lira the Crone" X="6921.689" Y="-1539.909" Z="834.6035" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="12970" MobId="29975" GossipOptions="1, 1, 1, 1" X="6922.175" Y="-1534.575" Z="836.0744" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for quest to complete {TimeRemaining}"  />
+			</If>
+			<If Condition="((HasQuest(12970)) &amp;&amp; (IsQuestCompleted(12970)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6921.689" Y="-1539.909" Z="834.6035" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Hyldsmeet" QuestId="12970" TurnInName="Lok'lira the Crone" TurnInId="29975" />
+		<PickUp QuestName="Taking on All Challengers" QuestId="12971" GiverName="Lok'lira the Crone" GiverId="29975" />
+			</If>
+			<If Condition="((!HasQuest(12971)) &amp;&amp; (!IsQuestCompleted(12971)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6921.689" Y="-1539.909" Z="834.6035" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Taking on All Challengers" QuestId="12971" GiverName="Lok'lira the Crone" GiverId="29975" />
+			</If>
+			<While Condition="((HasQuest(12971)) &amp;&amp; (!IsQuestCompleted(12971)))" >
+				<CustomBehavior File="FlyTo" QuestId="12971" DestName="kill 6 Challengers" X="6877.667" Y="-1580.054" Z="822.3232" />
+				<CustomBehavior File="ForcedDismount" QuestId="12971" />
+				<CustomBehavior File="InteractWith" QuestId="12971" MobId="30012" NumOfTimes="2" GossipOptions="1" WaitForNpcs="False" X="6877.667" Y="-1580.054" Z="822.3232" />
+				
+				<CustomBehavior File="FlyTo"  QuestId="12971" DestName="kill 6 Challengers" X="6976.558" Y="-1738.806" Z="822.7708" />
+				<CustomBehavior File="ForcedDismount"  QuestId="12971" />
+				<CustomBehavior File="InteractWith" QuestId="12971" MobId="30012" NumOfTimes="2" GossipOptions="1" WaitForNpcs="False" X="6976.558" Y="-1738.806" Z="822.7708" />
+				
+				<CustomBehavior File="FlyTo" QuestId="12971" DestName="kill 6 Challengers" X="7044.481" Y="-1801.23" Z="824.0913" />
+				<CustomBehavior File="ForcedDismount" QuestId="12971" />
+				<CustomBehavior File="InteractWith" QuestId="12971" MobId="30012" NumOfTimes="4" GossipOptions="1" WaitForNpcs="False" X="7044.481" Y="-1801.23" Z="824.0913" />
+				<CustomBehavior File="WaitTimer" QuestId="12971" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+			</While>
+			<If Condition="((HasQuest(12971)) &amp;&amp; (IsQuestCompleted(12971)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6921.689" Y="-1539.909" Z="834.6035" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Taking on All Challengers" QuestId="12971" TurnInName="Lok'lira the Crone" TurnInId="29975" />
+		<PickUp QuestName="You'll Need a Bear" GiverName="Lok'lira the Crone" QuestId="12972" GiverId="29975" />
+			</If>
+			<If Condition="((!HasQuest(12972)) &amp;&amp; (!IsQuestCompleted(12972)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6921.689" Y="-1539.909" Z="834.6035" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="You'll Need a Bear" QuestId="12972" GiverName="Lok'lira the Crone" GiverId="29975" />
+			</If>
+			<!-- End of Lok'lira the Crone Quests - B Village -->
+			
+			<!-- Brunnhildar Village Quests -->
+				<CustomBehavior File="Message" Text="Compiling Brunnhildar Village Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((HasQuest(12972)) &amp;&amp; (IsQuestCompleted(12972)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="7081.919" Y="-1938.527" Z="772.3828" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="You'll Need a Bear" QuestId="12972" TurnInName="Brijana" TurnInId="29592" />
+			<!--
+		<PickUp QuestName="Going Bearback" QuestId="12851" GiverName="Brijana" GiverId="29592" />
+			-->
+			</If>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			<!-- End of AFK Profile -->
 			<If Condition="(Me.Level &lt; 80)" >
