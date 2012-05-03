@@ -2141,6 +2141,7 @@
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4663.579" Y="-3373.202" Z="1024.012" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Pressing the Advantage" QuestId="25886" TurnInName="Captain Irontree" TurnInId="41492" />
+				<RunTo X="4610.525" Y="-3416.421" Z="1013.107" />
 			</If>
 			<!-- End of The Scorched Plains -->
 
@@ -2188,7 +2189,7 @@
 				<CustomBehavior File="InteractWith" QuestId="25923" MobId="41498" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="4678.012" Y="-3660.107" Z="696.8307" />
 				<RunTo X="4435.125" Y="-3627.413" Z="640.5995" />
 			 </While>
-				<CustomBehavior File="CombatUseItemOn" MobId="41614" ItemId="56207" MaxRange="8" UseOnce="False" CastingSpellId="77777" X="4435.125" Y="-3627.413" Z="640.5995" />
+				<CustomBehavior File="CombatUseItemOn" QuestId="25923" MobId="41614" ItemId="56207" MaxRange="20" UseOnce="False" CastingSpellId="77777" X="4435.125" Y="-3627.413" Z="640.5995" />
 			 </If>
 			</While>
 		<TurnIn QuestName="Finish Nemesis" QuestId="25923" TurnInName="Garunda Mountainpeak" TurnInId="41498" />
@@ -2642,37 +2643,44 @@
 				
 				<CustomBehavior File="MountVehOnly" VehicleMountId="40934" X="4074.596" Y="-4009.47" Z="971.1025" />
 			 </If>
-			<While Condition="((HasQuest(25608)) &amp;&amp; (!IsObjectiveComplete(1, 25608)))">
-			 <If Condition="(Me.IsOnTransport)" >
+			 <While Condition="((HasQuest(25608)) &amp;&amp; (!IsObjectiveComplete(1, 25608)))">
+			 <If Condition="(!Me.IsOnTransport)" >
+				<CustomBehavior File="FlyTo" DestName="Vehicle" X="4073.321" Y="-4009.627" Z="971.1174" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="MountVehOnly" VehicleMountId="40934" X="4074.596" Y="-4009.47" Z="971.1025" />
+			 </If>
+			  <If Condition="(Me.IsOnTransport)" >
 				<CustomBehavior File="VehicleBehavior" AttackButton="2" VehicleId="40025" VehicleMountId="40934" MobId1="40573" 
 											StartObjectivePointX="4391.007" StartObjectivePointY="-4399.501" StartObjectivePointZ="939.4135" 
 											StartPointX="4084.388" StartPointY="-3996.015" StartPointZ="971.3682" VehicleType="1"/>
+			  </If>
+			 </While>
+			 <While Condition="((HasQuest(25608)) &amp;&amp; (!IsObjectiveComplete(2, 25608)))">
+			 <If Condition="(!Me.IsOnTransport)" >
+				<CustomBehavior File="FlyTo" DestName="Vehicle" X="4073.321" Y="-4009.627" Z="971.1174" />
+				<CustomBehavior File="ForcedDismount" />
+				
+				<CustomBehavior File="MountVehOnly" VehicleMountId="40934" X="4074.596" Y="-4009.47" Z="971.1025" />
 			 </If>
-			</While>
-			
-			<If Condition="((HasQuest(25608)) &amp;&amp; (IsObjectiveComplete(1, 25608)) &amp;&amp; (!IsObjectiveComplete(2, 25608)))">
-			 <If Condition="(Me.IsOnTransport)" >
-				<CustomBehavior File="EjectVeh" Eject="True" />
-			 </If>
-			</If>
-
-			<While Condition="((HasQuest(25608)) &amp;&amp; (!IsObjectiveComplete(2, 25608)))">
-			 <If Condition="(Me.IsOnTransport)" >
+			  <If Condition="(Me.IsOnTransport)" >
 				<CustomBehavior File="VehicleBehavior" QuestId="25608" AttackButton="1" VehicleId="40025" MobId1="40564" MobId2="40562" VehicleMountId="40934" FireHeight="1" 
 											StartObjectivePointX="4391.007" StartObjectivePointY="-4399.501" StartObjectivePointZ="939.4135" 
 											StartPointX="4084.388" StartPointY="-3996.015" StartPointZ="971.3682" 
 											EndPointX="4084.388" EndPointY="-3996.015" EndPointZ="971.3682" VehicleType="2"  >
-					  <Start X="4362.628" Y="-4308.745" Z="938.3419"  />
-					  <Path X="4379.361" Y="-4416.606" Z="931.0206" />
-					  <Path X="4452.269" Y="-4502.572" Z="924.985" />
-					  <Path X="4561.679" Y="-4637.112" Z="928.1306" />
-					  <Path X="4594.852" Y="-4570.126" Z="915.2373" />
-					  <Path X="4487.234" Y="-4506.711" Z="911.7497" />
-					  <Path X="4438.627" Y="-4425.22" Z="919.3046" />
-					  <Path X="4514.863" Y="-4298.843" Z="921.6279" />
+				  <Start X="4362.628" Y="-4308.745" Z="938.3419"  />
+				  <Path X="4379.361" Y="-4416.606" Z="931.0206" />
+				  <Path X="4452.269" Y="-4502.572" Z="924.985" />
+				  <Path X="4561.679" Y="-4637.112" Z="928.1306" />
+				  <Path X="4594.852" Y="-4570.126" Z="915.2373" />
+				  <Path X="4487.234" Y="-4506.711" Z="911.7497" />
+				  <Path X="4438.627" Y="-4425.22" Z="919.3046" />
+				  <Path X="4514.863" Y="-4298.843" Z="921.6279" />
+				  <Path X="4522.129" Y="-4530.026" Z="1001.174" />
+				  <Path X="4611.841" Y="-4506.28" Z="915.5945" />
 				</CustomBehavior>
-			 </If>
-			</While>
+			  </If>
+			 </While>
 			</While>
 			<If Condition="((HasQuest(25608)) &amp;&amp; (IsQuestCompleted(25608)))" >
 				<CustomBehavior File="EjectVeh" Eject="True" />
