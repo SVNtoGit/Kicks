@@ -170,22 +170,22 @@
 
 			<!-- Pickup the quests -->
 			<While Condition="HasQuestAvailable(43805)" >
-				<CustomBehavior File="InteractWith" MobId="43805" NumOfTimes="1" CollectionDistance="300" WaitTime="1000" X="2349.374" Y="178.1308" Z="180.5086" />
+				<CustomBehavior File="InteractWith" MobId="43805" NumOfTimes="1" CollectionDistance="500" WaitTime="1000" X="2349.374" Y="178.1308" Z="180.5086" />
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
 			</While>
 			<While Condition="HasQuestAvailable(43806)" >
-				<CustomBehavior File="InteractWith" MobId="43806" NumOfTimes="1" CollectionDistance="300" WaitTime="1000" X="2349.374" Y="178.1308" Z="180.5086" />
+				<CustomBehavior File="InteractWith" MobId="43806" NumOfTimes="1" CollectionDistance="500" WaitTime="1000" X="2349.374" Y="178.1308" Z="180.5086" />
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
 			</While>
 			<While Condition="HasQuestAvailable(43804)" >
-				<CustomBehavior File="InteractWith" MobId="43804" NumOfTimes="1" CollectionDistance="300" WaitTime="1000" X="2349.374" Y="178.1308" Z="180.5086" />
+				<CustomBehavior File="InteractWith" MobId="43804" NumOfTimes="1" CollectionDistance="500" WaitTime="1000" X="2349.374" Y="178.1308" Z="180.5086" />
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
 			</While>
 			<While Condition="HasQuestAvailable(44973)" >
-				<CustomBehavior File="InteractWith" MobId="44973" NumOfTimes="1" CollectionDistance="300" WaitTime="1000" X="2313.267" Y="15.2199" Z="169.7899" />
+				<CustomBehavior File="InteractWith" MobId="44973" NumOfTimes="1" CollectionDistance="500" WaitTime="1000" X="2313.267" Y="15.2199" Z="169.7899" />
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
 			</While>
@@ -297,26 +297,57 @@
 				<Objective QuestName="Fear of Boring" QuestId="27046" Type="KillMob" MobId="44257" KillCount="10" />
 				<RunTo X="1992.723" Y="-187.5528" Z="-177.3703" />
 				<RunTo X="1868.743" Y="-144.0033" Z="-172.2514" />
-				<RunTo X="1931.241" Y="103.1394" Z="-155.8663" /> <!-- outside hotspot -->
+				<RunTo X="1908.326" Y="-74.07396" Z="-175.6808" />
 			</If>
 			
 			<!-- Ricket - inside of cave -->
 			<While Condition="HasQuestAvailable(44968)" >
-				<CustomBehavior File="InteractWith"  MobId="44968" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="1908.326" Y="-74.07396" Z="-175.6808" />
+				<CustomBehavior File="InteractWith" MobId="44968" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="1908.326" Y="-74.07396" Z="-175.6808" />
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for quest {TimeRemaining}" />
 			</While>
 			<If Condition="((HasQuest(27048)) &amp;&amp; (!IsQuestCompleted(27048)))" >
-				<CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Please do this quest manually - blow up rocks and take the chunks" />
-				<!-- blue = 207381 Deep Alabaster Crystal Chunk -->
-				<!-- purple = 207381 Deep Alabaster Crystal Chunk -->
-				<!-- -->
-				<!-- -->
-				<Objective QuestName="Underground Economy" QuestId="27048" Type="CollectItem" ItemId="65504" CollectCount="3" />
-				<Objective QuestName="Underground Economy" QuestId="27048" Type="CollectItem" ItemId="65507" CollectCount="3" />
-				<Objective QuestName="Underground Economy" QuestId="27048" Type="CollectItem" ItemId="65508" CollectCount="3" />
-				<Objective QuestName="Underground Economy" QuestId="27048" Type="CollectItem" ItemId="65510" CollectCount="3" />
-				<Objective QuestName="Underground Economy" QuestId="27048" Type="CollectItem" ItemId="65514" CollectCount="1" />
+			 <While Condition="((HasQuest(27048)) &amp;&amp; (!IsObjectiveComplete(1, 27048)))"> <!-- Alabaster - White-Light Blue -->
+				<RunTo X="2051.631" Y="-149.49" Z="-176.0427" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<RunTo X="2051.631" Y="-149.49" Z="-176.0427" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(65514)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for item CD {TimeRemaining}" />
+				<RunTo X="2038.916" Y="-154.7008" Z="-176.3857" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for blowup {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="27048" MobId="207381" ObjectType="Gameobject" Range="4" NumOfTimes="3" WaitForNpcs="False" />
+			 </While>
+			 <While Condition="((HasQuest(27048)) &amp;&amp; (!IsObjectiveComplete(3, 27048)))"> <!-- Amethyst - Purple -->
+				<RunTo X="2177.997" Y="-250.7325" Z="-166.0985" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<RunTo X="2177.997" Y="-250.7325" Z="-166.0985" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(65514)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for item CD {TimeRemaining}" />
+				<RunTo X="2176.239" Y="-240.3884" Z="-166.52" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for blowup {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="27048" MobId="207383" ObjectType="Gameobject" Range="4" NumOfTimes="3" WaitForNpcs="False" />
+			 </While>
+			 <While Condition="((HasQuest(27048)) &amp;&amp; (!IsObjectiveComplete(4, 27048)))"> <!-- Garnet - Red -->
+				<RunTo X="2085.105" Y="-321.0036" Z="-159.7235" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<RunTo X="2085.105" Y="-321.0036" Z="-159.7235" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(65514)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for item CD {TimeRemaining}" />
+				<RunTo X="2072.879" Y="-327.3665" Z="-159.75" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for blowup {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="27048" MobId="207384" ObjectType="Gameobject" Range="4" NumOfTimes="3" WaitForNpcs="False" />
+			 </While>
+			 <While Condition="((HasQuest(27048)) &amp;&amp; (!IsObjectiveComplete(2, 27048)))"> <!-- Celestite - Green-Blue -->
+				<RunTo X="2161.394" Y="-85.59802" Z="-190.9036" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<RunTo X="2161.394" Y="-85.59802" Z="-190.9036" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(65514)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for item CD {TimeRemaining}" />
+				<RunTo X="2148.175" Y="-86.67672" Z="-191.482" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for blowup {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="27048" MobId="207382" ObjectType="Gameobject" Range="4" NumOfTimes="3" WaitForNpcs="False" />
+			 </While>
 			</If>
 			<If Condition="((HasQuest(27048)) &amp;&amp; (IsQuestCompleted(27048)))" >
 		<TurnIn QuestName="Underground Economy" QuestId="27048" TurnInName="Ricket" TurnInId="44968" />			
