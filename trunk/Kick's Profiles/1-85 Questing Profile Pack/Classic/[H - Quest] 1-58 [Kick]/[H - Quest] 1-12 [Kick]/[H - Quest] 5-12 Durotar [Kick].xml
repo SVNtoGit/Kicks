@@ -246,12 +246,14 @@
 			<Objective QuestName="Breaking the Chain" QuestId="25167" Type="KillMob" MobId="39251" KillCount="3" />
 			<Objective QuestName="Breaking the Chain" QuestId="25167" Type="KillMob" MobId="39245" KillCount="5" />
 		<TurnIn QuestName="Cleaning Up the Coastline" QuestId="25170" TurnInName="Bom'bay" TurnInId="10578" />
-		<PickUp QuestName="Never Trust a Big Barb and a Smile" QuestId="25165" GiverName="Bom'bay" GiverId="10578" />
+		<!--<PickUp QuestName="Never Trust a Big Barb and a Smile" QuestId="25165" GiverName="Bom'bay" GiverId="10578" />-->
 		<TurnIn QuestName="Breaking the Chain" QuestId="25167" TurnInName="Master Gadrin" TurnInId="3188" />
 		<PickUp QuestName="Purge the Valley" QuestId="25168" GiverName="Master Gadrin" GiverId="3188" />
 		<PickUp QuestName="The War of Northwatch Aggression" QuestId="25169" GiverName="Lar Prowltusk" GiverId="3140" />
-			<CustomBehavior File="CombatUseItemOn" QuestId="25165" MobId="3125" ItemId="52505" MobHpPercentLeft="95" MaxRange="30" X="-822.3665" Y="-4723.379" Z="22.64923" />
+		<!--
+			<CustomBehavior File="CombatUseItemOn" QuestId="25165" MobId="3125" ItemId="52505" MobHpPercentLeft="95" MaxRange="15" X="-822.3665" Y="-4723.379" Z="22.64923" />
 		<TurnIn QuestName="Never Trust a Big Barb and a Smile" QuestId="25165" TurnInName="Bom'bay" TurnInId="10578" />
+		-->
 			<Objective QuestName="The War of Northwatch Aggression" QuestId="25169" Type="UseObject" ObjectId="3189" UseCount="1" />
 			<Objective QuestName="The War of Northwatch Aggression" QuestId="25169" Type="UseObject" ObjectId="3190" UseCount="1" />
 			<Objective QuestName="The War of Northwatch Aggression" QuestId="25169" Type="UseObject" ObjectId="3192" UseCount="1" />
@@ -339,13 +341,29 @@
 			<Objective QuestName="Raggaran's Fury" QuestId="25192" Type="KillMob" MobId="3114" KillCount="5" />
 		<TurnIn QuestName="Raggaran's Fury" QuestId="25192" TurnInName="Raggaran" TurnInId="39326" />
 		<PickUp QuestName="Unbidden Visitors" QuestId="25194" GiverName="Zen'Taji" GiverId="39324" />
-			<While Condition="((HasQuest(25194)) &amp;&amp; (!IsQuestCompleted(25194)))" >
 				<!-- interactwith isn't right clicking this mob for some reason
+			<While Condition="((HasQuest(25194)) &amp;&amp; (!IsQuestCompleted(25194)))" >
 				<CustomBehavior File="InteractWith" QuestId="25194" MobId="39337" NumOfTimes="100" WaitForNpcs="False" CollectionDistance="1000" Range="3" MobState="Alive" WaitTime="10000" X="287.1787" Y="-3812.052" Z="18.4396" />
 				<CustomBehavior File="InteractWith" QuestId="25194" MobId="39337" NumOfTimes="100" WaitForNpcs="False" CollectionDistance="1000" Range="3" MobState="Alive" WaitTime="10000" X="441.242" Y="-3881.277" Z="17.20918" />
-				-->
 				<CustomBehavior File="KillUntilComplete" QuestId="25194" MobId1="39337" X="287.1787" Y="-3812.052" Z="18.4396" />
 			</While>
+				-->
+			<If Condition="((HasQuest(25194)) &amp;&amp; (!IsQuestCompleted(25194)))" >
+				<SetGrindArea>
+					<GrindArea>
+						<Factions>190</Factions>
+						<Hotspots>
+							<Hotspot X="278.5434" Y="-3801.08" Z="19.88509" />
+							<Hotspot X="410.7498" Y="-3829.14" Z="21.23164" />
+							<Hotspot X="514.1813" Y="-3813.404" Z="18.90358" />
+							<Hotspot X="571.5527" Y="-3807.337" Z="20.74952" />
+							<Hotspot X="664.3518" Y="-3810.85" Z="20.16442" />
+							<Hotspot X="745.4044" Y="-3814.902" Z="19.52565" />
+						</Hotspots>
+					</GrindArea>
+				</SetGrindArea>
+				<GrindTo Condition="((HasQuest(25194)) &amp;&amp; (IsQuestCompleted(25194)))" />
+			</If>
 		<TurnIn QuestName="Unbidden Visitors" QuestId="25194" TurnInName="Zen'Taji" TurnInId="39324" />
 		<PickUp QuestName="That's the End of That Raptor" QuestId="25195" GiverName="Zen'Taji" GiverId="39324" />
 			<Objective QuestName="That's the End of That Raptor" QuestId="25195" Type="KillMob" MobId="39385" KillCount="1" />
