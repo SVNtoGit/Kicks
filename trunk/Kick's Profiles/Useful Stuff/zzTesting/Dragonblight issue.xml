@@ -1,0 +1,59 @@
+<HBProfile>
+	<Name>testing qo</Name>
+	<MinLevel>1</MinLevel>
+	<MaxLevel>86</MaxLevel>
+	
+	<MinDurability>0.2</MinDurability>
+	<MinFreeBagSlots>5</MinFreeBagSlots>
+	
+	<Vendors>
+	</Vendors>
+	
+	<Blackspots>
+	</Blackspots>
+
+	
+	<QuestOrder>
+
+	<CustomBehavior File="UserSettings" LootMobs="False" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" PullDistance="10" />
+
+			<If Condition="((!HasQuest(12096)) &amp;&amp; (!IsQuestCompleted(12096)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3841.302" Y="1535.958" Z="89.72499" />
+			</If>
+		<PickUp QuestName="Strengthen the Ancients" QuestId="12096" GiverName="Earthwarden Grife" GiverId="26854" />
+			<If Condition="((HasQuest(12096)) &amp;&amp; (!IsQuestCompleted(12096)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="2929.471" Y="1754.225" Z="139.9233" />
+				<CustomBehavior File="ForcedDismount" />
+				<!-- You will run into an elite here and may die -->
+			 <While Condition="((HasQuest(12096)) &amp;&amp; (!IsQuestCompleted(12096)))" >
+			  <While Condition="(GetItemCount(36786) &lt; 3)" >
+				<CustomBehavior File="InteractWith" QuestId="12096" MobId="26421" GossipOptions="1" Range="4" MobState="Alive" CollectionDistance="500" X="3229.479" Y="1844.142" Z="134.4824" />
+			  </While>
+				<!-- <Objective QuestName="Strengthen the Ancients" QuestId="12096" Type="CollectItem" ItemId="36786" CollectCount="3" CollectFrom="26421" /> -->
+				<CustomBehavior File="UseItemOn" QuestId="12096" ItemId="36786" MobId="26321" NumOfTimes="3" MobState="Alive" WaitTime="6000" CollectionDistance="500" X="3229.479" Y="1844.142" Z="134.4824" />
+			 </While>
+			</If>
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+		
+		
+		
+		
+		
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
+		
+
+	  
+	</QuestOrder>
+</HBProfile>
