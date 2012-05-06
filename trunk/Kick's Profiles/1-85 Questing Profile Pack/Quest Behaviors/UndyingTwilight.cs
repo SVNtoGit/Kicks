@@ -155,6 +155,9 @@ namespace Styx.Bot.Quest_Behaviors
             switch (Me.Class)
             {
                 case WoWClass.Mage:
+                    if (Me.GotAlivePet)
+                        SetPetMode("Passive");
+
                     spell = "Ice Lance";
                     break;
                 case WoWClass.Druid:
@@ -167,6 +170,8 @@ namespace Styx.Bot.Quest_Behaviors
                     spell = "Shadow Word: Pain";
                     break;
                 case WoWClass.Shaman:
+                    if (Me.GotAlivePet)
+                        SetPetMode("Passive");
                     spell = "Flame Shock";
                     break;
                 case WoWClass.Warlock:
