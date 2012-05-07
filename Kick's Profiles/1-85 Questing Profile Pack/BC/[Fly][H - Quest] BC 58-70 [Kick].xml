@@ -64,7 +64,7 @@
 		<Blackspot X="-1334.645" Y="2348.291" Z="89.06378" Radius="5.195509" />
 		<Blackspot X="-82.86478" Y="3137.201" Z="-2.366874" Radius="20" />
 		<Blackspot X="166.808" Y="2790.078" Z="114.0167" Radius="20.63285" />
-		<Blackspot X="-2942.951" Y="4015.492" Z="-0.9592404" Radius="200" />
+		<Blackspot X="-2942.951" Y="4015.492" Z="-0.9592404" Radius="150" />
 		<Blackspot X="-171.8202" Y="2460.974" Z="26.46471" Radius="10" />
 		<Blackspot X="2501.586" Y="2281.221" Z="120.0759" Radius="50" />
 		<Blackspot X="2526.12" Y="1998.457" Z="90.20242" Radius="40" />
@@ -110,7 +110,7 @@
 		<Blackspot X="-1691.217" Y="8429.929" Z="-21.40779" Radius="20.34735" />
 		<Blackspot X="2334.723" Y="2117.951" Z="85.16031" Radius="13.55252" />
 		<Blackspot X="2318.241" Y="2095.889" Z="81.20212" Radius="4.664498" />
-		<Blackspot X="3572.523" Y="5589.825" Z="-11.46521" Radius="110.3358" />
+		<Blackspot X="3572.523" Y="5589.825" Z="-11.46521" Radius="80.3358" />
 		<Blackspot X="1665.488" Y="6785.016" Z="134.3088" Radius="4.873143" />
 		<Blackspot X="1490.452" Y="6704.847" Z="134.709" Radius="33.68955" />
 		<Blackspot X="-1675.034" Y="6608.188" Z="-1.523698" Radius="9.031064" />
@@ -204,7 +204,7 @@
 	    <Blackspot X="-1602.647" Y="7808.319" Z="-21.9593" Radius="42.34423" />
 	    <Blackspot X="-1703.692" Y="7994.157" Z="-27.25969" Radius="41.58419" />
 	    <Blackspot X="-1510.856" Y="8037.956" Z="-21.35694" Radius="43.15014" />
-	    <Blackspot X="-684.1138" Y="2610.717" Z="46.5674" Radius="191.3755" Height="24.788" />
+	    <Blackspot X="-684.1138" Y="2610.717" Z="46.5674" Radius="151.3755" Height="24.788" />
 	    <Blackspot X="-609.7291" Y="2761.421" Z="78.49533" Radius="23.99904" />
 	    <Blackspot X="-604.8351" Y="2848.645" Z="68.5877" Radius="95.46356" Height="16.6335" />
 	    <Blackspot X="264.5717" Y="6041.674" Z="19.72488" Radius="112.3534" />
@@ -215,7 +215,7 @@
 	    <Blackspot X="284.2415" Y="5946.23" Z="26.45747" Radius="50" />
 	    <Blackspot X="219.77" Y="6030.817" Z="21.87851" Radius="50" />
 	    <Blackspot X="447.0893" Y="3427.899" Z="60.4292" Radius="25" />
-	    <Blackspot X="423.0088" Y="3359.141" Z="62.91565" Radius="100" />
+	    <Blackspot X="423.0088" Y="3359.141" Z="62.91565" Radius="80" />
 		<!--Hellfire Peninsular Blackspots-->
 		<Blackspot X="-1298.784" Y="2379.96" Z="82.60971" Radius="3.816913" />
 		<Blackspot X="-1313.434" Y="2408.304" Z="86.16272" Radius="1.561563" />
@@ -1176,36 +1176,16 @@
 
 	<QuestOrder IgnoreCheckPoints="False" >
 
-		<!--BEGIN HELLFIRE PENINSULAR QUESTING-->
+		<!-- Hellfire -->
 			<CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" PullDistance="25" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
 			
+			<!--
 			<If Condition="Me.ZoneId == 3483" >
-	<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="10" ExpiryAction="InputEnabled_Continue" 
-	Text="This profile doesn't fly until Zangarmarsh.  This is coded intentionally to not fly in Hellfire\n\nMake sure that Azenius Plugin is enabled!!!!" />
+				<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="10" ExpiryAction="InputEnabled_Continue" 
+				Text="Make sure that Azenius Plugin is enabled!!!!" />
 			</If>
+			-->
 			
-			<If Condition="Me.Level &gt;= 63" >
-			
-			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &lt;= 245)" >
-				<!-- Mount is 40g, Training is 200g -->
-				<CustomBehavior File="UserDialog" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" Title="Get more Money." 
-				Text="You do not have the necessary amount of money to train 'Expert Riding' - please send some money; or farm for some money and continue when you have money" />
-			</If>
-			
-			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
-				<CustomBehavior File="ForceTrainRiding" MobId="35093" />
-				<If Condition="!HasItem(25474)">
-					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474" X="47.76153" Y="2742.022" Z="85.27119" />
-				</If>
-				<If Condition="HasItem(25474)">
-					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
-					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25474)" WaitTime="1000" />
-					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
-				</If>
-			</If>
-			
-			</If>
-	
 		<CustomBehavior File="Message" Text="Compiling Hellfire Peninsula Quests" LogColor="Green" />
 		<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" PullDistance="25" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
 
@@ -1220,6 +1200,7 @@
 		<TurnIn QuestName="Arrival in Outland" QuestId="10120" TurnInName="Vlagga Freyfeather" TurnInId="18930" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
+			
 			<If Condition="(!IsQuestCompleted(10289))" >
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
@@ -1239,17 +1220,53 @@
 			<If Condition="((HasQuest(10289)) &amp;&amp; (IsQuestCompleted(10289)))" >
 		<TurnIn QuestName="Journey to Thrallmar" QuestId="10289" TurnInName="General Krakork" TurnInId="19255" />
 			</If>
+			
+			<!-- Flying Mount Procedures -->
+			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &gt;= 265)" >
+			 <If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
+				<CustomBehavior File="Message" Text="Compiling Learn Flying Mount Procedures" LogColor="Orange" />
+				<RunTo X="47.76153" Y="2742.022" Z="85.27119" />
+				<CustomBehavior File="ForceTrainRiding" MobId="35093" />
+				<While Condition="!HasItem(25474)">
+					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474" X="47.76153" Y="2742.022" Z="85.27119" />
+					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
+				</While>
+				<While Condition="HasItem(25474)">
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25474)" WaitTime="1000" />
+					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
+				</While>
+				<RunTo X="80.93826" Y="2713.029" Z="85.69721" />
+			 </If>
+			 <ElseIf Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &lt; 265)" >
+				<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="10" ExpiryAction="InputEnabled_Continue" 
+				Text="You do not having flying nor the money for flying; defaulting to non-flying protocols" />
+			 </ElseIf>
+			</If>
+	
 			<If Condition="(!IsQuestCompleted(9406))" >
+			<If Condition="((!HasQuest(10291)) &amp;&amp; (!IsQuestCompleted(10291)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="201.2104" Y="2652.289" Z="88.50877" />
 		<PickUp QuestName="Report to Nazgrel" QuestId="10291" GiverName="General Krakork" GiverId="19255" />
+			</If>
+			<If Condition="((HasQuest(10291)) &amp;&amp; (IsQuestCompleted(10291)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="167.0727" Y="2687.783" Z="85.54587" />
 		<TurnIn QuestName="Report to Nazgrel" QuestId="10291" TurnInName="Nazgrel" TurnInId="3230" />
+			</If>
 		<PickUp QuestName="Eradicate the Burning Legion" QuestId="10121" GiverName="Nazgrel" GiverId="3230" />
 		<PickUp QuestName="Bonechewer Blood" QuestId="10450" GiverName="Vurtok Axebreaker" GiverId="21256" />
 		<PickUp QuestName="I Work... For the Horde!" QuestId="10086" GiverName="Megzeg Nukklebust" GiverId="21283" />
+			<If Condition="((HasQuest(10121)) &amp;&amp; (IsQuestCompleted(10121)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" 
 		<TurnIn QuestName="Eradicate the Burning Legion" QuestId="10121" TurnInName="Sergeant Shatterskull" TurnInId="19256" />
+			</If>
 		<PickUp QuestName="Felspark Ravine" QuestId="10123" GiverName="Sergeant Shatterskull" GiverId="19256" />
-			<Objective QuestName="Felspark Ravine" QuestId="10123" Type="KillMob" MobId="19434" KillCount="1" />
-			<Objective QuestName="Felspark Ravine" QuestId="10123" Type="KillMob" MobId="19136" KillCount="4" />
-			<Objective QuestName="Felspark Ravine" QuestId="10123" Type="KillMob" MobId="19261" KillCount="6" />
+			<If Condition="((HasQuest(10123)) &amp;&amp; (!IsQuestCompleted(10123)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" 
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Felspark Ravine" QuestId="10123" Type="KillMob" MobId="19434" KillCount="1" />
+				<Objective QuestName="Felspark Ravine" QuestId="10123" Type="KillMob" MobId="19136" KillCount="4" />
+				<Objective QuestName="Felspark Ravine" QuestId="10123" Type="KillMob" MobId="19261" KillCount="6" />
+			</If>
 		<TurnIn QuestName="Felspark Ravine" QuestId="10123" TurnInName="Sergeant Shatterskull" TurnInId="19256" />
 		<PickUp QuestName="Forward Base: Reaver's Fall" QuestId="10124" GiverName="Sergeant Shatterskull" GiverId="19256" />
 			<Objective QuestName="I Work... For the Horde!" QuestId="10086" Type="CollectItem" ItemId="67419" CollectCount="8" />
@@ -1960,15 +1977,18 @@
 			</If>
 			
 			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
+				<CustomBehavior File="Message" Text="Compiling Learn Flying Mount Procedures" LogColor="Orange" />
+				<RunTo X="47.76153" Y="2742.022" Z="85.27119" />
 				<CustomBehavior File="ForceTrainRiding" MobId="35093" />
-				<If Condition="!HasItem(25474)">
+				<While Condition="!HasItem(25474)">
 					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474" X="47.76153" Y="2742.022" Z="85.27119" />
-				</If>
-				<If Condition="HasItem(25474)">
 					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
+				</While>
+				<While Condition="HasItem(25474)">
 					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25474)" WaitTime="1000" />
 					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
-				</If>
+				</While>
+				<RunTo X="80.93826" Y="2713.029" Z="85.69721" />
 			</If>
 		
 		<CustomBehavior File="Message" Text="Compiling Zangarmarsh Quests" LogColor="Green" />
@@ -2489,15 +2509,18 @@
 			</If>
 			
 			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
+				<CustomBehavior File="Message" Text="Compiling Learn Flying Mount Procedures" LogColor="Orange" />
+				<RunTo X="47.76153" Y="2742.022" Z="85.27119" />
 				<CustomBehavior File="ForceTrainRiding" MobId="35093" />
-				<If Condition="!HasItem(25474)">
+				<While Condition="!HasItem(25474)">
 					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474" X="47.76153" Y="2742.022" Z="85.27119" />
-				</If>
-				<If Condition="HasItem(25474)">
 					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
+				</While>
+				<While Condition="HasItem(25474)">
 					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25474)" WaitTime="1000" />
 					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
-				</If>
+				</While>
+				<RunTo X="80.93826" Y="2713.029" Z="85.69721" />
 			</If>
 			
 			</If>
