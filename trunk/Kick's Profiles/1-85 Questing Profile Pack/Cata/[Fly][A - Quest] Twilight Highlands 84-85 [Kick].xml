@@ -555,8 +555,8 @@
 		<TurnIn QuestName="The Fighting Spirit" TurnInName="Duglas Mullan" QuestId="27810" TurnInId="46811" />
 			<If Condition="((HasQuest(27811)) &amp;&amp; (!IsQuestCompleted(27811)))" >
 				<CustomBehavior File="FlyTo" X="-4570.547" Y="-5394.241" Z="132.5735" />
-				<CustomBehavior File="UserDialog" QuestId="27811" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Save 8 gryphons, then press continue and bot will turn in" />
-				<!-- I can prob do something like flyto location and interactwith wait for npcs false for all of these and eventually get them done by jerry rigging it -->
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="ScentOfBattle" />
 			</If>
 			<If Condition="((HasQuest(27811)) &amp;&amp; (IsQuestCompleted(27811)))" >
 				<CustomBehavior File="FlyTo" X="-4272.818" Y="-5115.096" Z="26.41771" />
@@ -607,7 +607,12 @@
 		<TurnIn QuestName="Personal Request" TurnInName="Keegan Firebeard" QuestId="27816" TurnInId="46804" />
 		<PickUp QuestName="Dropping the Hammer" GiverName="Keegan Firebeard" QuestId="27817" GiverId="46804" />
 			<If Condition="((HasQuest(27817)) &amp;&amp; (!IsQuestCompleted(27817)))" >
-				<CustomBehavior File="UserDialog" QuestId="27817" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Jump on a Gryphon and kill the noobs" />
+			 <If Condition="(!Me.IsOnTransport)" >
+				<CustomBehavior File="InteractWith" QuestId="27817" MobId="47316" X="-4173.71" Y="-5592.89" Z="27.97162" />
+			 </If>
+			 <If Condition="(Me.IsOnTransport)" >
+				<CustomBehavior File="DroppingTheHammer" />
+			 </If>
 			</If>
 			<!--
 			<Objective QuestName="Dropping the Hammer" QuestId="27817" Type="KillMob" KillCount="1" MobId="46839" />
@@ -854,7 +859,7 @@
 		<PickUp QuestName="Wild, Wild, Wildhammer Wedding" GiverName="Grundy MacGraff" QuestId="28655" GiverId="48368" />
 			<If Condition="((HasQuest(28655)) &amp;&amp; (!IsQuestCompleted(28655)))" >
 			<!-- kill mob 49234 -->
-				<CustomBehavior File="UserDialog" QuestId="28655" Title="Escort" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Talk to Grundy and watch the cutscene and defend the wedding ceremony" />
+				<CustomBehavior File="UserDialog" QuestId="28655" Title="Escort" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Talk to Grundy, watch the cutscene, and then defend the wedding ceremony" />
 			</If>
 		<TurnIn QuestName="Wild, Wild, Wildhammer Wedding" TurnInName="Kurdran Wildhammer" QuestId="28655" TurnInId="49358" />
 		<PickUp QuestName="The Maw of Madness" GiverName="Lachlan MacGraff" QuestId="27374" GiverId="49374" />
