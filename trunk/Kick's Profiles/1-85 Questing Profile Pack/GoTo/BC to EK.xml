@@ -48,35 +48,34 @@
 	
 		<CustomBehavior File="UserSettings" TrainNewSkills="False" LearnFlightPaths="False" />
 				
-			<If Condition="Me.MapId == 530" >
-				<If Condition="Me.Class == WoWClass.DeathKnight">
-				 <While Condition="Me.Zone != 139" >
-					<CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(50977)" />
-					<CustomBehavior File="WaitTimer" WaitTime="12000" GoalText="Waiting for port {TimeRemaining}" />
-					<CustomBehavior File="InteractWith" MobId="190942" ObjectType="Gameobject" Range="6" WaitForNpcs="False" />
-					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
-				 </While>
+			<If Condition="Me.MapId == 530 &amp;&amp; (Me.Class == WoWClass.DeathKnight)">
+			 <While Condition="Me.Zone != 139" >
+				<CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(50977)" />
+				<CustomBehavior File="WaitTimer" WaitTime="12000" GoalText="Waiting for port {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" MobId="190942" ObjectType="Gameobject" Range="6" WaitForNpcs="False" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+			 </While>
+			
+			 <If Condition="Me.ZoneId == 139" >
+				<ClearVendor />
 				
-				 <If Condition="Me.ZoneId == 139" >
-					<ClearVendor />
-					
-					<SetVendor>
-						<Vendors>
-							<Vendor Name="Lady Alistra" Entry="29195" Type="Repair" X="2488.616" Y="-5654.104" Z="376.9503" />
-						</Vendors>
-					</SetVendor>
-					
-					<CustomBehavior File="ForceSetVendor" DoTrain="True" />
-					<ClearVendor />
+				<SetVendor>
+					<Vendors>
+						<Vendor Name="Lady Alistra" Entry="29195" Type="Repair" X="2488.616" Y="-5654.104" Z="376.9503" />
+					</Vendors>
+				</SetVendor>
 				
-					<CustomBehavior File="UserSettings" UseFlightPaths="True" />
-					<CustomBehavior File="InteractWith" MobId="29480" X="2348.626" Y="-5669.289" Z="382.2406" />
-				 </If>
-					
-				  <If Condition="(Me.IsAlliance) &amp;&amp; (Me.MapId == 0)" >
-					<RunTo X="-8290.925" Y="1405.826" Z="4.721312" />
-				  </If>
-				</If>
+				<CustomBehavior File="ForceSetVendor" DoTrain="True" />
+				<ClearVendor />
+			
+				<CustomBehavior File="UserSettings" UseFlightPaths="True" />
+				<CustomBehavior File="InteractWith" MobId="29480" X="2348.626" Y="-5669.289" Z="382.2406" />
+			 </If>
+				
+			  <If Condition="(Me.IsAlliance) &amp;&amp; (Me.MapId == 0)" >
+				<RunTo X="-8290.925" Y="1405.826" Z="4.721312" />
+			  </If>
+			</If>
 				  
 			 <While Condition="Me.MapId == 530" >
 				<CustomBehavior File="FlyTo" X="-248.064" Y="930.2079" Z="84.37978" DestName="BC Portal" />
@@ -88,7 +87,6 @@
 			  </While>
 				<CustomBehavior File="WaitTimer" WaitTime="15000"/>
 			 </While>
-			</If>
 			
 			<If Condition="Me.MapId == 0" >
 				<If Condition="((!HasQuest(28709)) &amp;&amp; (!IsQuestCompleted(28709)))" >
@@ -102,11 +100,10 @@
 				</If>
 				  
 				<CustomBehavior File="UserSettings" UseFlightPaths="False" />
-			 </If>
 				
 				<CustomBehavior File="FlyTo" X="-8290.925" Y="1405.826" Z="4.721312" DestName="SW dock" />
 				<CustomBehavior File="ForcedDismount" />
-			</If>
+			 </If>
 			
 			<CustomBehavior File="LoadProfile" ProfileName="..\GoTo\EK to LK" /> 
 			
