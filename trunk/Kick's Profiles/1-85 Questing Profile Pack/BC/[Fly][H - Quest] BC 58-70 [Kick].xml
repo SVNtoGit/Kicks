@@ -44,6 +44,7 @@
 	</Mailboxes>
 
 	<Blackspots>
+		<Blackspot X="-903.5316" Y="1966.419" Z="67.00571" Radius="12.91887" />
 		<Blackspot X="-2484.49" Y="5325.058" Z="1.191365" Radius="7.777036" />
 		<Blackspot X="-1335.574" Y="2345.78" Z="88.95567" Radius="2" />
 		<Blackspot X="-671.8173" Y="8485.206" Z="52.70205" Radius="10" />
@@ -1522,45 +1523,82 @@
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-1332.815" Y="2375.718" Z="88.95118" />
 		<TurnIn QuestName="Preparing the Salve" QuestId="9345" TurnInName="Grelag" TurnInId="16858" />
 			</If>
+			<If Condition="((!HasQuest(10213)) &amp;&amp; (!IsQuestCompleted(10213)))" >
 		<PickUp QuestName="Investigate the Crash" QuestId="10213" GiverName="Grelag" GiverId="16858" />
+				<RunTo X="-1321.077" Y="2367.204" Z="88.95341" />
+				<RunTo X="-1332.694" Y="2352.609" Z="88.95517" />
+			</If>
 		<TurnIn QuestName="Decipher the Tome" QuestId="10229" TurnInName="Althen the Historian" TurnInId="19736" />
 		<PickUp QuestName="The Battle Horn" QuestId="10230" GiverName="Althen the Historian" GiverId="19736" />
+			<If Condition="((HasQuest(10220)) &amp;&amp; (IsQuestCompleted(10220)))" >
 		<TurnIn QuestName="Make Them Listen" QuestId="10220" TurnInName="Emissary Mordiba" TurnInId="19682" />
-			<Objective QuestName="The Battle Horn" QuestId="10230" Type="CollectItem" ItemId="28562" CollectCount="1" />
+				<RunTo X="-1327.094" Y="2365.941" Z="88.95517" />
+			</If>
+			<If Condition="((HasQuest(10230)) &amp;&amp; (!IsQuestCompleted(10230)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="-1381.985" Y="2716.41" Z="-25.96778" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="The Battle Horn" QuestId="10230" Type="CollectItem" ItemId="28562" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(10230)) &amp;&amp; (IsQuestCompleted(10230)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-1332.694" Y="2352.609" Z="88.95517" />
 		<TurnIn QuestName="The Battle Horn" QuestId="10230" TurnInName="Althen the Historian" TurnInId="19736" />
+			</If>
+			<If Condition="((!HasQuest(10250)) &amp;&amp; (!IsQuestCompleted(10250)))" >
 		<PickUp QuestName="Bloody Vengeance" QuestId="10250" GiverName="Althen the Historian" GiverId="19736" />
-			<While Condition="HasQuest(10250) &amp;&amp; !IsQuestCompleted(10250)">
-				<UseItem ItemId="28651" QuestId="10250" NumOfTimes="1" X="-1197.175" Y="2256.114" Z="48.44675" />
-			</While>
-		<TurnIn QuestName="Bloody Vengeance" QuestId="10250" TurnInName="Althen the Historian" TurnInId="19736" />
-		<PickUp QuestName="Honor the Fallen" QuestId="10258" GiverName="Althen the Historian" GiverId="19736" />
-		<TurnIn QuestName="Honor the Fallen" QuestId="10258" TurnInName="Commander Hogarth" TurnInId="19937" />
+				<RunTo X="-1327.094" Y="2365.941" Z="88.95517" />
+			</If>
+			<If Condition="HasQuest(10250) &amp;&amp; !IsQuestCompleted(10250)">
+				<CustomBehavior File="FlyTo" DestName="Objective" X="-1172.786" Y="2275.145" Z="41.31299" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
+			 <While Condition="HasQuest(10250) &amp;&amp; !IsQuestCompleted(10250)">
+				<UseItem ItemId="28651" QuestId="10250" X="-1197.175" Y="2256.114" Z="48.44675" />
+				<CustomBehavior File="WaitTimer" WaitTime="7000" GoalText="Waiting for  {TimeRemaining}" />
+			 </While>
+			</If>
 			<If Condition="((HasQuest(10809)) &amp;&amp; (!IsQuestCompleted(10809)))" >
-				<CustomBehavior File="FlyTo" DestName="Objective" X="-1034.042" Y="2040.003" Z="67.10939" />
+				<CustomBehavior File="FlyTo" DestName="Objective" X="-1082.794" Y="2021.2" Z="67.38318" />
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="Wanted: Worg Master Kruush" QuestId="10809" Type="CollectItem" ItemId="31374" CollectCount="1" />
-				<RunTo X="-1034.042" Y="2040.003" Z="67.10939" />
+				<RunTo X="-1082.794" Y="2021.2" Z="67.38318" />
 			</If>
 			<If Condition="((HasQuest(10538)) &amp;&amp; (!IsQuestCompleted(10538)))" >
-				<CustomBehavior File="FlyTo" DestName="Objective" X="-1034.042" Y="2040.003" Z="67.10939" />
+			 <If Condition="(GetItemCount(30425) &lt; 12)" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="-1082.794" Y="2021.2" Z="67.38318" />
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestId="10538" QuestName="Boiling Blood" Type="CollectItem" ItemId="30425" CollectCount="12" />
+			 </If>
+				<CustomBehavior File="FlyTo" DestName="Pot" X="-959.0054" Y="2183.845" Z="13.96466" />
+				<CustomBehavior File="ForcedDismount" />
 			 <While Condition="HasQuest(10538) &amp;&amp; !IsQuestCompleted(10538)">
 				<CustomBehavior File="InteractWith" QuestId="10538" MobId="184715" ObjectType="GameObject" Range="8" CollectionDistance="200" Nav="Mesh" X="-993.5313" Y="2189.597" Z="13.79417" />
 			 </While>
 			</If>
+			<If Condition="((HasQuest(10250)) &amp;&amp; (IsQuestCompleted(10250)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-1330.151" Y="2356.484" Z="88.95546" />
+		<TurnIn QuestName="Bloody Vengeance" QuestId="10250" TurnInName="Althen the Historian" TurnInId="19736" />
+			</If>
+			<If Condition="((!HasQuest(10258)) &amp;&amp; (!IsQuestCompleted(10258)))" >
+		<PickUp QuestName="Honor the Fallen" QuestId="10258" GiverName="Althen the Historian" GiverId="19736" />
+				<RunTo X="-1324.921" Y="2374.001" Z="88.94999" />
+			</If>
+			<If Condition="((HasQuest(10809)) &amp;&amp; (IsQuestCompleted(10809)))" >
 		<TurnIn QuestName="Wanted: Worg Master Kruush" QuestId="10809" TurnInName="Captain Darkhowl" TurnInId="22107" />
-		<!--
-		<PickUp QuestName="Zeth'Gor Must Burn!" QuestId="10792" GiverName="Captain Darkhowl" GiverId="22107" />
-		-->
+				<RunTo X="-1324.921" Y="2374.001" Z="88.94999" />
+			</If>
+		<!--<PickUp QuestName="Zeth'Gor Must Burn!" QuestId="10792" GiverName="Captain Darkhowl" GiverId="22107" />-->
 		<TurnIn QuestName="Boiling Blood" QuestId="10538" TurnInName="Apothecary Albreck" TurnInId="21279" />
 		<PickUp QuestName="Apothecary Antonivich" QuestId="10835" GiverName="Apothecary Albreck" GiverId="21279" />
+			<If Condition="((HasQuest(10258)) &amp;&amp; (IsQuestCompleted(10258)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-1210.468" Y="2640.476" Z="12.74828" />
+		<TurnIn QuestName="Honor the Fallen" QuestId="10258" TurnInName="Commander Hogarth" TurnInId="19937" />
+				<RunTo X="-1210.468" Y="2640.476" Z="12.74828" />
+			</If>
 			<!-- 
 		<PickUp QuestName="The Eyes of Grillok" QuestId="10813" GiverName="Zezzak" GiverId="22231" />
 		<TurnIn QuestName="The Eyes of Grillok" QuestId="10813" TurnInName="Zezzak" TurnInId="22231" />
 		<PickUp QuestName="Grillok Darkeye" QuestId="10834" GiverName="Zezzak" GiverId="22231" />
 			-->
-		
 		<!-- zeth'gor must burn 
 			<While Condition="HasQuest(10792) &amp;&amp; !IsQuestCompleted(10792)">
 				<If Condition="HasQuest(10792) &amp;&amp; !IsQuestCompleted(10792) &amp;&amp; (GetItemCount(31347) &lt; 4)">
@@ -1637,14 +1675,21 @@
 		<TurnIn QuestName="Zeth'Gor Must Burn!" QuestId="10792" TurnInName="Captain Darkhowl" TurnInId="22107" />
 		-->
 		<!-- <TurnIn QuestName="Grillok Darkeye" QuestId="10834" TurnInName="Zezzak" TurnInId="22231" /> -->
+			<If Condition="((HasQuest(10213)) &amp;&amp; (IsQuestCompleted(10213)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-1087.06" Y="3002.528" Z="8.244233" />
 		<TurnIn QuestName="Investigate the Crash" QuestId="10213" TurnInName="Screaming Screed Luckheed" TurnInId="19367" />
+			</If>
 		<PickUp QuestName="In Case of Emergency..." QuestId="10161" GiverName="Screaming Screed Luckheed" GiverId="19367" />
 		<PickUp QuestName="Ravager Egg Roundup" QuestId="9349" GiverName="Legassi" GiverId="19344" />
 			<Objective QuestName="In Case of Emergency..." QuestId="10161" Type="CollectItem" ItemId="28116" CollectCount="30" />
+			<If Condition="((HasQuest(10161)) &amp;&amp; (IsQuestCompleted(10161)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-1087.06" Y="3002.528" Z="8.244233" />
 		<TurnIn QuestName="In Case of Emergency..." QuestId="10161" TurnInName="Screaming Screed Luckheed" TurnInId="19367" />
+			</If>
 		<PickUp QuestName="Voidwalkers Gone Wild" QuestId="9351" GiverName="Screaming Screed Luckheed" GiverId="19367" />
-			<Objective QuestName="Voidwalkers Gone Wild" QuestId="9351" Type="CollectItem" ItemId="23218" CollectCount="10" />
 			<If Condition="HasQuest(10278) &amp;&amp; !IsQuestCompleted(10278)">
+				<CustomBehavior File="FlyTo" DestName="Objective" X="-1382.162" Y="3150.171" Z="25.7905" />
+				<CustomBehavior File="ForcedDismount" />
 				<RunTo X="-1382.162" Y="3150.171" Z="25.7905" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 			 <While Condition="HasQuest(10278) &amp;&amp; !IsQuestCompleted(10278)">
@@ -1661,11 +1706,25 @@
 				-->
 			 </While>
 			</If>
-			<Objective QuestName="Ravager Egg Roundup" QuestId="9349" Type="CollectItem" ItemId="23217" CollectCount="12" />
+			<If Condition="((HasQuest(9351)) &amp;&amp; (!IsQuestCompleted(9351)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="-1307.739" Y="2978.062" Z="5.341468" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Voidwalkers Gone Wild" QuestId="9351" Type="CollectItem" ItemId="23218" CollectCount="10" />
+			</If>
+			<If Condition="((HasQuest(9349)) &amp;&amp; (!IsQuestCompleted(9349)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="-1396.613" Y="3361.113" Z="38.68366" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Ravager Egg Roundup" QuestId="9349" Type="CollectItem" ItemId="23217" CollectCount="12" />
+			</If>
+			<If Condition="((HasQuest(9351)) &amp;&amp; (IsQuestCompleted(9351)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-1087.06" Y="3002.528" Z="8.244233" />
 		<TurnIn QuestName="Voidwalkers Gone Wild" QuestId="9351" TurnInName="Screaming Screed Luckheed" TurnInId="19367" />
+			</If>
 		<TurnIn QuestName="Ravager Egg Roundup" QuestId="9349" TurnInName="Legassi" TurnInId="19344" />
 		<PickUp QuestName="Helboar, the Other White Meat" QuestId="9361" GiverName="Legassi" GiverId="19344" />
 			<While Condition="((HasQuest(9361)) &amp;&amp; (!IsQuestCompleted(9361)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="-1053.009" Y="3037.14" Z="15.59422" />
+				<CustomBehavior File="ForcedDismount" />
 				<If Condition="((GetItemCount(23248) &lt; 8) &amp;&amp; (!IsQuestCompleted(9361)))" >
 				<CustomBehavior File="UserSettings" LootMobs="True" />
 						<SetGrindArea>
@@ -1695,7 +1754,12 @@
 					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(23268)" WaitTime="1500" />
 				</While>
 			</While>
+			<If Condition="HasItem(23338)" >
+		<PickUp QuestName="Missing Missive" QuestId="9373" GiverName="Eroded Leather Case" GiverType="Item" GiverId="23338" />
+			</If>
 			 <If Condition="!HasQuest(9373) &amp;&amp; !IsQuestCompleted(9373)">
+				<CustomBehavior File="FlyTo" DestName="Objective" X="-744.8123" Y="3031.693" Z="10.3115" />
+				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="UserSettings" LootMobs="True" />
 					<SetGrindArea>
 						<GrindArea>
@@ -1713,7 +1777,10 @@
 		<PickUp QuestName="Missing Missive" QuestId="9373" GiverName="Eroded Leather Case" GiverType="Item" GiverId="23338" />
 			</If>
 			</If>
+			<If Condition="((HasQuest(9361)) &amp;&amp; (IsQuestCompleted(9361)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-1087.06" Y="3002.528" Z="8.244233" />
 		<TurnIn QuestName="Helboar, the Other White Meat" QuestId="9361" TurnInName="Legassi" TurnInId="19344" />
+			</If>
 		<PickUp QuestName="Smooth as Butter" QuestId="9356" GiverName="Legassi" GiverId="19344" />
 			<Objective QuestName="Smooth as Butter" QuestId="9356" Type="CollectItem" ItemId="23239" CollectCount="12" />
 		<TurnIn QuestName="Smooth as Butter" QuestId="9356" TurnInName="Legassi" TurnInId="19344" />
