@@ -25,14 +25,14 @@ using Action = TreeSharp.Action;
 
 namespace Styx.Bot.Quest_Behaviors
 {
-    public class IntoTheFire : CustomForcedBehavior
+    public class SealingTheWay : CustomForcedBehavior
     {
-        ~IntoTheFire()
+        ~SealingTheWay()
         {
             Dispose(false);
         }
 
-        public IntoTheFire(Dictionary<string, string> args)
+        public SealingTheWay(Dictionary<string, string> args)
             : base(args)
         {
             try
@@ -41,7 +41,7 @@ namespace Styx.Bot.Quest_Behaviors
                 //    http://www.thebuddyforum.com/mediawiki/index.php?title=Honorbuddy_Programming_Cookbook:_QuestId_for_Custom_Behaviors
                 // ...and also used for IsDone processing.
                 //Location = GetAttributeAsNullable<WoWPoint>("", true, ConstrainAs.WoWPointNonEmpty, null) ??WoWPoint.Empty;
-                QuestId = 27648;//GetAttributeAsNullable<int>("QuestId",false, ConstrainAs.QuestId(this), null) ?? 0;
+                QuestId = 26501;//GetAttributeAsNullable<int>("QuestId",false, ConstrainAs.QuestId(this), null) ?? 0;
                 //MobIds = GetAttributeAsNullable<int>("MobId", true, ConstrainAs.MobId, null) ?? 0;
                 QuestRequirementComplete = QuestCompleteRequirement.NotComplete;
                 QuestRequirementInLog = QuestInLogRequirement.InLog;
@@ -78,6 +78,17 @@ namespace Styx.Bot.Quest_Behaviors
         private Composite _root;
 
 
+        private bool IsObjectiveComplete(int objectiveId, uint questId)
+        {
+            if (this.Me.QuestLog.GetQuestById(questId) == null)
+            {
+                return false;
+            }
+            int returnVal = Lua.GetReturnVal<int>("return GetQuestLogIndexByID(" + questId + ")", 0);
+            return
+                Lua.GetReturnVal<bool>(
+                    string.Concat(new object[] { "return GetQuestLogLeaderBoard(", objectiveId, ",", returnVal, ")" }), 2);
+        }
 
 
 
@@ -143,14 +154,14 @@ namespace Styx.Bot.Quest_Behaviors
             return quest == null || quest.IsCompleted;
         }
 
-        public WoWUnit Good
+        public WoWUnit Geomancer(WoWPoint loc)
         {
-            get { return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 46174 && u.IsAlive).OrderBy(u => u.Distance).FirstOrDefault(); }
+            return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 43170 && u.IsAlive && u.Location.Distance(loc) <= 5).OrderBy(u => u.Distance).FirstOrDefault(); 
         }
 
-        public WoWUnit Bad
+        public WoWUnit Bad(WoWPoint loc)
         {
-            get { return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.IsAlive && !u.IsPlayer && u.CurrentTarget != null && (u.CurrentTarget == Good || u.CurrentTarget == Me)).OrderBy(u => u.Distance).FirstOrDefault(); }
+            return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.IsAlive && !u.IsPlayer && u.CurrentTarget != null && (u.CurrentTarget == Geomancer(loc) || u.CurrentTarget == Me) ).OrderBy(u => u.Distance).FirstOrDefault(); 
         }
 
         
@@ -165,27 +176,49 @@ namespace Styx.Bot.Quest_Behaviors
             }
         }
 
+        public WoWPoint[] Spots = new WoWPoint[] {new WoWPoint(411.33,1659.2,348.8838),
+new WoWPoint(420.792,1718.1,349.4922),
+new WoWPoint(457.47,1727.42,348.5146),
+new WoWPoint(491.014,1659.59,348.2862)};
 
 
-
-        public Composite Stuff
+        public Composite Part(int i)
         {
-            get
-            {
-                return new PrioritySelector(
-                     new Decorator(r => Good != null && Good.Distance > 25, new Action(r => Navigator.MoveTo(Good.Location))),
-                        new Decorator(r => Me.CurrentTarget == null && Bad != null , new Action(r=>Bad.Target())),
-                        new Decorator(r => Me.CurrentTarget != null , DoDps));
-            }
+                return new Decorator(r=>!IsObjectiveComplete(i,(uint)QuestId),new PrioritySelector(
+                    
+                     new Decorator(r => Geomancer(Spots[i - 1]) != null && Geomancer(Spots[i - 1]).Distance > 10, new Action(r => Flightor.MoveTo(Geomancer(Spots[i - 1]).Location))),
+                        new Decorator(r => (Me.CurrentTarget == null || (Me.CurrentTarget != null && Me.CurrentTarget.IsFriendly)) && Bad(Spots[i - 1]) != null, new Action(r => Bad(Spots[i - 1]).Target())),
+                        new Decorator(r => (Me.CurrentTarget == null || (Me.CurrentTarget != null && Me.CurrentTarget.IsFriendly)) && (Geomancer(Spots[i - 1]).CurrentTarget != null), new Action(r => Geomancer(Spots[i - 1]).CurrentTarget.Target())),
+                        
+                        new Decorator(r => Me.CurrentTarget != null && !Me.CurrentTarget.IsFriendly, DoDps),
+                        new Decorator(r => Me.Combat, DoDps),
+                        new Decorator(r => Bad(Spots[i - 1]) == null, UseItem(i - 1))));
+            
         }
 
+        public WoWItem Rock
+        {
+            get { return Me.BagItems.FirstOrDefault(x => x.Entry == 58885); }
+        }
 
-
+        public Composite UseItem(int x)
+        {
+            
+                return new Action(delegate
+                                      {
+                                          var g = Geomancer(Spots[x]);
+                                          if (g.Distance > 5)
+                                              Navigator.MoveTo(g.Location);
+                                          g.Target();
+                                          Rock.Use();
+                                      });
+            
+        }
 
         protected override Composite CreateBehavior()
         {
 
-            return _root ?? (_root = new Decorator(ret => !_isBehaviorDone, new PrioritySelector(DoneYet,Stuff)));
+            return _root ?? (_root = new Decorator(ret => !_isBehaviorDone, new PrioritySelector(DoneYet, Part(1),Part(2),Part(3),Part(4))));
         }
 
         public override void Dispose()
@@ -210,7 +243,7 @@ namespace Styx.Bot.Quest_Behaviors
         public override void OnStart()
         {
 
-
+            
 
             // This reports problems, and stops BT processing if there was a problem with attributes...
             // We had to defer this action, as the 'profile line number' is not available during the element's
