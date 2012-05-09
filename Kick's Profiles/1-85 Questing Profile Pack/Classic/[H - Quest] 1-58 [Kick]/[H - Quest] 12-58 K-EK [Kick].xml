@@ -4475,7 +4475,7 @@
 		<!-- PickUp QuestName="Cleansing Our Crevasse" QuestId="14346" GiverName="Karnum Marshweaver" GiverId="36034" /> -->
 		<PickUp QuestName="Taking Part" QuestId="14311" GiverName="Botanist Ferrah" GiverId="36060" />
 			<While Condition="((HasQuest(14311)) &amp;&amp; (!IsQuestCompleted(14311)))" >
-				<CustomBehavior File="UseItemOn" QuestId="14311" MobId="195687" MobType="GameObject" ItemId="49150" NumOfTimes="20" WaitTime="6000" Range="4" CollectionDistance="200" X="-992.1745" Y="1933.562" Z="60.46596" />
+				<CustomBehavior File="UseItemOn" QuestId="14311" MobId="195687" MobType="GameObject" ItemId="49150" NumOfTimes="20" WaitTime="6000" Range="4" CollectionDistance="900" X="-974.2577" Y="1893.931" Z="58.32909" />
 			</While>
 		<TurnIn QuestName="Taking Part" QuestId="14311" TurnInName="Botanist Ferrah" TurnInId="36060" />
 		<PickUp QuestName="An Introduction Is In Order" QuestId="14312" GiverName="Garren Darkwind" GiverId="36052" />
@@ -6264,27 +6264,36 @@
 		<TurnIn QuestName="The Fall of Tichondrius" QuestId="28257" TurnInName="Feronas Sindweller" TurnInId="47923" />
 		<PickUp QuestName="Deceivers In Our Midst" QuestId="28261" GiverName="Feronas Sindweller" GiverId="47923" />
 		
+			<!-- 
 			<If Condition="(HasQuest(28261)) &amp;&amp; (!IsQuestCompleted(28261))">
 				<UseItem ItemId="63419" QuestName="Deceivers In Our Midst" QuestId="28261" X="6584.889" Y="-975.6223" Z="468.8419" />
 			</If>
 			<Objective QuestName="Deceivers In Our Midst" QuestId="28261" Type="KillMob" MobId="48154" KillCount="12" />
+			-->
 			
-			<!-- 
 			<While Condition="(HasQuest(28261)) &amp;&amp; (!IsQuestCompleted(28261))">
-			 <If Condition="(!Me.HasAura(&quot;Sindweller Blindfold&quot;))" >
-				<UseItem ItemId="63419" QuestId="28261" X="6584.889" Y="-975.6223" Z="468.8419" />
-			 </If>
+			 <While Condition="(!Me.HasAura(&quot;Sindweller Blindfold&quot;)) &amp;&amp; (!IsQuestCompleted(28261))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(63419)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for  {TimeRemaining}" />
+			 </While>
 				<SetGrindArea>
 					<GrindArea>
 						<Factions>14 16</Factions>
 						<Hotspots>
-							<Hotspot X="6584.889" Y="-975.6223" Z="468.8419" />
+							<Hotspot X="6596.348" Y="-881.1327" Z="474.0565" />
+							<Hotspot X="6579.711" Y="-816.4685" Z="475.2396" />
+							<Hotspot X="6529.003" Y="-828.9531" Z="474.2262" />
+							<Hotspot X="6475.526" Y="-814.8546" Z="474.173" />
+							<Hotspot X="6444.626" Y="-775.7469" Z="473.2364" />
+							<Hotspot X="6413.184" Y="-768.1678" Z="472.3652" />
+							<Hotspot X="6382.764" Y="-790.7625" Z="460.698" />
+							<Hotspot X="6384.844" Y="-724.0187" Z="473.837" />
+							<Hotspot X="6359.974" Y="-686.4128" Z="477.3356" />
 						</Hotspots>
 					</GrindArea>  
 				</SetGrindArea>
 			 <GrindTo Condition="(HasQuest(28261)) &amp;&amp; (IsQuestCompleted(28261)) || (!Me.HasAura(&quot;Sindweller Blindfold&quot;))" />
 			</While>
-			-->
 			<While Condition="(HasQuest(28261)) &amp;&amp; (IsQuestCompleted(28261))">
 				<CustomBehavior File="CompleteLogQuest" QuestId="28261" /> <!-- Get 28264 -->
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
