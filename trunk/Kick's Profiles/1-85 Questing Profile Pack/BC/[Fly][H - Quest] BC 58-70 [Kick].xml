@@ -1283,7 +1283,7 @@
 			</If>
 			
 			<!-- Flying Mount Procedures -->
-			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &gt;= 265)" >
+			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &gt;= 265) &amp;&amp; (Me.Level &gt;= 60)" >
 			 <If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
 				<CustomBehavior File="Message" Text="Compiling Learn Flying Mount Procedures" LogColor="Orange" />
 				<RunTo X="47.76153" Y="2742.022" Z="85.27119" />
@@ -1298,9 +1298,13 @@
 				</While>
 				<RunTo X="80.93826" Y="2713.029" Z="85.69721" />
 			 </If>
-			 <ElseIf Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &lt; 265)" >
+			</If>
+			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Level &gt;= 60)" >
 				<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="10" ExpiryAction="InputEnabled_Continue" 
 				Text="You do not having flying nor the money for flying; defaulting to non-flying protocols" />
+			 <ElseIf Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Level &lt; 60)" >
+				<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="10" ExpiryAction="InputEnabled_Continue" 
+				Text="You are not level 60 yet; defaulting to non-flying protocols" />
 			 </ElseIf>
 			</If>
 	
@@ -3400,7 +3404,10 @@
 		<PickUp QuestName="Speak with Scout Neftis" QuestId="10039" GiverName="Advisor Faila" GiverId="18712" />
 		<PickUp QuestName="Arakkoa War Path" QuestId="10868" GiverName="Advisor Faila" GiverId="18712" />
 		<PickUp QuestName="An Unwelcome Presence" QuestId="10000" GiverName="Kurgatok" GiverId="18383" />
+			<If Condition="((!HasQuest(10027)) &amp;&amp; (!IsQuestCompleted(10027)))" >
 		<PickUp QuestName="Magical Disturbances" QuestId="10027" GiverName="Kurgatok" GiverId="18383" />
+				<RunTo X="-2650.417" Y="4396.112" Z="36.05095" />
+			</If>
 			<If Condition="HasQuest(10112) &amp;&amp; IsQuestCompleted(10112)" >
 				<CustomBehavior File="FlyTo" X="-1746.264" Y="5188.835" Z="-40.20822" />
 				<CustomBehavior File="ForcedDismount" />
