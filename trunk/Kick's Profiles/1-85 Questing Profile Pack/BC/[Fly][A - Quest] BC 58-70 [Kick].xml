@@ -2059,7 +2059,7 @@
 		<Checkpoint Level="62" />
 		
 			<!-- Training Flying -->
-			<While Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225) &amp;&amp; (Me.Gold &gt;= 265)" >
+			<While Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225)" >
 				<CustomBehavior File="Message" Text="Compiling Train Flying" LogColor="Orange" />
 				<RunTo X="-675.6533" Y="2735.204" Z="93.90858" Name="Train Flying" />
 				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
@@ -2069,25 +2069,21 @@
 				<CustomBehavior File="ForceTrainRiding"  MobId="35100" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 			  </If>
-			  <If Condition="(Me.Gold &gt; 265)" >
+			  <If Condition="(Me.Gold &gt;= 265)" >
 				<CustomBehavior File="InteractWith"  MobId="35100" WaitTime="2000" CollectionDistance="50" X="-675.6533" Y="2735.204" Z="93.90858" />
 				<CustomBehavior File="ForceTrainRiding"  MobId="35100" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			   <If Condition="(!HasItem(25472))" >
 				<CustomBehavior File="InteractWith"  MobId="35101" BuyItemId="25472" WaitTime="5000" CollectionDistance="50" X="-675.6533" Y="2735.204" Z="93.90858" />
+			   </If>
 			  </If>
-			  <If Condition="(Me.Gold &gt; 205)" >
-				<CustomBehavior File="InteractWith"  MobId="35100" WaitTime="2000" CollectionDistance="50" X="-675.6533" Y="2735.204" Z="93.90858" />
-				<CustomBehavior File="ForceTrainRiding"  MobId="35100" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" />
-			 </If>
 			 <If Condition="(HasItem(25472))" >
-					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25472)" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25472)" />
 			 </If>
 			 <If Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225)" >
 				<RunTo X="-675.6533" Y="2735.204" Z="93.90858" Name="Train Flying" />
 				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 			  <If Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225)" >
-				<!-- Mount is 40g, Training is 200g -->
 				<CustomBehavior File="UserDialog" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" Title="Get more Money." 
 				Text="You do not have the necessary amount of money to train 'Expert Riding' - please send some money; or farm for some money and continue when you have money" />
 			  </If>
@@ -2891,6 +2887,7 @@
 				<CustomBehavior File="FlyTo" X="-1631.385" Y="4420.064" Z="54.19151" />
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="The Eyes of Skettis" QuestId="10847" Type="CollectItem" ItemId="25638" CollectCount="1" X="-1698.389" Y="4376.254" Z="53.20021" />
+				<RunTo X="-1662.749" Y="4400.116" Z="46.4356" />
 			 </If>
 				<Objective QuestName="Stymying the Arakkoa" QuestId="9986" Type="KillMob" KillCount="1" Name="Ashkaz" MobId="18539" />
 				<Objective QuestName="Thin the Flock" QuestId="10869" Type="KillMob" KillCount="14" Name="Shienor Talonite" MobId="18449" />
@@ -2901,6 +2898,7 @@
 				<CustomBehavior File="FlyTo" X="-1635.986" Y="4421.118" Z="61.71068" />
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="The Eyes of Skettis" QuestId="10847" Type="CollectItem" ItemId="25642" CollectCount="1" X="-1835.711" Y="3962.149" Z="46.5631" />
+				<RunTo X="-1862.208" Y="3909.992" Z="39.39718" />
 			 </If>
 				<Objective QuestName="Stymying the Arakkoa" QuestId="9986" Type="KillMob" KillCount="1" Name="Ayit" MobId="18540" />
 			</If>
