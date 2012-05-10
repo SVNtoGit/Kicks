@@ -6612,10 +6612,13 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Spiritual Insight" QuestId="12028" GiverName="Toalu'u the Mystic" GiverId="26595" />
 			</If>
-			<If Condition="((HasQuest(12028)) &amp;&amp; (!IsQuestCompleted(12028)))" >
+			<While Condition="((HasQuest(12028)) &amp;&amp; (!IsQuestCompleted(12028)))" >
+				<RunTo X="2740.105" Y="881.537" Z="6.693972" />
 				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="RunMacro" Macro="/cancelaura cat form\n/cancelaura bear form\n/cancelaura travel form\n/cancelaura ghost wolf" />
 				<UseItem QuestName="Spiritual Insight" QuestId="12028" ItemId="35907" X="2740.105" Y="881.537" Z="6.693972" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
+			</While>
 			<If Condition="((HasQuest(12028)) &amp;&amp; (IsQuestCompleted(12028)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2734.914" Y="887.6769" Z="6.624989" />
 				<CustomBehavior File="ForcedDismount" />
