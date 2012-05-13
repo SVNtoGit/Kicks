@@ -5728,6 +5728,7 @@
 		<TurnIn QuestName="Swabbing Duty" QuestId="26633" TurnInName="Captain Keelhaul" TurnInId="2548" />
 		<PickUp QuestName="Attracting Attention" QuestId="26644" GiverName="Captain Keelhaul" GiverId="2548" />
 		  </If>
+			<!-- change the if above to a quest below after we've tested our changes and they work properly -->
 			<If Condition="((HasQuest(26644)) &amp;&amp; (IsQuestCompleted(26644)))" >
 		<TurnIn QuestName="Attracting Attention" QuestId="26644" TurnInName="Fleet Master Firallon" TurnInId="2546" />
 			</If>
@@ -5737,21 +5738,25 @@
 				<UseItem QuestId="26648" ItemId="59226" X="-14585.44" Y="-93.39368" Z="1.982057" />
 				<Objective QuestName="Our Mortal Enemies" QuestId="26648" Type="KillMob" MobId="43553" KillCount="15" />
 			</If>
-			<If Condition="((HasQuest(26648)) &amp;&amp; (IsQuestCompleted(26648)))" >
 		<TurnIn QuestName="Our Mortal Enemies" QuestId="26648" TurnInName="&quot;Dead-Eye&quot; Drederick McGumm" TurnInId="43556" />
-				<!-- temp fix - remove this condition after we open the 'other' quests -->
-				<RunTo X="-14471.73" Y="469.4871" Z="30.7543" />
-			</If>
-		<!-- I can't do this chain atm due to no behavior, but I'll go ahead and script the rest of the quests
+		<!-- Let's see if these work -->
 		<PickUp QuestName="Ol' Blasty" QuestId="26647" GiverName="Ironpatch" GiverId="2547" />
 			<If Condition="((HasQuest(26647)) &amp;&amp; (!IsQuestCompleted(26647)))" >
 				<RunTo X="-14981.58" Y="258.0815" Z="13.25772" />
 				<CustomBehavior File="InteractWith" QuestId="26647" MobId="43562" NumOfTimes="1" CollectionDistance="50" X="-14981.58" Y="258.0815" Z="13.25772" />
+			 <While Condition="HasQuest(26647) &amp;&amp; !IsQuestCompleted(26647)">
+				<CustomBehavior File="Message" QuestId="26647" Text="Works but takes a little extra time. Just let it run." />
+				<CustomBehavior File="Vehicles\CannonControl" QuestId="26647" MaxAngle="0.12758938205361" MinAngle="0.12758938205361" Buttons="1, 2, 3" ExitButton="4" VehicleId="43562"/>
+			 </While>
+			</If>
+			<If Condition="((HasQuest(26647)) &amp;&amp; (IsQuestCompleted(26647)))" >
+				<CustomBehavior File="EjectVeh" />
 			</If>
 		<TurnIn QuestName="Ol' Blasty" QuestId="26647" TurnInName="Ironpatch" TurnInId="2547" />
 		<PickUp QuestName="Drive-By Piracy" QuestId="26649" GiverName="Ironpatch" GiverId="2547" />
 			<If Condition="((HasQuest(26649)) &amp;&amp; (!IsQuestCompleted(26649)))" >
 				<CustomBehavior File="InteractWith" QuestId="26649" MobId="43605" NumOfTimes="1" GossipOptions="2" WaitTime="1000" CollectionDistance="50" X="-14876" Y="295.939" Z="0.4796115" />
+				<CustomBehavior File="26649" />
 			</If>
 		<TurnIn QuestName="Drive-By Piracy" QuestId="26649" TurnInName="Ironpatch" TurnInId="2547" />
 		<PickUp QuestName="The Damsel's Luck" QuestId="26650" GiverName="Fleet Master Firallon" GiverId="2546" />
@@ -5805,9 +5810,18 @@
 		<PickUp QuestName="The Final Voyage of the Brashtide" QuestId="26697" GiverName="Baron Revilgaz" GiverId="2496" />
 			<If Condition="((HasQuest(26697)) &amp;&amp; (!IsQuestCompleted(26697)))" >
 				<CustomBehavior File="InteractWith" QuestId="26697" MobId="737" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="-14449.39" Y="514.1736" Z="26.51357" />
-				// vehicle quest where u throw bombs at targets while riding \\
+				<While Condition="HasQuest(26697) &amp;&amp; !IsQuestCompleted(26697)">
+					<CustomBehavior File="NoControlVehicle" NumOfTimes="5" TargetId1="43717" AttackButton="1" MaxRange="100" WaitTime="1500"/>
+					<CustomBehavior File="NoControlVehicle" NumOfTimes="6" TargetId1="43790" AttackButton="1" MaxRange="100" WaitTime="1500"/>
+				</While>
 			</If>
+			<If Condition="((HasQuest(26697)) &amp;&amp; (IsQuestCompleted(26697)))" >
+				<CustomBehavior File="EjectVeh" />
 		<TurnIn QuestName="The Final Voyage of the Brashtide" QuestId="26697" TurnInName="Baron Revilgaz" TurnInId="2496" />		
+				<!-- temp fix - remove this condition after we open the last quest -->
+				<RunTo X="-14471.73" Y="469.4871" Z="30.7543" />
+			</If>
+		<!--
 		<PickUp QuestName="Bloodsail's End" QuestId="26703" GiverName="Baron Revilgaz" GiverId="2496" />
 			<If Condition="((HasQuest(26703)) &amp;&amp; (!IsQuestCompleted(26703)))" >
 				<CustomBehavior File="InteractWith" QuestId="26703" MobId="737" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="-14449.39" Y="514.1736" Z="26.51357" />
@@ -7810,6 +7824,7 @@
 		<TurnIn QuestName="Locked and Loaded" QuestId="28327" TurnInName="Colonel Troteman" TurnInId="48307" X="-8395.82" Y="-2785.71" Z="194.7979" />	
 			</If>
 			<!-- DEVELOPMENT 
+			// look at behavior 28454
 			<If Condition="((!HasQuest(28320)) &amp;&amp; (!IsQuestCompleted(28320)))" >
 		<PickUp QuestName="Assault on Dreadmaul Rock" QuestId="28320" GiverName="John J. Keeshan" GiverId="48306" />
 				<CustomBehavior File="WaitTimer" WaitTime="130000" GoalText="Waiting for cutscene {TimeRemaining}" />
