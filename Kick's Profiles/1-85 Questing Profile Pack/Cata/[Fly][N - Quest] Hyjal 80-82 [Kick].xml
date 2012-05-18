@@ -540,6 +540,7 @@
 			<!-- We're now in Hyjal -->
 			<CustomBehavior File="Message" Text="Compiling Mount Hyjal Quests" LogColor="Green" />
 
+			<If Condition="(!IsQuestCompleted(25551))" >
 			<CustomBehavior File="Message" Text="Compiling Nordrassil Quests" LogColor="Cornflowerblue" />
 
 			<If Condition="((HasQuest(25316)) &amp;&amp; (IsQuestCompleted(25316)))" >
@@ -2874,6 +2875,7 @@
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for bot {TimeRemaining}" />
 			  </If>
 			</If>
+			</If>
 			<If Condition="((HasQuest(25551)) &amp;&amp; (IsQuestCompleted(25551)))" >
 		 	 <If Condition="Me.IsIndoors" >
 				<RunTo X="3946.574" Y="-2813.927" Z="618.747" />
@@ -2892,24 +2894,31 @@
 			<!-- Ally -->
 			<If Condition="(Me.IsAlliance)" >
 		<PickUp QuestName="The Battle Is Won, The War Goes On" QuestId="27398" GiverName="Commander Jarod Shadowsong" GiverId="40772" />
-			<If Condition="(HasQuest(27398))" >
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(6948)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for hearth {TimeRemaining}" />
-			</If>
-			<If Condition="(HasQuest(27398)) &amp;&amp; (Me.ZoneId == 1519)" >
+			<If Condition="(HasQuest(27398)) &amp;&amp; (Me.ZoneId == 616)" >
+				<CustomBehavior File="FlyTo" DestName="Nordrassil" X="5538.748" Y="-3852.912" Z="1678.895" />
+				<CustomBehavior File="FlyTo" DestName="Portal" X="5535.613" Y="-3625.653" Z="1566.905" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" MobId="209080" ObjectType="Gameobject" Range="5" X="5541.917" Y="-3589.18" Z="1567.99" />
+			 </If>
+			 <If Condition="(HasQuest(27398)) &amp;&amp; (Me.ZoneId == 1519)" >
 				<CustomBehavior File="FlyTo" X="-8214.752" Y="428.5352" Z="118.0506" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="The Battle Is Won, The War Goes On" QuestId="27398" TurnInName="Naraat the Earthspeaker" TurnInId="45226" />
-			</If>
+			 </If>
 			</If>
 			
 			<!-- Horde -->
 			<If Condition="(Me.IsHorde)" >
 		<PickUp QuestName="The Battle Is Won, The War Goes On" QuestId="27399" GiverName="Commander Jarod Shadowsong" GiverId="40772" />
 			 <If Condition="(HasQuest(27399))" >
+			  <If Condition="(Me.ZoneId == 616)" >
+				<CustomBehavior File="FlyTo" DestName="Nordrassil" X="5538.748" Y="-3852.912" Z="1678.895" />
+				<CustomBehavior File="FlyTo" DestName="Portal" X="5535.613" Y="-3625.653" Z="1566.905" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" MobId="209081" ObjectType="Gameobject" Range="5" X="5505.529" Y="-3625.876" Z="1567.167" />
+			  </If>
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2043.181" Y="-4381.469" Z="99.21494" />
 				<CustomBehavior File="ForcedDismount" />
-				
 		<TurnIn QuestName="The Battle Is Won, The War Goes On" QuestId="27399" TurnInName="Farseer Krogar" TurnInId="45244" />
 			 </If>
 			</If>
