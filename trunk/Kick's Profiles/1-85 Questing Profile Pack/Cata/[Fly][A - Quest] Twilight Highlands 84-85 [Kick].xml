@@ -914,11 +914,20 @@
 		<TurnIn QuestName="Pushing Back" TurnInName="Earthcaller Torunscar" QuestId="27300" TurnInId="45332" />
 		<TurnIn QuestName="Simple Solutions" TurnInName="Initiate Goldmine" QuestId="27302" TurnInId="45432" />
 		<TurnIn QuestName="Mercy for the Bound" TurnInName="Earthcaller Yevaa" QuestId="27303" TurnInId="45386" />
-		<PickUp QuestName="The Maw of Iso'rath" GiverName="Earthcaller Torunscar" QuestId="27376" GiverId="45332" />
-			<If Condition="((HasQuest(27376)) &amp;&amp; (!IsQuestCompleted(27376)))" >
-				<CustomBehavior File="MountVehOnly" VehicleMountId="45435" X="-2530.04" Y="-4784.1" Z="179.9242" />
+			<If Condition="((!HasQuest(27376)) &amp;&amp; (!IsQuestCompleted(27376)))" >
+				<CustomBehavior File="FlyTo" X="-2526.97" Y="-4758.58" Z="180.4824" />
+				<CustomBehavior File="ForcedDismount" />
 			</If>
-		<TurnIn QuestName="The Maw of Iso'rath" TurnInName="Earthcaller Yevaa" QuestId="27376" TurnInId="47991" />
+		<PickUp GiverId="45332" QuestId="27376" GiverName="Earthcaller Torunscar" QuestName="The Maw of Iso'rath"/>
+			<If Condition="((HasQuest(27376)) &amp;&amp; (!IsQuestCompleted(27376)))" >
+				<CustomBehavior File="MountVehOnly" VehicleMountId="45435" X="-2530.04" Y="-4784.1" Z="179.9247" />
+				<CustomBehavior File="WaitTimer" WaitTime="90000"/>
+			</If>
+			<If Condition="((HasQuest(27376)) &amp;&amp; (IsQuestCompleted(27376))) &amp;&amp; (Me.Z &gt;= 8)" >
+				<CustomBehavior File="FlyTo" X="-2658.011" Y="-4985.127" Z="255.6108" />
+				<CustomBehavior File="MyCTM" X="-2667.644" Y="-4988.289" Z="-128.808" />
+			</If>
+		<TurnIn QuestId="27376" QuestName="The Maw of Iso'rath" TurnInId="47991" TurnInName="Earthcaller Yevaa"/>
 		<PickUp QuestName="Devoured" GiverName="Earthcaller Yevaa" QuestId="27377" GiverId="47991" />
 			<If Condition="(HasQuest(27377))" >
 				<CustomBehavior File="WaitTimer" WaitTime="60000"/>
