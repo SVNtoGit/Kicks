@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Bots.Grind;
 using CommonBehaviors.Actions;
 using Styx.Combat.CombatRoutine;
 using Styx.Helpers;
@@ -156,15 +157,15 @@ namespace Styx.Bot.Quest_Behaviors
 
         public WoWUnit Geomancer(WoWPoint loc)
         {
-            return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 43170 && u.IsAlive && u.Location.Distance(loc) <= 5).OrderBy(u => u.Distance).FirstOrDefault(); 
+            return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 43170 && u.IsAlive && u.Location.Distance(loc) <= 5).OrderBy(u => u.Distance).FirstOrDefault();
         }
 
         public WoWUnit Bad(WoWPoint loc)
         {
-            return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.IsAlive && !u.IsPlayer && u.CurrentTarget != null && (u.CurrentTarget == Geomancer(loc) || u.CurrentTarget == Me) ).OrderBy(u => u.Distance).FirstOrDefault(); 
+            return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.IsAlive && !u.IsPlayer && u.CurrentTarget != null && (u.CurrentTarget == Geomancer(loc) || u.CurrentTarget == Me)).OrderBy(u => u.Distance).FirstOrDefault();
         }
 
-        
+
         public Composite DoDps
         {
             get
@@ -176,6 +177,16 @@ namespace Styx.Bot.Quest_Behaviors
             }
         }
 
+        public Composite DoPull
+        {
+            get
+            {
+                return
+                    new PrioritySelector(
+                        new Decorator(ret => RoutineManager.Current.PullBehavior != null, RoutineManager.Current.PullBehavior),
+                        new Action(c => RoutineManager.Current.Pull()));
+            }
+        }
         public WoWPoint[] Spots = new WoWPoint[] {new WoWPoint(411.33,1659.2,348.8838),
 new WoWPoint(420.792,1718.1,349.4922),
 new WoWPoint(457.47,1727.42,348.5146),
@@ -184,16 +195,16 @@ new WoWPoint(491.014,1659.59,348.2862)};
 
         public Composite Part(int i)
         {
-                return new Decorator(r=>!IsObjectiveComplete(i,(uint)QuestId),new PrioritySelector(
-                    
-                     new Decorator(r => Geomancer(Spots[i - 1]) != null && Geomancer(Spots[i - 1]).Distance > 10, new Action(r => Flightor.MoveTo(Geomancer(Spots[i - 1]).Location))),
-                        new Decorator(r => (Me.CurrentTarget == null || (Me.CurrentTarget != null && Me.CurrentTarget.IsFriendly)) && Bad(Spots[i - 1]) != null, new Action(r => Bad(Spots[i - 1]).Target())),
-                        new Decorator(r => (Me.CurrentTarget == null || (Me.CurrentTarget != null && Me.CurrentTarget.IsFriendly)) && (Geomancer(Spots[i - 1]).CurrentTarget != null), new Action(r => Geomancer(Spots[i - 1]).CurrentTarget.Target())),
-                        
-                        new Decorator(r => Me.CurrentTarget != null && !Me.CurrentTarget.IsFriendly, DoDps),
-                        new Decorator(r => Me.Combat, DoDps),
-                        new Decorator(r => Bad(Spots[i - 1]) == null, UseItem(i - 1))));
-            
+            return new Decorator(r => !IsObjectiveComplete(i, (uint)QuestId), new PrioritySelector(
+
+                 new Decorator(r => Geomancer(Spots[i - 1]) != null && Geomancer(Spots[i - 1]).Distance > 10, new Action(r => Flightor.MoveTo(Geomancer(Spots[i - 1]).Location))),
+                    new Decorator(r => (Me.CurrentTarget == null || (Me.CurrentTarget != null && Me.CurrentTarget.IsFriendly)) && Bad(Spots[i - 1]) != null, new Action(r => Bad(Spots[i - 1]).Target())),
+                    new Decorator(r => (Me.CurrentTarget == null || (Me.CurrentTarget != null && Me.CurrentTarget.IsFriendly)) && (Geomancer(Spots[i - 1]).CurrentTarget != null), new Action(r => Geomancer(Spots[i - 1]).CurrentTarget.Target())),
+
+                    //new Decorator(r => Me.CurrentTarget != null && !Me.CurrentTarget.IsFriendly, DoDps),
+                new Decorator(r => !Me.Combat && Bad(Spots[i - 1]) != null, DoPull),
+                    new Decorator(r => Bad(Spots[i - 1]) == null, UseItem(i - 1))));
+
         }
 
         public WoWItem Rock
@@ -203,22 +214,22 @@ new WoWPoint(491.014,1659.59,348.2862)};
 
         public Composite UseItem(int x)
         {
-            
-                return new Action(delegate
-                                      {
-                                          var g = Geomancer(Spots[x]);
-                                          if (g.Distance > 5)
-                                              Navigator.MoveTo(g.Location);
-                                          g.Target();
-                                          Rock.Use();
-                                      });
-            
+
+            return new Action(delegate
+            {
+                var g = Geomancer(Spots[x]);
+                if (g.Distance > 5)
+                    Navigator.MoveTo(g.Location);
+                g.Target();
+                Rock.Use();
+            });
+
         }
 
         protected override Composite CreateBehavior()
         {
 
-            return _root ?? (_root = new Decorator(ret => !_isBehaviorDone, new PrioritySelector(DoneYet, Part(1),Part(2),Part(3),Part(4))));
+            return _root ?? (_root = new Decorator(ret => !_isBehaviorDone, new PrioritySelector(DoneYet, LevelBot.CreateCombatBehavior(), Part(1), Part(2), Part(3), Part(4))));
         }
 
         public override void Dispose()
@@ -243,7 +254,7 @@ new WoWPoint(491.014,1659.59,348.2862)};
         public override void OnStart()
         {
 
-            
+
 
             // This reports problems, and stops BT processing if there was a problem with attributes...
             // We had to defer this action, as the 'profile line number' is not available during the element's
@@ -265,10 +276,10 @@ new WoWPoint(491.014,1659.59,348.2862)};
                     }
                 }
 
- 
 
-                
-                
+
+
+
 
                 PlayerQuest quest = StyxWoW.Me.QuestLog.GetQuestById((uint)QuestId);
 

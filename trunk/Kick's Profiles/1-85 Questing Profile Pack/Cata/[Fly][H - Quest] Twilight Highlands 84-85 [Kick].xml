@@ -644,16 +644,17 @@
 				
 		<TurnIn QuestId="26788" QuestName="Cementing Our Victory" TurnInId="44042" TurnInName="Ornak"/> 
 				<RunTo X="-4031.623" Y="-6359.18" Z="37.65055" />
-				<CustomBehavior File="MyCTM" X="-4050.579" Y="-6326.677" Z="38.17285" />
+				<CustomBehavior File="MyCTM" X="-4051.87" Y="-6327.38" Z="38.17234" />
 			</If>
 		<TurnIn QuestId="26784" QuestName="Muddied Waters" TurnInId="44024" TurnInName="Artesh"/>
 		<PickUp GiverId="44024" QuestId="26798" GiverName="Artesh" QuestName="The Warchief Will be Pleased"/> 
 			<If Condition="((HasQuest(26798)) &amp;&amp; (IsQuestCompleted(26798)))" >
+				<!-- Kick needs to thoroughly test thing w/o going inside of the portal -->
 				<While Condition="Me.ZoneId == 4922">	
 					<CustomBehavior File="MyCTM" X="-4050.995" Y="-6328.813" Z="38.17325" />
 					<CustomBehavior File="WaitTimer" WaitTime="1500"/>
-					<CustomBehavior File="MyCTM" X="-4048.711" Y="-6327.553" Z="38.17325" />
-					<CustomBehavior File="WaitTimer" WaitTime="1500"/>
+					<CustomBehavior File="MyCTM" X="-4048.406" Y="-6328.037" Z="38.17354" />
+					<CustomBehavior File="WaitTimer" WaitTime="1550"/>
 					<CustomBehavior File="Misc\RunLua" Lua="StrafeLeftStart(GetTime()*1000 + 1000);" />
 					<CustomBehavior File="WaitTimer" WaitTime="1550" GoalText="Waiting for  {TimeRemaining}" />
 					<CustomBehavior File="Misc\RunLua" Lua="StrafeLeftStop(GetTime()*1000 + 1000);" />
@@ -835,7 +836,7 @@
 			<If Condition="((HasQuest(28584)) &amp;&amp; (!IsQuestCompleted(28584)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 			 <While Condition="((HasQuest(28584)) &amp;&amp; (!IsQuestCompleted(28584)))" >
-				<CustomBehavior File="UseItemOn" QuestId="28584" MobType="GameObject" MobId="207298" ItemId="65146" NumOfTimes="20" Range="7" CollectionDistance="1000" X="-2732.719" Y="-6533.096" Z="200.749" />
+				<CustomBehavior File="UseItemOn" QuestId="28584" MobType="GameObject" MobId="207298" ItemId="65146" NumOfTimes="20" Range="8" CollectionDistance="1000" X="-2732.719" Y="-6533.096" Z="200.749" />
 			 </While>
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
@@ -911,13 +912,13 @@
 			 -->
 			 <!-- <CustomBehavior File="InteractWith" QuestId="28591" MobId="49135" Nav="CTM" /> -->
 				<CustomBehavior File="OffTheWall" />
-				<CustomBehavior File="EjectVeh" />
+				<CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" WaitTime="1000" />
 			</If>
 			<If Condition="((HasQuest(28591)) &amp;&amp; (IsQuestCompleted(28591)))" >
 			 <If Condition="(!Me.IsOnTransport)">
 				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Get back on the Zeppelin!" />
 			 </If>
-				<CustomBehavior File="EjectVeh" />
+				<CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" WaitTime="1000" />
 			 <If Condition="StyxWoW.Me.RelativeLocation.X &lt; -4" >
 				<CustomBehavior File="MyCTM" X="5.469335" Y="-10.34701" Z="-17.85083" UseRelative="true" />
 			 </If>
