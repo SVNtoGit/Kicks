@@ -82,7 +82,7 @@ namespace Styx.Bot.Quest_Behaviors
 
         private WoWUnit Zah
         {
-            get { return (ObjectManager.GetObjectsOfType<WoWUnit>().FirstOrDefault(u => u.Entry == 49148 && !u.Dead)); }
+            get { return (ObjectManager.GetObjectsOfType<WoWUnit>().FirstOrDefault(u => u.Entry == 49148)); }
         }
 
 
@@ -148,11 +148,11 @@ namespace Styx.Bot.Quest_Behaviors
             {
                 return
                     new Decorator(ret => IsQuestComplete(), new Action(delegate
-                                                    {
-                                                        TreeRoot.StatusText = "Finished!";
-                                                        _isBehaviorDone = true;
-                                                        return RunStatus.Success;
-                                                    }));
+                    {
+                        TreeRoot.StatusText = "Finished!";
+                        _isBehaviorDone = true;
+                        return RunStatus.Success;
+                    }));
 
             }
         }
@@ -172,7 +172,8 @@ namespace Styx.Bot.Quest_Behaviors
         {
             get
             {
-                return new PrioritySelector(
+                return
+                    new PrioritySelector(
                         new Decorator(ret => RoutineManager.Current.PullBehavior != null, RoutineManager.Current.PullBehavior),
                         new Action(c => RoutineManager.Current.Pull()));
             }
@@ -265,12 +266,12 @@ namespace Styx.Bot.Quest_Behaviors
             get
             {
                 return new Decorator(ret => !Me.Combat, new Action(delegate
-                                                                       {
-                                                                           Navigator.PlayerMover.MoveStop();
-                                                                           Guards[0].Target();
-                                                                           Guards[0].Face();
-                                                                           PullMob();
-                                                                       }));
+                {
+                    Navigator.PlayerMover.MoveStop();
+                    Guards[0].Target();
+                    Guards[0].Face();
+                    PullMob();
+                }));
             }
         }
 
@@ -279,7 +280,7 @@ namespace Styx.Bot.Quest_Behaviors
         {
             get
             {
-                return new Decorator(ret => Me.CurrentTarget.Distance < 6 || Me.Class == WoWClass.Hunter, DoDps);
+                return new Decorator(ret => (Me.CurrentTarget != null && Me.CurrentTarget.Distance < 1) || Me.Class == WoWClass.Hunter, Bots.Grind.LevelBot.CreateCombatBehavior());
             }
         }
 
@@ -298,28 +299,38 @@ namespace Styx.Bot.Quest_Behaviors
         {
             get
             {
-                return new Decorator(ret => !Me.Combat, new Sequence(new Action(delegate
+                return new Decorator(ret => Me.CurrentTarget == null && Zah != null, new Action(delegate
                 {
                     Zah.Target();
                     Zah.Face();
                     if (Me.GotAlivePet)
                         SetPetMode("Assist");
 
-                }), DoPull));
+                }))
+
+
+                ;
             }
+        }
+
+
+
+        public Composite Pullhim
+        {
+            get { return new Decorator(ret => !Me.Combat, DoPull); }
         }
 
         public Composite KillBoss
         {
             get
             {
-                return new Decorator(ret => Zah != null && !Zah.Dead, new PrioritySelector(TargetHim, DoDps));
+                return new Decorator(ret => Zah != null && !Zah.Dead, new PrioritySelector(TargetHim, Pullhim, Bots.Grind.LevelBot.CreateCombatBehavior()));
             }
         }
 
         protected override Composite CreateBehavior()
         {
-            return _root ?? (_root = new Decorator(ret => !_isBehaviorDone, new PrioritySelector(DoneYet, KillAdds, KillBoss)));
+            return _root ?? (_root = new Decorator(ret => !_isBehaviorDone, new PrioritySelector(DoneYet, KillAdds, KillBoss, new ActionAlwaysSucceed())));
         }
 
 
