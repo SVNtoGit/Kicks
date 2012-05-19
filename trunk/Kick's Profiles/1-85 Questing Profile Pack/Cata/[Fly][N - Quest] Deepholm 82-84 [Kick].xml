@@ -1448,13 +1448,22 @@
 			</If>
 		<TurnIn QuestName="Hard Falls" TurnInName="Terrath the Steady" QuestId="26657" TurnInId="42466" />
 		<TurnIn QuestName="Fragile Values" TurnInName="Terrath the Steady" QuestId="26658" TurnInId="42466" />
+			<If Condition="((!HasQuest(26657)) &amp;&amp; (!IsQuestCompleted(26657)))" >
+				<CustomBehavior File="FlyTo" X="2141.055" Y="1016.232" Z="133.577" />
+			</If>
 		<PickUp QuestName="Resonating Blow" QuestId="26659" GiverName="Terrath the Steady" GiverId="42466" />
 			<If Condition="((HasQuest(26659)) &amp;&amp; (!IsQuestCompleted(26659)))" >
+			 <If Condition="(!Me.IsOnTransport)" >
 				<CustomBehavior File="FlyTo" X="1958.72" Y="1388.78" Z="180.4252" />
 				<CustomBehavior File="ForcedDismount" />
+			  <While Condition="(!Me.IsOnTransport)" >
 				<UseItem QuestName="Resonating Blow" QuestId="26659" ItemId="60266" X="1958.72" Y="1388.78" Z="180.4252" />
-				<CustomBehavior File="WaitTimer" WaitTime="20000" />
+				<CustomBehavior File="WaitTimer" WaitTime="25000" />
+			  </While>
+			 </If>
+			 <If Condition="(Me.IsOnTransport)" >
 				<CustomBehavior File="ResonatingBlow" MobId="43641" QuestId="26659" />
+			 </If>
 			</If>
 		<TurnIn QuestName="Resonating Blow" TurnInName="Terrath the Steady" QuestId="26659" TurnInId="42466" />
 			<If Condition="(HasQuest(26577))" >

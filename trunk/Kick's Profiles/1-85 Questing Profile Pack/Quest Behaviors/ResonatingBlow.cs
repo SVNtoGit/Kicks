@@ -39,7 +39,7 @@ namespace Styx.Bot.Quest_Behaviors
                 QuestRequirementComplete = QuestCompleteRequirement.NotComplete;
                 QuestRequirementInLog = QuestInLogRequirement.InLog;
 
-        
+
             }
 
             catch (Exception except)
@@ -180,7 +180,7 @@ namespace Styx.Bot.Quest_Behaviors
             get
             {
                 return
-                    new Decorator( ret =>
+                    new Decorator(ret =>
                         (IsQuestComplete()),
                         new Sequence(new Action(ret => TreeRoot.StatusText = "Finished!"),
                                      new Action(delegate
@@ -219,33 +219,41 @@ namespace Styx.Bot.Quest_Behaviors
 
                         //target.Target();
                         target.Interact();
-                        lastguid = CurrentStone.Guid;
+                        try
+                        {
+                            lastguid = CurrentStone.Guid;
+                        }
+                        catch (NullReferenceException e)
+                        {
+                            lastguid = 0;
+                        }
+                        
                         //Navigator.MoveTo(target.Location);
                     }
                 });
             }
         }
-        
+
 
         public Composite NewStone
         {
             get
             {
                 return new Action(delegate
-                                      {
-                                          
-                                          if (Good.Count > 0)
-                                          {
-                                              Good[0].Interact();
-                                              lastguid = CurrentStone.Guid;
-                                          }
-                                          /*else if (Bad.Count > 0)
-                                          {
-                                              Bad[0].Interact();
-                                              lastguid = CurrentStone.Guid;
-                                          }*/
+                {
 
-                                      });
+                    if (Good.Count > 0)
+                    {
+                        Good[0].Interact();
+                        lastguid = CurrentStone.Guid;
+                    }
+                    /*else if (Bad.Count > 0)
+                    {
+                        Bad[0].Interact();
+                        lastguid = CurrentStone.Guid;
+                    }*/
+
+                });
             }
         }
 
@@ -296,7 +304,7 @@ namespace Styx.Bot.Quest_Behaviors
             // We had to defer this action, as the 'profile line number' is not available during the element's
             // constructor call.
             OnStart_HandleAttributeProblem();
-  
+
             // If the quest is complete, this behavior is already done...
             // So we don't want to falsely inform the user of things that will be skipped.
             if (!IsDone)
@@ -325,7 +333,7 @@ namespace Styx.Bot.Quest_Behaviors
 
 
 
- 
+
         }
 
 
