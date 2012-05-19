@@ -1297,29 +1297,6 @@
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="Nightmare" />
 			</If>
-				<!--
-				<CustomBehavior File="UserDialog" QuestId="27380" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill the brain!" />
-				<CustomBehavior File="NoCombatMoveTo" QuestId="27380" X="-2697.923" Y="-4989.122" Z="-128.8218" />
-				<CustomBehavior File="WaitTimer" QuestId="27380" WaitTime="2000"/>
-				<CustomBehavior File="InteractWith" QuestId="27380" MobId="47960" Range="39" WaitForNpcs="False" X="-2663.08" Y="-4984.941" Z="-128.8642" />
-				<CustomBehavior File="WaitTimer" QuestId="27380" WaitTime="2000"/>
-				-->
-				<!-- CC should take over and kill the brain, although we may want to kill the bloods if they are within 5 yards of us (and us not move at all) -->
-				<!-- we must not be mounted while on this quest!
-					I need a behavior that runs to yellow circle when we're at a % of acids ... or after a certain amount of time.  we also can't get back to our body if we die in here
-					<Objective QuestId="27380" QuestName="Nightmare" Type="KillMob" MobId="47960" KillCount="1"/>
-					If we die ... it's a long flight back!
-					
-					actually, i think we can stand at this hotspot for melee and casters and just kill the brain from here w/o a behavior at all!
-					<Hotspot X="-2697.923" Y="-4989.122" Z="-128.8218" /> // we can melee from this spot, which is exactly where Earthmender Duarn stands and keeps a bubble up most of the time!! woot
-					Information about Brain of Iso'rath
-					Name = Brain of Iso'rath
-					Wowhead Id = 47960
-					Faction = 16 [Monster]
-					Location = <-2663.08, -4984.941, -128.8642>
-
-					<Vendor Name="Brain of Iso'rath" Entry="47960" Type="Repair" X="-2663.08" Y="-4984.941" Z="-128.8642" />
-				-->
 			<If Condition="((HasQuest(27380)) &amp;&amp; (IsQuestCompleted(27380)))" >
 			 <If Condition="(Me.Z &lt;= 0)" >
 				<CustomBehavior File="WaitTimer" WaitTime="20000"/>
@@ -1472,6 +1449,9 @@
 		<TurnIn QuestId="28712" QuestName="Enter the Dragon Queen" TurnInId="49417" TurnInName="Lirastrasza"/>
 				<CustomBehavior File="WaitTimer" WaitTime="210000"/>
 			</If>
+			<If Condition="((!HasQuest(28758)) &amp;&amp; (!IsQuestCompleted(28758)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="-2699.601" Y="-3183.016" Z="179.0587" />
+			</If>
 		<PickUp GiverId="49810" QuestId="28758" GiverName="Calen" QuestName="Battle of Life and Death" X="-2699.601" Y="-3183.016" Z="179.0587" />
 			<If Condition="((HasQuest(28758)) &amp;&amp; (!IsQuestCompleted(28758)))" >
 			 <If Condition="(!Me.IsOnTransport)" >
@@ -1483,11 +1463,6 @@
 				<CustomBehavior File="LifeAndDeath" />
 			 </If>
 				<CustomBehavior File="WaitTimer" WaitTime="145000"/>
-				<!-- You control veh, veh has a fireball, heal, and one for when you're near the drake to kill it, similar to the hyjal quest
-				<CustomBehavior File="UserDialog" QuestId="28758" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="Kill 8 drakes\nTarget, press 1, it comes to you, press 3\n\nDon't go far, you have another quest to do" />
-					Basically, cast fireball on target, it comes to you, press finishing strike and it's dead.  very easy quest -->
-				<!-- Twilight Shadowdrake
-				<Objective QuestName="Battle of Life and Death" QuestId="28758" Type="KillMob" KillCount="8" MobId="49873" /> -->
 			</If>
 		<TurnIn QuestId="28758" QuestName="Battle of Life and Death" TurnInId="47605" TurnInName="Calen"/> 
 		<PickUp GiverId="47605" QuestId="28171" GiverName="Calen" QuestName="And the Sky Streaked Red"/>
