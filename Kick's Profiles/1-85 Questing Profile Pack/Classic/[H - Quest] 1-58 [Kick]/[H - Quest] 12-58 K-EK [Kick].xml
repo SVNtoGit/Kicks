@@ -4053,10 +4053,12 @@
 		<PickUp QuestName="A Curious Bloom" QuestId="24542" GiverName="Lane Tallgrass" GiverId="37515" />
 		<PickUp QuestName="Speaking Their Language" QuestId="24534" GiverName="Makaba Flathoof" GiverId="11857" />
 			<Objective QuestName="A Curious Bloom" QuestId="24542" Type="CollectItem" ItemId="49815" CollectCount="10" />
-			<If Condition="HasQuest(24534)">
+			<While Condition="((HasQuest(24534)) &amp;&amp; (!IsQuestCompleted(24534)))" >
 				<UseItem QuestId="24534" ItemId="49782" X="-1866.375" Y="-1831.175" Z="90.70908" />
-			</If>
-			<Objective QuestName="Speaking Their Language" QuestId="24534" Type="KillMob" MobId="37513" KillCount="1" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for item cd {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="37513" MobId="37513" WaitForNpcs="False" MobState="Alive" X="-1857.613" Y="-1839.783" Z="90.55158" />
+			</While>
+			<!-- <Objective QuestName="Speaking Their Language" QuestId="24534" Type="KillMob" MobId="37513" KillCount="1" /> -->
 		<TurnIn QuestName="Speaking Their Language" QuestId="24534" TurnInName="Makaba Flathoof" TurnInId="11857" />
 		<TurnIn QuestName="A Curious Bloom" QuestId="24542" TurnInName="Naralex" TurnInId="37570" />
 		<PickUp QuestName="Biological Intervention" QuestId="24565" GiverName="Naralex" GiverId="37570" />
