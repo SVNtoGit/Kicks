@@ -45,7 +45,7 @@ namespace Styx.Bot.Quest_Behaviors
                 QuestRequirementComplete = QuestCompleteRequirement.NotComplete;
                 QuestRequirementInLog = QuestInLogRequirement.InLog;
 
-
+                
             }
 
             catch (Exception except)
@@ -183,8 +183,11 @@ namespace Styx.Bot.Quest_Behaviors
                 case WoWClass.DeathKnight:
                     if (Me.GotAlivePet)
                         SetPetMode("Passive");
+                     spell = "Icy Touch";
+                     if (!SpellManager.CanCast(spell) && SpellManager.CanCast("Death Coil"))
+                         spell = "Death Coil";
 
-                    spell = "Dark Command";
+                   
                     break;
                 case WoWClass.Hunter:
                     if (Me.GotAlivePet)
@@ -207,7 +210,7 @@ namespace Styx.Bot.Quest_Behaviors
 
             }
 
-            if (!String.IsNullOrEmpty(spell))
+            if (!String.IsNullOrEmpty(spell) && SpellManager.CanCast(spell))
             {
                 SpellManager.Cast(spell);
             }
@@ -224,7 +227,7 @@ namespace Styx.Bot.Quest_Behaviors
 
             Logging.Write(string.Format("[Pet] Casting {0}", action));
             Lua.DoString("CastPetAction({0})", spell.ActionBarIndex + 1);
-
+            
         }
 
         bool IsObjectiveComplete(int objectiveId, uint questId)
@@ -249,7 +252,7 @@ namespace Styx.Bot.Quest_Behaviors
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 44683 && u.IsAlive ).OrderBy(u => u.Distance).FirstOrDefault();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 44683 && u.IsAlive && u.HealthPercent < 50).OrderBy(u => u.Distance).FirstOrDefault();
             }
         }
 
@@ -273,7 +276,7 @@ namespace Styx.Bot.Quest_Behaviors
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry != 44683 && u.IsHostile && u.IsAlive && !u.TaggedByMe && u.CurrentTarget != null && u.CurrentTarget != Me).OrderBy(u => u.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry != 44683 && u.IsHostile && u.IsAlive && !u.TaggedByMe && u.CurrentTarget != null && u.CurrentTarget != Me && u.HealthPercent < 50).OrderBy(u => u.Distance).ToList();
             }
         }
 
@@ -307,6 +310,22 @@ namespace Styx.Bot.Quest_Behaviors
         }
 
 
+
+        public Composite KillAttacker
+        {
+            get
+            {
+                return new Action(delegate
+                {
+                    Navigator.PlayerMover.MoveStop();
+                    AttackingMe.Target();
+                    AttackingMe.Face();
+                    PullMob();
+                });
+            }
+        }
+
+
         public Composite RagerStuff
         {
             get
@@ -317,11 +336,11 @@ namespace Styx.Bot.Quest_Behaviors
 
 
 
-        public Composite Aggroed
+        public Composite KillAttackers
         {
             get
             {
-                return new Decorator(r => Me.Combat && Aggroed != null, DoDps);
+                return new Decorator(r => Me.Combat && AttackingMe != null, KillAttacker);
             }
         }
 
@@ -330,28 +349,28 @@ namespace Styx.Bot.Quest_Behaviors
         {
             get
             {
-                return new Decorator(r => Tagged.Count < 3, PullOther);
+                return new Decorator(r => !IsObjectiveComplete(1, (uint)QuestId) && Tagged.Count < 3, PullOther);
             }
         }
 
 
         
-         WoWPoint endspot = new WoWPoint(1076.7,455.7638,-44.20478);
-        WoWPoint spot = new WoWPoint(1109.848,462.9017,-45.03053);
-
+         //WoWPoint endspot = new WoWPoint(1076.7,455.7638,-44.20478);
+       // WoWPoint spot = new WoWPoint(1109.848,462.9017,-45.03053);
+        WoWPoint spot = new WoWPoint(1104.14,467.4733,-44.5488);
+        
         public Composite StayClose
         {
             get
             {
-                return new Decorator(r => Me.Location.Distance(spot) > 5, new Action(r=>Navigator.MoveTo(spot)));
+                return new Sequence( new ActionDebugString("Too far, moving back to location"),new Decorator(r => Me.Location.Distance(spot) > 5, new Action(r=>WoWMovement.ClickToMove(spot))));
             }
         }
   
 
         protected override Composite CreateBehavior()
         {
-
-            return _root ?? (_root = new Decorator(ret => !_isBehaviorDone, new PrioritySelector(DoneYet, StayClose,RagerStuff, OtherStuff, new ActionAlwaysSucceed())));
+            return _root ?? (_root = new Decorator(ret => !_isBehaviorDone, new PrioritySelector(DoneYet,KillAttackers, StayClose,RagerStuff, OtherStuff, new ActionAlwaysSucceed())));
         }
 
         
