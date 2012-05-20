@@ -2078,10 +2078,8 @@
 			 </If>
 			 <If Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225)" >
 				<RunTo X="-675.6533" Y="2735.204" Z="93.90858" Name="Train Flying" />
-			  <If Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225)" >
 				<CustomBehavior File="UserDialog" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" Title="Get more Money." 
 				Text="You do not have the necessary amount of money to train 'Expert Riding' - please send some money; or farm for some money and continue when you have money" />
-			  </If>
 			 </If>
 			</While>
 		
@@ -2625,36 +2623,30 @@
 			<Checkpoint Level="64" />
 			
 			<!-- Training Flying -->
-			<If Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225) &amp;&amp; (Me.Gold &gt; 265)" >
+			<While Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225)" >
 				<CustomBehavior File="Message" Text="Compiling Train Flying" LogColor="Orange" />
 				<RunTo X="-675.6533" Y="2735.204" Z="93.90858" Name="Train Flying" />
-			  <If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 150">
-				<CustomBehavior File="InteractWith" MobId="35100" WaitTime="2000" CollectionDistance="50" X="-675.6533" Y="2735.204" Z="93.90858" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" />
-				<CustomBehavior File="ForceTrainRiding" MobId="35100" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" />
+			  <If Condition="(Me.Gold &gt;= 265)" >
+				<CustomBehavior File="InteractWith" MobId="35100" WaitTime="2000" CollectionDistance="50" X="-677.5347" Y="2736.305" Z="93.90835" />
+				<CustomBehavior File="ForceTrainRiding"  MobId="35100" />
 				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
+			   <If Condition="(!HasItem(25472))" >
+				<CustomBehavior File="InteractWith" MobId="35101" BuyItemId="25472" WaitTime="5000" CollectionDistance="50" X="-674.4774" Y="2743.128" Z="93.9173" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" />
+			   </If>
 			  </If>
-			  <If Condition="(Me.Gold &gt; 250)" >
-				<CustomBehavior File="InteractWith"  MobId="35100" WaitTime="2000" CollectionDistance="50" X="-675.6533" Y="2735.204" Z="93.90858" />
-				<CustomBehavior File="ForceTrainRiding" MobId="35100" />
-				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
-				<CustomBehavior File="InteractWith"  MobId="35101" BuyItemId="25472" WaitTime="5000" CollectionDistance="50" X="-675.6533" Y="2735.204" Z="93.90858" />
-			  </If>
-			  <If Condition="(Me.Gold &gt; 200)" >
-				<CustomBehavior File="InteractWith"  MobId="35100" WaitTime="2000" CollectionDistance="50" X="-675.6533" Y="2735.204" Z="93.90858" />
-				<CustomBehavior File="ForceTrainRiding" MobId="35100" />
-				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
-			  </If>
-				<If Condition="(HasItem(25472))" >
-					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25472)" />
-				</If>
-			</If>
-			<If Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225)" >
-				<!-- Mount is 40g, Training is 200g -->
+			 <If Condition="(HasItem(25472))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25472)" />
+			 </If>
+			 <If Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225)" >
+				<RunTo X="-675.6533" Y="2735.204" Z="93.90858" Name="Train Flying" />
 				<CustomBehavior File="UserDialog" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" Title="Get more Money." 
 				Text="You do not have the necessary amount of money to train 'Expert Riding' - please send some money; or farm for some money and continue when you have money" />
-			</If>
-			
+			 </If>
+			</While>
+		
 			<!-- Terrokar Forest Quests -->
 		<CustomBehavior File="Message" Text="Compiling Terrokar Forest Quests" LogColor="Green" />
 		<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" PullDistance="25" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
@@ -3214,36 +3206,29 @@
 		
 
 			<!-- Training Flying -->
-			<If Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225) &amp;&amp; (Me.Gold &gt; 265)" >
+			<While Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225)" >
 				<CustomBehavior File="Message" Text="Compiling Train Flying" LogColor="Orange" />
 				<RunTo X="-675.6533" Y="2735.204" Z="93.90858" Name="Train Flying" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" />
-			  <If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 150">
-				<CustomBehavior File="InteractWith"  MobId="35100" WaitTime="2000" CollectionDistance="50" X="-675.6533" Y="2735.204" Z="93.90858" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" />
+			  <If Condition="(Me.Gold &gt;= 265)" >
+				<CustomBehavior File="InteractWith" MobId="35100" WaitTime="2000" CollectionDistance="50" X="-677.5347" Y="2736.305" Z="93.90835" />
 				<CustomBehavior File="ForceTrainRiding"  MobId="35100" />
 				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
+			   <If Condition="(!HasItem(25472))" >
+				<CustomBehavior File="InteractWith" MobId="35101" BuyItemId="25472" WaitTime="5000" CollectionDistance="50" X="-674.4774" Y="2743.128" Z="93.9173" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" />
+			   </If>
 			  </If>
-			  <If Condition="(Me.Gold &gt; 250)" >
-				<CustomBehavior File="InteractWith"  MobId="35100" WaitTime="2000" CollectionDistance="50" X="-675.6533" Y="2735.204" Z="93.90858" />
-				<CustomBehavior File="ForceTrainRiding"  MobId="35100" />
-				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
-				<CustomBehavior File="InteractWith"  MobId="35101" BuyItemId="25472" WaitTime="5000" CollectionDistance="50" X="-675.6533" Y="2735.204" Z="93.90858" />
-			  </If>
-			  <If Condition="(Me.Gold &gt; 200)" >
-				<CustomBehavior File="InteractWith"  MobId="35100" WaitTime="2000" CollectionDistance="50" X="-675.6533" Y="2735.204" Z="93.90858" />
-				<CustomBehavior File="ForceTrainRiding"  MobId="35100" />
-				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
-			  </If>
-				<If Condition="(HasItem(25472))" >
-					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25472)" />
-				</If>
-			</If>
-			<If Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225)" >
-				<!-- Mount is 40g, Training is 200g -->
+			 <If Condition="(HasItem(25472))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25472)" />
+			 </If>
+			 <If Condition="(Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225)" >
+				<RunTo X="-675.6533" Y="2735.204" Z="93.90858" Name="Train Flying" />
 				<CustomBehavior File="UserDialog" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" Title="Get more Money." 
 				Text="You do not have the necessary amount of money to train 'Expert Riding' - please send some money; or farm for some money and continue when you have money" />
-			</If>
+			 </If>
+			</While>
 		
 		<!-- add in zangarmarsh 'get to neutral' questline
 			add in these quests for kurenai rep from zangarmarsh from ?? to neutral
