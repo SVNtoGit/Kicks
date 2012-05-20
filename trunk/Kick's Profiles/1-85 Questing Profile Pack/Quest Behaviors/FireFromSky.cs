@@ -156,7 +156,7 @@ namespace Styx.Bot.Quest_Behaviors
             get
             {
                 return
-                    ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.IsAlive && (u.Entry == 48713)).OrderByDescending(z => UnfriendlyUnitsNearTarget(10, z)).ToList();
+                    ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.IsAlive && (u.Entry == 48713)).OrderByDescending(z => UnfriendlyUnitsNearTarget(20, z)).ToList();
 					// (u.Entry == 48720 || u.Entry == 48713) changed to (u.Entry == 48720)
 
             }
@@ -194,13 +194,17 @@ namespace Styx.Bot.Quest_Behaviors
                                           Lua.DoString("CastPetAction(1);");
                                           //LegacySpellManager.ClickRemoteLocation(getEstimatedPosition(Enemies[0],7));
 
+                                           if (Enemies[0].Z <= 285)
+                                         {
+                                              LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 15));
+                                          }
 										  /*
 										  // bottom left
                                           if ((Enemies[0].Z >= 200) && (Enemies[0].Z <= 213))
                                           {
                                               LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 11));
                                           }
-										  */
+										  
 										  // middle left
                                           if ((Enemies[0].Z >= 219) && (Enemies[0].Z <= 228))
                                           {
@@ -223,7 +227,7 @@ namespace Styx.Bot.Quest_Behaviors
                                           {
                                               LegacySpellManager.ClickRemoteLocation(Enemies[0].Location.RayCast(Enemies[0].Rotation, 16));
                                           }
-										  */
+										  /
 										  // middle right
                                           else if ((Enemies[0].Z >= 244) && (Enemies[0].Z <= 253))
                                           {
@@ -246,7 +250,7 @@ namespace Styx.Bot.Quest_Behaviors
                                           }
 										  */
 										  
-                                          Logging.Write(UnfriendlyUnitsNearTarget(10,Enemies[0]).ToString());
+                                          Logging.Write(UnfriendlyUnitsNearTarget(20,Enemies[0]).ToString());
                                       });
             }
         }
