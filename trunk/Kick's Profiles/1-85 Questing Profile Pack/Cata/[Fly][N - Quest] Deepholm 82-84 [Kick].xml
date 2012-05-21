@@ -39,6 +39,14 @@
 		<Mob Name="Ogre Bodyguard" Entry="44879" />
 		<Mob Name="Millhouse Manastorm" Entry="44875" />
 	</AvoidMobs>
+
+	<Quest Id="27135" Name="Something that Burns">
+		<Objective Type="CollectItem" ItemId="60837" CollectCount="1">
+			<Hotspots>
+				<Hotspot X="819.162" Y="458.4616" Z="-68.24689" />
+			</Hotspots>
+		</Objective>
+	</Quest>	
 	
 	<Quest Id="27100" Name="Twilight Research">
 		<Objective Type="CollectItem" ItemId="60814" CollectCount="4">
@@ -280,14 +288,19 @@
 		<TurnIn QuestName="Where's Goldmine?" TurnInName="Initiate Goldmine" QuestId="26409" TurnInId="42574" />
 		<PickUp QuestName="Explosive Bonding Compound" GiverName="Initiate Goldmine" QuestId="26410" GiverId="42574" />
 		<PickUp QuestName="Something that Burns" GiverName="Initiate Goldmine" QuestId="27135" GiverId="42574" />
-			<If Condition="((HasQuest(27135)) &amp;&amp; (!IsQuestCompleted(27135)))" >
+			<While Condition="((HasQuest(27135)) &amp;&amp; (!IsQuestCompleted(27135)))" >
 				<CustomBehavior File="FlyTo" X="819.162" Y="458.4616" Z="-68.24689" />
 				<CustomBehavior File="ForcedDismount" />
+				
 				<RunTo X="819.162" Y="458.4616" Z="-68.24689" />
 				<UseItem QuestName="Something that Burns" QuestId="27135" ItemId="60834" X="819.162" Y="458.4616" Z="-68.24689" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000"/>
-				<Objective QuestName="Something that Burns" QuestId="27135" Type="Collect" CollectCount="1" ItemId="60837" />
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="15000" />
+				<CustomBehavior File="InteractWith" QuestId="27135" MobId="45099" WaitForNpcs="False" X="793.2027" Y="461.0776" Z="-67.34345" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" />
+				<CustomBehavior File="InteractWith" QuestId="27135" MobId="45099" WaitForNpcs="False" X="793.2027" Y="461.0776" Z="-67.34345" />
+				<!-- I need a behavior that gtfo's of fire -->
+				<!--<Objective QuestName="Something that Burns" QuestId="27135" Type="Collect" CollectCount="1" ItemId="60837" />-->
+			</While>
 			<If Condition="((HasQuest(26410)) &amp;&amp; (!IsQuestCompleted(26410)))" >
 				<CustomBehavior File="FlyTo" X="846.4485" Y="676.6024" Z="-69.31956" />
 				<CustomBehavior File="ForcedDismount" />
