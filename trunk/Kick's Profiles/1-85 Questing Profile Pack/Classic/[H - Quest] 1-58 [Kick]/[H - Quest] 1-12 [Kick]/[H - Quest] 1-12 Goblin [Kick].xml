@@ -738,7 +738,7 @@
  			<If Condition="((HasQuest(24741)) &amp;&amp; (!IsQuestCompleted(24741)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 			 <While Condition="((HasQuest(24741)) &amp;&amp; (!IsQuestCompleted(24741)))" >
-				<CustomBehavior File="UseItemOn" QuestId="24741" ItemId="50232" MobId="201972" Range="2" ObjectType="Gameobject" CollectionDistance="200" X="847.8337" Y="2072.448" Z="92.66414" />
+				<CustomBehavior File="UseItemOn" QuestId="24741" ItemId="50232" MobId="201972" Range="2" MobType="Gameobject" CollectionDistance="200" X="847.8337" Y="2072.448" Z="92.66414" />
 				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for raptor {TimeRemaining}" />
 				<CustomBehavior File="InteractWith" QuestId="24741" MobId="201974" WaitTime="2000" WaitForNpcs="False" ObjectType="Gameobject" CollectionDistance="200" X="847.8337" Y="2072.448" Z="92.66414" />
 			 </While>
@@ -854,8 +854,14 @@
 			<If Condition="((!HasQuest(24946)) &amp;&amp; (!IsQuestCompleted(24946)))" >
         <PickUp QuestName="Rockin' Powder" QuestId="24946" GiverName="Assistant Greely" GiverId="38124" />
 				<RunTo X="1470.38" Y="2043.042" Z="227.7328" />
+				<CustomBehavior File="Message" Text="Waiting for agro to clear for 1 minute" LogColor="Orange" />
+				<CustomBehavior File="WaitTimer" WaitTime="60000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 			</If>
 			<!-- These 3 quests need ... some help, but have been tweaked -->
+			<If Condition="(HasQuest(24946)) || (HasQuest(24945)) || (HasQuest(24942))" >
+				<CustomBehavior File="Message" Text="You may get stuck here - if so, do it manually; this is a bot issue - not a profile issue!" LogColor="Orange" />
+				<CustomBehavior File="UserSettings" LootMobs="False" />
+			</If>
 			<If Condition="((HasQuest(24946)) &amp;&amp; (!IsQuestCompleted(24946)))" >
 				<If Condition="!Me.HasAura(&quot;Super Booster Rocket Boots&quot;) &amp;&amp; (Me.Z &lt; 288)">
 					<CustomBehavior File="UserSettings" PullDistance="1" />
@@ -968,7 +974,7 @@
 				<If Condition="Me.HasAura(&quot;Super Booster Rocket Boots&quot;)">
 					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
 				</If>
-					<CustomBehavior File="UserSettings" PullDistance="25" />
+					<CustomBehavior File="UserSettings" PullDistance="25" LootMobs="True" />
 			</If>
 		<TurnIn QuestName="Zombies vs. Super Booster Rocket Boots" QuestId="24942" TurnInName="Coach Crosscheck" TurnInId="38738" />
         <TurnIn QuestName="Three Little Pygmies" QuestId="24945" TurnInName="Foreman Dampwick" TurnInId="36471" />

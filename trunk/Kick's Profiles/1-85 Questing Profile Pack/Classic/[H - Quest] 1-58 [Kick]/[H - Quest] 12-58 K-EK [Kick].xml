@@ -1615,7 +1615,7 @@
 	</Quest>
 	
 	
-	<QuestOrder IgnoreCheckPoints="False" >
+	<QuestOrder IgnoreCheckPoints="True" >
 			
 			 <If Condition="(Me.MapId == 1)" >
 			  <If Condition="(Me.Level &lt; 47)" >
@@ -2384,8 +2384,11 @@
 		
 		<!-- Begin Mount Procedure -->
 		<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue == 0 &amp;&amp; Me.Silver &gt;= 450" >
+			<CustomBehavior File="Message" Text="Compiling Mount Procedures" LogColor="Orange" />
+			 <If Condition="(Me.MapId == 1) &amp;&amp; (Me.ZoneId != 1637)" >
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" DoTrain="True" />
 				<RunTo X="1799.95" Y="-4370.14" Z="102.6434" />
-				<CustomBehavior File="Message" Text="Compiling Mount Procedures" LogColor="Orange" />
+			 </If>
 
 			<If Condition="Me.Race == WoWRace.Orc" >
 				<CustomBehavior File="ForceTrainRiding" MobId="4752" />
@@ -2432,12 +2435,11 @@
 			 <If Condition="(Me.MapId == 1)" >
 				<CustomBehavior File="UseTransport"
 								TransportId="164871"
-								WaitAtX="1838.676" WaitAtY="-4387.965" WaitAtZ="135.2332"
+								WaitAtX="1847.018" WaitAtY="-4391.375" WaitAtZ="135.564" 
+								StandOnX="1847.018" StandOnY="-4385.694" StandOnZ="135.0334" 
 								TransportStartX="1833.509" TransportStartY="-4391.543" TransportStartZ="152.7679"
 								TransportEndX="2062.376" TransportEndY="292.998" TransportEndZ="114.973"
-								StandOnX="1834.961" StandOnY="-4385.694" StandOnZ="135.0334" 
-								GetOffX="2066.773" GetOffY="288.873" GetOffZ="97.03159"
-								/>
+								GetOffX="2066.773" GetOffY="288.873" GetOffZ="97.03159" />
 			 </If>
 			 <If Condition="(Me.MapId == 0)" >
 				<CustomBehavior File="ForceTrainRiding" MobId="4773" />
@@ -2462,17 +2464,19 @@
 			 <If Condition="(Me.MapId == 1)" >
 				<CustomBehavior File="UseTransport"
 								TransportId="164871"
-								WaitAtX="1838.676" WaitAtY="-4387.965" WaitAtZ="135.2332"
+								WaitAtX="1847.018" WaitAtY="-4391.375" WaitAtZ="135.564" 
+								StandOnX="1847.018" StandOnY="-4385.694" StandOnZ="135.0334" 
 								TransportStartX="1833.509" TransportStartY="-4391.543" TransportStartZ="152.7679"
 								TransportEndX="2062.376" TransportEndY="292.998" TransportEndZ="114.973"
-								StandOnX="1834.961" StandOnY="-4385.694" StandOnZ="135.0334" 
 								GetOffX="2066.773" GetOffY="288.873" GetOffZ="97.03159" />
 			 </If>
 			 <If Condition="(Me.MapId == 0)" >
-					
 				<RunTo X="1805.877" Y="345.0006" Z="70.79002" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
+			 <While Condition="(Me.ZoneId == 85)" >
 				<CustomBehavior File="InteractWith" MobId="184503" ObjectType="Gameobject" Range="8" WaitTime="5000" X="1805.877" Y="345.0006" Z="70.79002" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for  {TimeRemaining}" />
+			 </While>
 				<CustomBehavior File="ForceTrainRiding" MobId="16280" />
 				<While Condition="!HasItem(29221)" >
 					<CustomBehavior File="InteractWith" MobId="16264" BuyItemId="29221" GossipOptions="1" WaitTime="5000" X="9244.59" Y="-7491.566" Z="36.91401"  />
@@ -2483,20 +2487,21 @@
 				</If>
 				<RunTo X="10021" Y="-7014" Z="49.71769"  />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
+			 <While Condition="(Me.ZoneId != 85)" >
 				<CustomBehavior File="InteractWith" MobId="184502" ObjectType="Gameobject" Range="8" X="10021" Y="-7014" Z="49.71769"  />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for  {TimeRemaining}" />
+			 </While>
 				<CustomBehavior File="UseTransport"
 								TransportId="164871"
 								WaitAtX="2070.155" WaitAtY="289.2588" WaitAtZ="97.0315" 
 								TransportStartX="2062.376" TransportStartY="292.998" TransportStartZ="114.973"
 								TransportEndX="1833.509" TransportEndY="-4391.543" TransportEndZ="152.7679"
 								StandOnX="2067.979" StandOnY="295.2747" StandOnZ="97.23677" 
-								GetOffX="1840.225" GetOffY="-4390.912" GetOffZ="135.2337" 
-								/>
+								GetOffX="1840.225" GetOffY="-4390.912" GetOffZ="135.2337" />
 			 </If>
 			</If>
 
 				<CustomBehavior File="Message" Text="Force Sell, Repair, Mail, Train Initiated - Do not interrupt the bot!" LogColor="Orange" />
-				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" DoTrain="True" />
 		</If>
 		
 		<CustomBehavior File="UserSettings" UseMount="True" />
@@ -2641,6 +2646,9 @@
 
 	
 			<If Condition="(!IsQuestCompleted(13962))" >
+			 <If Condition="(Me.MapId == 0)" >
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="something bad happened, please hearth to orgrimmar or use the zepp to orgrimmar!" />
+			</If>
 			<!-- The Mor'shan Rampart Quests -->
 			<CustomBehavior File="Message" Text="Compiling The Mor'shan Rampart Quests" LogColor="Cornflowerblue" />
 		
