@@ -37,7 +37,7 @@ namespace HighVoltz
 		public static string name { get { return "NetherwingCollector " + _version.ToString(); } }
 		public override string Name { get { return name; } }
 		public override string Author { get { return "HighVoltz"; } }
-		private readonly static Version _version = new Version(1, 8);
+		private readonly static Version _version = new Version(1, 9);
 		public override Version Version { get { return _version; } }
 		public override string ButtonText { get { return "NetherwingCollector"; } }
 		public override bool WantButton { get { return false; } }
@@ -113,8 +113,10 @@ namespace HighVoltz
                 // wait for lootframe to close
                 lootTimer.Reset();
                 lootTimer.Start();
+                Lua.DoString("StaticPopup1Button1:Click()");
                 while (LootFrame.Instance != null && LootFrame.Instance.IsVisible )
                 {
+                    
                     Thread.Sleep(100);
                     if (lootTimer.ElapsedMilliseconds > 5000)
                     {
