@@ -2442,15 +2442,20 @@
 				<RunTo X="4526.271" Y="-4722.742" Z="886.7787" />
 			</If>
 			<If Condition="((HasQuest(25308)) &amp;&amp; (!IsQuestCompleted(25308)))" >
-				<CustomBehavior File="FlyTo" DestName="kill Azennios" X="4775.764" Y="-4247.988" Z="891.949" />
+				<CustomBehavior File="FlyTo" DestName="kill Azennios" X="4831.854" Y="-4231.888" Z="895.1534" />
 				<CustomBehavior File="ForcedDismount" />
-				<Runto QuestId="25308" X="4786.195" Y="-4232.849" Z="893.3254" />
-				<CustomBehavior File="RunMacro" Macro="/cancelaura cat form\n/cancelaura bear form\n/cancelaura travel form\n/cancelaura ghost wolf" />
+			 <While Condition="((HasQuest(25308)) &amp;&amp; (!IsQuestCompleted(25308)))" >
+				<Runto QuestId="25308" X="4833.147" Y="-4218.988" Z="894.0121" />
+				<CustomBehavior QuestId="25308" File="RunMacro" Macro="/cancelaura cat form\n/cancelaura bear form\n/cancelaura travel form\n/cancelaura ghost wolf" />
 				<UseItem QuestName="Seeds of Discord" QuestId="25308" ItemId="55137" X="4833.147" Y="-4218.988" Z="894.0121" />
 				
+				<RunTo QuestId="25308" X="4807.945" Y="-4182.254" Z="897.5319" />
 				<CustomBehavior File="InteractWith" QuestId="25308" MobId="40489" NumOfTimes="1" GossipOptions="1" WaitTime="5000" CollectionDistance="200" X="4807.945" Y="-4182.254" Z="897.5319" />
-				<CustomBehavior File="InteractWith" QuestId="25308" MobId="40491" NumOfTimes="1" GossipOptions="1" WaitTime="5000" CollectionDistance="200" X="4807.945" Y="-4182.254" Z="897.5319" />
-				<Objective QuestName="Seeds of Discord" QuestId="25308" Type="KillMob" MobId="40491" KillCount="1" />
+				<CustomBehavior File="InteractWith" QuestId="25308" MobId="40491" NumOfTimes="1" GossipOptions="1" WaitTime="5000" WaitForNpcs="False" CollectionDistance="200" X="4807.945" Y="-4182.254" Z="897.5319" />
+				<CustomBehavior QuestId="25308" File="WaitTimer" WaitTime="4000" GoalText="Waiting for item cd {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="25308" MobId="40491" NumOfTimes="1" GossipOptions="1" WaitTime="5000" WaitForNpcs="False" CollectionDistance="200" X="4807.945" Y="-4182.254" Z="897.5319" />
+			</While>
+				<!--<Objective QuestName="Seeds of Discord" QuestId="25308" Type="KillMob" MobId="40491" KillCount="1" />-->
 				<CustomBehavior File="RunMacro" Macro="/cancelaura Seeds of Discord" NumOfTimes="1" WaitTime="1000" />
 			</If>
 			<If Condition="((HasQuest(25494)) &amp;&amp; (!IsQuestCompleted(25494)))" >
