@@ -6416,6 +6416,7 @@
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3447.371" Y="2010.776" Z="70.01018" />
 				<CustomBehavior File="ForcedDismount" />
 		<TurnIn QuestName="Strengthen the Ancients" QuestId="12092" TurnInName="Sarendryana" TurnInId="26837" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 			</If>
 			<If Condition="((HasQuest(12083)) &amp;&amp; (IsQuestCompleted(12083)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3498.927" Y="1999.767" Z="65.07062" />
@@ -6440,18 +6441,21 @@
 		<PickUp QuestName="The End of the Line" QuestId="12107" GiverName="Mage-Commander Evenstar" GiverId="26873" />
 			</If>
 			<While Condition="((HasQuest(12107)) &amp;&amp; (!IsQuestCompleted(12107)))" >
-			 <If Condition="((HasQuest(12107)) &amp;&amp; (!IsObjectiveComplete(1, 12107)))">
+			 <While Condition="((HasQuest(12107)) &amp;&amp; (!IsObjectiveComplete(1, 12107)))">
+			  <If Condition="(Me.Y &lt;= 1409) &amp;&amp; (Me.Y &gt;= 1344)">
 				<CustomBehavior File="MyCTM" X="3075.246" Y="1371.93" Z="146.874" />
 				<CustomBehavior File="MyCTM" X="3056.683" Y="1390.501" Z="124.5216" />
 				<CustomBehavior File="MyCTM" X="3054.746" Y="1407.988" Z="125.1827" />
 				<CustomBehavior File="MyCTM" X="3056.853" Y="1399.232" Z="122.9392" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-				<UseItem QuestName="The End of the Line" QuestId="12107" ItemId="36815" X="3056.853" Y="1399.232" Z="122.9392" />
+				<UseItem QuestName="The End of the Line" QuestId="12110" ItemId="36815" X="3056.853" Y="1399.232" Z="122.9392" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for objective to complete {TimeRemaining}" />
 				<CustomBehavior File="MyCTM" X="3075.627" Y="1372.794" Z="132.3547" />
 				<CustomBehavior File="MyCTM" X="3075.246" Y="1371.93" Z="146.874" />
+				<CustomBehavior File="AscendInWater" />
+			  </If>
 				<RunTo X="3121.376" Y="1345.549" Z="148.8011" />
-			 </If>
+			 </While>
 				
 			 <If Condition="((HasQuest(12107)) &amp;&amp; (!IsObjectiveComplete(2, 12107)))">
 				<CustomBehavior File="FlyTo" DestName="Azure Dragonshrine" Distance="2" X="3084.562" Y="643.8665" Z="83.92097" />
