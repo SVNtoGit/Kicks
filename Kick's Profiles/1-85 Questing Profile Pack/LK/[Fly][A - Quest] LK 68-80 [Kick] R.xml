@@ -8723,27 +8723,17 @@
 		<PickUp QuestName="Put on Your Best Face for Loken" QuestId="12185" GiverName="Mountaineer Kilian" GiverId="26885" />
 			</If>
 			<If Condition="((HasQuest(12138)) &amp;&amp; (!IsQuestCompleted(12138)))" >
-				<CustomBehavior File="FlyTo" DestName="Objective" X="3685.013" Y="-5224.242" Z="129.2888" />
+				<CustomBehavior File="FlyTo" X="3744.688" Y="-5007.142" Z="123.4988" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(36936)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" WaitTime="1000" NumOfTimes="1" Lua="UseItemByName(36936)" />
 				
-					<SetGrindArea>
-						<GrindArea>
-							<Factions>1954</Factions>
-							<Hotspots>
-								<Hotspot X="3685.013" Y="-5224.242" Z="129.2888" />
-								<Hotspot X="3561.698" Y="-5276.881" Z="151.251" />
-								<Hotspot X="3519.732" Y="-5320.411" Z="158.1293" />
-								<Hotspot X="3605.437" Y="-5212.12" Z="157.2613" />
-								<Hotspot X="3577.539" Y="-5193.344" Z="170.5663" />
-								<Hotspot X="3672.701" Y="-5147.803" Z="145.4411" />
-								<Hotspot X="3720.982" Y="-5086.617" Z="128.2766" />
-								<Hotspot X="3716.245" Y="-5034.616" Z="131.3439" />
-							</Hotspots>
-						</GrindArea>
-					</SetGrindArea>
-				<GrindTo Condition="IsQuestCompleted(12138)" GoalText="Getting Charges (Resummon pet if you're stuck)" />
+			 <While Condition="HasQuest(12138) &amp;&amp; !IsQuestCompleted(12138)">
+				<CustomBehavior File="InteractWith" MobId="26407" MobState="Alive" WaitForNpcs="False" IgnoreCombat="True" NumOfTimes="1" CollectionDistance="1000" X="3744.688" Y="-5007.142" Z="123.4988" />
+				<CustomBehavior File="InteractWith" MobId="26407" MobState="Alive" WaitForNpcs="False" IgnoreCombat="True" NumOfTimes="1" CollectionDistance="1000" X="3670.754" Y="-5077.712" Z="162.0777" />
+				<CustomBehavior File="InteractWith" MobId="26407" MobState="Alive" WaitForNpcs="False" IgnoreCombat="True" NumOfTimes="1" CollectionDistance="1000" X="3625.567" Y="-4968.69" Z="178.4634" />
+				<!-- This is if the golem is no longer in our presence, basically just making sure he's out. -->
+				<CustomBehavior File="Misc\RunLua" WaitTime="1000" NumOfTimes="2" Lua="UseItemByName(36936)" />
+			 </While>
 			</If>
 			<If Condition="((HasQuest(12185)) &amp;&amp; (!IsQuestCompleted(12185)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="3424.229" Y="-5345.083" Z="278.5471" />
@@ -9980,10 +9970,10 @@
 			<!-- End of Nesingwary Base Camp Quests -->
 			
 			<!-- Frenzyheart Hill Quests -->
-				<CustomBehavior File="Message" Text="Compiling Frenzyheart Hill Quests" LogColor="Cornflowerblue" />
+			<CustomBehavior File="Message" Text="Compiling Frenzyheart Hill Quests" LogColor="Cornflowerblue" />
 
 			<If Condition="(!IsQuestCompleted(12539))" >
-	  <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" ExpiryTime="30" ExpiryAction="InputEnabled_Continue" SoundCueInterval="2" Text="Make sure you're using the ItemForAura Plugin\n\n1-85 Questing / Plugins\n\nDiese Meldung ist nur eine Warnung udn wird in 30 Sekunden automatisch geschlossen" />
+				<CustomBehavior File="EnablePlugin" Names="Questhelper - ItemForAura" />
 			</If>
 
 			<If Condition="((!HasQuest(12528)) &amp;&amp; (!IsQuestCompleted(12528)))" >
