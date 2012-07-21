@@ -2212,15 +2212,21 @@
 			<Objective QuestName="Ignition" QuestId="858" Type="CollectItem" ItemId="5050" CollectCount="1" />
 			<Objective QuestName="Competition Schmompetition" QuestId="29086" Type="CollectItem" ItemId="68820" CollectCount="6" />
 		<TurnIn QuestName="Ignition" QuestId="858" TurnInName="Wizzlecrank's Shredder" TurnInId="3439" />
+			<If Condition="((HasQuest(863)) &amp;&amp; (!IsQuestCompleted(863)))" >
+				<CustomBehavior File="AbandonQuest" QuestId="863" Type="Failed" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to abandon {TimeRemaining}" />
+			 </If>
 		<PickUp QuestName="The Escape" QuestId="863" GiverName="Wizzlecrank's Shredder" GiverId="3439" />
 			<While Condition="((HasQuest(863)) &amp;&amp; (!IsQuestCompleted(863)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
-				<CustomBehavior File="Escort" QuestId="863" MobId="3439" X="1106.418" Y="-3104.472" Z="82.7077" />
+				<!--<CustomBehavior File="Escort" QuestId="863" MobId="3439" X="1106.418" Y="-3104.472" Z="82.7077" />-->
+				<CustomBehavior File="Escort" EscortUntil="DestinationReached" MobId="3439" X="1106.418" Y="-3104.472" Z="82.7077" EscortDestX="-3366.18" EscortDestY="-3210.385" EscortDestZ="33.81284" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="UserSettings" PullDistance="25" />
+				<CustomBehavior File="WaitTimer" WaitTime="60000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			 <If Condition="((HasQuest(863)) &amp;&amp; (!IsQuestCompleted(863)))" >
-				<CustomBehavior File="AbandonQuest" QuestId="863" Type="Failed" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to abandon {TimeRemaining}" />
+				<CustomBehavior File="AbandonQuest" QuestId="863" Type="Incomplete" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to abandon {TimeRemaining}" />
 		<PickUp QuestName="The Escape" QuestId="863" GiverName="Wizzlecrank's Shredder" GiverId="3439" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for bot {TimeRemaining}" />
 			 </If>
