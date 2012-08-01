@@ -2343,13 +2343,19 @@
 			<If Condition="((HasQuest(25296)) &amp;&amp; (!IsQuestCompleted(25296)))" >
 				<CustomBehavior File="FlyTo" DestName="get Communique" X="4633.013" Y="-4735.779" Z="885.2772" />
 				<CustomBehavior File="ForcedDismount" />
-				<Objective QuestName="Gather the Intelligence" QuestId="25296" Type="CollectItem" ItemId="52724" CollectCount="1" />
+				<!--<Objective QuestName="Gather the Intelligence" QuestId="25296" Type="CollectItem" ItemId="52724" CollectCount="1" />-->
+			 <While Condition="((HasQuest(25296)) &amp;&amp; (!IsObjectiveComplete(1, 25296)))">
+				<RunTo X="4629.257" Y="-4733.011" Z="884.0151" />
+				<CustomBehavior File="InteractWith" QuestId="25296" MobId="202968" ObjectType="Gameobject" Range="8" NumOfTimes="1" CollectionDistance="1000" X="4628.498" Y="-4730.383" Z="883.8047" />
 				<RunTo X="4633.013" Y="-4735.779" Z="885.2772" />
+			 </While>
 				
 				<CustomBehavior File="FlyTo" DestName="get Battleplans" X="4726.192" Y="-4826.178" Z="885.3476" />
 				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(25296)) &amp;&amp; (!IsObjectiveComplete(1, 25296)))">
 				<Objective QuestName="Gather the Intelligence" QuestId="25296" Type="CollectItem" ItemId="52725" CollectCount="1" />
 				<RunTo X="4726.192" Y="-4826.178" Z="885.3476" />
+			 </While>
 				
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
