@@ -1,5 +1,5 @@
 <HBProfile>
-	<Name>Stromgarde Keep</Name>
+	<Name>[H] Stromgarde Keep</Name>
 	
 	<Blackspots>
 		<Blackspot X="-1584.592" Y="-1814.036" Z="69.34252" Radius="3.365977" />
@@ -16,17 +16,18 @@
     </Blackspots>
 	
 	<Vendors>
-		<Vendor Name="Jannos Ironwill" Entry="1471" Type="Repair" X="-1257.819" Y="-2546.45" Z="21.45417" /> <!-- Refuge Point -->
+		<Vendor Name="Mu'uta" Entry="9555" Type="Repair" X="-933.8503" Y="-3477.469" Z="51.30421" /> <!-- Hammer Fall -->
 	</Vendors>
 	
   
   <QuestOrder>
-	  <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" ExpiryTime="5" ExpiryAction="InputEnabled_Continue" UseMount="False" SoundCueInterval="1" Text="This profile is not meant to be AFK'd for a long period of time" />
 				<CustomBehavior File="UserSettings" LootMobs="False" PullDistance="20" TrainNewSkills="False" LearnFlightPaths="False" />
 	
-			<If Condition="Me.ZoneId != 45" >
-		<CustomBehavior File="FlyTo" X="-1567.931" Y="-1805.492" Z="67.17797" />
-			</If>
+		<While Condition="true" >
+		
+			<If Condition="(Me.FreeBagSlots &gt; 4) || (Me.LowestDurabilityPercent &gt; 20.0)" >
+				<CustomBehavior File="FlyTo" X="-1567.931" Y="-1805.492" Z="67.17797" />
+				<CustomBehavior File="ForcedDismount" />
 		
 				<SetGrindArea>
 					<GrindArea>
@@ -48,7 +49,24 @@
 						</Hotspots>
 					</GrindArea>
 				</SetGrindArea>
-			<GrindTo Condition="False" GoalText="Ravenholdt Rep" />
+			<GrindTo Condition="(Me.FreeBagSlots &lt;= 4) || (Me.LowestDurabilityPercent &lt; 20.0)" GoalText="Farming" />
+			</If>
+		
+			<If Condition="(Me.FreeBagSlots &lt;= 4) || (Me.LowestDurabilityPercent &lt;= 20.0)" >
+			
+				<CustomBehavior File="Message" Text="Doing a vendor run at Hammerfall" LogColor="Red" />
+				
+				<CustomBehavior File="FlyTo" Name="Repair Run" X="-933.8503" Y="-3477.469" Z="51.30421" />
+				<CustomBehavior File="ForcedDismount" />
+
+				<CustomBehavior File="ForceSetVendor" DoMail="True" DoSell="True" DoRepair="True" DoTrain="False" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
+				
+			</If>
+			
+		</While>
+			
+			
 
   </QuestOrder>
 
