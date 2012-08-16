@@ -1,4 +1,4 @@
-			// Behavior originally contributed by Natfoth.
+// Behavior originally contributed by Natfoth.
 //
 // WIKI DOCUMENTATION:
 //     http://www.thebuddyforum.com/mediawiki/index.php?title=Honorbuddy_Custom_Behavior:_CastSpellOn
@@ -42,34 +42,34 @@ namespace Styx.Bot.Quest_Behaviors
 {
     public class CastSpellOn : CustomForcedBehavior
     {
-        public CastSpellOn(Dictionary&lt;string, string&gt; args)
+        public CastSpellOn(Dictionary<string, string> args)
             : base(args)
         {
             try
             {
-                Location = GetAttributeAsNullable&lt;WoWPoint&gt;(&quot;&quot;, false, ConstrainAs.WoWPointNonEmpty, null) ?? Me.Location;
-                MinRange = GetAttributeAsNullable&lt;double&gt;(&quot;MinRange&quot;, false, ConstrainAs.Range, null) ?? 3;
-                MobHpPercentLeft = GetAttributeAsNullable&lt;double&gt;(&quot;MobHpPercentLeft&quot;, false, ConstrainAs.Percent, new[] { &quot;HpLeftAmount&quot; }) ?? 110;
-                MobIds = GetNumberedAttributesAsArray&lt;int&gt;(&quot;MobId&quot;, 1, ConstrainAs.MobId, new[] { &quot;NpcId&quot; });
-                NumOfTimes = GetAttributeAsNullable&lt;int&gt;(&quot;NumOfTimes&quot;, false, ConstrainAs.RepeatCount, null) ?? 1;
-                QuestId = GetAttributeAsNullable&lt;int&gt;(&quot;QuestId&quot;, false, ConstrainAs.QuestId(this), null) ?? 0;
-                QuestRequirementComplete = GetAttributeAsNullable&lt;QuestCompleteRequirement&gt;(&quot;QuestCompleteRequirement&quot;, false, null, null) ?? QuestCompleteRequirement.NotComplete;
-                QuestRequirementInLog = GetAttributeAsNullable&lt;QuestInLogRequirement&gt;(&quot;QuestInLogRequirement&quot;, false, null, null) ?? QuestInLogRequirement.InLog;
-                Range = GetAttributeAsNullable&lt;double&gt;(&quot;Range&quot;, false, ConstrainAs.Range, null) ?? 25;
-                SpellIds = GetNumberedAttributesAsArray&lt;int&gt;(&quot;SpellId&quot;, 1, ConstrainAs.SpellId, null);
-                //SpellId = GetAttributeAsNullable&lt;int&gt;(&quot;SpellId&quot;, false, ConstrainAs.SpellId, null) ?? 0;
-                SpellName = GetAttributeAs&lt;string&gt;(&quot;SpellName&quot;, false, ConstrainAs.StringNonEmpty, new[] { &quot;spellname&quot; }) ?? &quot;&quot;;
+                Location = GetAttributeAsNullable<WoWPoint>("", false, ConstrainAs.WoWPointNonEmpty, null) ?? Me.Location;
+                MinRange = GetAttributeAsNullable<double>("MinRange", false, ConstrainAs.Range, null) ?? 3;
+                MobHpPercentLeft = GetAttributeAsNullable<double>("MobHpPercentLeft", false, ConstrainAs.Percent, new[] { "HpLeftAmount" }) ?? 110;
+                MobIds = GetNumberedAttributesAsArray<int>("MobId", 1, ConstrainAs.Milliseconds, new[] { "NpcId" });
+                NumOfTimes = GetAttributeAsNullable<int>("NumOfTimes", false, ConstrainAs.RepeatCount, null) ?? 1;
+                QuestId = GetAttributeAsNullable<int>("QuestId", false, ConstrainAs.QuestId(this), null) ?? 0;
+                QuestRequirementComplete = GetAttributeAsNullable<QuestCompleteRequirement>("QuestCompleteRequirement", false, null, null) ?? QuestCompleteRequirement.NotComplete;
+                QuestRequirementInLog = GetAttributeAsNullable<QuestInLogRequirement>("QuestInLogRequirement", false, null, null) ?? QuestInLogRequirement.InLog;
+                Range = GetAttributeAsNullable<double>("Range", false, ConstrainAs.Range, null) ?? 25;
+                SpellIds = GetNumberedAttributesAsArray<int>("SpellId", 1, ConstrainAs.SpellId, null);
+                //SpellId = GetAttributeAsNullable<int>("SpellId", false, ConstrainAs.SpellId, null) ?? 0;
+                SpellName = GetAttributeAs<string>("SpellName", false, ConstrainAs.StringNonEmpty, new[] { "spellname" }) ?? "";
 
                 Counter = 1;
 
                 // Semantic checks
-                if (Range &lt;= MinRange)
+                if (Range <= MinRange)
                 {
-                    LogMessage(&quot;fatal&quot;, &quot;\&quot;Range\&quot; attribute must be greater than \&quot;MinRange\&quot; attribute.&quot;);
+                    LogMessage("fatal", "\"Range\" attribute must be greater than \"MinRange\" attribute.");
                     IsAttributeProblem = true;
                 }
 
-                SpellId = SpellIds.FirstOrDefault(id =&gt; SpellManager.HasSpell(id));
+                SpellId = SpellIds.FirstOrDefault(id => SpellManager.HasSpell(id));
 
                 foreach (int i in SpellIds)
                 {
@@ -93,9 +93,9 @@ namespace Styx.Bot.Quest_Behaviors
                 // * The Honorbuddy core was changed, and the behavior wasn't adjusted for the new changes.
                 // In any case, we pinpoint the source of the problem area here, and hopefully it
                 // can be quickly resolved.
-                LogMessage(&quot;error&quot;, &quot;BEHAVIOR MAINTENANCE PROBLEM: &quot; + except.Message
-                                    + &quot;\nFROM HERE:\n&quot;
-                                    + except.StackTrace + &quot;\n&quot;);
+                LogMessage("error", "BEHAVIOR MAINTENANCE PROBLEM: " + except.Message
+                                    + "\nFROM HERE:\n"
+                                    + except.StackTrace + "\n");
                 IsAttributeProblem = true;
             }
         }
@@ -124,21 +124,21 @@ namespace Styx.Bot.Quest_Behaviors
         // Private properties
         private int Counter { get; set; }
         private LocalPlayer Me { get { return (ObjectManager.Me); } }
-        public List&lt;WoWUnit&gt; MobList
+        public List<WoWUnit> MobList
         {
             get
             {
-                if (MobHpPercentLeft &gt; 0)
+                if (MobHpPercentLeft > 0)
                 {
-                    return (ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;()
-                                         .Where(u =&gt; MobIds.Contains((int)u.Entry) &amp;&amp; !u.Dead &amp;&amp; u.HealthPercent &lt;= MobHpPercentLeft)
-                                         .OrderBy(u =&gt; u.Distance).ToList());
+                    return (ObjectManager.GetObjectsOfType<WoWUnit>()
+                                         .Where(u => MobIds.Contains((int)u.Entry) && !u.Dead && u.HealthPercent <= MobHpPercentLeft)
+                                         .OrderBy(u => u.Distance).ToList());
                 }
                 else
                 {
-                    return (ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;()
-                                         .Where(u =&gt; MobIds.Contains((int)u.Entry) &amp;&amp; !u.Dead)
-                                         .OrderBy(u =&gt; u.Distance).ToList());
+                    return (ObjectManager.GetObjectsOfType<WoWUnit>()
+                                         .Where(u => MobIds.Contains((int)u.Entry) && !u.Dead)
+                                         .OrderBy(u => u.Distance).ToList());
                 }
             }
         }
@@ -163,8 +163,8 @@ namespace Styx.Bot.Quest_Behaviors
         }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return (&quot;$Id$&quot;); } }
-        public override string SubversionRevision { get { return (&quot;$Revision$&quot;); } }
+        public override string SubversionId { get { return ("$Id: CastSpellOn.cs 236 2012-08-16 02:37:27Z natfoth $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 236 $"); } }
 
 
         ~CastSpellOn()
@@ -202,13 +202,16 @@ namespace Styx.Bot.Quest_Behaviors
         {
             get
             {
-                return new Action(c =&gt;
+                return new Action(c =>
                 {
-                    if (SpellId &gt; 0)
+                    if (SpellId > 0)
                     {
 
-                        MobList[0].Target();
-                        MobList[0].Face();
+                        if (!CastSelf)
+                        {
+                            MobList[0].Target();
+                            MobList[0].Face();
+                        }
                         Thread.Sleep(300);
                         SpellManager.Cast(SpellId);
 
@@ -233,11 +236,11 @@ namespace Styx.Bot.Quest_Behaviors
         {
             return new PrioritySelector(
                 new Decorator(
-                    ret =&gt; !IsDone &amp;&amp; StyxWoW.Me.IsAlive,
+                    ret => !IsDone && StyxWoW.Me.IsAlive,
                     new PrioritySelector(
-                        new Decorator(ret =&gt; Counter &gt; NumOfTimes &amp;&amp; QuestId == 0,
+                        new Decorator(ret => Counter > NumOfTimes && QuestId == 0,
                                         new Sequence(
-                                            new Action(ret =&gt; TreeRoot.StatusText = &quot;Finished!&quot;),
+                                            new Action(ret => TreeRoot.StatusText = "Finished!"),
                                             new WaitContinue(120,
                                                 new Action(delegate
                                                 {
@@ -245,55 +248,55 @@ namespace Styx.Bot.Quest_Behaviors
                                                     return RunStatus.Success;
                                                 }))
                                             )),
-                        new DecoratorContinue(ret =&gt; CastSelf,
+                        new DecoratorContinue(ret => CastSelf,
                                     new Sequence(
-                                        new Action(ret =&gt; TreeRoot.StatusText = &quot;Casting Spell - &quot; + SpellId + &quot; On Mob: &quot; + MobList[0].Name + &quot; Yards Away &quot; + MobList[0].Location.Distance(Me.Location)),
-                                        new Action(ret =&gt; WoWMovement.MoveStop()),
-                                        new Action(ret =&gt; Thread.Sleep(300)),
+                                        new Action(ret => TreeRoot.StatusText = "Casting Spell - " + SpellId + " On Mob: Myself"),
+                                        new Action(ret => WoWMovement.MoveStop()),
+                                        new Action(ret => Thread.Sleep(300)),
                                         CreateSpellBehavior
                                         )
                                 ),
 
-                        new Decorator(ret =&gt; MobList.Count &gt; 0 &amp;&amp; !Me.IsCasting &amp;&amp; SpellManager.CanCast(SpellId),
+                        new Decorator(ret => MobList.Count > 0 && !Me.IsCasting && SpellManager.CanCast(SpellId),
                             new Sequence(
-                                   new DecoratorContinue(ret =&gt; MobList[0].Location.Distance(Me.Location) &gt;= maxSpellRange || !MobList[0].InLineOfSpellSight,
+                                   new DecoratorContinue(ret => MobList[0].Location.Distance(Me.Location) >= maxSpellRange || !MobList[0].InLineOfSpellSight,
                                     new Sequence(
-                                        new Action(ret =&gt; TreeRoot.StatusText = &quot;Moving To Mob - &quot; + MobList[0].Name + &quot; Yards Away: &quot; + MobList[0].Location.Distance(Me.Location)),
-                                        new Action(ret =&gt; Navigator.MoveTo(MobList[0].Location))
+                                        new Action(ret => TreeRoot.StatusText = "Moving To Mob - " + MobList[0].Name + " Yards Away: " + MobList[0].Location.Distance(Me.Location)),
+                                        new Action(ret => Navigator.MoveTo(MobList[0].Location))
                                         )
                                 ),
-                                new DecoratorContinue(ret =&gt; MobList.Count &gt; 0 &amp;&amp; !Me.IsCasting &amp;&amp; SpellManager.CanCast(SpellId, MobList[0]),
+                                new DecoratorContinue(ret => MobList.Count > 0 && !Me.IsCasting && SpellManager.CanCast(SpellId, MobList[0]),
                                     new Sequence(
-                                           new DecoratorContinue(ret =&gt; MobList[0].Location.Distance(Me.Location) &gt;= maxSpellRange || !MobList[0].InLineOfSpellSight,
+                                           new DecoratorContinue(ret => MobList[0].Location.Distance(Me.Location) >= maxSpellRange || !MobList[0].InLineOfSpellSight,
                                             new Sequence(
-                                                new Action(ret =&gt; TreeRoot.StatusText = &quot;Moving To Mob - &quot; + MobList[0].Name + &quot; Yards Away: &quot; + MobList[0].Location.Distance(Me.Location)),
-                                                new Action(ret =&gt; Navigator.MoveTo(MobList[0].Location))
+                                                new Action(ret => TreeRoot.StatusText = "Moving To Mob - " + MobList[0].Name + " Yards Away: " + MobList[0].Location.Distance(Me.Location)),
+                                                new Action(ret => Navigator.MoveTo(MobList[0].Location))
                                                 )
                                         ))),
-                                new DecoratorContinue(ret =&gt; MobList[0].Location.Distance(Me.Location) &lt; CurrentBehaviorSpell.MinRange,
+                                new DecoratorContinue(ret => MobList[0].Location.Distance(Me.Location) < CurrentBehaviorSpell.MinRange,
                                     new Sequence(
-                                        new Action(ret =&gt; TreeRoot.StatusText = &quot;Too Close, Backing Up&quot;),
-                                        new Action(ret =&gt; MobList[0].Face()),
-                                        new Action(ret =&gt; Thread.Sleep(100)),
-                                        new Action(ret =&gt; WoWMovement.Move(WoWMovement.MovementDirection.Backwards)),
-                                        new Action(ret =&gt; Thread.Sleep(2000)),
-                                        new Action(ret =&gt; WoWMovement.MoveStop(WoWMovement.MovementDirection.Backwards))
+                                        new Action(ret => TreeRoot.StatusText = "Too Close, Backing Up"),
+                                        new Action(ret => MobList[0].Face()),
+                                        new Action(ret => Thread.Sleep(100)),
+                                        new Action(ret => WoWMovement.Move(WoWMovement.MovementDirection.Backwards)),
+                                        new Action(ret => Thread.Sleep(2000)),
+                                        new Action(ret => WoWMovement.MoveStop(WoWMovement.MovementDirection.Backwards))
                                         )),
-                                new DecoratorContinue(ret =&gt; MobList[0].Location.Distance(Me.Location) &gt;= CurrentBehaviorSpell.MinRange &amp;&amp; MobList[0].Location.Distance(Me.Location) &lt;= maxSpellRange &amp;&amp; MobList[0].InLineOfSpellSight,
+                                new DecoratorContinue(ret => MobList[0].Location.Distance(Me.Location) >= CurrentBehaviorSpell.MinRange && MobList[0].Location.Distance(Me.Location) <= maxSpellRange && MobList[0].InLineOfSpellSight,
                                     new Sequence(
-                                        new Action(ret =&gt; TreeRoot.StatusText = &quot;Casting Spell - &quot; + SpellId + &quot; On Mob: &quot; + MobList[0].Name + &quot; Yards Away &quot; + MobList[0].Location.Distance(Me.Location)),
-                                        new Action(ret =&gt; WoWMovement.MoveStop()),
-                                        new Action(ret =&gt; Thread.Sleep(300)),
+                                        new Action(ret => TreeRoot.StatusText = "Casting Spell - " + SpellId + " On Mob: " + MobList[0].Name + " Yards Away " + MobList[0].Location.Distance(Me.Location)),
+                                        new Action(ret => WoWMovement.MoveStop()),
+                                        new Action(ret => Thread.Sleep(300)),
                                         CreateSpellBehavior
                                         )
                                 )
                                 )),
                         //Fix for Charge and other Spells which needs a target
-                        new Decorator(ret =&gt; MobList[0].Location.Distance(Me.Location) &gt;= 40,
+                        new Decorator(ret => MobList[0].Location.Distance(Me.Location) >= 40,
                             new Sequence(
-                                new Action(ret =&gt; TreeRoot.StatusText = &quot;Targetting On Mob: &quot; + MobList[0].Name + &quot; Yards Away &quot; + MobList[0].Location.Distance(Me.Location)),
-                                new Action(ret =&gt; MobList[0].Target()),
-                                new Action(ret =&gt; Thread.Sleep(300)),
+                                new Action(ret => TreeRoot.StatusText = "Targetting On Mob: " + MobList[0].Name + " Yards Away " + MobList[0].Location.Distance(Me.Location)),
+                                new Action(ret => MobList[0].Target()),
+                                new Action(ret => Thread.Sleep(300)),
                                 CreateSpellBehavior
                                 )
                         )
@@ -308,11 +311,11 @@ namespace Styx.Bot.Quest_Behaviors
             return _root ?? (_root =
                 new PrioritySelector(
 
-                        new Decorator(ret =&gt; MobList.Count == 0,
+                        new Decorator(ret => MobList.Count == 0,
                             new Sequence(
-                                    new Action(ret =&gt; TreeRoot.StatusText = &quot;Moving To Location - X: &quot; + Location.X + &quot; Y: &quot; + Location.Y),
-                                    new Action(ret =&gt; Navigator.MoveTo(Location)),
-                                    new Action(ret =&gt; Thread.Sleep(300))
+                                    new Action(ret => TreeRoot.StatusText = "Moving To Location - X: " + Location.X + " Y: " + Location.Y),
+                                    new Action(ret => Navigator.MoveTo(Location)),
+                                    new Action(ret => Thread.Sleep(300))
                                 )
                             )
 
@@ -359,15 +362,15 @@ namespace Styx.Bot.Quest_Behaviors
                 {
                     WoWSpell spell = WoWSpell.FromId(SpellId);
 
-                    LogMessage(&quot;fatal&quot;, &quot;Toon doesn't know SpellId({0}, \&quot;{1}\&quot;)&quot;,
+                    LogMessage("fatal", "Toon doesn't know SpellId({0}, \"{1}\")",
                                         SpellId,
-                                        ((spell != null) ? spell.Name : &quot;unknown&quot;));
+                                        ((spell != null) ? spell.Name : "unknown"));
                     _isBehaviorDone = true;
                     return;
                 }
 
 
-                if (TreeRoot.Current != null &amp;&amp; TreeRoot.Current.Root != null &amp;&amp; TreeRoot.Current.Root.LastStatus != RunStatus.Running)
+                if (TreeRoot.Current != null && TreeRoot.Current.Root != null && TreeRoot.Current.Root.LastStatus != RunStatus.Running)
                 {
                     var currentRoot = TreeRoot.Current.Root;
                     if (currentRoot is GroupComposite)
@@ -380,7 +383,7 @@ namespace Styx.Bot.Quest_Behaviors
 
                 PlayerQuest quest = StyxWoW.Me.QuestLog.GetQuestById((uint)QuestId);
 
-                TreeRoot.GoalText = this.GetType().Name + &quot;: &quot; + ((quest != null) ? (&quot;\&quot;&quot; + quest.Name + &quot;\&quot;&quot;) : &quot;In Progress&quot;);
+                TreeRoot.GoalText = this.GetType().Name + ": " + ((quest != null) ? ("\"" + quest.Name + "\"") : "In Progress");
             }
         }
 
