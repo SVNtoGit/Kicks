@@ -49,7 +49,7 @@ namespace DrinkPotions
 
         public override void Initialize()
         {
-            Logging.Write(Color.CornflowerBlue, "Kick's Recovery v1.0.0.0");
+            Logging.Write(Color.CornflowerBlue, "Loaded DrinkPotions v1.0.0.1 by Kickazz006");
         }
 
         public WoWItem HealingPotions()
