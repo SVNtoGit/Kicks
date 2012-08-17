@@ -975,7 +975,11 @@
 		<TurnIn QuestName="Zombies vs. Super Booster Rocket Boots" QuestId="24942" TurnInName="Coach Crosscheck" TurnInId="38738" />
         <TurnIn QuestName="Three Little Pygmies" QuestId="24945" TurnInName="Foreman Dampwick" TurnInId="36471" />
         <TurnIn QuestName="Rockin' Powder" QuestId="24946" TurnInName="Assistant Greely" TurnInId="38124" />
-        <PickUp QuestName="Rocket Boot Boost" QuestId="24952" GiverName="Coach Crosscheck" GiverId="38738" />
+ 			<If Condition="((HasQuest(24952)) &amp;&amp; (!IsQuestCompleted(24952)))" >
+				<CustomBehavior File="AbandonQuest" QuestId="24952" Type="All" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for quest cd {TimeRemaining}" />
+			</If>
+       <PickUp QuestName="Rocket Boot Boost" QuestId="24952" GiverName="Coach Crosscheck" GiverId="38738" />
 			<If Condition="HasQuest(24952)">
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52032)" />
 				<CustomBehavior File="WaitTimer" WaitTime="17000" GoalText="Waiting for flight {TimeRemaining}" />
