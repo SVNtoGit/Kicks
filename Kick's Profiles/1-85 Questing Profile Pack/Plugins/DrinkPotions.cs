@@ -43,7 +43,6 @@ namespace DrinkPotions
 
         public int HealPotPercent = 25; // Drink HP %
         public int ManaPotPercent = 10; // Drink Mana %
-        bool PotionOnCD = false;
 
         #endregion
 
@@ -171,40 +170,40 @@ namespace DrinkPotions
         
         public override void Pulse()
         {
-            if (!Me.Combat || Me.Dead || Me.IsGhost) // Chillax
+            if (!Me.Combat || Me.Dead || Me.IsGhost) // Chillax (Yes, it's redundant)
             { return; }
 
             if (Me.Combat) // Pay Attn!
             {
-                if (Me.HealthPercent < HealPotPercent && !PotionOnCD) // HP
+                if (Me.HealthPercent < HealPotPercent) // HP
                 {
                     WoWItem UseHealPot = HealingPotions(); // Reference our list of Healing Potions
                     if (UseHealPot == null)
                     { Logging.Write(Color.Red, "I have no Healing Pots"); }
                     else
                     {
-                        Logging.Write(Color.Yellow, "Using " + UseHealPot.Name + "!");
                         useItem(UseHealPot);
+                        Logging.Write(Color.Yellow, "Used " + UseHealPot.Name + "!");
+                        Logging.Write(Color.Yellow, "Starting 1 minute Potion Timer!");
                     }
-                    PotionOnCD = true;
                 }
-                if (Me.ManaPercent < ManaPotPercent && !PotionOnCD) // Mana
+                if (Me.ManaPercent < ManaPotPercent) // Mana
                 {
                     WoWItem UseManaPot = ManaPotions(); // Reference our list of Mana Potions
                     if (UseManaPot == null)
                     { Logging.Write(Color.Red, "I have no Mana Pots"); }
                     else
                     {
-                        Logging.Write(Color.Yellow, "Using" + UseManaPot.Name + "!");
                         useItem(UseManaPot);
+                        Logging.Write(Color.Yellow, "Used " + UseManaPot.Name + "!");
+                        Logging.Write(Color.Yellow, "Starting 1 minute Potion Timer!");
                     }
-                    PotionOnCD = true;
                 }
             }
 
         }
 		
-        // If PotionOnCD = true, then start a 1 min CD timer
+        // If Potion has been used, start a 1 min CD timer
         private static readonly Stopwatch PotionTimer = new Stopwatch();
         public void useItem(WoWItem Item)
         {
