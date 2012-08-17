@@ -170,7 +170,7 @@ namespace DrinkPotions
         
         public override void Pulse()
         {
-            if (!Me.Combat || Me.Dead || Me.IsGhost) // Chillax (Yes, it's redundant)
+            if (!Me.Combat || Me.Dead || Me.IsGhost || Me.IsOnTransport || Me.OnTaxi || Me.Stunned) // Chillax
             { return; }
 
             if (Me.Combat) // Pay Attn!
