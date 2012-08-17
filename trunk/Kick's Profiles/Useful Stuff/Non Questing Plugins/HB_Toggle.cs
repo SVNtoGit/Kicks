@@ -103,7 +103,6 @@ namespace HighVoltz
             this.MinimizeBox = false;
             this.Name = "FormHBToggle";
             this.Text = "Key Binding";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormHBToggleFormClosed);
             this.Shown += new System.EventHandler(this.FormHBToggleShown);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -124,7 +123,7 @@ namespace HighVoltz
         {
             if (!_keyBindMode)
             {
-                var btn = (Button) sender;
+                var btn = (Button)sender;
                 btn.BackColor = SystemColors.GradientInactiveCaption;
                 btn.FlatStyle = FlatStyle.Flat;
                 btn.Text = "Press key combination";
@@ -137,21 +136,22 @@ namespace HighVoltz
             // return if not changing keybinds.
             if (_keyBindMode)
             {
-                var btn = (Button) sender;
-                var key = GetKeyBind((Button) sender, e);
+                var btn = (Button)sender;
+                var key = GetKeyBind((Button)sender, e);
                 if (key != Keys.None)
                 {
                     switch (btn.Name)
                     {
-                        case "HBKeyBindButton":
+                        case "_hbKeyBindButton":
                             HBToggle.MySettings.HBKeybind = key;
-                            HBToggle.MySettings.HBKeybind = key;
+                            HBToggle.HBToggleKeybind.KeyBind = HBToggle.MySettings.HBKeybind;
                             break;
-                        case "MovementKeyBindButton":
+                        case "_movementKeyBindButton":
                             HBToggle.MySettings.MovementKeybind = key;
-                            HBToggle.MySettings.MovementKeybind = key;
+                            HBToggle.MovementKeybind.KeyBind = HBToggle.MySettings.MovementKeybind;
                             break;
                     }
+                    HBToggle.MySettings.Save();
                     _keyBindMode = false;
                 }
             }
@@ -234,8 +234,6 @@ namespace HighVoltz
             }
             return keybindstring;
         }
-
-        private void FormHBToggleFormClosed(object sender, FormClosedEventArgs e) { HBToggle.MySettings.Save(); }
     }
 
 
@@ -300,7 +298,7 @@ namespace HighVoltz
         private readonly FormHBToggle _configForm = new FormHBToggle();
         public override string Name { get { return "HB Toggle"; } }
         public override string Author { get { return "HighVoltz"; } }
-        private readonly Version _version = new Version(1, 6);
+        private readonly Version _version = new Version(1, 7);
         public override Version Version { get { return _version; } }
         public override string ButtonText { get { return "KeyBinding"; } }
         public override bool WantButton { get { return true; } }
@@ -320,22 +318,39 @@ namespace HighVoltz
         // contains info about this plugin, used to determine if this plugin is enabled from my thread loop.
         private static PluginContainer _myPlugin;
 
-        public override void OnButtonPress() { _configForm.ShowDialog(); }
+        public override void OnButtonPress()
+        {
+            try
+            {
+                _configForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                Logging.WriteException(ex);
+            }
+        }
 
         public override void Pulse() { }
 
         public override void Initialize()
         {
-            MySettings = new HBToggleSettings(Application.StartupPath + "\\Settings\\HBToggle\\HB_Toggle.xml");
-            HBToggleKeybind.KeyBind = MySettings.HBKeybind;
-            MovementKeybind.KeyBind = MySettings.MovementKeybind;
+            try
+            {
+                MySettings = new HBToggleSettings(Application.StartupPath + "\\Settings\\HBToggle\\HB_Toggle.xml");
+                HBToggleKeybind.KeyBind = MySettings.HBKeybind;
+                MovementKeybind.KeyBind = MySettings.MovementKeybind;
 
-            _keyPollThread = new Thread(ThreadLoop)
-                             {
-                                 IsBackground = true
-                             };
-            Logging.Write("Starting Thread: keyPollThread");
-            _keyPollThread.Start();
+                _keyPollThread = new Thread(ThreadLoop)
+                                 {
+                                     IsBackground = true
+                                 };
+                Logging.Write("Starting Thread: keyPollThread");
+                _keyPollThread.Start();
+            }
+            catch (Exception ex)
+            {
+                Logging.WriteException(ex);
+            }
         }
 
 
