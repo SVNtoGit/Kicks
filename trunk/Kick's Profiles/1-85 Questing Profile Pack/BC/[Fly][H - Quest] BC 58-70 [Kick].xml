@@ -3,8 +3,8 @@
 	<MinLevel>58</MinLevel>
 	<MaxLevel>101</MaxLevel>
 	
-	<MinDurability>0.2</MinDurability>
-	<MinFreeBagSlots>3</MinFreeBagSlots>
+	<MinDurability>0.1</MinDurability>
+	<MinFreeBagSlots>2</MinFreeBagSlots>
 	
 	<MailGrey>False</MailGrey>
 	<MailWhite>False</MailWhite>
@@ -1325,15 +1325,16 @@
 			</If>
 			
 			<If Condition="(!IsQuestCompleted(10289))" >
-				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
 		<PickUp QuestName="Journey to Thrallmar" QuestId="10289" GiverName="Vlagga Freyfeather" GiverId="18930" />
 			</If>
 			<If Condition="(HasQuest(10289))" >
+				<RunTo X="-176.4199" Y="1028.531" Z="54.17289" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="InteractWith" MobId="18930" GossipOptions="1" />
+				<CustomBehavior File="InteractWith" MobId="18930" GossipOptions="1" X="-176.4199" Y="1028.531" Z="54.17289" />
 			</If>
 			<If Condition="((HasQuest(10289)) &amp;&amp; (IsQuestCompleted(10289)))" >
 		<TurnIn QuestName="Journey to Thrallmar" QuestId="10289" TurnInName="General Krakork" TurnInId="19255" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 			</If>
 			
 			<!-- Flying Mount Procedures -->
@@ -1365,6 +1366,7 @@
 	
 			<If Condition="(!IsQuestCompleted(9396))" >
 			<If Condition="((!HasQuest(10291)) &amp;&amp; (!IsQuestCompleted(10291)))" >
+				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
 		 	 <If Condition="(CanFly())" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="201.2104" Y="2652.289" Z="88.50877" />
 			 </If>
