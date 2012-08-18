@@ -1,6 +1,6 @@
 <HBProfile>
 	<Name>[Fly][A - Quest] BC 58-70 [Kick]</Name>
-	<MinLevel>56</MinLevel>
+	<MinLevel>58</MinLevel>
 	<MaxLevel>101</MaxLevel>
 	
 	<MinDurability>0.1</MinDurability>
@@ -1453,11 +1453,6 @@
 		</If>
 		
 	<CustomBehavior File="UserSettings" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
-
-			<If Condition="Me.ZoneId == 3483" >
-	<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="10" ExpiryAction="InputEnabled_Continue" 
-	Text="This profile doesn't fly until Zangarmarsh.  This is coded intentionally to not fly in Hellfire" />
-			</If>
 	
 			<SetGrindArea>
 				<GrindArea>
@@ -1486,7 +1481,7 @@
 		<CustomBehavior File="Message" Text="Compiling Hellfire Peninsula Quests" LogColor="Green" />
 		<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" PullDistance="25" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
 		
-		<PickUp QuestName="Arrival in Outland" GiverName="Commander Duron" QuestId="10288" GiverId="19229" />
+		<PickUp QuestName="Arrival in Outland" GiverName="Commander Duron" QuestId="10288" GiverId="19229" X="-266.3687" Y="1028.86" Z="54.32335" />
 			<If Condition="(HasQuest(10288))" >
 				<RunTo X="-321.0089" Y="1027.476" Z="54.16222" />
 				<CustomBehavior File="ForcedDismount" />
@@ -1498,12 +1493,46 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Journey to Honor Hold" GiverName="Amish Wildhammer" QuestId="10140" GiverId="18931" />
 			</If>
-			<If Condition="(HasQuest(10140))" >
+			<If Condition="(HasQuest(10140)) &amp;&amp; (Me.Y &lt; 1100)" >
 				<RunTo X="-321.0089" Y="1027.476" Z="54.16222" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="InteractWith" MobId="18931" GossipOptions="1" />
+				<CustomBehavior File="InteractWith" MobId="18931" GossipOptions="1" X="-321.0089" Y="1027.476" Z="54.16222" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for flight {TimeRemaining}" />
 			</If>
+			<If Condition="((HasQuest(10140)) &amp;&amp; (IsQuestCompleted(10140)))" >
 		<TurnIn QuestName="Journey to Honor Hold" TurnInName="Marshal Isildor" QuestId="10140" TurnInId="19308" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+			</If>
+		
+			<!-- Training Flying -->
+			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &gt;= 265) &amp;&amp; (Me.Level &gt;= 60)" >
+				<CustomBehavior File="Message" Text="Compiling Train Flying" LogColor="Orange" />
+				<RunTo X="-675.6533" Y="2735.204" Z="93.90858" Name="Train Flying" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" />
+			  <If Condition="(Me.Gold &gt;= 265)" >
+				<CustomBehavior File="InteractWith" MobId="35100" WaitTime="2000" CollectionDistance="50" X="-677.5347" Y="2736.305" Z="93.90835" />
+				<CustomBehavior File="ForceTrainRiding"  MobId="35100" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
+			   <If Condition="(!HasItem(25472))" >
+				<CustomBehavior File="InteractWith" MobId="35101" BuyItemId="25472" WaitTime="5000" CollectionDistance="50" X="-674.4774" Y="2743.128" Z="93.9173" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" />
+			   </If>
+			  </If>
+			 <If Condition="(HasItem(25472))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25472)" />
+			 </If>
+			</If>
+			<!-- Not 60, or 60 and no money -->
+			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Level &gt;= 60)" >
+				<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="10" ExpiryAction="InputEnabled_Continue" 
+				Text="You do not having flying nor the money for flying; defaulting to non-flying protocols" />
+			 <ElseIf Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Level &lt; 60)" >
+				<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="10" ExpiryAction="InputEnabled_Continue" 
+				Text="You are not level 60 yet; defaulting to non-flying protocols" />
+			 </ElseIf>
+			</If>
+		
 			<If Condition="(!IsQuestCompleted(10159))" >
 			<If Condition="((!HasQuest(10254)) &amp;&amp; (!IsQuestCompleted(10254)))" >
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
@@ -1512,11 +1541,27 @@
 		<TurnIn QuestName="Force Commander Danath" QuestId="10254" TurnInName="Force Commander Danath Trollbane" TurnInId="16819" X="-815.6094" Y="2614.204" Z="124.3893" />
 		<PickUp QuestName="The Legion Reborn" QuestId="10141" GiverName="Force Commander Danath Trollbane" GiverId="16819" X="-815.6094" Y="2614.204" Z="124.3893" />
 		<PickUp QuestName="Know your Enemy" QuestId="10160" GiverName="Force Commander Danath Trollbane" GiverId="16819" X="-815.6094" Y="2614.204" Z="124.3893" />
+			<If Condition="((!HasQuest(10055)) &amp;&amp; (!IsQuestCompleted(10055)))" >
+		 	 <If Condition="(CanFly())" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="-587.0059" Y="2876.79" Z="55.39312" />
+			 </If>
+			</If>
 		<PickUp QuestName="Waste Not, Want Not" QuestId="10055" GiverName="Dumphry" GiverId="21209" X="-592.0889" Y="2896.165" Z="59.20433" />
 		<TurnIn QuestName="Know your Enemy" QuestId="10160" TurnInName="Lieutenant Amadi" TurnInId="16820" X="-591.543" Y="2910.224" Z="59.21245" />
+			<If Condition="((!HasQuest(10482)) &amp;&amp; (!IsQuestCompleted(10482)))" >
 		<PickUp QuestName="Fel Orc Scavengers" QuestId="10482" GiverName="Lieutenant Amadi" GiverId="16820" X="-591.543" Y="2910.224" Z="59.21245" />
+				<RunTo X="-588.6532" Y="2880.661" Z="56.507" />
+			</If>
+			<If Condition="((HasQuest(10141)) &amp;&amp; (IsQuestCompleted(10141)))" >
+		 	 <If Condition="(CanFly())" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-599.0722" Y="2343.599" Z="35.54657" />
+			 </If>
+			</If>
 		<TurnIn QuestName="The Legion Reborn" QuestId="10141" TurnInName="Sergeant Altumus" TurnInId="19309" X="-611.2381" Y="2353.293" Z="36.68386" />
 		<PickUp QuestName="The Path of Anguish" QuestId="10142" GiverName="Sergeant Altumus" GiverId="19309" X="-611.2381" Y="2353.293" Z="36.68386" />
+		
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
+	
 			<Objective QuestName="Waste Not, Want Not" QuestId="10055" Type="CollectItem" CollectCount="8" Name="Salvaged Metal" ItemId="25912" />
 			<Objective QuestName="Waste Not, Want Not" QuestId="10055" Type="CollectItem" CollectCount="8" Name="Salvaged Wood" ItemId="25911" />
 			<Objective QuestName="Fel Orc Scavengers" QuestId="10482" Type="KillMob" KillCount="20" Name="Bonechewer Orc" MobId="21161" />
