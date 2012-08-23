@@ -307,7 +307,6 @@
 		</If>
 		
 		<TurnIn QuestName="The Seer's Crystal" QuestId="13641" TurnInName="Crusader Rhydalla" TurnInId="33417" />
-
 		<PickUp QuestName="The Stories Dead Men Tell" QuestId="13643" GiverName="Crusader Rhydalla" GiverId="33417" />
 		
 		<If Condition="((HasQuest(13643)) &amp;&amp; (!IsQuestCompleted(13643)))" >
@@ -330,8 +329,10 @@
 			<CustomBehavior File="FlyTo" X="5437.461" Y="420.8548" Z="167.9468" />
 			<CustomBehavior File="ForcedDismount" />
 			<Objective QuestName="There's Something About the Squire" QuestId="13654" Type="CollectItem" ItemId="45080" CollectCount="1" />
-			<CustomBehavior File="InteractWith" QuestId="13654" MobId="33498" NumOfTimes="1" CollectionDistance="1" WaitTime="1000" X="5427.857" Y="401.0826" Z="167.9483" />
+			<RunTo X="5422.74" Y="403.7679" Z="167.9472" />
+			<RunTo X="5423.656" Y="401.789" Z="167.9469" />
 			<CustomBehavior File="UseItemOn" QuestId="13654" MobId="33498" NpcState="Alive" ItemId="45080" NumOfTimes="1" WaitTime="1000" Range="1" CollectionDistance="50" X="5422.687" Y="403.9399" Z="167.9472" />
+			<CustomBehavior File="InteractWith" QuestId="13654" MobId="33498" NumOfTimes="1" CollectionDistance="1" WaitTime="1000" X="5427.857" Y="401.0826" Z="167.9483" />
 			<CustomBehavior File="UserDialog" QuestId="13654" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You might need to manually search (right click on) Maloric after he's stuneed...\n(Just if it didn`t did it yet)" />
 			<CustomBehavior File="WaitTimer" WaitTime="5000" />
 		</While>
@@ -387,10 +388,10 @@
 				<If Condition="(!HasItem(46070))" >
 					<CustomBehavior File="FlyTo" X="8588.148" Y="939.2567" Z="548.856" />
 					<CustomBehavior File="ForcedDismount" />
-					<!-- get id of lance rack -->
 					<CustomBehavior File="InteractWith"  MobId="194622" ObjectType="Gameobject" NumOfTimes="1" CollectionDistance="50" X="8588.148" Y="939.2567" Z="548.856" />
 				</If>
 				
+			 <If Condition="((HasQuest(13677)) &amp;&amp; (!IsObjectiveComplete(1, 13677)))">
 				<CustomBehavior File="FlyTo" X="8594.644" Y="942.6311" Z="548.3071" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="EquipItem" ItemId="46070" />
@@ -398,6 +399,7 @@
 				<RunTo X="8617.684" Y="898.5101" Z="546.9606" />
 				<RunTo X="8620.769" Y="908.1838" Z="546.9696" />
 
+			 <While Condition="((HasQuest(13677)) &amp;&amp; (!IsObjectiveComplete(1, 13677)))">
 				<CustomBehavior File="RunMacro" Macro="/tar Melee Target" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(62552)" WaitTime="4000" NumOfTimes="3" />
 				<CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(62544)" WaitTime="2000" NumOfTimes="1" />
@@ -412,23 +414,31 @@
 				<CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(62552)" WaitTime="2000" NumOfTimes="1" />
 				<CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(62544)" WaitTime="2000" NumOfTimes="1" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+			 </While>
 				<CustomBehavior File="EjectVeh" />
+			 </If>
 
+			 <If Condition="((HasQuest(13677)) &amp;&amp; (!IsObjectiveComplete(2, 13677)))">
 				<CustomBehavior File="FlyTo" X="8594.644" Y="942.6311" Z="548.3071" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="EquipItem" ItemId="46070" Slot="1" />
 				<CustomBehavior File="MountVehOnly" VehicleMountId="33842" X="8591.69" Y="938.7516" Z="548.7326" />
+			 <While Condition="((HasQuest(13677)) &amp;&amp; (!IsObjectiveComplete(2, 13677)))">
 				<RunTo X="8622.397" Y="856.3959" Z="546.96" />
 				<RunTo X="8616.023" Y="889.2153" Z="546.9594" />
 				<RunTo X="8627.373" Y="868.8736" Z="546.9599" />
 				<CustomBehavior File="RunMacro" Macro="/tar Ranged Target" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(62575)" WaitTime="2000" NumOfTimes="10" />
+			 </While>
 				<CustomBehavior File="EjectVeh" />
+			 </If>
 
+			 <If Condition="((HasQuest(13677)) &amp;&amp; (!IsObjectiveComplete(3, 13677)))">
 				<CustomBehavior File="FlyTo" X="8594.644" Y="942.6311" Z="548.3071" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="EquipItem" ItemId="46070" Slot="1" />
 				<CustomBehavior File="MountVehOnly" VehicleMountId="33842" X="8591.69" Y="938.7516" Z="548.7326" />
+			 <While Condition="((HasQuest(13677)) &amp;&amp; (!IsObjectiveComplete(3, 13677)))">
 				<RunTo X="8634.643" Y="884.7522" Z="546.9652" />
 				<RunTo X="8597.623" Y="868.1798" Z="550.3389" />
 				<RunTo X="8626.404" Y="875.8491" Z="546.96" />
@@ -439,8 +449,10 @@
 				<RunTo X="8626.404" Y="875.8491" Z="546.96" />
 				<CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(62575)" WaitTime="2000" NumOfTimes="1" />
 				<CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(62960)" WaitTime="2000" NumOfTimes="1" />
+			 </While>
 				<CustomBehavior File="EjectVeh" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+			 </If>
 			
 			</While>
 
