@@ -3151,7 +3151,7 @@
 			</If>
 		<TurnIn QuestName="To Bor'gorok Outpost, Quickly!" QuestId="12486" TurnInName="Spirit Talker Snarlfang" TurnInId="25339" />
 		<PickUp QuestName="The Sky Will Know" QuestId="11624" GiverName="Spirit Talker Snarlfang" GiverId="25339" />
-			<If Condition="((!HasQuest(11702)) &amp;&amp; (!IsQuestCompleted(11702)))" >
+			<If Condition="((!HasQuest(11702)) &amp;&amp; (!IsQuestCompleted(11702))) &amp;&amp; ((!HasQuest(11571)) &amp;&amp; (!IsQuestCompleted(11571)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4498.708" Y="5745.038" Z="81.40859" />
 		<PickUp QuestName="King Mrgl-Mrgl" QuestId="11702" GiverName="Supply Master Taz'ishi" GiverId="25736" />
 			</If>
@@ -5341,18 +5341,22 @@
 			</If>
 		<TurnIn QuestName="Chains of the Anub'ar" QuestId="12064" TurnInName="Banthok Icemist" TurnInId="26733" />
 		<PickUp QuestName="Return of the High Chief" QuestId="12069" GiverName="Banthok Icemist" GiverId="26733" />
-			<While Condition="((HasQuest(12069)) &amp;&amp; (!IsQuestCompleted(12069)))" >
+			<If Condition="((HasQuest(12069)) &amp;&amp; (!IsQuestCompleted(12069)))" >
 			 <If Condition="Me.Z &lt; 130" >
 				<CustomBehavior File="FlyTo" DestName="get out of cave" X="3976.812" Y="2383.254" Z="192.7585" />
 			 </If>
 				<CustomBehavior File="FlyTo" DestName="free the High Chief" X="4045.522" Y="2189.62" Z="151.8057" />
 				<CustomBehavior File="ForcedDismount" />
+			<While Condition="((HasQuest(12069)) &amp;&amp; (!IsQuestCompleted(12069)))" >
 				<CustomBehavior File="InteractWith" QuestId="12069" MobId="188463" ObjectType="Gameobject" Range="5" WaitTime="8000" X="4045.523" Y="2189.622" Z="151.8071" />
+				<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="InteractWith" QuestId="12069" MobId="26608" WaitForNpcs="False" CollectionDistance="30" MobState="Alive" X="4091.115" Y="2224.01" Z="150.2214" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="InteractWith" QuestId="12069" MobId="188462" WaitForNpcs="False" CollectionDistance="30" ObjectType="Gameobject" Range="8" X="4090.489" Y="2223.084" Z="150.2213" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-				
-				<CustomBehavior File="AbandonQuest" QuestId="12069" Type="Failed" />
+			</While>
+				<!--
+				<CustomBehavior File="AbandonQuest" QuestId="12069" Type="" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 			<If Condition="((!HasQuest(12069)) &amp;&amp; (!IsQuestCompleted(12069)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3968.693" Y="2374.155" Z="213.7149" />
@@ -5360,7 +5364,8 @@
 		<PickUp QuestName="Return of the High Chief" QuestId="12069" GiverName="Banthok Icemist" GiverId="26733" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			 </If>
-			</While>
+			 -->
+			</If>
 			<Objective QuestName="Scourge Armaments" QuestId="12048" Type="CollectItem" ItemId="36736" CollectCount="8" />
 			<If Condition="((HasQuest(12069)) &amp;&amp; (IsQuestCompleted(12069)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3841.302" Y="1535.958" Z="89.72499" />
