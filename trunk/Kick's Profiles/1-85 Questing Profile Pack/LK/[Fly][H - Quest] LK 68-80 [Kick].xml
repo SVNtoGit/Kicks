@@ -1460,7 +1460,7 @@
 	</Quest>
 
 	
-	<QuestOrder IgnoreCheckPoints="False" >
+	<QuestOrder IgnoreCheckPoints="True" >
 	
 
 		<If Condition="Me.IsAlliance" >
@@ -2491,15 +2491,16 @@
 		<PickUp QuestName="The Power of the Elements" QuestId="11893" GiverName="Dorain Frosthoof" GiverId="25983" />
 		<TurnIn QuestName="Scouting the Sinkholes" QuestId="11684" TurnInName="Greatfather Mahan" TurnInId="24702" />
         <PickUp QuestName="The Heart of the Elements" QuestId="11685" GiverName="Greatfather Mahan" GiverId="24702" />
-			<If Condition="HasQuest(11893) &amp;&amp; !IsQuestCompleted(11893)">
+			<If Condition="((HasQuest(11893)) &amp;&amp; (!IsQuestCompleted(11893)))" >
                 <CustomBehavior File="FlyTo" X="3809.099" Y="4480.14" Z="17.64349" />
                 <CustomBehavior File="ForcedDismount" />
-			 <While Condition="HasQuest(11893) &amp;&amp; !IsQuestCompleted(11893)">
 	
 			<If Condition="(Me.Level &gt;= 81)" >
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="5" Text="You are too high for this Combat UseItemOn quest, please manually do it!" />
 			</If>
 		
+				<CustomBehavior File="Message" Text="using CUIO" LogColor="Orange" />
+			 <While Condition="HasQuest(11893) &amp;&amp; !IsQuestCompleted(11893)">
 				<CustomBehavior File="CombatUseItemOn" ItemId="35281" MobId="24601" MobHpPercentLeft="80" QuestId="11893" X="3809.099" Y="4480.14" Z="17.64349" />
 			 </While>
 			</If>
