@@ -127,8 +127,6 @@
   <QuestOrder>
     <!-- http://www.wowhead.com/blog=80946/argent-tournament-guide -->
     <If Condition="Me.IsAlliance" >
-      <CustomBehavior File="RunMacro" Macro="/exit" NumOfTimes="1" WaitTime="500" />
-      <CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" NumOfTimes="1" WaitTime="500" />
       <CustomBehavior File="UserDialog"  Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You must be Horde to run this profile" />
     </If>
     <If Condition="Me.MapId == 1">
@@ -167,26 +165,27 @@ GetOffX="1975.661" GetOffY="-6097.837" GetOffZ="67.15333"
       <CustomBehavior File="FlyTo" X="8452.034" Y="689.4864" Z="547.2928"  />
       <CustomBehavior File="ForcedDismount" />
     </If>
-    <PickUp QuestName="At The Enemy's Gates" QuestId="13859" GiverName="Handler Dretch" GiverId="33547" />
-    <PickUp QuestName="The Grand Melee" QuestId="13787" GiverName="Handler Dretch" GiverId="33547" />
-    <PickUp QuestName="A Valiant's Field Training" QuestId="13786" GiverName="Sarah Chalke" GiverId="33541" />
-    <While Condition="HasQuestAvailable(33373)" >
-      <CustomBehavior File="InteractWith"  MobId="33373" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="8429.721" Y="649.4797" Z="550.4333" />
+	<!-- BElf Dailies -->
+    <PickUp QuestName="At The Enemy's Gates" QuestId="13859" GiverName="Aneera Thuron" GiverId="33548" />
+    <While Condition="HasQuestAvailable(33548)" > <!-- Aneera Thuron -->
+      <CustomBehavior File="InteractWith"  MobId="33548" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="8427.372" Y="651.2842" Z="550.3415" />
       <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
       <CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
     </While>
-    <!-- SunReavers Dailies -->
-    <While Condition="HasQuestAvailable(34771)" >
-      <CustomBehavior File="InteractWith"  MobId="34771" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="8420.013" Y="674.2396" Z="550.3787" />
+    <While Condition="HasQuestAvailable(33379)" > <!-- Eressea Dawnsinger -->
+      <CustomBehavior File="InteractWith"  MobId="33379" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="8427.372" Y="651.2842" Z="550.3415" />
       <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
       <CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
     </While>
-    <While Condition="HasQuestAvailable(34914)" >
-      <CustomBehavior File="InteractWith"  MobId="34914" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="8422.031" Y="672.8629" Z="550.4484"/>
+    <While Condition="HasQuestAvailable(33538)" > <!-- Kethiel Sunlance -->
+      <CustomBehavior File="InteractWith"  MobId="33538" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="8427.372" Y="651.2842" Z="550.3415" />
       <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
       <CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
     </While>
+	
+	<!-- Eadric Quests are not avail until The Valiant's Charge Quest is completed -->
     <!-- Eadric the Pure Quests -->
+    <If Condition="(IsQuestCompleted(13722))" >
     <If Condition="((!HasQuest(13862)) &amp;&amp; (!IsQuestCompleted(13862)))" >
       <CustomBehavior File="FlyTo" X="8484.761" Y="1057.067" Z="550.5325" />
       <CustomBehavior File="ForcedDismount" />
@@ -195,6 +194,7 @@ GetOffX="1975.661" GetOffY="-6097.837" GetOffZ="67.15333"
     <PickUp QuestName="Battle Before The Citadel" QuestId="13862" GiverName="Eadric the Pure" GiverId="33759" />
     <PickUp QuestName="Among the Champions" QuestId="13811" GiverName="Luuri" GiverId="33771" />
     <PickUp QuestName="Taking Battle To The Enemy" QuestId="13810" GiverName="Cellian Daybreak" GiverId="33763" />
+    </If>
     <!-- breakfast of champions -->
     <If Condition="((HasQuest(14092)) &amp;&amp; (!IsQuestCompleted(14092)))" >
       <CustomBehavior File="FlyTo" X="7439.561" Y="-1241.729" Z="906.528"  />
@@ -335,13 +335,13 @@ GetOffX="1975.661" GetOffY="-6097.837" GetOffZ="67.15333"
       <If Condition="((HasQuest(13859)) &amp;&amp; (!IsQuestCompleted(13859)))" >
         <CustomBehavior File="FlyTo" X="6439.218" Y="2368.915" Z="465.2995" />
         <CustomBehavior File="ForcedDismount" />
-        <CustomBehavior File="AtTheEnemysGates" QuestId="13859" X="6440.211" Y="2390.161" Z="467.4843" />
+        <CustomBehavior File="ArgentTournament\AtTheEnemysGates" QuestId="13859" X="6440.211" Y="2390.161" Z="467.4843" />
       </If>
       <!-- Battle Before The Citadel -->
       <If Condition="((HasQuest(13862)) &amp;&amp; (!IsQuestCompleted(13862)))" >
         <!--<CustomBehavior File="UserDialog" QuestId="13862" SoundCue="Exclamation" SoundCueInterval="1" Text="Kill 3 Commanders" />-->
 
-		<CustomBehavior File="BattleofTheCitadel" QuestId="13862" X="6429.059" Y="2376.351" Z="466.2415" />
+		<CustomBehavior File="ArgentTournament\BattleofTheCitadel" QuestId="13862" X="6429.059" Y="2376.351" Z="466.2415" />
       </If>
       <!-- A Worthy Weapon -->
       <If Condition="((HasQuest(13784)) &amp;&amp; (!IsQuestCompleted(13784)))" >
@@ -395,16 +395,16 @@ GetOffX="1975.661" GetOffY="-6097.837" GetOffZ="67.15333"
         <CustomBehavior File="InteractWith" MobId="194238" ObjectType="Gameobject" NumOfTimes="1" CollectionDistance="50" X="4604.894" Y="-1598.469" Z="154.9988" />
       </If>
       <!-- The Edge Of Winter -->
-      <If Condition="((HasQuest(13780)) &amp;&amp; (!IsQuestCompleted(13780)))" >
+      <If Condition="((HasQuest(13785)) &amp;&amp; (!IsQuestCompleted(13785)))" >
         <If Condition="(!HasItem(45005))" >
           <CustomBehavior File="FlyTo" X="5138.633" Y="-57.57318" Z="347.322" />
           <CustomBehavior File="ForcedDismount" />
-          <Objective QuestName="The Edge Of Winter" QuestId="13780" Type="CollectItem" ItemId="45005" CollectCount="1" />
+          <Objective QuestName="The Edge Of Winter" QuestId="13785" Type="CollectItem" ItemId="45005" CollectCount="1" />
         </If>
         <If Condition="(HasItem(45005))" >
-          <CustomBehavior File="FlyTo" X="2324.844" Y="-3944.382" Z="218.2621" />
+          <CustomBehavior File="FlyTo" Distance="1" X="2324.6" Y="-3948.192" Z="220.1882" />
           <CustomBehavior File="ForcedDismount" />
-          <CustomBehavior File="UseItemOn" QuestId="13780" MobId="33303" ItemId="45005" NumOfTimes="1" WaitTime="5000" Range="5" CollectionDistance="50" X="2324.844" Y="-3944.382" Z="218.2621" />
+          <CustomBehavior File="UseItemOn" QuestId="13785" MobId="33303" ItemId="45005" NumOfTimes="1" WaitTime="5000" Range="5" CollectionDistance="50" X="2324.844" Y="-3944.382" Z="218.2621" />
         </If></If>
         <!-- A Blade Fit For A Champion -->
         <If Condition="((HasQuest(13783)) &amp;&amp; (!IsQuestCompleted(13783)))" >
@@ -420,7 +420,7 @@ GetOffX="1975.661" GetOffY="-6097.837" GetOffZ="67.15333"
         <If Condition="((HasQuest(13787)) &amp;&amp; (!IsQuestCompleted(13787)))" >
           <CustomBehavior File="FlyTo" Distance="5" X="8452.826" Y="692.9032" Z="547.2931"  />
           <CustomBehavior File="ForcedDismount" />
-          <CustomBehavior File="TheGrandMelee" QuestId="13787" Enemys="33384,33306,33285,33382,33383" EnemysDebuff="64816,64811,64812,64813,64815" X="8426.872" Y="711.7554" Z="547.294" />
+          <CustomBehavior File="ArgentTournament\TheGrandMelee" QuestId="13787" Enemys="33384,33306,33285,33382,33383" EnemysDebuff="64816,64811,64812,64813,64815" X="8426.872" Y="711.7554" Z="547.294" />
           <CustomBehavior File="EjectVeh" />
         </If>
         <!-- Among the Champions -->
@@ -428,14 +428,14 @@ GetOffX="1975.661" GetOffY="-6097.837" GetOffZ="67.15333"
           <!-- Champion fights -->
           <CustomBehavior File="FlyTo" Distance="5" X="8478.908" Y="952.3561" Z="547.2932" />
           <CustomBehavior File="ForcedDismount" />
-          <CustomBehavior File="TheGrandMelee" QuestId="13811"  Enemys="33744,33745,33746,33749,33740,33743,33747,33738" EnemysDebuff="64811,64812,64813,64816,64809,64810,64814,64805" X="8485.926" Y="920.0826" Z="547.2928" />
+          <CustomBehavior File="ArgentTournament\TheGrandMelee" QuestId="13811"  Enemys="33744,33745,33746,33749,33740,33743,33747,33738" EnemysDebuff="64811,64812,64813,64816,64809,64810,64814,64805" X="8485.926" Y="920.0826" Z="547.2928" />
           <CustomBehavior File="EjectVeh" />
         </If>
         <!-- Turn In the Dailies -->
         <If Condition="((HasQuest(13859)) &amp;&amp; (IsQuestCompleted(13859)))
 || ((HasQuest(13783)) &amp;&amp; (IsQuestCompleted(13783)))
 || ((HasQuest(13784)) &amp;&amp; (IsQuestCompleted(13784)))
-|| ((HasQuest(13780)) &amp;&amp; (IsQuestCompleted(13780)))
+|| ((HasQuest(13785)) &amp;&amp; (IsQuestCompleted(13785)))
 || ((HasQuest(13786)) &amp;&amp; (IsQuestCompleted(13786)))
 || ((HasQuest(13787)) &amp;&amp; (IsQuestCompleted(13787)))"
 >
@@ -473,7 +473,7 @@ GetOffX="1975.661" GetOffY="-6097.837" GetOffZ="67.15333"
         </If>
         <!-- sun reavers hand in -->
         <If Condition="((HasQuest(13859)) &amp;&amp; (IsQuestCompleted(13859)))" >
-          <TurnIn QuestName="At The Enemy's Gates" QuestId="13859" TurnInName="Aneera Thuron" TurnInId="33547" />
+          <TurnIn QuestName="At The Enemy's Gates" QuestId="13859" TurnInName="Aneera Thuron" TurnInId="33548" />
         </If>
         <If Condition="((HasQuest(13783)) &amp;&amp; (IsQuestCompleted(13783)))" >
           <TurnIn QuestName="A Blade Fit For A Champion" QuestId="13783" TurnInName="Deathstalker Visceri" TurnInId="33373" />
@@ -481,14 +481,14 @@ GetOffX="1975.661" GetOffY="-6097.837" GetOffZ="67.15333"
         <If Condition="((HasQuest(13784)) &amp;&amp; (IsQuestCompleted(13784)))" >
           <TurnIn QuestName="A Worthy Weapon" QuestId="13784" TurnInName="Deathstalker Visceri" TurnInId="33373" />
         </If>
-        <If Condition="((HasQuest(13780)) &amp;&amp; (IsQuestCompleted(13780)))" >
-          <TurnIn QuestName="The Edge Of Winter" QuestId="13780" TurnInName="Deathstalker Visceri" TurnInId="33373" />
+        <If Condition="((HasQuest(13785)) &amp;&amp; (IsQuestCompleted(13785)))" >
+          <TurnIn QuestName="The Edge Of Winter" QuestId="13785" TurnInName="Eressea Dawnsinger" TurnInId="33379" />
         </If>
         <If Condition="((HasQuest(13786)) &amp;&amp; (IsQuestCompleted(13786)))" >
-          <TurnIn QuestName="A Valiant's Field Training" QuestId="13786" TurnInName="Sarah Chalke" TurnInId="33541" />
+          <TurnIn QuestName="A Valiant's Field Training" QuestId="13786" TurnInName="Kethiel Sunlance" TurnInId="33538" />
         </If>
         <If Condition="((HasQuest(13787)) &amp;&amp; (IsQuestCompleted(13787)))" >
-          <TurnIn QuestName="The Grand Melee" QuestId="13787" TurnInName="Aneera Thuron" TurnInId="33547" />
+          <TurnIn QuestName="The Grand Melee" QuestId="13787" TurnInName="Aneera Thuron" TurnInId="33548" />
         </If>
         <If Condition="((HasQuest(13862)) &amp;&amp; (IsQuestCompleted(13862)))
 || ((HasQuest(13811)) &amp;&amp; (IsQuestCompleted(13811)))
@@ -497,16 +497,16 @@ GetOffX="1975.661" GetOffY="-6097.837" GetOffZ="67.15333"
           <CustomBehavior File="ForcedDismount" />
         </If>
         <If Condition="((HasQuest(13862)) &amp;&amp; (IsQuestCompleted(13862)))" >
-          <CustomBehavior File="SpecialTurnIn" LootId="1" QuestName="Battle Before The Citadel" QuestId="13862" TurnInName="Eadric the Pure" TurnInId="33759" />
+          <CustomBehavior File="ArgentTournament\SpecialTurnIn" LootId="1" QuestName="Battle Before The Citadel" QuestId="13862" TurnInName="Eadric the Pure" TurnInId="33759" />
         </If>
         <If Condition="((HasQuest(13811)) &amp;&amp; (IsQuestCompleted(13811)))" >
-          <CustomBehavior File="SpecialTurnIn" LootId="1" QuestName="Among the Champions" QuestId="13811" TurnInName="Luuri" TurnInId="33771" />
+          <CustomBehavior File="ArgentTournament\SpecialTurnIn" LootId="1" QuestName="Among the Champions" QuestId="13811" TurnInName="Luuri" TurnInId="33771" />
         </If>
         <If Condition="((HasQuest(13810)) &amp;&amp; (IsQuestCompleted(13810)))" >
-          <CustomBehavior File="SpecialTurnIn" LootId="1" QuestName="Taking Battle To The Enemy" QuestId="13810" TurnInName="Cellian Daybreak" TurnInId="33763" />
+          <CustomBehavior File="ArgentTournament\SpecialTurnIn" LootId="1" QuestName="Taking Battle To The Enemy" QuestId="13810" TurnInName="Cellian Daybreak" TurnInId="33763" />
         </If>
         <If Condition="((HasQuest(13809)) &amp;&amp; (IsQuestCompleted(13809)))" >
-          <CustomBehavior File="SpecialTurnIn" LootId="1" QuestName="Threat From Above" QuestId="13809" TurnInName="Eadric the Pure" TurnInId="33759" />
+          <CustomBehavior File="ArgentTournament\SpecialTurnIn" LootId="1" QuestName="Threat From Above" QuestId="13809" TurnInName="Eadric the Pure" TurnInId="33759" />
         </If>
         <CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached the end of the profile" />
       </QuestOrder>
