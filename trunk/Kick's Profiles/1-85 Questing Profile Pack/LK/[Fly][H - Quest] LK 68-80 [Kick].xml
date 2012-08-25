@@ -7625,7 +7625,7 @@
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5190.533" Y="-2199.803" Z="239.3989" />
 		<TurnIn QuestName="Shifting Priorities" QuestId="12763" TurnInName="Sergeant Riannah" TurnInId="29137" />
 			</If>
-			<If Condition="((!HasQuest(12542)) &amp;&amp; (!IsQuestCompleted(12542)))" >
+			<If Condition="((!HasQuest(12542)) &amp;&amp; (!IsQuestCompleted(12542))) &amp;&amp; ((!HasQuest(12545)) &amp;&amp; (!IsQuestCompleted(12545)))" >
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
 				
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3430.385" Y="-1263.379" Z="125.5933" />
@@ -9017,11 +9017,11 @@
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Just Following Orders" QuestId="12540" GiverName="High-Shaman Rakjak" GiverId="28082" />
 			</If>
-			<While Condition="(HasQuest(12540))" >
+			<While Condition="(HasQuest(12540)) || (HasQuest(12570))" >
 				<CustomBehavior File="FlyTo" DestName="talk to Oracle" X="5400.678" Y="4502.84" Z="-130.8759" />
 				<CustomBehavior File="ForcedDismount" />
 			 <While Condition="((HasQuest(12540)) &amp;&amp; (!IsQuestCompleted(12540)))" >
-				<CustomBehavior File="InteractWith" QuestId="12540" MobId="28217" GossipOptions="1" WaitTime="2000" CollectionDistance="10" X="5400.678" Y="4502.84" Z="-130.8759" />
+				<CustomBehavior File="InteractWith" MobId="28217" GossipOptions="1" WaitTime="2000" CollectionDistance="10" X="5400.678" Y="4502.84" Z="-130.8759" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 			 </While>
 		<!--
@@ -9036,11 +9036,12 @@
 				<CustomBehavior File="InteractWith" MobId="28217" CollectionDistance="10" Range="8" X="5400.678" Y="4502.84" Z="-130.8759" />
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
-			</While>
-			<If Condition="((HasQuest(12570)) &amp;&amp; (!IsQuestCompleted(12570)))" >
+			<While Condition="((HasQuest(12570)) &amp;&amp; (!IsQuestCompleted(12570)))" >
+				<RunTo X="5400.678" Y="4502.84" Z="-130.8759" />
 				<CustomBehavior File="InteractWith" QuestId="12570" MobId="28217" GossipOptions="1" WaitTime="2000" CollectionDistance="10" X="5400.678" Y="4502.84" Z="-130.8759" />
 				<CustomBehavior File="Escort" QuestId="12570" EscortUntil="DestinationReached" MobId="28217" X="5400.678" Y="4502.84" Z="-130.8759" EscortDestX="5637.85" EscortDestY="4597.664" EscortDestZ="-137.1581" />
-			</If>
+			</While>
+			</While>
 			<If Condition="((HasQuest(12570)) &amp;&amp; (IsQuestCompleted(12570)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5651.868" Y="4560.372" Z="-134.7812" />
 				<CustomBehavior File="ForcedDismount" />
