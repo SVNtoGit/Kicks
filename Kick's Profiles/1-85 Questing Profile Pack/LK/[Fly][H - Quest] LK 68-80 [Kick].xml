@@ -1697,10 +1697,20 @@
 				<CustomBehavior File="ForcedDismount" />
 			</If>
         <TurnIn QuestName="Get to Getry" TurnInName="Shadowstalker Getry" QuestId="11703" TurnInId="25729" />
-        <PickUp QuestName="Foolish Endeavors" GiverName="Shadowstalker Getry" QuestId="11705" GiverId="25729" />
 			<If Condition="((HasQuest(11705)) &amp;&amp; (!IsQuestCompleted(11705)))" >
-				<CustomBehavior File="Escort" QuestId="11705" MobId="25729" X="3114.555" Y="6576.552" Z="97.51171" />
+				<CustomBehavior File="AbandonQuest" QuestId="11705" Type="Failed" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 			</If>
+        <PickUp QuestName="Foolish Endeavors" GiverName="Shadowstalker Getry" QuestId="11705" GiverId="25729" />
+			<While Condition="HasQuest(11705) &amp;&amp; !IsQuestCompleted(11705)">
+				<CustomBehavior File="UserSettings" LootMobs="False" PullDistance="10"/>
+				<CustomBehavior File="Escort" QuestId="11705" MobId="25729" X="3114.555" Y="6576.552" Z="97.51171" />
+				<CustomBehavior File="AbandonQuest" QuestId="11705" Type="Failed" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+        <PickUp QuestName="Foolish Endeavors" GiverName="Shadowstalker Getry" QuestId="11705" GiverId="25729" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+				<CustomBehavior File="UserSettings" LootMobs="True" PullDistance="30"/>
+			</While>
 			<If Condition="((HasQuest(11705)) &amp;&amp; (IsQuestCompleted(11705)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2728.406" Y="6091.594" Z="74.01369" />
 				<CustomBehavior File="ForcedDismount" />
@@ -5376,10 +5386,10 @@
 		<TurnIn QuestName="Prevent the Accord" QuestId="12005" TurnInName="Image of Archmage Aethas Sunreaver" TurnInId="26471" />
 		<TurnIn QuestName="A Strange Device" QuestId="12059" TurnInName="Image of Archmage Aethas Sunreaver" TurnInId="26471" />
 		<PickUp QuestName="Projections and Plans" QuestId="12061" GiverName="Image of Archmage Aethas Sunreaver" GiverId="26471" />
-			<If Condition="((HasQuest(12140)) &amp;&amp; (!IsQuestCompleted(12140)))" >
+			<While Condition="((HasQuest(12140)) &amp;&amp; (!IsQuestCompleted(12140)))" >
 				<CustomBehavior File="InteractWith" QuestId="12140" MobId="26810" GossipOptions="1, 1" X="3873.758" Y="1590.984" Z="90.25128" />
 				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-			</If>
+			</While>
 		<TurnIn QuestName="Scourge Armaments" QuestId="12048" TurnInName="Borus Ironbender" TurnInId="26564" />
 		<TurnIn QuestName="The Flesh-Bound Tome" QuestId="12057" TurnInName="Captain Gort" TurnInId="26618" />
 		<PickUp QuestName="Koltira and the Language of Death" QuestId="12115" GiverName="Captain Gort" GiverId="26618" />
@@ -7096,6 +7106,7 @@
 				<Objective QuestName="Vordrassil's Seeds" QuestId="12242" Type="Collect" CollectCount="8" ItemId="37302" />
 			</If>
 			<If Condition="HasQuest(12242) &amp;&amp; IsQuestCompleted(12242)" >
+				<CustomBehavior File="FlyTo" X="3716.959" Y="-3849.323" Z="250.1983" /> <!-- S of big tree -->
 				<CustomBehavior File="FlyTo" X="3295.512" Y="-2274.108" Z="110.8405" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
