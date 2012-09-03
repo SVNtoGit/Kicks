@@ -1,0 +1,93 @@
+<HBProfile>
+	<Name>[N - QO] Magisters Terrace [Kick]</Name>
+	<MinLevel>1</MinLevel>
+	<MaxLevel>101</MaxLevel>
+	
+	<QuestOrder>
+
+		<CustomBehavior File="UserSettings" PullDistance="10" UseMount="False" LootMobs="False" />
+		<CustomBehavior File="Message" Text="This profile goes from Dalaran, Org/SW, or BC to MGT automatically - then goes to boss at end and kills him, then hearths home." LogColor="Cornflowerblue" />
+
+		
+		<If Condition="Me.IsAlliance" > <!-- Dalaran and SW to Blasted Lands -->
+		 <If Condition="(Me.ZoneId == 4395)" > <!-- Dalaran -->
+			<CustomBehavior File="Message" Text="We are in Dalaran, using portal to SW" LogColor="Cornflowerblue" />
+			<CustomBehavior File="ForcedDismount" />
+			<RunTo X="5718.221" Y="721.2461" Z="641.7213" />
+			<CustomBehavior File="ForcedDismount" />
+			
+			<CustomBehavior File="InteractWith" MobId="190960" ObjectType="Gameobject" Range="4" X="5718.221" Y="721.2461" Z="641.7213" />
+			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+		 </If>
+		 <If Condition="(Me.ZoneId == 1519)" > <!-- SW -->
+			<CustomBehavior File="InteractWith" MobId="" ObjectType="Gameobject" Range="2" />
+			<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for port {TimeRemaining}" />
+		 </If>
+		</If>
+		
+		<If Condition="Me.IsHorde" > <!-- Dalaran and Org to Blasted Lands -->
+		 <If Condition="(Me.ZoneId == 4395)" > <!-- Dalaran -->
+			<CustomBehavior File="ForcedDismount" />
+			<RunTo X="5924.277" Y="589.9855" Z="639.8734" />
+			<CustomBehavior File="ForcedDismount" />
+			
+			<CustomBehavior File="InteractWith" MobId="191009" ObjectType="Gameobject" Range="4" X="5925.295" Y="593.4274" Z="640.5935" />
+			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+		 </If>
+		 <If Condition="(Me.ZoneId == 1637)" > <!-- Org -->
+			<CustomBehavior File="InteractWith" MobId="195142" ObjectType="Gameobject" Range="2" X="1768.885" Y="-4325.802" Z="-8.339927" />
+			<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for port {TimeRemaining}" />
+		 </If>
+		</If>
+		
+		<While Condition="Me.MapId == 0" > <!-- EK to BC -->
+		 <If Condition="Me.MapId == 0" >
+			<CustomBehavior File="FlyTo" DestName="EK to BC Portal" X="-11889.52" Y="-3206.964" Z="-15.03066" />
+			<CustomBehavior File="ForcedDismount" />
+			<RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+			<CustomBehavior File="WaitTimer" WaitTime="1000" />
+		  </If>
+		  <If Condition="Me.MapId == 0" >
+			<CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+			<CustomBehavior File="WaitTimer" WaitTime="1000" />
+		  </If>
+		 <If Condition="Me.MapId == 0" >
+			<CustomBehavior File="WaitTimer" WaitTime="15000" />
+		 </If>
+		</While>
+		
+		<If Condition="Me.MapId == 530" > <!-- BC -->
+		 <If Condition="(Me.ZoneId != 3703) &amp;&amp; (Me.ZoneId != 4080) &amp;&amp; (Me.ZoneId != 4131)" > <!-- Shattrath, Isle of Quel'Danas, MGT -->
+			<CustomBehavior File="FlyTo" DestName="Shattrath" X="-1811.137" Y="5328.683" Z="-12.42705" />
+			<CustomBehavior File="ForcedDismount" />
+		 </If>
+		 <If Condition="(Me.ZoneId == 3703)" > <!-- Shattrath -->
+			<CustomBehavior File="ForcedDismount" />
+			<RunTo X="-1839.623" Y="5500.888" Z="-12.42702" />
+			<CustomBehavior File="ForcedDismount" />
+			<CustomBehavior File="InteractWith" MobId="187056" ObjectType="Gameobject" Range="2" X="-1839.623" Y="5500.888" Z="-12.42702" />
+			<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for port {TimeRemaining}" />
+		 </If>
+		 <If Condition="(Me.ZoneId == 4080)" > <!-- Isle of Quel'Danas -->
+			<RunTo X="12886.08" Y="-7333.733" Z="65.48798" />
+			<CustomBehavior File="ForcedDismount" />
+			<CustomBehavior File="MyCTM" X="12882.23" Y="-7342.799" Z="65.52702" />
+			<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for port {TimeRemaining}" />
+		 </If>
+		 <If Condition="(Me.ZoneId == 4131)" > <!-- MGT -->
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Alright, turn on DungeonBuddy and press start" />
+		 </If>
+		</If>
+		
+		<!-- For later if we script this dungeon
+			// port to isle of quel'danas
+			<CustomBehavior File="InteractWith" MobId="188173" ObjectType="Gameobject" Range="2" X="148.5056" Y="200.6707" Z="-11.69259" />
+			<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for port {TimeRemaining}" />
+		
+		-->
+		
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Something went wrong!" />
+
+
+	</QuestOrder>
+</HBProfile>
