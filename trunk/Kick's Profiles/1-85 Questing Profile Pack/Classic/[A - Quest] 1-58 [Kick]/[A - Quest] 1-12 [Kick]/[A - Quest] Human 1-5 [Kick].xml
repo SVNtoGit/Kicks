@@ -309,26 +309,9 @@
 			<TurnIn QuestName="They Sent Assassins" QuestId="29081" TurnInName="Sergeant Willem" TurnInId="823" X="-8827.837" Y="-158.6233" Z="79.85906" />
 			<PickUp QuestName="The Rear is Clear" QuestId="29083" GiverName="Sergeant Willem" GiverId="823" X="-8827.837" Y="-158.6233" Z="79.85906" />
 			<TurnIn QuestName="The Rear is Clear" QuestId="29083" TurnInName="Marshal McBride" TurnInId="197" X="-8913.069" Y="-137.4063" Z="80.8181" />
-			<PickUp QuestName="Blackrock Invasion" QuestId="26389" GiverName="Marshal McBride" GiverId="197" X="-8913.069" Y="-137.4063" Z="80.8181" />
-			<PickUp QuestName="Extinguishing Hope" QuestId="26391" GiverName="Milly Osworth" GiverId="9296" X="-8923.88" Y="-135.8889" Z="81.02888" />
-				<While Condition="((HasQuest(26391)) &amp;&amp; (!IsQuestCompleted(26391)))" >
-					<CustomBehavior File="UserSettings" PullDistance="10" />
-					<CustomBehavior File="UseItemOn" QuestId="26391" MobId="42940" ItemId="58362" NumOfTimes="8" WaitTime="3000" Range="10" CollectionDistance="100" X="-9063.322" Y="-277.0595" Z="73.64384" />
-					<CustomBehavior File="UserSettings" PullDistance="25" />
-				</While>
-				<Objective QuestName="Blackrock Invasion" QuestId="26389" Type="CollectItem" ItemId="58361" CollectCount="8" />		
-			<TurnIn QuestName="Extinguishing Hope" QuestId="26391" TurnInName="Milly Osworth" TurnInId="9296" X="-8923.88" Y="-135.8889" Z="81.02888" />
-			<TurnIn QuestName="Blackrock Invasion" QuestId="26389" TurnInName="Marshal McBride" TurnInId="197" X="-8913.069" Y="-137.4063" Z="80.8181" />
-			<PickUp QuestName="Ending the Invasion!" QuestId="26390" GiverName="Marshal McBride" GiverId="197" X="-8913.069" Y="-137.4063" Z="80.8181" />
-				<Objective QuestName="Ending the Invasion!" QuestId="26390" Type="KillMob" MobId="42938" KillCount="1" />		
-			<TurnIn QuestName="Ending the Invasion!" QuestId="26390" TurnInName="Marshal McBride" TurnInId="197" X="-8913.069" Y="-137.4063" Z="80.8181" />
-			
-			<PickUp QuestName="Rest and Relaxation" QuestId="2158" GiverName="Falkhaan Isenstrider" GiverId="6774" X="-9044.558" Y="-45.98166" Z="88.33724" />
-			<TurnIn QuestName="Rest and Relaxation" QuestId="2158" TurnInName="Innkeeper Farley" TurnInId="295" X="-9462.663" Y="16.19151" Z="56.96266" />
-				
 		</If>
 		
-	   <If Condition="((Me.Race == WoWRace.Human)  &amp;&amp; (Me.Level &lt; 5))">
+	   <If Condition="((Me.Race == WoWRace.Human) &amp;&amp; (Me.Level &lt; 5))">
 	   
 		<SetVendor>
 			<Vendors>
@@ -490,14 +473,9 @@
 			<PickUp QuestName="Consecrated Letter" QuestId="3101" GiverName="Marshal McBride" GiverId="197" X="-8913.069" Y="-137.4063" Z="80.8181" />
 			<TurnIn QuestName="Consecrated Letter" QuestId="3101" TurnInName="Brother Sammuel" TurnInId="925" />
 			<PickUp QuestName="The Power of the Light" QuestId="26918" GiverName="Brother Sammuel" GiverId="925" X="-8914.567" Y="-215.0163" Z="82.11682" />
-				<While Condition="!Styx.Logic.Combat.SpellManager.HasSpell(20154)">
-					<CustomBehavior File="ForceSetVendor" DoSell="True" DoTrain="True" />
-					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for bot to train {TimeRemaining}" />
-				</While>
 				<If Condition="(HasQuest(26918)) &amp;&amp; (!IsQuestCompleted(26918))">
 					<RunTo X="-8967.868" Y="-153.4938" Z="81.50329" />
-					<CustomBehavior File="CastSpellOn" SpellId="20154" MobId="44548" NumOfTimes="1" MobHpPercentLeft="100" MinRange="1" X="-8965.57" Y="-146.288" Z="81.50985" />
-					<CustomBehavior File="CastSpellOn" QuestId="26918" MobId="44548" SpellId="20271" NumOfTimes="1" MobHpPercentLeft="100" MinRange="1" X="-8965.57" Y="-146.288" Z="81.50985" />
+					<CustomBehavior File="InteractWith" QuestId="26918" MobId="44548" NumOfTimes="1" X="-8967.868" Y="-153.4938" Z="81.50329" />
 				</If>
 			<TurnIn QuestName="The Power of the Light" QuestId="26918" TurnInName="Brother Sammuel" TurnInId="925" X="-8914.567" Y="-215.0163" Z="82.11682" />
 			<PickUp QuestName="Join the Battle!" QuestId="28785" GiverName="Brother Sammuel" GiverId="925" X="-8914.567" Y="-215.0163" Z="82.11682" />
@@ -582,6 +560,9 @@
 		<If Condition="(Me.Level == 1)">
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Something went horribly wrong, you're still level 1 and didn't do any quests yet! THIS IS NOT A JOKE\n\nPlease contact the devs to fix the issue!" />
 		</If>
+  	   
+		<!-- End Class Quests -->
+	   </If>
 
 		<PickUp QuestName="Blackrock Invasion" QuestId="26389" GiverName="Marshal McBride" GiverId="197" X="-8913.069" Y="-137.4063" Z="80.8181" />
 		<PickUp QuestName="Extinguishing Hope" QuestId="26391" GiverName="Milly Osworth" GiverId="9296" X="-8923.88" Y="-135.8889" Z="81.02888" />
@@ -597,13 +578,15 @@
 			<Objective QuestName="Ending the Invasion!" QuestId="26390" Type="KillMob" MobId="42938" KillCount="1" />		
 		<TurnIn QuestName="Ending the Invasion!" QuestId="26390" TurnInName="Marshal McBride" TurnInId="197" X="-8913.069" Y="-137.4063" Z="80.8181" />
 		
-		<!-- End Class Quests -->
+			<If Condition="((Me.Race == WoWRace.Human)">
 		<PickUp QuestName="Report to Goldshire" QuestId="54" GiverName="Marshal McBride" GiverId="197" X="-8913.069" Y="-137.4063" Z="80.8181" />
+			</If>
  		<PickUp QuestName="Rest and Relaxation" QuestId="2158" GiverName="Falkhaan Isenstrider" GiverId="6774" X="-9044.558" Y="-45.98166" Z="88.33724" />
+			<If Condition="((HasQuest(54)) &amp;&amp; (IsQuestCompleted(54)))" >
 		<TurnIn QuestName="Report to Goldshire" QuestId="54" TurnInName="Marshal Dughan" TurnInId="240" X="-9465.521" Y="74.00694" Z="56.59536" />
+			</If>
 		<TurnIn QuestName="Rest and Relaxation" QuestId="2158" TurnInName="Innkeeper Farley" TurnInId="295" X="-9462.663" Y="16.19151" Z="56.96266" />
 			
-  	   </If>
 
 				<SetGrindArea> 
 						<GrindArea> 
