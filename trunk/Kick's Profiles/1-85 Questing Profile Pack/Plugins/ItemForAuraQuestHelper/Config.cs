@@ -14,24 +14,14 @@ using System.Windows.Forms;
 using System.Runtime.Serialization;
 
 using Styx;
-using Styx.Logic.Combat;
+using Styx.Common;
+using Styx.CommonBot;
 using Styx.Helpers;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
-using Styx.Plugins.PluginClass;
-using Styx.Logic.BehaviorTree;
 
-using Styx.Logic.Pathing;
-using Styx.Combat.CombatRoutine;
-using Styx.Logic.Inventory.Frames.Quest;
-using Styx.Logic.Questing;
 using Styx.Plugins;
-using Styx.Logic.Inventory.Frames.Gossip;
-using Styx.Logic.Common;
-using Styx.Logic.Inventory.Frames.Merchant;
-using Styx.Logic;
-using Styx.Logic.Profiles;
-using Styx.Logic.Inventory.Frames.LootFrame;
+
 
 namespace ItemForAuraQuesthelper
 {
@@ -444,13 +434,13 @@ namespace ItemForAuraQuesthelper
 
             if (!Directory.Exists(sPath))
             {
-                Logging.WriteDebug("ItemForAura: Creating config directory");
+                Logging.WriteDiagnostic("ItemForAura: Creating config directory");
                 Directory.CreateDirectory(sPath);
             }
 
             sPath = Path.Combine(sPath, "ItemForAura.config");
 
-            Logging.WriteDebug("ItemForAura: Saving config file: {0}", sPath);
+            Logging.WriteDiagnostic("ItemForAura: Saving config file: {0}", sPath);
             xml = new XmlDocument();
             XmlDeclaration dc = xml.CreateXmlDeclaration("1.0", "utf-8", null);
             xml.AppendChild(dc);

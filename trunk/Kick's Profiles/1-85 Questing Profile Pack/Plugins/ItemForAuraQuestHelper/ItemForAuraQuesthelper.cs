@@ -13,38 +13,34 @@ using System.Text;
 using System.Windows.Forms;
 
 using Styx;
-using Styx.Logic.Combat;
+using Styx.Common;
+using Styx.CommonBot;
 using Styx.Helpers;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
-using Styx.Plugins.PluginClass;
-using Styx.Logic.BehaviorTree;
 
-using Styx.Logic.Pathing;
-using Styx.Combat.CombatRoutine;
-using Styx.Logic.Inventory.Frames.Quest;
-using Styx.Logic.Questing;
 using Styx.Plugins;
-using Styx.Logic.Inventory.Frames.Gossip;
-using Styx.Logic.Common;
-using Styx.Logic.Inventory.Frames.Merchant;
-using Styx.Logic;
-using Styx.Logic.Profiles;
-using Styx.Logic.Inventory.Frames.LootFrame;
+using Styx.Common.Plugins;
+using Styx.CommonBot.Profiles;
+using Styx.CommonBot.Inventory;
+using Styx.Helpers;
+
+//Includes updates for HB API updates for WoW v 5.0.x updates and up - Updated by No1KnowsY on 02 OCT 2012
+//Hopefully Kick will throw this into his SVN for us, but until then, I will provide on the forums
 
 namespace ItemForAuraQuesthelper
 {
     class ItemForAura : HBPlugin
     {
         public override string Name { get { return "Questhelper - ItemForAura"; } }
-        public override string Author { get { return "Kickazz n KaZ"; } }
-        private readonly Version _version = new Version(2, 0);
+        public override string Author { get { return "Kickazz n KaZ n No1KnowsY"; } }
+        private readonly Version _version = new Version(2, 1);
         public override Version Version { get { return _version; } }
         public override string ButtonText { get { return "Settings"; } }
         public override bool WantButton { get { return true; } }
 
         public static Settings Settings = new Settings();
-        public static LocalPlayer Me = ObjectManager.Me;
+        public static LocalPlayer Me = StyxWoW.Me;
 
         bool hasItBeenInitialized = false;
         static Stopwatch pulseThrottleTimer = new Stopwatch();
@@ -104,7 +100,7 @@ namespace ItemForAuraQuesthelper
                 pulseThrottleTimer.Start();
 // dont use the Item while ...
                 if (Me.IsCasting || Me.IsInInstance || Me.IsOnTransport || Battlegrounds.IsInsideBattleground
-                   || Me.Dead || Me.IsGhost)
+                   || Me.IsDead || Me.IsGhost)
                     return;
 
                 ObjectManager.Update();
@@ -247,7 +243,7 @@ namespace ItemForAuraQuesthelper
             int QuestCount = Lua.GetReturnVal<int>("return select(1, GetNumQuestLogEntries())", 0);
             for (int i = 1; i <= QuestCount; i++)
             {
-                List<string> QuestInfo = Lua.LuaGetReturnValue("return GetQuestLogTitle(" + i + ")", "raphus.lua");
+                List<string> QuestInfo = Lua.GetReturnValues("return GetQuestLogTitle(" + i + ")", "raphus.lua");
 
                 //pass if the index isHeader or isCollapsed
                 if (QuestInfo[4] == "1" || QuestInfo[5] == "1")
@@ -276,7 +272,7 @@ namespace ItemForAuraQuesthelper
             int QuestCount = Lua.GetReturnVal<int>("return select(1, GetNumQuestLogEntries())", 0);
             for (int i = 1; i <= QuestCount; i++)
             {
-                List<string> QuestInfo = Lua.LuaGetReturnValue("return GetQuestLogTitle(" + i + ")", "raphus.lua");
+                List<string> QuestInfo = Lua.GetReturnValues("return GetQuestLogTitle(" + i + ")", "raphus.lua");
 
                 //pass if the index isHeader or isCollapsed
                 if (QuestInfo[4] == "1" || QuestInfo[5] == "1")
