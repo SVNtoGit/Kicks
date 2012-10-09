@@ -11,8 +11,8 @@
 		<Vendor Name="Brewmother Kiki" Entry="66236" Type="Food" X="3031.383" Y="-538.882" Z="249.0272" />
 		<Vendor Name="Kofa the Swift" Entry="66219" Type="Repair" X="3009.502" Y="-535.0226" Z="248.1412" />
 		<Vendor Name="Rivett Clutchpop" Entry="56406" Type="Repair" X="1288.79" Y="-449.6007" Z="343.9972" />
-		
-		
+		<Vendor Name="Peiji Goldendraft" Entry="55809" Type="Food" X="1618.276" Y="-1740.436" Z="263.3519" />
+		<Vendor Name="Singegruff" Entry="56705" Type="Repair" X="1528.802" Y="-1806.385" Z="246.2001" />
 		
 		
 		
@@ -27,6 +27,12 @@
 	<Mailboxes>
 		<Mailbox X="3033.797" Y="-548.4258" Z="248.2127" /> <!-- Honeydew Village -->
 		<Mailbox X="2955.907" Y="-486.4727" Z="268.8542" /> <!-- Honeydew Village -->
+		<Mailbox X="1455.845" Y="-506.0719" Z="346.154" /> <!-- Grookin Hill -->
+		<Mailbox X="1605.515" Y="-1791.114" Z="260.0332" /> <!-- Dawn's Blossom -->
+		<Mailbox X="2561.02" Y="-1448.156" Z="406.1151"  /> <!-- Tian Monastery -->
+		
+		
+		
 	</Mailboxes>
 	
 	<Blackspots>
@@ -351,23 +357,39 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-	
-	
-	<!-- NiV -->
-	
 	<Quest Id="29942" Name="Silly Wikket, Slickies are for Hozen">
 		<Objective Type="CollectItem" ItemId="76420" CollectCount="4">
 			<CollectFrom>
 				<Mob Name="Muck Snapper" Id="56447" />
 			</CollectFrom>
 			<Hotspots>
-				<Hotspot X="1140.044" Y="-384.4771" Z="254.2327" />
-				<Hotspot X="1006.08" Y="-390.0028" Z="255.9408" />
-				<Hotspot X="1034.203" Y="-469.3871" Z="257.1098" />
-				<Hotspot X="1099.404" Y="-445.3073" Z="259.6334" />
+				<Hotspot X="1085.106" Y="-442.9532" Z="258.5907" />
+				<Hotspot X="991.9152" Y="-475.6927" Z="258.7177" />
+				<Hotspot X="995.2647" Y="-423.8203" Z="257.9332" />
+				<Hotspot X="1026.612" Y="-391.2304" Z="256.5738" />
+				<Hotspot X="1094.689" Y="-348.7847" Z="253.2954" />
+				<Hotspot X="1130.948" Y="-337.9552" Z="253.1494" />
+				<Hotspot X="1155.096" Y="-370.235" Z="251.7122" />
+				<Hotspot X="1124.516" Y="-409.662" Z="250.4418" />
+				<Hotspot X="1090.235" Y="-407.9865" Z="251.5972" />
 			</Hotspots>
 		</Objective>
 	</Quest>
+	<Quest Id="29943" Name="Guerrillas in our Midst">
+		<Objective Type="KillMob" MobId="56303" KillCount="8">
+			<Hotspots>
+				<Hotspot X="1318.206" Y="-628.2243" Z="335.9672" />
+				<Hotspot X="1225.641" Y="-600.6273" Z="326.7699" />
+				<Hotspot X="1192.881" Y="-705.4096" Z="322.2364" />
+				<Hotspot X="1136.676" Y="-719.0812" Z="324.2074" />
+				<Hotspot X="1258.981" Y="-776.8134" Z="314.2713" />
+				<Hotspot X="1281.532" Y="-688.8553" Z="327.5352" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	
+	
+	<!-- NiV -->
 	
 	<Quest Id="29866" Name="The Threads that Stick">
 		<Objective Type="CollectItem" ItemId="75023" CollectCount="7">
@@ -650,6 +672,19 @@
 		</Objective>
 	</Quest>
 
+	<Quest Id="29968" Name="Green-ish Energy">
+		<Objective Type="CollectItem" ItemId="76333" CollectCount="7">
+			<CollectFrom>
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="1278.367" Y="-611.0127" Z="333.3347" />
+				<Hotspot X="1315.409" Y="-675.2875" Z="332.6985" />
+				<Hotspot X="1226.282" Y="-750.8939" Z="318.752" />
+				<Hotspot X="1142.053" Y="-753.7337" Z="328.9805" />
+				<Hotspot X="1218.699" Y="-551.5268" Z="325.8183" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 	
 	
 	<QuestOrder>
@@ -1070,9 +1105,146 @@
 				<RunTo X="1062.377" Y="-398.3861" Z="255.9124" />
 				<CustomBehavior File="InteractWith" QuestId="29939" MobId="209877" ObjectType="Gameobject" Range="8" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="1062.377" Y="-398.3861" Z="255.9124" />
 			</While>
-			<Objective QuestName="Silly Wikket, Slickies are for Hozen" QuestId="29942" Type="CollectItem" ItemId="76420" CollectCount="4" />
+			<If Condition="((HasQuest(29942)) &amp;&amp; (!IsQuestCompleted(29942)))" >
+				<!--<Objective QuestName="Silly Wikket, Slickies are for Hozen" QuestId="29942" Type="CollectItem" ItemId="76420" CollectCount="4" />-->
+				<CustomBehavior File="CollectThings" QuestId="29942" MobId="56447" CollectItemCount="4" CollectItemId="76420" HuntingGroundRadius="200" >
+					<Hotspot X="1085.106" Y="-442.9532" Z="258.5907" />
+					<Hotspot X="991.9152" Y="-475.6927" Z="258.7177" />
+					<Hotspot X="995.2647" Y="-423.8203" Z="257.9332" />
+					<Hotspot X="1026.612" Y="-391.2304" Z="256.5738" />
+					<Hotspot X="1094.689" Y="-348.7847" Z="253.2954" />
+					<Hotspot X="1130.948" Y="-337.9552" Z="253.1494" />
+					<Hotspot X="1155.096" Y="-370.235" Z="251.7122" />
+					<Hotspot X="1124.516" Y="-409.662" Z="250.4418" />
+					<Hotspot X="1090.235" Y="-407.9865" Z="251.5972" />
+				</CustomBehavior>
+				<CustomBehavior File="AscendInWater" />
+			</If>
 		<TurnIn QuestName="Silly Wikket, Slickies are for Hozen" QuestId="29942" TurnInName="Eekle Eekle" TurnInId="56358" X="1285.95" Y="-435.5556" Z="345.1791" />
 		<TurnIn QuestName="Boom Bait" QuestId="29939" TurnInName="Rivett Clutchpop" TurnInId="56406" X="1288.79" Y="-449.6007" Z="343.9973"  />
+		<PickUp QuestName="The Scouts Return" QuestId="29971" GiverName="Rivett Clutchpop" GiverId="56406" X="1288.79" Y="-449.6007" Z="343.997" />
+		<TurnIn QuestName="The Scouts Return" QuestId="29971" TurnInName="Shokia" TurnInId="55647" X="1447.208" Y="-547.8195" Z="352.7315" />
+		<PickUp QuestName="Scouting Report: Hostile Natives" QuestId="29730" GiverName="Riko" GiverId="55648" X="1444.606" Y="-545.2101" Z="353.1352" />
+			<While Condition="((HasQuest(29730)) &amp;&amp; (!IsQuestCompleted(29730)))" >
+			 <While Condition="((HasQuest(29730)) &amp;&amp; (!IsObjectiveComplete(1, 29730)))"> <!-- Warning Sign -->
+				<CustomBehavior File="InteractWith" QuestId="29730" MobId="209615" ObjectType="Gameobject" Range="8" NumOfTimes="1" CollectionDistance="1000" X="1538.662" Y="-1221.892" Z="242.0961" />
+			 </While>
+			 <While Condition="((HasQuest(29730)) &amp;&amp; (!IsObjectiveComplete(2, 29730)))"> <!-- Lifelike Jade Statue -->
+				<CustomBehavior File="InteractWith" QuestId="29730" MobId="55378" Range="8" NumOfTimes="1" CollectionDistance="1000" X="1507.525" Y="-1267.637" Z="245.5632" />
+				<CustomBehavior File="WaitTimer" WaitTime="12000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+			 </While>
+			 <While Condition="((HasQuest(29730)) &amp;&amp; (!IsObjectiveComplete(3, 29730)))"> <!-- Widow Greenpaw -->
+				<CustomBehavior File="InteractWith" QuestId="29730" MobId="55381" Range="8" GossipOptions="1" NumOfTimes="1" CollectionDistance="1000" X="1501.259" Y="-1288.729" Z="248.6165" />
+				<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+			 </While>
+			</While>
+		<TurnIn QuestName="Scouting Report: Hostile Natives" QuestId="29730" TurnInName="Riko" TurnInId="55648" X="1444.606" Y="-545.2101" Z="353.1352" />
+		<PickUp QuestName="Scouting Report: On the Right Track" QuestId="29731" GiverName="Shademaster Kiryn" GiverId="55646" X="1443.295" Y="-548.7465" Z="352.7869" />
+			<If Condition="((HasQuest(29731)) &amp;&amp; (!IsQuestCompleted(29731)))" >
+				<CustomBehavior File="UserDialog" QuestId="29731" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Manually complete Kiryn's quest objective\n\nNatfoth - develop this vehicle quest" />
+				<!-- <Vendor Name="Young Alliance Soldier" Entry="55770" Type="Repair" X="853.4566" Y="-1950.396" Z="61.24099" /> -->
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Scouting Report: On the Right Track" QuestId="29731" TurnInName="Shademaster Kiryn" TurnInId="55646" X="1443.295" Y="-548.7465" Z="352.7869" />
+		<PickUp QuestName="Scouting Report: The Friend of My Enemy" QuestId="29823" GiverName="Riko" GiverId="55648" X="1444.606" Y="-545.2101" Z="353.1352" />
+			<If Condition="((HasQuest(29823)) &amp;&amp; (!IsQuestCompleted(29823)))" >
+				<CustomBehavior File="UserDialog" QuestId="29823" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Manually complete Riko's quest objective\n\nNatfoth - develop this vehicle quest" />
+				<!-- <Vendor Name="Shademaster Kiryn" Entry="55688" Type="Repair" X="370.5139" Y="-2026.915" Z="57.19415" /> // interactwith gossip 1, defend -->
+				<CustomBehavior File="WaitTimer" WaitTime="45000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Scouting Report: The Friend of My Enemy" QuestId="29823" TurnInName="Riko" TurnInId="55648" X="1444.606" Y="-545.2101" Z="353.1352" />
+		<PickUp QuestName="Scouting Report: Like Jinyu in a Barrel" QuestId="29824" GiverName="Shokia" GiverId="55647" />
+			<If Condition="((HasQuest(29824)) &amp;&amp; (!IsQuestCompleted(29824)))" >
+				<CustomBehavior File="UserDialog" QuestId="29824" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Manually complete Kiryn's quest objective\n\nNatfoth - develop this vehicle quest" />
+				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(29824)) &amp;&amp; (IsQuestCompleted(29824)))" >
+		<TurnIn QuestName="Scouting Report: Like Jinyu in a Barrel" QuestId="29824" TurnInName="Shokia" TurnInId="55647" X="1447.208" Y="-547.8195" Z="352.7317" />
+				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+		<PickUp QuestName="Guerrillas in our Midst" QuestId="29943" GiverName="General Nazgrim" GiverId="56339" X="1439.789" Y="-552.1586" Z="351.9992"  />
+			<Objective QuestName="Guerrillas in our Midst" QuestId="29943" Type="KillMob" MobId="56303" KillCount="8" />
+		<TurnIn QuestName="Guerrillas in our Midst" QuestId="29943" TurnInName="General Nazgrim" TurnInId="56339" X="1439.565" Y="-549.2255" Z="352.2939" />
+		<PickUp QuestName="Burning Down the House" QuestId="29966" GiverName="General Nazgrim" GiverId="56339" X="1439.565" Y="-549.2255" Z="352.2939"   />
+		<PickUp QuestName="Green-ish Energy" QuestId="29968" GiverName="Rivett Clutchpop" GiverId="56406"  X="1218.822" Y="-699.8163" Z="324.9187" />
+			<Objective QuestName="Green-ish Energy" QuestId="29968" Type="CollectItem" ItemId="76333" CollectCount="7" />
+			<If Condition="((HasQuest(29966)) &amp;&amp; (!IsQuestCompleted(29966)))" >
+				<RunTo X="1133.852" Y="-605.2563" Z="397.1089" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(76336)" WaitTime="10000" />
+			</If>
+		<TurnIn QuestName="Burning Down the House" QuestId="29966" TurnInName="General Nazgrim" TurnInId="56339" X="1439.565" Y="-549.2255" Z="352.2939" />
+		<TurnIn QuestName="Green-ish Energy" QuestId="29968" TurnInName="Rivett Clutchpop" TurnInId="56406" X="1288.79" Y="-449.6007" Z="343.997" />
+		<PickUp QuestName="Boom Goes the Doonamite!" QuestId="29967" GiverName="Rivett Clutchpop" GiverId="56406" X="1288.79" Y="-449.6007" Z="343.997" />
+			<If Condition="((HasQuest(29967)) &amp;&amp; (!IsQuestCompleted(29967)))" >
+				<CustomBehavior File="InteractWith" QuestId="29967" MobId="56525" GossipOptions="1" NumOfTimes="1" WaitTime="1000" CollectionDistance="1000" X="1368.113" Y="-571.8212" Z="339.3784" />
+				<CustomBehavior File="UserDialog" QuestId="29967" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Kill Jinyu Attackers with vehicle" />
+				<!-- we can get attacked and kicked out of vehicle, please compensate for this natfoth -->
+			</If>
+		<TurnIn QuestName="Boom Goes the Doonamite!" QuestId="29967" TurnInName="Rivett Clutchpop" TurnInId="56525" X="1368.113" Y="-571.8212" Z="339.3784" />
+			<If Condition="((!HasQuest(30015)) &amp;&amp; (!IsQuestCompleted(30015)))" >
+		<PickUp QuestName="Dawn's Blossom" QuestId="30015" GiverName="General Nazgrim" GiverId="56339" X="1439.757" Y="-549.967" Z="352.185" />
+				<RunTo X="1422.458" Y="-490.474" Z="356.4334" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" MobId="60952" GossipOptions="2" X="1422.458" Y="-490.474" Z="356.4334" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" MobId="59186" X="1499.969" Y="-1833.453" Z="246.2003" />
+			</If>
+			<If Condition="((HasQuest(30015)) &amp;&amp; (IsQuestCompleted(30015)))" >
+		<TurnIn QuestName="Dawn's Blossom" QuestId="30015" TurnInName="Lorewalker Cho" TurnInId="63577" X="1504.736" Y="-1817.182" Z="246.1825" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+
+		<!-- Dawn's Blossom quests -->
+		<CustomBehavior File="Message" Text="Compiling Dawn's Blossom quests" LogColor="Cornflowerblue" />
+	
+		<PickUp QuestName="Welcome to Dawn's Blossom" QuestId="31230" GiverName="Toya" GiverId="56348" X="1503.337" Y="-1840.993" Z="246.2003"  />
+			<If Condition="((HasQuest(31230)) &amp;&amp; (!IsQuestCompleted(31230)))" >
+			 <While Condition="((HasQuest(31230)) &amp;&amp; (!IsObjectiveComplete(3, 31230)))">
+				<CustomBehavior File="InteractWith" QuestId="31230" MobId="59173" X="1510.594" Y="-1830.516" Z="246.1987" />
+			 </While>
+			 <While Condition="((HasQuest(31230)) &amp;&amp; (!IsObjectiveComplete(2, 31230)))">
+				<CustomBehavior File="InteractWith" QuestId="31230" MobId="55809" X="1615.476" Y="-1744.455" Z="263.1201" />
+			 </While>
+			 <While Condition="((HasQuest(31230)) &amp;&amp; (!IsObjectiveComplete(1, 31230)))">
+				<CustomBehavior File="InteractWith" QuestId="31230" MobId="59160" X="1581.536" Y="-1934.231" Z="268.9171" />
+			 </While>
+			</If>
+		<TurnIn QuestName="Welcome to Dawn's Blossom" QuestId="31230" TurnInName="Toya" TurnInId="56348" X="1503.337" Y="-1840.993" Z="246.2003"  />
+		<PickUp QuestName="An Air of Worry" QuestId="29576" GiverName="Old Man Misteye" GiverId="59383" X="1508.38" Y="-1922.587" Z="258.809" />
+		<PickUp QuestName="Tian Monastery" QuestId="29617" GiverName="Apprentice Yufi" GiverId="54998" X="1518.981" Y="-2015.104" Z="247.0745" />
+		<PickUp QuestName="The Threads that Stick" QuestId="29866" GiverName="Lo Wanderbrew" GiverId="59178" X="1543.097" Y="-1804.175" Z="246.1997" />
+		<PickUp QuestName="The Silkwood Road" QuestId="29865" GiverName="Tzu the Ironbelly" GiverId="56062" X="1520.274" Y="-1792.156" Z="246.3586" />
+		<PickUp QuestName="The Double Hozen Dare" QuestId="29716" GiverName="An Windfur" GiverId="55234" X="1504.25" Y="-1805.726" Z="246.1824" />
+			<Objective QuestName="The Threads that Stick" QuestId="29866" Type="CollectItem" ItemId="75023" CollectCount="7" />
+			<Objective QuestName="The Silkwood Road" QuestId="29865" Type="KillMob" MobId="56070" KillCount="8" />
+			<If Condition="((!HasQuest(29717)) &amp;&amp; (!IsQuestCompleted(29717)))" >
+				<RunTo X="1409.831" Y="-1348.027" Z="242.2481" />
+		<PickUp QuestName="Down Kitty!" QuestId="29717" GiverName="An Windfur" GiverId="55274" X="1409.831" Y="-1348.027" Z="242.2481" />
+			</If>
+			<While Condition="((HasQuest(29716)) &amp;&amp; (!IsQuestCompleted(29716)))" >
+				<CustomBehavior File="InteractWith" QuestId="29716" MobId="55267" GossipOptions="1" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="1430.401" Y="-1345.01" Z="243.1724" />
+				<CustomBehavior File="InteractWith" QuestId="29716" MobId="55267" GossipOptions="1" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="1376.539" Y="-1296.408" Z="221.8525" />
+				<CustomBehavior File="InteractWith" QuestId="29716" MobId="55267" GossipOptions="1" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="1301.063" Y="-1227.426" Z="191.4972" />
+				<CustomBehavior File="InteractWith" QuestId="29716" MobId="55267" GossipOptions="1" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="1376.113" Y="-1194.45" Z="213.1586" />
+				<CustomBehavior File="InteractWith" QuestId="29716" MobId="55267" GossipOptions="1" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="1432.904" Y="-1235.755" Z="232.9145" />
+				<CustomBehavior File="InteractWith" QuestId="29716" MobId="55267" GossipOptions="1" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="1557.185" Y="-1266.601" Z="242.2967" />
+				<CustomBehavior File="InteractWith" QuestId="29716" MobId="55267" GossipOptions="1" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="1589.498" Y="-1354.784" Z="243.1858" />
+				<CustomBehavior File="InteractWith" QuestId="29716" MobId="55267" GossipOptions="1" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="1722.512" Y="-1207.224" Z="264.3888" />
+				<CustomBehavior File="InteractWith" QuestId="29716" MobId="55267" GossipOptions="1" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="1632.859" Y="-1137.749" Z="257.3562" />
+				<CustomBehavior File="InteractWith" QuestId="29716" MobId="55267" GossipOptions="1" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="1543.71" Y="-1098.829" Z="254.1499" />
+				<CustomBehavior File="InteractWith" QuestId="29716" MobId="55267" GossipOptions="1" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="1550.583" Y="-1170.17" Z="244.3325" />
+				<CustomBehavior File="InteractWith" QuestId="29716" MobId="55267" GossipOptions="1" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="1474.748" Y="-1188.978" Z="234.3311" />
+			</While>
+			<Objective QuestName="Down Kitty!" QuestId="29717" Type="KillMob" MobId="55236" KillCount="8" />
+		<TurnIn QuestName="The Threads that Stick" QuestId="29866" TurnInName="Lo Wanderbrew" TurnInId="59178" X="1543.097" Y="-1804.175" Z="246.1997" />
+		<TurnIn QuestName="The Silkwood Road" QuestId="29865" TurnInName="Tzu the Ironbelly" TurnInId="56062" X="1520.274" Y="-1792.156" Z="246.3586" />
+		<TurnIn QuestName="Down Kitty!" QuestId="29717" TurnInName="An Windfur" TurnInId="55274" X="1504.25" Y="-1805.726" Z="246.1824" />
+		<TurnIn QuestName="The Double Hozen Dare" QuestId="29716" TurnInName="An Windfur" TurnInId="55274" X="1504.25" Y="-1805.726" Z="246.1824" /> 
+		<PickUp QuestName="The Jade Witch" QuestId="29723" GiverName="An Windfur" GiverId="55274" X="1504.25" Y="-1805.726" Z="246.1824" />
+		<PickUp QuestName="Find the Boy" QuestId="29993" GiverName="Kai Wanderbrew" GiverId="59173" X="1518.775" Y="-1812.76" Z="246.1964" />
+
+
+
 
 
 
