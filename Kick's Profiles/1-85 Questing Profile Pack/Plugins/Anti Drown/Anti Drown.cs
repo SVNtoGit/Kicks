@@ -1,9 +1,16 @@
 using System;
-using Styx.Helpers;
-using Styx.Plugins.PluginClass;
+using System.Collections.Generic;
+using System.Text;
+
+using Styx;
+using Styx.Common;
+using Styx.CommonBot;
+using Styx.Plugins;
 using Styx.WoWInternals;
-using TreeSharp;
-using Action = TreeSharp.Action;
+using Styx.WoWInternals.WoWObjects;
+
+using Styx.TreeSharp;
+using Action = Styx.TreeSharp.Action;
 
 namespace Styx
 {
@@ -19,7 +26,7 @@ namespace Styx
         public override void Pulse()
         {
             var me = StyxWoW.Me;
-            var value = ObjectManager.Me.GetMirrorTimerInfo(MirrorTimerType.Breath).CurrentTime;
+            var value = me.GetMirrorTimerInfo(MirrorTimerType.Breath).CurrentTime;
             if (value < 60000 && me.IsAlive && me.IsSwimming && (value != 0) || (value > 900001))
             {
                 if (_root == null)

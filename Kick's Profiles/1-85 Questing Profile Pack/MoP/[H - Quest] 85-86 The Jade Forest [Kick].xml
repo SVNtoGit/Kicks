@@ -387,10 +387,6 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-	
-	
-	<!-- NiV -->
-	
 	<Quest Id="29866" Name="The Threads that Stick">
 		<Objective Type="CollectItem" ItemId="75023" CollectCount="7">
 			<CollectFrom>
@@ -406,7 +402,6 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-	
 	<Quest Id="29865" Name="The Silkwood Road">
 		<Objective Type="KillMob" MobId="56070" KillCount="8">
 			<Hotspots>
@@ -419,26 +414,6 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-	
-	<Quest Id="29716" Name="The Double Hozen Dare">
-		<Objective Type="KillMob" MobId="55267" KillCount="6">
-			<Hotspots>
-				<Hotspot X="1430.401" Y="-1345.01" Z="243.1724" />
-				<Hotspot X="1376.539" Y="-1296.408" Z="221.8525" />
-				<Hotspot X="1301.063" Y="-1227.426" Z="191.4972" />
-				<Hotspot X="1376.113" Y="-1194.45" Z="213.1586" />
-				<Hotspot X="1432.904" Y="-1235.755" Z="232.9145" />
-				<Hotspot X="1557.185" Y="-1266.601" Z="242.2967" />
-				<Hotspot X="1589.498" Y="-1354.784" Z="243.1858" />
-				<Hotspot X="1722.512" Y="-1207.224" Z="264.3888" />
-				<Hotspot X="1632.859" Y="-1137.749" Z="257.3562" />
-				<Hotspot X="1543.71" Y="-1098.829" Z="254.1499" />
-				<Hotspot X="1550.583" Y="-1170.17" Z="244.3325" />
-				<Hotspot X="1474.748" Y="-1188.978" Z="234.3311" />
-			</Hotspots>
-		</Objective>
-	</Quest>
-	
 	<Quest Id="29717" Name="Down Kitty!">
 		<Objective Type="KillMob" MobId="55236" KillCount="8">
 			<Hotspots>
@@ -457,7 +432,6 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-	
 	<Quest Id="29928" Name="I Have No Jade And I Must Scream">
 		<Objective Type="CollectItem" ItemId="76209" CollectCount="15">
 			<CollectFrom>
@@ -472,6 +446,11 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+	
+	
+	
+	
+	<!-- NiV -->
 	
 	<Quest Id="29926" Name="Calamity Jade">
 		<Objective Type="KillMob" MobId="56401" KillCount="12">
@@ -1242,6 +1221,34 @@
 		<TurnIn QuestName="The Double Hozen Dare" QuestId="29716" TurnInName="An Windfur" TurnInId="55274" X="1504.25" Y="-1805.726" Z="246.1824" /> 
 		<PickUp QuestName="The Jade Witch" QuestId="29723" GiverName="An Windfur" GiverId="55274" X="1504.25" Y="-1805.726" Z="246.1824" />
 		<PickUp QuestName="Find the Boy" QuestId="29993" GiverName="Kai Wanderbrew" GiverId="59173" X="1518.775" Y="-1812.76" Z="246.1964" />
+			<If Condition="((HasQuest(29723)) &amp;&amp; (!IsQuestCompleted(29723)))" >
+				<CustomBehavior File="InteractWith" QuestId="29723" MobId="55368" GossipOptions="1" X="1500.917" Y="-1295.403" Z="249.6229"  />
+				<RunTo X="1498.604" Y="-1324.384" Z="245.6443" />
+			 <While Condition="((HasQuest(29723)) &amp;&amp; (!IsQuestCompleted(29723)))" >
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </While>
+			</If>
+		<TurnIn QuestName="The Jade Witch" QuestId="29723" TurnInName="An Windfur" TurnInId="55413" X="1507.068" Y="-1822.134" Z="246.1902" />
+			<!-- To Emperor's Omen -->
+			<If Condition="((!HasQuest(29925)) &amp;&amp; (!IsQuestCompleted(29925)))">
+		<PickUp QuestName="All We Can Spare" QuestId="29925" GiverName="Toya" GiverId="56348" X="1503.337" Y="-1840.993" Z="246.2001" />
+				<RunTo X="1503.337" Y="-1840.993" Z="246.2001" />
+				<CustomBehavior File="ForcedDismount"/>
+				<CustomBehavior File="InteractWith" MobId="56348" GossipOptions="1" X="1503.337" Y="-1840.993" Z="246.2001" />
+				<CustomBehavior File="InteractWith" MobId="59735" X="2404.778" Y="-2096.951" Z="227.3152" />
+			</If>
+		<TurnIn QuestName="All We Can Spare" QuestId="29925" TurnInName="Lorewalker Cho" TurnInId="56345" X="2391.898" Y="-2102.967" Z="230.8555" />
+
+		<!-- Emperor's Omen quests -->
+		<CustomBehavior File="Message" Text="Compiling Emperor's Omen Quests" LogColor="Cornflowerblue" />
+		
+		<PickUp QuestName="I Have No Jade And I Must Scream" QuestId="29928" GiverName="Foreman Mann" GiverId="56346" X="2394.139" Y="-2105.363" Z="230.0331" />
+			<Objective QuestName="I Have No Jade And I Must Scream" QuestId="29928" Type="CollectItem" ItemId="76209" CollectCount="15" />
+			<If Condition="((HasQuest(29928)) &amp;&amp; (IsQuestCompleted(29928)))" >
+		<TurnIn QuestName="I Have No Jade And I Must Scream" QuestId="29928" TurnInName="Foreman Mann" TurnInId="56346" X="2394.139" Y="-2105.363" Z="230.0331" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+			</If>
 
 
 
