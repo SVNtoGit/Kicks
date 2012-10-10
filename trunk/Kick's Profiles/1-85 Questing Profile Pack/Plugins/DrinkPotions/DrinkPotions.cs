@@ -3,30 +3,21 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms;
 using System.Xml.Linq;
 
 // HB Stuff
 using Styx;
 using Styx.Helpers;
-using Styx.Logic;
-using Styx.Logic.Combat;
-using Styx.Logic.Inventory;
-using Styx.Logic.Inventory.Frames.Gossip;
-using Styx.Logic.Pathing;
-using Styx.Logic.Profiles;
-using Styx.Logic.BehaviorTree;
-using Styx.Plugins.PluginClass;
+using Styx.Plugins;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
-using TreeSharp;
+using Styx.TreeSharp;
 
 namespace DrinkPotions
 {
@@ -36,10 +27,10 @@ namespace DrinkPotions
 
         public override string Name { get { return "DrinkPotions"; } }
         public override string Author { get { return "Kickazz006 & Apoc"; } }
-        public override Version Version { get { return new Version(1,0,0,1); } }
+        public override Version Version { get { return new Version(1, 0, 0, 1); } }
         public override string ButtonText { get { return "Kick fights for the Users!"; } }
         public override bool WantButton { get { return false; } }
-        private static LocalPlayer Me { get { return ObjectManager.Me; } }
+        private static LocalPlayer Me { get { return StyxWoW.Me; } }
 
         public int HealPotPercent = 25; // Drink HP %
         public int ManaPotPercent = 15; // Drink Mana %
@@ -65,20 +56,20 @@ namespace DrinkPotions
         }
 
         public WoWItem HealingPotions()
-        { 
-            return FindFirstUsableItemBySpell("Healing Potion", "Healthstone"); 
+        {
+            return FindFirstUsableItemBySpell("Healing Potion", "Healthstone");
         }
 
         public WoWItem ManaPotions()
-        { 
-            return FindFirstUsableItemBySpell("Restore Mana"); 
+        {
+            return FindFirstUsableItemBySpell("Restore Mana");
         }
-        
+
         public override void Pulse()
         {
-            if (!Me.Combat || Me.Dead || Me.IsGhost || Me.IsOnTransport || Me.OnTaxi || Me.Stunned || (Me.Mounted && Me.IsFlying)) // Chillax
-            { 
-                return; 
+            if (!Me.Combat || !Me.IsAlive || Me.IsGhost || Me.IsOnTransport || Me.OnTaxi || Me.Stunned || (Me.Mounted && Me.IsFlying)) // Chillax
+            {
+                return;
             }
 
             if (Me.Combat) // Pay Attn!
@@ -89,7 +80,7 @@ namespace DrinkPotions
                     if (UseHealPot != null)
                     {
                         UseHealPot.UseContainerItem();
-                        Logging.Write(Color.Yellow, "Used " + UseHealPot.Name + "!");
+                        Styx.Common.Logging.Write(System.Windows.Media.Color.FromRgb(255, 0, 255), "Used " + UseHealPot.Name + "!");
                     }
                 }
                 if (Me.ManaPercent < ManaPotPercent) // Mana
@@ -98,12 +89,12 @@ namespace DrinkPotions
                     if (UseManaPot != null)
                     {
                         UseManaPot.UseContainerItem();
-                        Logging.Write(Color.Yellow, "Used " + UseManaPot.Name + "!");
+                        Styx.Common.Logging.Write(System.Windows.Media.Color.FromRgb(255,0,255), "Used " + UseManaPot.Name + "!");
                     }
                 }
             }
 
-        }   
+        }
     }
-     
+
 }
