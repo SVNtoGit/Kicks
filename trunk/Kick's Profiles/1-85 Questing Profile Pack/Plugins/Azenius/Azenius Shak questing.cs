@@ -3,37 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms;
+
 using Styx;
-using Styx.Combat;
-using Styx.Combat.CombatRoutine;
-using Styx.Database;
 using Styx.Helpers;
 using Styx.Loaders;
-using Styx.Logic;
-using Styx.Logic.AreaManagement;
-using Styx.Logic.AreaManagement.Triangulation;
-using Styx.Logic.BehaviorTree;
-using Styx.Logic.Combat;
-using Styx.Logic.Common;
-using Styx.Logic.Inventory;
-using Styx.Logic.Inventory.Frames;
-using Styx.Logic.Inventory.Frames.Gossip;
-using Styx.Logic.Inventory.Frames.LootFrame;
-using Styx.Logic.Inventory.Frames.MailBox;
-using Styx.Logic.Inventory.Frames.Merchant;
-using Styx.Logic.Inventory.Frames.Quest;
-using Styx.Logic.Inventory.Frames.Taxi;
-using Styx.Logic.Inventory.Frames.Trainer;
-using Styx.Logic.Pathing;
-using Styx.Logic.Pathing.OnDemandDownloading;
-using Styx.Logic.POI;
-using Styx.Logic.Profiles;
-using Styx.Logic.Profiles.Quest;
-using Styx.Logic.Questing;
 using Styx.Patchables;
 using Styx.Plugins;
-using Styx.Plugins.PluginClass;
 using Styx.WoWInternals;
 using Styx.WoWInternals.Misc;
 using Styx.WoWInternals.Misc.DBC;
@@ -75,7 +50,7 @@ namespace Shak_questing
             }
         }
         #endregion
-        private static LocalPlayer Me { get { return ObjectManager.Me; } }
+        private static LocalPlayer Me { get { return StyxWoW.Me; } }
         bool IsAttached27964 = false;
         private static Stopwatch FuckingWait = new Stopwatch();
         static public bool Obj1Done10162 { get { return Lua.GetReturnVal<int>("a,b,c=GetQuestLogLeaderBoard(1,GetQuestLogIndexByID(10162));if c==1 then return 1 else return 0 end", 0) == 1; } }
@@ -87,21 +62,21 @@ namespace Shak_questing
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 19440 && !u.Dead).OrderBy(u => u.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 19440 && u.IsAlive).OrderBy(u => u.Distance).ToList();
             }
         }
         public List<WoWUnit> Yenniku
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 2530 && u.CurrentTargetGuid == Me.Guid && !u.Dead).OrderBy(u => u.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 2530 && u.CurrentTargetGuid == Me.Guid && u.IsAlive).OrderBy(u => u.Distance).ToList();
             }
         }
         public List<WoWUnit> SpiderThingy
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 44284 && u.CurrentTargetGuid == Me.Guid && !u.Dead).OrderBy(u => u.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 44284 && u.CurrentTargetGuid == Me.Guid && u.IsAlive).OrderBy(u => u.Distance).ToList();
             }
         }
         public List<WoWUnit> AdrineTowhide
@@ -124,28 +99,28 @@ namespace Shak_questing
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWGameObject>().Where(ret => (ret.Entry == 202108 && !Me.Dead)).OrderBy(ret => ret.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWGameObject>().Where(ret => (ret.Entry == 202108 && Me.IsAlive)).OrderBy(ret => ret.Distance).ToList();
             }
         }
         public List<WoWUnit> q24817_hammer
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(ret => (ret.Entry == 36682 && !Me.Dead)).OrderBy(ret => ret.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(ret => (ret.Entry == 36682 && Me.IsAlive)).OrderBy(ret => ret.Distance).ToList();
             }
         }
         public List<WoWUnit> q24817_vehicle
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(ret => (ret.Entry == 38318 && !Me.Dead)).OrderBy(ret => ret.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(ret => (ret.Entry == 38318 && Me.IsAlive)).OrderBy(ret => ret.Distance).ToList();
             }
         }
         public List<WoWUnit> q24958_Giant_Turtle
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(ret => (ret.Entry == 38855 && !Me.Dead)).OrderBy(ret => ret.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(ret => (ret.Entry == 38855 && Me.IsAlive)).OrderBy(ret => ret.Distance).ToList();
             }
         }
         public List<WoWUnit> StickboneBerserker
@@ -159,98 +134,98 @@ namespace Shak_questing
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWGameObject>().Where(u => u.Entry == 204966 && !Me.Dead && u.Distance < 10).OrderBy(u => u.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWGameObject>().Where(u => u.Entry == 204966 && Me.IsAlive && u.Distance < 10).OrderBy(u => u.Distance).ToList();
             }
         }
         public List<WoWUnit> StonevaultRuffian
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 46711 && !u.Dead && u.Distance < 200).OrderBy(u => u.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 46711 && u.IsAlive && u.Distance < 200).OrderBy(u => u.Distance).ToList();
             }
         }
         public List<WoWUnit> StonevaultGoon
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 46712 && !u.Dead && u.Distance < 200).OrderBy(u => u.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 46712 && u.IsAlive && u.Distance < 200).OrderBy(u => u.Distance).ToList();
             }
         }
         public List<WoWUnit> WardensPawn
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(ret => (ret.Entry == 46344 && !Me.Dead)).OrderBy(ret => ret.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(ret => (ret.Entry == 46344 && Me.IsAlive)).OrderBy(ret => ret.Distance).ToList();
             }
         }
         public List<WoWUnit> Kalaran
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 46859 && !u.Dead && u.Distance < 10).OrderBy(u => u.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 46859 && u.IsAlive && u.Distance < 10).OrderBy(u => u.Distance).ToList();
             }
         }
         public List<WoWUnit> Moldarr
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 46938 && !u.Dead && u.Distance < 8).OrderBy(u => u.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 46938 && u.IsAlive && u.Distance < 8).OrderBy(u => u.Distance).ToList();
             }
         }
         public List<WoWUnit> Jirakka
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 46860 && !u.Dead && u.Distance < 8).OrderBy(u => u.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 46860 && u.IsAlive && u.Distance < 8).OrderBy(u => u.Distance).ToList();
             }
         }
         public List<WoWUnit> Nyxondra
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 46861 && !u.Dead && u.Distance < 25).OrderBy(u => u.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 46861 && u.IsAlive && u.Distance < 25).OrderBy(u => u.Distance).ToList();
             }
         }
         public List<WoWUnit> BloodSailCorsair
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 43726 && !u.Dead && u.Distance < 25).OrderBy(u => u.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 43726 && u.IsAlive && u.Distance < 25).OrderBy(u => u.Distance).ToList();
             }
         }
         public List<WoWGameObject> GatewayShaadraz
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWGameObject>().Where(u => u.Entry == 183351 && !Me.Dead).OrderBy(ret => ret.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWGameObject>().Where(u => u.Entry == 183351 && Me.IsAlive).OrderBy(ret => ret.Distance).ToList();
             }
         }
         public List<WoWGameObject> GatewayMurketh
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWGameObject>().Where(u => u.Entry == 183350 && !Me.Dead).OrderBy(ret => ret.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWGameObject>().Where(u => u.Entry == 183350 && Me.IsAlive).OrderBy(ret => ret.Distance).ToList();
             }
         }
         public List<WoWUnit> MoargOverseer
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 19397 && !Me.Dead).OrderBy(ret => ret.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 19397 && Me.IsAlive).OrderBy(ret => ret.Distance).ToList();
             }
         }
         public List<WoWUnit> GanArgPeon
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 19398 && !Me.Dead).OrderBy(ret => ret.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 19398 && Me.IsAlive).OrderBy(ret => ret.Distance).ToList();
             }
         }
         public List<WoWGameObject> FelCannon
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWGameObject>().Where(u => u.Entry == 19399 && !Me.Dead).OrderBy(ret => ret.Distance).ToList();
+                return ObjectManager.GetObjectsOfType<WoWGameObject>().Where(u => u.Entry == 19399 && Me.IsAlive).OrderBy(ret => ret.Distance).ToList();
             }
         }
         #endregion
@@ -277,7 +252,7 @@ namespace Shak_questing
                     return;
                 if (Me.CurrentTarget != null && Me.CurrentTarget.CurrentTargetGuid != Me.Guid)
                 {
-                    RoutineManager.Current.Pull();
+                    Styx.CommonBot.Routines.RoutineManager.Current.Pull();
                 }
             }
             #endregion
@@ -289,7 +264,7 @@ namespace Shak_questing
             }
             #endregion
             #region Quest 14236
-            if (!Me.Dead && Me.QuestLog.GetQuestById(14236) != null && !Me.QuestLog.GetQuestById(14236).IsCompleted)
+            if (Me.IsAlive && Me.QuestLog.GetQuestById(14236) != null && !Me.QuestLog.GetQuestById(14236).IsCompleted)
             {
                 WoWPoint q142361 = new WoWPoint(638.7761, 2780.211, 88.81393);
                 WoWPoint q142362 = new WoWPoint(634.825, 2824.758, 87.50606);
@@ -329,12 +304,12 @@ namespace Shak_questing
             }
             #endregion
             #region Quest 24958
-            if (Me.QuestLog.GetQuestById(24958) != null && !Me.QuestLog.GetQuestById(24958).IsCompleted && !Me.Dead)
+            if (Me.QuestLog.GetQuestById(24958) != null && !Me.QuestLog.GetQuestById(24958).IsCompleted && Me.IsAlive)
             {
                 WoWPoint wowpoint = new WoWPoint(1305.009, 1183.095, 121.1527);
                 while (Me.Location.Distance(wowpoint) > 5)
                 {
-                    Navigator.MoveTo(wowpoint);
+                    Styx.Pathing.Navigator.MoveTo(wowpoint);
                     Thread.Sleep(500);
                 }
                 if (q24958_Giant_Turtle.Count != 0)
@@ -366,7 +341,7 @@ namespace Shak_questing
                     {
                         while (Me.CurrentTarget.Distance > 5)
                         {
-                            Navigator.MoveTo(Me.CurrentTarget.Location);
+                            Styx.Pathing.Navigator.MoveTo(Me.CurrentTarget.Location);
                             Thread.Sleep(100);
                         }
                         Me.CurrentTarget.Interact();
@@ -420,7 +395,7 @@ namespace Shak_questing
                 {
                     while (AdrineTowhide[0].Distance > 5)
                     {
-                        Navigator.MoveTo(AdrineTowhide[0].Location);
+                        Styx.Pathing.Navigator.MoveTo(AdrineTowhide[0].Location);
                         Thread.Sleep(100);
                     }
                 }
@@ -429,7 +404,7 @@ namespace Shak_questing
                     WoWPoint TowHide = new WoWPoint(1796.26, -1684.78, 60.1698);
                     while (Me.Location.Distance(TowHide) > 5)
                     {
-                        Navigator.MoveTo(TowHide);
+                        Styx.Pathing.Navigator.MoveTo(TowHide);
                         Thread.Sleep(100);
                     }
                 }
@@ -442,7 +417,7 @@ namespace Shak_questing
                 if (!IsOnCD)
                 {
                     Lua.DoString("UseItemByName(60678)");
-                    LegacySpellManager.ClickRemoteLocation(StickboneBerserker[0].Location);
+                    Styx.CommonBot.SpellManager.ClickRemoteLocation(StickboneBerserker[0].Location);
                 }
             }
             #endregion
@@ -494,7 +469,7 @@ namespace Shak_questing
             }
             #endregion
             #region Quest 27885
-            if (!Me.Dead && Me.QuestLog.GetQuestById(27885) != null && !Me.QuestLog.GetQuestById(27885).IsCompleted)
+            if (Me.IsAlive && Me.QuestLog.GetQuestById(27885) != null && !Me.QuestLog.GetQuestById(27885).IsCompleted)
             {
                 WoWPoint q278850 = new WoWPoint(-6970.479, -3439.854, 200.8959);
                 WoWPoint q278851 = new WoWPoint(-6968.06, -3440.255, 200.8969);
@@ -804,7 +779,7 @@ namespace Shak_questing
                 WoWObject wo = null;
                 try
                 {
-                    wo = ObjectManager.GetObjectsOfType<WoWObject>().Where(u => u.Entry == 206573 && !Me.Combat && !Me.Dead).FirstOrDefault();
+                    wo = ObjectManager.GetObjectsOfType<WoWObject>().Where(u => u.Entry == 206573 && !Me.Combat && Me.IsAlive).FirstOrDefault();
                 }
                 catch { }
                 if (wo != null)
@@ -813,7 +788,7 @@ namespace Shak_questing
                     {
                         while (wo.Distance > 5)
                         {
-                            Navigator.MoveTo(wo.Location);
+                            Styx.Pathing.Navigator.MoveTo(wo.Location);
                             Thread.Sleep(100);
                         }
                         if (wo.Distance < 5)
@@ -829,9 +804,9 @@ namespace Shak_questing
             if (Me.QuestLog.GetQuestById(28226) != null && !Me.QuestLog.GetQuestById(28226).IsCompleted)
             {
 
-                if (GossipFrame.Instance.IsVisible)
+                if (Styx.CommonBot.Frames.GossipFrame.Instance.IsVisible)
                 {
-                    if (!Obj4Done28226 && GossipFrame.Instance.GossipOptionEntries.Count > 1)
+                    if (!Obj4Done28226 && Styx.CommonBot.Frames.GossipFrame.Instance.GossipOptionEntries.Count > 1)
                     {
                         Lua.DoString("SelectGossipOption(2)");
                         Thread.Sleep(1000);
@@ -853,14 +828,14 @@ namespace Shak_questing
                     Thread.Sleep(500);
                     Lua.DoString("UseItemByName(60678)");
                     Thread.Sleep(500);
-                    LegacySpellManager.ClickRemoteLocation(StickboneBerserker[0].Location);
+                    Styx.CommonBot.SpellManager.ClickRemoteLocation(StickboneBerserker[0].Location);
                     Thread.Sleep(1000);
                 }
                 if (ScourgeBoneAnimus.Count > 0)
                 {
                     Lua.DoString("UseItemByName(60678)");
                     Thread.Sleep(500);
-                    LegacySpellManager.ClickRemoteLocation(ScourgeBoneAnimus[0].Location);
+                    Styx.CommonBot.SpellManager.ClickRemoteLocation(ScourgeBoneAnimus[0].Location);
                     Thread.Sleep(1000);
                 }
             }
@@ -872,11 +847,11 @@ namespace Shak_questing
                 if (!IsOnCD)
                 {
                     Lua.DoString("UseItemByName(28038)");
-                    LegacySpellManager.ClickRemoteLocation(GatewayShaadraz[0].Location);
+                    Styx.CommonBot.SpellManager.ClickRemoteLocation(GatewayShaadraz[0].Location);
                     Lua.DoString("UseItemByName(28038)");
-                    LegacySpellManager.ClickRemoteLocation(GatewayMurketh[0].Location);
-                     Thread.Sleep(10000);
-               }
+                    Styx.CommonBot.SpellManager.ClickRemoteLocation(GatewayMurketh[0].Location);
+                    Thread.Sleep(10000);
+                }
             }
             #endregion
             #region Quest 10162
@@ -888,17 +863,17 @@ namespace Shak_questing
                     if (!Obj1Done10162)
                     {
                         Lua.DoString("UseItemByName(28132)");
-                        LegacySpellManager.ClickRemoteLocation(MoargOverseer[0].Location);
+                        Styx.CommonBot.SpellManager.ClickRemoteLocation(MoargOverseer[0].Location);
                     }
                     if (Obj1Done10162)
                     {
                         Lua.DoString("UseItemByName(28132)");
-                        LegacySpellManager.ClickRemoteLocation(GanArgPeon[0].Location);
+                        Styx.CommonBot.SpellManager.ClickRemoteLocation(GanArgPeon[0].Location);
                     }
                     if (Obj2Done10162)
                     {
                         Lua.DoString("UseItemByName(28132)");
-                        LegacySpellManager.ClickRemoteLocation(FelCannon[0].Location);
+                        Styx.CommonBot.SpellManager.ClickRemoteLocation(FelCannon[0].Location);
                     }
                 }
             #endregion
@@ -915,7 +890,7 @@ namespace Shak_questing
                 if (Me.QuestLog.GetQuestById(28439) != null || Me.QuestLog.GetQuestById(28440) != null || Me.QuestLog.GetQuestById(28432) != null || Me.QuestLog.GetQuestById(28433) != null || Me.QuestLog.GetQuestById(28434) != null || Me.QuestLog.GetQuestById(28435) != null)
                 {
                     int counter = 0;
-                    foreach (WoWAura s in ObjectManager.Me.ActiveAuras.Values)
+                    foreach (WoWAura s in StyxWoW.Me.ActiveAuras.Values)
                     {
                         if (s.Name.Contains("Disguise"))
                         {
@@ -935,7 +910,7 @@ namespace Shak_questing
                     WoWPoint wp = new WoWPoint(2432.375, -1650.377, 104.1796);
                     while (Me.Location.Distance(wp) > 3)
                     {
-                        Navigator.MoveTo(wp);
+                        Styx.Pathing.Navigator.MoveTo(wp);
                         Thread.Sleep(100);
                     }
                 }
@@ -948,7 +923,7 @@ namespace Shak_questing
                         EyeOfGrillok[0].Target();
                         while (Me.Location.Distance(EyeOfGrillok[0].Location) > 10)
                         {
-                            Navigator.MoveTo(EyeOfGrillok[0].Location);
+                            Styx.Pathing.Navigator.MoveTo(EyeOfGrillok[0].Location);
                             Thread.Sleep(200);
                         }
                         Lua.DoString("UseItemByName(31463)");
@@ -957,12 +932,12 @@ namespace Shak_questing
                 }
                 if (Me.QuestLog.GetQuestById(10813) != null && !Me.QuestLog.GetQuestById(10813).IsCompleted && Me.HasAura("Eye of Grillok"))
                 {
-                    WoWPoint wp = new WoWPoint(-1325.649,2356.759, 88.95618);
+                    WoWPoint wp = new WoWPoint(-1325.649, 2356.759, 88.95618);
                     if (!Me.Combat)
                     {
                         while (Me.Location.Distance(wp) > 5)
                         {
-                            Flightor.MoveTo(wp);
+                            Styx.Pathing.Flightor.MoveTo(wp);
                             Thread.Sleep(200);
                         }
                     }
@@ -978,14 +953,14 @@ namespace Shak_questing
                 WoWUnit boss = null;
                 try
                 {
-                    boss = ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 47271 && !u.Dead).First();
+                    boss = ObjectManager.GetObjectsOfType<WoWUnit>().Where(u => u.Entry == 47271 && u.IsAlive).First();
                 }
                 catch { }
                 if (boss != null && boss.IsAlive)
                 {
                     while (boss.Distance > 5)
                     {
-                        Navigator.MoveTo(boss.Location);
+                        Styx.Pathing.Navigator.MoveTo(boss.Location);
                         Thread.Sleep(100);
                     }
                     boss.Target();
