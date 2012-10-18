@@ -582,17 +582,6 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-
-
-
-
-
-
-	
-	
-	
-	
-	
 	
 	
 	
@@ -604,6 +593,9 @@
 	
 		<If Condition="Me.IsAlliance" >
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be Horde to run this profile!" />
+		</If>
+		<If Condition="Me.Level &lt; 86" >
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be 86+ to run this profile!" />
 		</If>
 
 
@@ -1154,33 +1146,42 @@
 		<TurnIn QuestName="The Fanciest Water" QuestId="30076" TurnInName="Mudmug" TurnInId="56474" X="-712.3212" Y="1266.222" Z="136.024" />
 		<TurnIn QuestName="Clear the Way" QuestId="30075" TurnInName="Chen Stormstout" TurnInId="56133" X="-709.3073" Y="1264.693" Z="136.0241" />
 		<PickUp QuestName="Cleaning House" QuestId="30078" GiverName="Chen Stormstout" GiverId="56133" X="-709.3073" Y="1264.693" Z="136.0241" />
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			<CustomBehavior File="UserDialog" QuestId="30078" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Complete Cleaning House.  Talk to Chen to start" /> <!-- Nat I need a behavior -->
+			<!--
+			<If Condition="HasQuest(30078) &amp;&amp; !IsQuestCompleted(30078)" >
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Need human interaction for next quest.\n
+			  Room have no meshs and need kill 3 bosses" />
+			  <CustomBehavior File="InteractWith" MobId="56133" GossipOptions="1" X="-709.3073" Y="1264.693" Z="136.0241" />
+			  <While Condition="!IsQuestCompleted(30078)" >
+				<If Condition="(Me.Location.Distance(new WoWPoint(-674.494, 1179.13, 139.142)) &lt; 10)">
+				  <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="1) Tell Chen let's do this.\n
+			2) Kill the Fizzy Yellow Spirits around the room in order to summon the Alemental.\n
+			3) Kill Fizzy Yellow Alemental." />
+				  <CustomBehavior File="InteractWith" MobId="58029" GossipOptions="1" X="-709.3073" Y="1264.693" Z="136.0241" />
+				  <While Condition="!IsObjectiveComplete(3, 30078)" >
+				  </While>
+				</If>
+				<If Condition="(Me.Location.Distance(new WoWPoint(-742.025, 1303.08, 116.1052)) &lt; 10)">
+				  <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="1) Tell Mudmog to calm down.\n
+			2) Kill Eddy.\n
+			TIP: When Eddy activates his Watery Shield run over bubbles on the ground until it is weakened, then click the Eddy's bubble." />
+				  <While Condition="!IsObjectiveComplete(1, 30078)" >
+				  </While>
+				</If>
+				<If Condition="(Me.Location.Distance(new WoWPoint(-773.251, 1415.24, 139.581)) &lt; 10)">
+				  <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="1)Tell Li Li you'll help.\n
+			2) Kill Jooga.\n
+			TIP: You can keep Jooga pinned down by clicking the Empty Kegs around the room.\n
+			TIP: Dodge the bananas that he throws at you." />
+				  <While Condition="!IsObjectiveComplete(2, 30078)" >
+				  </While>
+				</If>
+			  </While>
+			</If>
+			-->
+		<TurnIn QuestName="Cleaning House" QuestId="30078" TurnInName="Chen Stormstout" TurnInId="56133" X="-712.7864" Y="1266.255" Z="136.0238" />
+			<!-- Ignoring Into the Brewery dungeon quest -->
+		<PickUp QuestName="Stoneplow Thirsts" QuestId="30117" GiverName="Emmi" GiverId="61026" X="-691.0799" Y="1258.526" Z="136.0238" />
 		
 		
 		<!-- After completing that huge chain ... -->
@@ -1352,6 +1353,7 @@
 			</If>
 		<PickUp QuestName="Stemming the Swarm" QuestId="29981" GiverName="Lin Tenderpaw" GiverId="56111" X="-393.4566" Y="1899.101" Z="133.1857" />
 		<PickUp QuestName="Evacuation Orders" QuestId="29982" GiverName="Loon Mai" GiverId="56720" X="-392.342" Y="1911.939" Z="134.1158" />
+		<TurnIn QuestName="Stoneplow Thirsts" QuestId="30117" TurnInName="Loon Mai" TurnInId="56720" X="-392.342" Y="1911.939" Z="134.1159" />
 			<While Condition="((HasQuest(29982)) &amp;&amp; (!IsQuestCompleted(29982)))" >
 			 <While Condition="((HasQuest(29982)) &amp;&amp; (!IsObjectiveComplete(3, 29982)))">
 				<CustomBehavior File="InteractWith" QuestId="29982" MobId="57123" GossipOptions="1" CollectionDistance="100" X="-376.6684" Y="2057.608" Z="125.0263" /> <!-- Haiyun Greentill -->
@@ -1444,8 +1446,8 @@
 		<TurnIn QuestName="Unyielding Fists: Trial of Stone" QuestId="29989" TurnInName="Master Bruised Paw" TurnInId="56714" X="278.6476" Y="1960.998" Z="164.5156" />
 		<PickUp QuestName="Training and Discipline" QuestId="29990" GiverName="Lin Tenderpaw" GiverId="56111" X="284.5486" Y="1970.241" Z="164.8415" />
 		<TurnIn QuestName="Training and Discipline" QuestId="29990" TurnInName="Loon Mai" TurnInId="56720" X="-392.342" Y="1911.939" Z="134.116" />
-
-		<!-- nesingwary -->
+		
+			<CustomBehavior File="Message" Text="Compiling Nesingwary Quests" LogColor="Cornflowerblue" />
 		
 		<PickUp QuestName="Stalker Mastery" QuestId="30183" GiverName="Tani" GiverId="63822" X="-1063.866" Y="2043.382" Z="148.3161" />
 		<PickUp QuestName="Mushan Mastery" QuestId="30181" GiverName="Hemet Nesingwary Jr." GiverId="58422" />
@@ -1491,136 +1493,26 @@
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			<If Condition="((!HasQuest(31254)) &amp;&amp; (!IsQuestCompleted(31254))) &amp;&amp; (Me.Level &gt;= 87)" >
+		<PickUp QuestName="The Road to Kun-Lai" QuestId="31254" GiverName="Messenger Grummle" GiverId="63778" X="-381.3245" Y="1952.716" Z="128.5654" />
+			</If>
+			<If Condition="((HasQuest(31254)) &amp;&amp; (!IsQuestCompleted(31254)))" >
+			 <If Condition="((HasQuest(31254)) &amp;&amp; (!IsObjectiveComplete(1, 31254)))">
+				<CustomBehavior File="InteractWith" QuestId="31254" MobId="62738" X="481.8767" Y="-70.25" Z="178.1451" />
+			 </If>
+			</If>
+			<If Condition="((HasQuest(29873)) &amp;&amp; (IsQuestCompleted(29873)))" >
+		<TurnIn QuestName="Ken-Ken" QuestId="29873" TurnInName="Ken-Ken" TurnInId="56115" X="-330.934" Y="-624.592" Z="119.8942" />
+				<CustomBehavior File="InteractWith" MobId="60232" X="-372.2674" Y="-649.5174" Z="117.9376" /> <!-- Zhu's Watch FP -->
+			</If>
+			<!--
+			<If Condition="((HasQuest(29875)) &amp;&amp; (IsQuestCompleted(29875)))" >
+		<TurnIn QuestName="Kang Bramblestaff" QuestId="29875" TurnInName="Kang Bramblestaff" TurnInId="56112" />
+			</If>
+			-->
 		
 		<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Valley of the Four Winds profile" />
 		
 	</QuestOrder>
 
 </HBProfile>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
