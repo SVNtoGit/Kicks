@@ -994,6 +994,8 @@
 
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This profile is currently not avail for public use" />
 
+			<CustomBehavior File="Message" Text="Compiling Binan Village Quests" LogColor="Cornflowerblue" />
+
 		<PickUp QuestName="The Road to Kun-Lai" QuestId="31255" GiverName="Messenger Grummle" GiverId="63778" X="478.8698" Y="-68.73538" Z="178.2601" />
 			 <If Condition="((HasQuest(31255)) &amp;&amp; (!IsObjectiveComplete(1, 31255)))">
 				<CustomBehavior File="InteractWith" QuestId="31255" MobId="62738" CollectionDistance="100" X="482.032" Y="-70.46633" Z="178.0952" />
@@ -1142,6 +1144,44 @@
 			</If>
 		<TurnIn QuestName="The Fall of Shai Hu" QuestId="30855" TurnInName="Waterspeaker Gorai" TurnInId="60973" X="1922.267" Y="151.8142" Z="475.9915" />
 			<!-- End of Binan Village -->
+
+			<CustomBehavior File="Message" Text="Compiling GoTo Eastwind Rest Quests (Horde)" LogColor="Cornflowerblue" />
+
+		<PickUp QuestName="Temple of the White Tiger" QuestId="31393" GiverName="Farmhand Ko" GiverId="63751" X="2002.993" Y="854.2917" Z="489.1934" />
+			<!-- Horde Specific -->
+			<While Condition="((HasQuest(30513)) &amp;&amp; (!IsQuestCompleted(30513)))" >
+			 <If Condition="((HasQuest(30513)) &amp;&amp; (!IsObjectiveComplete(1, 30513)))"> <!-- Farmhand Ko -->
+				<RunTo X="2002.993" Y="854.2917" Z="489.1934" />
+				<CustomBehavior File="InteractWith" QuestId="30513" MobId="63751" GossipOption="1" CollectionDistance="100" X="2002.993" Y="854.2917" Z="489.1934" />
+			 </If>
+			 <If Condition="((HasQuest(30513)) &amp;&amp; (!IsObjectiveComplete(2, 30513)))"> <!-- Elder Shiao -->
+				<RunTo X="2187.896" Y="1009.455" Z="495.5558" />
+				<CustomBehavior File="InteractWith" QuestId="30513" MobId="63535" GossipOption="1" CollectionDistance="100" X="2187.896" Y="1009.455" Z="495.5558" />
+			 </If>
+			</While>
+		<TurnIn QuestName="Eastwind Rest" QuestId="30513" TurnInName="Elder Shiao" TurnInId="63535" X="2187.896" Y="1009.455" Z="495.5558"  />
+		<PickUp QuestName="Challenge Accepted" QuestId="30515" GiverName="Elder Shiao" GiverId="63535" X="2187.896" Y="1009.455" Z="495.5558" />
+			<While Condition="((HasQuest(30515)) &amp;&amp; (!IsQuestCompleted(30515)))" >
+				<CustomBehavior File="InteractWith" QuestId="30515" ObjectType="Gameobject" MobId="210933" WaitForNpcs="False" CollectionDistance="100" X="2108.467" Y="1194.84" Z="476.2182" />
+				<CustomBehavior File="WaitTimer" QuestId="30515" WaitTime="8000" GoalText="Waiting for spawn {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="30515" MobId="59483" WaitForNpcs="False" CollectionDistance="100" X="2108.467" Y="1194.84" Z="476.2182" />
+				<CustomBehavior File="WaitTimer" QuestId="30515" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<!--<Objective QuestName="Challenge Accepted" QuestId="30515" Type="KillMob" MobId="59483" KillCount="1" />-->
+			</While>
+			<If Condition="((HasQuest(30515)) &amp;&amp; (IsQuestCompleted(30515)))" >
+		<TurnIn QuestName="Challenge Accepted" QuestId="30515" TurnInName="Elder Shiao" TurnInId="63535" X="2272.431" Y="986.1233" Z="483.3289" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+				<CustomBehavior File="InteractWith" MobId="61745" X="2250.332" Y="932.2847" Z="481.1464" />
+			</If>
+
+			<CustomBehavior File="Message" Text="Compiling Eastwind Rest Quests" LogColor="Cornflowerblue" />
+
+		<PickUp QuestName="Mogu?! Oh No-gu!" QuestId="30620" GiverName="Elder Shiao" GiverId="63535" />
+		<PickUp QuestName="Trouble on the Farmstead" QuestId="30570" GiverName="Farmhand Ko" GiverId="63751" />
+		<PickUp QuestName="Best Meals Anywhere!" QuestId="31251" GiverName="Rivett Clutchpop" GiverId="59448" />
+		<PickUp QuestName="Deanimate the Reanimated" QuestId="30594" GiverName="Shademaster Kiryn" GiverId="59449" />
+		<PickUp QuestName="Round 'Em Up" QuestId="31256" GiverName="General Nazgrim" GiverId="59442" />
 
 
 
