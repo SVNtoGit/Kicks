@@ -687,9 +687,12 @@
 	
 			<CustomBehavior File="Message" Text="Compiling Jade Forest (Horde) Quests" LogColor="Green" />
 	
-		<If Condition="Me.IsAlliance" >
+		<While Condition="Me.IsAlliance" >
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be Horde to run this profile!" />
-		</If>
+		</While>
+		<While Condition="Me.Level &lt; 85" >
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be 85+ to run this profile!" />
+		</While>
 	 <If Condition="(Me.MapId == 1)" >
 			<If Condition="((!HasQuest(29611)) &amp;&amp; (!IsQuestCompleted(29611)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="1591.839" Y="-4384.563" Z="18.78635" />
