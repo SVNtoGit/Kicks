@@ -147,6 +147,12 @@
 			 </If>
 			<If Condition="Me.IsAlliance" >
 			</If>
+			<If Condition="Me.IsHorde" >
+			</If>
+			 <If Condition="!(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 61297 &amp;&amp; u.Distance &lt;= 20))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(81712)" WaitTime="3000" /> // this summons an npc if he's not w/in 20 yards
+			 </If>
+			
 				<CustomBehavior File="FlyTo" DestName="" 
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="ForcedMount" MountType="Flying" />
@@ -482,6 +488,20 @@
 				
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(33837)" WaitTime="1000" /> // use the cooking pot for daily
 				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for cast {TimeRemaining}" />
+				
+			<If Condition="((HasQuest(30796)) &amp;&amp; (IsQuestCompleted(30796)))" >
+				<RunTo  />
+			 <If Condition="(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 61297 &amp;&amp; u.Distance &lt;= 20))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(81712)" WaitTime="3000" /> // despawn if he's here \\
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for spawn {TimeRemaining}" />
+			 </If>
+			 <If Condition="!(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 61297 &amp;&amp; u.Distance &lt;= 20))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(81712)" WaitTime="3000" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for spawn {TimeRemaining}" />
+			 </If>
+			</If>
+			
+				
 				
 				
 				PROTECTED TurnLeftStart - The player starts turning left at the specified time.
