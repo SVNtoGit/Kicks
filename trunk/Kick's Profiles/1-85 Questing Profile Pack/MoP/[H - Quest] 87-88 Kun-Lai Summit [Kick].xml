@@ -1561,7 +1561,7 @@
 			   <CustomBehavior File="InteractWith" QuestId="30617" MobId="211539" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="3052.063" Y="1196.194" Z="651.4461" />
 			</While>
 		<TurnIn QuestName="Roadside Assistance" QuestId="30617" TurnInName="Brother Lintpocket" TurnInId="59701" X="3053.801" Y="1203.967" Z="651.8965" />
-			<If Condition="((HasQuest(31459)) &amp;&amp; (!sQuestCompleted(31459)))" >
+			<If Condition="((HasQuest(31459)) &amp;&amp; (!IsQuestCompleted(31459)))" >
 				<RunTo X="3127.984" Y="1226.884" Z="654.2612" />
 				<CustomBehavior File="InteractWith" MobId="61504" X="3127.984" Y="1226.884" Z="654.2612" />
 		<TurnIn QuestName="Cho's Missive" QuestId="31459" TurnInName="Lorewalker Cho" TurnInId="61847" X="3044.467" Y="1251.316" Z="654.6689" />
@@ -2004,7 +2004,7 @@
 			</If>
 		<PickUp QuestName="The Burlap Trail: To Burlap Waystation" QuestId="30592" GiverName="Brother Lintpocket" GiverId="59701" X="3053.801" Y="1203.967" Z="651.8953" />
 			<If Condition="((HasQuest(30592)) &amp;&amp; (!IsQuestCompleted(30592)))" >
-				<CustomBehavior File="UserDialog" QuestId="30592" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Help the bot escort the caravan; save big cd's for 2nd big pack of guys that attack" />
+				<CustomBehavior File="UserDialog" QuestId="30592" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Help the bot escort the caravan. Press map button and see where they are, escort or let them die, then come back to the npc if they're dead" />
 			</If>
 		<TurnIn QuestName="The Burlap Trail: To Burlap Waystation" QuestId="30592" TurnInName="Brother Trailscenter" TurnInId="59703" X="2788.244" Y="1606.597" Z="655.2974" />
 		<PickUp QuestName="The Rabbitsfoot" QuestId="30602" GiverName="Brother Trailscenter" GiverId="59703" X="2788.244" Y="1606.597" Z="655.2974" />
@@ -2027,107 +2027,308 @@
 		<PickUp QuestName="A Monkey Idol" QuestId="30599" GiverName="Brother Rabbitsfoot" GiverId="59452" X="2788.244" Y="1606.597" Z="655.2974" />
 		<PickUp QuestName="No Pack Left Behind" QuestId="30600" GiverName="Brother Rabbitsfoot" GiverId="59452" X="2788.244" Y="1606.597" Z="655.2974" />
 		<PickUp QuestName="Breaking Broketooth" QuestId="30604" GiverName="Brother Rabbitsfoot" GiverId="59452" X="2788.244" Y="1606.597" Z="655.2974" />
+			<If Condition="((HasQuest(30599)) &amp;&amp; (!IsQuestCompleted(30599)))" >
+				<!-- The bot errors out w/ these objectives (even with overrides) atm, doing a workaround for now -->
+			  <While Condition="!IsObjectiveComplete(3, 30599)" >
+				<RunTo X="2652.975" Y="1289.655" Z="641.6737" />
+				<!--<Objective QuestName="A Monkey Idol" QuestId="30599" Type="CollectItem" ItemId="80430" CollectCount="1" />  Tak Tak -->
+				<CustomBehavior File="InteractWith" MobId="211276" QuestId="30599" ObjectType="Gameobject" X="2656.516" Y="1282.68" Z="643.6844" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" Loot="True" QuestId="30600" MobId1="59897" MobId2="59814" MobId3="59817" MobId4="59896" MobId5="59408" MobId6="59898" NumOfTimes="3" WaitForNpcs="False" CollectionDistance="20" X="2652.975" Y="1289.655" Z="641.6737" />
+			  </While>
+			  <While Condition="!IsObjectiveComplete(2, 30599)" >
+				<RunTo X="2638.114" Y="1561.146" Z="643.0551" />
+				<!--<Objective QuestName="A Monkey Idol" QuestId="30599" Type="CollectItem" ItemId="80429" CollectCount="1" />  Ko Ko -->
+				<CustomBehavior File="InteractWith" MobId="211275" QuestId="30599" ObjectType="Gameobject" X="2638.04" Y="1569.338" Z="643.5701" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" Loot="True" QuestId="30600" MobId1="59897" MobId2="59814" MobId3="59817" MobId4="59896" MobId5="59408" MobId6="59898" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="20" X="2638.114" Y="1561.146" Z="643.0551" />
+			  </While>
+			  <While Condition="!IsObjectiveComplete(1, 30599)" >
+				<RunTo X="2596" Y="1521.582" Z="635.9286" />
+				<!--<Objective QuestName="A Monkey Idol" QuestId="30599" Type="CollectItem" ItemId="80428" CollectCount="1" />  Dak Dak -->
+				<CustomBehavior File="InteractWith" MobId="210931" QuestId="30599" ObjectType="Gameobject" X="2580.283" Y="1547.579" Z="617.9963" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" Loot="True" QuestId="30600" MobId1="59897" MobId2="59814" MobId3="59817" MobId4="59896" MobId5="59408" MobId6="59898" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="20" X="2596" Y="1521.582" Z="635.9286" />
+			  </While>
+			</If>
+			<While Condition="((HasQuest(30600)) &amp;&amp; (!IsQuestCompleted(30600)))" >
+				<CustomBehavior File="InteractWith" Loot="True" MobId="59897" MobId2="59814" MobId3="59817" MobId4="59896" MobId5="59408" MobId6="59898" QuestId="30600" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="2596" Y="1521.582" Z="635.9286" />
+				<CustomBehavior File="InteractWith" Loot="True" MobId="59897" MobId2="59814" MobId3="59817" MobId4="59896" MobId5="59408" MobId6="59898" QuestId="30600" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="2676.69" Y="1354.222" Z="636.5396" />
+				<CustomBehavior File="InteractWith" Loot="True" MobId="59897" MobId2="59814" MobId3="59817" MobId4="59896" MobId5="59408" MobId6="59898" QuestId="30600" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="2707.896" Y="1408.27" Z="642.4475" />
+				<CustomBehavior File="InteractWith" Loot="True" MobId="59897" MobId2="59814" MobId3="59817" MobId4="59896" MobId5="59408" MobId6="59898" QuestId="30600" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="2669.993" Y="1530.1" Z="640.5978" />
+				<CustomBehavior File="InteractWith" Loot="True" MobId="59897" MobId2="59814" MobId3="59817" MobId4="59896" MobId5="59408" MobId6="59898" QuestId="30600" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="2574.674" Y="1552.337" Z="617.9726" />
+				<CustomBehavior File="InteractWith" Loot="True" MobId="59897" MobId2="59814" MobId3="59817" MobId4="59896" MobId5="59408" MobId6="59898" QuestId="30600" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="2549.183" Y="1470.31" Z="612.6713" />
+				<CustomBehavior File="InteractWith" Loot="True" MobId="59897" MobId2="59814" MobId3="59817" MobId4="59896" MobId5="59408" MobId6="59898" QuestId="30600" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="2538.79" Y="1616.281" Z="620.1466" />
+				<CustomBehavior File="InteractWith" Loot="True" MobId="59897" MobId2="59814" MobId3="59817" MobId4="59896" MobId5="59408" MobId6="59898" QuestId="30600" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="2717.998" Y="1539.041" Z="641.2288" />
+			</While>
+			<Objective QuestName="Breaking Broketooth" QuestId="30604" Type="KillMob" MobId="59414" KillCount="8" />
+			<Objective QuestName="Breaking Broketooth" QuestId="30604" Type="KillMob" MobId="59416" KillCount="6" />
+		<TurnIn QuestName="A Monkey Idol" QuestId="30599" TurnInName="Brother Rabbitsfoot" TurnInId="59452" X="2788.244" Y="1606.597" Z="655.2974" />
+		<TurnIn QuestName="No Pack Left Behind" QuestId="30600" TurnInName="Brother Rabbitsfoot" TurnInId="59452" X="2788.244" Y="1606.597" Z="655.2974" />
+		<PickUp QuestName="Bros Before Hozen" QuestId="30605" GiverName="Brother Rabbitsfoot" GiverId="59452" X="2788.244" Y="1606.597" Z="655.2974" />
+		<TurnIn QuestName="Breaking Broketooth" QuestId="30604" TurnInName="Brother Rabbitsfoot" TurnInId="59452" X="2788.244" Y="1606.597" Z="655.2974" />
+			<If Condition="((HasQuest(30605)) &amp;&amp; (!IsQuestCompleted(30605)))" >
+				<CustomBehavior File="InteractWith" QuestId="30605" MobId="60008" X="2940.342" Y="1677.521" Z="663.1062" />
+			</If>
+		<TurnIn QuestName="Bros Before Hozen" QuestId="30605" TurnInName="Brother Yakshoe" TurnInId="59894" X="2945.037" Y="1674.911" Z="663.1061" />
+		<PickUp QuestName="Hozen Love Their Keys" QuestId="30607" GiverName="Brother Yakshoe" GiverId="59894" X="2945.037" Y="1674.911" Z="663.1061" />
+		<PickUp QuestName="The Snackrifice" QuestId="30608" GiverName="Brother Yakshoe" GiverId="59894" X="2945.037" Y="1674.911" Z="663.1061" />
+		<PickUp QuestName="Thumping Knucklethump" QuestId="30606" GiverName="Brother Yakshoe" GiverId="59894" X="2945.037" Y="1674.911" Z="663.1061" />
+			<While Condition="((HasQuest(30608)) &amp;&amp; (!IsQuestCompleted(30608)))" >
+				<CustomBehavior File="InteractWith" MobId="60012" NotMoving="True" QuestId="30608" WaitForNpcs="False" Range="13" NumOfTimes="5" CollectionDistance="1000" X="3145.885" Y="1785.754" Z="628.7601" />
+				<CustomBehavior File="InteractWith" MobId="211307" QuestId="30608" ObjectType="Gameobject" WaitForNpcs="False" NumOfTimes="5" CollectionDistance="1000" X="3145.885" Y="1785.754" Z="628.7601" />
+				<CustomBehavior File="InteractWith" MobId="60012" NotMoving="True" QuestId="30608" WaitForNpcs="False" Range="13" NumOfTimes="5" CollectionDistance="1000" X="3145.885" Y="1785.754" Z="628.7601" />
+				<CustomBehavior File="InteractWith" MobId="211307" QuestId="30608" ObjectType="Gameobject" WaitForNpcs="False" NumOfTimes="5" CollectionDistance="1000" X="3090.623" Y="1765.343" Z="639.3348" />
+				<CustomBehavior File="InteractWith" MobId="60012" NotMoving="True" QuestId="30608" WaitForNpcs="False" Range="13" NumOfTimes="5" CollectionDistance="1000" X="3145.885" Y="1785.754" Z="628.7601" />
+				<CustomBehavior File="InteractWith" MobId="211307" QuestId="30608" ObjectType="Gameobject" WaitForNpcs="False" NumOfTimes="5" CollectionDistance="1000" X="3101.573" Y="1705.49" Z="646.6873" />
+			</While>
+			<Objective QuestName="Thumping Knucklethump" QuestId="30606" Type="KillMob" MobId="59410" KillCount="8" />
+			<Objective QuestName="Hozen Love Their Keys" QuestId="30607" Type="CollectItem" ItemId="80535" CollectCount="1" />
+			<While Condition="((HasQuest(30607)) &amp;&amp; (!IsQuestCompleted(30607)))" >
+				<CustomBehavior File="InteractWith" QuestId="30607" MobId="211365" ObjectType="Gameobject" CollectionDistance="1000" X="3142.993" Y="1773.161" Z="625.9234" />
+				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for ride {TimeRemaining}" />
+			</While>
+		<TurnIn QuestName="Hozen Love Their Keys" QuestId="30607" TurnInName="Brother Yakshoe" TurnInId="59894" X="2815.293" Y="1584.186" Z="653.932" />
+		<TurnIn QuestName="The Snackrifice" QuestId="30608" TurnInName="Brother Yakshoe" TurnInId="59894" X="2815.293" Y="1584.186" Z="653.932" />
+		<PickUp QuestName="Grummle! Grummle! Grummle!" QuestId="30610" GiverName="Brother Yakshoe" GiverId="59894" X="2815.293" Y="1584.186" Z="653.932" />
+		<TurnIn QuestName="Thumping Knucklethump" QuestId="30606" TurnInName="Brother Rabbitsfoot" TurnInId="59452" X="2814.116" Y="1586.976" Z="653.9404" />
+		<PickUp QuestName="Unleash The Yeti!" QuestId="30611" GiverName="Brother Rabbitsfoot" GiverId="59452" X="2814.116" Y="1586.976" Z="653.9404" />
+			<While Condition="((HasQuest(30610)) &amp;&amp; (!IsQuestCompleted(30610)))" >
+				<CustomBehavior File="InteractWith" MobId="211686" QuestId="30610" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="2963.824" Y="2002.634" Z="643.6097" />
+				<CustomBehavior File="InteractWith" MobId="211686" QuestId="30610" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="3014.342" Y="1985.339" Z="643.9355" />
+				<CustomBehavior File="InteractWith" MobId="211686" QuestId="30610" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="3013.211" Y="1945.69" Z="643.3285" />
+				<CustomBehavior File="InteractWith" MobId="211686" QuestId="30610" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="2980.016" Y="1916.208" Z="642.468" />
+				<CustomBehavior File="InteractWith" MobId="211686" QuestId="30610" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="2946.275" Y="1944.06" Z="643.0739" />
+				<CustomBehavior File="InteractWith" MobId="211686" QuestId="30610" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="2946.025" Y="1986.119" Z="642.6109" />
+				<CustomBehavior File="InteractWith" MobId="211686" QuestId="30610" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="2902.564" Y="1989.365" Z="640.0759" />
+				<CustomBehavior File="InteractWith" MobId="211686" QuestId="30610" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="2871.152" Y="1934.039" Z="635.4665" />
+				<CustomBehavior File="InteractWith" MobId="211686" QuestId="30610" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="2913.613" Y="1928.318" Z="636.9397" />
+			</While>
+			<Objective QuestName="Unleash The Yeti!" QuestId="30611" Type="KillMob" MobId="60169" KillCount="4" />
+		<TurnIn QuestName="Grummle! Grummle! Grummle!" QuestId="30610" TurnInName="Brother Yakshoe" TurnInId="59894" X="2945.965" Y="1964.34" Z="643.045" />
+		<TurnIn QuestName="Unleash The Yeti!" QuestId="30611" TurnInName="Brother Rabbitsfoot" TurnInId="59452" X="2814.116" Y="1586.976" Z="653.9404" />
+		<PickUp QuestName="The Leader Hozen" QuestId="30612" GiverName="Brother Rabbitsfoot" GiverId="59452" X="2945.965" Y="1964.34" Z="643.045" />
+			<If Condition="HasQuest(30612) &amp;&amp; !IsQuestCompleted(30612)" >
+			  <While Condition="!IsObjectiveComplete(1, 30612)" >
+				<RunTo X="2943.718" Y="1964.329" Z="642.934" />
+			  </While>
+				<CustomBehavior File="UserDialog" QuestId="30612" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Kill The Ook of Dook - don't stand in the laser!" />
+				<Objective QuestName="The Leader Hozen" QuestId="30612" Type="KillMob" MobId="60188" KillCount="1" />
+			</If>
+		<TurnIn QuestName="The Leader Hozen" QuestId="30612" TurnInName="Brother Rabbitsfoot" TurnInId="59452" X="2814.116" Y="1586.976" Z="653.9404" />
+		<PickUp QuestName="The Burlap Trail: To Kota Basecamp" QuestId="30692" GiverName="Brother Trailscenter" GiverId="59703" X="2788.244" Y="1606.597" Z="655.2983" />
+			<If Condition="((HasQuest(30692)) &amp;&amp; (!IsQuestCompleted(30692)))" >
+				<CustomBehavior File="UserDialog" QuestId="30692" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Help the bot escort the caravan. Press map button and see where they are, escort or let them die, then come back to the npc if they're dead" />
+			</If>
+			<If Condition="((HasQuest(30692)) &amp;&amp; (IsQuestCompleted(30692)))" >
+		<TurnIn QuestName="The Burlap Trail: To Kota Basecamp" QuestId="30692" TurnInName="Brother Oilyak" TurnInId="59755" X="2743.158" Y="2182.905" Z="591.4102" />
+				<RunTo X="2712.906" Y="2160.245" Z="589.0692" />
+				<CustomBehavior File="InteractWith" MobId="60416" X="2712.906" Y="2160.245" Z="589.0692" /> <!-- Kota FP -->
+			</If>
+			<!-- End of One Keg -->
+			
+			<CustomBehavior File="Message" Text="Compiling Kota Basecamp Quests" LogColor="Cornflowerblue" />
 
+		<PickUp QuestName="Shut it Down" QuestId="30742" GiverName="Cousin Gootfur" GiverId="60596" X="2706.604" Y="2192.162" Z="588.8348" />
+		<PickUp QuestName="Gourmet Kafa" QuestId="30743" GiverName="Cousin Gootfur" GiverId="60596" X="2706.604" Y="2192.162" Z="588.8348" />
+		<PickUp QuestName="Kota Blend" QuestId="30744" GiverName="Uncle Keenbean" GiverId="60503" X="2712.162" Y="2184.997" Z="589.0047" />
+		<PickUp QuestName="Trouble Brewing" QuestId="30745" GiverName="Uncle Keenbean" GiverId="60503" X="2712.162" Y="2184.997" Z="589.0047" />
+			<Objective QuestName="Kota Blend" QuestId="30744" Type="CollectItem" ItemId="81054" CollectCount="100" />
+			<While Condition="((HasQuest(30744)) &amp;&amp; (IsQuestCompleted(30744)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="30744" /> <!-- 30746 -->
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
+			</While>
+			<Objective QuestName="Trouble Brewing" QuestId="30745" Type="KillMob" MobId="60564" KillCount="5" />
+			<While Condition="((HasQuest(30743)) &amp;&amp; (!IsQuestCompleted(30743)))" >
+				<CustomBehavior File="InteractWith" MobId="211456" QuestId="30743" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="2366.908" Y="2448.514" Z="686.6053" />
+				<CustomBehavior File="InteractWith" MobId="211456" QuestId="30743" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="2400.578" Y="2365.417" Z="662.9122" />
+				<CustomBehavior File="InteractWith" MobId="211456" QuestId="30743" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="2386.557" Y="2311.071" Z="633.3416" />
+				<CustomBehavior File="InteractWith" MobId="211456" QuestId="30743" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="2340.927" Y="2314.717" Z="609.2296" />
+			</While>
+			<Objective QuestName="Shut it Down" QuestId="30742" Type="KillMob" MobId="60493" KillCount="12" />
+			<If Condition="((HasQuest(30746)) &amp;&amp; (IsQuestCompleted(30746)))" >
+		<TurnIn QuestName="A Fair Trade" QuestId="30746" TurnInName="Nephew Burrberry" TurnInId="60679" X="2438.099" Y="2528.306" Z="743.8889" />
+				<CustomBehavior File="WaitTimer" WaitTime="35000" />
+			</If>
+		<TurnIn QuestName="Shut it Down" QuestId="30742" TurnInName="Cousin Gootfur" TurnInId="60596" X="2724.878" Y="2182.625" Z="590.785" />
+		<TurnIn QuestName="Gourmet Kafa" QuestId="30743" TurnInName="Cousin Gootfur" TurnInId="60596" X="2724.878" Y="2182.625" Z="590.785" />
+		<TurnIn QuestName="Trouble Brewing" QuestId="30745" TurnInName="Uncle Keenbean" TurnInId="60503" X="2721.339" Y="2178.063" Z="589.8569" />
+		<PickUp QuestName="The Burlap Grind" QuestId="30747" GiverName="Nephew Burrberry" GiverId="60679" X="2725.47" Y="2178.908" Z="590.5788" />
+			<If Condition="((HasQuest(30747)) &amp;&amp; (!IsQuestCompleted(30747)))" >
+				<CustomBehavior File="InteractWith" QuestId="30747" MobId="60587" GossipOptions="1" X="2733.21" Y="2171.56" Z="590.6041" />
+				<CustomBehavior File="UserDialog" QuestId="30747" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Kill 100 Hozen while using the vehicle\n\nReturn to base and press continue" />
+				<CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" WaitTime="1000" />
+			</If>
+		<TurnIn QuestName="The Burlap Grind" QuestId="30747" TurnInName="Nephew Burrberry" TurnInId="60679" X="2725.47" Y="2178.908" Z="590.5787" />
+			<!-- Daily available -->
+			<!-- End of Kota Basecamp -->
 
+			<If Condition="((HasQuest(31511)) &amp;&amp; (!IsQuestCompleted(31511)))" >
+				<CustomBehavior File="InteractWith" QuestId="31511" MobId="59905" GossipOptions="1" X="1805.083" Y="1337.896" Z="468.8552" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for scene {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+			</If>
+		<TurnIn QuestName="A Witness to History" QuestId="31511" TurnInName="Zhi the Harmonious" TurnInId="59905" X="1215.917" Y="1041.448" Z="425.9666" />
 
+			<CustomBehavior File="Message" Text="Compiling Shado-Pan Fallback Quests" LogColor="Cornflowerblue" />
 
+			<If Condition="((HasQuest(31453)) &amp;&amp; (IsQuestCompleted(31453)))" > <!-- In from right side -->
+				<RunTo X="1864.344" Y="2018.345" Z="454.1613" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<RunTo X="1864.344" Y="2018.345" Z="454.1613" />
+				<CustomBehavior File="InteractWith" MobId="215382" ObjectType="Gameobject" Range="8" WaitTime="0" X="1864.515" Y="2020.56" Z="455.668" />
+				<RunTo X="1866.205" Y="2055.865" Z="455.6911" />
+			</If>
+		<TurnIn QuestName="The Shado-Pan" QuestId="31453" TurnInName="Shado-Master Chong" TurnInId="60161" X="1866.205" Y="2055.865" Z="455.6911" />
+		<PickUp QuestName="Turnabout" QuestId="30670" GiverName="Shado-Master Chong" GiverId="60161" X="1866.205" Y="2055.865" Z="455.6911" />
+			<If Condition="((!HasQuest(30665)) &amp;&amp; (!IsQuestCompleted(30665)))" >
+		<PickUp QuestName="The Defense of Shado-Pan Fallback" QuestId="30665" GiverName="Shado-Master Chong" GiverId="60161" X="1866.205" Y="2055.865" Z="455.6911" />
+				<RunTo X="1898.575" Y="2054.43" Z="455.6694" />
+				<CustomBehavior File="InteractWith" MobId="215381" ObjectType="Gameobject" Range="8" WaitTime="0" X="1902.315" Y="2054.299" Z="455.6709" />
+				<RunTo X="1923.246" Y="2054.673" Z="451.024" />
+			</If>
+		<PickUp QuestName="Holed Up" QuestId="30682" GiverName="Sya Zhong" GiverId="60178" X="1933.47" Y="2152.432" Z="451.5397" /> <!-- Nav issue -->
+			<If Condition="((HasQuest(30682)) &amp;&amp; (!IsQuestCompleted(30682)))" >
+			  <While Condition="!IsObjectiveComplete(2, 30682)" >
+				<CustomBehavior File="InteractWith" QuestId="30682" MobId="60189" GossipOptions="1" CollectionDistance="100" X="1989.934" Y="2271.313" Z="455.0907" />
+			  </While>
+			  <While Condition="!IsObjectiveComplete(3, 30682)" >
+				<CustomBehavior File="InteractWith" QuestId="30682" MobId="60190" GossipOptions="1" CollectionDistance="100" X="2042.552" Y="2158.695" Z="455.3239" />
+			  </While>
+			  <While Condition="!IsObjectiveComplete(1, 30682)" >
+				<CustomBehavior File="InteractWith" QuestId="30682" MobId="60187" GossipOptions="1" CollectionDistance="100" X="2023.09" Y="2093.698" Z="453.3906" />
+			  </While>
+			</If>
+			<Objective QuestName="Turnabout" QuestId="30670" Type="CollectItem" ItemId="81713" CollectCount="5" />
+			<Objective QuestName="The Defense of Shado-Pan Fallback" QuestId="30665" Type="KillMob" MobId="60164" KillCount="15" />
+			<If Condition="((HasQuest(30670)) &amp;&amp; (IsQuestCompleted(30670)))" > <!--in-->
+				<RunTo X="1902.315" Y="2054.299" Z="455.6709" />
+				<CustomBehavior File="InteractWith" MobId="215381" ObjectType="Gameobject" Range="8" WaitTime="0" X="1902.315" Y="2054.299" Z="455.6709" />
+				<RunTo X="1865.691" Y="2050.473" Z="455.6911" />
+			</If>
+		<TurnIn QuestName="Turnabout" QuestId="30670" TurnInName="Shado-Master Chong" TurnInId="60161" X="1866.205" Y="2055.865" Z="455.6911" />
+		<TurnIn QuestName="The Defense of Shado-Pan Fallback" QuestId="30665" TurnInName="Shado-Master Chong" TurnInId="60161" X="1866.205" Y="2055.865" Z="455.6911" />
+		<TurnIn QuestName="Holed Up" QuestId="30682" TurnInName="Shado-Master Chong" TurnInId="60161" X="1866.205" Y="2055.865" Z="455.6911" />
+			<If Condition="((!HasQuest(30690)) &amp;&amp; (!IsQuestCompleted(30690)))" >
+		<PickUp QuestName="Unmasking the Yaungol" QuestId="30690" GiverName="Shado-Master Chong" GiverId="60161" X="1866.205" Y="2055.865" Z="455.6911" />
+				<RunTo X="1898.575" Y="2054.43" Z="455.6694" />
+				<CustomBehavior File="InteractWith" MobId="215381" ObjectType="Gameobject" Range="8" WaitTime="0" X="1902.315" Y="2054.299" Z="455.6709" />
+				<RunTo X="1923.246" Y="2054.673" Z="451.024" />
+			</If>
+			<If Condition="((HasQuest(30690)) &amp;&amp; (!IsQuestCompleted(30690)))" >
+				<RunTo X="2058.88" Y="2018.04" Z="454.5971" />
+				<CustomBehavior File="UserDialog" QuestId="30690" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Use the trap near kobai and walk him into it, steal the mask *extra action button 1*, and kill the boss" />
+			</If>
+			<If Condition="HasQuest(30690) &amp;&amp; IsQuestCompleted(30690)" > <!--in-->
+				<RunTo X="1902.315" Y="2054.299" Z="455.6709" />
+				<CustomBehavior File="InteractWith" MobId="215381" ObjectType="Gameobject" Range="8" WaitTime="0" X="1902.315" Y="2054.299" Z="455.6709" />
+				<RunTo X="1865.691" Y="2050.473" Z="455.6911" />
+			</If>
+		<TurnIn QuestName="Unmasking the Yaungol" QuestId="30690" TurnInName="Shado-Master Chong" TurnInId="60161" X="1866.205" Y="2055.865" Z="455.6911" />
+			<If Condition="((!HasQuest(30699)) &amp;&amp; (!IsQuestCompleted(30699)))" >
+		<PickUp QuestName="To Winter's Blossom" QuestId="30699" GiverName="Shado-Master Chong" GiverId="60161" X="1866.205" Y="2055.865" Z="455.6911" />
+				<!-- mesh issues
+				<RunTo X="1881.753" Y="2091.943" Z="500.8601" />
+				<CustomBehavior File="InteractWith" MobId="61473" X="1882.21" Y="2091.634" Z="500.8594" /> Serpent's Spine FP 
+				-->
+				<!-- Out -->
+				<RunTo X="1898.575" Y="2054.43" Z="455.6694" />
+				<CustomBehavior File="InteractWith" MobId="215381" ObjectType="Gameobject" Range="8" WaitTime="0" X="1902.315" Y="2054.299" Z="455.6709" />
+				<RunTo X="1923.246" Y="2054.673" Z="451.024" />
+			</If>
+		<TurnIn QuestName="To Winter's Blossom" QuestId="30699" TurnInName="Lin Silentstrike" TurnInId="61816" X="3140.074" Y="2651.988" Z="577.9719" />
+			<!-- End of Shado-Pan Fallback Quests -->
+		
+			<CustomBehavior File="Message" Text="Compiling Winter's Blossom Quests" LogColor="Cornflowerblue" />
 
+		<PickUp QuestName="Honor, Even in Death" QuestId="30723" GiverName="Lin Silentstrike" GiverId="61816" X="3140.074" Y="2651.988" Z="577.9719" />
+			<If Condition="((!HasQuest(30715)) &amp;&amp; (!IsQuestCompleted(30715)))" >
+		<PickUp QuestName="A Line Unbroken" QuestId="30715" GiverName="Ban Bearheart" GiverId="61819" X="3129.339" Y="2641.476" Z="575.9017" />
+				<CustomBehavior File="InteractWith" MobId="61512" X="3151.831" Y="2678.129" Z="579.7261" /> <!-- Winter's Blossom FP -->
+			</If>
+			<!-- We cannot accept Better Than Dread from Kite Master Len atm, it requires level 89! -->
+			<If Condition="((HasQuest(30715)) &amp;&amp; (!IsQuestCompleted(30715)))" >
+			 <While Condition="!IsObjectiveComplete(1, 30715)" >
+				<RunTo X="3112.531" Y="2939.607" Z="496.6286" />
+				<CustomBehavior File="InteractWith" MobId="61808" X="3112.531" Y="2939.607" Z="496.6286" />
+			 </While>
+			 <While Condition="!IsObjectiveComplete(2, 30715)" >
+				<RunTo X="3010.851" Y="2951.922" Z="419.3805" />
+				<CustomBehavior File="InteractWith" MobId="61806" X="3010.851" Y="2951.922" Z="419.3805" />
+			 </While>
+			 <While Condition="!IsObjectiveComplete(3, 30715)" >
+				<RunTo X="2929.898" Y="2963.946" Z="409.8496" />
+				<CustomBehavior File="InteractWith" MobId="61810" X="2929.898" Y="2963.946" Z="409.8496" />
+			 </While>
+			</If>
+			<Objective QuestName="Honor, Even in Death" QuestId="30723" Type="KillMob" MobId="61843" KillCount="12" />
+		<TurnIn QuestName="A Line Unbroken" QuestId="30715" TurnInName="Ban Bearheart" TurnInId="61819" X="3129.339" Y="2641.476" Z="575.9017" />
+		<TurnIn QuestName="Honor, Even in Death" QuestId="30723" TurnInName="Lin Silentstrike" TurnInId="61816" X="3140.074" Y="2651.988" Z="577.9719" />
+		<PickUp QuestName="Off the Wall!" QuestId="30750" GiverName="Suna Silentstrike" GiverId="61454" X="3019.648" Y="3005.767" Z="534.0306" />
+		<PickUp QuestName="A Terrible Sacrifice" QuestId="30751" GiverName="Lao-Chin the Iron Belly" GiverId="61820" X="3018.853" Y="3009.425" Z="534.0266" />
+			<Objective QuestName="A Terrible Sacrifice" QuestId="30751" Type="CollectItem" ItemId="82799" CollectCount="6" />
+			<Objective QuestName="Off the Wall!" QuestId="30750" Type="KillMob" MobId="61886" KillCount="12" />
+		<TurnIn QuestName="A Terrible Sacrifice" QuestId="30751" TurnInName="Lao-Chin the Iron Belly" TurnInId="61820" X="3018.853" Y="3009.425" Z="534.0266" />
+		<TurnIn QuestName="Off the Wall!" QuestId="30750" TurnInName="Suna Silentstrike" TurnInId="61454" X="3019.648" Y="3005.767" Z="534.0306" />
+		<PickUp QuestName="Lao-Chin's Gambit" QuestId="30994" GiverName="Suna Silentstrike" GiverId="61454" X="3019.648" Y="3005.767" Z="534.0306" />
+			<If Condition="HasQuest(30994) &amp;&amp; !IsQuestCompleted(30994)" >
+				<RunTo X="3019.648" Y="3005.767" Z="534.0306" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="RunMacro" QuestId="30795" Macro="/cancelform" />
+				<CustomBehavior File="InteractWith" QuestId="30994" MobId="61454" GossipOptions="1" CollectionDistance="100" X="3019.648" Y="3005.767" Z="534.0306" />
+			</If>
+		<TurnIn QuestName="Lao-Chin's Gambit" QuestId="30994" TurnInName="Lao-Chin the Iron Belly" TurnInId="61820" X="3110.619" Y="2848.267" Z="470.8852" />
+		<PickUp QuestName="Do a Barrel Roll!" QuestId="30991" GiverName="Lao-Chin the Iron Belly" GiverId="61820" X="3110.619" Y="2848.267" Z="470.8852" />
+			<If Condition="((HasQuest(30991)) &amp;&amp; (!IsQuestCompleted(30991)))" >
+				<RunTo X="3097.47" Y="2836.993" Z="470.1034" />
+				<CustomBehavior File="UserDialog" QuestId="30991" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Get in a barrel, press 1 to ignite, and then drive the barrels and kill stuff. Aim for the Treelaunchers first!" />
+			</If>
+		<TurnIn QuestName="Do a Barrel Roll!" QuestId="30991" TurnInName="Lao-Chin the Iron Belly" TurnInId="61820" X="3110.619" Y="2848.267" Z="470.8852" />
+			<If Condition="((!HasQuest(30992)) &amp;&amp; (!IsQuestCompleted(30992)))" >
+		<PickUp QuestName="Finish This!" QuestId="30992" GiverName="Lao-Chin the Iron Belly" GiverId="61820" X="3110.619" Y="2848.267" Z="470.8852" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for cutscene {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+			</If>
+			<Objective QuestName="Finish This!" QuestId="30992" Type="KillMob" MobId="62165" KillCount="1" />
+		<TurnIn QuestName="Finish This!" QuestId="30992" TurnInName="Ban Bearheart" TurnInId="61819" X="3052.286" Y="2881.175" Z="445.7144" />
+		<PickUp QuestName="Where are My Reinforcements?" QuestId="30993" GiverName="Ban Bearheart" GiverId="61819" X="3052.286" Y="2881.175" Z="445.7144" />
+			<!-- Ignoring My Husband... since we have Beyond the Wall quest -->
+			<If Condition="((HasQuest(30993)) &amp;&amp; (!IsQuestCompleted(30993)))" >
+			 <If Condition="((HasQuest(30993)) &amp;&amp; (!IsObjectiveComplete(1, 30993)))">
+				<RunTo X="3052.286" Y="2881.175" Z="445.7144" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="RunMacro" Macro="/cancelform" />
+				<CustomBehavior File="InteractWith" QuestId="30993" MobId="61819" GossipOptions="1" CollectionDistance="100" X="3052.286" Y="2881.175" Z="445.7144" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" />
+			 </If>
+			 <If Condition="((HasQuest(30993)) &amp;&amp; (!IsObjectiveComplete(2, 30993)))">
+				<RunTo X="3176.444" Y="2714.347" Z="583.7268" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="RunMacro" Macro="/cancelform" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+				<CustomBehavior File="InteractWith" QuestId="30993" MobId="61819" GossipOptions="1" CollectionDistance="100" X="3052.286" Y="2881.175" Z="445.7144" />
+				<CustomBehavior File="WaitTimer" WaitTime="85000" /> <!-- sometimes this bugs out and we only get 'the talk' and nothing else. relog! -->
+			 </If>
+			</If>
+		<TurnIn QuestName="Where are My Reinforcements?" QuestId="30993" TurnInName="Ban Bearheart" TurnInId="61819" X="3551.098" Y="2629.432" Z="755.9249" />
+		<PickUp QuestName="Unbelievable!" QuestId="30752" GiverName="Ban Bearheart" GiverId="61819" X="3551.098" Y="2629.432" Z="755.9249" />
+			<While Condition="((HasQuest(30752)) &amp;&amp; (!IsQuestCompleted(30752)))" >
+				<CustomBehavior File="InteractWith" QuestId="30752" MobId="62220" GossipOptions="1" MobState="Alive" CollectionDistance="100" X="3627.605" Y="2543.144" Z="769.95" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" />
+				<CustomBehavior File="InteractWith" QuestId="30752" MobId="62220" MobState="Alive" CollectionDistance="100" X="3627.605" Y="2543.144" Z="769.95" />
+				<!--<Objective QuestName="Unbelievable!" QuestId="30752" Type="KillMob" MobId="62220" KillCount="1" />-->
+			</While>
+		<TurnIn QuestName="Unbelievable!" QuestId="30752" TurnInName="Ban Bearheart" TurnInId="62227" X="3616.825" Y="2542.885" Z="768.789" />
+			<!-- Ignoring Into the Monastery - Dungeon quest -->
 
+			<If Condition="((HasQuest(31695)) &amp;&amp; (IsQuestCompleted(31695)))" > <!-- To Townlong Steppes -->
+				<RunTo X="2387.497" Y="2992.503" Z="417.3716" />
+		<TurnIn QuestName="Beyond the Wall" QuestId="31695" TurnInName="Taran Zhu" TurnInId="60688" X="2387.497" Y="2992.503" Z="417.3716" />
+			</If>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Kun-Lau Summit profile" />
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Kun-Lau Summit profile" />
 
 	</QuestOrder>
 
 </HBProfile>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
