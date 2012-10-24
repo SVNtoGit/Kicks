@@ -1096,7 +1096,7 @@
 			<!-- Natfoth, make me a behavior that gets out of crap for this npc -->
 			<Objective QuestName="The Sha of Hatred" QuestId="30968" Type="KillMob" MobId="62541" KillCount="1" />
 		<TurnIn QuestName="The Sha of Hatred" QuestId="30968" TurnInName="Taoshi" TurnInId="62802" X="1400.644" Y="4430.052" Z="86.87626" />
-		<PickUp QuestName="The Threat in the South" QuestId="31656" GiverName="Taoshi" GiverId="62802" X="1400.644" Y="4430.052" Z="86.87626" />
+		<PickUp QuestName="The Threat in the South" QuestId="31656" GiverName="Taoshi" GiverId="62802" X="1400.644" Y="4430.052" Z="86.87626" /> <!-- GoTo Dread Wastes -->
 		<TurnIn QuestName="Thinning the Sik'thik" QuestId="31687" TurnInName="Rensai Oakhide" TurnInId="62278" X="1566.833" Y="3981.817" Z="227.2577" />
 		<TurnIn QuestName="The Search for Restless Leng" QuestId="31688" TurnInName="Rensai Oakhide" TurnInId="62278" X="1566.833" Y="3981.817" Z="227.2577" />
 
@@ -1179,9 +1179,80 @@
 			 </While>
 			</If>
 		<TurnIn QuestName="Father's Footsteps" QuestId="30932" TurnInName="Ku-Mo" TurnInId="61539" X="2186.818" Y="4813.335" Z="179.3787" />
+			<If Condition="((!HasQuest(30930)) &amp;&amp; (!IsQuestCompleted(30930)))" >
+				<CustomBehavior File="UserSettings" PullDistance="1" />
 		<PickUp QuestName="Pick a Yak" QuestId="30930" GiverName="Bluesaddle" GiverId="61161" X="2389.215" Y="5045.707" Z="171.946" />
-
+			</If>
+			<If Condition="((HasQuest(30930)) &amp;&amp; (!IsQuestCompleted(30930)))" >
+				<CustomBehavior File="UserSettings" PullDistance="2" />
+			 <While Condition="((HasQuest(30930)) &amp;&amp; (!IsQuestCompleted(30930)))" >
+				<CustomBehavior File="UseItemOn" QuestId="30930" MobId="61635" ItemId="82468" Range="10" NumOfTimes="20" WaitForNpcs="False" WaitTime="3000" CollectionDistance="1000" X="2336.143" Y="4997.544" Z="167.7414" />
+				<CustomBehavior File="UseItemOn" QuestId="30930" MobId="61635" ItemId="82468" Range="10" NumOfTimes="20" WaitForNpcs="False" WaitTime="3000" CollectionDistance="1000" X="2538.373" Y="4852.393" Z="210.8123" />
+				<CustomBehavior File="UseItemOn" QuestId="30930" MobId="61635" ItemId="82468" Range="10" NumOfTimes="20" WaitForNpcs="False" WaitTime="3000" CollectionDistance="1000" X="2633.398" Y="5004.199" Z="162.6055" />
+				<CustomBehavior File="UseItemOn" QuestId="30930" MobId="61635" ItemId="82468" Range="10" NumOfTimes="20" WaitForNpcs="False" WaitTime="3000" CollectionDistance="1000" X="2605.072" Y="5143.891" Z="154.783" />
+				<CustomBehavior File="UseItemOn" QuestId="30930" MobId="61635" ItemId="82468" Range="10" NumOfTimes="20" WaitForNpcs="False" WaitTime="3000" CollectionDistance="1000" X="2289.325" Y="5049.211" Z="167.5098" />
+			 </While>
+				<CustomBehavior File="UserSettings" PullDistance="25" />
+			</If>
+		<TurnIn QuestName="Pick a Yak" QuestId="30930" TurnInName="Bluesaddle" TurnInId="61161" X="2389.215" Y="5045.707" Z="171.946" />
+			<If Condition="((HasQuest(30925)) &amp;&amp; (!IsQuestCompleted(30925)))" >
+				<SetGrindArea><GrindArea>
+					<Factions>2550</Factions>
+					<Hotspots>
+						<Hotspot X="2514.54" Y="4607.11" Z="153.3075" />
+						<Hotspot X="2787.94" Y="4615.471" Z="149.6193" />
+						<Hotspot X="2782.212" Y="4706.791" Z="151.013" />
+						<Hotspot X="2734.284" Y="4910.481" Z="157.6557" />
+						<Hotspot X="2776.984" Y="4701.754" Z="151.8005" />
+						<Hotspot X="2691.951" Y="4710.507" Z="191.1969" />
+						<Hotspot X="2610.155" Y="4678.705" Z="178.604" />
+					</Hotspots>
+				</GrindArea></SetGrindArea>
+				<GrindTo Condition="(IsQuestCompleted(30925))" />
+			</If>
+			<If Condition="((HasQuest(30925)) &amp;&amp; (IsQuestCompleted(30925)))" >
+				<CustomBehavior File="ForcedMount" MountType="Ground" />
+				<CustomBehavior File="NoCombatMoveTo" X="2175.948" Y="4819.946" Z="181.9502" />
+		<TurnIn QuestName="Niuzao's Price" QuestId="30925" TurnInName="Ogo the Younger" TurnInId="61581" X="2175.948" Y="4819.946" Z="181.9502" />
+			</If>
+		<PickUp QuestName="The Terrible Truth" QuestId="30926" GiverName="Ogo the Elder" GiverId="61580" X="2172.934" Y="4819.03" Z="181.9511" />
+		<PickUp QuestName="A Trail of Fear" QuestId="30928" GiverName="Yak-Keeper Kyana" GiverId="61585" X="2181.552" Y="4830.448" Z="181.9506" />
+		<!--<PickUp QuestName="Give Them Peace" QuestId="30927" GiverName="Sentinel Commander Qipan" GiverId="61584" X="2185.582" Y="4815.417" Z="180.944" />-->
+			<If Condition="((HasQuest(30926)) &amp;&amp; (!IsQuestCompleted(30926)))" >
+			 <While Condition="((HasQuest(30926)) &amp;&amp; (!IsObjectiveComplete(1, 30926)))">
+				<CustomBehavior File="ForcedMount" MountType="Ground" />
+				<CustomBehavior File="NoCombatMoveTo" X="2202.672" Y="5172.18" Z="88.4562" />
+			 </While>
+			 <While Condition="((HasQuest(30926)) &amp;&amp; (!IsObjectiveComplete(2, 30926)))">
+				<RunTo X="2296.478" Y="4963.098" Z="68.99127" />
+			 </While>
+				<Objective QuestName="The Terrible Truth" QuestId="30926" Type="KillMob" MobId="62307" KillCount="1" />
+			</If>
+		<TurnIn QuestName="The Terrible Truth" QuestId="30926" TurnInName="Tai Ho" TurnInId="61482" X="2359.257" Y="4982.286" Z="67.13686" />
+				<!-- BIW works, but IW doesn't work - Natfoth, please fix it!
+				<CustomBehavior File="BasicInteractWith" QuestId="30927" MobId="62281" MoveTo="1" UseLuaTarget="1" />
+			<While Condition="((HasQuest(30927)) &amp;&amp; (!IsQuestCompleted(30927)))" >
+				<CustomBehavior File="InteractWith" MobId1="66276" MobId2="66281" MobId3="66282" MobId4="66277" Range="1" WaitForNpcs="False" NumOfTimes="20" MobState="Dead" CollectionDistance="1000" X="2224.343" Y="5226.989" Z="89.06761" />
+				<CustomBehavior File="InteractWith" MobId1="66276" MobId2="66281" MobId3="66282" MobId4="66277" Range="1" WaitForNpcs="False" NumOfTimes="20" MobState="Dead" CollectionDistance="1000" X="2256.359" Y="4909.565" Z="80.38731" />
+				<CustomBehavior File="InteractWith" MobId1="66276" MobId2="66281" MobId3="66282" MobId4="66277" Range="1" WaitForNpcs="False" NumOfTimes="20" MobState="Dead" CollectionDistance="1000" X="2191.824" Y="5032.615" Z="72.48427" />
+				<CustomBehavior File="InteractWith" MobId1="66276" MobId2="66281" MobId3="66282" MobId4="66277" Range="1" WaitForNpcs="False" NumOfTimes="20" MobState="Dead" CollectionDistance="1000" X="2251.571" Y="5082.892" Z="78.23823" />
+				<CustomBehavior File="InteractWith" MobId1="66276" MobId2="66281" MobId3="66282" MobId4="66277" Range="1" WaitForNpcs="False" NumOfTimes="20" MobState="Dead" CollectionDistance="1000" X="2200.74" Y="5137.582" Z="89.46139" />
+			</While>
+				-->
+			<Objective QuestName="A Trail of Fear" QuestId="30928" Type="KillMob" MobId="62306" KillCount="12" />
+		<!--<TurnIn QuestName="Give Them Peace" QuestId="30927" TurnInName="Sentinel Commander Qipan" TurnInId="61584" X="2185.582" Y="4815.417" Z="180.944" />-->
+			<If Condition="((HasQuest(30928)) &amp;&amp; (IsQuestCompleted(30928)))" >
+				<CustomBehavior File="NoCombatMoveTo" X="2181.552" Y="4830.448" Z="181.9506" />
+		<TurnIn QuestName="A Trail of Fear" QuestId="30928" TurnInName="Yak-Keeper Kyana" TurnInId="61585" X="2181.552" Y="4830.448" Z="181.9506" />
+			</If>
+			<!-- End of Townlong Steppes Zone -->
+			
+			<!-- To Dread Wastes -->
+			<If Condition="((HasQuest(31656)) &amp;&amp; (IsQuestCompleted(31656)))" >
+		<TurnIn QuestName="The Threat in the South" QuestId="31656" TurnInName="Bowmistress Li" TurnInId="62112" />
+			</If>
 		
+
 
 
 
@@ -1242,64 +1313,3 @@
 	</QuestOrder>
 
 </HBProfile>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
