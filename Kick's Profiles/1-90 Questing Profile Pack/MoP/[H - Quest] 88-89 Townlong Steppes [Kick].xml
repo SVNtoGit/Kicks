@@ -15,7 +15,7 @@
 		<Vendor Name="Lin the Brave" Entry="67171" Type="Food" X="1419.542" Y="2754.284" Z="312.1746" />
 		<Vendor Name="Supplier Qiao" Entry="67173" Type="Food" X="1587.024" Y="3966.304" Z="227.4118" />
 		<Vendor Name="Kali the Night Watcher" Entry="62874" Type="Food" X="1846.069" Y="4274.018" Z="148.8683" />
-
+		<Vendor Name="Commander Oxheart" Entry="64606" Type="Repair" X="2084.738" Y="4902.924" Z="198.5374" />
 		
 		
 		
@@ -1093,6 +1093,93 @@
 		<TurnIn QuestName="Lao-Chin and Serevex" QuestId="31063" TurnInName="Taran Zhu" TurnInId="62275" X="1538.302" Y="4351.82" Z="112.794" />
 		<TurnIn QuestName="Nurong and Rothek" QuestId="31064" TurnInName="Taran Zhu" TurnInId="62275" X="1538.302" Y="4351.82" Z="112.794" />
 		<PickUp QuestName="The Sha of Hatred" QuestId="30968" GiverName="Taran Zhu" GiverId="62275" X="1538.302" Y="4351.82" Z="112.794" />
+			<!-- Natfoth, make me a behavior that gets out of crap for this npc -->
+			<Objective QuestName="The Sha of Hatred" QuestId="30968" Type="KillMob" MobId="62541" KillCount="1" />
+		<TurnIn QuestName="The Sha of Hatred" QuestId="30968" TurnInName="Taoshi" TurnInId="62802" X="1400.644" Y="4430.052" Z="86.87626" />
+		<PickUp QuestName="The Threat in the South" QuestId="31656" GiverName="Taoshi" GiverId="62802" X="1400.644" Y="4430.052" Z="86.87626" />
+		<TurnIn QuestName="Thinning the Sik'thik" QuestId="31687" TurnInName="Rensai Oakhide" TurnInId="62278" X="1566.833" Y="3981.817" Z="227.2577" />
+		<TurnIn QuestName="The Search for Restless Leng" QuestId="31688" TurnInName="Rensai Oakhide" TurnInId="62278" X="1566.833" Y="3981.817" Z="227.2577" />
+
+			<CustomBehavior File="Message" Text="Compiling Shado-Pan Garrison Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((!HasQuest(30921)) &amp;&amp; (!IsQuestCompleted(30921)))" >
+		<PickUp QuestName="The Motives of the Mantid" QuestId="30921" GiverName="Tai Ho" GiverId="61482" X="1830.717" Y="4256.913" Z="149.204" />
+				<CustomBehavior File="InteractWith" MobId="62909" X="1802.033" Y="4202.739" Z="157.7402" />
+			</If>
+		<PickUp QuestName="Set the Mantid Back" QuestId="30923" GiverName="Tai Ho" GiverId="61482" X="1830.717" Y="4256.913" Z="149.204" />
+		<PickUp QuestName="Natural Antiseptic" QuestId="30922" GiverName="Provisioner Bamfu" GiverId="61625" X="1827.512" Y="4256.575" Z="149.2775" />
+		<PickUp QuestName="The Field Armorer" QuestId="30963" GiverName="Provisioner Bamfu" GiverId="61625" X="1827.512" Y="4256.575" Z="149.2775" />
+		<PickUp QuestName="A Proper Poultice" QuestId="30964" GiverName="Provisioner Bamfu" GiverId="61625" X="1827.512" Y="4256.575" Z="149.2775" />
+			<Objective QuestName="A Proper Poultice" QuestId="30964" Type="CollectItem" ItemId="82389" CollectCount="11" />
+			<Objective QuestName="The Field Armorer" QuestId="30963" Type="CollectItem" ItemId="82388" CollectCount="120" />
+			<If Condition="((HasQuest(30923)) &amp;&amp; (!IsQuestCompleted(30923)))" >
+			 <While Condition="!IsObjectiveComplete(2, 30923)" >
+				<CustomBehavior File="UseItemTargetLocation" QuestId="30923" MobId="211680" ObjectType="GameObject" ItemId="81891" WaitTime="1000" UseType="ToObject" Range="15" X="2482.751" Y="3827.202" Z="285.1432" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+			 </While>
+			 <While Condition="!IsObjectiveComplete(1, 30923)" >
+				<CustomBehavior File="UseItemTargetLocation" QuestId="30923" MobId="211675" ObjectType="GameObject" ItemId="81891" WaitTime="1000" UseType="ToObject" Range="15" X="2532.716" Y="3900.742" Z="281.8106" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+			 </While>
+			</If>
+			<Objective QuestName="Natural Antiseptic" QuestId="30922" Type="CollectItem" ItemId="82387" CollectCount="5" />
+			<If Condition="((HasQuest(30921)) &amp;&amp; (!IsQuestCompleted(30921)))" >
+			  <SetGrindArea>
+			  <GrindArea>
+				  <Factions>16</Factions>
+				  <Hotspots>
+					<Hotspot X="2619.454" Y="3804.329" Z="252.9342" />
+					<Hotspot X="2487.407" Y="3882.819" Z="279.0851" />
+					<Hotspot X="2496.78" Y="3816.754" Z="281.8171" />
+					<Hotspot X="2507.156" Y="3750.243" Z="271.809" />
+					<Hotspot X="2617.057" Y="3770.685" Z="255.5333" />
+				  </Hotspots>
+				  </GrindArea>
+				</SetGrindArea>
+				<GrindTo Condition="(IsQuestCompleted(30921))" />
+			</If>
+		<TurnIn QuestName="Set the Mantid Back" QuestId="30923" TurnInName="Tai Ho" TurnInId="61482" X="1830.717" Y="4256.913" Z="149.2047" />
+		<TurnIn QuestName="The Motives of the Mantid" QuestId="30921" TurnInName="Tai Ho" TurnInId="61482" X="1830.717" Y="4256.913" Z="149.204" />
+		<PickUp QuestName="The Wisdom of Niuzao" QuestId="30924" GiverName="Tai Ho" GiverId="61482" X="1830.717" Y="4256.913" Z="149.204" />
+		<TurnIn QuestName="Natural Antiseptic" QuestId="30922" TurnInName="Provisioner Bamfu" TurnInId="61625" X="1827.512" Y="4256.575" Z="149.2775" />
+		<TurnIn QuestName="The Field Armorer" QuestId="30963" TurnInName="Provisioner Bamfu" TurnInId="61625" X="1827.512" Y="4256.575" Z="149.2775" />
+		<TurnIn QuestName="A Proper Poultice" QuestId="30964" TurnInName="Provisioner Bamfu" TurnInId="61625" X="1827.512" Y="4256.575" Z="149.2775" />
+
+			<CustomBehavior File="Message" Text="Compiling Niuzao Temple Quests" LogColor="Cornflowerblue" />
+
+			<!-- If this quest gets too many complains ... Disable 30931 and 30932 -->
+		<PickUp QuestName="My Father's Crossbow" QuestId="30931" GiverName="Ku-Mo" GiverId="61539" X="2040.181" Y="4559.711" Z="133.8767" /> <!-- Hard, but doable -->
+			<Objective QuestName="My Father's Crossbow" QuestId="30931" Type="CollectItem" ItemId="82332" CollectCount="1" />
+		<TurnIn QuestName="My Father's Crossbow" QuestId="30931" TurnInName="Ku-Mo" TurnInId="61539" X="2040.181" Y="4559.711" Z="133.8768" />
+		<PickUp QuestName="Father's Footsteps" QuestId="30932" GiverName="Sentinel Commander Qipan" GiverId="61584" X="2185.582" Y="4815.417" Z="180.944" />
+		<TurnIn QuestName="The Wisdom of Niuzao" QuestId="30924" TurnInName="Ogo the Younger" TurnInId="61581" X="2175.948" Y="4819.946" Z="181.9502" />
+		<PickUp QuestName="Niuzao's Price" QuestId="30925" GiverName="Ogo the Younger" GiverId="61581" X="2175.948" Y="4819.946" Z="181.9502" />
+		<PickUp QuestName="Bad Yak" QuestId="30929" GiverName="Bluesaddle" GiverId="61161" X="2183.851" Y="4827.085" Z="181.9506" />
+			<If Condition="((HasQuest(30929)) &amp;&amp; (!IsQuestCompleted(30929)))" >
+				<RunTo X="2187.305" Y="4823.755" Z="181.9505" />
+				<CustomBehavior File="RunMacro" Macro="/cancelform" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(30929)) &amp;&amp; (!IsQuestCompleted(30929)))" >
+				<CustomBehavior File="InteractWith" QuestId="30929" MobId="61163" WaitTime="15000" X="2187.104" Y="4823.444" Z="181.9502" />
+			 </While>
+			</If>
+		<TurnIn QuestName="Bad Yak" QuestId="30929" TurnInName="Bluesaddle" TurnInId="61161" X="2183.851" Y="4827.085" Z="181.9506" />
+			<If Condition="((HasQuest(30932)) &amp;&amp; (!IsQuestCompleted(30932)))" >
+			 <While Condition="((HasQuest(30932)) &amp;&amp; (!IsObjectiveComplete(4, 30932)))">
+				<CustomBehavior File="InteractWith" QuestId="30932" MobId="61683" GossipOptions="1" CollectionDistance="1000" X="2207.472" Y="4786.322" Z="159.4941" />
+			 </While>
+			 <While Condition="((HasQuest(30932)) &amp;&amp; (!IsObjectiveComplete(2, 30932)))"> <!-- Shield -->
+				<CustomBehavior File="InteractWith" QuestId="30932" MobId="211836" ObjectType="Gameobject" Range="8" X="2210.382" Y="4920.959" Z="200.1741" />
+			 </While>
+			 <While Condition="((HasQuest(30932)) &amp;&amp; (!IsObjectiveComplete(1, 30932)))"> <!-- Bedroll -->
+				<CustomBehavior File="InteractWith" QuestId="30932" MobId="211837" ObjectType="Gameobject" Range="8" X="2225.14" Y="4932.147" Z="201.5213" />
+			 </While>
+			 <While Condition="((HasQuest(30932)) &amp;&amp; (!IsObjectiveComplete(3, 30932)))">
+				<CustomBehavior File="InteractWith" QuestId="30932" MobId="61685" GossipOptions="1" CollectionDistance="1000" X="2109.467" Y="4915.697" Z="198.5029" />
+			 </While>
+			</If>
+		<TurnIn QuestName="Father's Footsteps" QuestId="30932" TurnInName="Ku-Mo" TurnInId="61539" X="2186.818" Y="4813.335" Z="179.3787" />
+		<PickUp QuestName="Pick a Yak" QuestId="30930" GiverName="Bluesaddle" GiverId="61161" X="2389.215" Y="5045.707" Z="171.946" />
 
 		
 
