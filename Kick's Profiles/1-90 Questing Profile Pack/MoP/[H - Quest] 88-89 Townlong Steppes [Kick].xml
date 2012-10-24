@@ -524,13 +524,6 @@
 	</Quest>
 
 	
-	
-	
-	
-	
-	
-	
-	
 	<QuestOrder>
 
 		<CustomBehavior File="UserSettings" PullDistance="25" UseMount="True" LootMobs="True" />
@@ -543,7 +536,6 @@
 		<While Condition="Me.Level &lt; 88" >
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be 88+ to run this profile!" />
 		</While>
-		
 
 			<CustomBehavior File="Message" Text="Compiling Longying Outpost Quests" LogColor="Cornflowerblue" />
 
@@ -555,12 +547,6 @@
 		<PickUp QuestName="A Foot in the Door" QuestId="30814" GiverName="Taran Zhu" GiverId="60688" X="2387.497" Y="2992.503" Z="417.3715" />
 				<CustomBehavior File="InteractWith" MobId="62901" X="2363.514" Y="2996.531" Z="420.7994" /> <!-- Longying FP -->
 			</If>
-			
-		<!-- remove these 4 when profile is done -->
-		<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This profile is currently not available for use" />
-		<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Why u press continue? Noob!" />
-		<CustomBehavior File="UserDialog" StopOnContinue="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Owned, bet you can't get passed this! Muhahahahahahaha!!!!" />
-		<CustomBehavior File="UserSettings" StopBot="True" />
 		
 			<Objective QuestName="A Foot in the Door" QuestId="30814" Type="KillMob" MobId="60713" KillCount="8" />
 		<TurnIn QuestName="A Foot in the Door" QuestId="30814" TurnInName="Taran Zhu" TurnInId="60688" X="2387.497" Y="2992.503" Z="417.3715" />
@@ -1248,64 +1234,41 @@
 			<!-- End of Townlong Steppes Zone -->
 			
 			<!-- To Dread Wastes -->
-			<If Condition="((HasQuest(31656)) &amp;&amp; (IsQuestCompleted(31656)))" >
-		<TurnIn QuestName="The Threat in the South" QuestId="31656" TurnInName="Bowmistress Li" TurnInId="62112" />
+			<If Condition="((!HasQuest(31001)) &amp;&amp; (!IsQuestCompleted(31001)))" >
+			 <If Condition="HasSpell(115913) &amp;&amp; CanFly()" >
+				<CustomBehavior File="FlyTo" X="609.7953" Y="2126.61" Z="367.7319" />
+				<CustomBehavior File="ForcedDismount" />
+			  <Else>
+				 <If Condition="(Me.Z &lt; 350)" >
+					<CustomBehavior File="UserSettings" PullDistance="1" />
+					<CustomBehavior File="ForcedMount" MountType="Ground" />
+					<RunTo X="1436.687" Y="2799.713" Z="302.011" />
+					<RunTo X="1345.231" Y="2436.406" Z="330.6844" />
+					<CustomBehavior File="NoCombatMoveTo" X="1236.801" Y="2441.08" Z="315.4126" />
+					<RunTo X="1126.425" Y="2550.387" Z="322.8257" />
+					<RunTo X="1056.712" Y="2644.894" Z="292.8615" />
+					<CustomBehavior File="NoCombatMoveTo" X="762.5263" Y="2731.887" Z="300.8044" />
+					<CustomBehavior File="NoCombatMoveTo" X="532.0211" Y="2714.236" Z="240.4446" />
+					<RunTo X="411.5024" Y="2667.115" Z="213.7563" />
+					<CustomBehavior File="NoCombatMoveTo" X="360.1742" Y="2442.194" Z="218.1238" />
+					<CustomBehavior File="NoCombatMoveTo" X="505.4664" Y="2285.849" Z="256.4005" />
+					<RunTo X="505.4664" Y="2285.849" Z="256.4005" />
+					<RunTo X="597.1423" Y="2299.812" Z="297.0101" />
+					<RunTo X="659.2054" Y="2120.563" Z="326.9876" />
+					<CustomBehavior File="InteractWith" MobId="215393" ObjectType="GameObject" WaitTime="1000" X="658.0291" Y="2118.557" Z="327.0804" />
+					<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for ride up {TimeRemaining}" />
+					<RunTo X="609.7953" Y="2126.61" Z="367.7319" />
+				 </If>
+			  </Else>
+			 </If>
 			</If>
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-		
-		
-		
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			<If Condition="((HasQuest(31656)) &amp;&amp; (IsQuestCompleted(31656)))" >
+				<CustomBehavior File="ForcedMount" MountType="Ground" />
+		<TurnIn QuestName="The Threat in the South" QuestId="31656" TurnInName="Bowmistress Li" TurnInId="62112" X="649.0434" Y="2122.863" Z="369.1019" />
+				<CustomBehavior File="InteractWith" MobId="63497" X="610.0486" Y="2120.95" Z="368.0562" /> <!-- Serpernt's Shrine FP -->
+			</If>
+		<PickUp QuestName="Falling Down" QuestId="31001" GiverName="Bowmistress Li" GiverId="62112" X="649.0434" Y="2122.863" Z="369.102" />
+		<PickUp QuestName="Nope" QuestId="31002" GiverName="Bowmistress Li" GiverId="62112" X="649.0434" Y="2122.863" Z="369.102" />
 		
 		<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Townlong Steppes Profile" />
 		<CustomBehavior File="UserSettings" StopBot="True" />
