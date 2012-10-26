@@ -29,6 +29,47 @@
 	</AvoidMobs>
 
 	<!-- Quest Overrides -->
+	<Quest Id="29751" Name="Ritual Artifacts">
+		<Objective Type="CollectItem" ItemId="74762" CollectCount="1">
+			<CollectFrom>
+			  <GameObject Name="Jade Cong" Id="209699" />
+			</CollectFrom>
+			<Hotspots>
+		  <Hotspot X="2920.738" Y="-1527.284" Z="255.8835" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="CollectItem" ItemId="74761" CollectCount="1">
+			<CollectFrom>
+			  <GameObject Name="Pungent Ritual Candle" Id="209701" />
+			</CollectFrom>
+			<Hotspots>
+		  <Hotspot X="2855.894" Y="-1501.322" Z="273.0155" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="CollectItem" ItemId="74760" CollectCount="1">
+			<CollectFrom>
+			  <GameObject Name="Chipped Ritual Bowl" Id="209700" />
+			</CollectFrom>
+			<Hotspots>
+		  <Hotspot X="2985.999" Y="-1454.534" Z="244.9068" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	<Quest Id="29756" Name="A Humble Offering">
+		<Objective Type="CollectItem" ItemId="75214" CollectCount="10">
+			<CollectFrom>
+			  <GameObject Name="Tidemist Cap" Id="209825" />
+			</CollectFrom>
+			<Hotspots>
+		  <Hotspot X="3117.439" Y="-1382.975" Z="207.7039" />
+		  <Hotspot X="3086.218" Y="-1330.28" Z="207.1931" />
+		  <Hotspot X="3075.495" Y="-1264.66" Z="198.8451" />
+		  <Hotspot X="3166.342" Y="-1242.73" Z="201.1071" />
+		  <Hotspot X="3167.155" Y="-1299.572" Z="203.5085" />
+		  <Hotspot X="3162.051" Y="-1390.136" Z="210.0857" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 	
 	
 	
@@ -44,9 +85,29 @@
 		
 		<!-- Move everything below this line -->
 		
-		<PickUp QuestName="Ritual Artifacts" QuestId="29751" GiverName="Pei-Zhi" GiverId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
-		<PickUp QuestName="Vessels of the Spirit" QuestId="29750" GiverName="Pei-Zhi" GiverId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
-		<PickUp QuestName="The Wayward Dead" QuestId="29752" GiverName="Pei-Zhi" GiverId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
+			<CustomBehavior File="Message" Text="Compiling Jade Temple Quests" LogColor="Cornflowerblue" />
+		
+			<If Condition="((!HasQuest(29932)) &amp;&amp; (!IsQuestCompleted(29932)))" >
+		<PickUp QuestName="The Temple of the Jade Serpent" QuestId="29932" GiverName="Foreman Raike" GiverId="59391" X="796.934" Y="-1921.526" Z="58.9674" />
+				<RunTo X="858.5382" Y="-1912.387" Z="63.64399" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" MobId="59392" GossipOptions="2" X="858.5382" Y="-1912.387" Z="63.64399" />
+			</If>
+			<If Condition="((HasQuest(29932)) &amp;&amp; (!IsQuestCompleted(29932)))" >
+				<CustomBehavior File="InteractWith" QuestId="29932" MobId="57242" GossipOptions="1" X="995.6285" Y="-2447.675" Z="168.5978" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+			</If>
+		<TurnIn QuestName="The Temple of the Jade Serpent" QuestId="29932" TurnInName="Elder Sage Rain-Zhu" TurnInId="56782" X="921.8958" Y="-2607.582" Z="185.1195" />
+		<PickUp QuestName="The Scryer's Dilemma" QuestId="29997" GiverName="Elder Sage Rain-Zhu" GiverId="56782" X="921.8958" Y="-2607.582" Z="185.1195" />
+		<PickUp QuestName="The Librarian's Quandary" QuestId="29998" GiverName="Elder Sage Rain-Zhu" GiverId="56782" X="921.8958" Y="-2607.582" Z="185.1195" />
+		<PickUp QuestName="The Rider's Bind" QuestId="29999" GiverName="Fei" GiverId="56784" X="905.5399" Y="-2600.372" Z="185.1206" />
+		<PickUp QuestName="Lighting Up the Sky" QuestId="30005" GiverName="Fei" GiverId="56784" X="905.5399" Y="-2600.372" Z="185.1206" />
+		
+		
+		
+		
+		
 		
 		
 		
@@ -56,6 +117,9 @@
 
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End" />
 
+			<If Condition="((!HasQuest(30005)) &amp;&amp; (!IsQuestCompleted(30005)))" >
+				<CustomBehavior File="InteractWith" MobId="59727" X="777.8055" Y="-2358.609" Z="120.8827" /> <!-- Jade Temple Grounds FP -->
+			</If>
 
 	
 	
