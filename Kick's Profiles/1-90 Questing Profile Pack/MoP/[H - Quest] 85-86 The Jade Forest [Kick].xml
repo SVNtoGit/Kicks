@@ -50,6 +50,7 @@
 	
 	<Blackspots>
 		<Blackspot X="1390.319" Y="-1184.589" Z="217.8278" Radius="12" />
+		<Blackspot X="1403.938" Y="-531.559" Z="366.0105" Radius="10" />
 	</Blackspots>
 
 	<AvoidMobs>
@@ -747,6 +748,28 @@
 			<Hotspots>
 		  <Hotspot X="1047.59" Y="-2560.368" Z="174.1573" />
 		  <Hotspot X="1057.242" Y="-2529.011" Z="170.9273" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	<Quest Id="30466" Name="Sufficient Motivation">
+		<Objective Type="CollectItem" ItemId="79884" CollectCount="1">
+			<Hotspots>
+				<Hotspot X="1449.979" Y="-512.2347" Z="349.1487" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	<Quest Id="30502" Name="Jaded Heart">
+		<Objective Type="CollectItem" ItemId="80074" CollectCount="6">
+			<CollectFrom>
+			  <GameObject Name="Celestial Jade" Id="210921" />
+			</CollectFrom>
+			<Hotspots>
+		  <Hotspot X="776.3383" Y="-1951.615" Z="56.05598" />
+		  <Hotspot X="750.0427" Y="-1818.586" Z="57.29971" />
+		  <Hotspot X="791.8642" Y="-1791.872" Z="57.95396" />
+		  <Hotspot X="849.9249" Y="-1773.382" Z="59.98481" />
+		  <Hotspot X="903.2985" Y="-1838.898" Z="62.19221" />
+		  <Hotspot X="920.4902" Y="-1872.877" Z="55.91155" />
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -1739,11 +1762,112 @@
 				<CustomBehavior File="InteractWith" MobId="59727" GossipOptions="2" X="777.8055" Y="-2358.609" Z="120.8829" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for flight {TimeRemaining}" />
 			</If>
-		<TurnIn QuestName="Get Back Here!" QuestId="30499" TurnInName="General Nazgrim" TurnInId="57108" X="1455.46" Y="-505.1701" Z="346.265" />	
+			-->
+			
+			<!-- are these quests avail w/o doing the jade serpent temple chain? -->
 			
 			<CustomBehavior File="Message" Text="Compiling Grookin Hill Quests" LogColor="Cornflowerblue" />
 		
-			-->
+			<If Condition="((HasQuest(30499)) &amp;&amp; (IsQuestCompleted(30499)))" >
+		<TurnIn QuestName="Get Back Here!" QuestId="30499" TurnInName="General Nazgrim" TurnInId="57108" X="1455.46" Y="-505.1701" Z="346.265" />	
+			</If>
+		<PickUp QuestName="Sufficient Motivation" QuestId="30466" GiverName="General Nazgrim" GiverId="57108" X="1455.46" Y="-505.1701" Z="346.265" />
+		<PickUp QuestName="Gauging Our Progress" QuestId="30484" GiverName="General Nazgrim" GiverId="57108" X="1455.46" Y="-505.1701" Z="346.265" />
+			<If Condition="((HasQuest(30484)) &amp;&amp; (!IsQuestCompleted(30484)))" >
+			 <While Condition="((HasQuest(30484)) &amp;&amp; (!IsObjectiveComplete(2, 30484)))"> <!-- Rivett -->
+				<CustomBehavior File="InteractWith" QuestId="30484" MobId="59305" GossipOptions="1" X="1427.8" Y="-531.967" Z="353.4466" />
+			 </While>
+			 <While Condition="((HasQuest(30484)) &amp;&amp; (!IsObjectiveComplete(1, 30484)))"> <!-- Kiryn -->
+				<CustomBehavior File="InteractWith" QuestId="30484" MobId="56841" GossipOptions="1" X="1283.476" Y="-584.3802" Z="335.0499" />
+			 </While>
+			 <While Condition="((HasQuest(30484)) &amp;&amp; (!IsObjectiveComplete(3, 30484)))"> <!-- Shokia -->
+				<CustomBehavior File="InteractWith" QuestId="30484" MobId="56838" GossipOptions="1" X="1236.174" Y="-524.8802" Z="328.0238" />
+			 </While>
+			 <While Condition="((HasQuest(30484)) &amp;&amp; (!IsObjectiveComplete(4, 30484)))"> <!-- Riko -->
+				<CustomBehavior File="InteractWith" QuestId="30484" MobId="56840" GossipOptions="1" X="1094.906" Y="-433.4757" Z="259.6335" />
+			 </While>
+			</If>
+			<Objective QuestName="Sufficient Motivation" QuestId="30466" Type="CollectItem" ItemId="79884" CollectCount="1" />
+			<While Condition="((HasQuest(30466)) &amp;&amp; (!IsQuestCompleted(30466)))" >
+				<CustomBehavior File="UseItemOn" QuestId="30466" MobId="59740" ItemId="79884" NumOfTimes="20" WaitForNpcs="False" IgnoreMobsInBlackspots="True" Range="12" CollectionDistance="1000" X="1480.394" Y="-501.2831" Z="344.5799" />
+				<CustomBehavior File="UseItemOn" QuestId="30466" MobId="59740" ItemId="79884" NumOfTimes="20" WaitForNpcs="False" IgnoreMobsInBlackspots="True" Range="12" CollectionDistance="1000" X="1354.08" Y="-543.579" Z="345.6045" />
+				<CustomBehavior File="UseItemOn" QuestId="30466" MobId="59740" ItemId="79884" NumOfTimes="20" WaitForNpcs="False" IgnoreMobsInBlackspots="True" Range="12" CollectionDistance="1000" X="1291.881" Y="-458.2958" Z="344.0414" />
+				<CustomBehavior File="UseItemOn" QuestId="30466" MobId="59740" ItemId="79884" NumOfTimes="20" WaitForNpcs="False" IgnoreMobsInBlackspots="True" Range="12" CollectionDistance="1000" X="1348.088" Y="-412.457" Z="361.3572" />
+				<CustomBehavior File="UseItemOn" QuestId="30466" MobId="59740" ItemId="79884" NumOfTimes="20" WaitForNpcs="False" IgnoreMobsInBlackspots="True" Range="12" CollectionDistance="1000" X="1486.446" Y="-499.7084" Z="344.3445" />
+			</While>
+		<TurnIn QuestName="Sufficient Motivation" QuestId="30466" TurnInName="General Nazgrim" TurnInId="57108" X="1455.46" Y="-505.1701" Z="346.265" />
+		<TurnIn QuestName="Gauging Our Progress" QuestId="30484" TurnInName="General Nazgrim" TurnInId="57108" X="1455.46" Y="-505.1701" Z="346.265" />
+			<If Condition="((!HasQuest(30485)) &amp;&amp; (!IsQuestCompleted(30485)))" >
+		<PickUp QuestName="Last Piece of the Puzzle" QuestId="30485" GiverName="Lorewalker Cho" GiverId="59377" X="1477.609" Y="-518.5729" Z="345.5929" />
+				<RunTo X="1477.727" Y="-516.7274" Z="345.8424" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" MobId="64207" GossipOptions="1" X="1477.727" Y="-516.7274" Z="345.8424" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for ride {TimeRemaining}" />
+			</If>
+			<While Condition="((HasQuest(30485)) &amp;&amp; (!IsQuestCompleted(30485)))" >
+				<RunTo X="535.8745" Y="-1656.537" Z="200.7" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(80071)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+				<CustomBehavior QuestId="31362" File="WaitTimer" WaitTime="2000" />
+			</While>
+		<TurnIn QuestName="Last Piece of the Puzzle" QuestId="30485" TurnInName="Lorewalker Cho" TurnInId="59411" X="529.7031" Y="-1674.799" Z="198.8996" />
+		<PickUp QuestName="The Seal is Broken" QuestId="31303" GiverName="Lorewalker Cho" GiverId="59411" X="529.7031" Y="-1674.799" Z="198.8996" />
+			<If Condition="((HasQuest(31303)) &amp;&amp; (!IsQuestCompleted(31303)))" >
+			 <If Condition="(!Me.IsOnTransport)" >
+				<CustomBehavior File="InteractWith" MobId="64244" GossipOptions="1" X="531.9583" Y="-1674.62" Z="198.8996" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for transport to mount {TimeRemaining}" />
+			 </If>
+			 <If Condition="(Me.IsOnTransport)" >
+				<CustomBehavior File="UserDialog" QuestId="31303" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Throw bombs at the fissures (White spots on ground)" />
+			 </If>
+				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+			</If>
+		<TurnIn QuestName="The Seal is Broken" QuestId="31303" TurnInName="Lorewalker Cho" TurnInId="59418" X="790.9219" Y="-1990.325" Z="54.25745" />
+		<PickUp QuestName="Residual Fallout" QuestId="30500" GiverName="Lorewalker Cho" GiverId="59418" X="790.9219" Y="-1990.325" Z="54.25745" />
+			<!-- optional quest, too hard for now
+		<PickUp QuestName="Jaded Heart" QuestId="30502" GiverName="Lorewalker Cho" GiverId="59418" X="790.9219" Y="-1990.325" Z="54.25745" />-->
+		<PickUp QuestName="Emergency Response" QuestId="30504" GiverName="Lorewalker Cho" GiverId="59418" X="790.9219" Y="-1990.325" Z="54.25745" />
+			<If Condition="((HasQuest(30504)) &amp;&amp; (!IsQuestCompleted(30504)))" > <!-- Nazgrim -->
+			  <While Condition="!IsObjectiveComplete(1, 30504)" >
+				<RunTo X="777.8867" Y="-1908.515" Z="59.11979" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(86467)" WaitTime="1000" />
+			  </While>
+			  <While Condition="!IsObjectiveComplete(2, 30504)" > <!-- Kiryn -->
+				<RunTo X="741.0624" Y="-1846.861" Z="60.39627" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(86467)" WaitTime="1000" />
+			  </While>
+			  <While Condition="!IsObjectiveComplete(3, 30504)" > <!-- Shokia -->
+				<RunTo X="828.4055" Y="-1820.128" Z="62.86535" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(86467)" WaitTime="1000" />
+			  </While>
+			  <While Condition="!IsObjectiveComplete(3, 30504)" > <!-- Rivett -->
+				<RunTo X="902.4197" Y="-1902.526" Z="57.98389" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(86467)" WaitTime="1000" />
+			  </While>
+			</If>
+			<While Condition="((HasQuest(30502)) &amp;&amp; (!IsQuestCompleted(30502)))" >
+				<Objective QuestName="Jaded Heart" QuestId="30502" Type="CollectItem" ItemId="80074" CollectCount="6" />
+			 <While Condition="(GetItemCount(80074) &lt; 1)" >
+				<CustomBehavior File="InteractWith" QuestId="30502" MobId="210921" ObjectType="Gameobject" WaitTime="2000" CollectionDistance="1000" X="812.5245" Y="-1922.784" Z="60.64294" />
+			 </While>
+				<CustomBehavior File="CombatUseItemOn" QuestId="30502" MobId="59434" ItemId="80074" MobHpPercentLeft="100" MaxRange="5" X="812.5245" Y="-1922.784" Z="60.64294" />
+			</While>
+			<Objective QuestName="Residual Fallout" QuestId="30500" Type="KillMob" MobId="59417" KillCount="10" />
+		<TurnIn QuestName="Residual Fallout" QuestId="30500" TurnInName="Lorewalker Cho" TurnInId="59418" />
+			<If Condition="((HasQuest(30502)) &amp;&amp; (IsQuestCompleted(30502)))" >
+		<TurnIn QuestName="Jaded Heart" QuestId="30502" TurnInName="Lorewalker Cho" TurnInId="59418" />
+			</If>
+		<TurnIn QuestName="Emergency Response" QuestId="30504" TurnInName="Lorewalker Cho" TurnInId="59418" />
+		<PickUp QuestName="Moving On" QuestId="30648" GiverName="Fei" GiverId="59899" X="793.3941" Y="-1990.938" Z="54.30451" />
+			<If Condition="((HasQuest(30648)) &amp;&amp; (!IsQuestCompleted(30648)))" >
+				<CustomBehavior File="InteractWith" MobId="59899" GossipOptions="1" X="793.3941" Y="-1990.938" Z="54.30451" />
+				<CustomBehavior File="WaitTimer" WaitTime="120000" />
+			</If>
+			<While Condition="((HasQuest(30648)) &amp;&amp; (IsQuestCompleted(30648)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="30648" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
+			</While>
 		
 			<CustomBehavior File="Message" Text="Compiling Nectarbreeze Orchard Quests" LogColor="Cornflowerblue" />
 		
@@ -1791,8 +1915,6 @@
 			<Objective QuestName="Maul Gormal" QuestId="29670" Type="KillMob" MobId="55016" KillCount="1" />
 		<TurnIn QuestName="Maul Gormal" QuestId="29670" TurnInName="Shao the Defiant" TurnInId="55009" X="209.3385" Y="-1411.356" Z="76.53178" />
 		<TurnIn QuestName="Unbound" QuestId="29587" TurnInName="Shao the Defiant" TurnInId="55009" X="209.3385" Y="-1411.356" Z="76.53178" />
-
-		<!-- I still have some quests to add, I'll add them when I get some free time, but this profile gets us right around 86 -->
 		
 			<CustomBehavior File="Message" Text="Traveling to the Valley of the Four Winds" LogColor="Cornflowerblue" />
 
@@ -1805,53 +1927,6 @@
 			<If Condition="((HasQuest(32018)) &amp;&amp; (IsQuestCompleted(32019)))" >
 		<TurnIn QuestName="They Call Him... Stormstout" QuestId="32019" TurnInName="Chen Stormstout" TurnInId="56133" X="517.3177" Y="-693.7483" Z="247.2532" />
 			</If>
-
-		
-		
-
-	<!-- i'll come back and manually code these later - emporer's omen quests 
-		<PickUp QuestName="Ritual Artifacts" QuestId="29751" GiverName="Pei-Zhi" GiverId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
-		<PickUp QuestName="Vessels of the Spirit" QuestId="29750" GiverName="Pei-Zhi" GiverId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
-		<PickUp QuestName="The Wayward Dead" QuestId="29752" GiverName="Pei-Zhi" GiverId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
-
-			<Objective QuestName="Ritual Artifacts" QuestId="29751" Type="CollectItem" ItemId="74762" CollectCount="1" />
-			<Objective QuestName="Ritual Artifacts" QuestId="29751" Type="CollectItem" ItemId="74760" CollectCount="1" />
-			<Objective QuestName="Ritual Artifacts" QuestId="29751" Type="CollectItem" ItemId="74761" CollectCount="1" />
-		<TurnIn QuestName="Ritual Artifacts" QuestId="29751" TurnInName="Pei-Zhi" TurnInId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
-
-			<Objective QuestName="Vessels of the Spirit" QuestId="29750" Type="CollectItem" ItemId="74763" CollectCount="8" />
-		<TurnIn QuestName="Vessels of the Spirit" QuestId="29750" TurnInName="Pei-Zhi" TurnInId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
-
-			<Objective QuestName="The Wayward Dead" QuestId="29752" Type="KillMob" MobId="61290" KillCount="10" />
-		<TurnIn QuestName="The Wayward Dead" QuestId="29752" TurnInName="Pei-Zhi" TurnInId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
-	-->
-
-		<!-- Jade Temple quests 
-		<PickUp QuestName="The Scryer's Dilemma" QuestId="29997" GiverName="Elder Sage Rain-Zhu" GiverId="56782" />
-		<PickUp QuestName="The Librarian's Quandary" QuestId="29998" GiverName="Elder Sage Rain-Zhu" GiverId="56782" />
-		<PickUp QuestName="The Rider's Bind" QuestId="29999" GiverName="Fei" GiverId="56784" />
-		<PickUp QuestName="Lighting Up the Sky" QuestId="30005" GiverName="Fei" GiverId="56784" />
-
-
-			<Objective QuestName="The Scryer's Dilemma" QuestId="29997" Type="CollectItem" ItemId="76725" CollectCount="1" />
-		<TurnIn QuestName="The Scryer's Dilemma" QuestId="29997" TurnInName="Wise Mari" TurnInId="56787" />
-
-		<TurnIn QuestName="The Librarian's Quandary" QuestId="29998" TurnInName="Lorewalker Stonestep" TurnInId="56786" X="839.3281" Y="-2476.998" Z="176.3027" />
-
-			<Objective QuestName="The Rider's Bind" QuestId="29999" Type="KillMob" MobId="56856" KillCount="1" />
-			<Objective QuestName="The Rider's Bind" QuestId="29999" Type="KillMob" MobId="56858" KillCount="1" />
-			<Objective QuestName="The Rider's Bind" QuestId="29999" Type="KillMob" MobId="56859" KillCount="1" />
-			<Objective QuestName="The Rider's Bind" QuestId="29999" Type="KillMob" MobId="56860" KillCount="1" />
-		<TurnIn QuestName="The Rider's Bind" QuestId="29999" TurnInName="Fei" TurnInId="56784" />
-
-			<Objective QuestName="Lighting Up the Sky" QuestId="30005" Type="KillMob" MobId="57212" KillCount="8" />
-		<TurnIn QuestName="Lighting Up the Sky" QuestId="30005" TurnInName="Fei" TurnInId="56784" />
-		-->
-	
-
-
-
-
 		
 		<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Jade Forest Profile" />
 		
