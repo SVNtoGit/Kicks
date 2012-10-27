@@ -1683,7 +1683,7 @@
 
 			<CustomBehavior File="Message" Text="Ignoring Jade Temple Quests due to mesh issues atm" LogColor="Cornflowerblue" />
 			
-			<!-- Jade Temple Quests disabled for now 
+			<!-- Jade Temple Quests will have mesh issues -->
 			<CustomBehavior File="Message" Text="Compiling Jade Temple Quests" LogColor="Cornflowerblue" />
 		
 			<If Condition="((!HasQuest(29932)) &amp;&amp; (!IsQuestCompleted(29932)))" >
@@ -1743,7 +1743,11 @@
 			 <While Condition="((HasQuest(29999)) &amp;&amp; (!IsObjectiveComplete(4, 29999)))">
 				<CustomBehavior File="InteractWith" MobId="56850" Range="5" X="843.3549" Y="-2459.354" Z="179.2966" />
 			 </While>
-			<Objective QuestName="The Scryer's Dilemma" QuestId="29997" Type="CollectItem" ItemId="76725" CollectCount="1" />
+			<If Condition="((HasQuest(29997)) &amp;&amp; (!IsQuestCompleted(29997)))" >
+				<RunTo X="1047.59" Y="-2560.368" Z="174.1573" />
+				<CustomBehavior File="UserDialog" QuestId="29997" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="30" ExpiryAction="InputEnabled_Continue" Text="Mesh Issues in this room, you may get stuck" />
+				<Objective QuestName="The Scryer's Dilemma" QuestId="29997" Type="CollectItem" ItemId="76725" CollectCount="1" />
+			</If>
 		<TurnIn QuestName="The Scryer's Dilemma" QuestId="29997" TurnInName="Wise Mari" TurnInId="56787" X="1044.292" Y="-2568.181" Z="174.6981" />
 		<PickUp QuestName="A New Vision" QuestId="30011" GiverName="Wise Mari" GiverId="56787" X="1044.292" Y="-2568.181" Z="174.6981" />
 		<TurnIn QuestName="A New Vision" QuestId="30011" TurnInName="Elder Sage Rain-Zhu" TurnInId="56782" X="921.8958" Y="-2607.582" Z="185.1194" />
@@ -1763,7 +1767,7 @@
 				<CustomBehavior File="InteractWith" MobId="59727" GossipOptions="2" X="777.8055" Y="-2358.609" Z="120.8829" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for flight {TimeRemaining}" />
 			</If>
-			-->
+
 			<CustomBehavior File="Message" Text="Compiling Nectarbreeze Orchard Quests" LogColor="Cornflowerblue" />
 		
 		<TurnIn QuestName="An Air of Worry" QuestId="29576" TurnInName="Shao the Defiant" TurnInId="54697" X="118.6111" Y="-1584.5" Z="92.76532" /> <!-- Travel to Nectarbreeze Orchard -->
