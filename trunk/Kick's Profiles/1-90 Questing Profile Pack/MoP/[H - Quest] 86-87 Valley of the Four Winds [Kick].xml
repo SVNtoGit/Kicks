@@ -117,7 +117,7 @@
 		</Objective>
 		<Objective Type="KillMob" MobId="67099" KillCount="1"><!-- Succula -->		
 			<Hotspots>
-				<Hotspot X="397.8125" Y="660.2066" Z="144.9395" /> 
+				<Hotspot X="406.661" Y="660.9298" Z="142.8347" /> 
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -979,8 +979,8 @@
 				<CustomBehavior File="MyCTM" QuestId="29952" X="-751.9271" Y="1334.837" Z="162.6368" />
 			</If>
 		<TurnIn QuestName="Broken Dreams" QuestId="29952" TurnInName="Chen Stormstout" TurnInId="56133" X="-39.92934" Y="-23.58536" Z="154.1598" />
+			<If Condition="((!HasQuest(30046)) &amp;&amp; (!IsQuestCompleted(30046)))" >
 		<PickUp QuestName="Chen's Resolution" QuestId="30046" GiverName="Chen Stormstout" GiverId="56133" X="-39.9375" Y="-23.56771" Z="154.1579" />
-			<If Condition="(HasQuest(30046))" >
 				<CustomBehavior File="NoCombatMoveTo" X="-204.6823" Y="484.5005" Z="187.1889" />
 				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 			</If>
@@ -1071,10 +1071,20 @@
 			</While>
 		<TurnIn QuestName="The Great Water Hunt" QuestId="30051" TurnInName="Mudmug" TurnInId="58785" />
 		<PickUp QuestName="Barreling Along" QuestId="30172" GiverName="Mudmug" GiverId="58785" />
+			<If Condition="((HasQuest(30172)) &amp;&amp; (!IsQuestCompleted(30172)))" >
+				<RunTo X="-198.554" Y="482.8267" Z="187.1889" />
+			  <While Condition="!IsQuestCompleted(30172)" >
+				<CustomBehavior File="InteractWith" MobId="56474" GossipOptions="1" X="82.19444" Y="548.6736" Z="153.3863" />
+				<RunTo X="54.82958" Y="546.7314" Z="153.4535" />
+				<CustomBehavior File="WaitTimer" WaitTime="6000" />
+				<RunTo X="-198.554" Y="482.8267" Z="187.1889" />
+				<CustomBehavior File="WaitTimer" QuestId="30172" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			  </While>
+			</If>
+		<TurnIn QuestName="Barreling Along" QuestId="30172" TurnInName="Chen Stormstout" TurnInId="56133" X="-197.7969" Y="485.3542" Z="187.189" />
 			<Objective QuestName="Children of the Water" QuestId="32045" Type="KillMob" MobId="67128" KillCount="1" />
 			<Objective QuestName="Children of the Water" QuestId="32045" Type="KillMob" MobId="67125" KillCount="1" />
 			<Objective QuestName="Children of the Water" QuestId="32045" Type="KillMob" MobId="67099" KillCount="1" />
-		<TurnIn QuestName="Barreling Along" QuestId="30172" TurnInName="Chen Stormstout" TurnInId="56133" X="-197.7969" Y="485.3542" Z="187.189" />
 			<If Condition="((!HasQuest(30050)) &amp;&amp; (!IsQuestCompleted(30050)))" >
 				<!-- Nat, make a behavior for this -->
 				<CustomBehavior File="ForcedMount" />
