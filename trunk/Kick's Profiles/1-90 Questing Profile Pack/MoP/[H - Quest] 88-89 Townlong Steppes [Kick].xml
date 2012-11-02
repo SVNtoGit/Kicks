@@ -35,6 +35,7 @@
 	</Blackspots>
 
 	<AvoidMobs>
+		<Mob Name="World Trigger" Id="59481" />
 	</AvoidMobs>	
 	
 	<!-- Quest Overrides -->
@@ -252,7 +253,7 @@
 	<Quest Id="30784" Name="The Point of No Return">
 	  <Objective Type="KillMob" MobId="61055" KillCount="1">
 		  <Hotspots>
-		  <Hotspot X="1856.839" Y="2249.668" Z="399.5722" />
+		  <Hotspot X="1856.839" Y="2249.668" Z="399.5704" />
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -356,10 +357,11 @@
 			  <GameObject Name="Shado-Pan Fire Arrows" Id="212136" />
 			</CollectFrom>
 			<Hotspots>
-		  <Hotspot X="1516.067" Y="2509.531" Z="299.5869" />
-		  <Hotspot X="1627.963" Y="2598.927" Z="304.5029" />
-		  <Hotspot X="1671.184" Y="2582.292" Z="304.8676" />
-		  <Hotspot X="1748.773" Y="2571.074" Z="315.7722" />
+				<Hotspot X="1334.687" Y="3267.686" Z="315.7973" />
+				<Hotspot X="1401.685" Y="3380.993" Z="321.0166" />
+				<Hotspot X="1486.092" Y="3250.682" Z="306.9017" />
+				<Hotspot X="1357.916" Y="3249.263" Z="316.8484" />
+				<Hotspot X="1403.525" Y="3162.543" Z="285.9978" />
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -803,7 +805,7 @@
 		<TurnIn QuestName="Spiteful Spirits" QuestId="30782" TurnInName="Ban Bearheart" TurnInId="61261" X="1762.351" Y="2335.464" Z="377.4286" />
 		<TurnIn QuestName="Hatred Becomes Us" QuestId="30783" TurnInName="Yalia Sagewhisper" TurnInId="60864" X="1762.351" Y="2335.464" Z="377.4286" />
 		<PickUp QuestName="The Point of No Return" QuestId="30784" GiverName="Ban Bearheart" GiverId="61261" X="1762.351" Y="2335.464" Z="377.4286" />
-			<Objective QuestName="The Point of No Return" QuestId="30784" Type="KillMob" MobId="61055" KillCount="1" />
+			<Objective QuestName="The Point of No Return" QuestId="30784" Type="KillMob" MobId="61055" KillCount="1" /> <!-- Kicks back -->
 		<TurnIn QuestName="The Point of No Return" QuestId="30784" TurnInName="Ban Bearheart" TurnInId="61261" X="1762.351" Y="2335.464" Z="377.4286" />
 		<PickUp QuestName="Gao-Ran Battlefront" QuestId="30785" GiverName="Ban Bearheart" GiverId="61261" X="1762.351" Y="2335.464" Z="377.4286" />
 
@@ -964,6 +966,9 @@
 		<TurnIn QuestName="Enraged By Hatred" QuestId="30970" TurnInName="Taoshi" TurnInId="62436" X="1462.465" Y="3212.472" Z="308.7925" />
 		<TurnIn QuestName="Taking Stock" QuestId="30971" TurnInName="Initiate Pao-Me" TurnInId="62124" X="1469.214" Y="3209.964" Z="308.6216" />
 		<PickUp QuestName="Joining the Fight" QuestId="30972" GiverName="Initiate Pao-Me" GiverId="62124" X="1469.214" Y="3209.964" Z="308.6216" />
+			<If Condition="((HasQuest(30972)) &amp;&amp; (IsQuestCompleted(30972)))" >
+				<CustomBehavior File="NoCombatMoveTo" X="1519.882" Y="3541.705" Z="225.6237" />
+			</If>
 		<TurnIn QuestName="Joining the Fight" QuestId="30972" TurnInName="Lao-Chin the Iron Belly" TurnInId="61016" X="1519.882" Y="3541.705" Z="225.6237" />
 		<PickUp QuestName="Up In Flames" QuestId="30973" GiverName="Taran Zhu" GiverId="62273" X="1520.918" Y="3538.984" Z="225.7599" />
 			<If Condition="((HasQuest(30973)) &amp;&amp; (!IsQuestCompleted(30973)))" >
@@ -1065,7 +1070,6 @@
 			<If Condition="((HasQuest(31688)) &amp;&amp; (!IsQuestCompleted(31688)))" >
 				<CustomBehavior File="UserSettings" PullDistance="10" />
 			  <While Condition="!IsQuestCompleted(31688)" >
-				<CustomBehavior File="InteractWith" QuestId="31688" MobId="214734" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="1070.659" Y="3734.568" Z="248.1864" />
 				<CustomBehavior File="InteractWith" QuestId="31688" MobId="214734" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="1545.685" Y="4679.235" Z="164.5584" />
 				<CustomBehavior File="InteractWith" QuestId="31688" MobId="214734" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="1481.061" Y="4735.108" Z="159.1735" />
 				<CustomBehavior File="InteractWith" QuestId="31688" MobId="214734" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="1573.394" Y="4781.207" Z="148.4833" />
@@ -1081,11 +1085,10 @@
 		<TurnIn QuestName="Lao-Chin and Serevex" QuestId="31063" TurnInName="Taran Zhu" TurnInId="62275" X="1538.302" Y="4351.82" Z="112.794" />
 		<TurnIn QuestName="Nurong and Rothek" QuestId="31064" TurnInName="Taran Zhu" TurnInId="62275" X="1538.302" Y="4351.82" Z="112.794" />
 		<PickUp QuestName="The Sha of Hatred" QuestId="30968" GiverName="Taran Zhu" GiverId="62275" X="1538.302" Y="4351.82" Z="112.794" />
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Sha of Hatred" />
 			<!-- Natfoth, make me a behavior that gets out of crap for this npc -->
 			<Objective QuestName="The Sha of Hatred" QuestId="30968" Type="KillMob" MobId="62541" KillCount="1" />
 		<TurnIn QuestName="The Sha of Hatred" QuestId="30968" TurnInName="Taoshi" TurnInId="62802" X="1400.644" Y="4430.052" Z="86.87626" />
-			<If Condition="(Me.Level &gt;= 89)" >
+			<If Condition="(Me.Level &gt;= 89) &amp;&amp; ((!HasQuest(31895)) &amp;&amp; (!IsQuestCompleted(31895)))" >
 		<PickUp QuestName="The Threat in the South" QuestId="31656" GiverName="Taoshi" GiverId="62802" X="1400.644" Y="4430.052" Z="86.87626" /> <!-- GoTo Dread Wastes -->
 			</If>
 		<TurnIn QuestName="Thinning the Sik'thik" QuestId="31687" TurnInName="Rensai Oakhide" TurnInId="62278" X="1566.833" Y="3981.817" Z="227.2577" />
