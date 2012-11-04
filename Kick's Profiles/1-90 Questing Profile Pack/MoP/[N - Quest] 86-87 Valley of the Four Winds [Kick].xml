@@ -1,5 +1,5 @@
 <HBProfile>
-	<Name>[H - Quest] 86-87 Valley of the Four Winds [Kick]</Name>
+	<Name>[N - Quest] 86-87 Valley of the Four Winds [Kick]</Name>
 	<MinLevel>85</MinLevel>
 	<MaxLevel>101</MaxLevel>
 	
@@ -47,8 +47,7 @@
 	</Mailboxes>
 
 	<Blackspots>
-		<Blackspot X="-574.2518" Y="646.2101" Z="160.7808" Radius="15" Height="12" />
-		
+		<Blackspot X="-574.2518" Y="646.2101" Z="160.7808" Radius="20" Height="20" />
 	</Blackspots>
 
 	<AvoidMobs>
@@ -458,11 +457,12 @@
 		</Objective>
 	</Quest>
 	<Quest Id="29946" Name="The Warren-Mother">
-	  <Objective Type="KillMob" MobId="56357" KillCount="1">
+	  <Objective Type="KillMob" MobId="56537" KillCount="1">
 		  <Hotspots>
-			<Hotspot X="116.1632" Y="13.94618" Z="134.1965" />
-			<Hotspot X="133.2433" Y="-29.26062" Z="136.2117" />
-			<Hotspot X="132.8991" Y="15.80363" Z="132.2523" />			
+				<Hotspot X="116.1632" Y="13.94618" Z="134.1965" />
+				<Hotspot X="122.671" Y="14.78861" Z="133.3398" />
+				<Hotspot X="133.2433" Y="-29.26062" Z="136.2117" />
+				<Hotspot X="132.8991" Y="15.80363" Z="132.2523" />			
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -628,27 +628,16 @@
 			</Hotspots>
 		</Objective>
 </Quest>	
-	<Quest Id="29946" Name="The Warren-Mother">
-		<Objective Type="KillMob" MobId="56537" KillCount="1">
-			<Hotspots>
-				<Hotspot X="122.671" Y="14.78861" Z="133.3398" />
-			</Hotspots>
-		</Objective>
-	</Quest>	
 	
 	<QuestOrder>
 
 		<CustomBehavior File="UserSettings" PullDistance="25" UseMount="True" LootMobs="True" />
 	
-			<CustomBehavior File="Message" Text="Compiling Valley of the Four Winds (Horde) Quests" LogColor="Green" />
+			<CustomBehavior File="Message" Text="Compiling Valley of the Four Winds Quests" LogColor="Green" />
 	
-		<While Condition="Me.IsAlliance" >
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be Horde to run this profile!" />
-		</While>
 		<While Condition="Me.Level &lt; 86" >
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be 86+ to run this profile!" />
 		</While>
-
 
 			<If Condition="((HasQuest(32018)) &amp;&amp; (IsQuestCompleted(32018)))" >
 		<TurnIn QuestName="His Name Was... Stormstout" QuestId="32018" TurnInName="Chen Stormstout" TurnInId="56133" X="517.3177" Y="-693.7483" Z="247.2532" />
@@ -676,7 +665,12 @@
 		<PickUp QuestName="Low Turnip Turnout" QuestId="29909" GiverName="Pang Thunderfoot" GiverId="56204" X="545.8316" Y="-606.1146" Z="263.3707" />
 		<PickUp QuestName="The Search for the Hidden Master" QuestId="30086" GiverName="Xiao" GiverId="56110" X="545.4184" Y="-621.1684" Z="258.5338" />
 		<TurnIn QuestName="The Search for the Hidden Master" QuestId="30086" TurnInName="Xiao" TurnInId="56110" X="545.4184" Y="-621.1684" Z="258.5338" />
+			<If Condition="Me.IsAlliance" >
+		<PickUp QuestName="Kang Bramblestaff" QuestId="29874" GiverName="Xiao" GiverId="56110" X="545.4184" Y="-621.1684" Z="258.5338" />
+			</If>
+			<If Condition="Me.IsHorde" >
 		<PickUp QuestName="Kang Bramblestaff" QuestId="29875" GiverName="Xiao" GiverId="56110" X="545.4184" Y="-621.1684" Z="258.5338" />
+			</If>
 		<PickUp QuestName="Lin Tenderpaw" QuestId="29872" GiverName="Xiao" GiverId="56110" X="545.4184" Y="-621.1684" Z="258.5338" />
 		<PickUp QuestName="Ken-Ken" QuestId="29873" GiverName="Xiao" GiverId="56110" X="545.4184" Y="-621.1684" Z="258.5338" />
 		<PickUp QuestName="Clever Ashyo" QuestId="29871" GiverName="Xiao" GiverId="56110" X="545.4184" Y="-621.1684" Z="258.5338" />
@@ -802,6 +796,9 @@
 			<While Condition="((HasQuest(29950)) &amp;&amp; (!IsQuestCompleted(29950)))" >
 			 <While Condition="((HasQuest(29950)) &amp;&amp; (!IsObjectiveComplete(1, 29950)))"> <!-- Silken Fields -->
 				<RunTo X="-471.3625" Y="233.2831" Z="165.7554" />
+				<RunTo X="-456.7658" Y="255.0716" Z="165.7315" />
+				<RunTo X="-442.9189" Y="247.4825" Z="165.676" />
+				<RunTo X="-445.7539" Y="228.5149" Z="164.7626" />
 			  <If Condition="(!Me.HasAura(&quot;Li Li's Day Off: Summon Li Li&quot;))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(76350)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
@@ -809,6 +806,8 @@
 			 </While>
 			 <While Condition="((HasQuest(29950)) &amp;&amp; (!IsObjectiveComplete(3, 29950)))"> <!-- Huangtze Falls -->
 				<RunTo X="-8.016836" Y="-265.5999" Z="166.8209" />
+				<RunTo X="-1.855283" Y="-270.3891" Z="168.9213" />
+				<RunTo X="-42.40382" Y="-247.8473" Z="153.5799" />
 			  <If Condition="(!Me.HasAura(&quot;Li Li's Day Off: Summon Li Li&quot;))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(76350)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
@@ -816,6 +815,12 @@
 			 </While>
 			 <While Condition="((HasQuest(29950)) &amp;&amp; (!IsObjectiveComplete(2, 29950)))"> <!-- New Cifera -->
 				<RunTo X="198.1385" Y="276.1928" Z="153.8005" />
+				<RunTo QuestId="29950" X="221.8589" Y="293.2372" Z="154.1574" />
+				<RunTo QuestId="29950" X="207.6502" Y="241.1077" Z="154.4249" />
+				<RunTo QuestId="29950" X="154.0513" Y="263.8393" Z="155.5137" />
+				<RunTo QuestId="29950" X="160.633" Y="290.7022" Z="154.7617" />
+				<RunTo QuestId="29950" X="177.7211" Y="306.272" Z="153.8056" />
+				<RunTo QuestId="29950" X="184.019" Y="288.4985" Z="153.9964" />
 			  <If Condition="(!Me.HasAura(&quot;Li Li's Day Off: Summon Li Li&quot;))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(76350)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
@@ -846,9 +851,17 @@
 		<PickUp QuestName="A Crocolisk Tale" QuestId="30275" GiverName="Enormous Crocolisk Tail" GiverId="79238" GiverType="Item" />
 				</If>
 			</If>
-			<While Condition="((HasQuest(30267)) &amp;&amp; (!IsQuestCompleted(30267)))" >
-				<CustomBehavior File="InteractWith" QuestId="30267" MobId="57301" NumOfTimes="18" CollectionDistance="1000" X="302.9495" Y="419.1689" Z="147.573"  /> <!-- collect Glade glimmer -->
-				<Objective QuestName="Watery Woes" QuestId="30267" Type="CollectItem" ItemId="79198" CollectCount="5" />
+			<Objective QuestName="Watery Woes" QuestId="30267" Type="CollectItem" ItemId="79198" CollectCount="5" />
+			<While Condition="((HasQuest(30267)) &amp;&amp; (!IsObjectiveComplete(1, 30267)))" >
+				<CustomBehavior File="InteractWith" QuestId="30267" MobId="57301" NumOfTimes="18" WaitForNpcs="False" CollectionDistance="1000" X="312.0665" Y="418.4216" Z="147.4064" />
+				<CustomBehavior File="InteractWith" QuestId="30267" MobId="57301" NumOfTimes="18" WaitForNpcs="False" CollectionDistance="1000" X="384.6582" Y="447.4156" Z="146.9683" />
+				<CustomBehavior File="InteractWith" QuestId="30267" MobId="57301" NumOfTimes="18" WaitForNpcs="False" CollectionDistance="1000" X="385.28" Y="627.7719" Z="146.1861" />
+				<CustomBehavior File="InteractWith" QuestId="30267" MobId="57301" NumOfTimes="18" WaitForNpcs="False" CollectionDistance="1000" X="257.9656" Y="617.6794" Z="147.0491" />
+				<CustomBehavior File="InteractWith" QuestId="30267" MobId="57301" NumOfTimes="18" WaitForNpcs="False" CollectionDistance="1000" X="240.2841" Y="504.9021" Z="146.0858" />
+				<CustomBehavior File="InteractWith" QuestId="30267" MobId="57301" NumOfTimes="18" WaitForNpcs="False" CollectionDistance="1000" X="170.6186" Y="528.5861" Z="145.0505" />
+				<CustomBehavior File="InteractWith" QuestId="30267" MobId="57301" NumOfTimes="18" WaitForNpcs="False" CollectionDistance="1000" X="112.4234" Y="514.6591" Z="146.5901" />
+				<CustomBehavior File="InteractWith" QuestId="30267" MobId="57301" NumOfTimes="18" WaitForNpcs="False" CollectionDistance="1000" X="29.97625" Y="344.0625" Z="146.6843" />
+				<CustomBehavior File="InteractWith" QuestId="30267" MobId="57301" NumOfTimes="18" WaitForNpcs="False" CollectionDistance="1000" X="119.3511" Y="346.3382" Z="146.0476" />
 			</While>
 		<TurnIn QuestName="A Crocolisk Tale" QuestId="30275" TurnInName="Yan" TurnInId="56773" X="214.4271" Y="300.2326" Z="153.789" />
 		<TurnIn QuestName="Watery Woes" QuestId="30267" TurnInName="Gladecaster Lang" TurnInId="58736" X="236.066" Y="286.0295" Z="153.5947" />
@@ -1538,10 +1551,20 @@
 		<TurnIn QuestName="Parental Mastery" QuestId="30186" TurnInName="Hemet Nesingwary" TurnInId="58421" X="-1062.568" Y="2050.714" Z="148.0318" />
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
-
 			
-			<If Condition="((!HasQuest(31255)) &amp;&amp; (!IsQuestCompleted(31255))) &amp;&amp; (Me.Level &gt;= 87)" >
+			<!-- End of VotFW -->
+			
+			<If Condition="((!HasQuest(31255)) &amp;&amp; (!IsQuestCompleted(31255))) &amp;&amp; (Me.Level &gt;= 87) &amp;&amp; (Me.IsHorde)" >
 		<PickUp QuestName="The Road to Kun-Lai" QuestId="31255" GiverName="Messenger Grummle" GiverId="63778" X="-381.3245" Y="1952.716" Z="128.5654" />
+			</If>
+			<If Condition="((!HasQuest(31254)) &amp;&amp; (!IsQuestCompleted(31254))) &amp;&amp; (Me.Level &gt;= 87) &amp;&amp; (Me.IsHAlliance)" >
+		<PickUp QuestName="The Road to Kun-Lai" QuestId="31254" GiverName="Messenger Grummle" GiverId="63778" X="-381.3245" Y="1952.716" Z="128.5654" />
+			</If>
+			<If Condition="((HasQuest(31254)) &amp;&amp; (!IsQuestCompleted(31254)))" >
+			 <If Condition="((HasQuest(31254)) &amp;&amp; (!IsObjectiveComplete(1, 31254)))">
+				<RunTo X="481.8767" Y="-70.25" Z="178.1451" />
+				<CustomBehavior File="InteractWith" QuestId="31254" MobId="62738" X="481.8767" Y="-70.25" Z="178.1451" />
+			 </If>
 			</If>
 			<If Condition="((HasQuest(31255)) &amp;&amp; (!IsQuestCompleted(31255)))" >
 			 <If Condition="((HasQuest(31255)) &amp;&amp; (!IsObjectiveComplete(1, 31255)))">
@@ -1556,6 +1579,9 @@
 			<!--
 			<If Condition="((HasQuest(29875)) &amp;&amp; (IsQuestCompleted(29875)))" >
 		<TurnIn QuestName="Kang Bramblestaff" QuestId="29875" TurnInName="Kang Bramblestaff" TurnInId="56112" />
+			</If>
+			<If Condition="((HasQuest(29874)) &amp;&amp; (IsQuestCompleted(29874)))" >
+		<TurnIn QuestName="Kang Bramblestaff" QuestId="29874" TurnInName="Kang Bramblestaff" TurnInId="56112" />
 			</If>
 			-->
 		
