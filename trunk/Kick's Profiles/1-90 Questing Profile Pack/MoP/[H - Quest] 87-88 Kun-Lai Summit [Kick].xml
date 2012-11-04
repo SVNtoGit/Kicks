@@ -366,7 +366,6 @@
 	<Quest Id="30587" Name="Yakity Yak">
 	  <Objective Type="KillMob" MobId="59335" KillCount="9">
 		  <Hotspots>
-		  <Hotspot X="2562.798" Y="448.0174" Z="515.8281" />
 		  <Hotspot X="2596.554" Y="425.8527" Z="510.0541" />
 		  <Hotspot X="2633.929" Y="441.3844" Z="511.8782" />
 		  <Hotspot X="2653.933" Y="476.2943" Z="516.1587" />
@@ -1970,12 +1969,22 @@
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for spawn {TimeRemaining}" />
 			 </If>
 			</If>
-		<TurnIn QuestName="An End to Everything" QuestId="30796" TurnInName="Image of Lorewalker Cho" TurnInId="61297" />
-		<TurnIn QuestName="It Was Almost Alive" QuestId="30797" TurnInName="Image of Lorewalker Cho" TurnInId="61297" />
-		<PickUp QuestName="The Tomb of Shadows" QuestId="30799" GiverName="Image of Lorewalker Cho" GiverId="61297" />
-			<Objective QuestName="The Tomb of Shadows" QuestId="30799" Type="CollectItem" ItemId="82393" CollectCount="1" />
-			<Objective QuestName="The Tomb of Shadows" QuestId="30799" Type="CollectItem" ItemId="82394" CollectCount="1" />
-			<Objective QuestName="The Tomb of Shadows" QuestId="30799" Type="CollectItem" ItemId="82395" CollectCount="1" />
+		<TurnIn QuestName="An End to Everything" QuestId="30796" TurnInName="Image of Lorewalker Cho" TurnInId="61297" X="3574.866" Y="1212.595" Z="748.7986" />
+		<TurnIn QuestName="It Was Almost Alive" QuestId="30797" TurnInName="Image of Lorewalker Cho" TurnInId="61297" X="3574.866" Y="1212.595" Z="748.7986" />
+		<PickUp QuestName="The Tomb of Shadows" QuestId="30799" GiverName="Image of Lorewalker Cho" GiverId="61297" X="3574.866" Y="1212.595" Z="748.7986" />
+			<If Condition="((HasQuest(30799)) &amp;&amp; (!IsQuestCompleted(30799)))" >
+				<Objective QuestName="The Tomb of Shadows" QuestId="30799" Type="CollectItem" ItemId="82393" CollectCount="1" />
+				<!--<Objective QuestName="The Tomb of Shadows" QuestId="30799" Type="CollectItem" ItemId="82394" CollectCount="1" /> obj 3-->
+			 <While Condition="(!IsObjectiveComplete(3, 30799))">
+				<RunTo X="3739.704" Y="1268.572" Z="758.7457" />
+				<CustomBehavior File="InteractWith" QuestId="30799" MobId="211794" ObjectType="Gameobject" Range="8" X="3739.704" Y="1268.572" Z="758.7457" />
+			 </While>
+			 <While Condition="(!IsObjectiveComplete(2, 30799))">
+				<RunTo X="3806.411" Y="1311.466" Z="758.7419" />
+				<CustomBehavior File="InteractWith" QuestId="30799" MobId="211793" ObjectType="Gameobject" Range="8" X="3806.411" Y="1311.466" Z="758.7419" />
+			 </While>
+				<!--<Objective QuestName="The Tomb of Shadows" QuestId="30799" Type="CollectItem" ItemId="82395" CollectCount="1" /> obj 2 -->
+			</If>
 			<If Condition="((HasQuest(30799)) &amp;&amp; (IsQuestCompleted(30799)))" >
 				<RunTo X="3707.337" Y="1331.852" Z="758.9896" />
 			 <If Condition="(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 61297 &amp;&amp; u.Distance &lt;= 20))" >
@@ -1987,12 +1996,11 @@
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for spawn {TimeRemaining}" />
 			 </If>
 			</If>
-		<TurnIn QuestName="The Tomb of Shadows" QuestId="30799" TurnInName="Image of Lorewalker Cho" TurnInId="61297" />
-		<PickUp QuestName="Breaking the Emperor's Shield" QuestId="30798" GiverName="Image of Lorewalker Cho" GiverId="61297" />
+		<TurnIn QuestName="The Tomb of Shadows" QuestId="30799" TurnInName="Image of Lorewalker Cho" TurnInId="61297" X="3707.337" Y="1331.852" Z="758.9896" />
+		<PickUp QuestName="Breaking the Emperor's Shield" QuestId="30798" GiverName="Image of Lorewalker Cho" GiverId="61297" X="3707.337" Y="1331.852" Z="758.9896" />
 			<If Condition="((HasQuest(30798)) &amp;&amp; (!IsQuestCompleted(30798)))" >
 				<RunTo X="3553.384" Y="1504.276" Z="819.6432" />
-				<CustomBehavior File="UserDialog" QuestId="30798" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Kill Nakk'rakas' guards and then him" />
-				<!--<Objective QuestName="Breaking the Emperor's Shield" QuestId="30798" Type="KillMob" MobId="60572" KillCount="1" />-->
+				<Objective QuestName="Breaking the Emperor's Shield" QuestId="30798" Type="KillMob" MobId="60572" KillCount="1" />
 			</If>
 			<If Condition="((HasQuest(30798)) &amp;&amp; (IsQuestCompleted(30798)))" >
 				<RunTo X="3553.384" Y="1504.276" Z="819.6432" />
@@ -2005,8 +2013,8 @@
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for spawn {TimeRemaining}" />
 			 </If>
 			</If>
-		<TurnIn QuestName="Breaking the Emperor's Shield" QuestId="30798" TurnInName="Image of Lorewalker Cho" TurnInId="61297" />
-		<PickUp QuestName="Stealing Their Thunder King" QuestId="30800" GiverName="Image of Lorewalker Cho" GiverId="61297" />
+		<TurnIn QuestName="Breaking the Emperor's Shield" QuestId="30798" TurnInName="Image of Lorewalker Cho" TurnInId="61297" X="3553.384" Y="1504.276" Z="819.6432" />
+		<PickUp QuestName="Stealing Their Thunder King" QuestId="30800" GiverName="Image of Lorewalker Cho" GiverId="61297" X="3553.384" Y="1504.276" Z="819.6432" />
 			<If Condition="((HasQuest(30800)) &amp;&amp; (!IsQuestCompleted(30800)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<Runto X="3602.312" Y="1595.687" Z="744.8392" />
@@ -2042,27 +2050,28 @@
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for spawn {TimeRemaining}" />
 			 </If>
 			</If>
-		<TurnIn QuestName="Stealing Their Thunder King" QuestId="30800" TurnInName="Image of Lorewalker Cho" TurnInId="61297" />
-		<PickUp QuestName="Lessons from History" QuestId="30801" GiverName="Image of Lorewalker Cho" GiverId="61297" />
+		<TurnIn QuestName="Stealing Their Thunder King" QuestId="30800" TurnInName="Image of Lorewalker Cho" TurnInId="61297" X="3642.331" Y="1815.009" Z="742.9735" />
+		<PickUp QuestName="Lessons from History" QuestId="30801" GiverName="Image of Lorewalker Cho" GiverId="61297" X="3642.331" Y="1815.009" Z="742.9735" />
 			<While Condition="((HasQuest(30801)) &amp;&amp; (!IsQuestCompleted(30801)))" >
 				<CustomBehavior File="InteractWith" QuestId="30801" MobId="211594" ObjectType="Gameobject" Range="8" X="3642.264" Y="1786.007" Z="742.9736" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" />
 				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" />
 			</While>
-			<If Condition="((HasQuest(30796)) &amp;&amp; (IsQuestCompleted(30796)))" >
-				<RunTo X="3642.331" Y="1815.009" Z="742.9735" />
+			<If Condition="((HasQuest(30801)) &amp;&amp; (IsQuestCompleted(30801)))" >
+				<RunTo X="3631.52" Y="1812.977" Z="742.9729" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for spawn {TimeRemaining}" />
 			 <If Condition="(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 61297 &amp;&amp; u.Distance &lt;= 20))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(81712)" WaitTime="3000" /> <!-- despawn if he's here -->
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for spawn {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for spawn {TimeRemaining}" />
 			 </If>
 			 <If Condition="!(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 61297 &amp;&amp; u.Distance &lt;= 20))" >
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(81712)" WaitTime="3000" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for spawn {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for spawn {TimeRemaining}" />
 			 </If>
 			</If>
-		<TurnIn QuestName="Lessons from History" QuestId="30801" TurnInName="Image of Lorewalker Cho" TurnInId="61297" />
-		<PickUp QuestName="Chasing the Storm" QuestId="30802" GiverName="Image of Lorewalker Cho" GiverId="61297" />
+		<TurnIn QuestName="Lessons from History" QuestId="30801" TurnInName="Image of Lorewalker Cho" TurnInId="61297" X="3631.52" Y="1812.977" Z="742.9729" />
+		<PickUp QuestName="Chasing the Storm" QuestId="30802" GiverName="Image of Lorewalker Cho" GiverId="61297" X="3631.52" Y="1812.977" Z="742.9729" />
 			<Objective QuestName="Chasing the Storm" QuestId="30802" Type="CollectItem" ItemId="81890" CollectCount="1" />
 			<If Condition="((HasQuest(30802)) &amp;&amp; (IsQuestCompleted(30802)))" >
 				<RunTo X="3675.028" Y="1657.597" Z="742.9732" />
@@ -2075,8 +2084,8 @@
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for spawn {TimeRemaining}" />
 			 </If>
 			</If>
-		<TurnIn QuestName="Chasing the Storm" QuestId="30802" TurnInName="Image of Lorewalker Cho" TurnInId="61297" />
-		<PickUp QuestName="Fisherman's Tale" QuestId="30935" GiverName="Image of Lorewalker Cho" GiverId="61297" />
+		<TurnIn QuestName="Chasing the Storm" QuestId="30802" TurnInName="Image of Lorewalker Cho" TurnInId="61297" X="3675.028" Y="1657.597" Z="742.9732" />
+		<PickUp QuestName="Fisherman's Tale" QuestId="30935" GiverName="Image of Lorewalker Cho" GiverId="61297" X="3675.028" Y="1657.597" Z="742.9732" />
 			<If Condition="((HasQuest(30935)) &amp;&amp; (!IsQuestCompleted(30935)))" >
 			  <If Condition="(!IsObjectiveComplete(1, 30935))" >
 				<RunTo X="3618.165" Y="1667.269" Z="742.9731" />
