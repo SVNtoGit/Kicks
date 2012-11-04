@@ -1584,16 +1584,20 @@
 			</While>
 			<!-- Natfoth, get me a quest behavior for this that switches to the mobs when he becomes immune to dmg -->
 			<Objective QuestName="The Ordo Warbringer" QuestId="30660" Type="KillMob" MobId="60127" KillCount="1" />
+		<TurnIn QuestName="Barrels of Fun" QuestId="30651" TurnInName="Sully &quot;The Pickle&quot; McLeary" TurnInId="59450" X="2144.019" Y="1449.528" Z="488.1475" />
 		<TurnIn QuestName="Pandaren Prisoners" QuestId="30650" TurnInName="Admiral Taylor" TurnInId="59441" X="2145.762" Y="1456.22" Z="487.8856" />
 		<TurnIn QuestName="The Ordo Warbringer" QuestId="30660" TurnInName="Admiral Taylor" TurnInId="59441" X="2145.762" Y="1456.22" Z="487.8856" />
-		<TurnIn QuestName="Barrels of Fun" QuestId="30651" TurnInName="Sully &quot;The Pickle&quot; McLeary" TurnInId="59450" X="2144.019" Y="1449.528" Z="488.1475" />
+			<If Condition="(Me.Level &gt;= 88)" >
+		<PickUp QuestName="The Shado-Pan" QuestId="31455" GiverName="Admiral Taylor" GiverId="59441" X="2145.762" Y="1456.22" Z="487.8856" />
+			</If>
 		<PickUp QuestName="Cho's Missive" QuestId="31460" GiverName="Mishka" GiverId="59451" X="2143.707" Y="1481.136" Z="487.8864" />
 			<!-- End of Westwind Rest -->				
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="stop!" />
 			<If Condition="((!HasQuest(30488)) &amp;&amp; (!IsQuestCompleted(30488)))" >
-		<PickUp QuestName="Muskpaw Ranch" QuestId="31456" GiverName="Farmhand Bo" GiverId="63754" X="2703.603" Y="367.8994" Z="507.4439" />
+		<PickUp QuestName="Muskpaw Ranch" QuestId="31456" GiverName="Farmhand Bo" GiverId="63754" X="2109.012" Y="1473.512" Z="487.8861" />
 			</If>
+			<If Condition="((HasQuest(31456)) &amp;&amp; (IsQuestCompleted(31456)))" >
 		<TurnIn QuestName="Muskpaw Ranch" QuestId="31456" TurnInName="Lao Muskpaw" TurnInId="59353" X="2718.38" Y="380.9351" Z="508.3694" />
+			</If>
 			</If>
 		
 			<If Condition="(Me.IsHorde)" >
@@ -1681,7 +1685,9 @@
 			</If>
 		<PickUp QuestName="Cho's Missive" QuestId="31459" GiverName="Shademaster Kiryn" GiverId="59449" X="2250.321" Y="915.8299" Z="481.1474" />
 			<!-- End of Eastwind rest -->
+			<If Condition="((HasQuest(31457)) &amp;&amp; (IsQuestCompleted(31457)))" >
 		<TurnIn QuestName="Muskpaw Ranch" QuestId="31457" TurnInName="Lao Muskpaw" TurnInId="59353" X="2703.603" Y="367.8994" Z="507.4439" />
+			</If>
 			</If>
 
 			<CustomBehavior File="Message" Text="Compiling Muskpaw Ranch Quests" LogColor="Cornflowerblue" />
@@ -1811,10 +1817,15 @@
 			   <CustomBehavior File="InteractWith" QuestId="30617" MobId="211539" ObjectType="Gameobject" WaitForNpcs="False" CollectionDistance="1000" X="3052.063" Y="1196.194" Z="651.4461" />
 			</While>
 		<TurnIn QuestName="Roadside Assistance" QuestId="30617" TurnInName="Brother Lintpocket" TurnInId="59701" X="3053.801" Y="1203.967" Z="651.8965" />
-			<If Condition="((HasQuest(31459)) &amp;&amp; (!IsQuestCompleted(31459)))" >
+			<If Condition="((HasQuest(31459)) &amp;&amp; (!IsQuestCompleted(31459)))" > <!-- H -->
 				<RunTo X="3127.984" Y="1226.884" Z="654.2612" />
 				<CustomBehavior File="InteractWith" MobId="61504" X="3127.984" Y="1226.884" Z="654.2612" />
 		<TurnIn QuestName="Cho's Missive" QuestId="31459" TurnInName="Lorewalker Cho" TurnInId="61847" X="3044.467" Y="1251.316" Z="654.6689" />
+			</If>
+			<If Condition="((HasQuest(31460)) &amp;&amp; (!IsQuestCompleted(31460)))" > <!-- A -->
+				<RunTo X="3127.984" Y="1226.884" Z="654.2612" />
+				<CustomBehavior File="InteractWith" MobId="61504" X="3127.984" Y="1226.884" Z="654.2612" />
+		<TurnIn QuestName="Cho's Missive" QuestId="31460" TurnInName="Lorewalker Cho" TurnInId="61847" X="3044.467" Y="1251.316" Z="654.6689" />
 			</If>
 		<PickUp QuestName="Path Less Traveled" QuestId="30999" GiverName="Lorewalker Cho" GiverId="61847" X="3044.467" Y="1251.316" Z="654.6689" />
 		<TurnIn QuestName="Path Less Traveled" QuestId="30999" TurnInName="Uncle Cloverleaf" TurnInId="59696" X="3064.845" Y="1258.448" Z="656.0638" />
@@ -2614,7 +2625,7 @@
 		<TurnIn QuestName="Unbelievable!" QuestId="30752" TurnInName="Ban Bearheart" TurnInId="62227" X="3616.825" Y="2542.885" Z="768.789" />
 			<!-- Ignoring Into the Monastery - Dungeon quest -->
 
-			<If Condition="(Me.Level &gt;= 88)" >
+			<If Condition="(Me.Level &gt;= 88) &amp;&amp; (Me.IsHorde)" >
 		<PickUp QuestName="Beyond the Wall" QuestId="31695" GiverName="Elder Shiao" GiverId="63535" X="2296.899" Y="937.8281" Z="481.3883" />
 			</If>
 			<If Condition="((HasQuest(31695)) &amp;&amp; (IsQuestCompleted(31695)))" > <!-- To Townlong Steppes -->
