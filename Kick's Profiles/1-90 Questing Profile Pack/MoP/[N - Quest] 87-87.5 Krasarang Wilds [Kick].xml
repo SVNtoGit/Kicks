@@ -1,5 +1,5 @@
 <HBProfile>
-	<Name>[H - Quest] 87-87.5 Krasarang Wilds [Kick]</Name>
+	<Name>[N - Quest] 87-87.5 Krasarang Wilds [Kick]</Name>
 	<MinLevel>85</MinLevel>
 	<MaxLevel>101</MaxLevel>
 	
@@ -841,11 +841,8 @@
 
 		<CustomBehavior File="UserSettings" PullDistance="25" UseMount="True" LootMobs="True" />
 	
-			<CustomBehavior File="Message" Text="Compiling Krasarang Wilds (Horde) Quests" LogColor="Green" />
+			<CustomBehavior File="Message" Text="Compiling Krasarang Wilds Quests" LogColor="Green" />
 	
-		<While Condition="Me.IsAlliance" >
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be Horde to run this profile!" />
-		</While>
 		<While Condition="Me.Level &lt; 87" >
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be 87+ to run this profile!" />
 		</While>
@@ -874,12 +871,12 @@
 			  </While>
 			</If>
 		<TurnIn QuestName="What's Eating Zhu's Watch?" QuestId="30079" TurnInName="Ken-Ken" TurnInId="56115" X="-330.934" Y="-624.592" Z="119.8942" />
-			<While Condition="HasQuest(30080) &amp;&amp; !IsQuestCompleted(30080)" >
+			<While Condition="((HasQuest(30080)) &amp;&amp; (!IsQuestCompleted(30080)))" >
 				<CustomBehavior File="InteractWith" QuestId="30080" MobId="58376" CollectionDistance="1000" X="-324.2101" Y="-863.3698" Z="120.1054" />
 			</While>
 		<TurnIn QuestName="Finding Yi-Mo" QuestId="30080" TurnInName="Yi-Mo Longbrow" TurnInId="58376" X="-324.2101" Y="-863.3698" Z="120.1054" />
 		<PickUp QuestName="Cheer Up, Yi-Mo" QuestId="30082" GiverName="Yi-Mo Longbrow" GiverId="58376" X="-324.2101" Y="-863.3698" Z="120.1054" />
-			<If Condition="HasQuest(30082) &amp;&amp; !IsQuestCompleted(30082)" >
+			<If Condition="((HasQuest(30082)) &amp;&amp; (!IsQuestCompleted(30082)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 			  <While Condition="!IsQuestCompleted(30082)" >
 				<CustomBehavior File="InteractWith" MobId="58376" GossipOptions="1, 2" X="-324.2101" Y="-863.3698" Z="120.1054" />
@@ -922,6 +919,7 @@
 				<CustomBehavior File="InteractWith" MobId="57310" WaitForNpcs="False" Range="5" WaitTime="1000" />
 				<CustomBehavior File="MyCTM" X="-349.2652" Y="-665.4955" Z="123.5112" />
 				<CustomBehavior File="InteractWith" MobId="57310" WaitForNpcs="False" Range="5" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" QuestId="30082" WaitTime="15000" />
 			  </While>
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
@@ -974,14 +972,27 @@
 				<CustomBehavior File="WaitTimer" WaitTime="60000" />
 			</If>
 		<TurnIn QuestName="Zhu's Despair" QuestId="30090" TurnInName="Ken-Ken" TurnInId="56115" X="-330.934" Y="-624.592" Z="119.8942" />
+			<If Condition="Me.IsAlliance" >
+		<PickUp QuestName="Into the Wilds" QuestId="30178" GiverName="Mei Barrelbottom" GiverId="57744" X="-347.9306" Y="-606.9653" Z="127.6742" />
+			</If>
+			<If Condition="Me.IsHorde" >
 		<PickUp QuestName="Into the Wilds" QuestId="30133" GiverName="Mei Barrelbottom" GiverId="57744" X="-347.9306" Y="-606.9653" Z="127.6742" />
+			</If>
+			<If Condition="Me.IsHorde" >
 		<PickUp QuestName="Poisoned!" QuestId="30179" GiverName="Chezin Dawnchaser" GiverId="58160" X="-805.4757" Y="-277.0816" Z="55.07603" />
+			</If>
 		<PickUp QuestName="Crane Mastery" QuestId="30352" GiverName="Daggle Bombstrider" GiverId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
 		<PickUp QuestName="Profit Mastery" QuestId="30353" GiverName="Daggle Bombstrider" GiverId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
-			<Objective QuestName="Poisoned!" QuestId="30179" Type="CollectItem" ItemId="79252" CollectCount="5" />
+			<If Condition="((HasQuest(30179)) &amp;&amp; (IsQuestCompleted(30179)))" > <!-- H -->
+				<Objective QuestName="Poisoned!" QuestId="30179" Type="CollectItem" ItemId="79252" CollectCount="5" />
+			</If>
 			<While Condition="((HasQuest(30133)) &amp;&amp; (!IsQuestCompleted(30133)))" >
 				<RunTo X="-904.9585" Y="16.6062" Z="20.73834" />
 				<CustomBehavior File="InteractWith" QuestId="30133" MobId="59151" GossipOptions="1" X="-905.7674" Y="16.07639" Z="20.8526" />
+			</While>
+			<While Condition="((HasQuest(30178)) &amp;&amp; (!IsQuestCompleted(30178)))" >
+				<RunTo X="-1076.521" Y="-158.7361" Z="30.52257" />
+				<CustomBehavior File="InteractWith" QuestId="30178" MobId="59151" GossipOptions="1" X="-1076.521" Y="-158.7361" Z="30.52257" />
 			</While>
 			<Objective QuestName="Crane Mastery" QuestId="30352" Type="KillMob" MobId="58116" KillCount="12" />
 			<Objective QuestName="Profit Mastery" QuestId="30353" Type="CollectItem" ItemId="78914" CollectCount="12" />
@@ -993,18 +1004,91 @@
 		<TurnIn QuestName="Crane Mastery: Needlebeak" QuestId="31262" TurnInName="Daggle Bombstrider" TurnInId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
 			<Objective QuestName="Profit Mastery: Chasheen" QuestId="31260" Type="CollectItem" ItemId="85774" CollectCount="1" />
 		<TurnIn QuestName="Profit Mastery: Chasheen" QuestId="31260" TurnInName="Daggle Bombstrider" TurnInId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
-			<If Condition="((HasQuest(29875)) &amp;&amp; (IsQuestCompleted(29875)))" >
+				
+			<!-- Ally and Horde specific areas -->
+			<If Condition="Me.IsAlliance" >
+			<If Condition="((HasQuest(29874)) &amp;&amp; (IsQuestCompleted(29874)))" >
+		<TurnIn QuestName="Kang Bramblestaff" QuestId="29874" TurnInName="Kang Bramblestaff" TurnInId="56112" X="-1127.144" Y="-164.941" Z="27.0089" />
+			</If>
+			<If Condition="((HasQuest(30274)) &amp;&amp; (!IsQuestCompleted(30274)))" >
+			  <While Condition="!IsObjectiveComplete(1, 30274)" >
+				<RunTo X="-1070.788" Y="-245.0228" Z="36.97729" />
+				<RunTo X="-1094.746" Y="-236.3513" Z="34.65419" />
+				<CustomBehavior File="InteractWith" MobId="210527" ObjectType="Gameobject" Range="8" X="-1094.898" Y="-236.9672" Z="34.58879" />
+				<RunTo X="-983.3604" Y="-200.868" Z="36.17314" />
+				<RunTo X="-1130.65" Y="-153.8359" Z="25.86684" />
+			  </While>
+			  <While Condition="!IsObjectiveComplete(2, 30274)" >
+				<RunTo X="-1097.714" Y="-176.6482" Z="33.2825" />
+				<CustomBehavior File="InteractWith" MobId="210533" ObjectType="Gameobject" Range="8" X="-1097.714" Y="-176.6482" Z="33.2825" />
+				<RunTo X="-1130.65" Y="-153.8359" Z="25.86684" />
+			  </While>
+			  <While Condition="!IsObjectiveComplete(3, 30274)" >
+				<RunTo X="-1154.098" Y="-162.9923" Z="26.29313" />
+				<RunTo X="-1162.243" Y="-176.1881" Z="28.20313" />
+				<CustomBehavior File="InteractWith" MobId="210535" ObjectType="Gameobject" Range="8" X="-1162.527" Y="-177.5222" Z="28.31511" />
+				<RunTo X="-1154.098" Y="-162.9923" Z="26.29313" />
+				<RunTo X="-1130.65" Y="-153.8359" Z="25.86684" />
+			  </While>
+			</If>
+			<If Condition="((HasQuest(30274)) &amp;&amp; (IsQuestCompleted(30274)))" >
+		<TurnIn QuestName="The Arcanic Oubliette" QuestId="30274" TurnInName="Lorekeeper Vaeldrin" TurnInId="58745" X="-1130.356" Y="-213.8108" Z="31.36737" />
+			</If>
+		<PickUp QuestName="The Lost Dynasty" QuestId="30344" GiverName="Lorekeeper Vaeldrin" GiverId="58745" X="-1130.356" Y="-213.8108" Z="31.36737" />
+		<PickUp QuestName="Blind Them!" QuestId="30384" GiverName="Lyalia" GiverId="58735" X="-1132.307" Y="-213.6458" Z="31.36737" />
+		<PickUp QuestName="Squirmy Delight" QuestId="30350" GiverName="Kang Bramblestaff" GiverId="56114" X="-1133.745" Y="-209.7153" Z="31.36739" />
+			<Objective QuestName="The Lost Dynasty" QuestId="30344" Type="CollectItem" ItemId="79713" CollectCount="6" />
+			<Objective QuestName="Squirmy Delight" QuestId="30350" Type="CollectItem" ItemId="78911" CollectCount="5" />
+			<Objective QuestName="Blind Them!" QuestId="30384" Type="KillMob" MobId="58850" KillCount="1" />
+		<TurnIn QuestName="Squirmy Delight" QuestId="30350" TurnInName="Kang Bramblestaff" TurnInId="56114" X="-1133.745" Y="-209.7153" Z="31.36739" />
+		<TurnIn QuestName="Blind Them!" QuestId="30384" TurnInName="Lyalia" TurnInId="58735" X="-1132.307" Y="-213.6458" Z="31.36737" />
+		<TurnIn QuestName="The Lost Dynasty" QuestId="30344" TurnInName="Lorekeeper Vaeldrin" TurnInId="58745" X="-1130.356" Y="-213.8108" Z="31.36737" />
+		<PickUp QuestName="Where are the Pools" QuestId="30346" GiverName="Lorekeeper Vaeldrin" GiverId="58745" X="-1130.356" Y="-213.8108" Z="31.36737" />
+		<PickUp QuestName="Threat from Dojan" QuestId="30349" GiverName="Lyalia" GiverId="58735" X="-1132.307" Y="-213.6458" Z="31.36737" />
+		<PickUp QuestName="Lotus Tea" QuestId="30351" GiverName="Kang Bramblestaff" GiverId="56114" X="-1133.745" Y="-209.7153" Z="31.36739" />
+			<Objective QuestName="Where are the Pools" QuestId="30346" Type="CollectItem" ItemId="78917" CollectCount="1" />
+			<While Condition="((HasQuest(30346)) &amp;&amp; (IsQuestCompleted(30346)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="30346" /> <!-- 30347 -->
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
+			</While>
+			<While Condition="((HasQuest(30347)) &amp;&amp; (!IsQuestCompleted(30347)))" >
+				<CustomBehavior File="InteractWith" QuestId="30347" MobId="55597" WaitForNpcs="False" GossipOptions="1" X="-1132.844" Y="514.5382" Z="59.30387" />
+				<CustomBehavior File="InteractWith" QuestId="30347" MobId="210229" ObjectType="Gameobject" X="-1132.844" Y="514.5382" Z="59.30387" />
+			</While>
+			<Objective QuestName="Lotus Tea" QuestId="30351" Type="CollectItem" ItemId="78918" CollectCount="20" />
+			<Objective QuestName="Threat from Dojan" QuestId="30349" Type="KillMob" MobId="65626" KillCount="4" />
+			<Objective QuestName="Threat from Dojan" QuestId="30349" Type="KillMob" MobId="58117" KillCount="6" />
+			<Objective QuestName="Threat from Dojan" QuestId="30349" Type="KillMob" MobId="58068" KillCount="8" />
+		<TurnIn QuestName="Threat from Dojan" QuestId="30349" TurnInName="Lyalia" TurnInId="58735" X="-1132.307" Y="-213.6458" Z="31.36737" />
+		<TurnIn QuestName="The Pools of Youth" QuestId="30347" TurnInName="Lorekeeper Vaeldrin" TurnInId="58745" X="-1130.356" Y="-213.8108" Z="31.36737" />
+		<TurnIn QuestName="Lotus Tea" QuestId="30351" TurnInName="Kang Bramblestaff" TurnInId="56114" X="-1133.745" Y="-209.7153" Z="31.36739" />
+		<PickUp QuestName="Immortality?" QuestId="30348" GiverName="Lorekeeper Vaeldrin" GiverId="58745" X="-1130.356" Y="-213.8108" Z="31.36737" />
+			<If Condition="((HasQuest(30348)) &amp;&amp; (!IsQuestCompleted(30348)))" >
+				<CustomBehavior File="WaitTimer" WaitTime="22000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Immortality?" QuestId="30348" TurnInName="Lorekeeper Vaeldrin" TurnInId="58745" X="-1130.356" Y="-213.8108" Z="31.36737" />
+		<PickUp QuestName="Going on the Offensive" QuestId="30363" GiverName="Lyalia" GiverId="58735" X="-1132.307" Y="-213.6458" Z="31.3674" />
+			<If Condition="((HasQuest(30363)) &amp;&amp; (!IsQuestCompleted(30363)))" >
+				<CustomBehavior File="ForcedMount" MountType="Ground" />
+				<CustomBehavior File="NoCombatMoveTo" X="-1453.498" Y="882.9146" Z="14.23999" />
+			  <While Condition="!IsQuestCompleted(30363)" >
+				<CustomBehavior File="InteractWith" MobId="59137" X="-1466.255" Y="888.9114" Z="14.8869" />
+			  </While>
+			</If>
+		<TurnIn QuestName="Into the Wilds" QuestId="30178" TurnInName="Koro Mistwalker" TurnInId="58547" X="-1450.773" Y="875.8299" Z="14.98127" />
+			</If>
+			
+			<If Condition="Me.IsHorde" >
+
+			<CustomBehavior File="Message" Text="Compiling Dojani River Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((HasQuest(29875)) &amp;&amp; (IsQuestCompleted(29875)))" > <!-- H -->
 		<TurnIn QuestName="Kang Bramblestaff" QuestId="29875" TurnInName="Kang Bramblestaff" TurnInId="56112" X="-891.691" Y="131.3125" Z="13.21991" />
 			</If>
 			<If Condition="((HasQuest(30179)) &amp;&amp; (IsQuestCompleted(30179)))" >
 		<TurnIn QuestName="Poisoned!" QuestId="30179" TurnInName="Sunwalker Dezco" TurnInId="58113" X="-882.0469" Y="140.8629" Z="13.21988" />
 				<CustomBehavior File="InteractWith" MobId="59046" X="-878.9722" Y="171.6233" Z="13.56453" />
 			</If>
-			
-			<!-- Horde specific -->
-
-			<CustomBehavior File="Message" Text="Compiling Dojani River Quests" LogColor="Cornflowerblue" />
-
 		<PickUp QuestName="Blind Them!" QuestId="30124" GiverName="Kor Bloodtusk" GiverId="58114" X="-885.6996" Y="141.2361" Z="13.21995" />
 		<PickUp QuestName="Skitterer Stew" QuestId="30123" GiverName="Kang Bramblestaff" GiverId="56112" X="-891.691" Y="131.3125" Z="13.2199" />
 			<Objective QuestName="Blind Them!" QuestId="30124" Type="KillMob" MobId="58857" KillCount="1" />	
@@ -1045,10 +1129,13 @@
 				<CustomBehavior File="InteractWith" QuestId="30132" MobId="59136" CollectionDistance="500" X="-1447.186" Y="895.2396" Z="14.60171" />
 			</While>
 		<TurnIn QuestName="Into the Wilds" QuestId="30133" TurnInName="Koro Mistwalker" TurnInId="58547" X="-1450.773" Y="875.8299" Z="14.98131" />
-			<!-- End of Horde specific -->
+			</If> <!-- End of Horde specific -->
+			
+			<!-- End of Ally and Horde specific areas -->
+			
 		<PickUp QuestName="Unsafe Passage" QuestId="30269" GiverName="Koro Mistwalker" GiverId="58547" />
-			<If Condition="HasQuest(30269) &amp;&amp; !IsQuestCompleted(30269)" >
-			  <CustomBehavior File="InteractWith" QuestId="30269" MobId="58547" GossipOptions="1" X="-1450.773" Y="875.8299" Z="14.98127" />
+			<If Condition="((HasQuest(30269)) &amp;&amp; (!IsQuestCompleted(30269)))" >
+				<CustomBehavior File="InteractWith" QuestId="30269" MobId="58547" GossipOptions="1" X="-1450.773" Y="875.8299" Z="14.98127" />
 			  <While Condition="!IsQuestCompleted(30269)" >
 				<CustomBehavior File="InteractWith" QuestId="30269" MobId="58978" WaitTime="500" CollectionDistance="1000"/>
 			  </While>
@@ -1134,7 +1221,7 @@
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
 			<Objective QuestName="Striking the Rain" QuestId="30272" Type="KillMob" MobId="59236" KillCount="18" />
-			<If Condition="HasQuest(30695)" >
+			<If Condition="(HasQuest(30695))" >
 			  <RunTo X="-1829.451" Y="1051.152" Z="-31.71089" />
 			</If>
 		<TurnIn QuestName="Ahead on the Way" QuestId="30695" TurnInName="Anduin Wrynn" TurnInId="59608" />
@@ -1147,16 +1234,35 @@
 			</If>
 		<TurnIn QuestName="In the House of the Red Crane" QuestId="30273" TurnInName="Chi-Ji" TurnInId="59719" X="-1648.342" Y="1053.13" Z="14.18455" />
 
+			<If Condition="Me.IsAlliance" >
+			
+			<CustomBehavior File="Message" Text="Compiling Sentinel Basecamp Quests" LogColor="Cornflowerblue" />
+		
+			<If Condition="((HasQuest(30363)) &amp;&amp; (IsQuestCompleted(30363)))" >
+				<CustomBehavior File="ForcedMount" MountType="Ground" />
+				<CustomBehavior File="NoCombatMoveTo" X="-1174.036" Y="1789.714" Z="18.08001" />
+		<TurnIn QuestName="Going on the Offensive" QuestId="30363" TurnInName="Lyalia" TurnInId="58821" X="-1174.036" Y="1789.714" Z="18.08001" />
+				<CustomBehavior File="InteractWith" MobId="59048" X="-1156.104" Y="1769.462" Z="16.98939" /> <!-- FP -->
+			</If>
+		<PickUp QuestName="No Sister Left Behind" QuestId="30354" GiverName="Lyalia" GiverId="58821" X="-1174.036" Y="1789.714" Z="18.08001" />
+		<PickUp QuestName="Sever Their Supply Line" QuestId="30356" GiverName="Lyalia" GiverId="58821" X="-1174.036" Y="1789.714" Z="18.08001" />
+		<PickUp QuestName="Re-Reclaim" QuestId="30355" GiverName="Kang Bramblestaff" GiverId="56114" X="-1189.726" Y="1766.661" Z="15.28848" />
+			</If>
+				
 			<!-- Horde Specific -->
+			<If Condition="Me.IsHorde" >
 			<CustomBehavior File="Message" Text="Compiling Dawnchaser Retreat Quests" LogColor="Cornflowerblue" />
 		
 			<If Condition="((HasQuest(30132)) &amp;&amp; (IsQuestCompleted(30132)))" >
+				<CustomBehavior File="ForcedMount" MountType="Ground" />
+				<CustomBehavior File="NoCombatMoveTo" X="-1700.488" Y="1603.082" Z="15.28773" />
 		<TurnIn QuestName="Going West" QuestId="30132" TurnInName="Kor Bloodtusk" TurnInId="58114" X="-1700.488" Y="1603.082" Z="15.28773" />
 				<CustomBehavior File="InteractWith" MobId="59047" X="-1682.509" Y="1588.443" Z="16.25008" /> <!-- Dawnchaser Retreat FP -->
 			</If>
 		<PickUp QuestName="For the Tribe" QuestId="30163" GiverName="Kor Bloodtusk" GiverId="58114" X="-1700.488" Y="1603.082" Z="15.28773" />
 		<PickUp QuestName="The Greater Danger" QuestId="30229" GiverName="Kor Bloodtusk" GiverId="58114" X="-1700.488" Y="1603.082" Z="15.28773" />
 		<PickUp QuestName="Re-Reclaim" QuestId="30230" GiverName="Kang Bramblestaff" GiverId="56112" X="-1690.811" Y="1595.825" Z="15.61253" />
+			</If>
 			<!-- Zygor Redirects me to the Marista -->
 		
 			<CustomBehavior File="Message" Text="Compiling Marista Quests" LogColor="Cornflowerblue" />
@@ -1243,6 +1349,7 @@
 			<If Condition="((!HasQuest(30674)) &amp;&amp; (!IsQuestCompleted(30674)))" >
 				<RunTo X="-2789.274" Y="646.3903" Z="1.19085" />
 				<!-- Auto Accept Quest - <PickUp QuestName="Balance Without Violence" QuestId="30674" GiverName="" GiverId="" /> -->
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to pickup {TimeRemaining}" />
 			</If>
 			<While Condition="((HasQuest(30674)) &amp;&amp; (!IsQuestCompleted(30674)))" >
 				<CustomBehavior File="InteractWith" QuestId="30674" MobId="60367" WaitForNpcs="False" CollectionDistance="1000" X="-2758.249" Y="631.2058" Z="1.232849" />
@@ -1273,7 +1380,7 @@
 					</GrindArea>
 				</SetGrindArea>
 				<GrindTo Condition="(HasItem(80827))" />
-			 <If Condition="HasItem(80827)" >
+			 <If Condition="(HasItem(80827))" >
 		<PickUp QuestName="Buried Hozen Treasure" QuestId="30675" GiverType="Item" GiverName="Confusing Treasure Map" GiverId="80827" />
 			 </If>
 			</If>
@@ -1307,7 +1414,65 @@
 		<TurnIn QuestName="Thieving Raiders" QuestId="30168" TurnInName="Tired Shushen" TurnInId="58278" X="-1330.965" Y="1556.962" Z="18.31628" />
 		<TurnIn QuestName="Raid Leader Slovan" QuestId="30169" TurnInName="Tired Shushen" TurnInId="58278" X="-1330.965" Y="1556.962" Z="18.31628" />
 
+			<If Condition="Me.IsAlliance" >
+			
+			<CustomBehavior File="Message" Text="Compiling Sentinel Basecamp Quests" LogColor="Cornflowerblue" />
+		
+		<PickUp QuestName="No Sister Left Behind" QuestId="30354" GiverName="Lyalia" GiverId="58821" X="-1174.036" Y="1789.714" Z="18.08001" />
+		<PickUp QuestName="Sever Their Supply Line" QuestId="30356" GiverName="Lyalia" GiverId="58821" X="-1174.036" Y="1789.714" Z="18.08001" />
+		<PickUp QuestName="Re-Reclaim" QuestId="30355" GiverName="Kang Bramblestaff" GiverId="56114" X="-1189.726" Y="1766.661" Z="15.28848" />
+			<While Condition="((HasQuest(30354)) &amp;&amp; (!IsQuestCompleted(30354)))" >
+				<CustomBehavior File="InteractWith" QuestId="30354" MobId="58639" WaitForNpcs="False" CollectionDistance="1000" X="-1303.038" Y="1782.994" Z="15.83834" />
+				<CustomBehavior File="InteractWith" QuestId="30354" MobId="58639" WaitForNpcs="False" CollectionDistance="1000" X="-1291.433" Y="1845.071" Z="15.14491" />
+				<CustomBehavior File="InteractWith" QuestId="30354" MobId="58639" WaitForNpcs="False" CollectionDistance="1000" X="-1337.974" Y="1822.531" Z="15.08059" />
+				<CustomBehavior File="InteractWith" QuestId="30354" MobId="58639" WaitForNpcs="False" CollectionDistance="1000" X="-1406.28" Y="1836.511" Z="14.84742" />
+				<CustomBehavior File="InteractWith" QuestId="30354" MobId="58639" WaitForNpcs="False" CollectionDistance="1000" X="-1447.958" Y="1765.686" Z="12.33914" />
+				<CustomBehavior File="InteractWith" QuestId="30354" MobId="58639" WaitForNpcs="False" CollectionDistance="1000" X="-1393.944" Y="1733.516" Z="12.13729" />
+				<CustomBehavior File="InteractWith" QuestId="30354" MobId="58639" WaitForNpcs="False" CollectionDistance="1000" X="-1425.374" Y="1698.101" Z="14.43536" />
+				<CustomBehavior File="InteractWith" QuestId="30354" MobId="58639" WaitForNpcs="False" CollectionDistance="1000" X="-1349.499" Y="1655.781" Z="13.68624" />
+				<CustomBehavior File="InteractWith" QuestId="30354" MobId="58639" WaitForNpcs="False" CollectionDistance="1000" X="-1333.483" Y="1707.881" Z="12.32628" />
+				<CustomBehavior File="InteractWith" QuestId="30354" MobId="58639" WaitForNpcs="False" CollectionDistance="1000" X="-1285.814" Y="1694.688" Z="14.88303" />
+			</While>
+			<Objective QuestName="Re-Reclaim" QuestId="30355" Type="CollectItem" ItemId="79120" CollectCount="10" />
+			<Objective QuestName="Sever Their Supply Line" QuestId="30356" Type="KillMob" MobId="58614" KillCount="8" />
+		<TurnIn QuestName="Re-Reclaim" QuestId="30355" TurnInName="Kang Bramblestaff" TurnInId="56114" X="-1189.726" Y="1766.661" Z="15.28848" />
+		<TurnIn QuestName="No Sister Left Behind" QuestId="30354" TurnInName="Lyalia" TurnInId="58821" X="-1174.036" Y="1789.714" Z="18.08001" />
+		<TurnIn QuestName="Sever Their Supply Line" QuestId="30356" TurnInName="Lyalia" TurnInId="58821" X="-1174.036" Y="1789.714" Z="18.08001" />
+		<PickUp QuestName="The Mantid" QuestId="30361" GiverName="Ambassador Han" GiverId="58630" X="-1184.314" Y="1781.941" Z="15.28869" />
+		<PickUp QuestName="The Stoneplow Convoy" QuestId="30357" GiverName="Lorekeeper Vaeldrin" GiverId="58745" X="-1342.2" Y="2240.51" Z="23.35163" />
+			<While Condition="((HasQuest(30357)) &amp;&amp; (!IsQuestCompleted(30357)))" >
+				<CustomBehavior File="InteractWith" QuestId="30357" MobId="58955" WaitForNpcs="False" CollectionDistance="1000" X="-1409.915" Y="2285.912" Z="25.22109" />
+				<CustomBehavior File="InteractWith" QuestId="30357" MobId="58955" WaitForNpcs="False" CollectionDistance="1000" X="-1328.388" Y="2303.387" Z="24.03031" />
+				<CustomBehavior File="InteractWith" QuestId="30357" MobId="58955" WaitForNpcs="False" CollectionDistance="1000" X="-1250.757" Y="2299.569" Z="37.52064" />
+				<CustomBehavior File="InteractWith" QuestId="30357" MobId="58955" WaitForNpcs="False" CollectionDistance="1000" X="-1234.753" Y="2216.921" Z="37.12701" />
+				<CustomBehavior File="InteractWith" QuestId="30357" MobId="58955" WaitForNpcs="False" CollectionDistance="1000" X="-1255.074" Y="2160.562" Z="29.04547" />
+				<CustomBehavior File="InteractWith" QuestId="30357" MobId="58955" WaitForNpcs="False" CollectionDistance="1000" X="-1343.204" Y="2167.45" Z="25.66043" />
+				<CustomBehavior File="InteractWith" QuestId="30357" MobId="58955" WaitForNpcs="False" CollectionDistance="1000" X="-1389.7" Y="2208.931" Z="26.08716" />
+			</While>
+			<Objective QuestName="The Mantid" QuestId="30361" Type="KillMob" MobId="58367" KillCount="10" />
+		<TurnIn QuestName="The Stoneplow Convoy" QuestId="30357" TurnInName="Lorekeeper Vaeldrin" TurnInId="58745" X="-1342.2" Y="2240.51" Z="23.35163" />
+		<TurnIn QuestName="The Mantid" QuestId="30361" TurnInName="Ambassador Len" TurnInId="58954" X="-1351.392" Y="2212.089" Z="23.35205" />
+		<PickUp QuestName="The Lord Reclaimer" QuestId="30359" GiverName="Lorekeeper Vaeldrin" GiverId="58745" X="-1342.2" Y="2240.51" Z="23.3517" />
+			<If Condition="((HasQuest(30359)) &amp;&amp; (!IsQuestCompleted(30359)))" >
+				<RunTo X="-1678.733" Y="1783.274" Z="-3.173962" />
+				<CustomBehavior File="WaitTimer" WaitTime="6000" />
+			  <While Condition="(!IsQuestCompleted(30359))" >
+				<CustomBehavior File="InteractWith" QuestId="30359" GossipOptions="1" MobId="58976" X="-1636.578" Y="1842.866" Z="-2.416059" />
+				<CustomBehavior File="InteractWith" QuestId="30359" MobId="58224" X="-1636.578" Y="1842.866" Z="-2.416059" />
+			  </While>
+			</If>
+		<TurnIn QuestName="The Lord Reclaimer" QuestId="30359" TurnInName="Lorekeeper Vaeldrin" TurnInId="58745" X="-1172.519" Y="1790.299" Z="18.16147" />
+		<PickUp QuestName="The Waters of Youth" QuestId="30445" GiverName="Lorekeeper Vaeldrin" GiverId="58745" />
+			<If Condition="((HasQuest(30445)) &amp;&amp; (!IsQuestCompleted(30445)))" >
+				<CustomBehavior File="WaitTimer" WaitTime="33000" />
+			</If>
+		<TurnIn QuestName="The Waters of Youth" QuestId="30445" TurnInName="Lyalia" TurnInId="58821" X="-1172.519" Y="1790.299" Z="18.16147" />
+		<PickUp QuestName="Warn Stoneplow" QuestId="30360" GiverName="Lyalia" GiverId="58821" X="-1174.205" Y="1789.844" Z="18.07711" />
+			</If>
+
 			<!-- Horde Specific -->
+			<If Condition="Me.IsHorde" >
+			
 			<CustomBehavior File="Message" Text="Compiling Dawnchaser Retreat Quests" LogColor="Cornflowerblue" />
 			
 			<While Condition="((HasQuest(30163)) &amp;&amp; (!IsQuestCompleted(30163)))" >
@@ -1346,35 +1511,79 @@
 			</While>
 		<TurnIn QuestName="For Family" QuestId="30174" TurnInName="Sunwalker Dezco" TurnInId="58607" X="-1699.988" Y="1593.198" Z="15.21646" />
 		<PickUp QuestName="Warn Stoneplow" QuestId="30241" GiverName="Sunwalker Dezco" GiverId="58607" X="-1699.988" Y="1593.198" Z="15.21646" /> <!-- Back to VotFW -->
-			<If Condition="((HasQuest(30241)) &amp;&amp; (IsQuestCompleted(30241)))" >
-		<TurnIn QuestName="Warn Stoneplow" QuestId="30241" TurnInName="Loon Mai" TurnInId="56720" X="-392.342" Y="1911.939" Z="134.1158" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="60000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
+			<!-- End of Horde specific -->
 
 			<!-- Neutral -->
 			<CustomBehavior File="Message" Text="Compiling Stoneplow Quests" LogColor="Cornflowerblue" />
 			
+			<If Condition="((HasQuest(30360)) &amp;&amp; (IsQuestCompleted(30360)))" > <!-- Ally -->
+		<TurnIn QuestName="Warn Stoneplow" QuestId="30360" TurnInName="Loon Mai" TurnInId="56720" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="160000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(30241)) &amp;&amp; (IsQuestCompleted(30241)))" > <!-- Horde -->
+		<TurnIn QuestName="Warn Stoneplow" QuestId="30241" TurnInName="Loon Mai" TurnInId="56720" X="-392.342" Y="1911.939" Z="134.1158" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="160000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+			<If Condition="Me.IsAlliance" >
+		<PickUp QuestName="It Does You No Good In The Keg" QuestId="30624" GiverName="Mudmug" GiverId="56474" X="-362.2778" Y="1966.123" Z="130.1379" />
+			</If>
+			<If Condition="Me.IsHorde" >
 		<PickUp QuestName="It Does You No Good In The Keg" QuestId="30653" GiverName="Mudmug" GiverId="56474" X="-362.2778" Y="1966.123" Z="130.1379" />
+			</If>
 		<PickUp QuestName="The Mantidote" QuestId="30623" GiverName="Mei Barrelbottom" GiverId="59855" X="-381.2813" Y="1974.226" Z="129.771" />
 		<PickUp QuestName="The Swarm Begins" QuestId="30622" GiverName="Loon Mai" GiverId="56720" X="-375.5746" Y="1978.884" Z="130.7429" />
-			<While Condition="((HasQuest(30653)) &amp;&amp; (!IsQuestCompleted(30653)))" >
+			<While Condition="((HasQuest(30653)) &amp;&amp; (!IsQuestCompleted(30653)))" > <!-- H -->
 			 <While Condition="((HasQuest(30653)) &amp;&amp; (!IsObjectiveComplete(1, 30653)))"> <!-- Zhu -->
 				<RunTo X="-218.2491" Y="1992.779" Z="133.9916" />
+				<RunTo X="-204.7786" Y="2010.228" Z="129.6634" />
+				<RunTo X="-226.7364" Y="1982.993" Z="134.1367" />
 			 </While>
 			 <While Condition="((HasQuest(30653)) &amp;&amp; (!IsObjectiveComplete(2, 30653)))"> <!-- Crane -->
 				<RunTo X="-351.8582" Y="2083.022" Z="121.0539" />
+				<RunTo X="-366.2121" Y="2098.151" Z="117.3535" />
 			 </While>
 			 <While Condition="((HasQuest(30653)) &amp;&amp; (!IsObjectiveComplete(4, 30653)))"> <!-- Tauren -->
 				<RunTo X="-364.5523" Y="2166.679" Z="110.4025" />
+				<RunTo X="-363.9651" Y="2164.088" Z="109.7651" />
+				<RunTo X="-366.7665" Y="2185.408" Z="111.7069" />
 			 </While>
 			 <While Condition="((HasQuest(30653)) &amp;&amp; (!IsObjectiveComplete(3, 30653)))"> <!-- Shado-Pan -->
 				<RunTo X="-356.4952" Y="2258.421" Z="116.0275" />
+				<RunTo X="-372.7702" Y="2275.476" Z="113.3152" />
+				<RunTo X="-350.2458" Y="2246.354" Z="114.9333" />
 			 </While>
 			</While>
-			<While Condition="((HasQuest(30653)) &amp;&amp; (IsQuestCompleted(30653)))" >
+			<While Condition="((HasQuest(30653)) &amp;&amp; (IsQuestCompleted(30653)))" > <!-- H -->
 				<CustomBehavior File="CompleteLogQuest" QuestId="30653" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
+			</While>
+			<While Condition="((HasQuest(30624)) &amp;&amp; (!IsQuestCompleted(30624)))" > <!-- A -->
+			 <While Condition="((HasQuest(30624)) &amp;&amp; (!IsObjectiveComplete(1, 30624)))"> <!-- Zhu -->
+				<RunTo X="-218.2491" Y="1992.779" Z="133.9916" />
+				<RunTo X="-204.7786" Y="2010.228" Z="129.6634" />
+				<RunTo X="-226.7364" Y="1982.993" Z="134.1367" />
+			 </While>
+			 <While Condition="((HasQuest(30624)) &amp;&amp; (!IsObjectiveComplete(2, 30624)))"> <!-- Crane -->
+				<RunTo X="-351.8582" Y="2083.022" Z="121.0539" />
+				<RunTo X="-366.2121" Y="2098.151" Z="117.3535" />
+			 </While>
+			 <While Condition="((HasQuest(30624)) &amp;&amp; (!IsObjectiveComplete(4, 30624)))"> <!-- Nelf -->
+				<RunTo X="-221.7972" Y="2097.039" Z="118.6857" />
+				<RunTo X="-234.6518" Y="2068.772" Z="122.6379" />
+			 </While>
+			 <While Condition="((HasQuest(30624)) &amp;&amp; (!IsObjectiveComplete(3, 30624)))"> <!-- Shado-Pan -->
+				<RunTo X="-356.4952" Y="2258.421" Z="116.0275" />
+				<RunTo X="-372.7702" Y="2275.476" Z="113.3152" />
+				<RunTo X="-350.2458" Y="2246.354" Z="114.9333" />
+			 </While>
+			</While>
+			<While Condition="((HasQuest(30624)) &amp;&amp; (IsQuestCompleted(30624)))" > <!-- A -->
+				<CustomBehavior File="CompleteLogQuest" QuestId="30624" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
 			</While>
 			<While Condition="((HasQuest(30623)) &amp;&amp; (!IsQuestCompleted(30623)))" > <!-- This quest may bug out -->
@@ -1389,7 +1598,7 @@
 			<Objective QuestName="The Swarm Begins" QuestId="30622" Type="KillMob" MobId="56721" KillCount="15" />
 		<TurnIn QuestName="The Swarm Begins" QuestId="30622" TurnInName="Guard Captain Oakenshield" TurnInId="57198" X="-199.9965" Y="2223.845" Z="135.255" />
 		<PickUp QuestName="Students No More" QuestId="30625" GiverName="Guard Captain Oakenshield" GiverId="57198" X="-199.9965" Y="2223.845" Z="135.255" />
-			<If Condition="((HasQuest(30625)) &amp;&amp; (!IsQuestCompleted(30625)))" >
+			<If Condition="((HasQuest(30625)) &amp;&amp; (!IsQuestCompleted(30625)))" > <!-- This quest fucking sucks -->
 				<CustomBehavior File="UserDialog" QuestId="30625" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Find the students and then kill 4 mobs together" />
 				<Objective QuestName="Students No More" QuestId="30625" Type="KillMob" MobId="59887" KillCount="1" /> <!-- Bloodrager -->
 				<Objective QuestName="Students No More" QuestId="30625" Type="KillMob" MobId="59890" KillCount="1" /> <!-- Incubator - kill eggs first! -->
@@ -1415,12 +1624,19 @@
 			</While>
 			<!--<Objective QuestName="The Savior of Stoneplow" QuestId="30627" Type="KillMob" MobId="56703" KillCount="1" />-->
 		<TurnIn QuestName="The Savior of Stoneplow" QuestId="30627" TurnInName="Loon Mai" TurnInId="56720" X="-375.5746" Y="1978.884" Z="130.7429" />
+			<If Condition="((!HasQuest(30628)) &amp;&amp; (!IsQuestCompleted(30628)))" >
 		<PickUp QuestName="The Gratitude of Stoneplow" QuestId="30628" GiverName="Loon Mai" GiverId="56720" X="-375.5746" Y="1978.884" Z="130.7429" />
+				<CustomBehavior File="NoCombatMoveTo" X="-367.6" Y="1901.614" Z="150.1806" />
+			</If>
 		<TurnIn QuestName="The Gratitude of Stoneplow" QuestId="30628" TurnInName="The Commander's Cache" TurnInId="211316" TurnInType="Gameobject" X="-367.6" Y="1901.614" Z="150.1806" />
+			<!-- End of Krasarang Quests -->			
 		
-		
-		
-	
+			<If Condition="((!HasQuest(31286)) &amp;&amp; (!IsQuestCompleted(31286)))" >
+				<CustomBehavior File="Message" Text="Going to get FP and then pickup quest from Len the Whisperer" LogColor="Cornflowerblue" />
+				<RunTo X="783.7535" Y="-205.1563" Z="402.2014" />
+				<CustomBehavior File="InteractWith" MobId="61759" X="783.7535" Y="-205.1563" Z="402.2014" />
+		<PickUp QuestName="Robbing Robbers of Robbers" QuestId="31286" GiverName="Len the Whisperer" GiverId="63484" X="903.3386" Y="-147.3142" Z="430.8914" />
+			</If>
 		
 		<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Krasarang Wilds profile" />
 		
