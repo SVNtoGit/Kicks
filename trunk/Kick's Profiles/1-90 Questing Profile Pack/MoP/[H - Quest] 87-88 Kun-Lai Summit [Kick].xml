@@ -1,5 +1,5 @@
 <HBProfile>
-	<Name>[H - Quest] 87-88 Kun-Lai Summit [Kick]</Name>
+	<Name>[N - Quest] 87-88 Kun-Lai Summit [Kick]</Name>
 	<MinLevel>85</MinLevel>
 	<MaxLevel>101</MaxLevel>
 	
@@ -1076,19 +1076,24 @@
 	
 			<CustomBehavior File="Message" Text="Compiling Kun-Lai Summit (Horde) Quests" LogColor="Green" />
 	
-		<While Condition="Me.IsAlliance" >
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be Horde to run this profile!" />
-		</While>
 		<While Condition="Me.Level &lt; 87" >
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be 87+ to run this profile!" />
 		</While>
 
 			<CustomBehavior File="Message" Text="Compiling Binan Village Quests" LogColor="Cornflowerblue" />
 
-			<If Condition="((!HasQuest(31255)) &amp;&amp; (!IsQuestCompleted(31255)))" >
+			<If Condition="((!HasQuest(31254)) &amp;&amp; (!IsQuestCompleted(31254))) &amp;&amp; (Me.IsAlliance)" >
+				<CustomBehavior File="Message" Text="Going to get a 'GoTo Kun-Lai Summit' quest real quick!" LogColor="Cornflowerblue" />
+		<PickUp QuestName="The Road to Kun-Lai" QuestId="31254" GiverName="Messenger Grummle" GiverId="63778" X="478.8698" Y="-68.73538" Z="178.2601" />
+			</If>
+			<If Condition="((!HasQuest(31255)) &amp;&amp; (!IsQuestCompleted(31255))) &amp;&amp; (Me.IsHorde)" >
 				<CustomBehavior File="Message" Text="Going to get a 'GoTo Kun-Lai Summit' quest real quick!" LogColor="Cornflowerblue" />
 		<PickUp QuestName="The Road to Kun-Lai" QuestId="31255" GiverName="Messenger Grummle" GiverId="63778" X="478.8698" Y="-68.73538" Z="178.2601" />
 			</If>
+			 <While Condition="((HasQuest(31254)) &amp;&amp; (!IsObjectiveComplete(1, 31254)))">
+				<RunTo X="482.032" Y="-70.46633" Z="178.0952" />
+				<CustomBehavior File="InteractWith" QuestId="31254" MobId="62738" CollectionDistance="100" X="482.032" Y="-70.46633" Z="178.0952" />
+			 </While>
 			 <While Condition="((HasQuest(31255)) &amp;&amp; (!IsObjectiveComplete(1, 31255)))">
 				<RunTo X="482.032" Y="-70.46633" Z="178.0952" />
 				<CustomBehavior File="InteractWith" QuestId="31255" MobId="62738" CollectionDistance="100" X="482.032" Y="-70.46633" Z="178.0952" />
@@ -1105,6 +1110,10 @@
 		<TurnIn QuestName="Robbing Robbers of Robbers" QuestId="31286" TurnInName="Len the Whisperer" TurnInId="63484" X="903.3386" Y="-147.3142" Z="430.8914" />
 		<TurnIn QuestName="Educating Saurok" QuestId="31287" TurnInName="Len the Whisperer" TurnInId="63484" X="903.3386" Y="-147.3142" Z="430.8914" />
 		<PickUp QuestName="The Spring Drifter" QuestId="31285" GiverName="Brewmaster Boof" GiverId="63367" X="1166.58" Y="-118.6823" Z="475.6349" />
+			 <While Condition="((HasQuest(31254)) &amp;&amp; (!IsObjectiveComplete(2, 31254)))">
+				<RunTo X="1166.58" Y="-118.6823" Z="475.6349" />
+				<CustomBehavior File="InteractWith" QuestId="31254" MobId="63367" CollectionDistance="100" X="1166.58" Y="-118.6823" Z="475.6349" />
+			 </While>
 			 <While Condition="((HasQuest(31255)) &amp;&amp; (!IsObjectiveComplete(2, 31255)))">
 				<RunTo X="1166.58" Y="-118.6823" Z="475.6349" />
 				<CustomBehavior File="InteractWith" QuestId="31255" MobId="63367" CollectionDistance="100" X="1166.58" Y="-118.6823" Z="475.6349" />
@@ -1117,7 +1126,12 @@
 		<TurnIn QuestName="The Spring Drifter" QuestId="31285" TurnInName="Brewmaster Boof" TurnInId="63367" X="1737.359" Y="292.184" Z="475.5629" />				 
 				<CustomBehavior File="InteractWith" MobId="61474" X="1688.922" Y="299.474" Z="478.0629" /> <!-- Binan Village -->
 			</If>
+			<If Condition="((HasQuest(31254)) &amp;&amp; (IsQuestCompleted(31254)))" > <!-- A -->
+		<TurnIn QuestName="The Road to Kun-Lai" QuestId="31254" TurnInName="Mayor Bramblestaff" TurnInId="59073" X="1785.623" Y="316.3559" Z="478.0308" />
+			</If>
+			<If Condition="((HasQuest(31255)) &amp;&amp; (IsQuestCompleted(31255)))" > <!-- H -->
 		<TurnIn QuestName="The Road to Kun-Lai" QuestId="31255" TurnInName="Mayor Bramblestaff" TurnInId="59073" X="1785.623" Y="316.3559" Z="478.0308" />
+			</If>
 		<PickUp QuestName="Call Out Their Leader" QuestId="30457" GiverName="Mayor Bramblestaff" GiverId="59073" X="1785.623" Y="316.3559" Z="478.0306" />
 		<PickUp QuestName="Hit Medicine" QuestId="30460" GiverName="Apothecary Cheng" GiverId="59077" X="1744.828" Y="360.3073" Z="482.1399" />
 		<PickUp QuestName="All of the Arrows" QuestId="30459" GiverName="Commander Hsieh" GiverId="59076" X="1848.069" Y="411.9514" Z="485.817" />
@@ -1530,9 +1544,9 @@
 						</Hotspots>
 					  </GrindArea>
 				  </SetGrindArea>
-				  <GrindTo Condition="HasItem(80241)" />
+				  <GrindTo Condition="(HasItem(80241))" />
 			  </If>
-			 <If Condition="HasItem(80241)" >
+			 <If Condition="(HasItem(80241))" >
 		<PickUp QuestName="The Late Mrs. Muskpaw" GiverType="Item" QuestId="30582" GiverName="Muskpaw's Keepsake" GiverId="80241" />
 			 </If>
 			</If>
@@ -1692,7 +1706,7 @@
 			</While>
 		<TurnIn QuestName="The Tongue of Ba-Shon" QuestId="30829" TurnInName="Lorewalker Cho" TurnInId="60795" X="3485.968" Y="2100.916" Z="1084.045" />
 		<PickUp QuestName="Staying Connected" QuestId="30795" GiverName="Lorewalker Cho" GiverId="60795" X="3485.968" Y="2100.916" Z="1084.045" />
-			<If Condition="HasQuest(30795) &amp;&amp; !IsQuestCompleted(30795)" >
+			<If Condition="((HasQuest(30795)) &amp;&amp; (!IsQuestCompleted(30795)))" >
 				<RunTo X="3477.455" Y="2101.917" Z="1084.04" />
 				<CustomBehavior File="RunMacro" QuestId="30795" Macro="/cancelform" />
 				<CustomBehavior File="InteractWith" QuestId="30795" MobId="60796" GossipOptions="1" X="3477.455" Y="2101.917" Z="1084.04" />
@@ -1744,7 +1758,7 @@
 			</If>
 		<TurnIn QuestName="The Tomb of Shadows" QuestId="30799" TurnInName="Image of Lorewalker Cho" TurnInId="61297" />
 		<PickUp QuestName="Breaking the Emperor's Shield" QuestId="30798" GiverName="Image of Lorewalker Cho" GiverId="61297" />
-			<If Condition="HasQuest(30798) &amp;&amp; !IsQuestCompleted(30798)" >
+			<If Condition="((HasQuest(30798)) &amp;&amp; (!IsQuestCompleted(30798)))" >
 				<RunTo X="3553.384" Y="1504.276" Z="819.6432" />
 				<CustomBehavior File="UserDialog" QuestId="30798" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Kill Nakk'rakas' guards and then him" />
 				<!--<Objective QuestName="Breaking the Emperor's Shield" QuestId="30798" Type="KillMob" MobId="60572" KillCount="1" />-->
@@ -1799,7 +1813,7 @@
 			</If>
 		<TurnIn QuestName="Stealing Their Thunder King" QuestId="30800" TurnInName="Image of Lorewalker Cho" TurnInId="61297" />
 		<PickUp QuestName="Lessons from History" QuestId="30801" GiverName="Image of Lorewalker Cho" GiverId="61297" />
-			<While Condition="HasQuest(30801) &amp;&amp; !IsQuestCompleted(30801)" >
+			<While Condition="((HasQuest(30801)) &amp;&amp; (!IsQuestCompleted(30801)))" >
 				<CustomBehavior File="InteractWith" QuestId="30801" MobId="211594" ObjectType="Gameobject" Range="8" X="3642.264" Y="1786.007" Z="742.9736" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" />
 				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
@@ -1937,7 +1951,7 @@
 				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
 				<RunTo X="4413.25" Y="807.2814" Z="87.98991" />
 			</If>
-			<If Condition="HasQuest(31011) &amp;&amp; !IsQuestCompleted(31011)" >
+			<If Condition="((HasQuest(31011)) &amp;&amp; (!IsQuestCompleted(31011)))" >
 				<CustomBehavior File="UserDialog" QuestId="31011" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Assist the bot and kill guys for Enemies At Our Door. Roll barrels into the Behemoths" />
 				<!--
 				<Objective QuestName="Enemies At Our Door" QuestId="31011" Type="KillMob" MobId="62299" KillCount="10" />
@@ -2147,7 +2161,7 @@
 		<TurnIn QuestName="Grummle! Grummle! Grummle!" QuestId="30610" TurnInName="Brother Yakshoe" TurnInId="59894" X="2945.965" Y="1964.34" Z="643.045" />
 		<TurnIn QuestName="Unleash The Yeti!" QuestId="30611" TurnInName="Brother Rabbitsfoot" TurnInId="59452" X="2814.116" Y="1586.976" Z="653.9404" />
 		<PickUp QuestName="The Leader Hozen" QuestId="30612" GiverName="Brother Rabbitsfoot" GiverId="59452" X="2945.965" Y="1964.34" Z="643.045" />
-			<If Condition="HasQuest(30612) &amp;&amp; !IsQuestCompleted(30612)" >
+			<If Condition="((HasQuest(30612)) &amp;&amp; (!IsQuestCompleted(30612)))" >
 			  <While Condition="!IsObjectiveComplete(1, 30612)" >
 				<RunTo X="2943.718" Y="1964.329" Z="642.934" />
 			  </While>
@@ -2259,7 +2273,7 @@
 				<RunTo X="2058.88" Y="2018.04" Z="454.5971" />
 				<CustomBehavior File="UserDialog" QuestId="30690" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Use the trap near kobai and walk him into it, steal the mask *extra action button 1*, and kill the boss" />
 			</If>
-			<If Condition="HasQuest(30690) &amp;&amp; IsQuestCompleted(30690)" > <!--in-->
+			<If Condition="((HasQuest(30690)) &amp;&amp; (IsQuestCompleted(30690)))" > <!--in-->
 				<RunTo X="1902.315" Y="2054.299" Z="455.6709" />
 				<CustomBehavior File="InteractWith" MobId="215381" ObjectType="Gameobject" Range="8" WaitTime="0" X="1902.315" Y="2054.299" Z="455.6709" />
 				<RunTo X="1865.691" Y="2050.473" Z="455.6911" />
@@ -2321,7 +2335,7 @@
 		<TurnIn QuestName="A Terrible Sacrifice" QuestId="30751" TurnInName="Lao-Chin the Iron Belly" TurnInId="61820" X="3018.853" Y="3009.425" Z="534.0266" />
 		<TurnIn QuestName="Off the Wall!" QuestId="30750" TurnInName="Suna Silentstrike" TurnInId="61454" X="3019.648" Y="3005.767" Z="534.0306" />
 		<PickUp QuestName="Lao-Chin's Gambit" QuestId="30994" GiverName="Suna Silentstrike" GiverId="61454" X="3019.648" Y="3005.767" Z="534.0306" />
-			<If Condition="HasQuest(30994) &amp;&amp; !IsQuestCompleted(30994)" >
+			<If Condition="((HasQuest(30994)) &amp;&amp; (!IsQuestCompleted(30994)))" >
 				<RunTo X="3019.648" Y="3005.767" Z="534.0306" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="RunMacro" Macro="/cancelform" />
