@@ -2095,7 +2095,7 @@
 			  </If>
 			</If>
 			
-			<If Condition="(HasQuest(31392)) || (HasQuest(31393))" >
+			<If Condition="((HasQuest(31392)) || (HasQuest(31393))) &amp;&amp; (Me.Y &gt; 600)" >
 				<RunTo X="3498.761" Y="690.0668" Z="608.1852" />
 				<CustomBehavior File="InteractWith" MobId="61118" X="3504.438" Y="689.9202" Z="608.1852" /> <!-- FP -->
 				<RunTo X="3756.922" Y="538.9453" Z="639.691" />
@@ -2107,10 +2107,26 @@
 		<TurnIn QuestName="Temple of the White Tiger" QuestId="31392" TurnInName="Anduin Wrynn" TurnInId="64540" X="3819.135" Y="535.2518" Z="639.0074" />
 		<PickUp QuestName="A Celestial Experience" QuestId="31394" GiverName="Anduin Wrynn" GiverId="64540" X="3819.135" Y="535.2518" Z="639.0074" />
 			</If>
-			
-			
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="complete ally temple of the white dragon. i'll get to this sometime today" />
-			
+			<If Condition="((!HasQuest(31394)) &amp;&amp; (!IsQuestCompleted(31394))) &amp;&amp; (Me.Y &gt; 600)" >
+				<RunTo X="3498.761" Y="690.0668" Z="608.1852" />
+				<CustomBehavior File="InteractWith" MobId="61118" X="3504.438" Y="689.9202" Z="608.1852" />
+				<RunTo X="3756.922" Y="538.9453" Z="639.691" />
+				<CustomBehavior File="MyCTM" X="3819.135" Y="535.2518" Z="639.0074" />
+			</If>
+		<PickUp QuestName="A Celestial Experience" QuestId="31394" GiverName="Anduin Wrynn" GiverId="64540" X="3819.135" Y="535.2518" Z="639.0074" />
+			<If Condition="((HasQuest(31394)) &amp;&amp; (!IsQuestCompleted(31394)))" > 
+				<CustomBehavior File="UserDialog" QuestId="31394" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Speak to Xuen and pass the 3 tests. Be sure to run away from stuff!" />
+			</If>
+		<TurnIn QuestName="A Celestial Experience" QuestId="31394" TurnInName="Anduin Wrynn" TurnInId="64540" X="3819.135" Y="535.2518" Z="639.0074" />
+			<If Condition="((!HasQuest(31512)) &amp;&amp; (!IsQuestCompleted(31512)))" >
+		<PickUp QuestName="A Witness to History" QuestId="31512" GiverName="Anduin Wrynn" GiverId="64540" X="3819.135" Y="535.2518" Z="639.0074" />
+				<CustomBehavior File="MyCTM" X="3734.216" Y="540.8579" Z="639.69" />
+			</If>
+			<If Condition="HasQuest(30935) &amp;&amp; IsQuestCompleted(30935)" >
+			  <RunTo X="3938.509" Y="876.1491" Z="417.1735" />
+			  <CustomBehavior File="InteractWith" MobId="61380" GossipOptions="1" X="3940.49" Y="877.0261" Z="417.1738" />
+			  <CustomBehavior File="WaitTimer" WaitTime="135000" />
+			</If>
 			</If>
 				
 			<If Condition="(Me.IsHorde)" >
@@ -2468,13 +2484,17 @@
 			<!-- Daily available -->
 			<!-- End of Kota Basecamp -->
 
-			<If Condition="((HasQuest(31511)) &amp;&amp; (!IsQuestCompleted(31511)))" >
+			<If Condition="((HasQuest(31511)) &amp;&amp; (!IsQuestCompleted(31511)))" > <!-- H -->
 				<RunTo X="1805.083" Y="1337.896" Z="468.8552" />
 				<CustomBehavior File="InteractWith" QuestId="31511" MobId="64853" GossipOptions="1" X="1805.083" Y="1337.896" Z="468.8552" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for scene {TimeRemaining}" />
 				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
-			</If>
 		<TurnIn QuestName="A Witness to History" QuestId="31511" TurnInName="Zhi the Harmonious" TurnInId="59905" X="1215.917" Y="1041.448" Z="425.9666" />
+			</If>
+			
+			<If Condition="(Me.IsAlliance)" >
+				<CustomBehavior File="UserDialog" QuestId="31512" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="what's up w/ a witness to history - ally" />
+			</If>
 
 			<CustomBehavior File="Message" Text="Compiling Shado-Pan Fallback Quests" LogColor="Cornflowerblue" />
 
