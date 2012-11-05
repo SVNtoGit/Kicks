@@ -61,7 +61,7 @@
 		<Blackspot X="2307.432" Y="936.0699" Z="481.3557" Radius="15" /> <!-- fucking tent -->
 		<Blackspot X="2513.01" Y="1122.01" Z="534.7263" Radius="10" />
 		<Blackspot X="2563.57" Y="1528.714" Z="632.5343" Radius="10" />
-		<Blackspot X="3109.945" Y="1740.027" Z="639.0444" Radius="10" />
+		<Blackspot X="3109.945" Y="1740.027" Z="639.0444" Radius="20" />
 	</Blackspots>
 
 	<AvoidMobs>
@@ -2498,19 +2498,35 @@
 			</If>
 			
 			<If Condition="(Me.IsAlliance)" >
-				<CustomBehavior File="UserDialog" QuestId="31512" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="what's up w/ a witness to history - ally" />
+			<If Condition="((HasQuest(31512)) &amp;&amp; (!IsQuestCompleted(31512)))" >
+				<RunTo X="1790.512" Y="1390.957" Z="468.854" />
+			  <While Condition="!IsQuestCompleted(31512)" >
+				<CustomBehavior File="InteractWith"  MobId="64848" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="100" X="1790.512" Y="1390.957" Z="468.854" />
+			  </While>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="55000" />
 			</If>
-
+			</If>
+			
 			<CustomBehavior File="Message" Text="Compiling Shado-Pan Fallback Quests" LogColor="Cornflowerblue" />
 
-			<If Condition="((HasQuest(31453)) &amp;&amp; (IsQuestCompleted(31453)))" > <!-- In from right side -->
+			<If Condition="((HasQuest(31453)) &amp;&amp; (IsQuestCompleted(31453)))" > <!-- H - In from right side -->
 				<RunTo X="1864.344" Y="2018.345" Z="454.1613" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 				<RunTo X="1864.344" Y="2018.345" Z="454.1613" />
 				<CustomBehavior File="InteractWith" MobId="215382" ObjectType="Gameobject" Range="8" WaitTime="0" X="1864.515" Y="2020.56" Z="455.668" />
 				<RunTo X="1866.205" Y="2055.865" Z="455.6911" />
-			</If>
 		<TurnIn QuestName="The Shado-Pan" QuestId="31453" TurnInName="Shado-Master Chong" TurnInId="60161" X="1866.205" Y="2055.865" Z="455.6911" />
+			</If>
+			<If Condition="((HasQuest(31455)) &amp;&amp; (IsQuestCompleted(31455)))" > <!-- A - In from right side -->
+				<RunTo X="1864.344" Y="2018.345" Z="454.1613" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<RunTo X="1864.344" Y="2018.345" Z="454.1613" />
+				<CustomBehavior File="InteractWith" MobId="215382" ObjectType="Gameobject" Range="8" WaitTime="0" X="1864.515" Y="2020.56" Z="455.668" />
+				<RunTo X="1866.205" Y="2055.865" Z="455.6911" />
+		<TurnIn QuestName="The Shado-Pan" QuestId="31455" TurnInName="Shado-Master Chong" TurnInId="60161" X="1866.205" Y="2055.865" Z="455.6911" />
+			</If>
 		<PickUp QuestName="Turnabout" QuestId="30670" GiverName="Shado-Master Chong" GiverId="60161" X="1866.205" Y="2055.865" Z="455.6911" />
 			<If Condition="((!HasQuest(30665)) &amp;&amp; (!IsQuestCompleted(30665)))" >
 		<PickUp QuestName="The Defense of Shado-Pan Fallback" QuestId="30665" GiverName="Shado-Master Chong" GiverId="60161" X="1866.205" Y="2055.865" Z="455.6911" />
