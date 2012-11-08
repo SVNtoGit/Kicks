@@ -149,10 +149,14 @@
 		<TurnIn QuestName="The Threat in the South" QuestId="31656" TurnInName="Bowmistress Li" TurnInId="62112" X="649.0434" Y="2122.863" Z="369.1019" />
 				<CustomBehavior File="InteractWith" MobId="63497" X="610.0486" Y="2120.95" Z="368.0562" /> <!-- Serpernt's Shrine FP -->
 			</If>
+		<PickUp QuestName="Falling Down" QuestId="31001" GiverName="Bowmistress Li" GiverId="62112" X="649.0434" Y="2122.863" Z="369.102" />
 			
 			<If Condition="!((HasSpell(115913)) &amp;&amp; (CanFly()))" >
 				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must have flying to use this profile. Load the /GoTo/MoP Train Flying profile and it will train your flying for you." />
 			</If>
+			
+		<CustomBehavior File="UserDialog" StopOnContinue="True" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Profile is currently not available for use" />
+		<CustomBehavior File="UserSettings" StopBot="True" />
 
 		<PickUp QuestName="Falling Down" QuestId="31001" GiverName="Bowmistress Li" GiverId="62112" X="649.0434" Y="2122.863" Z="369.102" />
 		<PickUp QuestName="Nope" QuestId="31002" GiverName="Bowmistress Li" GiverId="62112" X="649.0434" Y="2122.863" Z="369.102" />
@@ -228,6 +232,17 @@
 		<PickUp QuestName="Amber Arms" QuestId="31008" GiverName="Ambersmith Zikk" GiverId="64599" X="147.875" Y="3194.917" Z="214.7606" />
 				<CustomBehavior File="ForceSetVendor" DoMail="True" DoSell="True" DoRepair="True" />
 			</If>
+			<If Condition="((HasQuest(31009)) &amp;&amp; (!IsQuestCompleted(31009)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="28.281" Y="4003.066" Z="240.9577" />
+				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(31009)) &amp;&amp; (!IsQuestCompleted(31009)))" >
+				<CustomBehavior File="InteractWith" QuestId="31009" MobId="212524" ObjectType="Gameobject" X="25.28475" Y="3998.119" Z="240.6393" />
+			 </While>
+			</If>
+			<While Condition="((HasQuest(31009)) &amp;&amp; (IsQuestCompleted(31009)))" >
+				<CustomBehavior File="CompleteLogQuest" QuestId="31009" /> <!-- 31010 -->
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
+			</While>
 		
 		
 		
@@ -253,8 +268,6 @@
 		
 		
 		
-		<CustomBehavior File="UserDialog" StopOnContinue="True" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Profile is currently not available for use" />
-		<CustomBehavior File="UserSettings" StopBot="True" />
 		
 		
 		
