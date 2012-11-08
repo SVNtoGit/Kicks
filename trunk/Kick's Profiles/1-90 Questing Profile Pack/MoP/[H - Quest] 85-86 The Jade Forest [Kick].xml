@@ -794,6 +794,18 @@
 		<While Condition="Me.Level &lt; 85" >
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be 85+ to run this profile!" />
 		</While>
+		 <!-- If I am in Dalaran, take the portal to Org -->
+		 <If Condition="(Me.ZoneId == 4395)" >
+			<CustomBehavior File="ForcedDismount" />
+			<RunTo X="5924.277" Y="589.9855" Z="639.8734" />
+			<CustomBehavior File="ForcedDismount" />
+			
+			<CustomBehavior File="InteractWith" MobId="191009" ObjectType="Gameobject" Range="4" X="5925.295" Y="593.4274" Z="640.5935" />
+			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+		  <If Condition="(Me.ZoneId == 1637)" >
+			<RunTo X="1897.4" Y="-4523.682" Z="27.50176" />
+		  </If>
+	 </If>
 	 <If Condition="(Me.MapId == 1)" >
 			<If Condition="((!HasQuest(29611)) &amp;&amp; (!IsQuestCompleted(29611)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="1591.839" Y="-4384.563" Z="18.78635" />
@@ -815,6 +827,7 @@
 		<PickUp QuestName="All Aboard!" QuestId="31853" GiverName="General Nazgrim" GiverId="54870" X="1668.319" Y="-4351.42" Z="26.34642" />
 				<RunTo X="1590.606" Y="-4384.718" Z="18.62558" />
 			</If>
+	 </If>
 			<If Condition="((HasQuest(31853)) &amp;&amp; (IsQuestCompleted(31853)))" >
 		 	 <If Condition="(Me.Z &lt; 120)" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="1520.15" Y="-4418.51" Z="113.3046" />
@@ -822,17 +835,19 @@
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="1860.489" Y="-5318.669" Z="490.2317" />
 				<CustomBehavior File="MyCTM" X="1858.823" Y="-5463.671" Z="443.5402" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="MyCTM" X="1858.75" Y="-5462.161" Z="443.5662" />
-		<TurnIn QuestName="All Aboard!" QuestId="31853" TurnInName="General Nazgrim" TurnInId="55054" X="1858.75" Y="-5462.161" Z="443.5662" />
+				<CustomBehavior File="MyCTM" X="1863.272" Y="-5463.423" Z="443.7446" />
+		<TurnIn QuestName="All Aboard!" QuestId="31853" TurnInName="General Nazgrim" TurnInId="55054" X="1863.272" Y="-5463.423" Z="443.7446" />
 			</If>
-		<PickUp QuestName="Into the Mists" QuestId="29690" GiverName="General Nazgrim" GiverId="55054" X="1858.75" Y="-5462.161" Z="443.5662" />
+			<If Condition="((!HasQuest(29690)) &amp;&amp; (!IsQuestCompleted(29690)))" >
+				<CustomBehavior File="MyCTM" X="3178.239" Y="-695.5068" Z="321.0249" />
+		<PickUp QuestName="Into the Mists" QuestId="29690" GiverName="General Nazgrim" GiverId="55054" X="3178.239" Y="-695.5068" Z="321.0249" />
+			</If>
 			<If Condition="((HasQuest(29690)) &amp;&amp; (!IsQuestCompleted(29690)))" >
-				<CustomBehavior File="InteractWith" QuestId="29690" MobId="55054" GossipOptions="1" X="1858.75" Y="-5462.161" Z="443.5662" />
+				<CustomBehavior File="InteractWith" QuestId="29690" MobId="55054" GossipOptions="1" X="1863.272" Y="-5463.423" Z="443.7446" />
 				<CustomBehavior File="WaitTimer" WaitTime="12000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
-	 </If>
 			<If Condition="((HasQuest(29690)) &amp;&amp; (IsQuestCompleted(29690)))" >
 				<CustomBehavior File="MyCTM" X="3149.397" Y="-709.5517" Z="325.553" />
 				<CustomBehavior File="MyCTM" X="3178.839" Y="-696.882" Z="321.027" />
@@ -1023,17 +1038,15 @@
 			</If>
 			<If Condition="(HasQuest(29765))" >
 				<RunTo X="2835.941" Y="-722.5833" Z="259.8945" />
-				<If Condition="HasQuestAvailable(67153)" > <!-- Companion NPC -->
-			<TurnIn QuestName="Cryin' My Eyes Out" QuestId="29765" TurnInName="Zin'Jun" TurnInId="67153" X="2835.941" Y="-722.5833" Z="259.8946" />
-			<PickUp QuestName="Seein' Red" QuestId="29804" GiverName="Zin'Jun" GiverId="67153" X="2835.941" Y="-722.5833" Z="259.8946" />
-				</If> 
-				<!-- NPC
-				<If Condition="HasQuestAvailable(55403)" >
-				</If> 
-				-->
+			 <If Condition="(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 67153 &amp;&amp; u.Distance &lt;= 20))" >
+		<TurnIn QuestName="Cryin' My Eyes Out" QuestId="29765" TurnInName="Zin'Jun" TurnInId="67153" X="2835.941" Y="-722.5833" Z="259.8946" />
+		<PickUp QuestName="Seein' Red" QuestId="29804" GiverName="Zin'Jun" GiverId="67153" X="2835.941" Y="-722.5833" Z="259.8946" />
+			 </If>
+			 <If Condition="(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 55403 &amp;&amp; u.Distance &lt;= 20))" >
 		<TurnIn QuestName="Cryin' My Eyes Out" QuestId="29765" TurnInName="Zin'Jun" TurnInId="55403" X="2835.941" Y="-722.5833" Z="259.8946" />
 		<PickUp QuestName="Seein' Red" QuestId="29804" GiverName="Zin'Jun" GiverId="55403" X="2835.941" Y="-722.5833" Z="259.8946" />
-			</If>
+			 </If>
+			</If> 
 			<If Condition="((!HasQuest(29804)) &amp;&amp; (!IsQuestCompleted(29804)))" >
 				<RunTo X="2835.941" Y="-722.5833" Z="259.8945" />
 				<If Condition="HasQuestAvailable(55403)" >
