@@ -1,5 +1,5 @@
 <HBProfile>
-	<Name>[H - Quest] 89-90 Dread Wastes [Kick]</Name>
+	<Name>[N - Quest] 89-90 Dread Wastes [Kick]</Name>
 	<MinLevel>85</MinLevel>
 	<MaxLevel>101</MaxLevel>
 	
@@ -457,19 +457,11 @@
 
 		<CustomBehavior File="UserSettings" PullDistance="25" UseMount="True" LootMobs="True" GroundMountFarmingMode="False" KillBetweenHotspots="False" />
 	
-			<CustomBehavior File="Message" Text="Compiling Dread Wastes (Horde) Quests" LogColor="Green" />
+			<CustomBehavior File="Message" Text="Compiling Dread Wastes Quests" LogColor="Green" />
 	
-		<While Condition="Me.IsAlliance" >
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be Horde to run this profile!" />
+		<While Condition="Me.Level &lt; 90" >
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be level 90 to run this profile!\n\nYes, I know the min level is 89" />
 		</While>
-		<While Condition="Me.Level &lt; 89" >
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be 89+ to run this profile!" />
-		</While>
-		<!--
-		<If Condition="Me.Level &lt; 90" >
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This is a flying profile, I will do logic for flying and not flying - but you're not going to like it!" />
-		</If>
-		-->
 		
 			<CustomBehavior File="Message" Text="Compiling Vale of Eternal Blossoms / Terrace of Gurth Quests" LogColor="Cornflowerblue" />
 
@@ -509,10 +501,16 @@
 		<TurnIn QuestName="The Threat in the South" QuestId="31656" TurnInName="Bowmistress Li" TurnInId="62112" X="649.0434" Y="2122.863" Z="369.1019" />
 				<CustomBehavior File="InteractWith" MobId="63497" X="610.0486" Y="2120.95" Z="368.0562" /> <!-- Serpernt's Shrine FP -->
 			</If>
+			
+			<If Condition="!((HasSpell(115913)) &amp;&amp; (CanFly()))" >
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must have flying to use this profile. Load the /GoTo/MoP Train Flying profile and it will train your flying for you." />
+			</If>
+
 		<PickUp QuestName="Falling Down" QuestId="31001" GiverName="Bowmistress Li" GiverId="62112" X="649.0434" Y="2122.863" Z="369.102" />
 		<PickUp QuestName="Nope" QuestId="31002" GiverName="Bowmistress Li" GiverId="62112" X="649.0434" Y="2122.863" Z="369.102" />
 		
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Profile is not going to be developed until I do all of the 85-89 Ally profiles." />
+		<CustomBehavior File="UserDialog" StopOnContinue="True" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Profile is currently not avail for use" />
+		<CustomBehavior File="UserSettings" StopBot="True" />
 		
 		
 		
