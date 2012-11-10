@@ -581,8 +581,7 @@
 				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must have flying to use this profile. Load the [N] MoP Train Flying profile and it will train your flying for you." />
 			</If>
 			
-		<CustomBehavior File="UserDialog" StopOnContinue="True" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Profile is currently not available for use" />
-		<CustomBehavior File="UserSettings" StopBot="True" />
+		<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Profile is mostly done - it should get you most of the klaxxi dailies opened and onward to Soggy's Gamble. The profile will be completed when this userdialog no longer pops up\n\nPress Continue to start\n\n- Kick" />
 
 		<PickUp QuestName="Falling Down" QuestId="31001" GiverName="Bowmistress Li" GiverId="62112" X="649.0434" Y="2122.863" Z="369.102" />
 		<PickUp QuestName="Nope" QuestId="31002" GiverName="Bowmistress Li" GiverId="62112" X="649.0434" Y="2122.863" Z="369.102" />
@@ -1232,6 +1231,142 @@
 		<TurnIn QuestName="Bind the Glamour" QuestId="31084" TurnInName="Chief Rikkitun" TurnInId="62771" X="801.1979" Y="4071.11" Z="210.6274" />
 		<PickUp QuestName="Fires and Fears of Old" QuestId="31085" GiverName="Lya of Ten Songs" GiverId="62667" X="805.1528" Y="4089.72" Z="212.0223" />
 		<PickUp QuestName="Blood of Ancients" QuestId="31086" GiverName="Sapmaster Vu" GiverId="62666" X="803.5191" Y="4096.126" Z="212.2342" />
+			<If Condition="((HasQuest(31086)) &amp;&amp; (!IsQuestCompleted(31086)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="327.5405" Y="4521.317" Z="186.9739" />
+				<CustomBehavior File="ForcedDismount" />
+				<Objective QuestName="Blood of Ancients" QuestId="31086" Type="CollectItem" ItemId="84779" CollectCount="1" />
+			</If>
+			<If Condition="((HasQuest(31085)) &amp;&amp; (!IsQuestCompleted(31085)))" >
+		 	 <If Condition="(Me.Z &gt; 230)" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="320.9579" Y="4524.642" Z="186.9735" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo X="318.0555" Y="4528.434" Z="186.973" />
+				<CustomBehavior File="InteractWith" QuestId="31085" MobId="212738" Range="50" WaitForNpcs="False" ObjectType="Gameobject" X="318.0555" Y="4528.434" Z="186.973" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for landslide {TimeRemaining}" />
+			 </If>
+			 <While Condition="(!IsQuestCompleted(31085))">
+				<RunTo X="214.6059" Y="4403.354" Z="156.3522" />
+				<CustomBehavior File="UseItemOn" QuestId="31085" MobId="62773" ItemId="84771" X="207.8194" Y="4391.526" Z="158.7596" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for event {TimeRemaining}" />
+				<SetGrindArea>
+					<GrindArea>
+					  <Factions>2557</Factions>
+					  <Hotspots>
+						<Hotspot X="169.7014" Y="4389.221" Z="156.0042" />
+						<Hotspot X="191.1719" Y="4361.47" Z="156.055" />
+						<Hotspot X="222.7674" Y="4361.93" Z="155.9948" />
+					  </Hotspots>
+					</GrindArea>
+				</SetGrindArea>
+				<GrindTo Condition="(IsQuestCompleted(31085)) || !(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 62778 &amp;&amp; u.Distance &lt;= 100))" />
+			 </While>
+				<RunTo X="320.9579" Y="4524.642" Z="186.9735" />
+			</If>
+			<!-- I don't know if Skeer quests should be done now, or at the end of the profile - continuing w/o doing them -->
+			<If Condition="((HasQuest(31175)) &amp;&amp; (!IsQuestCompleted(31175)))" >
+				<CustomBehavior File="FlyTo" DestName="free Skeer" X="-538.9807" Y="4769.384" Z="6.244722" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="MyCTM" X="-538.9807" Y="4769.384" Z="-54.8595" />
+				<CustomBehavior File="MyCTM" X="-450.4066" Y="4763.945" Z="-32.78341" />
+				<CustomBehavior File="MyCTM" X="-413.8806" Y="4765.103" Z="-31.23785" />
+			 <While Condition="(!IsQuestCompleted(31175))">
+				<CustomBehavior File="InteractWith" QuestId="31175" MobId="212980" ObjectType="Gameobject" Range="5" X="-384.4821" Y="4765.372" Z="-29.38535" />
+			 </While>
+				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for NPC to spawn {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Skeer the Bloodseeker" QuestId="31175" TurnInName="Skeer the Bloodseeker" TurnInId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
+		<PickUp QuestName="A Strange Appetite" QuestId="31176" GiverName="Skeer the Bloodseeker" GiverId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
+		<PickUp QuestName="Fine Dining" QuestId="31177" GiverName="Skeer the Bloodseeker" GiverId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
+			<If Condition="((!HasQuest(31178)) &amp;&amp; (!IsQuestCompleted(31178)))" >
+		<PickUp QuestName="A Bloody Delight" QuestId="31178" GiverName="Skeer the Bloodseeker" GiverId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
+				<CustomBehavior File="MyCTM" X="-413.8806" Y="4765.103" Z="-31.23785" />
+				<CustomBehavior File="MyCTM" X="-450.4066" Y="4763.945" Z="-32.78341" />
+				<CustomBehavior File="MyCTM" X="-538.9807" Y="4769.384" Z="-54.8595" />
+				<CustomBehavior File="AscendInWater" />
+			</If>
+			<!-- I don't know if Skeer quests should be done now, or at the end of the profile - continuing w/o doing them
+			<Objective QuestName="A Strange Appetite" QuestId="31176" Type="CollectItem" ItemId="85211" CollectCount="12" />
+			<Objective QuestName="A Bloody Delight" QuestId="31178" Type="CollectItem" ItemId="85229" CollectCount="100" />
+			<Objective QuestName="Fine Dining" QuestId="31177" Type="CollectItem" ItemId="85212" CollectCount="8" />
+		<TurnIn QuestName="A Strange Appetite" QuestId="31176" TurnInName="Skeer the Bloodseeker" TurnInId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
+		<TurnIn QuestName="Fine Dining" QuestId="31177" TurnInName="Skeer the Bloodseeker" TurnInId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
+		<TurnIn QuestName="A Bloody Delight" QuestId="31178" TurnInName="Skeer the Bloodseeker" TurnInId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
+			-->
+			<If Condition="((HasQuest(31085)) &amp;&amp; (IsQuestCompleted(31085)))" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="898.2853" Y="3513.031" Z="329.4182" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="986.4494" Y="3441.404" Z="257.0701" />
+			</If>
+		<TurnIn QuestName="Fires and Fears of Old" QuestId="31085" TurnInName="Lya of Ten Songs" TurnInId="62667" X="986.1268" Y="3448.34" Z="257.0706" />
+		<TurnIn QuestName="Blood of Ancients" QuestId="31086" TurnInName="Sapmaster Vu" TurnInId="62666" X="984.7031" Y="3451.881" Z="256.7629" />
+
+			<CustomBehavior File="Message" Text="Compiling Soggy's Gamble Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((HasQuest(31727)) &amp;&amp; (IsQuestCompleted(31727)))" >
+				<CustomBehavior File="FlyTo" DestName="FP" X="-1085.493" Y="3135.288" Z="1.011304" />
+				<CustomBehavior File="InteractWith" MobId="63498" X="-1087.882" Y="3136.99" Z="0.9494908" /> <!-- FP -->
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-1160.92" Y="3204.285" Z="0.9015694" />
+		<TurnIn QuestName="Gambling Problem" QuestId="31727" TurnInName="Deck Boss Arie" TurnInId="63349" X="-1158.712" Y="3210.797" Z="1.217885" />
+			</If>
+		<PickUp QuestName="Mazu's Breath" QuestId="31265" GiverName="Deck Boss Arie" GiverId="63349" X="-1158.712" Y="3210.797" Z="1.218104" />
+			<If Condition="((HasQuest(31265)) &amp;&amp; (!IsQuestCompleted(31265)))" >
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(85869)" WaitTime="1000" />
+			</If>
+		<TurnIn QuestName="Mazu's Breath" QuestId="31265" TurnInName="Deck Boss Arie" TurnInId="63349" X="-1158.712" Y="3210.797" Z="1.218104" />
+		<PickUp QuestName="Fresh Pots" QuestId="31181" GiverName="Deck Boss Arie" GiverId="63349" X="-1158.712" Y="3210.797" Z="1.218104" />
+		<PickUp QuestName="You Otter Know" QuestId="31182" GiverName="Deck Boss Arie" GiverId="63349" X="-1158.712" Y="3210.797" Z="1.218104" />
+			<If Condition="((HasQuest(31182)) &amp;&amp; (!IsQuestCompleted(31182)))" >
+		 	 <If Condition="(!Me.IsSwimming) &amp;&amp; (Me.Z &gt; 0)" >
+				<CustomBehavior File="FlyTo" DestName="feed otters" X="-1337.26" Y="2892.643" Z="0.3096995" />
+				<CustomBehavior File="ForcedDismount" />
+			 </If>
+				<CustomBehavior File="UserSettings" UseMount="False" LootMobs="True" />
+			 <While Condition="(!IsQuestCompleted(31182))">
+				<CustomBehavior File="UseItemOn" QuestId="31182" MobId="63376" ItemId="85231" NumOfTimes="20" Range="20" CollectionDistance="1000" Nav="CTM" X="-1482.14" Y="3062.128" Z="-6.514342" />
+				<CustomBehavior File="UseItemOn" QuestId="31182" MobId="63376" ItemId="85231" NumOfTimes="20" Range="20" CollectionDistance="1000" Nav="CTM" X="-1605.751" Y="2927.047" Z="-5.154375" />
+				<CustomBehavior File="UseItemOn" QuestId="31182" MobId="63376" ItemId="85231" NumOfTimes="20" Range="20" CollectionDistance="1000" Nav="CTM" X="-1504.999" Y="2925.431" Z="-4.76442" />
+				<CustomBehavior File="UseItemOn" QuestId="31182" MobId="63376" ItemId="85231" NumOfTimes="20" Range="20" CollectionDistance="1000" Nav="CTM" X="-1402.571" Y="2824.855" Z="-5.178833" />				
+			 </While>
+				<CustomBehavior File="AscendInWater" />
+			</If>
+			<If Condition="((HasQuest(31181)) &amp;&amp; (!IsQuestCompleted(31181)))" >
+		 	 <If Condition="(!Me.IsSwimming) &amp;&amp; (Me.Z &gt; 0)" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="-1466.192" Y="3200.014" Z="2.67233" />
+				<CustomBehavior File="ForcedDismount" />
+			 </If>
+				<CustomBehavior File="UserSettings" UseMount="False" LootMobs="True" />
+				<!-- Currents make this a tad bit of a pita -->
+			 <While Condition="((HasQuest(85230)) &amp;&amp; (!IsQuestCompleted(85230)))" >
+				<CustomBehavior File="CollectThings" QuestId="31181" MobId="63470" CollectItemCount="4" CollectItemId="85230" HuntingGroundRadius="200" Nav="CTM" >
+					<Hotspot X="-1466.192" Y="3200.014" Z="-18.57028" />
+					<Hotspot X="-1503.517" Y="3096.558" Z="-15.00817" />
+					<Hotspot X="-1623.641" Y="2867.431" Z="-24.39924" />
+					<Hotspot X="-1487.094" Y="2827.103" Z="-18.99405" />
+					<Hotspot X="-1422.727" Y="2818.063" Z="-14.4648" />
+					<Hotspot X="-1436.747" Y="3010.099" Z="-21.45887" />
+					<Hotspot X="-1429.741" Y="3205.193" Z="-24.11611" />
+				</CustomBehavior>
+			  <While Condition="((HasItem(85230)) &amp;&amp; (!IsQuestCompleted(31181)))" >
+				<CustomBehavior File="InteractWith" QuestId="31181" MobId="213071" ObjectType="Gameobject" Range="5" NumOfTimes="2" CollectionDistance="1000" Nav="CTM" X="-1466.192" Y="3200.014" Z="-18.57028" />
+			  </While>
+			 </While>
+				<CustomBehavior File="AscendInWater" />
+				<CustomBehavior File="UserSettings" UseMount="True" />
+			</If>
+			<If Condition="((HasQuest(31181)) &amp;&amp; (IsQuestCompleted(31181)))" >
+		 	 <If Condition="(Me.IsSwimming)" >
+				<CustomBehavior File="AscendInWater" />
+			 </If>
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-1160.92" Y="3204.285" Z="0.9015694" />
+			</If>
+		<TurnIn QuestName="Fresh Pots" QuestId="31181" TurnInName="Deck Boss Arie" TurnInId="63349" X="-1158.712" Y="3210.797" Z="1.218104" />
+		<TurnIn QuestName="You Otter Know" QuestId="31182" TurnInName="Deck Boss Arie" TurnInId="63349" X="-1158.712" Y="3210.797" Z="1.218104" />
+		<PickUp QuestName="Meet the Cap'n" QuestId="31183" GiverName="Deck Boss Arie" GiverId="63349" X="-1158.712" Y="3210.797" Z="1.218104" />
+		<TurnIn QuestName="Meet the Cap'n" QuestId="31183" TurnInName="Captain &quot;Soggy&quot; Su-Dao" TurnInId="63317" X="-1170.483" Y="3160.482" Z="5.363252" />
+		<PickUp QuestName="Walking Dog" QuestId="31185" GiverName="Captain &quot;Soggy&quot; Su-Dao" GiverId="63317" X="-1170.483" Y="3160.482" Z="5.363252" />
+		<PickUp QuestName="Old Age and Treachery" QuestId="31184" GiverName="Captain &quot;Soggy&quot; Su-Dao" GiverId="63317" X="-1170.483" Y="3160.482" Z="5.363252" />
+		<PickUp QuestName="On the Crab" QuestId="31187" GiverName="Deck Boss Arie" GiverId="63349" X="-1158.712" Y="3210.797" Z="1.218104" />
+		<PickUp QuestName="Shark Week" QuestId="31188" GiverName="Deck Boss Arie" GiverId="63349" X="-1158.712" Y="3210.797" Z="1.218104" />
 		
 		
 		
