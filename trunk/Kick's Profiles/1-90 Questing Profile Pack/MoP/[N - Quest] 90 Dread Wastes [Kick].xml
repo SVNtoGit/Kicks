@@ -1581,6 +1581,26 @@
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="-1757.91" Y="4441.625" Z="36.23182" />
 			</If>
 		<TurnIn QuestName="The Zan'thik Dig" QuestId="31605" TurnInName="Rik'kal the Dissector" TurnInId="65253" X="201.1215" Y="3208.384" Z="214.0171" />
+		<PickUp QuestName="The Dissector Wakens" QuestId="31606" GiverName="Rik'kal the Dissector" GiverId="65253" X="201.1215" Y="3208.384" Z="214.0171" />
+			<While Condition="((HasQuest(31606)) &amp;&amp; (!IsQuestCompleted(31606)))" >
+				<SetGrindArea>
+					<GrindArea>
+					  <Factions>2557</Factions>
+					  <Hotspots>
+						<Hotspot X="-1753.861" Y="4442.792" Z="36.66246" />
+					  </Hotspots>
+					</GrindArea>
+				</SetGrindArea>
+				<GrindTo Condition="(IsQuestCompleted(31606)) || !(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 67091 &amp;&amp; u.Distance &lt;= 100))" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 <If Condition="((HasQuest(31606)) &amp;&amp; (!IsQuestCompleted(31606)))" >
+				<CustomBehavior File="AbandonQuest" QuestId="31606" Type="All" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to abandon {TimeRemaining}" />
+		<PickUp QuestName="The Dissector Wakens" QuestId="31606" GiverName="Rik'kal the Dissector" GiverId="65253" X="201.1215" Y="3208.384" Z="214.0171" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to be picked up {TimeRemaining}" />
+			 </If>
+			</While>
+		<TurnIn QuestName="The Dissector Wakens" QuestId="31606" TurnInName="Rik'kal the Dissector" TurnInId="67091" X="-1757.799" Y="4437.663" Z="36.43641" />
 
 		
 		
