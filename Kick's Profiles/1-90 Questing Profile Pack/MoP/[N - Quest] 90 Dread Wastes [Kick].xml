@@ -982,9 +982,8 @@
 		<TurnIn QuestName="Falling to Pieces" QuestId="31398" TurnInName="Kaz'tik the Manipulator" TurnInId="63758" X="139.7066" Y="3235.763" Z="212.3224" />
 		<TurnIn QuestName="Relics of the Swarm" QuestId="31023" TurnInName="Ambersmith Zikk" TurnInId="64599" X="147.875" Y="3194.917" Z="214.7606" />
 		<PickUp QuestName="Gambling Problem" QuestId="31727" GiverName="Ambersmith Zikk" GiverId="64599" X="147.875" Y="3194.917" Z="214.7606" />
+			<If Condition="((!HasQuest(31730)) &amp;&amp; (!IsQuestCompleted(31730)))" >
 		<PickUp QuestName="A Not So Friendly Request" QuestId="31730" GiverName="Kil'ruk the Wind-Reaver" GiverId="62538" X="137.092" Y="3192.54" Z="214.7609" />
-			<If Condition="((!HasQuest(31175)) &amp;&amp; (!IsQuestCompleted(31175)))" >
-		<PickUp QuestName="Skeer the Bloodseeker" QuestId="31175" GiverName="Kil'ruk the Wind-Reaver" GiverId="62538" X="137.092" Y="3192.54" Z="214.7609" />
 				<CustomBehavior File="ForceSetVendor" DoMail="True" DoSell="True" DoRepair="True" />
 			</If>
 			<If Condition="((HasQuest(31730)) &amp;&amp; (IsQuestCompleted(31730)))" >
@@ -1265,36 +1264,6 @@
 			 </While>
 				<RunTo X="320.9579" Y="4524.642" Z="186.9735" />
 			</If>
-			<!-- I don't know if Skeer quests should be done now, or at the end of the profile - continuing w/o doing them -->
-			<If Condition="((HasQuest(31175)) &amp;&amp; (!IsQuestCompleted(31175)))" >
-				<CustomBehavior File="FlyTo" DestName="free Skeer" X="-538.9807" Y="4769.384" Z="6.244722" />
-				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="MyCTM" X="-538.9807" Y="4769.384" Z="-54.8595" />
-				<CustomBehavior File="MyCTM" X="-450.4066" Y="4763.945" Z="-32.78341" />
-				<CustomBehavior File="MyCTM" X="-413.8806" Y="4765.103" Z="-31.23785" />
-			 <While Condition="(!IsQuestCompleted(31175))">
-				<CustomBehavior File="InteractWith" QuestId="31175" MobId="212980" ObjectType="Gameobject" Range="5" X="-384.4821" Y="4765.372" Z="-29.38535" />
-			 </While>
-				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for NPC to spawn {TimeRemaining}" />
-			</If>
-		<TurnIn QuestName="Skeer the Bloodseeker" QuestId="31175" TurnInName="Skeer the Bloodseeker" TurnInId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
-		<PickUp QuestName="A Strange Appetite" QuestId="31176" GiverName="Skeer the Bloodseeker" GiverId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
-		<PickUp QuestName="Fine Dining" QuestId="31177" GiverName="Skeer the Bloodseeker" GiverId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
-			<If Condition="((!HasQuest(31178)) &amp;&amp; (!IsQuestCompleted(31178)))" >
-		<PickUp QuestName="A Bloody Delight" QuestId="31178" GiverName="Skeer the Bloodseeker" GiverId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
-				<CustomBehavior File="MyCTM" X="-413.8806" Y="4765.103" Z="-31.23785" />
-				<CustomBehavior File="MyCTM" X="-450.4066" Y="4763.945" Z="-32.78341" />
-				<CustomBehavior File="MyCTM" X="-538.9807" Y="4769.384" Z="-54.8595" />
-				<CustomBehavior File="AscendInWater" />
-			</If>
-			<!-- I don't know if Skeer quests should be done now, or at the end of the profile - continuing w/o doing them
-			<Objective QuestName="A Strange Appetite" QuestId="31176" Type="CollectItem" ItemId="85211" CollectCount="12" />
-			<Objective QuestName="A Bloody Delight" QuestId="31178" Type="CollectItem" ItemId="85229" CollectCount="100" />
-			<Objective QuestName="Fine Dining" QuestId="31177" Type="CollectItem" ItemId="85212" CollectCount="8" />
-		<TurnIn QuestName="A Strange Appetite" QuestId="31176" TurnInName="Skeer the Bloodseeker" TurnInId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
-		<TurnIn QuestName="Fine Dining" QuestId="31177" TurnInName="Skeer the Bloodseeker" TurnInId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
-		<TurnIn QuestName="A Bloody Delight" QuestId="31178" TurnInName="Skeer the Bloodseeker" TurnInId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
-			-->
 			<If Condition="((HasQuest(31085)) &amp;&amp; (IsQuestCompleted(31085)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="898.2853" Y="3513.031" Z="329.4182" />
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="986.4494" Y="3441.404" Z="257.0701" />
@@ -1601,6 +1570,34 @@
 			 </If>
 			</While>
 		<TurnIn QuestName="The Dissector Wakens" QuestId="31606" TurnInName="Rik'kal the Dissector" TurnInId="67091" X="-1757.799" Y="4437.663" Z="36.43641" />
+
+			<CustomBehavior File="Message" Text="Compiling Skeer the Bloodseeker Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((!HasQuest(31175)) &amp;&amp; (!IsQuestCompleted(31175)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="137.092" Y="3192.54" Z="214.7609" />
+		<PickUp QuestName="Skeer the Bloodseeker" QuestId="31175" GiverName="Kil'ruk the Wind-Reaver" GiverId="62538" X="137.092" Y="3192.54" Z="214.7609" />
+			</If>
+			<If Condition="((HasQuest(31175)) &amp;&amp; (!IsQuestCompleted(31175)))" >
+				<CustomBehavior File="FlyTo" DestName="free Skeer" X="-538.9807" Y="4769.384" Z="6.244722" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="MyCTM" X="-538.9807" Y="4769.384" Z="-54.8595" />
+				<CustomBehavior File="MyCTM" X="-450.4066" Y="4763.945" Z="-32.78341" />
+				<CustomBehavior File="MyCTM" X="-413.8806" Y="4765.103" Z="-31.23785" />
+			 <While Condition="(!IsQuestCompleted(31175))">
+				<CustomBehavior File="InteractWith" QuestId="31175" MobId="212980" ObjectType="Gameobject" Range="5" X="-384.4821" Y="4765.372" Z="-29.38535" />
+			 </While>
+				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for NPC to spawn {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Skeer the Bloodseeker" QuestId="31175" TurnInName="Skeer the Bloodseeker" TurnInId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
+		<PickUp QuestName="A Strange Appetite" QuestId="31176" GiverName="Skeer the Bloodseeker" GiverId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
+		<PickUp QuestName="Fine Dining" QuestId="31177" GiverName="Skeer the Bloodseeker" GiverId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
+			<If Condition="((!HasQuest(31178)) &amp;&amp; (!IsQuestCompleted(31178)))" >
+		<PickUp QuestName="A Bloody Delight" QuestId="31178" GiverName="Skeer the Bloodseeker" GiverId="63071" X="-378.2309" Y="4763.728" Z="-28.91784" />
+				<CustomBehavior File="MyCTM" X="-413.8806" Y="4765.103" Z="-31.23785" />
+				<CustomBehavior File="MyCTM" X="-450.4066" Y="4763.945" Z="-32.78341" />
+				<CustomBehavior File="MyCTM" X="-538.9807" Y="4769.384" Z="-54.8595" />
+				<CustomBehavior File="AscendInWater" />
+			</If>
 
 		
 		
