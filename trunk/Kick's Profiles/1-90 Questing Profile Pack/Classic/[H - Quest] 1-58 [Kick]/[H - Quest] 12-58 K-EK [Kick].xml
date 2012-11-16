@@ -2201,7 +2201,7 @@
 				<CustomBehavior File="CompleteLogQuest" QuestId="14066" /> <!-- Get 869 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
 			</While>
-			<If Condition="((!HasQuest(869)) &amp;&amp; (!IsQuestCompleted(869)))" >
+			<If Condition="((!HasQuest(869)) &amp;&amp; (!IsQuestCompleted(869))) &amp;&amp; (IsQuestCompleted(14066))" >
 		<PickUp QuestName="To Track a Thief" QuestId="869" GiverName="Gazrog" GiverId="3464"/>
 			</If>
 		<PickUp QuestName="Find Baron Longshore" QuestId="14045" GiverName="Gazlowe" GiverId="3391"/>
@@ -2272,10 +2272,10 @@
 		     <Objective QuestName="Gazlowe's Fortune" QuestId="14050" Type="CollectItem" ItemId="46833" CollectCount="1" />
 		<TurnIn QuestName="Gazlowe's Fortune" QuestId="14050" TurnInName="Gazlowe" TurnInId="3391" />
 		<PickUp QuestName="Raging River Ride" QuestId="26769" GiverName="Gazlowe" GiverId="3391" />
-			<If Condition="((HasQuest(869)) &amp;&amp; (!IsQuestCompleted(869)))" >
+			<While Condition="((HasQuest(869)) &amp;&amp; (!IsQuestCompleted(869)))" >
 				<RunTo QuestId="869" X="-552.7271" Y="-3422.826" Z="91.66428"/>
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-			</If>
+			</While>
 			<While Condition="((HasQuest(869)) &amp;&amp; (IsQuestCompleted(869)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="869" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
