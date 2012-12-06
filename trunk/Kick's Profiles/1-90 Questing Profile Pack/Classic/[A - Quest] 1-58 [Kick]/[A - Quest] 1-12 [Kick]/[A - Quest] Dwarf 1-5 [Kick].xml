@@ -203,7 +203,10 @@
 		<PickUp QuestName="Consecrated Rune" QuestId="3107" GiverName="Jona Ironstock" GiverId="37087" />
 		<TurnIn QuestName="Consecrated Rune" QuestId="3107" TurnInName="Bromos Grummner" TurnInId="926" />
 		<PickUp QuestName="The Power of the Light" QuestId="24528" GiverName="Bromos Grummner" GiverId="926" />
-			<CustomBehavior File="CastSpellOn" QuestId="24528" SpellId="20271" MobId="44389" NumOfTimes="1" MobHpPercentLeft="100" MinRange="7" X="-6149.838" Y="385.1614" Z="395.5435" />
+			<While Condition="((HasQuest(24528)) &amp;&amp; (!IsQuestCompleted(24528)))" >
+				<CustomBehavior File="CastSpellOn" QuestId="24528" SpellId="105361" MobId="926" NumOfTimes="1" MobHpPercentLeft="100" MinRange="7" X="-6120.679" Y="382.0895" Z="395.5429" />
+				<CustomBehavior File="CastSpellOn" QuestId="24528" SpellId="35395" MobId="44389" NumOfTimes="1" MobHpPercentLeft="100" MinRange="5" X="-6150.75" Y="378.814" Z="395.5428"/>
+			</While>
 		<TurnIn QuestName="The Power of the Light" QuestId="24528" TurnInName="Bromos Grummner" TurnInId="926" />
 			</If>
 			<If Condition="(Me.Class == WoWClass.Hunter) &amp;&amp; (Me.Race == WoWRace.Dwarf)">
@@ -280,14 +283,15 @@
 		
 			<If Condition="Me.ZoneId == 2257" > <!-- Deeprun Tram -->
 			 <If Condition="Me.Y &lt; 30" > <!-- IF side -->
-				<CustomBehavior File="Message" Text="Riding Tram from SW to IF" LogColor="Cornflowerblue" />
+				<CustomBehavior File="Message" Text="Riding Tram to SW from IF" LogColor="Cornflowerblue" />
 
 				<RunTo X="15.43877" Y="7.605853" Z="-4.295578" />
 
-				<!-- Get on at IF, off at SW -->
-				<CustomBehavior File="UseTransport" TransportId="176081" 
+				<!-- Get on at IF, off at SW --><!-- old one was 176081 -->
+				<CustomBehavior File="UseTransport" TransportId="216507" 
 											WaitAtX="15.43877" WaitAtY="7.605853" WaitAtZ="-4.295578"
 											GetOffX="16.77427" GetOffY="2490.513"  GetOffZ="-4.291193"
+											StandOnX="4.528066" StandOnY="8.435292" StandOnZ="-3.46"
 											TransportStartX="4.528066" TransportStartY="8.435292" TransportStartZ="7.011068"
 											TransportEndX="4.527849" TransportEndY="2490.735" TransportEndZ="7.197604" />
 			 </If>
