@@ -2389,9 +2389,17 @@
 			</If>
 		<TurnIn QuestName="Demonic Contamination" QuestId="9372" TurnInName="Thiah Redmane" TurnInId="16991" X="-312.4847" Y="4728.767" Z="17.22912" />
 		<PickUp QuestName="Testing the Antidote" QuestId="10255" GiverName="Thiah Redmane" GiverId="16991" />
-			<If Condition="((HasQuest(10255)) &amp;&amp; (!IsQuestCompleted(10255)))" >
-				<CustomBehavior File="UseItemOn" QuestId="10255" MobId="16880" ItemId="23337" NumOfTimes="20" WaitTime="1000" Range="28" CollectionDistance="200" X="-348.5844" Y="4607.49" Z="33.42654" />
-				<Objective QuestName="Testing the Antidote" QuestId="10255" Type="KillMob" MobId="16992" KillCount="1" />
+			<If Condition="HasQuest(10255) &amp;&amp; !IsQuestCompleted(10255)">
+		 	 <If Condition="(CanFly())" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="-393.978" Y="4596.579" Z="35.20525" />
+				<CustomBehavior File="ForcedDismount" />
+			 </If>
+			 <While Condition="HasQuest(10255) &amp;&amp; !IsQuestCompleted(10255)">
+			 <If Condition="(Me.Level &gt;= 81)" >
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="5" Text="You are too high for this Combat UseItemOn quest, please manually do it!" />
+			 </If>
+				<CustomBehavior File="CombatUseItemOn" NumOfTimes="1" MobId="16880" ItemId="23337" MaxRange="3" MobHpPercentLeft="99" X="-353.7725" Y="4635.455" Z="30.28903" />
+			 </While>
 			</If>
 			<If Condition="((HasQuest(10255)) &amp;&amp; (IsQuestCompleted(10255)))" >
 		 	 <If Condition="(CanFly())" >
