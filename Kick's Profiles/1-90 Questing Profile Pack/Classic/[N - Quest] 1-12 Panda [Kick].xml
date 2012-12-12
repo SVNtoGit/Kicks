@@ -775,10 +775,32 @@
 				<ClearMailbox />
 			</If>
 			
-	<!-- Alliance -->
-	<If Condition="Me.IsAlliance" >
-		<CustomBehavior File="UserDialog" QuestId="31450" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Alliance is not yet developed, feel free to give code to Kickazz006 if you choose this faction" />
-	</If>
+    <!-- Alliance -->
+    <If Condition="Me.IsAlliance">
+		<CustomBehavior File="Message" Text="New Alliance character, lets go talk to the king" LogColor="Cornflowerblue" />
+		
+		<TurnIn QuestName="A New Fate" QuestId="31450" TurnInName="Aysa Cloudsinder" TurnInId="60566" X="-9061.31" Y="433.76" Z="93.06" />
+		<PickUp QuestName="Joining the Alliance" QuestId="30987" GiverName="Aysa Cloudsinger" GiverId="60566" />
+			<If Condition="(HasQuest(30987))">
+				<CustomBehavior File="Message" Text="... but before we do that lets set our hearthstone" LogColor="Cornflowerblue" />
+				<RunTo X="-8866.866" Y="671.8893" Z="97.9036" />
+				<CustomBehavior File="InteractWith" MobId="6740" X="-8867.79" Y="673.67" Z="97.90" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" />
+			</If>
+		<TurnIn QuestName="Joining the Alliance" QuestId="30987" TurnInName="King Varian Wrynn" TurnInId="29611" />
+		<PickUp QuestName="The Alliance Way" QuestId="30988" GiverName="King Varian Wrynn" GiverId="29611" />
+			<CustomBehavior File="Message" Text="Lets run ahead and wait for the king to finish his speech" LogColor="Cornflowerblue" />
+			<RunTo X="-8326.116" Y="284.257" Z="156.832" />
+			<CustomBehavior File="WaitTimer" WaitTime="105000" />
+		<TurnIn QuestName="The Alliance Way" QuestId="30988" TurnInName="King Varian Wrynn" TurnInId="61796" />
+		<PickUp QuestName="An Old Pit Fighter" QuestId="30989" GiverName="King Varian Wrynn" GiverId="61796" />
+			<Objective QuestName="An Old Pit Fighter" QuestId="30989" Type="KillMob" MobId="61824" KillCount="1" />
+		<TurnIn QuestName="An Old Pit Fighter" QuestId="30989" TurnInName="King Varian Wrynn" TurnInId="29611" />
+		<CustomBehavior File="Message" Text="Congratulations you're finished!" LogColor="Cornflowerblue" />
+    </If>
 	
 	<!-- Horde -->
 	<If Condition="Me.IsHorde" >
@@ -814,9 +836,9 @@
 				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
 		<TurnIn QuestName="Hellscream's Gift" QuestId="31014" TurnInName="Garrosh Hellscream" TurnInId="39605" X="1669.585" Y="-4343.08" Z="28.36353" />
-		
-		<CustomBehavior File="UserDialog" QuestId="31450" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="15" Text="End of Panda profile.  I will not auto-load your faction profile at this time." />
 	</If>
+		
+		<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="15" Text="End of Panda profile.  I will not auto-load your faction profile at this time." />
 
 	</QuestOrder>
 

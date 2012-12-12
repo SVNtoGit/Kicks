@@ -20,6 +20,7 @@
 	<Blackspots>
 		<!--Cold Hearth Manor Sign-->
 		<Blackspot X="2188.518" Y="661.0852" Z="33.29134" Radius="4.017753"/>	
+		<Blackspot X="1966.69" Y="1602.635" Z="88.19614" Radius="10" />
 	</Blackspots>
 	
 	<Mailboxes>
@@ -228,7 +229,6 @@
 		<PickUp QuestName="Those That Couldn't Be Saved" QuestId="26799" GiverId="1568" GiverName="Undertaker Mordo"/>
 		<PickUp QuestName="The Wakening" QuestId="24960" GiverId="2307" GiverName="Caretaker Caice"/>
 			<If Condition="((HasQuest(24960)) &amp;&amp; (!IsQuestCompleted(24960)))" >
-				<CustomBehavior File="Message" Text="If you're stuck here doing nothing :: Re-svn and copy over the quest behaviors and restart HB!" LogColor="Orange" />
 				<CustomBehavior File="InteractWith" QuestId="24960" MobId="49230" GossipOptions="1, 1" X="1752.307" Y="1641.032" Z="117.6537" />
 				<CustomBehavior File="InteractWith" QuestId="24960" MobId="38895" GossipOptions="1, 1" X="1755.315" Y="1665.666" Z="121.2976" />
 				<CustomBehavior File="InteractWith" QuestId="24960" MobId="49231" GossipOptions="1, 1, 1" X="1740.29" Y="1703.01" Z="128.3187" />
@@ -262,7 +262,9 @@
 		<TurnIn QuestName="Beyond the Graves" QuestId="25089" TurnInId="1740" TurnInName="Deathguard Saltain"/>
 		<PickUp QuestName="Recruitment" QuestId="26800" GiverId="1740" GiverName="Deathguard Saltain"/>
 		<PickUp QuestName="Scourge on our Perimeter" QuestId="26801" GiverId="1569" GiverName="Shadow Priest Sarvis"/>
-			<CustomBehavior File="InteractWith" QuestId="26800" MobId="49340" NumOfTimes="30" WaitTime="2500" X="1917.147" Y="1539.306" Z="86.90076" />
+			<While Condition="((HasQuest(26800)) &amp;&amp; (!IsQuestCompleted(26800)))" >
+				<CustomBehavior File="InteractWith" QuestId="26800" MobId="49340" NumOfTimes="30" WaitTime="2500" IgnoreMobsInBlackspots="True" X="1917.147" Y="1539.306" Z="86.90076" />
+			</While>
 			<Objective QuestName="Scourge on our Perimeter" QuestId="26801" Type="KillMob" MobId="1890" KillCount="8"/>
 		<TurnIn QuestName="Recruitment" QuestId="26800" TurnInName="Deathguard Saltain" TurnInId="1740"/>
 		<TurnIn QuestName="Scourge on our Perimeter" QuestId="26801" TurnInId="1569" TurnInName="Shadow Priest Sarvis"/>
@@ -284,6 +286,10 @@
 			<TurnIn QuestName="Charging into Battle" QuestId="24969" TurnInId="2119" TurnInName="Dannal Stern"/>
 		</If>
 
+		<If Condition="Me.Class == WoWClass.Monk">
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Line!\n\nYes, I fight for the users!" />
+		</If>
+		
 		<If Condition="Me.Class == WoWClass.Hunter">
 			<PickUp QuestName="Trail-Worn Scroll" QuestId="24962" GiverId="1569" GiverName="Shadow Priest Sarvis"/>
 			<TurnIn QuestName="Trail-Worn Scroll" QuestId="24962" TurnInId="38911" TurnInName="Xavier the Huntsman"/>
