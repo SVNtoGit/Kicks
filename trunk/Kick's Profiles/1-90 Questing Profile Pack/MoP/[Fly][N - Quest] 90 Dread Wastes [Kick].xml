@@ -733,7 +733,9 @@
 				<CustomBehavior File="FlyTo" DestName="Objective" X="28.281" Y="4003.066" Z="240.9577" />
 				<CustomBehavior File="ForcedDismount" />
 			 <While Condition="((HasQuest(31009)) &amp;&amp; (!IsQuestCompleted(31009)))" >
-				<CustomBehavior File="InteractWith" QuestId="31009" MobId="212524" ObjectType="Gameobject" X="25.28475" Y="3998.119" Z="240.6393" />
+				<!--<CustomBehavior File="InteractWith" QuestId="31009" MobId="212524" ObjectType="Gameobject" X="25.28475" Y="3998.119" Z="240.6393" />-->
+				<RunTo X="25.28475" Y="3998.119" Z="240.6393" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(83276)" WaitTime="1000" />
 			 </While>
 			</If>
 			<While Condition="((HasQuest(31009)) &amp;&amp; (IsQuestCompleted(31009)))" >
@@ -1291,7 +1293,8 @@
 		<PickUp QuestName="Bind the Glamour" QuestId="31084" GiverName="Chief Rikkitun" GiverId="62771" X="801.1979" Y="4071.11" Z="210.6274" />
 			<If Condition="HasQuest(31084) &amp;&amp; !IsQuestCompleted(31084)" >
 				<CustomBehavior File="InteractWith" MobId="62771" GossipOptions="1" X="801.1979" Y="4071.11" Z="210.6274" />
-				<CustomBehavior File="FlyTo" DestName="fork blade" X="601.3607" Y="4042.001" Z="203.8296" />
+				<!--<CustomBehavior File="FlyTo" DestName="fork blade" X="601.3607" Y="4042.001" Z="203.8296" />-->
+				<CustomBehavior File="Escort" EscortUntil="QuestComplete" QuestId="31084" MobId="63118" />
 			 <While Condition="!IsQuestCompleted(31084)" >
 				<RunTo X="601.3607" Y="4042.001" Z="203.8296" />
 				<CustomBehavior File="WaitTimer" QuestId="31084" WaitTime="45000" GoalText="Waiting for quest to complete {TimeRemaining}" />
@@ -1388,7 +1391,7 @@
 					<Hotspot X="-1436.747" Y="3010.099" Z="-21.45887" />
 					<Hotspot X="-1429.741" Y="3205.193" Z="-24.11611" />
 				</CustomBehavior>
-			  <While Condition="((HasItem(85230)) &amp;&amp; (!IsQuestCompleted(31181)))" >
+			  <While Condition="((GetItemCount(85230) &gt;= 2) &amp;&amp; (!IsQuestCompleted(31181)))" >
 				<CustomBehavior File="InteractWith" QuestId="31181" MobId="213071" ObjectType="Gameobject" Range="5" NumOfTimes="2" CollectionDistance="1000" Nav="CTM" X="-1466.192" Y="3200.014" Z="-18.57028" />
 			  </While>
 			 </While>
