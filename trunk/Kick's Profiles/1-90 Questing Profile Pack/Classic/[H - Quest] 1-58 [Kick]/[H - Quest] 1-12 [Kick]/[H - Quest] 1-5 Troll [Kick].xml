@@ -173,6 +173,39 @@
 
 	<CustomBehavior File="UserSettings" LootMobs="True" UseFlightPaths="False" PullDistance="15" />
 	
+		<If Condition="Me.Class == WoWClass.Monk">
+			<PickUp QuestName="The Rise of the Darkspear" QuestId="31159" GiverName="Jin'thala" GiverId="37951"/>
+			<TurnIn QuestName="The Rise of the Darkspear" QuestId="31159" TurnInName="Zabrax" TurnInId="63310" X="-1149.391" Y="-5441.252" Z="12.04295" />
+			<PickUp QuestName="The Basics: Hitting Things" QuestId="31158" GiverName="Zabrax" GiverId="63310" X="-1149.391" Y="-5441.252" Z="12.04295" />
+				<CustomBehavior File="KillUntilComplete" QuestId="31158" MobId1="38038" X="-1130.056" Y="-5544.335" Z="12.04533" /> <!-- Objective took 2 swings and moved to next target -->
+				<!--<Objective QuestName="The Basics: Hitting Things" QuestId="31158" Type="KillMob" MobId="38038" KillCount="6" />-->
+			<TurnIn QuestName="The Basics: Hitting Things" QuestId="31158" TurnInName="Zabrax" TurnInId="63310" X="-1149.391" Y="-5441.252" Z="12.04295" />
+			<PickUp QuestName="A Rough Start" QuestId="31160" GiverName="Zabrax" GiverId="63310" X="-1149.391" Y="-5441.252" Z="12.04295" />
+				<Objective QuestName="A Rough Start" QuestId="31160" Type="CollectItem" ItemId="50222" CollectCount="6" />
+			<TurnIn QuestName="A Rough Start" QuestId="31160" TurnInName="Zabrax" TurnInId="63310" X="-1149.391" Y="-5441.252" Z="12.04295" />
+			<PickUp QuestName="Proving Pit" QuestId="31161" GiverName="Zabrax" GiverId="63310" X="-1149.391" Y="-5441.252" Z="12.04295" />
+				<While Condition="((HasQuest(31161)) &amp;&amp; (!IsQuestCompleted(31161)))" >
+					<CustomBehavior File="InteractWith" QuestId="31161" MobId="39062" GossipOptions="1,1,1,1" NumOfTimes="1" X="-1161.016" Y="-5530.047" Z="11.97635" />
+					<RunTo QuestId="31161" X="-1148.87" Y="-5530.831" Z="8.106249" />
+					<CustomBehavior QuestId="31161" File="WaitTimer" WaitTime="8000"/>
+					
+					<CustomBehavior QuestId="31161" File="InteractWith" WaitForNpcs="False" MobState="Alive" MobId="38142" X="-1161.016" Y="-5530.047" Z="11.97635" />
+					<CustomBehavior QuestId="31161" File="WaitTimer" WaitTime="4000" GoalText="Waiting for mob to spawn {TimeRemaining}" />
+					<CustomBehavior QuestId="31161" File="InteractWith" WaitForNpcs="False" MobState="Alive" MobId="38142" X="-1161.016" Y="-5530.047" Z="11.97635" />
+					<CustomBehavior QuestId="31161" File="WaitTimer" WaitTime="4000" GoalText="Waiting for mob to spawn {TimeRemaining}" />
+					<CustomBehavior QuestId="31161" File="InteractWith" WaitForNpcs="False" MobState="Alive" MobId="38142" X="-1161.016" Y="-5530.047" Z="11.97635" />
+				</While>
+			<TurnIn QuestName="Proving Pit" QuestId="31161" TurnInName="Zabrax" TurnInId="63310" X="-1151.54" Y="-5429.86" Z="13.29252" />
+			<PickUp QuestName="The Arts of a Monk" QuestId="31162" GiverName="Zabrax" GiverId="63310" X="-1151.54" Y="-5429.86" Z="13.29252" />
+				<While Condition="((HasQuest(31162)) &amp;&amp; (!IsQuestCompleted(31162)))" >
+					<CustomBehavior File="CastSpellOn" SpellId="100780" MobId="38038" NumOfTimes="1" MobHpPercentLeft="100" MinRange="5" X="-1141.224" Y="-5444.458" Z="11.98756" />
+					<CustomBehavior File="CastSpellOn" SpellId="100787" MobId="38038" NumOfTimes="1" MobHpPercentLeft="100" MinRange="5" X="-1141.224" Y="-5444.458" Z="11.98756" />
+				</While>
+			<TurnIn QuestName="The Arts of a Monk" QuestId="31162" TurnInName="Zabrax" TurnInId="63310" X="-1151.54" Y="-5429.86" Z="13.29252" />
+			<PickUp QuestName="More Than Expected" QuestId="31163" GiverName="Zabrax" GiverId="63310" X="-1151.54" Y="-5429.86" Z="13.29252" />
+			<TurnIn QuestName="More Than Expected" QuestId="31163" TurnInName="Vol'jin" TurnInId="38966" X="-1318.085" Y="-5603.771" Z="23.71985" />
+		</If>
+		
 		<If Condition="Me.Class == WoWClass.Warlock">
 			<PickUp QuestName="The Rise of the Darkspear" QuestId="26272" GiverName="Jin'thala" GiverId="37951"/>
 			<TurnIn QuestName="The Rise of the Darkspear" QuestId="26272" TurnInName="Voldreka" TurnInId="42618"/>
