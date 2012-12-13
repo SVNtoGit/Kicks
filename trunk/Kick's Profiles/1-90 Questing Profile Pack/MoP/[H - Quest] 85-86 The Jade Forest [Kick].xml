@@ -406,15 +406,18 @@
 	<Quest Id="29866" Name="The Threads that Stick">
 		<Objective Type="CollectItem" ItemId="75023" CollectCount="7">
 			<CollectFrom>
-				<GameObject Name="Silk Patch" Id="209951" />
+			  <GameObject Name="Silk Patch" Id="209951" />
+			  <GameObject Name="Silk Patch" Id="209833" />
+			  <GameObject Name="Silk Patch" Id="209826" />
 			</CollectFrom>
 			<Hotspots>
-				<Hotspot X="1537.031" Y="-541.6403" Z="316.0916" />
-				<Hotspot X="1490.969" Y="-576.0008" Z="308.9657" />
-				<Hotspot X="1430.159" Y="-663.2028" Z="319.231" />
-				<Hotspot X="1488.782" Y="-727.9255" Z="295.3275" />
-				<Hotspot X="1458.685" Y="-807.4302" Z="289.0884" />
-				<Hotspot X="1415.499" Y="-703.3125" Z="315.3102" />
+				<Hotspot X="1368.275" Y="-1487.718" Z="272.6338" />
+				<Hotspot X="1270.06" Y="-1513.889" Z="248.2551" />
+				<Hotspot X="1285.718" Y="-1620.366" Z="230.9354" />
+				<Hotspot X="1373.419" Y="-1680.365" Z="220.4242" />
+				<Hotspot X="1453.32" Y="-1666.312" Z="236.9703" />
+				<Hotspot X="1318.763" Y="-1575.857" Z="246.2861" />
+				<Hotspot X="1417.934" Y="-1587.774" Z="266.3169" />
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -1526,11 +1529,28 @@
 		<PickUp QuestName="Back to Nature" QuestId="29753" GiverName="Pei-Zhi" GiverId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
 		<PickUp QuestName="A Humble Offering" QuestId="29756" GiverName="Pei-Zhi" GiverId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
 			<If Condition="((HasQuest(29753)) &amp;&amp; (!IsQuestCompleted(29753)))" >
+			   <CustomBehavior File="UserSettings" PullDistance="20" />
+			 <While Condition="((HasQuest(29753)) &amp;&amp; (!IsQuestCompleted(29753)))" >
+				<RunTo X="3123.986" Y="-1310.986" Z="204.2493" />
+			  <!-- CJ: Wait for patrolling mobs to leave area, as they will interfere with UseItemTargetLocation -->
+			  <While Condition="ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;(true, false).Count(u =&gt; u.IsHostile &amp;&amp; !u.IsDead &amp;&amp; u.Distance &lt; 18) &gt; 0" >
+				<CustomBehavior File="Message" Text="Waiting for patrolling mobs to clear" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+			  </While>
+				<!-- CJ: Move back into position in case battle pulled us away -->
+				<RunTo X="3123.986" Y="-1310.986" Z="204.2493" />
+				<CustomBehavior File="UseItemTargetLocation" ItemId="74808" WaitTime="4000" ClickToX="3120.403" ClickToY="-1313.888" ClickToZ="203.7833" />
+			 </While>
+				<CustomBehavior File="UserSettings" Preset="UserOriginal" />
+			</If>
+			<!-- old code
+			<If Condition="((HasQuest(29753)) &amp;&amp; (!IsQuestCompleted(29753)))" >
 				<RunTo X="3123.986" Y="-1310.986" Z="204.2493" />
 			 <While Condition="((HasQuest(29753)) &amp;&amp; (!IsQuestCompleted(29753)))" >
 				<CustomBehavior File="UseItemTargetLocation" QuestId="29753" ItemId="74808" WaitTime="4000" ClickToX="3116.286" ClickToY="-1322.585" ClickToZ="205.4666" />
 			 </While>
 			</If>
+			-->
 			<Objective QuestName="A Humble Offering" QuestId="29756" Type="CollectItem" ItemId="75214" CollectCount="10" />
 		<TurnIn QuestName="Back to Nature" QuestId="29753" TurnInName="Pei-Zhi" TurnInId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
 		<TurnIn QuestName="A Humble Offering" QuestId="29756" TurnInName="Pei-Zhi" TurnInId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />

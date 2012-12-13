@@ -367,14 +367,13 @@
 			  <GameObject Name="Silk Patch" Id="209826" />
 			</CollectFrom>
 			<Hotspots>
-		  <Hotspot X="1336.648" Y="-1665.314" Z="220.0438" />
-		  <Hotspot X="1361.466" Y="-1599.66" Z="250.7068" />
-		  <Hotspot X="1384.462" Y="-1550.279" Z="269.9716" />
-		  <Hotspot X="1400.778" Y="-1500.676" Z="282.0865" />
-		  <Hotspot X="1335.788" Y="-1475.473" Z="264.9185" />
-		  <Hotspot X="1261.8" Y="-1466.167" Z="252.7963" />
-		  <Hotspot X="1243.588" Y="-1516.693" Z="244.8603" />
-		  <Hotspot X="1274.096" Y="-1574.059" Z="236.3909" />
+				<Hotspot X="1368.275" Y="-1487.718" Z="272.6338" />
+				<Hotspot X="1270.06" Y="-1513.889" Z="248.2551" />
+				<Hotspot X="1285.718" Y="-1620.366" Z="230.9354" />
+				<Hotspot X="1373.419" Y="-1680.365" Z="220.4242" />
+				<Hotspot X="1453.32" Y="-1666.312" Z="236.9703" />
+				<Hotspot X="1318.763" Y="-1575.857" Z="246.2861" />
+				<Hotspot X="1417.934" Y="-1587.774" Z="266.3169" />
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -909,6 +908,7 @@
 		<PickUp QuestName="Priorities!" QuestId="31739" GiverName="Teng Applebloom" GiverId="64596" X="-289.29" Y="-1775.58" Z="61.8724" />
 		<PickUp QuestName="Critical Condition" QuestId="29552" GiverName="Mishka" GiverId="54614" X="-283.9236" Y="-1769.379" Z="61.63127" />
 			<While Condition="((HasQuest(31739)) &amp;&amp; (!IsQuestCompleted(31739)))" >
+				<!-- add 'talk to npc if we don't have him following us' logic -->
 				<CustomBehavior File="InteractWith" QuestId="31739" MobId="215133" WaitForNpcs="False" ObjectType="Gameobject" CollectionDistance="1000" X="-443.1266" Y="-1563.94" Z="28.27024" />
 				<CustomBehavior File="InteractWith" QuestId="31739" MobId="215133" WaitForNpcs="False" ObjectType="Gameobject" CollectionDistance="1000" X="-485.9838" Y="-1506.734" Z="21.26701" />
 				<CustomBehavior File="InteractWith" QuestId="31739" MobId="215133" WaitForNpcs="False" ObjectType="Gameobject" CollectionDistance="1000" X="-410.5862" Y="-1445.66" Z="22.45845" />
@@ -1499,11 +1499,28 @@
 		<PickUp QuestName="Back to Nature" QuestId="29753" GiverName="Pei-Zhi" GiverId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
 		<PickUp QuestName="A Humble Offering" QuestId="29756" GiverName="Pei-Zhi" GiverId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
 			<If Condition="((HasQuest(29753)) &amp;&amp; (!IsQuestCompleted(29753)))" >
+			   <CustomBehavior File="UserSettings" PullDistance="20" />
+			 <While Condition="((HasQuest(29753)) &amp;&amp; (!IsQuestCompleted(29753)))" >
+				<RunTo X="3123.986" Y="-1310.986" Z="204.2493" />
+			  <!-- CJ: Wait for patrolling mobs to leave area, as they will interfere with UseItemTargetLocation -->
+			  <While Condition="ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;(true, false).Count(u =&gt; u.IsHostile &amp;&amp; !u.IsDead &amp;&amp; u.Distance &lt; 18) &gt; 0" >
+				<CustomBehavior File="Message" Text="Waiting for patrolling mobs to clear" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+			  </While>
+				<!-- CJ: Move back into position in case battle pulled us away -->
+				<RunTo X="3123.986" Y="-1310.986" Z="204.2493" />
+				<CustomBehavior File="UseItemTargetLocation" ItemId="74808" WaitTime="4000" ClickToX="3120.403" ClickToY="-1313.888" ClickToZ="203.7833" />
+			 </While>
+				<CustomBehavior File="UserSettings" Preset="UserOriginal" />
+			</If>
+			<!-- old code
+			<If Condition="((HasQuest(29753)) &amp;&amp; (!IsQuestCompleted(29753)))" >
 				<RunTo X="3123.986" Y="-1310.986" Z="204.2493" />
 			 <While Condition="((HasQuest(29753)) &amp;&amp; (!IsQuestCompleted(29753)))" >
 				<CustomBehavior File="UseItemTargetLocation" QuestId="29753" ItemId="74808" WaitTime="4000" ClickToX="3116.286" ClickToY="-1322.585" ClickToZ="205.4666" />
 			 </While>
 			</If>
+			-->
 			<Objective QuestName="A Humble Offering" QuestId="29756" Type="CollectItem" ItemId="75214" CollectCount="10" />
 		<TurnIn QuestName="Back to Nature" QuestId="29753" TurnInName="Pei-Zhi" TurnInId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
 		<TurnIn QuestName="A Humble Offering" QuestId="29756" TurnInName="Pei-Zhi" TurnInId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
