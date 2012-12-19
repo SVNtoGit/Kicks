@@ -252,9 +252,15 @@ namespace Styx.Bot.Quest_Behaviors
                     }
                     else
                     {
-                        Thread.Sleep(450);
+                        Thread.Sleep((StyxWoW.WoWClient.Latency * 2) + 150);
                         Navigator.PlayerMover.MoveStop();
-                        rifle.Interact();
+                        Thread.Sleep((StyxWoW.WoWClient.Latency * 2) + 150);
+
+
+                        for (int i = 0; i < 10; i++)
+                        {
+                            rifle.Interact();
+                        }
 
                         spoke = true;
                     }
@@ -273,15 +279,15 @@ namespace Styx.Bot.Quest_Behaviors
 
                 if (IsQuestComplete())
                 {
-                    
+
                     break;
 
                 }
 
-                
+
 
             }
-            
+
             //base.OnTick();
         }
 
@@ -295,7 +301,7 @@ namespace Styx.Bot.Quest_Behaviors
                      new Decorator(r => Enemy.Count > 0, new Action(r =>
                                                                       {
 
-                                                                          foreach(var unit in Enemy)
+                                                                          foreach (var unit in Enemy)
                                                                           {
                                                                               unit.Interact(false);
                                                                           }
@@ -351,7 +357,7 @@ namespace Styx.Bot.Quest_Behaviors
             {
 
                 CharacterSettings.Instance.UseMount = false;
-                
+
                 if (TreeRoot.Current != null && TreeRoot.Current.Root != null && TreeRoot.Current.Root.LastStatus != RunStatus.Running)
                 {
                     var currentRoot = TreeRoot.Current.Root;
