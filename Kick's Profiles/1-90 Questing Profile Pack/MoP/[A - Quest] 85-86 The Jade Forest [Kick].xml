@@ -1283,11 +1283,26 @@
 		<TurnIn QuestName="Body" QuestId="29892" TurnInName="Lorewalker Cho" TurnInId="56287" X="-566.1215" Y="-2303.628" Z="18.45896" />
 		<TurnIn QuestName="Hue" QuestId="29893" TurnInName="Lorewalker Cho" TurnInId="56287" X="-566.1215" Y="-2303.628" Z="18.45896" />
 		<PickUp QuestName="Finding Your Center" QuestId="29890" GiverName="Lorewalker Cho" GiverId="56287" X="-566.1215" Y="-2303.628" Z="18.45896" />
+			<While Condition="((HasQuest(29890)) &amp;&amp; (!IsQuestCompleted(29890)))" >
+			 <If Condition="!Me.InVehicle" >
+				<CustomBehavior File="InteractWith" MobId="213754" ObjectType="Gameobject" Range="5" X="-630.2978" Y="-2364.32" Z="22.86646" />
+			 </If>
+			 <While Condition="Me.InVehicle" >
+				<If Condition="!IsQuestCompleted(29890)" >
+					<CustomBehavior File="Misc\RunLua" Lua="if UnitPower(&quot;player&quot;, 10) &lt; 50 then OverrideActionBarButton2:Click() else OverrideActionBarButton1:Click() end " WaitTime="0" />
+				<Else>
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				</Else>
+				</If>
+			 </While>
+			</While>
+			<!--
 			<If Condition="((HasQuest(29890)) &amp;&amp; (!IsQuestCompleted(29890)))" >
 				<CustomBehavior File="UserDialog" QuestId="29890" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Manually complete this quest" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
 			</If>
+			-->
 		<TurnIn QuestName="Finding Your Center" QuestId="29890" TurnInName="Anduin Wrynn" TurnInId="56434" X="-37.23264" Y="-3150.474" Z="86.16225" />
 		<PickUp QuestName="Sacred Waters" QuestId="29898" GiverName="Anduin Wrynn" GiverId="56434" X="-37.23264" Y="-3150.474" Z="86.16225" />
 		<PickUp QuestName="Rest in Peace" QuestId="29899" GiverName="Ren Whitepaw" GiverId="56432" X="-37.73958" Y="-3155.663" Z="86.16234" />
