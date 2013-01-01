@@ -26,14 +26,14 @@ using Action = Styx.TreeSharp.Action;
 
 namespace Styx.Bot.Quest_Behaviors
 {
-    public class LikeJinyuinaBarrel : CustomForcedBehavior
+    public class TheLessonofDryFur : CustomForcedBehavior
     {
-        ~LikeJinyuinaBarrel()
+        ~TheLessonofDryFur()
         {
             Dispose(false);
         }
 
-        public LikeJinyuinaBarrel(Dictionary<string, string> args)
+        public TheLessonofDryFur(Dictionary<string, string> args)
             : base(args)
         {
             try
@@ -42,7 +42,7 @@ namespace Styx.Bot.Quest_Behaviors
                 //    http://www.thebuddyforum.com/mediawiki/index.php?title=Honorbuddy_Programming_Cookbook:_QuestId_for_Custom_Behaviors
                 // ...and also used for IsDone processing.
                 //Location = GetAttributeAsNullable<WoWPoint>("", true, ConstrainAs.WoWPointNonEmpty, null) ??WoWPoint.Empty;
-                QuestId = 29824; //GetAttributeAsNullable<int>("QuestId", true, ConstrainAs.QuestId(this), null) ?? 0;
+                QuestId = 29661; //GetAttributeAsNullable<int>("QuestId", true, ConstrainAs.QuestId(this), null) ?? 0;
                 //MobIds = GetAttributeAsNullable<int>("MobId", true, ConstrainAs.MobId, null) ?? 0;
                 QuestRequirementComplete = QuestCompleteRequirement.NotComplete;
                 QuestRequirementInLog = QuestInLogRequirement.InLog;
@@ -135,7 +135,7 @@ namespace Styx.Bot.Quest_Behaviors
                     new Decorator(ret => IsQuestComplete(), new Action(delegate
                     {
                         TreeRoot.StatusText = "Finished!";
-                        CharacterSettings.Instance.UseMount = true;
+                        //CharacterSettings.Instance.UseMount = true;
                         _isBehaviorDone = true;
                         return RunStatus.Success;
                     }));
@@ -175,152 +175,86 @@ namespace Styx.Bot.Quest_Behaviors
         //<Vendor Name="Pearlfin Poolwatcher" Entry="55711" Type="Repair" X="-130.8297" Y="-2636.422" Z="1.639656" />
 
         //209691 - sniper rifle
-        public WoWGameObject rifle
+        public WoWGameObject Bell
         {
             get
             {
                 return
-                    ObjectManager.GetObjectsOfType<WoWGameObject>().FirstOrDefault(r => r.Entry == 209691);
+                    ObjectManager.GetObjectsOfType<WoWGameObject>().FirstOrDefault(r=>r.Entry == 209608);
             }
 
         }
 
 
 
-        uint[] jinyu = new uint[] { 55793, 56701, 55791, 55711, 55709, 55710 };
-        public List<WoWUnit> Enemy
+        
+        public IEnumerable<WoWUnit> Poles
         {
             get
             {
                 return
-                    ObjectManager.GetObjectsOfType<WoWUnit>().Where(r => jinyu.Contains(r.Entry)).ToList();
+                    ObjectManager.GetObjectsOfType<WoWUnit>().Where(r =>r.NpcFlags == 16777216);
             }
 
         }
 
-        public WoWUnit Barrel
-        {
-            get
-            {
-                return
-                    ObjectManager.GetObjectsOfType<WoWUnit>().FirstOrDefault(r => r.Entry == 55784);
-            }
 
-        }
-
+       
 
         private int stage = 0;
-        WoWPoint spot = new WoWPoint(370.5139, -2026.915, 57.19295);
-
+        WoWPoint spot = new WoWPoint(966.1218,3284.928,126.7932);
+        
 
         private bool spoke = false;
-        public Composite PhaseOne
-        {
-            get
-            {
-                return
-                    new Decorator(r => !spoke, new PrioritySelector(
-                        new Decorator(r => !rifle.WithinInteractRange, new Action(r => WoWMovement.ClickToMove(rifle.Location))),
-                        new Decorator(r => rifle.WithinInteractRange, new Action(r =>
-                        {
-                            Thread.Sleep(450);
-                            Navigator.PlayerMover.MoveStop();
-                            rifle.Interact();
-
-                            spoke = true;
-                        }))
-
-                        ));
-
-
-            }
-        }
-
-
-        public override void OnTick()
-        {
-            while (true)
-            {
-                ObjectManager.Update();
-
-
-                if (!spoke)
-                {
-                    if (!rifle.WithinInteractRange)
-                    {
-                        WoWMovement.ClickToMove(rifle.Location);
-                    }
-                    else
-                    {
-                        Thread.Sleep((int)((StyxWoW.WoWClient.Latency * 2) + 150));
-                        Navigator.PlayerMover.MoveStop();
-                        Thread.Sleep((int)((StyxWoW.WoWClient.Latency * 2) + 150));
-
-
-                        for (int i = 0; i < 10; i++)
-                        {
-                            rifle.Interact();
-                        }
-
-                        spoke = true;
-                    }
-                }
-
-                if (Barrel != null)
-                {
-                    Barrel.Interact();
-                }
-
-                foreach (var unit in Enemy)
-                {
-                    unit.Interact(true);
-                }
-
-
-                if (IsQuestComplete())
-                {
-
-                    break;
-
-                }
 
 
 
-            }
-
-            //base.OnTick();
-        }
-
-        public Composite PhaseTwo
+    
+        private Composite GetonPole
         {
             get
             {
                 return new PrioritySelector(
-
-                    new Decorator(r => Barrel != null, new Action(r => Barrel.Interact())),
-                     new Decorator(r => Enemy.Count > 0, new Action(r =>
-                                                                      {
-
-                                                                          foreach (var unit in Enemy)
-                                                                          {
-                                                                              unit.Interact(false);
-                                                                          }
-                                                                          Logging.Write("dsad" + new Random().Next());
-                                                                          //Blacklist.Add(Enemy,BlacklistFlags.All, TimeSpan.FromSeconds(5));
-                                                                          //Thread.Sleep(100);
-                                                                      }
-                                                           ))
-
-
+                    new Decorator(r=> Bell.Distance > 10 && !Me.InVehicle && Me.Location.Distance(spot) > 10, new Action(r=>Navigator.MoveTo(spot))),
+                    new Decorator(r=> Bell.Distance > 10 && !Me.InVehicle, new Action(r => Poles.OrderBy(z => z.Distance).FirstOrDefault().Interact(true)))
+                    
+                    
                     );
             }
+        }
 
+
+        private Composite PoleCombat
+        {
+            get
+            {
+                return new PrioritySelector(
+                    new Decorator(r => Bell.Distance > 10, new Action(delegate
+                                                                         {
+
+                                                                             var Pole =
+                                                                                 Poles.Where(r => r.WithinInteractRange)
+                                                                                     .
+                                                                                     OrderBy(
+                                                                                         r =>
+                                                                                         r.Location.Distance2D(Bell.Location)).
+                                                                                     FirstOrDefault();
+                                                                             Pole.Interact(true);
+
+
+                                                                         })),
+                    new Decorator(r => Bell.Distance <= 5, new Action(delegate
+                                                                          {
+                                                                              Bell.Interact();
+                                                                          }
+                                                               )));
+            }
         }
 
 
         protected override Composite CreateBehavior()
         {
-            return _root ?? (_root = new Decorator(ret => !_isBehaviorDone, new PrioritySelector(DoneYet, PhaseOne, PhaseTwo, new ActionAlwaysSucceed())));
+            return _root ?? (_root = new Decorator(ret => !_isBehaviorDone, new PrioritySelector(DoneYet, GetonPole,PoleCombat,new ActionAlwaysSucceed())));
         }
 
 
@@ -356,7 +290,7 @@ namespace Styx.Bot.Quest_Behaviors
             if (!IsDone)
             {
 
-                CharacterSettings.Instance.UseMount = false;
+                //CharacterSettings.Instance.UseMount = false;
 
                 if (TreeRoot.Current != null && TreeRoot.Current.Root != null && TreeRoot.Current.Root.LastStatus != RunStatus.Running)
                 {
