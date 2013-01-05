@@ -3032,13 +3032,14 @@
 			<If Condition="(Me.Level &gt;= 81)" >
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="5" Text="You are too high for this Combat UseItemOn quest, please manually do it!" />
 			</If>
-		
-				<CustomBehavior File="CombatUseItemOn" QuestId="11590" ItemId="34691" MobId="25316" NumOfTimes="20" UseRange="10" MobHpPercentLeft="40" WaitTime="5000" X="3412.103" Y="6102.03" Z="66.76636" />
+				<!-- Petpassive -->
+				<CustomBehavior File="CombatUseItemOn" QuestId="11590" ItemId="34691" MobId="25316" NumOfTimes="20" Range="10" MobHpPercentLeft="40" WaitTime="5000" CollectionDistance="200" X="3412.103" Y="6102.03" Z="66.76636" />
 				<CustomBehavior File="WaitTimer" WaitTime="6000" />
 			</If>
 			<If Condition="((HasQuest(11590)) &amp;&amp; (IsQuestCompleted(11590)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3611.017" Y="5962.407" Z="136.2169" />
 				<CustomBehavior File="ForcedDismount" />
+				<!-- Pet assist -->
 		<TurnIn QuestName="Abduction" QuestId="11590" TurnInName="Librarian Donathan" TurnInId="25262" />
 		<PickUp QuestName="The Borean Inquisition" QuestId="11646" GiverName="Librarian Donathan" GiverId="25262" />
 			</If>
@@ -6766,6 +6767,7 @@
 		<TurnIn QuestName="A Minor Substitution" TurnInName="Hidetrader Jun'ik" QuestId="12176" TurnInId="27037" />
 		<PickUp QuestName="Jun'ik's Coverup" GiverName="Hidetrader Jun'ik" QuestId="12177" GiverId="27037" />
 			<If Condition="HasQuest(12177) &amp;&amp; !IsQuestCompleted(12177)" >
+				<CustomBehavior File="DisablePlugin" Names="MrItemRemover2" />
 			 <If Condition="(GetItemCount(30817) &lt; 5)" >
 				<CustomBehavior File="InteractWith" MobId="26868" BuyItemId="30817" BuyItemCount="5" X="3200.552" Y="-2301.466" Z="107.6755" />
 			 </If>
@@ -8689,8 +8691,10 @@
 			<If Condition="((HasQuest(12544)) &amp;&amp; (!IsQuestCompleted(12544)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="5210.412" Y="5791.234" Z="-70.80236" />
 				<CustomBehavior File="ForcedDismount" />
+			 <While Condition="((HasQuest(12544)) &amp;&amp; (!IsQuestCompleted(12544)))" >
 				<UseItem QuestName="The Bones of Nozronn" QuestId="12544" ItemId="38519" X="5210.412" Y="5791.234" Z="-70.80236" />
 				<CustomBehavior File="WaitTimer" WaitTime="37000" GoalText="Waiting for event {TimeRemaining}" />
+			 </While>
 			</If>
 			<If Condition="((HasQuest(12804)) &amp;&amp; (IsQuestCompleted(12804)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5560.848" Y="5764.8" Z="-76.68642" />
