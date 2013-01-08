@@ -392,7 +392,6 @@
 	
 	<QuestOrder>
 
-		<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This is a non-afk profile and it is currently in development.  You will have to pick your own faction when the time comes (at least temporarily for now)" />
 		<CustomBehavior File="UserSettings" PullDistance="25" UseMount="False" LootMobs="True" />
 		<CustomBehavior File="RunMacro" Macro="/script SetCVar('AutoLootDefault', 1)" NumOfTimes="1" WaitTime="1000" />
 
@@ -772,7 +771,14 @@
 		<PickUp QuestName="A New Fate" QuestId="31450" GiverName="Spirit of Master Shang Xi" GiverId="56013" X="926.4063" Y="3605.01" Z="196.321" />
 			<If Condition="((HasQuest(31450)) &amp;&amp; (!IsQuestCompleted(31450)))" >
 				<CustomBehavior File="InteractWith" QuestId="31450" MobId="56013" GossipOptions="1" X="926.4063" Y="3605.01" Z="196.321" />
-				<CustomBehavior File="UserDialog" QuestId="31450" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Choose if you want to be Alliance or Horde.\n\nDO NOTE: THIS IS NOT CHANGEABLE AFTER YOU SELECT YOUR FACTION!!!!!!!" />
+				<CustomBehavior File="UserDialog" QuestId="31450" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" Text="Choose if you want to be Alliance or Horde.\n\nDO NOTE: THIS IS NOT CHANGEABLE AFTER YOU SELECT YOUR FACTION!!!!!!!" />
+				<!--
+				// Horde
+				<CustomBehavior File="Misc\RunLua" Lua="NeutralPlayerSelectFaction(1);" WaitTime="1000" />
+
+				// Alliance
+				<CustomBehavior File="Misc\RunLua" Lua="NeutralPlayerSelectFaction(2);" WaitTime="1000" />
+				-->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
