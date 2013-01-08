@@ -1,5 +1,5 @@
 <HBProfile>
-	<Name>Worgen Quests 1-14</Name>
+	<Name>[A - Quest] Worgen 1-12 [Kick]</Name>
 	<MinLevel>1</MinLevel>
 	<MaxLevel>200</MaxLevel>
 	<MinDurability>0.3</MinDurability>
@@ -887,26 +887,31 @@
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for zone {TimeRemaining}" />
 			 </If>
 			</If>
-			<!-- Not doing Kalimdor for alliance with Kick's profile 
-		<PickUp QuestName="Breaking Waves of Change" QuestId="26385" GiverName="Genn Greymane" GiverId="48736" />
-			<If Condition="(HasQuest(26385))" >
-		 	 <If Condition="(Me.Z &gt; 1200)" >
+			<!-- End of Worgen Quests -->
+
+			 <If Condition="Me.ZoneId == 1657" > <!-- Darnassus -->
+				<CustomBehavior File="Message" Text="Running through Darnassus Port" LogColor="Cornflowerblue" />
+
 				<RunTo X="9946.995" Y="2612.834" Z="1316.237" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000"/>
 				<CustomBehavior File="MyCTM" X="9947.232" Y="2620.743" Z="1317.38" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for zone {TimeRemaining}" />
 			 </If>
-		 	 <If Condition="(Me.Z &lt; 100)" >
-				<RunTo X="8383.04" Y="981.1904" Z="30.82993" />
-				<CustomBehavior File="UserSettings" UseFlightPaths="True" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for bot {TimeRemaining}" />
-			 </If>
-			</If>
-		<TurnIn QuestName="Breaking Waves of Change" QuestId="26385" TurnInName="Dentaria Silverglade" TurnInId="32973" />
-		
-				<CustomBehavior File="LoadProfile" ProfileName="[QuestOrder]Worgen 13 - 58.xml" /> 
-			-->
-			<!-- End of Worgen Quests -->
+			 <If Condition="Me.ZoneId == 141 &amp;&amp; (Me.Z &lt; 100)" > <!-- Teldrassil (Rut'theran Village) -->
+				<CustomBehavior File="Message" Text="Running to use boat to SW" LogColor="Cornflowerblue" />
 
+				<RunTo X="8177.54" Y="1003.079" Z="6.646164" />
+			 
+				<!-- Get on at Rut'theran Village, off at SW -->
+				<CustomBehavior File="UseTransport" TransportId="176310" 
+											WaitAtX="8177.54" WaitAtY="1003.079" WaitAtZ="6.646164" 
+											GetOffX="-8642.001" GetOffY="1330.353" GetOffZ="5.232954" 
+											StandOnX="8171.327" StandOnY="1005.99" StandOnZ="6.213342" 
+											TransportStartX="8162.587" TransportStartY="1005.365" TransportStartZ="0.005638145"
+											TransportEndX="-8650.719" TransportEndY="1346.051" TransportEndZ="-0.0382334" />
+			 </If>
+				
+			<CustomBehavior File="LoadProfile" ProfileName="..\[A - Quest] EK 12-58 [Kick]" /> 
 		
     </QuestOrder>
 
