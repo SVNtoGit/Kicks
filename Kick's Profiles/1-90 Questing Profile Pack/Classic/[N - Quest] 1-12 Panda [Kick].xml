@@ -1,5 +1,5 @@
 <HBProfile>
-	<Name>[N - Quest] 1-12 Monk [Kick]</Name>
+	<Name>[N - Quest] 1-12 Pandaren [Kick]</Name>
 	<MinLevel>1</MinLevel>
 	<MaxLevel>101</MaxLevel>
 	
@@ -27,6 +27,8 @@
 	</Vendors>
 	
 	<Blackspots>
+		<Blackspot X="1437.205" Y="3651.521" Z="92.6688" Radius="10" Height="10" />
+		<Blackspot X="1370.387" Y="3662.507" Z="97.8116" Radius="30" Height="10" />
 	</Blackspots>
 	
 	<AvoidMobs>
@@ -392,7 +394,7 @@
 	
 	<QuestOrder>
 
-		<CustomBehavior File="UserSettings" PullDistance="25" UseMount="False" LootMobs="True" />
+		<CustomBehavior File="UserSettings" PullDistance="15" UseMount="False" LootMobs="True" />
 		<CustomBehavior File="RunMacro" Macro="/script SetCVar('AutoLootDefault', 1)" NumOfTimes="1" WaitTime="1000" />
 
 		<CustomBehavior File="Message" Text="Compiling Shang Xi Training Grounds Quests" LogColor="Cornflowerblue" />
@@ -464,12 +466,16 @@
 					</SetGrindArea>
 				<GrindTo Condition="(IsQuestCompleted(29414))" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for NPC {TimeRemaining}" />
+				<CustomBehavior File="UserSettings" PullDistance="5" />
 			</If>
 		<TurnIn QuestName="The Way of the Tushui" QuestId="29414" TurnInName="Master Shang Xi" TurnInId="54608" X="1168.255" Y="3442.328" Z="104.6882" />
 		<PickUp QuestName="Ji of the Huojin" QuestId="29522" GiverName="Master Shang Xi" GiverId="54608" X="1168.255" Y="3442.328" Z="104.6882" />
 		<TurnIn QuestName="Ji of the Huojin" QuestId="29522" TurnInName="Ji Firepaw" TurnInId="54568" X="1407.141" Y="3637.298" Z="83.49316" />
 		<PickUp QuestName="The Way of the Huojin" QuestId="29417" GiverName="Ji Firepaw" GiverId="54568" X="1407.141" Y="3637.298" Z="83.49316" />
-			<Objective QuestName="The Way of the Huojin" QuestId="29417" Type="KillMob" MobId="54131" KillCount="8" />
+			<If Condition="((HasQuest(29417)) &amp;&amp; (!IsQuestCompleted(29417)))" >
+				<CustomBehavior File="UserSettings" PullDistance="15" />
+				<Objective QuestName="The Way of the Huojin" QuestId="29417" Type="KillMob" MobId="54131" KillCount="8" />
+			</If>
 		<TurnIn QuestName="The Way of the Huojin" QuestId="29417" TurnInName="Ji Firepaw" TurnInId="54568" X="1407.141" Y="3637.298" Z="83.49316" />
 		<PickUp QuestName="Fanning the Flames" QuestId="29523" GiverName="Ji Firepaw" GiverId="54568" X="1407.141" Y="3637.298" Z="83.49316" />
 		<PickUp QuestName="Kindling the Fire" QuestId="29418" GiverName="Ji Firepaw" GiverId="54568" X="1407.141" Y="3637.298" Z="83.49316" />
@@ -785,8 +791,8 @@
 				<ClearVendor />
 				<ClearMailbox />
 			</If>
-			
-    <!-- Alliance -->
+
+	<!-- Alliance -->
     <If Condition="Me.IsAlliance">
 		<CustomBehavior File="Message" Text="New Alliance character, lets go talk to the king" LogColor="Cornflowerblue" />
 		
