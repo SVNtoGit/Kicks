@@ -242,14 +242,22 @@ namespace Styx.Bot.Quest_Behaviors
 
 
                                                                         })),
-                            new Decorator(r=> Monk.Distance <= 5, new Action(delegate
-                                                                                 {
-                                                                                     Monk.Target();
-                                                                                     Monk.Face();
+                            new Decorator(r=> Monk.Distance <= 5, new Sequence(
+                                
+                                new Action(r=>{Monk.Target();Monk.Face(); return RunStatus.Success;}),
+                                RoutineManager.Current.CombatBehavior
+                                
+                                
+                                )
 
 
 
-                                                                                     if (SpellManager.CanCast("Blackout Kick"))
+                                                                      ));
+            }
+        }
+
+
+        /*                                                                                     if (SpellManager.CanCast("Blackout Kick"))
                                                                                      {
                                                                                          SpellManager.Cast("Blackout Kick");
                                                                                      }
@@ -265,16 +273,7 @@ namespace Styx.Bot.Quest_Behaviors
                                                                                          SpellManager.Cast("Jab");
                                                                                      }
 
-                                                                                 }
-                                                                                 
-                                                                                 ))
-
-
-
-                                                                      );
-            }
-        }
-
+         * */
 
         protected override Composite CreateBehavior()
         {
