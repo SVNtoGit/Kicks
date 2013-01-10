@@ -81,7 +81,7 @@ namespace BattlefortheSkies
         {
             get
             {
-                return ObjectManager.GetObjectsOfType<WoWUnit>(true).Where(u => u.Entry == 64507 && u.Flags == 295680).OrderBy(r=>r.Location.Distance(Dargon.Location)).FirstOrDefault();
+                return ObjectManager.GetObjectsOfType<WoWUnit>(true).Where(u => u.Entry == 64507 && u.Flags == 295680).OrderBy(r=>r.Location.Distance(Dargon.Location.RayCast(Dargon.MovementInfo.Heading,20f))).FirstOrDefault();
             }
         }
 
