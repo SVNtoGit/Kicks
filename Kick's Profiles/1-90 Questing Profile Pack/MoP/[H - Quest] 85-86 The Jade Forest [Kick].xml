@@ -796,8 +796,8 @@
 		<While Condition="Me.Level &lt; 85" >
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be 85+ to run this profile!" />
 		</While>
-		 <!-- If I am in Dalaran, take the portal to Org -->
-		 <If Condition="(Me.ZoneId == 4395)" >
+		<!-- If I am in Dalaran, take the portal to Org -->
+		<If Condition="(Me.ZoneId == 4395)" >
 			<CustomBehavior File="ForcedDismount" />
 			<RunTo X="5924.277" Y="589.9855" Z="639.8734" />
 			<CustomBehavior File="ForcedDismount" />
@@ -807,8 +807,8 @@
 		  <If Condition="(Me.ZoneId == 1637)" >
 			<RunTo X="1897.4" Y="-4523.682" Z="27.50176" />
 		  </If>
-	 </If>
-	 <If Condition="(Me.MapId == 1)" >
+		</If>
+		<If Condition="(Me.MapId == 1)" >
 			<If Condition="((!HasQuest(29611)) &amp;&amp; (!IsQuestCompleted(29611)))" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="1591.839" Y="-4384.563" Z="18.78635" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest {TimeRemaining}" />
@@ -818,9 +818,9 @@
 				<CustomBehavior File="ForcedDismount" />
 				<RunTo X="1612.796" Y="-4372.504" Z="24.63282" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for a couple of secs {TimeRemaining}" />
-				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic() GameMovieFinished()" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for a couple of secs {TimeRemaining}" />
-				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic() GameMovieFinished()" WaitTime="1000" />
 			</If>
 			<If Condition="((HasQuest(29611)) &amp;&amp; (IsQuestCompleted(29611)))" >
 		<TurnIn QuestName="The Art of War" QuestId="29611" TurnInName="General Nazgrim" TurnInId="54870" X="1668.319" Y="-4351.42" Z="26.34642" />
@@ -850,21 +850,23 @@
 				<CustomBehavior File="MyCTM" X="1863.272" Y="-5463.423" Z="443.7446" />
 		<PickUp QuestName="Into the Mists" QuestId="29690" GiverName="General Nazgrim" GiverId="55054" X="1864.277" Y="-5463.419" Z="443.7973" />
 			</If>
-	 </If>
 			<If Condition="((HasQuest(29690)) &amp;&amp; (!IsQuestCompleted(29690)))" >
-				<CustomBehavior File="InteractWith" QuestId="29690" MobId="55054" GossipOptions="1" X="1863.272" Y="-5463.423" Z="443.7446" />
+				<CustomBehavior File="InteractWith" QuestId="29690" MobId="55054" GossipOptions="1" Range="1" Nav="CTM" X="1863.272" Y="-5463.423" Z="443.7446" />
 				<CustomBehavior File="WaitTimer" WaitTime="12000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="83000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
+		</If>
 			<If Condition="((HasQuest(29690)) &amp;&amp; (IsQuestCompleted(29690)))" >
 				<CustomBehavior File="MyCTM" X="3177.64" Y="-697.6019" Z="321.0249" />
-				<CustomBehavior File="InteractWith" MobId="55135" Range="1" Nav="CTM" />
+				<CustomBehavior File="InteractWith" MobId="55135" Range="2" Nav="CTM" />
 		<TurnIn QuestName="Into the Mists" QuestId="29690" TurnInName="General Nazgrim" TurnInId="55135" X="3178.839" Y="-696.882" Z="321.0265" />
 			</If>
 			<If Condition="((!HasQuest(31765)) &amp;&amp; (!IsQuestCompleted(31765)))" >
+				<CustomBehavior File="InteractWith" MobId="55135" Range="2" Nav="CTM" />
 		<PickUp QuestName="Paint it Red!" QuestId="31765" GiverName="General Nazgrim" GiverId="55135" X="3178.839" Y="-696.882" Z="321.0265" />
 			</If>
+	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="stop" />
 			<If Condition="((HasQuest(31765)) &amp;&amp; (!IsQuestCompleted(31765)))" >
 		 	 <If Condition="(Me.Z &gt; 303)" >
 				<CustomBehavior File="MyCTM" X="3145.822" Y="-709.5659" Z="325.4245" />
@@ -889,6 +891,7 @@
 		<TurnIn QuestName="Paint it Red!" QuestId="31765" TurnInName="Rivett Clutchpop" TurnInId="66667" X="3139.378" Y="-713.7153" Z="296.7773" />
 			</If>
 			<If Condition="((!HasQuest(31766)) &amp;&amp; (!IsQuestCompleted(31766)))" >
+				<CustomBehavior File="InteractWith" MobId="66667" Range="1" Nav="CTM" />
 		<PickUp QuestName="Touching Ground" QuestId="31766" GiverName="Rivett Clutchpop" GiverId="66667" X="3139.378" Y="-713.7153" Z="296.7773" />
 			</If>
 			<If Condition="((HasQuest(31766)) &amp;&amp; (!IsQuestCompleted(31766)))" >
