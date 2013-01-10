@@ -639,18 +639,20 @@
 		<TurnIn QuestName="The Sting of Learning" QuestId="29666" TurnInName="Old Man Liang" TurnInId="55020" X="1022.915" Y="2882.95" Z="90.90398" />
 		<PickUp QuestName="Shu, the Spirit of Water" QuestId="29678" GiverName="Old Man Liang" GiverId="55020" X="1022.915" Y="2882.95" Z="90.90398" />
 			<If Condition="((HasQuest(29678)) &amp;&amp; (!IsQuestCompleted(29678)))" >
-			 <While Condition="((HasQuest(29678)) &amp;&amp; (!IsObjectiveComplete(1, 29678)))">
-			  <If Condition="(Me.Z &lt; 90)" >
+			 <While Condition="!IsObjectiveComplete(1, 29678)">
+			  <If Condition="(Me.Z &lt; 92)" >
 				<RunTo X="1036.826" Y="2858.037" Z="86.67937" />
 				<CustomBehavior File="MyCTM" X="1041.094" Y="2851.611" Z="89.40783" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for jumps {TimeRemaining}" />
 			  </If>
+			  <If Condition="(Me.Z &gt; 92)" >
 				<RunTo X="1090.704" Y="2848.129" Z="91.2513" />
+			  </If>
 			 </While>
 			 <If Condition="((HasQuest(29678)) &amp;&amp; (!IsObjectiveComplete(2, 29678)))">
 				<CustomBehavior File="AscendInWater" /> <!-- This should make us jump, I may have to add in a jump lua function -->
 				<RunTo X="1084.462" Y="2856.636" Z="92.83075" />
-				<RunTo X="1112.284" Y="2868.514" Z="90.64057" />
+				<RunTo X="1113.117" Y="2868.844" Z="92.18909"/>
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(73791)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			 </If>
