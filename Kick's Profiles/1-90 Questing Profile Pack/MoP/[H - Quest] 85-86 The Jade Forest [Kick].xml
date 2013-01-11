@@ -1326,8 +1326,26 @@
 		<PickUp QuestName="Green-ish Energy" QuestId="29968" GiverName="Rivett Clutchpop" GiverId="56406"  X="1218.822" Y="-699.8163" Z="324.9187" />
 			<Objective QuestName="Green-ish Energy" QuestId="29968" Type="CollectItem" ItemId="76333" CollectCount="7" />
 			<Objective QuestName="Guerrillas in our Midst" QuestId="29943" Type="KillMob" MobId="56303" KillCount="8" />
-		<TurnIn QuestName="Guerrillas in our Midst" QuestId="29943" TurnInName="General Nazgrim" TurnInId="56339" X="1439.565" Y="-549.2255" Z="352.2939" /> <!-- Blizz issue, we may have to relog -->
+			<If Condition="(HasQuest(29943))" >
+				<RunTo X="1439.565" Y="-549.2255" Z="352.2939" />
+			 <If Condition="(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 56339 &amp;&amp; u.Distance &lt;= 40))" >
+		<TurnIn QuestName="Guerrillas in our Midst" QuestId="29943" TurnInName="General Nazgrim" TurnInId="56339" X="1439.565" Y="-549.2255" Z="352.2939" />
 		<PickUp QuestName="Burning Down the House" QuestId="29966" GiverName="General Nazgrim" GiverId="56339" X="1439.565" Y="-549.2255" Z="352.2939" />
+			 </If>
+			 <If Condition="(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 56490 &amp;&amp; u.Distance &lt;= 40))" >
+		<TurnIn QuestName="Guerrillas in our Midst" QuestId="29943" TurnInName="General Nazgrim" TurnInId="56490" X="1439.565" Y="-549.2255" Z="352.2939" />
+		<PickUp QuestName="Burning Down the House" QuestId="29966" GiverName="General Nazgrim" GiverId="56490" X="1439.565" Y="-549.2255" Z="352.2939" />
+			 </If>
+			</If> 
+			<While Condition="((!HasQuest(29966)) &amp;&amp; (!IsQuestCompleted(29966)))" >
+				<RunTo X="1439.565" Y="-549.2255" Z="352.2939" />
+				<If Condition="HasQuestAvailable(56339)" >
+		<PickUp QuestName="Burning Down the House" QuestId="29966" GiverName="General Nazgrim" GiverId="56339" X="1439.565" Y="-549.2255" Z="352.2939" />
+				</If>
+				<If Condition="HasQuestAvailable(56490)" >
+		<PickUp QuestName="Burning Down the House" QuestId="29966" GiverName="General Nazgrim" GiverId="56490" X="1439.565" Y="-549.2255" Z="352.2939" />
+				</If>
+			</While>
 			<If Condition="((HasQuest(29966)) &amp;&amp; (!IsQuestCompleted(29966)))" >
 				<RunTo X="1133.852" Y="-605.2563" Z="397.1089" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(76336)" WaitTime="10000" />
