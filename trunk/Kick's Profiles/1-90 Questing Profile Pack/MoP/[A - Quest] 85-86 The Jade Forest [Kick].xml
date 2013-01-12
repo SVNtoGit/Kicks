@@ -136,8 +136,7 @@
 	<Quest Id="31742" Name="Fractured Forces">
 	  <Objective Type="KillMob" MobId="66275" KillCount="1">
 		  <Hotspots>
-			<Hotspot X="-77.90344" Y="-1463.75" Z="128.1368" />
-			<Hotspot X="-84.27423" Y="-1467.094" Z="128.1367" />
+			<Hotspot X="-83.42188" Y="-1467.51" Z="128.1369" />
 			</Hotspots>
 		</Objective>
 	  <Objective Type="KillMob" MobId="66274" KillCount="1">
@@ -1272,24 +1271,19 @@
 				<CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" UseFlightPaths="False" PullDistance="25" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
 			</While>
 			<Objective QuestName="Body" QuestId="29892" Type="CollectItem" ItemId="76107" CollectCount="5" />
-			<If Condition="((HasQuest(29891)) &amp;&amp; (!IsQuestCompleted(29891)))" >
+			<While Condition="((HasQuest(29891)) &amp;&amp; (!IsQuestCompleted(29891)))" >
 				<RunTo X="-592.1667" Y="-2320.578" Z="18.47412" />
 				<Objective QuestName="Potency" QuestId="29891" Type="KillMob" MobId="56304" KillCount="8" />
-				<Objective QuestName="Potency" QuestId="29891" Type="CollectItem" ItemId="76129" CollectCount="1" />
-				<!-- deal with this later4
-				<SetGrindArea><GrindArea>
-					<Factions>16 14 190</Factions>
-					<Hotspots>
-						<Hotspot X="-654.2847" Y="-2435.005" Z="26.4146" />
-						<Hotspot X="-654.2847" Y="-2435.005" Z="26.4146" />
-						<Hotspot X="-689.2635" Y="-2532.481" Z="26.06712" />
-						<Hotspot X="-675.3683" Y="-2611.612" Z="19.3764" />
-						<Hotspot X="-619.6975" Y="-2683.45" Z="9.990462" />
-					</Hotspots>
-				</GrindArea></SetGrindArea>
-				<GrindTo Condition="((HasQuest(29891)) &amp;&amp; (IsQuestCompleted(29891)))" />
-				-->
-			</If>
+				
+				<RunTo DestName="Acquire orange mist buff" x="-592.1667" y="-2320.578" z="18.47412" />
+				<RunTo DestName="Mist Horror spawn point" x="-613.3589" y="-2682.857" z="8.484043" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+				<CustomBehavior File="InteractWith" MobId="56330" WaitForNpcs="False" /> <!-- Mist -->
+				<CustomBehavior File="WaitTimer" WaitTime="10000"/>
+				<CustomBehavior File="InteractWith" MobId="56310" WaitForNpcs="False" /> <!-- Horror -->
+				<!--<Objective QuestName="Potency" QuestId="29891" Type="CollectItem" ItemId="76129" CollectCount="1" />-->
+			</While>
 		<TurnIn QuestName="Potency" QuestId="29891" TurnInName="Lorewalker Cho" TurnInId="56287" X="-566.1215" Y="-2303.628" Z="18.45896" />
 		<TurnIn QuestName="Body" QuestId="29892" TurnInName="Lorewalker Cho" TurnInId="56287" X="-566.1215" Y="-2303.628" Z="18.45896" />
 		<TurnIn QuestName="Hue" QuestId="29893" TurnInName="Lorewalker Cho" TurnInId="56287" X="-566.1215" Y="-2303.628" Z="18.45896" />
