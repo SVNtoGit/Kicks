@@ -1718,6 +1718,7 @@
 		 	  <If Condition="(Me.Z &lt; 70)" >
 				<RunTo X="858.5382" Y="-1912.387" Z="63.64399" />
 				<CustomBehavior File="ForcedDismount"/>
+				<CustomBehavior File="RunMacro" Macro="/cancelaura cat form\n/cancelaura bear form\n/cancelaura travel form\n/cancelaura ghost wolf" />
 				<CustomBehavior File="InteractWith" QuestId="30495" MobId="59392" GossipOptions="1" X="858.5382" Y="-1912.387" Z="63.64399" /> <!-- Kitemaster Shoku gives ride up -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for flight {TimeRemaining}" />
 			  </If>
@@ -1896,8 +1897,17 @@
 				<CustomBehavior File="WaitTimer" WaitTime="3000" />
 				<RunTo X="535.8745" Y="-1656.537" Z="200.7" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(80071)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="105000" />
+				<CustomBehavior File="WaitTimer" WaitTime="115000" />
 			</If>
+			<While Condition="((HasQuest(31362)) &amp;&amp; (!IsQuestCompleted(31362)))" >
+				<RunTo X="-121.3646" Y="-2656.535" Z="2.664594" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" MobId="64475" GossipOptions="1" X="-121.3646" Y="-2656.535" Z="2.664594" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+				<RunTo X="535.8745" Y="-1656.537" Z="200.7" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(80071)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="115000" />
+			</While>
 		<TurnIn QuestName="Last Piece of the Puzzle" QuestId="31362" TurnInName="Lorewalker Cho" TurnInId="59411" X="529.7031" Y="-1674.799" Z="198.8996" />
 		
 			<CustomBehavior File="Message" Text="Compiling Serpent's Overlook Quests" LogColor="Cornflowerblue" />
