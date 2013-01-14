@@ -57,7 +57,6 @@
 	<Blackspots>
 		<Blackspot X="-1181.436" Y="1762.693" Z="17.94537" Radius="61.28667" /> <!-- Sentinel Base Camp - Alliance elite -->
 		<Blackspot X="-574.2518" Y="646.2101" Z="160.7808" Radius="15" />
-		<Blackspot X="-2745.443" Y="548.9253" Z="19.13489" Radius="15" Height="50" />
 	</Blackspots>
 
 	<AvoidMobs>
@@ -1372,11 +1371,11 @@
 		<PickUp QuestName="Balance" QuestId="30672" GiverName="Wise Ana Wu" GiverId="60139" X="-2576.373" Y="792.2691" Z="0.08333334" />
 				<CustomBehavior File="UserSettings" UseMount="True" />
 			</If>
-			<If Condition="((!HasQuest(30674)) &amp;&amp; (!IsQuestCompleted(30674)))" >
+			<While Condition="((!HasQuest(30674)) &amp;&amp; (!IsQuestCompleted(30674)))" >
 				<RunTo X="-2789.274" Y="646.3903" Z="1.19085" />
 				<!-- Auto Accept Quest - <PickUp QuestName="Balance Without Violence" QuestId="30674" GiverName="" GiverId="" /> -->
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to pickup {TimeRemaining}" />
-			</If>
+			</While>
 			<While Condition="((HasQuest(30674)) &amp;&amp; (!IsQuestCompleted(30674)))" >
 				<CustomBehavior File="InteractWith" QuestId="30674" MobId="60367" WaitForNpcs="False" CollectionDistance="1000" X="-2758.249" Y="631.2058" Z="1.232849" />
 				<CustomBehavior File="InteractWith" QuestId="30674" MobId="60367" WaitForNpcs="False" CollectionDistance="1000" X="-2789.81" Y="659.0862" Z="1.033001" />
@@ -1634,7 +1633,7 @@
 		<TurnIn QuestName="The Swarm Begins" QuestId="30622" TurnInName="Guard Captain Oakenshield" TurnInId="57198" X="-199.9965" Y="2223.845" Z="135.255" />
 		<PickUp QuestName="Students No More" QuestId="30625" GiverName="Guard Captain Oakenshield" GiverId="57198" X="-199.9965" Y="2223.845" Z="135.255" />
 			<If Condition="((HasQuest(30625)) &amp;&amp; (!IsQuestCompleted(30625)))" > <!-- This quest fucking sucks -->
-				<CustomBehavior File="UserDialog" QuestId="30625" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Find the students and then kill 4 mobs together" />
+				<CustomBehavior File="UserDialog" QuestId="30625" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="60" Text="Find the students and then kill 4 mobs together" />
 				<Objective QuestName="Students No More" QuestId="30625" Type="KillMob" MobId="59887" KillCount="1" /> <!-- Bloodrager -->
 				<Objective QuestName="Students No More" QuestId="30625" Type="KillMob" MobId="59890" KillCount="1" /> <!-- Incubator - kill eggs first! -->
 				<Objective QuestName="Students No More" QuestId="30625" Type="KillMob" MobId="59888" KillCount="1" /> <!-- Tendon Slicer -->
