@@ -4569,6 +4569,7 @@
 		<PickUp QuestName="Kodo Roundup" QuestId="5561" GiverName="Smeed Scrabblescrew" GiverId="11596" />
 			<If Condition="((HasQuest(5561)) &amp;&amp; (!IsQuestCompleted(5561)))" >
 				<CustomBehavior File="UserSettings" UseMount="False" />
+				<CustomBehavior File="ForcedDismount" />
 			 <While Condition="((HasQuest(5561)) &amp;&amp; (!IsQuestCompleted(5561)))" >
 				<CustomBehavior File="UseItemOn" QuestId="5561" MobId1="4702" MobId2="4700" ItemId="13892" WaitTime="6000" Range="5" CollectionDistance="500" X="-1295.744" Y="1840.136" Z="52.33176" />
 				<RunTo X="-1406.287" Y="1495.758" Z="60.99207" />
@@ -6096,18 +6097,21 @@
 				<CustomBehavior File="KillUntilComplete" QuestId="28102" MobId1="7110" MobId2="7106" X="4494.9" Y="-552.0205" Z="290.3582" />
 			</If>
 			<If Condition="(HasQuest(28113)) &amp;&amp; (!IsQuestCompleted(28113))">
+				<!-- Firewall issues here, super gay -->
 				<RunTo X="4574.997" Y="-391.7386" Z="304.154" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 				<RunTo X="4574.997" Y="-391.7386" Z="304.154" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 				
+				<RunTo X="4574.997" Y="-391.7386" Z="304.154" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 				<UseItem ItemId="63031" QuestName="Touch the Untouchable" QuestId="28113" X="4574.997" Y="-391.7386" Z="304.154" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 				<Objective QuestName="Break the Unbreakable" QuestId="28113" Type="KillMob" MobId="9454" KillCount="1" />
 				
 				<RunTo X="4578.339" Y="-377.459" Z="302.0056" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(63031)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 			</If>	
 		<TurnIn QuestName="Break the Unbreakable" QuestId="28113" TurnInName="Arcanist Delaris" TurnInId="47341" />
 		<TurnIn QuestName="Fight the Power" QuestId="28102" TurnInName="Eridan Bluewind" TurnInId="9116" />
