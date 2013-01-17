@@ -60,7 +60,7 @@
 	</Blackspots>
 
 	<AvoidMobs>
-		
+		<Mob Name="Source of Despair" Entry="65873" />
 	</AvoidMobs>	
 	
 	<!-- Quest Overrides -->
@@ -1170,12 +1170,17 @@
 			
 			<!-- End of Ally and Horde specific areas -->
 			
-		<PickUp QuestName="Unsafe Passage" QuestId="30269" GiverName="Koro Mistwalker" GiverId="58547" />
-			<If Condition="((HasQuest(30269)) &amp;&amp; (!IsQuestCompleted(30269)))" >
+			<If Condition="((!HasQuest(30269)) &amp;&amp; (!IsQuestCompleted(30269)))" >
+		<PickUp QuestName="Unsafe Passage" QuestId="30269" GiverName="Koro Mistwalker" GiverId="58547" X="-1450.773" Y="875.8299" Z="14.98131" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for a couple of secs {TimeRemaining}" />
+			</If>
+			<If Condition="((HasQuest(30269)) &amp;&amp; (!IsQuestCompleted(30269)))" > <!-- I need a behavior for this escort quest, in case we die, or he dies -->
 				<CustomBehavior File="InteractWith" QuestId="30269" MobId="58547" GossipOptions="1" X="-1450.773" Y="875.8299" Z="14.98127" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
 			  <While Condition="!IsQuestCompleted(30269)" >
-				<CustomBehavior File="InteractWith" QuestId="30269" MobId="58978" WaitTime="500" CollectionDistance="1000"/>
+				<CustomBehavior File="InteractWith" QuestId="30269" MobId="58978" WaitTime="300" CollectionDistance="1000" X="-1450.773" Y="875.8299" Z="14.98127" />
 			  </While>
+				<CustomBehavior File="WaitTimer" WaitTime="10000" />
 			</If>
 		<TurnIn QuestName="Unsafe Passage" QuestId="30269" TurnInName="Koro Mistwalker" TurnInId="59138" X="-1162.955" Y="1045.74" Z="21.90398" />
 		
