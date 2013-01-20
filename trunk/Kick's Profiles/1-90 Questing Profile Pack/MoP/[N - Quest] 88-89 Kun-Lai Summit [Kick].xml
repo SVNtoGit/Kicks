@@ -1168,6 +1168,7 @@
 				<CustomBehavior File="Message" Text="Going to get FP and then pickup quest from Len the Whisperer" LogColor="Cornflowerblue" />
 				<CustomBehavior File="NoCombatMoveTo" X="783.7535" Y="-205.1563" Z="402.2014" />
 				<CustomBehavior File="InteractWith" MobId="61759" X="783.7535" Y="-205.1563" Z="402.2014" /> <!-- FP -->
+				<RunTo X="894.007" Y="-164.3133" Z="422.8268" />
 		<PickUp QuestName="Robbing Robbers of Robbers" QuestId="31286" GiverName="Len the Whisperer" GiverId="63484" X="903.3386" Y="-147.3142" Z="430.8914" />
 			</If>
 		<PickUp QuestName="Educating Saurok" QuestId="31287" GiverName="Len the Whisperer" GiverId="63484" X="903.3386" Y="-147.3142" Z="430.8914" />
@@ -2067,7 +2068,7 @@
 		<PickUp QuestName="Breaking the Emperor's Shield" QuestId="30798" GiverName="Image of Lorewalker Cho" GiverId="61297" X="3707.337" Y="1331.852" Z="758.9896" />
 			<If Condition="((HasQuest(30798)) &amp;&amp; (!IsQuestCompleted(30798)))" >
 				<RunTo X="3553.384" Y="1504.276" Z="819.6432" />
-				<CustomBehavior File="UserDialog" AllowBotStop="true" 
+				<CustomBehavior File="UserDialog" QuestId="30798" AllowBotStop="true" 
 				Text="Quest: &quot;Breaking the Emperor's Shield&quot;\n\nWe are about to run you to kill Nakk'rakas.\n\nHe will periodically spawn an Imperial Guard that must be killed, as Nakk'rakas is invulnerable when the Imperial Guard is alive.\n\nYour Combat Routine may require some help in selecting the Imperial Guard for killing." />
 				<RunTo X="3553.384" Y="1504.276" Z="819.6432" />
 				<Objective QuestName="Breaking the Emperor's Shield" QuestId="30798" Type="KillMob" MobId="60572" KillCount="1" />
@@ -2165,7 +2166,7 @@
 			  </If>
 			</If>
 			
-			<If Condition="((HasQuest(31392)) || (HasQuest(31393))) &amp;&amp; (Me.Y &gt; 600)" >
+			<If Condition="((HasQuest(31392)) || (HasQuest(31393))) &amp;&amp; (Me.Y &gt; 600) &amp;&amp; (!IsQuestCompleted(30935))" >
 				<RunTo X="3498.761" Y="690.0668" Z="608.1852" />
 				<CustomBehavior File="InteractWith" MobId="61118" X="3504.438" Y="689.9202" Z="608.1852" /> <!-- FP -->
 				<RunTo X="3756.922" Y="538.9453" Z="639.691" />
@@ -2192,7 +2193,7 @@
 		<PickUp QuestName="A Witness to History" QuestId="31512" GiverName="Anduin Wrynn" GiverId="64540" X="3819.135" Y="535.2518" Z="639.0074" />
 				<CustomBehavior File="MyCTM" X="3734.216" Y="540.8579" Z="639.69" />
 			</If>
-			<If Condition="HasQuest(30935) &amp;&amp; IsQuestCompleted(30935)" >
+			<If Condition="HasQuest(30935) &amp;&amp; !IsQuestCompleted(30935)" >
 			  <RunTo X="3938.509" Y="876.1491" Z="417.1735" />
 			  <CustomBehavior File="InteractWith" MobId="61380" GossipOptions="1" X="3940.49" Y="877.0261" Z="417.1738" />
 			  <CustomBehavior File="WaitTimer" WaitTime="135000" />
@@ -2222,13 +2223,15 @@
 			<!-- End of Temple of the White Dragon -->
 			</If>
 			
-			 <If Condition="((HasQuest(30935)) &amp;&amp; (!IsObjectiveComplete(2, 30935)))">
-				<RunTo X="3938.509" Y="876.1491" Z="417.1735" />
-				<CustomBehavior File="InteractWith" MobId="61380" GossipOptions="1" X="3940.49" Y="877.0261" Z="417.1738" />
-				<CustomBehavior File="WaitTimer" WaitTime="135000" />
-				<RunTo X="4361.717" Y="931.5785" Z="110.0536" />
-				<CustomBehavior File="InteractWith" MobId="61511" X="4361.846" Y="933.1441" Z="110.316" /> <!-- Zouchin Village FP -->
-			 </If>
+			<If Condition="((HasQuest(30935)) &amp;&amp; (!IsQuestCompleted(30935)))" >
+			  <If Condition="(!IsObjectiveComplete(2, 30935))" >
+				<RunTo QuestId="30935" X="3938.509" Y="876.1491" Z="417.1735" />
+				<CustomBehavior File="InteractWith" QuestId="30935" MobId="61380" GossipOptions="1" X="3940.49" Y="877.0261" Z="417.1738" />
+				<CustomBehavior File="WaitTimer" QuestId="30935" WaitTime="135000" />
+				<RunTo QuestId="30935" X="4361.717" Y="931.5785" Z="110.0536" />
+				<CustomBehavior File="InteractWith" QuestId="30935" MobId="61511" X="4361.846" Y="933.1441" Z="110.316" /> <!-- Zouchin Village FP -->
+			  </If>
+			</If>
 		<TurnIn QuestName="Fisherman's Tale" QuestId="30935" TurnInName="Lorewalker Cho" TurnInId="61371" X="4406.11" Y="939.1094" Z="116.0033" />
 		
 			<CustomBehavior File="Message" Text="Compiling Zouchin Village Quests" LogColor="Cornflowerblue" />
