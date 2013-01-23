@@ -3216,6 +3216,10 @@
 				<CustomBehavior File="FlyTo" DestName="Get Scroll 1" X="4046.899" Y="3710.341" Z="87.42509" />
 				<CustomBehavior File="ForcedDismount" />
 				<Objective QuestName="Words of Power" QuestId="11942" Type="CollectItem" ItemId="35353" CollectCount="1" />
+				<!-- Check these, a user - Antamansid gave them to me -->
+				<CustomBehavior File="FlyTo" X="4126.436" Y="3579.09" Z="155.6969" />
+				<CustomBehavior File="FlyTo" X="4115.251" Y="3534.852" Z="146.6125" />
+				<CustomBehavior File="FlyTo" X="4114.324" Y="3526.875" Z="128.4236" />	
 				
 				<CustomBehavior File="FlyTo" DestName="Get Scroll 2" X="4095.356" Y="3535.351" Z="128.4216" />
 				<CustomBehavior File="ForcedDismount" />
@@ -5642,9 +5646,11 @@
 			<If Condition="((HasQuest(11330)) &amp;&amp; (!IsQuestCompleted(11330)))" >
 				<CustomBehavior File="FlyTo" DestName="prisoner" X="1381.705" Y="-3221.445" Z="160.6089" />
 				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="InteractWith" QuestId="11330" MobId="190192" MobType="GameObject" X="1343.357" Y="-3175.827" Z="162.8502" />
 			 <While Condition="((HasQuest(11330)) &amp;&amp; (!IsQuestCompleted(11330)))" >
 				<CustomBehavior File="UseItemOn" QuestId="11330" MobId="24284" ItemId="33627" X="1367.308" Y="-3179.079" Z="153.5764" />
 			 </While>
+				<CustomBehavior File="InteractWith" QuestId="11330" MobId="190192" MobType="GameObject" X="1343.357" Y="-3175.827" Z="162.8502" />
 			</If>
 			<If Condition="((HasQuest(11330)) &amp;&amp; (IsQuestCompleted(11330)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="1414.726" Y="-3256.781" Z="163.1903" />
@@ -7136,7 +7142,10 @@
 			<If Condition="((HasQuest(12075)) &amp;&amp; (!IsQuestCompleted(12075)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="5105.52" Y="391.7282" Z="186.3359" />
 				<CustomBehavior File="ForcedDismount" />
-				<Objective QuestName="Slim Pickings" QuestId="12075" Type="CollectItem" ItemId="36765" CollectCount="1" />
+			 <While Condition="((HasQuest(12075)) &amp;&amp; (!IsQuestCompleted(12075)))" >
+				<CustomBehavior File="InteractWith" QuestId="12075" MobId="26809" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="5" X="5128.055" Y="473.9207" Z="189.3463" />
+			 </While>
+				<!--<Objective QuestName="Slim Pickings" QuestId="12075" Type="CollectItem" ItemId="36765" CollectCount="1" />-->
 				<RunTo X="5105.52" Y="391.7282" Z="186.3359" />
 			</If>
 			<If Condition="((HasQuest(12075)) &amp;&amp; (IsQuestCompleted(12075)))" >
@@ -8813,6 +8822,7 @@
 				
 				<RunTo X="3423.427" Y="-5348.833" Z="264.5385" />
 				<CustomBehavior File="RunMacro" Macro="/cancelaura Iron Rune Overseer Disguise" />
+				<CustomBehavior File="Misc\RunLua" Lua="local n=GetSpellInfo(48064); CancelUnitBuff(&quot;player&quot;,n)" /> <!-- Iron Rune Overseer Disguise -->
 			</If>
 			<If Condition="((HasQuest(12185)) &amp;&amp; (IsQuestCompleted(12185)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3816.495" Y="-5153.719" Z="119.1437" />
