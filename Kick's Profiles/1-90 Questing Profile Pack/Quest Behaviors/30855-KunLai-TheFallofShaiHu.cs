@@ -1,4 +1,4 @@
-using CommonBehaviors.Actions;
+﻿using CommonBehaviors.Actions;
 using Styx;
 using Styx.CommonBot;
 using Styx.CommonBot.POI;
@@ -17,16 +17,16 @@ using Action = Styx.TreeSharp.Action;
 
 namespace Behaviors
 {
-    class ShaiHu : CustomForcedBehavior
+    class KunLaiTheFallofShaiHu : CustomForcedBehavior
     {
 
         #region Construction
-        public ShaiHu(Dictionary<string, string> args)
+        public KunLaiTheFallofShaiHu(Dictionary<string, string> args)
             : base(args)
         {
             try
             {
-                QuestId = GetAttributeAsNullable("QuestId", false, ConstrainAs.QuestId(this), null) ?? 30625;
+                QuestId = GetAttributeAsNullable("QuestId", false, ConstrainAs.QuestId(this), null) ?? 30855;
                 QuestRequirementComplete = GetAttributeAsNullable<QuestCompleteRequirement>("QuestCompleteRequirement", false, null, null) ?? QuestCompleteRequirement.NotComplete;
                 QuestRequirementInLog = GetAttributeAsNullable<QuestInLogRequirement>("QuestInLogRequirement", false, null, null) ?? QuestInLogRequirement.InLog;
             }
@@ -62,6 +62,7 @@ namespace Behaviors
         // Static constant variables
         public static List<uint> ExplosiveHatredIds = new List<uint> { 61070 };
         public static uint ShaiHuId = 61069;
+        public static WoWPoint Waypoint = new WoWPoint(2104.215, 314.8302, 475.4525);
 
         public List<WoWUnit> Enemys
         {
@@ -103,7 +104,7 @@ namespace Behaviors
 
         #endregion
 
-        ~ShaiHu()
+        ~KunLaiTheFallofShaiHu()
         {
             Dispose(false);
         }
@@ -149,32 +150,30 @@ namespace Behaviors
                                             return RunStatus.Success;
                                         }))
                                     )),
-                    new Decorator(ret => ShaiHuNPC.Distance > 50,
+                    new Decorator(ret => Me.Location.Distance(Waypoint) > 100 && ShaiHuNPC == null,
                         new Action(r =>
                         {
-                            Navigator.MoveTo(ShaiHuNPC.Location);
+                            Navigator.MoveTo(Waypoint);
                         })),
-                    new Decorator(ret => ShaiHuNPC.Distance < 50,
+                    new Decorator(ret => ShaiHuNPC != null && ShaiHuNPC.Distance < 100,
                         new PrioritySelector(
                             new Decorator(ret => ShaiHuNPC.Buffs.ContainsKey("Bathed in Rage"),
                                 new PrioritySelector(
+                                    new Decorator(r => BotPoi.Current == new BotPoi(ShaiHuNPC, PoiType.Kill),
+                                        new ActionClearPoi()),
                                     new ActionSetPoi(r => new BotPoi(ExplosiveHatredEnemy, PoiType.Kill)),
-                                    new Decorator(ret => ShaiHuNPC.Distance > 10,
-                                        new Action(r =>
-                                        {
-                                            Navigator.MoveTo(ShaiHuNPC.Location);
-                                        })),
-                                    new Decorator(ret => ShaiHuNPC.Distance < 10,
+                                    new Decorator(ret => ExplosiveHatredEnemy.Distance < 10,
                                         new PrioritySelector(
-                                            new Decorator(ret => Me.IsMoving,
-                                                new Action(r => 
-                                                {
-                                                    WoWMovement.MoveStop();
-                                                })),
                                             new Decorator(ret => RoutineManager.Current.PullBehavior != null,
                                                 RoutineManager.Current.PullBehavior),
                                             new Decorator(ret => RoutineManager.Current.PullBehavior == null,
-                                                new Action(o => RoutineManager.Current.Pull()))))
+                                                new Action(o => RoutineManager.Current.Pull())),
+                                            new Decorator(ret => ShaiHuNPC.Distance > 10,
+                                                new Action(r => { Navigator.MoveTo(ShaiHuNPC.Location); })),
+                                            new Decorator(ret => ShaiHuNPC.Distance <= 10,
+                                                new Action(r => { WoWMovement.MoveStop(); })))),
+                                    new Decorator(ret => ExplosiveHatredEnemy.Distance > 10,
+                                        new Action(r => { Navigator.MoveTo(ExplosiveHatredEnemy.Location); })))) 
                                     )),
                             new Decorator(ret => !ShaiHuNPC.Buffs.ContainsKey("Bathed in Rage"),
                                 new PrioritySelector(
@@ -189,8 +188,7 @@ namespace Behaviors
                                         RoutineManager.Current.PullBehavior),
                                     new Decorator(ret => RoutineManager.Current.PullBehavior == null,
                                         new Action(o => RoutineManager.Current.Pull())))))
-                            ))
-                    ))));
+                            ))));
         }
 
         public override bool IsDone
