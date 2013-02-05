@@ -1225,12 +1225,48 @@
 				<Objective QuestName="Ahead on the Way" QuestId="30695" Type="KillMob" MobId="59315" KillCount="1" />
 				<CustomBehavior File="InteractWith" QuestId="30695" MobId="59237" X="-1811.861" Y="929.6857" Z="40.01083" />
 			</While>
+			<!-- delete above condition once googeaa works fine
+			-->
+			<While Condition="((HasQuest(30695)) &amp;&amp; (!IsQuestCompleted(30695)))" >
+			 <While Condition="((HasQuest(30695)) &amp;&amp; (!IsObjectiveComplete(1, 30695)))"> <!-- West Pagoda -->
+				<RunTo X="-1749.554" Y="1175.49" Z="23.54329" />
+				<CustomBehavior File="GetOutOfGroundEffectAndAuras" StartNpcId="59315" ObjectiveId="1" EventCompleteWhen="SpecificMobsDead" EventCompleteDeadMobId="59315" 
+						EventX="-1803.399" EventY="1180.857" EventZ="40.0109"
+						MoveBehindMobCastingSpellId1="129921" >
+						<!--
+						MoveAwayFromMobCastingSpellId1="129921" >
+						-->
+					<Safespots>
+						<Hotspot X="-1785.031" Y="1185.043" Z="40.01099" />
+						<Hotspot X="-1812.63" Y="1197.314" Z="40.01099" />
+						<Hotspot X="-1829.866" Y="1166.744" Z="40.01099" />
+						<Hotspot X="-1797.946" Y="1155.775" Z="40.01099" />
+					</Safespots>
+				</CustomBehavior>
+			 </While>
+			 <While Condition="((HasQuest(30695)) &amp;&amp; (!IsObjectiveComplete(2, 30695)))"> <!-- East Pagoda -->
+				<RunTo X="-1753.508" Y="930.6402" Z="26.30681" />
+				<CustomBehavior File="GetOutOfGroundEffectAndAuras" StartNpcId="59237" ObjectiveId="2" EventCompleteWhen="SpecificMobsDead" EventCompleteDeadMobId="59237" 
+						EventX="-1812.753" EventY="928.6156" EventZ="40.01093" 
+						MoveBehindMobCastingSpellId1="129921" >
+						<!--
+						MoveAwayFromMobCastingSpellId1="129921" >
+						-->
+					<Safespots>
+						<Hotspot X="-1790.907" Y="945.0468" Z="40.01122" />
+						<Hotspot X="-1824.949" Y="947.1941" Z="40.01122" />
+						<Hotspot X="-1823.884" Y="913.1077" Z="40.01122" />
+						<Hotspot X="-1790.241" Y="912.871" Z="40.01122" />
+					</Safespots>
+				</CustomBehavior>
+			 </While>
+			</While>
 			<If Condition="((HasQuest(30271)) &amp;&amp; (!IsQuestCompleted(30271)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<RunTo X="-1648.194" Y="1052.623" Z="14.18476" />
 			  <While Condition="!IsQuestCompleted(30271)" >
 				<CustomBehavior File="ForcedMount" /> 
-				<!--clean aggro
+				<!-- clean aggro
 				<CustomBehavior File="NoCombatMoveTo" QuestId="30271" X="-1830.137" Y="1052.899" Z="18.0749" />
 				<CustomBehavior File="NoCombatMoveTo" QuestId="30271" X="-1708.27" Y="1085.661" Z="29.51786" />
 				-->
@@ -1279,13 +1315,28 @@
 		<TurnIn QuestName="Striking the Rain" QuestId="30272" TurnInName="Anduin Wrynn" TurnInId="59608" />
 		<TurnIn QuestName="Sha Can Awe" QuestId="30271" TurnInName="Anduin Wrynn" TurnInId="59608" />
 		<PickUp QuestName="In the House of the Red Crane" QuestId="30273" GiverName="Anduin Wrynn" GiverId="59608" />
-			<If Condition="((HasQuest(30273)) &amp;&amp; (!IsQuestCompleted(30273)))" >
-				<CustomBehavior File="KrasarangWildsHouseOfTheRedCrane" />
+			<If Condition="((HasQuest(30273)) &amp;&amp; (!IsQuestCompleted(30273)))" > <!-- This works with dk, dunno about squishies -->
+				<RunTo X="-1857.659" Y="1066.728" Z="-23.44035" />
+				<CustomBehavior File="SpecificQuests\30273-KrasarangWilds-InTheHouseOfTheRedCrane" />
+				<!--
+				<CustomBehavior File="GetOutOfGroundEffectAndAuras" QuestId="30273" StartNpcId="59653" StartEventGossipOptions="1" PreferKillingMobId1="59687" 
+										EventX="-1813.474" EventY="1052.339" EventZ="-31.72786"
+										MoveOutOfGroundEffectAuraId1="130288"
+										MoveAwayFromMobCastingSpellId1="130288"
+										MoveAwayFromMobWithAuraId1="130288" 
+										MoveOutOfGroundEffectAuraId2="130293"
+										MoveAwayFromMobCastingSpellId2="130293"
+										MoveAwayFromMobWithAuraId2="130293" >
+					<Safespots>
+						<Hotspot X="-1857.659" Y="1066.728" Z="-23.44035" />
+					</Safespots>
+				</CustomBehavior>
+				-->
 			</If>
 		<TurnIn QuestName="In the House of the Red Crane" QuestId="30273" TurnInName="Chi-Ji" TurnInId="59719" X="-1648.342" Y="1053.13" Z="14.18455" />
 
 			<If Condition="Me.IsAlliance" >
-			
+
 			<CustomBehavior File="Message" Text="Compiling Sentinel Basecamp Quests" LogColor="Cornflowerblue" />
 		
 			<If Condition="((HasQuest(30363)) &amp;&amp; (IsQuestCompleted(30363)))" >
@@ -1522,7 +1573,7 @@
 				<CustomBehavior File="WaitTimer" WaitTime="33000" />
 			</If>
 		<TurnIn QuestName="The Waters of Youth" QuestId="30445" TurnInName="Lyalia" TurnInId="58821" X="-1172.519" Y="1790.299" Z="18.16147" />
-			<If Condition="((!HasQuest(30376)) &amp;&amp; (!IsQuestCompleted(30376))) &amp;&amp; ((!HasQuest(30624)) &amp;&amp; (!IsQuestCompleted(30624)))" >
+			<If Condition="((!HasQuest(30376)) &amp;&amp; (!IsQuestCompleted(30376))) &amp;&amp; ((!HasQuest(30624)) &amp;&amp; (!IsQuestCompleted(30624))) &amp;&amp; ((!HasQuest(30623)) &amp;&amp; (!IsQuestCompleted(30623)))" >
 		<PickUp QuestName="Warn Stoneplow" QuestId="30360" GiverName="Lyalia" GiverId="58821" X="-1174.205" Y="1789.844" Z="18.07711" />
 			</If>
 			</If>
@@ -1567,7 +1618,7 @@
 				<CustomBehavior File="InteractWith" QuestId="30174" MobId="58224" GossipOptions="1" WaitForNpcs="False" MobState="Alive" CollectionDistance="100" X="-1636.38" Y="1839.58" Z="-2.285882" />
 			</While>
 		<TurnIn QuestName="For Family" QuestId="30174" TurnInName="Sunwalker Dezco" TurnInId="58607" X="-1699.988" Y="1593.198" Z="15.21646" />
-			<If Condition="((!HasQuest(30376)) &amp;&amp; (!IsQuestCompleted(30376))) &amp;&amp; ((!HasQuest(30624)) &amp;&amp; (!IsQuestCompleted(30624)))" >
+			<If Condition="((!HasQuest(30376)) &amp;&amp; (!IsQuestCompleted(30376))) &amp;&amp; ((!HasQuest(30624)) &amp;&amp; (!IsQuestCompleted(30624))) &amp;&amp; ((!HasQuest(30623)) &amp;&amp; (!IsQuestCompleted(30623)))" >
 		<PickUp QuestName="Warn Stoneplow" QuestId="30241" GiverName="Sunwalker Dezco" GiverId="58607" X="-1699.988" Y="1593.198" Z="15.21646" /> <!-- Back to VotFW -->
 			</If>
 			</If>
@@ -1673,9 +1724,10 @@
 				<!-- I may need a behavior for this, Natfoth -->
 			 <If Condition="(!Me.IsOnTransport)" >
 				<CustomBehavior File="InteractWith" QuestId="30627" MobId="59857" GossipOptions="1" X="-387.776" Y="1975.049" Z="131.2439" /> <!-- Miss Fanny -->
-				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting to get thrown {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting to get thrown {TimeRemaining}" />
 			 <While Condition="(!Me.IsOnTransport)" >
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting to get thrown {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting to get thrown {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="30627" MobId="59857" GossipOptions="1" X="-387.776" Y="1975.049" Z="131.2439" /> <!-- Miss Fanny -->
 			 </While>
 			 </If>
 			 <While Condition="(Me.IsOnTransport)" >

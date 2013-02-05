@@ -724,7 +724,7 @@
 		<PickUp QuestName="Back to the Sty" QuestId="29914" GiverName="Liang Thunderfoot" GiverId="56205" X="466.4566" Y="-273.2865" Z="211.0149" />
 			</If>
 			<If Condition="((HasQuest(29914)) &amp;&amp; (!IsQuestCompleted(29914)))" >
-			  <RunTo X="461.512" Y="-99.72362" Z="179.5019" />
+			  <RunTo X="462.6653" Y="-101.1358" Z="179.451" />
 			  <While Condition="!IsObjectiveComplete(1, 29914)" >
 				<CustomBehavior File="InteractWith" MobId="56253" CollectionDistance="1000" X="467.9848" Y="-83.97516" Z="179.0015" />
 			  </While>
@@ -751,7 +751,7 @@
 		<PickUp QuestName="A Lesson in Bravery" QuestId="29918" GiverName="Shang Thunderfoot" GiverId="56312" X="236.9618" Y="-389.3212" Z="247.9323" />
 			<While Condition="((HasQuest(29918)) &amp;&amp; (!IsQuestCompleted(29918)))" >
 				<RunTo X="237.6345" Y="-390.4965" Z="247.9118" />
-				<CustomBehavior File="FourWindsLessonInBravery" />
+				<CustomBehavior File="SpecificQuests\29918-FourWinds-ALessonInBravery" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</While>
 		<TurnIn QuestName="A Lesson in Bravery" QuestId="29918" TurnInName="Shang Thunderfoot" TurnInId="56312" X="190.4965" Y="-252.4306" Z="236.0176" />
@@ -796,6 +796,10 @@
 		<PickUp QuestName="Li Li's Day Off" QuestId="29950" GiverName="Li Li" GiverId="56138" X="-40.74479" Y="-20.15104" Z="154.2534" />
 		<PickUp QuestName="Muddy Water" QuestId="29951" GiverName="Mudmug" GiverId="56474" X="-32.4132" Y="-17.81076" Z="154.8143" />
 			<While Condition="((HasQuest(29950)) &amp;&amp; (!IsQuestCompleted(29950)))" >
+			  <If Condition="(!Me.HasAura(&quot;Li Li's Day Off: Summon Li Li&quot;))" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(76350)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+			  </If>
 			 <While Condition="((HasQuest(29950)) &amp;&amp; (!IsObjectiveComplete(1, 29950)))"> <!-- Silken Fields -->
 				<RunTo X="-471.3625" Y="233.2831" Z="165.7554" />
 				<RunTo X="-456.7658" Y="255.0716" Z="165.7315" />
@@ -894,7 +898,8 @@
 				</If>
 			</If>
 			<While Condition="((HasQuest(29581)) &amp;&amp; (!IsQuestCompleted(29581)))" >
-				<CustomBehavior File="InteractWith" QuestId="29581" ObjectType="Gameobject" MobId="209987" CollectionDistance="200" X="414.684" Y="203.9761" Z="207.903" />
+				<RunTo X="427.284" Y="108.7818" Z="207.7413" />
+				<CustomBehavior File="InteractWith" QuestId="29581" ObjectType="Gameobject" WaitTime="3000" NumOfTimes="3" MobId="209987" CollectionDistance="200" X="414.684" Y="203.9761" Z="207.903" />
 			</While>
 			<While Condition="((HasQuest(29757)) &amp;&amp; (!IsQuestCompleted(29757)))" >
 				<CustomBehavior File="InteractWith" QuestId="29757" ObjectType="Gameobject" MobId="209950" NumOfTimes="8" CollectionDistance="200" X="414.684" Y="203.9761" Z="207.903" />
@@ -1122,10 +1127,12 @@
 				<CustomBehavior File="InteractWith" MobId="62377" GossipOptions="1" X="219.8021" Y="783.0156" Z="161.6616" />
 			</If>
 		<PickUp QuestName="Enough is Ookin' Enough" QuestId="30054" GiverName="Mung-Mung" GiverId="57401" X="200.1684" Y="945.7778" Z="174.7017" />
-		<PickUp QuestName="The Farmer's Daughter" QuestId="30056" GiverName="Den Mudclaw" GiverId="62385" X="200.6997" Y="942.033" Z="174.7217" />
+		<!-- hard quest
+		<PickUp QuestName="The Farmer's Daughter" QuestId="30056" GiverName="Den Mudclaw" GiverId="62385" X="200.6997" Y="942.033" Z="174.7217" />-->
 			<While Condition="((HasQuest(30053)) &amp;&amp; (!IsObjectiveComplete(3, 30053)))"> <!-- Den Mudclaw -->
 				<CustomBehavior File="InteractWith" MobId="62385" GossipOptions="1" X="200.6997" Y="942.033" Z="174.7217" />
 			</While>
+			<!--
 		<TurnIn QuestName="The Farmer's Daughter" QuestId="30056" TurnInName="Mina Mudclaw" TurnInId="57408" X="97.83681" Y="1057.049" Z="135.9427" />
 		<PickUp QuestName="Seeing Orange" QuestId="30057" GiverName="Mina Mudclaw" GiverId="57408" X="97.83681" Y="1057.049" Z="135.9427" />
 			<If Condition="((HasQuest(30057)) &amp;&amp; (!IsQuestCompleted(30057)))" >
@@ -1152,6 +1159,7 @@
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
 		<TurnIn QuestName="Seeing Orange" QuestId="30057" TurnInName="Den Mudclaw" TurnInId="62385" X="200.6997" Y="942.033" Z="174.7216" />
+		-->
 			<Objective QuestName="Enough is Ookin' Enough" QuestId="30054" Type="CollectItem" ItemId="77379" CollectCount="100" />
 		<TurnIn QuestName="Enough is Ookin' Enough" QuestId="30054" TurnInName="Mung-Mung" TurnInId="57401" X="200.1684" Y="945.7778" Z="174.7017" />
 
@@ -1254,11 +1262,18 @@
 			</While>
 			<If Condition="((HasQuest(30032)) &amp;&amp; (!IsQuestCompleted(30032)))" >
 				<CustomBehavior File="InteractWith" QuestId="30032" MobId="210039" ObjectType="Gameobject" X="-929.8704" Y="667.9568" Z="159.2042" /> <!-- Rope -->
+				<CustomBehavior File="WaitTimer" WaitTime="25000" />
+			 <While Condition="(Me.Z &gt; 150)">
+				<CustomBehavior File="InteractWith" QuestId="30032" MobId="210039" ObjectType="Gameobject" X="-929.8704" Y="667.9568" Z="159.2042" /> <!-- Rope -->
+				<CustomBehavior File="WaitTimer" WaitTime="25000" />
+			 </While>
 				<CustomBehavior File="InteractWith" QuestId="30032" MobId="210037" ObjectType="Gameobject" X="-865.8116" Y="578.5056" Z="37.96738" /> <!-- Malted Cave Barley -->
+				<CustomBehavior File="WaitTimer" WaitTime="10000" />
 			</If>
-			<If Condition="((HasQuest(30032)) &amp;&amp; (IsQuestCompleted(30032))) &amp;&amp; (Me.Z &lt; 50)" >
-			  <CustomBehavior File="InteractWith" MobId="210040" ObjectType="Gameobject" X="-955.5291" Y="668.3517" Z="25.61816" />
-			</If>
+			<While Condition="((HasQuest(30032)) &amp;&amp; (IsQuestCompleted(30032))) &amp;&amp; (Me.Z &lt; 50)" >
+				<CustomBehavior File="InteractWith" MobId="210040" ObjectType="Gameobject" X="-955.5291" Y="668.3517" Z="25.61816" />
+				<CustomBehavior File="WaitTimer" WaitTime="25000" />
+			</While>
 		<TurnIn QuestName="The Quest for Better Barley" QuestId="30032" TurnInName="Li Li" TurnInId="56138" X="-548.3038" Y="611.2031" Z="137.9538" />
 		<PickUp QuestName="The Chen Taste Test" QuestId="30047" GiverName="Li Li" GiverId="56138" X="-548.3038" Y="611.2031" Z="137.9538" />
 		<TurnIn QuestName="Grain Recovery" QuestId="30028" TurnInName="Grainlord Kai" TurnInId="57211" X="-552.4879" Y="609.3976" Z="137.8373" />
@@ -1301,7 +1316,7 @@
 		<TurnIn QuestName="Clear the Way" QuestId="30075" TurnInName="Chen Stormstout" TurnInId="56133" X="-709.3073" Y="1264.693" Z="136.0241" />
 		<PickUp QuestName="Cleaning House" QuestId="30078" GiverName="Chen Stormstout" GiverId="56133" X="-709.3073" Y="1264.693" Z="136.0241" />
 			<If Condition="((HasQuest(30078)) &amp;&amp; (!IsQuestCompleted(30078)))" >
-				<CustomBehavior File="FourWindsCleaningHouse" />
+				<CustomBehavior File="SpecificQuests\30078-FourWinds-CleaningHouse" />
 			</If>
 		<TurnIn QuestName="Cleaning House" QuestId="30078" TurnInName="Chen Stormstout" TurnInId="56133" X="-712.7864" Y="1266.255" Z="136.0238" />
 			<!-- Ignoring Into the Brewery dungeon quest -->

@@ -4275,7 +4275,7 @@
 				
 				
 				<CustomBehavior File="Message" Text="If the bot stops after this message - you need to copy over the behaviors from my SVN!" LogColor="Orange" />
-				<CustomBehavior File="DeathknightStart\WaitForPatrol" AvoidMobId="43341" AvoidDistance="95" X="-9212.542" Y="-2784.261" Z="90.3838" />
+				<CustomBehavior File="SpecificQuests\DeathknightStart\WaitForPatrol" AvoidMobId="43341" AvoidDistance="95" X="-9212.542" Y="-2784.261" Z="90.3838" />
 				
 				<RunTo X="-9203.287" Y="-2773.205" Z="90.38371" />
 				<CustomBehavior File="MyCTM" X="-9186.497" Y="-2770.601" Z="88.68089" />
@@ -5749,7 +5749,7 @@
 		<PickUp QuestName="Drive-By Piracy" QuestId="26649" GiverName="Ironpatch" GiverId="2547" />
 			<If Condition="((HasQuest(26649)) &amp;&amp; (!IsQuestCompleted(26649)))" >
 				<CustomBehavior File="InteractWith" QuestId="26649" MobId="43605" NumOfTimes="1" GossipOptions="2" WaitTime="1000" CollectionDistance="50" X="-14876" Y="295.939" Z="0.4796115" />
-				<CustomBehavior File="26649" />
+				<CustomBehavior File="SpecificQuests\26649-Stranglethorn-DriveByPiracy" />
 			</If>
 		<TurnIn QuestName="Drive-By Piracy" QuestId="26649" TurnInName="Ironpatch" TurnInId="2547" />
 		<PickUp QuestName="The Damsel's Luck" QuestId="26650" GiverName="Fleet Master Firallon" GiverId="2546" />
@@ -6077,7 +6077,7 @@
 		<TurnIn QuestName="Learning the Ropes" QuestId="27000" TurnInName="Nathaniel Dumah" TurnInId="11616" />
 		<PickUp QuestName="This Means WAR (Wild Arachnid Roundup)" QuestId="27001" GiverName="Nathaniel Dumah" GiverId="11616" />
 			<If Condition="((HasQuest(27001)) &amp;&amp; (!IsQuestCompleted(27001)))" >
-				<CustomBehavior File="ThisMeansWAR" />
+				<CustomBehavior File="SpecificQuests\27001-WPL-ThisMeansWAR" />
 			</If>
 			<If Condition="((HasQuest(27001)) &amp;&amp; (IsQuestCompleted(27001)))" >
 				<RunTo X="2439.321" Y="-1653.324" Z="106.241" />
@@ -6401,15 +6401,18 @@
 			</If>
 		<TurnIn QuestName="The Trek Continues" QuestId="27448" TurnInName="Fiona" TurnInId="45417" />		
 		<PickUp QuestName="Boys Will Be Boys" QuestId="27455" GiverName="Fiona" GiverId="45417" X="2278.03" Y="-4420.79" Z="111.7495" />
+		<!--
 		<PickUp QuestName="To Kill With Purpose" QuestId="27451" GiverName="Betina Bigglezink" GiverId="11035" />
 		<PickUp QuestName="Dark Garb" QuestId="27452" GiverName="Betina Bigglezink" GiverId="11035" X="2237.27" Y="-4433.15" Z="111.7314" />
-		<!-- -->
-		<PickUp QuestName="Frederick's Fish Fancy" QuestId="27450" GiverName="Frederick Calston" GiverId="45575" />
+		-->
+		<!-- <PickUp QuestName="Frederick's Fish Fancy" QuestId="27450" GiverName="Frederick Calston" GiverId="45575" />-->
 		<PickUp QuestName="Honor and Strength" QuestId="27449" GiverName="Vex'tul" GiverId="45574" />
 			<Objective QuestName="Honor and Strength" QuestId="27449" Type="KillMob" MobId="45579" KillCount="3" />
 		<TurnIn QuestName="Honor and Strength" QuestId="27449" TurnInName="Vex'tul" TurnInId="45574" />
-			<Objective QuestName="Dark Garb" QuestId="27452" Type="CollectItem" ItemId="61280" CollectCount="1" />
-			<Objective QuestName="Dark Garb" QuestId="27452" Type="CollectItem" ItemId="61281" CollectCount="1" />
+			<While Condition="((HasQuest(27452)) &amp;&amp; (!IsQuestCompleted(27452)))" >
+				<Objective QuestName="Dark Garb" QuestId="27452" Type="CollectItem" ItemId="61280" CollectCount="1" />
+				<Objective QuestName="Dark Garb" QuestId="27452" Type="CollectItem" ItemId="61281" CollectCount="1" />
+			</While>
 			<While Condition="((HasQuest(27452)) &amp;&amp; (IsQuestCompleted(27452)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="27452" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
@@ -6478,7 +6481,9 @@
 				<RunTo X="2109.781" Y="-4346.384" Z="74.18436" />
 			</If>
 			
+			<If Condition="((HasQuest(27450)) &amp;&amp; (IsQuestCompleted(27450)))" >
 		<TurnIn QuestName="Frederick's Fish Fancy" QuestId="27450" TurnInName="Frederick Calston" TurnInId="45575" />
+			</If>
 			<If Condition="((HasQuest(27454)) &amp;&amp; (IsQuestCompleted(27454)))" >
 		<TurnIn QuestName="Just a Drop in the Bucket" QuestId="27454" TurnInName="Betina Bigglezink" TurnInId="11035" />		
 			</If>
@@ -6863,7 +6868,7 @@
 		<TurnIn QuestName="The Venerable Doctor Blam" TurnInName="Dr. Hieronymus Blam" QuestId="27772" TurnInId="46664" />
 		<PickUp QuestName="Troggish Troubles" QuestId="27789" GiverName="Dr. Hieronymus Blam" GiverId="46664" />
 			<If Condition="((HasQuest(27789)) &amp;&amp; (!IsQuestCompleted(27789)))" >
-				<CustomBehavior File="TroggishTroubles" />
+				<CustomBehavior File="SpecificQuests\27789-Badlands-TroggishTroubles" />
 			</If>
 		<TurnIn QuestName="Troggish Troubles" TurnInName="Dr. Hieronymus Blam" QuestId="27789" TurnInId="46664" />	
 		<PickUp QuestName="Dustwind Dig" GiverName="Dr. Hieronymus Blam" QuestId="27791" GiverId="46664" />
@@ -7813,7 +7818,7 @@
 		<TurnIn QuestName="Locked and Loaded" QuestId="28327" TurnInName="Colonel Troteman" TurnInId="48307" X="-8395.82" Y="-2785.71" Z="194.7979" />	
 			</If>
 			<!-- DEVELOPMENT 
-			// look at behavior 28454
+			// look at behavior 28454 - SpecificQuests\28454-BurningSteppes-HordeAssaultonDreadmaulRock
 			<If Condition="((!HasQuest(28320)) &amp;&amp; (!IsQuestCompleted(28320)))" >
 		<PickUp QuestName="Assault on Dreadmaul Rock" QuestId="28320" GiverName="John J. Keeshan" GiverId="48306" />
 				<CustomBehavior File="WaitTimer" WaitTime="130000" GoalText="Waiting for cutscene {TimeRemaining}" />
