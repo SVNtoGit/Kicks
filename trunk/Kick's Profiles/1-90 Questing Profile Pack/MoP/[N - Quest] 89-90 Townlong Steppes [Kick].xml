@@ -1214,7 +1214,17 @@
 
 			<!-- If this quest gets too many complaints ... Disable 30931 and 30932 -->
 		<PickUp QuestName="My Father's Crossbow" QuestId="30931" GiverName="Ku-Mo" GiverId="61539" X="2040.181" Y="4559.711" Z="133.8767" /> <!-- Hard, but doable - Nat / masta - make me a behavior that kills the adds first and doesn't stand in shit / spit -->
-			<Objective QuestName="My Father's Crossbow" QuestId="30931" Type="CollectItem" ItemId="82332" CollectCount="1" />
+			<If Condition="((HasQuest(30931)) &amp;&amp; (!IsQuestCompleted(30931)))" >
+				<!-- <Objective QuestName="My Father's Crossbow" QuestId="30931" Type="CollectItem" ItemId="82332" CollectCount="1" /> -->
+				<CustomBehavior File="GetOutOfGroundEffectAndAuras" QuestId="30931" StartNpcId="61540" 
+						EventX="2057.646" EventY="4858.151" EventZ="154.6169" 
+						MoveBehindMobCastingSpellId1="119688" 
+						MoveBehindMobCastingSpellId2="119694" >
+					<Safespots>
+						<Hotspot X="2012.314" Y="4844.366" Z="159.3651" />
+					</Safespots>
+				</CustomBehavior>
+			</If>
 		<TurnIn QuestName="My Father's Crossbow" QuestId="30931" TurnInName="Ku-Mo" TurnInId="61539" X="2040.181" Y="4559.711" Z="133.8768" />
 		<PickUp QuestName="Father's Footsteps" QuestId="30932" GiverName="Sentinel Commander Qipan" GiverId="61584" X="2185.582" Y="4815.417" Z="180.944" />
 		<TurnIn QuestName="The Wisdom of Niuzao" QuestId="30924" TurnInName="Ogo the Younger" TurnInId="61581" X="2175.948" Y="4819.946" Z="181.9502" />
