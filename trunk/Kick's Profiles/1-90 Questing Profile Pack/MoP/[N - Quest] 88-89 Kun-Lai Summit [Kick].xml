@@ -1315,7 +1315,8 @@
 		<TurnIn QuestName="Cleansing the Mere" QuestId="30828" TurnInName="Waterspeaker Gorai" TurnInId="61065" />
 		<PickUp QuestName="The Fall of Shai Hu" QuestId="30855" GiverName="Waterspeaker Gorai" GiverId="61065" />
 			<While Condition="((HasQuest(30855)) &amp;&amp; (!IsQuestCompleted(30855)))" >
-				<RunTo X="2117.088" Y="388.3058" Z="476.172" />
+				<RunTo X="2108.552" Y="389.4706" Z="475.5163" /> <!-- out of agro range -->
+				<!-- <RunTo X="2129.497" Y="389.5798" Z="476.0607" /> Agro range to make beh go in -->
 				<CustomBehavior File="SpecificQuests\30855-KunLai-TheFallofShaiHu" />
 			</While>
 			<If Condition="((HasQuest(30855)) &amp;&amp; (IsQuestCompleted(30855)))" >
@@ -2490,22 +2491,30 @@
 				<CustomBehavior File="UserSettings" UseFlightPaths="False" />
 			</If>
 		<PickUp QuestName="The Burlap Trail: To Burlap Waystation" QuestId="30592" GiverName="Brother Lintpocket" GiverId="59701" X="3053.801" Y="1203.967" Z="651.8953" />
-			<If Condition="((HasQuest(30592)) &amp;&amp; (!IsQuestCompleted(30592)))" >
-				<CustomBehavior File="UserDialog" QuestId="30592" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="130" 
-				Text="Help the bot escort the caravan. Press map button and see where they are, escort or let them die, then come back to the npc if they're dead" />
-				
-				<CustomBehavior File="EscortGroup" QuestId="30592" StartNpcId="59701" EscortNpcId="59593" >
+			<While Condition="((HasQuest(30592)) &amp;&amp; (!IsQuestCompleted(30592)))" >
+				<CustomBehavior File="EscortGroup"  QuestId="30592" EscortMaxFightDistance="35" SearchForNpcsRadius="75" 
+					EscortNpcId1="59556" EscortNpcId2="59593" EscortNpcId3="59578" EscortNpcId4="59526" EscortNpcId5="59527" >
+					<SearchPath>
+						<Hotspot X="2979.028" Y="1154.199" Z="627.852" />
+						<Hotspot X="2915.427" Y="1162.269" Z="616.4099" />
+						<Hotspot X="2918.999" Y="1244.736" Z="635.1276" />
+						<Hotspot X="2880.712" Y="1333.895" Z="639.9879" />
+						<Hotspot X="2859.79" Y="1421.056" Z="641.6649" />
+						<Hotspot X="2836.308" Y="1484.419" Z="641.7247" />
+						<Hotspot X="2848.853" Y="1394.382" Z="645.6835" />
+					</SearchPath>
 					<EscortPath>
-						<Hotspot X="3054.184" Y="1203.203" Z="651.8081" /> <!-- Brother Lintpocket, quest giver -->
-						<Hotspot X="3038.825" Y="1186.964" Z="648.7444" /> <!-- One Keg -->
-						<Hotspot X="2917.262" Y="1225.643" Z="631.4564" />
-						<Hotspot X="2877.909" Y="1339.602" Z="640.489" />
-						<Hotspot X="2875.544" Y="1407.737" Z="641.1179" />
-						<Hotspot X="2818.509" Y="1450.064" Z="641.5284" />
-						<Hotspot X="2840.411" Y="1527.53" Z="642.7805" /> <!-- Burlap Waystation -->
+						<Hotspot X="2979.028" Y="1154.199" Z="627.852" />
+						<Hotspot X="2915.427" Y="1162.269" Z="616.4099" />
+						<Hotspot X="2918.999" Y="1244.736" Z="635.1276" />
+						<Hotspot X="2880.712" Y="1333.895" Z="639.9879" />
+						<Hotspot X="2859.79" Y="1421.056" Z="641.6649" />
+						<Hotspot X="2836.308" Y="1484.419" Z="641.7247" />
+						<Hotspot X="2840.114" Y="1528.725" Z="642.9043" />
+						<Hotspot X="2804.693" Y="1562.248" Z="651.999" />
 					</EscortPath>
 				</CustomBehavior>
-			</If>
+			</While>
 		<TurnIn QuestName="The Burlap Trail: To Burlap Waystation" QuestId="30592" TurnInName="Brother Trailscenter" TurnInId="59703" X="2788.244" Y="1606.597" Z="655.2974" />
 		<PickUp QuestName="The Rabbitsfoot" QuestId="30602" GiverName="Brother Trailscenter" GiverId="59703" X="2788.244" Y="1606.597" Z="655.2974" />
 			<While Condition="((HasQuest(30602)) &amp;&amp; (!IsQuestCompleted(30602)))" >
