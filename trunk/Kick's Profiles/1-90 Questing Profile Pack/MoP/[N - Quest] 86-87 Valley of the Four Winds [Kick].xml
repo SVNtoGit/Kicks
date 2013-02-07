@@ -919,12 +919,12 @@
 			<Objective QuestName="Snap Judgment" QuestId="29600" Type="KillMob" MobId="56832" KillCount="16" />
 		<TurnIn QuestName="Snap Judgment" QuestId="29600" TurnInName="Zhang Yue" TurnInId="56802" X="364.6945" Y="331.1823" Z="189.5327" />
 		<TurnIn QuestName="The Golden Dream" QuestId="29581" TurnInName="Yan" TurnInId="56773" X="214.4271" Y="300.2326" Z="153.789" />
+			<If Condition="((HasQuest(29758)) &amp;&amp; (IsQuestCompleted(29758)))" >
 		<TurnIn QuestName="Guess Whose Back" QuestId="29758" TurnInName="Yan" TurnInId="56773" X="214.4271" Y="300.2326" Z="153.789" />
-			<If Condition="((HasQuest(29757)) &amp;&amp; (IsQuestCompleted(29757)))" >
-		<TurnIn QuestName="Bottletoads" QuestId="29757" TurnInName="Yan" TurnInId="56773" X="214.4271" Y="300.2326" Z="153.789" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
 			</If>
+		<TurnIn QuestName="Bottletoads" QuestId="29757" TurnInName="Yan" TurnInId="56773" X="214.4271" Y="300.2326" Z="153.789" />
 
 			<CustomBehavior File="Message" Text="Compiling Silken Field Quests" LogColor="Cornflowerblue" />
 
@@ -983,12 +983,17 @@
 				<CustomBehavior File="WaitTimer" WaitTime="60000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
 		<PickUp QuestName="Broken Dreams" QuestId="29952" GiverName="Chen Stormstout" GiverId="56133" X="-39.92934" Y="-23.58536" Z="154.1598" />
-			<If Condition="((HasQuest(29952)) &amp;&amp; (!IsQuestCompleted(29952)))" >
-				<!-- I need these vehicles to face and move to target -->
-				<!-- Natfoth should prob script this -->
+			<While Condition="((HasQuest(29952)) &amp;&amp; (!IsQuestCompleted(29952)))" >
+				<!-- while !me.hasaura() -->
 				<CustomBehavior File="InteractWith" MobId="56133" GossipOptions="1" X="-39.92934" Y="-23.58536" Z="154.1598" />
 				<CustomBehavior File="WaitTimer" WaitTime="12000" />
+				<!-- /while -->
 
+				<CustomBehavior File="SpecificQuests\29952-VotFW-BrokenDreams" />
+
+				<!-- I need these vehicles to face and move to target -->
+				<!-- Natfoth should prob script this -->
+				<!--
 				<CustomBehavior File="MyCTM" X="-767.0062" Y="1392.338" Z="146.7438" />
 				<CustomBehavior File="MyCTM" X="-746.9614" Y="1318.669" Z="146.7112" />
 				<CustomBehavior File="InteractWith" MobId="56684" X="-744.423" Y="1310.25" Z="146.6936" />
@@ -1010,7 +1015,8 @@
 				<CustomBehavior File="MyCTM" QuestId="29952" X="-751.9623" Y="1324.734" Z="162.6414" />
 				<CustomBehavior File="MyCTM" QuestId="29952" X="-707.1388" Y="1293.312" Z="162.7099" />
 				<CustomBehavior File="MyCTM" QuestId="29952" X="-751.9271" Y="1334.837" Z="162.6368" />
-			</If>
+				-->
+			</While>
 		<TurnIn QuestName="Broken Dreams" QuestId="29952" TurnInName="Chen Stormstout" TurnInId="56133" X="-39.92934" Y="-23.58536" Z="154.1598" />
 			<If Condition="((!HasQuest(30046)) &amp;&amp; (!IsQuestCompleted(30046)))" >
 		<PickUp QuestName="Chen's Resolution" QuestId="30046" GiverName="Chen Stormstout" GiverId="56133" X="-39.9375" Y="-23.56771" Z="154.1579" />
