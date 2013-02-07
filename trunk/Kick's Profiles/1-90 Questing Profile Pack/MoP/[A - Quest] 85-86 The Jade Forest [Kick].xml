@@ -1163,23 +1163,31 @@
 			</If>
 		<TurnIn QuestName="SI:7 Report: Fire From the Sky" QuestId="29725" TurnInName="Sully &quot;The Pickle&quot; McLeary" TurnInId="55282" X="-156.0701" Y="-2658.927" Z="0.9811339" />
 		<PickUp QuestName="SI:7 Report: Hostile Natives" QuestId="29726" GiverName="Little Lu" GiverId="55284" X="-159.2535" Y="-2672.84" Z="1.058113" />
-			<If Condition="((HasQuest(29726)) &amp;&amp; (!IsQuestCompleted(29726)))" >
+			<While Condition="((HasQuest(29726)) &amp;&amp; (!IsQuestCompleted(29726)))" >
+			 <If Condition="(!Me.IsOnTransport)" >
+				<CustomBehavior File="InteractWith" QuestId="29726" MobId="55284" GossipOptions="1" X="-159.2535" Y="-2672.84" Z="1.058113" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for vehical {TimeRemaining}" />
+			 </If>
+			  <If Condition="!IsObjectiveComplete(1, 29726)" >
 				<CustomBehavior File="WaitTimer" WaitTime="35000" />
-			  <While Condition="!IsObjectiveComplete(1, 29726)" >
-				<CustomBehavior File="InteractWith" MobId="209615" ObjectType="Gameobject" X="1538.889" Y="-1223.118" Z="241.0157" />
-			  </While>
-			  <While Condition="!IsObjectiveComplete(2, 29726)" >
-				<CustomBehavior File="InteractWith" MobId="55378" X="1514.812" Y="-1260.715" Z="244.286" />
-			  </While>
-			  <While Condition="!IsObjectiveComplete(3, 29726)" >
-				<CustomBehavior File="InteractWith" MobId="55380" X="1496.277" Y="-1267.602" Z="244.5958" />
-			  </While>
+				<CustomBehavior File="InteractWith" MobId="209615" ObjectType="Gameobject" Range="3" X="1538.889" Y="-1223.118" Z="241.0157" />
+			  </If>
+			  <If Condition="!IsObjectiveComplete(2, 29726)" >
+				<CustomBehavior File="InteractWith" MobId="55378" Range="4" X="1514.812" Y="-1260.715" Z="244.286" />
+				<CustomBehavior File="WaitTimer" WaitTime="12000" />
+			  </If>
+			  <If Condition="!IsObjectiveComplete(3, 29726)" >
+				<CustomBehavior File="InteractWith" MobId="55380" Range="4" X="1496.277" Y="-1267.602" Z="244.5958" />
 				<CustomBehavior File="WaitTimer" WaitTime="6000" />
-			  <While Condition="!IsObjectiveComplete(4, 29726)" >
-				<CustomBehavior File="InteractWith" MobId="55381" GossipOptions="1" X="1501.259" Y="-1288.729" Z="248.6164" />
+			  </If>
+			  <If Condition="!IsObjectiveComplete(4, 29726)" >
+				<RunTo X="1501.259" Y="-1288.729" Z="248.6164" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for Widow {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" MobId="55381" Range="2" GossipOptions="1" WaitForNpcs="False" X="1501.259" Y="-1288.729" Z="248.6164" />
 				<CustomBehavior File="WaitTimer" WaitTime="63000" />
-			  </While>
-			</If>
+			  </If>
+				<CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" WaitTime="1000" />
+			</While>
 		<TurnIn QuestName="SI:7 Report: Hostile Natives" QuestId="29726" TurnInName="Little Lu" TurnInId="55284" X="-159.2535" Y="-2672.84" Z="1.058113" />
 		<PickUp QuestName="SI:7 Report: Take No Prisoners" QuestId="29727" GiverName="Amber Kearnen" GiverId="55283" X="-161.1372" Y="-2663.21" Z="1.14709" />
 			<If Condition="((HasQuest(29727)) &amp;&amp; (!IsQuestCompleted(29727)))" >
