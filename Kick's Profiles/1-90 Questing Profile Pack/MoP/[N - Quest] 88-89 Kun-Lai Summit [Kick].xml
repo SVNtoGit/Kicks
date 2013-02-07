@@ -82,6 +82,7 @@
 		<Mob Name="Knucklethump Spectator" Entry="60909" />
 		<Mob Name="Hozen Swing" Id="60911" />
 		<Mob Name="Monkey Idol Target" Id="60100" />
+		<Mob Name="Gurubashi Raptor" Entry="66142" />
 	</AvoidMobs>	
 
 	<!-- Quest Overrides -->
@@ -1928,12 +1929,13 @@
 			<While Condition="((HasQuest(30487)) &amp;&amp; (!IsQuestCompleted(30487)))" >
 			 <If Condition="(!Me.IsOnTransport)" >
 				<CustomBehavior File="MountVehOnly" QuestId="30487" VehicleMountId="60094" X="3048.23" Y="1253.79" Z="655.1" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting... {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting... {TimeRemaining}" />
 			 </If>
 			 <If Condition="(Me.IsOnTransport)" >
 				<CustomBehavior File="NoControlVehicle" QuestId="30487" AttackButton="2" AttackButtonSecondary="1" TargetId1="60138" TargetId2="59694" VehicleId="60094" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting... {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" QuestId="30487" WaitTime="25000" GoalText="Waiting... {TimeRemaining}" />
 			 </If>
+				<CustomBehavior File="WaitTimer" QuestId="30487" WaitTime="30000" GoalText="Waiting... {TimeRemaining}" />
 			</While>
 		<TurnIn QuestName="Comin' Round the Mountain" QuestId="30487" TurnInName="Lucky Bluestring" TurnInId="60175" X="3572.387" Y="1826.929" Z="877.9355" />
 		<PickUp QuestName="One Traveler's Misfortune" QuestId="30683" GiverName="Lucky Bluestring" GiverId="60175" X="3572.387" Y="1826.929" Z="877.9355" />
@@ -2711,6 +2713,11 @@
 				<!--<CustomBehavior File="SpecificQuests\30747-KunLai-TheBurlapGrind" />-->
 				 <CustomBehavior File="UserDialog" QuestId="30747" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Kill 100 noobs w/ Yeti" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
+				<CustomBehavior File="NoCombatMoveTo" X="2725.47" Y="2178.908" Z="590.5787" />
+				<CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" WaitTime="1000" />
+			</If>
+			<If Condition="((HasQuest(30747)) &amp;&amp; (!IsQuestCompleted(30747))) &amp;&amp; (Me.IsOnTransport)" >
+				<CustomBehavior File="NoCombatMoveTo" X="2725.47" Y="2178.908" Z="590.5787" />
 				<CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" WaitTime="1000" />
 			</If>
 		<TurnIn QuestName="The Burlap Grind" QuestId="30747" TurnInName="Nephew Burrberry" TurnInId="60679" X="2725.47" Y="2178.908" Z="590.5787" />
@@ -2779,7 +2786,7 @@
 			</If>
 			<Objective QuestName="Turnabout" QuestId="30670" Type="CollectItem" ItemId="81713" CollectCount="5" />
 			<Objective QuestName="The Defense of Shado-Pan Fallback" QuestId="30665" Type="KillMob" MobId="60164" KillCount="15" />
-			<If Condition="((HasQuest(30670)) &amp;&amp; (IsQuestCompleted(30670)))" > <!--in-->
+			<If Condition="((HasQuest(30670)) &amp;&amp; (IsQuestCompleted(30670)))" >
 				<RunTo X="1902.315" Y="2054.299" Z="455.6709" />
 				<CustomBehavior File="InteractWith" MobId="215381" ObjectType="Gameobject" Range="8" WaitTime="0" X="1902.315" Y="2054.299" Z="455.6709" />
 				<RunTo X="1865.691" Y="2050.473" Z="455.6911" />
@@ -2798,7 +2805,7 @@
 				<CustomBehavior File="UserDialog" QuestId="30690" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
 				Text="Use the trap near kobai and walk him into it, steal the mask *extra action button 1*, and kill the boss" />
 			</If>
-			<If Condition="((HasQuest(30690)) &amp;&amp; (IsQuestCompleted(30690)))" > <!--in-->
+			<If Condition="((HasQuest(30690)) &amp;&amp; (IsQuestCompleted(30690)))" >
 				<RunTo X="1902.315" Y="2054.299" Z="455.6709" />
 				<CustomBehavior File="InteractWith" MobId="215381" ObjectType="Gameobject" Range="8" WaitTime="0" X="1902.315" Y="2054.299" Z="455.6709" />
 				<RunTo X="1865.691" Y="2050.473" Z="455.6911" />
