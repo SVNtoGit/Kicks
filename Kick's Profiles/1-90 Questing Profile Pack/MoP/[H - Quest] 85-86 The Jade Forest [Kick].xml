@@ -1116,8 +1116,17 @@
 		<TurnIn QuestName="Unreliable Allies" QuestId="31778" TurnInName="Merchant Zin" TurnInId="65998" X="2639.065" Y="-741.8889" Z="313.2816" />
 		<TurnIn QuestName="Assault on the Airstrip" QuestId="31775" TurnInName="General Nazgrim" TurnInId="65999" X="2632.525" Y="-758.7483" Z="316.3282" />
 		<TurnIn QuestName="Strongarm Tactics" QuestId="31776" TurnInName="General Nazgrim" TurnInId="65999" X="2632.525" Y="-758.7483" Z="316.3282" />
-		<PickUp QuestName="The Darkness Within" QuestId="31779" GiverName="" GiverId="65999" X="2632.525" Y="-758.7483" Z="316.3282" />
-			<Objective QuestName="The Darkness Within" QuestId="31779" Type="KillMob" MobId="66052" KillCount="1" />
+		<PickUp QuestName="The Darkness Within" QuestId="31779" GiverName="General Nazgrim" GiverId="65999" X="2632.525" Y="-758.7483" Z="316.3282" />
+			<If Condition="((HasQuest(31779)) &amp;&amp; (!IsQuestCompleted(31779)))" >
+				<CustomBehavior File="GetOutOfGroundEffectAndAuras" StartNpcId="66052" QuestId="31779"
+						EventX="2552.141" EventY="-346.4496" EventZ="343.6661" 
+						MoveBehindMobCastingSpellId="130521" >
+					<Safespots>
+						<Hotspot X="2523.665" Y="-360.0033" Z="343.1418" />
+					</Safespots>
+				</CustomBehavior>
+			<!--<Objective QuestName="The Darkness Within" QuestId="31779" Type="KillMob" MobId="66052" KillCount="1" />-->
+			</If>
 		<TurnIn QuestName="The Darkness Within" QuestId="31779" TurnInName="Flagpole" TurnInId="215844" TurnInType="Object" X="2522.924" Y="-474.7571" Z="341.124" />
 		<PickUp QuestName="Nazgrim's Command" QuestId="31999" GiverName="Flagpole" GiverId="215844" GiverType="Object" X="2522.924" Y="-474.7571" Z="341.124" />
 		<TurnIn QuestName="Nazgrim's Command" QuestId="31999" TurnInName="General Nazgrim" TurnInId="55172" X="2491.174" Y="-532.7205" Z="344.0423" />
@@ -1326,7 +1335,7 @@
 			 </If>
 			 <If Condition="((HasQuest(29730)) &amp;&amp; (!IsObjectiveComplete(3, 29730)))"> <!-- Widow Greenpaw -->
 				<RunTo X="1500.909" Y="-1286.712" Z="249.5587" />
-				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for Widow {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for Widow {TimeRemaining}" />
 				<CustomBehavior File="InteractWith" QuestId="29730" MobId="55381" Range="2" GossipOptions="1" WaitForNpcs="False" X="1501.259" Y="-1288.729" Z="248.6165" />
 				<CustomBehavior File="WaitTimer" QuestId="29730" WaitTime="35000" GoalText="Waiting for objective to complete {TimeRemaining}" />
 			 </If>
