@@ -2344,7 +2344,6 @@
 			<If Condition="((HasQuest(31011)) &amp;&amp; (!IsQuestCompleted(31011)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<RunTo X="4382.372" Y="1011.066" Z="98.62169" />
-				<!--<CustomBehavior File="UserDialog" QuestId="31011" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Assist the bot and kill guys for Enemies At Our Door. Roll barrels into the Behemoths" />-->
 			 <While Condition="((HasQuest(31011)) &amp;&amp; (!IsObjectiveComplete(2, 31011)))"> <!-- Roll barrels into 5 Behemoths -->
 				<CustomBehavior File="InteractWith" QuestId="31011" MobId="62591" CollectionDistance="10" WaitTime="500" X="4401.267" Y="1010.197" Z="96.01667" />
 			 </While>
@@ -2445,7 +2444,8 @@
 				<Objective QuestName="Prophet Khar'zul" QuestId="31228" Type="KillMob" MobId="64642" KillCount="12" /> <!-- 3 -->
 			 <If Condition="(!IsObjectiveComplete(2, 31228))" >
 				<RunTo X="5205.918" Y="72.23138" Z="28.12897" />
-				<CustomBehavior File="UserDialog" QuestId="31228" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Kill the Prophet" />
+				<CustomBehavior File="UserDialog" QuestId="31228" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
+				Text="Kill the Prophet\n\nPress continue if you want the bot to kill the prophet, I suggest standing on the tablet and GTFOO crap on ground" />
 				
 				<!-- This behavior doesn't work for this quest, CJ please fix it -->
 				<CustomBehavior File="GetOutOfGroundEffectAndAuras" QuestId="31228" StartNpcId="61541" 
@@ -2520,12 +2520,17 @@
 			</While>
 		<TurnIn QuestName="The Burlap Trail: To Burlap Waystation" QuestId="30592" TurnInName="Brother Trailscenter" TurnInId="59703" X="2788.244" Y="1606.597" Z="655.2974" />
 		<PickUp QuestName="The Rabbitsfoot" QuestId="30602" GiverName="Brother Trailscenter" GiverId="59703" X="2788.244" Y="1606.597" Z="655.2974" />
+		<PickUp QuestName="The Broketooth Ravage" QuestId="30603" GiverName="Brother Rabbitsfoot" GiverId="59452" X="2788.244" Y="1606.597" Z="655.2974" />
 			<While Condition="((HasQuest(30602)) &amp;&amp; (!IsQuestCompleted(30602)))" >
 				<RunTo X="2678.495" Y="1766.687" Z="643.9081" />
 				<CustomBehavior File="InteractWith" QuestId="30602" MobId="59806" Range="10" X="2679.463" Y="1766.806" Z="652.8899" />
 			</While>
-			<If Condition="((!HasQuest(30603)) &amp;&amp; (!IsQuestCompleted(30603)))" >
+			<If Condition="((!HasQuest(30603)) &amp;&amp; (!IsQuestCompleted(30603)))" > <!-- if we always pickup broketooth ravage from the turnin location, we can ignore it in the HQA and delete this condition -->
+				<RunTo X="2678.495" Y="1766.687" Z="643.9081" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<RunTo X="2678.495" Y="1766.687" Z="643.9081" />
 			  <While Condition="(HasQuestAvailable(59806))" >
+				<RunTo X="2678.495" Y="1766.687" Z="643.9081" />
 				<CustomBehavior File="InteractWith" MobId="59806" Range="10" X="2678.495" Y="1766.687" Z="643.9081" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
 			  </While>
@@ -2711,8 +2716,7 @@
 				<CustomBehavior File="InteractWith" QuestId="30747" MobId="60587" GossipOptions="1" X="2733.21" Y="2171.56" Z="590.6041" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
 			 </While>
-				<!--<CustomBehavior File="SpecificQuests\30747-KunLai-TheBurlapGrind" />-->
-				 <CustomBehavior File="UserDialog" QuestId="30747" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Kill 100 noobs w/ Yeti" />
+				<CustomBehavior File="SpecificQuests\30747-KunLai-TheBurlapGrind" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
 				<CustomBehavior File="NoCombatMoveTo" X="2725.47" Y="2178.908" Z="590.5787" />
 				<CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" WaitTime="1000" />
@@ -2803,8 +2807,7 @@
 			</If>
 			<If Condition="((HasQuest(30690)) &amp;&amp; (!IsQuestCompleted(30690)))" >
 				<RunTo X="2058.88" Y="2018.04" Z="454.5971" />
-				<CustomBehavior File="UserDialog" QuestId="30690" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
-				Text="Use the trap near kobai and walk him into it, steal the mask *extra action button 1*, and kill the boss" />
+				<CustomBehavior File="30690-KunLai-UnmaskingTheYaungol" />
 			</If>
 			<If Condition="((HasQuest(30690)) &amp;&amp; (IsQuestCompleted(30690)))" >
 				<RunTo X="1902.315" Y="2054.299" Z="455.6709" />
