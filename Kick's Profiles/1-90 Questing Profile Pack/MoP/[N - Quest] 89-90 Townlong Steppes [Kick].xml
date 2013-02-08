@@ -1284,23 +1284,39 @@
 			<CustomBehavior File="Message" Text="Compiling Niuzao Temple Quests" LogColor="Cornflowerblue" />
 
 			<If Condition="((!HasQuest(30931)) &amp;&amp; (!IsQuestCompleted(30931)))" >
-		 	 <If Condition="(CanFly())" >
+			 <If Condition="((HasSpell(115913)) &amp;&amp; CanFly())" >
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2040.181" Y="4559.711" Z="133.8767" />
 			 </If>
 			</If>
 		<PickUp QuestName="My Father's Crossbow" QuestId="30931" GiverName="Ku-Mo" GiverId="61539" X="2040.181" Y="4559.711" Z="133.8767" />
 			<If Condition="((HasQuest(30931)) &amp;&amp; (!IsQuestCompleted(30931)))" >
+			 <If Condition="((HasSpell(115913)) &amp;&amp; CanFly())" >
+				<CustomBehavior File="FlyTo" DestName="kill Et'kil" X="2014.557" Y="4833.926" Z="158.7839" />
+			 </If>
 				<!-- <Objective QuestName="My Father's Crossbow" QuestId="30931" Type="CollectItem" ItemId="82332" CollectCount="1" /> -->
-				<CustomBehavior File="GetOutOfGroundEffectAndAuras" QuestId="30931" StartNpcId="61540" 
+				<RunTo X="2057.646" Y="4858.151" Z="154.6169" />
+				<CustomBehavior File="GetOutOfGroundEffectAndAuras" QuestId="30931" StartNpcId="61540" PreferKillingMobIdN="63677" 
 						EventX="2057.646" EventY="4858.151" EventZ="154.6169" 
 						MoveBehindMobCastingSpellId1="119688" 
-						MoveBehindMobCastingSpellId2="119694" >
+						MoveBehindMobCastingSpellId2="119694" 
+						MoveBehindMobCastingSpellId3="125825" 
+						MoveBehindMobCastingSpellId4="125845" >
 					<Safespots>
 						<Hotspot X="2012.314" Y="4844.366" Z="159.3651" />
 					</Safespots>
 				</CustomBehavior>
 			</If>
+			<If Condition="((HasQuest(30931)) &amp;&amp; (IsQuestCompleted(30931)))" >
+			 <If Condition="((HasSpell(115913)) &amp;&amp; CanFly())" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2040.181" Y="4559.711" Z="133.8768" />
+			 </If>
+			</If>
 		<TurnIn QuestName="My Father's Crossbow" QuestId="30931" TurnInName="Ku-Mo" TurnInId="61539" X="2040.181" Y="4559.711" Z="133.8768" />
+			<If Condition="((!HasQuest(30932)) &amp;&amp; (!IsQuestCompleted(30932)))" >
+			 <If Condition="((HasSpell(115913)) &amp;&amp; CanFly())" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2201.98" Y="4795.396" Z="165.1437" />
+			 </If>
+			</If>
 		<PickUp QuestName="Father's Footsteps" QuestId="30932" GiverName="Sentinel Commander Qipan" GiverId="61584" X="2185.582" Y="4815.417" Z="180.944" />
 		<TurnIn QuestName="The Wisdom of Niuzao" QuestId="30924" TurnInName="Ogo the Younger" TurnInId="61581" X="2175.948" Y="4819.946" Z="181.9502" />
 		<PickUp QuestName="Niuzao's Price" QuestId="30925" GiverName="Ogo the Younger" GiverId="61581" X="2175.948" Y="4819.946" Z="181.9502" />
@@ -1450,9 +1466,10 @@
 
 			<!-- To Dread Wastes -->
 			<If Condition="((!HasQuest(31001)) &amp;&amp; (!IsQuestCompleted(31001)))" >
-			 <If Condition="HasSpell(115913) &amp;&amp; CanFly()" >
+			 <If Condition="((HasSpell(115913)) &amp;&amp; CanFly())" >
 				<CustomBehavior File="FlyTo" X="609.7953" Y="2126.61" Z="367.7319" />
 				<CustomBehavior File="ForcedDismount" />
+			 </If>
 			  <Else>
 			   <If Condition="(Me.Y &gt; 2200)" >
 				<CustomBehavior File="ForcedDismount" />
@@ -1477,7 +1494,6 @@
 				<CustomBehavior File="WaitTimer" WaitTime="12000" GoalText="Waiting for ride up {TimeRemaining}" />
 			   </If>
 			  </Else>
-			 </If>
 				<CustomBehavior File="InteractWith" MobId="63497" X="610.0486" Y="2120.95" Z="368.0562" /> <!-- Serpent's Shrine FP -->
 			</If>
 			<If Condition="((HasQuest(31656)) &amp;&amp; (IsQuestCompleted(31656)))" >
