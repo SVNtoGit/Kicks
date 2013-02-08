@@ -1639,9 +1639,17 @@
 			<While Condition="((HasQuest(30652)) &amp;&amp; (IsQuestCompleted(30652)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="30652" /> <!-- 30660 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
+				<!-- Quest avail from Admiral Taylor if we abandon it -->
 			</While>
-			<!-- Natfoth, get me a quest behavior for this that switches to the mobs when he becomes immune to dmg -->
-			<Objective QuestName="The Ordo Warbringer" QuestId="30660" Type="KillMob" MobId="60127" KillCount="1" />
+			<If Condition="((HasQuest(30660)) &amp;&amp; (!IsQuestCompleted(30660)))" >
+				<RunTo X="2409.442" Y="1774.323" Z="519.6922" />
+				<CustomBehavior File="GetOutOfGroundEffectAndAuras" QuestId="30660" StartNpcId="60127" PreferKillingMobId1="60131" EventX="2416.448" EventY="1805.908" EventZ="520.5848" >
+					<Safespots>
+						<Hotspot X="2416.448" Y="1805.908" Z="520.5848" />
+					</Safespots>
+				</CustomBehavior>
+				<!--<Objective QuestName="The Ordo Warbringer" QuestId="30660" Type="KillMob" MobId="60127" KillCount="1" />-->
+			</If>
 		<TurnIn QuestName="Barrels of Fun" QuestId="30651" TurnInName="Sully &quot;The Pickle&quot; McLeary" TurnInId="59450" X="2144.019" Y="1449.528" Z="488.1475" />
 		<TurnIn QuestName="Pandaren Prisoners" QuestId="30650" TurnInName="Admiral Taylor" TurnInId="59441" X="2145.762" Y="1456.22" Z="487.8856" />
 		<TurnIn QuestName="The Ordo Warbringer" QuestId="30660" TurnInName="Admiral Taylor" TurnInId="59441" X="2145.762" Y="1456.22" Z="487.8856" />
@@ -1731,11 +1739,20 @@
 				<CustomBehavior File="CompleteLogQuest" QuestId="30657" /> <!-- 30661 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
 			</While>
-			<!-- Natfoth, get me a quest behavior for this that switches to the mobs when he becomes immune to dmg -->
-			<Objective QuestName="The Ordo Warbringer" QuestId="30661" Type="KillMob" MobId="60127" KillCount="1" />
+			<If Condition="((HasQuest(30661)) &amp;&amp; (!IsQuestCompleted(30661)))" >
+				<RunTo X="2409.442" Y="1774.323" Z="519.6922" />
+				<CustomBehavior File="GetOutOfGroundEffectAndAuras" QuestId="30661" StartNpcId="60127" PreferKillingMobId1="60131" EventX="2416.448" EventY="1805.908" EventZ="520.5848" >
+					<Safespots>
+						<Hotspot X="2416.448" Y="1805.908" Z="520.5848" />
+					</Safespots>
+				</CustomBehavior>
+				<!--<Objective QuestName="The Ordo Warbringer" QuestId="30661" Type="KillMob" MobId="60127" KillCount="1" />-->
+			</If>
 		<TurnIn QuestName="Barrels of Fun" QuestId="30656" TurnInName="Rivett Clutchpop" TurnInId="59448" X="2284.679" Y="910.1059" Z="481.5322" />
 		<TurnIn QuestName="Pandaren Prisoners" QuestId="30655" TurnInName="General Nazgrim" TurnInId="59442" X="2267.582" Y="927.743" Z="481.0811" />
+			<If Condition="((HasQuest(30661)) &amp;&amp; (IsQuestCompleted(30661)))" >
 		<TurnIn QuestName="The Ordo Warbringer" QuestId="30661" TurnInName="General Nazgrim" TurnInId="59442" X="2267.582" Y="927.743" Z="481.0811" />	
+			</If>
 			<If Condition="((!HasQuest(30665)) &amp;&amp; (!IsQuestCompleted(30665)))" >
 		<PickUp QuestName="The Shado-Pan" QuestId="31453" GiverName="General Nazgrim" GiverId="59442" X="2267.582" Y="927.743" Z="481.0811" />
 			</If>
