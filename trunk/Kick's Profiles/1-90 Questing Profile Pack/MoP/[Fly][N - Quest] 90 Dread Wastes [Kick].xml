@@ -632,14 +632,15 @@
 			<GrindTo Level="90" GoalText="Farming to level 90" />
 		</If>
 		
+		<!--
 		<While Condition="Me.Level &lt; 90" >
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be level 90 to run this profile!\n\nYes, I know the min level is 89" />
 		</While>
-			
+		-->
+		
 			<If Condition="!((HasSpell(115913)) &amp;&amp; (CanFly()))" >
 				<CustomBehavior File="Message" Text="Compiling Train Flying Protocols" LogColor="Cornflowerblue" />
 				<CustomBehavior File="LoadProfile" ProfileName="[N - Quest] MoP Train Flying LP [Kick]" /> 
-				<!--<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must have flying to use this profile. Load the [N] MoP Train Flying profile and it will train your flying for you." />-->
 			</If>
 		
 			<CustomBehavior File="Message" Text="Compiling Vale of Eternal Blossoms / Terrace of Gurth Quests" LogColor="Cornflowerblue" />
@@ -981,10 +982,10 @@
 		<PickUp QuestName="The Root of the Problem" QuestId="31026" GiverName="Klaxxi Warrior" GiverId="62232" X="-700.8118" Y="2923.659" Z="159.353" />
 			 </If>
 			</If>
-			<If Condition="((HasQuest(31026)) &amp;&amp; (!IsQuestCompleted(31026)))" >
+			<While Condition="((HasQuest(31026)) &amp;&amp; (!IsQuestCompleted(31026)))" >
 				<Objective QuestName="The Root of the Problem" QuestId="31026" Type="KillMob" MobId="62008" KillCount="1" />
 				<CustomBehavior File="NoCombatMoveTo" X="-652.6348" Y="2942.876" Z="150.7977" />
-			</If>
+			</While>
 			<If Condition="((HasQuest(31026)) &amp;&amp; (IsQuestCompleted(31026)))" >
 				<RunTo X="-652.6348" Y="2942.876" Z="150.7977" />
 			 <If Condition="(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 62180 &amp;&amp; u.Distance &lt;= 20)) &amp;&amp; (HasQuest(31026))" >
