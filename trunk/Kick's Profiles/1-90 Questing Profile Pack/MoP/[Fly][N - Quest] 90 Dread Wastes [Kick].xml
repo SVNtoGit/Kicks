@@ -1046,18 +1046,7 @@
 		<TurnIn QuestName="By the Sea, Nevermore" QuestId="31089" TurnInName="Kaz'tik the Manipulator" TurnInId="62540" X="-849.2756" Y="3820.245" Z="-0.3782185" />
 		<PickUp QuestName="Reunited" QuestId="31091" GiverName="Kaz'tik the Manipulator" GiverId="63876" X="-849.2756" Y="3820.245" Z="-0.3782185" />
 			<While Condition="((HasQuest(31091)) &amp;&amp; (!IsQuestCompleted(31091)))" >
-				<!-- RunTo's are to pre-clear some mobs that will give us trouble escorting, if present -->
-				<CustomBehavior File="UserSettings" MountDistance="200" />
-				<RunTo X="-856.7113" Y="3805.826" Z="0.3605792" />
-				<CustomBehavior File="ForcedDismount" />
-				<RunTo X="-946.4418" Y="3885.19" Z="0.3318399" />
-				<RunTo X="-849.2239" Y="3821.361" Z="-0.380686" />
-				<CustomBehavior File="UserDialog" AllowBotStop="true" ExpiryTime="30" Text="Quest: &quot;Reunited&quot;\n\nIf Kaz'tik the Manipulator despawns during the escort, just stop/start Honorbuddy and we'll try again" />
-				<CustomBehavior File="InteractWith" MobId="63876" GossipOptions="1" X="-849.2239" Y="3821.361" Z="-0.380686" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText=" Waiting for NPC to come out {TimeRemaining}" />
-				<CustomBehavior File="UserSettings" PullDistance="1" />
-				<CustomBehavior File="Escort" EscortUntil="DestinationReached" MobId="64013" X="-849.2239" Y="3821.361" Z="-0.380686" EscortDestX="-1153.93" EscortDestY="3904.56" EscortDestZ="1.835362" />
-				<CustomBehavior File="UserSettings" Preset="UserOriginal" />
+				<CustomBehavior File="EscortGroup" QuestId="31091" EscortCompleteWhen="QuestObjectiveComplete" QuestObjectiveIndex="1" StartNpcId="63876" StartEscortGossipOptions="1" EscortNpcId="64013" />
 				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</While>
 		<TurnIn QuestName="Reunited" QuestId="31091" TurnInName="Kaz'tik the Manipulator" TurnInId="64344" X="-1153.932" Y="3904.559" Z="1.835181" />
