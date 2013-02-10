@@ -6,6 +6,19 @@
 	<MinDurability>0.2</MinDurability>
 	<MinFreeBagSlots>3</MinFreeBagSlots>
 	
+	<SellGrey>True</SellGrey>
+	<SellWhite>True</SellWhite>
+	<SellGreen>True</SellGreen>
+	<SellBlue>False</SellBlue>
+	<SellBlue>False</SellBlue>
+	<SellPurple>False</SellPurple>
+	
+	<MailGrey>True</MailGrey>
+	<MailWhite>True</MailWhite>
+	<MailGreen>True</MailGreen>
+	<MailBlue>True</MailBlue>
+	<MailPurple>True</MailPurple>  
+	
 	<Vendors>
 		<Vendor Name="Supplier Xin" Entry="62737" Type="Repair" X="2419.361" Y="3007.01" Z="417.3721" /> <!-- Longying Outpost -->
 		<Vendor Name="Alin the Finder" Entry="65171" Type="Repair" X="2363.516" Y="2973.526" Z="417.2339" />
@@ -1008,11 +1021,16 @@
 		<PickUp QuestName="Cutting the Swarm" QuestId="30898" GiverName="Taran Zhu" GiverId="61066" X="1401.781" Y="2689.972" Z="321.8762" />
 			<If Condition="((HasQuest(30898)) &amp;&amp; (!IsQuestCompleted(30898)))" >
 				<!-- Nat, make me a behavior -->
-				<RunTo X="1283.861" Y="2833.994" Z="271.9712" />
-				<CustomBehavior File="RunMacro" Macro="/cancelform" />
-				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="InteractWith" MobId="62024" X="1281.553" Y="2830.958" Z="272.0701" />
 			 <While Condition="!IsQuestCompleted(30898)" >
+			  <While Condition="(!Me.IsOnTransport)" >
+				<RunTo X="1283.861" Y="2833.994" Z="271.9712" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="RunMacro" Macro="/cancelform" />
+				<RunTo X="1283.861" Y="2833.994" Z="271.9712" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="RunMacro" Macro="/cancelform" />
+				<CustomBehavior File="InteractWith" MobId="62024" X="1281.553" Y="2830.958" Z="272.0701" />
+			  </While>
 				<CustomBehavior File="RunMacro" Macro="/click OverrideActionBarButton1" WaitTime="1000" />
 				<CustomBehavior File="SpellLocation" X="1245.051" Y="2788.242" Z="263.5938" />
 				<CustomBehavior File="RunMacro" Macro="/click OverrideActionBarButton1" WaitTime="1000" />
@@ -1124,14 +1142,15 @@
 			 <If Condition="(!Me.IsOnTransport)" >
 				<CustomBehavior File="InteractWith" MobId="62747" X="1215.698" Y="4111.557" Z="185.4414" />
 			 </If>
-				<!--<CustomBehavior File="NoControlVehicle" QuestId="30978" AttackButton="1" AttackButtonSecondary="1" TargetId1="62300" TargetId2="62269" VehicleId="62302" />-->
-				<CustomBehavior File="UserDialog" QuestId="30978" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Pick up the gun, kill stuff" /> <!-- look at horde cannon behavior on ze boat, maybe ally one, too -->
+				<CustomBehavior File="SpecificQuests\30978-TownlongSteppes-HostileSkies" />
 			</If>
 		<TurnIn QuestName="Hostile Skies" QuestId="30978" TurnInName="Hawkmaster Nurong" TurnInId="61020" X="1217.394" Y="4111.624" Z="185.4181" />
 		<PickUp QuestName="Devastation Below" QuestId="30979" GiverName="Hawkmaster Nurong" GiverId="61020" X="1217.394" Y="4111.624" Z="185.4181" />
 			<If Condition="((HasQuest(30979)) &amp;&amp; (!IsQuestCompleted(30979)))" >
 				<CustomBehavior File="UserSettings" PullDistance="5" />
-				<Objective QuestName="Devastation Below" QuestId="30979" Type="KillMob" MobId="62270" KillCount="1" />
+				<RunTo X="1284.1" Y="3945.744" Z="70.2165" />
+				<CustomBehavior File="SlayTheFools" QuestId="30979" MobId="62270" CollectionDistance="200" X="1284.1" Y="3945.744" Z="70.2165" />
+				<!--<Objective QuestName="Devastation Below" QuestId="30979" Type="KillMob" MobId="62270" KillCount="1" />-->
 				<CustomBehavior File="UserSettings" PullDistance="25" />
 			</If>
 		<TurnIn QuestName="Devastation Below" QuestId="30979" TurnInName="Hawkmaster Nurong" TurnInId="62786" X="1228.438" Y="3978.364" Z="70.39643" />
