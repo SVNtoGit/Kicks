@@ -63,6 +63,7 @@
 		<Blackspot X="2485.41" Y="2376.052" Z="700.4757" Radius="10" Height="20" /> <!-- Cave top -->
 		<Blackspot X="1958.731" Y="1634.281" Z="482.4924" Radius="50" /> <!-- Sha of Anger! -->
 		<Blackspot X="868.4053" Y="-2478.666" Z="176.2997" Radius="10" /> <!-- stupid book -->
+		<Blackspot X="1958.907" Y="1635.959" Z="482.4375" Radius="80" /> <!-- Sha of Anger! -->
 	</Blackspots>
 
 	<AvoidMobs>
@@ -2463,8 +2464,9 @@
 			 <If Condition="(!IsObjectiveComplete(1, 31228))" >
 				<RunTo X="4395.251" Y="940.5521" Z="115.8029" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="RunMacro" QuestId="30795" Macro="/cancelform" />
-				<CustomBehavior File="InteractWith" QuestId="31228" MobId="65855" GossipOptions="1" X="4395.251" Y="940.5521" Z="115.8029" />
+				<CustomBehavior File="InteractWith" MobId="65855" X="4395.251" Y="940.5521" Z="115.8029" />
+				<CustomBehavior File="RunMacro" Macro="/cancelform\n/cancelaura Metamorphosis" />
+				<CustomBehavior File="InteractWith" MobId="65855" GossipOptions="1" X="4395.251" Y="940.5521" Z="115.8029" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for ride {TimeRemaining}" />
 			 </If>
 				<Objective QuestName="Prophet Khar'zul" QuestId="31228" Type="KillMob" MobId="64642" KillCount="12" /> <!-- 3 -->
@@ -2476,12 +2478,12 @@
 				<!-- This behavior doesn't work for this quest, CJ please fix it -->
 				<CustomBehavior File="GetOutOfGroundEffectAndAuras" QuestId="31228" StartNpcId="61541" 
 										EventX="5241.025" EventY="56.64583" EventZ="31.96194" 
-										MoveOutOfGroundEffectAuraId1="126379" 
+										MoveOutOfGroundEffectAuraId1="102054" 
 										MoveOutOfGroundEffectAuraId2="126394" 
 										MoveOutOfGroundEffectAuraId3="126443" 
 										MoveOutOfGroundEffectAuraId4="92792" 
-										MoveOutOfGroundEffectAuraId5="102054" 
-										MoveOutOfGroundEffectAuraId6="126433" >
+										MoveOutOfGroundEffectAuraId1="126379" 
+										MoveAwayFromMobWithAuraId2="126433" >
 										<!-- 2 are crow storm and effect, IDK which effect is the 'real' Shadow Fog, so I added all 4 -->
 					<Safespots>
 						<Hotspot X="5233.147" Y="56.39554" Z="33.63826" />
@@ -2494,11 +2496,13 @@
 			 </If>
 			</If>
 			<While Condition="((HasQuest(31228)) &amp;&amp; (IsQuestCompleted(31228))) &amp;&amp; (Me.Y &lt; 500)" >
+				<RunTo X="5205.918" Y="72.23138" Z="28.12897" />
 				<RunTo X="5141.941" Y="71.77639" Z="10.08748" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 				<RunTo X="5141.941" Y="71.77639" Z="10.08748" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="RunMacro" QuestId="30795" Macro="/cancelform\n/cancelaura Metamorphosis" />
+				<CustomBehavior File="InteractWith" MobId="65858" X="5140.802" Y="72.71181" Z="10.1393" />
+				<CustomBehavior File="RunMacro" Macro="/cancelform\n/cancelaura Metamorphosis" />
 				<CustomBehavior File="InteractWith" MobId="65858" GossipOptions="1" X="5140.802" Y="72.71181" Z="10.1393" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for flight {TimeRemaining}" />
 			</While>
@@ -2547,6 +2551,7 @@
 		<TurnIn QuestName="The Burlap Trail: To Burlap Waystation" QuestId="30592" TurnInName="Brother Trailscenter" TurnInId="59703" X="2788.244" Y="1606.597" Z="655.2974" />
 		<PickUp QuestName="The Rabbitsfoot" QuestId="30602" GiverName="Brother Trailscenter" GiverId="59703" X="2788.244" Y="1606.597" Z="655.2974" />
 			<While Condition="((HasQuest(30602)) &amp;&amp; (!IsQuestCompleted(30602)))" >
+				<RunTo X="2833.36" Y="1859.587" Z="640.8267" />
 				<RunTo X="2678.495" Y="1766.687" Z="643.9081" />
 				<CustomBehavior File="InteractWith" QuestId="30602" MobId="59806" Range="10" X="2679.463" Y="1766.806" Z="652.8899" />
 				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
@@ -2889,6 +2894,8 @@
 				<RunTo X="3151.831" Y="2678.129" Z="579.7263" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" MobId="61512" GossipOptions="2" X="3151.831" Y="2678.129" Z="579.7263" />
+				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for flight {TimeRemaining}" />
+				<RunTo X="3025.897" Y="3014.325" Z="534.2178" />
 			</If>
 		<TurnIn QuestName="To the Wall!" QuestId="30724" TurnInName="Suna Silentstrike" TurnInId="61454" X="3019.648" Y="3005.767" Z="534.0306" />
 		<PickUp QuestName="Off the Wall!" QuestId="30750" GiverName="Suna Silentstrike" GiverId="61454" X="3019.648" Y="3005.767" Z="534.0306" />
