@@ -623,7 +623,7 @@
 	
 			<CustomBehavior File="Message" Text="Compiling Dread Wastes Quests" LogColor="Green" />
 	
-		<If Condition="Me.Level &lt; 90" >
+		<If Condition="Me.Level &lt; 89" >
 			<If Condition="(Me.Z &gt;= 350) &amp;&amp; (Me.Y &gt;= 2000) &amp;&amp; (Me.Y &lt;= 2200)" > <!-- Up on the Wall in DW / VoEB (stupid bullshit) -->
 				<RunTo X="649.5884" Y="2121.534" Z="369.2021" />
 				<CustomBehavior File="InteractWith" MobId="212229" ObjectType="GameObject" Nav="CTM" X="652.8531" Y="2121.887" Z="370.0509" />
@@ -632,7 +632,7 @@
 		
 			<!-- Gao-Ran Battlefront, Townlong Steppes -->
 			<SetGrindArea><GrindArea>
-				<Factions>16</Factions>
+				<Factions>16 7</Factions>
 					<Hotspots>
 						<Hotspot X="1247.622" Y="3034.192" Z="228.9766" />
 						<Hotspot X="1342.859" Y="3029.985" Z="216.0804" />
@@ -643,7 +643,7 @@
 						<Hotspot X="1172.622" Y="3379.271" Z="152.8946" />
 					</Hotspots>
 				</GrindArea></SetGrindArea>
-			<GrindTo Level="90" GoalText="Farming to level 90" />
+			<GrindTo Level="89" GoalText="Farming to level 89" />
 		</If>
 		
 		<!--
@@ -652,7 +652,7 @@
 		</While>
 		-->
 		
-			<If Condition="!((HasSpell(115913)) &amp;&amp; (CanFly()))" >
+			<If Condition="!((HasSpell(115913)) &amp;&amp; (CanFly())) &amp;&amp; (Me.Level &gt;= 90)" >
 				<CustomBehavior File="Message" Text="Compiling Train Flying Protocols" LogColor="Cornflowerblue" />
 				<CustomBehavior File="LoadProfile" ProfileName="[N - Quest] MoP Train Flying LP [Kick]" /> 
 			</If>
@@ -707,10 +707,20 @@
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="649.0434" Y="2122.863" Z="369.102" />
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Nope" QuestId="31002" GiverName="Bowmistress Li" GiverId="62112" X="649.0434" Y="2122.863" Z="369.102" />
+				<CustomBehavior File="InteractWith" MobId="212229" ObjectType="GameObject" WaitTime="1000" X="650.3364" Y="2121.989" Z="369.2226" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" />
 			</If>
 			<If Condition="((HasQuest(31002)) &amp;&amp; (!IsQuestCompleted(31002)))" >
+			 <If Condition="((HasSpell(115913)) &amp;&amp; CanFly())" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="524.1804" Y="2221.226" Z="303.8363" />
 				<CustomBehavior File="ForcedDismount" />
+				<Else>
+				<If Condition="(Me.Z &gt; 360)" >
+					<CustomBehavior File="InteractWith" MobId="212229" ObjectType="GameObject" WaitTime="1000" X="650.3364" Y="2121.989" Z="369.2226" />
+					<CustomBehavior File="WaitTimer" WaitTime="4000" />
+				</If>
+				</Else>
+			 </If>
 				<Objective QuestName="Nope" QuestId="31002" Type="KillMob" MobId="61981" KillCount="6" />
 				<CustomBehavior File="UserSettings" PullDistance="10" />
 			 <While Condition="((HasQuest(31002)) &amp;&amp; (!IsQuestCompleted(31002)))" >
@@ -1408,6 +1418,7 @@
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(85869)" WaitTime="1000" />
 			</If>
 		<TurnIn QuestName="Mazu's Breath" QuestId="31265" TurnInName="Deck Boss Arie" TurnInId="63349" X="-1158.712" Y="3210.797" Z="1.218104" />
+		<!-- userdialog ?  -  behavior devs: Fix water quests kthx -->
 		<PickUp QuestName="Fresh Pots" QuestId="31181" GiverName="Deck Boss Arie" GiverId="63349" X="-1158.712" Y="3210.797" Z="1.218104" />
 		<PickUp QuestName="You Otter Know" QuestId="31182" GiverName="Deck Boss Arie" GiverId="63349" X="-1158.712" Y="3210.797" Z="1.218104" />
 			<If Condition="((HasQuest(31182)) &amp;&amp; (!IsQuestCompleted(31182)))" >
@@ -1646,7 +1657,7 @@
 			 <If Condition="(!Me.IsOnTransport)" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="-1305.453" Y="3132.835" Z="1.560241" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="UserDialog" QuestId="31190" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Get on the boat and Kill the giant squid" />
+				<CustomBehavior File="UserDialog" QuestId="31190" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Get on the boat and kill the giant squid" />
 				<CustomBehavior File="InteractWith" MobId="64350" Range="8" Nav="CTM" X="-1307.679" Y="3134.548" Z="0.2322114" />
 			 </If>
 			 <If Condition="(Me.IsOnTransport)" >

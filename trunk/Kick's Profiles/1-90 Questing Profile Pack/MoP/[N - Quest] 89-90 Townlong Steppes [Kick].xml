@@ -590,12 +590,6 @@
 		<CustomBehavior File="UserSettings" PullDistance="25" UseMount="True" LootMobs="True" GroundMountFarmingMode="False" KillBetweenHotspots="False" />
 	
 			<CustomBehavior File="Message" Text="Compiling Townlong Steppes Quests" LogColor="Green" />
-	
-		<!--
-		<While Condition="Me.Level &lt; 88" >
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be 88+ to run this profile!" />
-		</While>
-		-->
 			
 			<!-- Kota Peaks, Kun-Lai Summit -->
 			<SetGrindArea>
@@ -1449,7 +1443,7 @@
 			</If>
 			-->
 	
-		<If Condition="Me.Level &lt; 90" >
+		<If Condition="Me.Level &lt; 89" >
 			<If Condition="(Me.Z &gt;= 350) &amp;&amp; (Me.Y &gt;= 2000) &amp;&amp; (Me.Y &lt;= 2200)" > <!-- Up on the Wall in DW / VoEB (stupid bullshit) -->
 				<RunTo X="649.5884" Y="2121.534" Z="369.2021" />
 				<CustomBehavior File="InteractWith" MobId="212229" ObjectType="GameObject" Nav="CTM" X="652.8531" Y="2121.887" Z="370.0509" />
@@ -1458,7 +1452,7 @@
 		
 			<!-- Gao-Ran Battlefront, Townlong Steppes -->
 			<SetGrindArea><GrindArea>
-				<Factions>16</Factions>
+				<Factions>16 7</Factions>
 					<Hotspots>
 						<Hotspot X="1247.622" Y="3034.192" Z="228.9766" />
 						<Hotspot X="1342.859" Y="3029.985" Z="216.0804" />
@@ -1469,10 +1463,10 @@
 						<Hotspot X="1172.622" Y="3379.271" Z="152.8946" />
 					</Hotspots>
 				</GrindArea></SetGrindArea>
-			<GrindTo Level="90" GoalText="Farming to level 90" />
+			<GrindTo Level="89" GoalText="Farming to level 90" />
 		</If>
 				
-			<If Condition="!((HasSpell(115913)) &amp;&amp; (CanFly()))" >
+			<If Condition="!((HasSpell(115913)) &amp;&amp; (CanFly())) &amp;&amp; (Me.Level &gt;= 90)" >
 				<CustomBehavior File="Message" Text="Compiling Train Flying Protocols" LogColor="Cornflowerblue" />
 				<CustomBehavior File="LoadProfile" ProfileName="[N - Quest] MoP Train Flying LP [Kick]" /> 
 			</If>
@@ -1530,6 +1524,8 @@
 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="649.0434" Y="2122.863" Z="369.102" />
 				<CustomBehavior File="ForcedDismount" />
 		<PickUp QuestName="Nope" QuestId="31002" GiverName="Bowmistress Li" GiverId="62112" X="649.0434" Y="2122.863" Z="369.102" />
+				<CustomBehavior File="InteractWith" MobId="212229" ObjectType="GameObject" WaitTime="1000" X="650.3364" Y="2121.989" Z="369.2226" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" />
 			</If>
 		
 		<!-- End Townlong Steppes -->
