@@ -1147,7 +1147,12 @@
 		<!-- hard quest
 		<PickUp QuestName="The Farmer's Daughter" QuestId="30056" GiverName="Den Mudclaw" GiverId="62385" X="200.6997" Y="942.033" Z="174.7217" />-->
 			<While Condition="((HasQuest(30053)) &amp;&amp; (!IsObjectiveComplete(3, 30053)))"> <!-- Den Mudclaw -->
-				<CustomBehavior File="InteractWith" MobId="62385" GossipOptions="1" X="200.6997" Y="942.033" Z="174.7217" />
+				<RunTo X="200.6997" Y="942.033" Z="174.7217" />
+				<CustomBehavior File="BasicInteractWith" QuestId="30053" MobId="62385" MoveTo="1" UseLuaTarget="1" />
+				<CustomBehavior File="Misc\RunLua" Lua="SelectGossipOption(1)" WaitTime="1000" />
+				<!--
+				<CustomBehavior File="InteractWith" MobId1="62385" GossipOptions="1" CollectionDistance="100" X="200.6997" Y="942.033" Z="174.7217" />
+				-->
 			</While>
 			<!--
 		<TurnIn QuestName="The Farmer's Daughter" QuestId="30056" TurnInName="Mina Mudclaw" TurnInId="57408" X="97.83681" Y="1057.049" Z="135.9427" />
