@@ -1676,14 +1676,21 @@
 		<TurnIn QuestName="Reeltime Strategy" QuestId="31189" TurnInName="Deck Boss Arie" TurnInId="63349" X="-1158.712" Y="3210.797" Z="1.218104" />
 		<PickUp QuestName="The Mariner's Revenge" QuestId="31190" GiverName="Captain &quot;Soggy&quot; Su-Dao" GiverId="63317" X="-1156.797" Y="3208.061" Z="1.021005" />
 			<If Condition="((HasQuest(31190)) &amp;&amp; (!IsQuestCompleted(31190)))" >
-			 <If Condition="(!Me.IsOnTransport)" >
+			 <While Condition="(!Me.IsOnTransport)" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="-1305.453" Y="3132.835" Z="1.560241" />
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="UserDialog" QuestId="31190" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Get on the boat and kill the giant squid" />
-				<CustomBehavior File="InteractWith" MobId="64350" Range="8" Nav="CTM" X="-1307.679" Y="3134.548" Z="0.2322114" />
-			 </If>
+				<CustomBehavior File="InteractWith" MobId="64350" Range="8" Nav="CTM" WaitForNpcs="False" X="-1307.679" Y="3134.548" Z="0.2322114" />
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting to get on vehicle {TimeRemaining}" />
+			  <If Condition="(!Me.IsOnTransport)" >
+				<RunTo X="-1317.821" Y="3142.321" Z="-1.617232" />
+				<CustomBehavior File="MyCTM" DestName="Fix Phasing issue" X="-1341.074" Y="3160.62" Z="-38.59959" />
+				<CustomBehavior File="AscendInWater" />
+				<CustomBehavior File="InteractWith" MobId="64350" Range="8" Nav="CTM" WaitForNpcs="False" X="-1307.679" Y="3134.548" Z="0.2322114" />
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting to get on vehicle {TimeRemaining}" />
+			  </If>
+			 </While>
 			 <If Condition="(Me.IsOnTransport)" >
-				<CustomBehavior File="UserDialog" QuestId="31190" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Kill the giant squid" />
+				<CustomBehavior File="SpecificQuests\31190-DreadWastes-TheMarinersRevenge" />
 				<CustomBehavior File="EjectVeh" />
 			 </If>
 			</If>
