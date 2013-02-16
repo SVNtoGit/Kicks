@@ -4228,24 +4228,24 @@
 			</If>
 		<PickUp QuestName="Saving Foreman Oslow" QuestId="26520" GiverName="Ettin Control Orb" GiverId="204351" X="-8831.982" Y="-1939.935" Z="133.0036" />
 			<If Condition="((HasQuest(26520)) &amp;&amp; (!IsQuestCompleted(26520)))" >
-			 <While Condition="!Me.HasAura(&quot;Canyon Ettin Spawn Spell&quot;)" >
+			 <While Condition="(!Me.HasAura(82558))" > <!-- Canyon Ettin Spawn Spell -->
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 	
 			<If Condition="(Me.Level &gt;= 81)" >
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="5" Text="You are too high for this Combat UseItemOn quest, please manually do it!" />
 			</If>
 		
-				<CustomBehavior File="CombatUseItemOn" MobId="43094" ItemId="58895" NumOfTimes="1" MobHpPercentLeft="95" MaxRange="5" X="-9002.048" Y="-2133.902" Z="143.1395" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="CombatUseItemOn" MobId="43094" ItemId="58895" NumOfTimes="1" MobHpPercentLeft="95" MaxRange="5" WaitTime="5000" X="-9002.048" Y="-2133.902" Z="143.1395" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 			 </While>
-			 <While Condition="((HasQuest(26520)) &amp;&amp; (!IsQuestCompleted(26520)))" >
+			 <While Condition="((HasQuest(26520)) &amp;&amp; (!IsQuestCompleted(26520))) &amp;&amp; (Me.HasAura(82558))" >
+				<RunTo X="-9274.281" Y="-2288.214" Z="68.1276" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
+			  <If Condition="(Me.HasAura(82558))" > <!-- Canyon Ettin Spawn Spell -->
 				<RunTo X="-9274.12" Y="-2288.6" Z="68.15446" />
-				<CustomBehavior File="UseItemOn" QuestId="26520" MobId="43196" ItemId="58895" NumOfTimes="1" WaitTime="1000" Range="5" CollectionDistance="500" X="-9274.12" Y="-2288.6" Z="68.15446" />
-				<CustomBehavior File="WaitTimer" WaitTime="8000"/>
-				<RunTo X="-9322.615" Y="-2342.182" Z="61.24439" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000"/>
-				<CustomBehavior File="UseItemOn" QuestId="26520" MobId="43196" ItemId="58895" NumOfTimes="1" WaitTime="1000" Range="5" CollectionDistance="500" X="-9274.12" Y="-2288.6" Z="68.15446" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="UseItemOn" QuestId="26520" MobId="43196" ItemId="58895" WaitTime="2000" Range="5" CollectionDistance="500" X="-9274.12" Y="-2288.6" Z="68.15446" />
+				<CustomBehavior File="WaitTimer" WaitTime="45000"/>
+			  </If>
 			 </While>
 			</If>
 		<TurnIn QuestName="Saving Foreman Oslow" QuestId="26520" TurnInName="Magistrate Solomon" TurnInId="344" />
@@ -4274,8 +4274,6 @@
 				<RunTo X="-9212.542" Y="-2784.261" Z="90.3838" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for bot to catch up {TimeRemaining}" />
 				
-				
-				<CustomBehavior File="Message" Text="If the bot stops after this message - you need to copy over the behaviors from my SVN!" LogColor="Orange" />
 				<CustomBehavior File="SpecificQuests\DeathknightStart\WaitForPatrol" AvoidMobId="43341" AvoidDistance="95" X="-9212.542" Y="-2784.261" Z="90.3838" />
 				
 				<RunTo X="-9203.287" Y="-2773.205" Z="90.38371" />
