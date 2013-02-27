@@ -4218,7 +4218,9 @@
 				<CustomBehavior File="CompleteLogQuest" QuestId="26544" /> <!-- Get 26545 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" />
 			</While>
-			<Objective QuestName="Yowler Must Die!" QuestId="26545" Type="KillMob" MobId="518" KillCount="1" />
+			<If Condition="((HasQuest(26545)) &amp;&amp; (!IsQuestCompleted(26545)))" >
+				<Objective QuestName="Yowler Must Die!" QuestId="26545" Type="KillMob" MobId="518" KillCount="1" />
+			</If>
 			<If Condition="(HasItem(58898))" >
 		<PickUp QuestName="He Who Controls the Ettins" QuestId="26519" GiverName="Dirt-Stained Scroll" GiverId="58898" GiverType="Item" />
 			</If>
@@ -4267,25 +4269,27 @@
 				<CustomBehavior File="CompleteLogQuest" QuestId="26571" /> <!-- Get 26573 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
 			</While>
-			<While Condition="((HasQuest(26587)) &amp;&amp; (!IsQuestCompleted(26587)))" >
+			<While Condition="(HasQuest(26587)) &amp;&amp; (!IsQuestCompleted(26587))">
 				<CustomBehavior File="UserSettings" PullDistance="1" />
-				<RunTo X="-9210.281" Y="-2772.708" Z="90.3838" />
-				<RunTo X="-9210.281" Y="-2772.708" Z="90.3838" />
-				<RunTo X="-9212.542" Y="-2784.261" Z="90.3838" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for bot to catch up {TimeRemaining}" />
+					
+				<CustomBehavior File="SpecificQuests\DeathknightStart\WaitForPatrol" AvoidMobId="43341" AvoidDistance="30" X="-9211.345" Y="-2775.24" Z="90.38371" >
+					<FollowPath Strategy="StalkMobAtAvoidDistance" DismissPet="true" EgressDistance="20" >
+						<Hotspot X="-9202.807" Y="-2775.259" Z="90.38366" />
+						<Hotspot X="-9186.497" Y="-2770.601" Z="88.68089" />
+						<Hotspot X="-9165.448" Y="-2743.158" Z="88.74001" />
+					</FollowPath>
+				</CustomBehavior>
 				
-				<CustomBehavior File="SpecificQuests\DeathknightStart\WaitForPatrol" AvoidMobId="43341" AvoidDistance="95" X="-9212.542" Y="-2784.261" Z="90.3838" />
-				
-				<RunTo X="-9203.287" Y="-2773.205" Z="90.38371" />
-				<CustomBehavior File="MyCTM" X="-9186.497" Y="-2770.601" Z="88.68089" />
-				<CustomBehavior File="MyCTM" X="-9165.448" Y="-2743.158" Z="88.74001" />
-				<!-- <Objective QuestName="Breaking Out is Hard to Do" QuestId="26587" Type="CollectItem" ItemId="58950" CollectCount="1" /> -->
-				<CustomBehavior File="InteractWith" QuestId="26587" MobId="204389" ObjectType="Gameobject" Range="6" NumOfTimes="1" CollectionDistance="1000" X="-9165.448" Y="-2743.158" Z="88.74001" />
-				<CustomBehavior File="MyCTM" X="-9166.96" Y="-2741.83" Z="88.68454" />
-				<CustomBehavior File="MyCTM" X="-9191.613" Y="-2779.496" Z="90.58443" />
-				<CustomBehavior File="MyCTM" X="-9198.114" Y="-2771.768" Z="89.92594" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for stop {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" MobId="204389" ObjectType="Gameobject" Range="4" CollectionDistance="1000" X="-9165.448" Y="-2743.158" Z="88.74001" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for stop {TimeRemaining}" />
+				<CustomBehavior File="RunLikeHell" NumOfTimes="1" AllowCombat="false" UseCTM="true" >
+					<Hotspot X="-9166.96" Y="-2741.83" Z="88.68454" />
+					<Hotspot X="-9191.613" Y="-2779.496" Z="90.58443" />
+					<Hotspot X="-9198.114" Y="-2771.768" Z="89.92594" />
+				</CustomBehavior>
 				<RunTo X="-9229.454" Y="-2699.867" Z="89.08669" />
-				<CustomBehavior File="UserSettings" PullDistance="25" />
+				<CustomBehavior File="UserSettings" Preset="UserOriginal" />
 			</While>
 		<TurnIn QuestName="Breaking Out is Hard to Do" QuestId="26587" TurnInName="Messner" TurnInId="43270" />
 		<PickUp QuestName="Jorgensen" QuestId="26560" GiverName="Messner" GiverId="43300" X="-9227.632" Y="-2699.34" Z="89.0862" />
