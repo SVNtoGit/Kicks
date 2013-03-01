@@ -1305,13 +1305,13 @@
 			 </If>
 			</If>
 		<PickUp QuestName="My Father's Crossbow" QuestId="30931" GiverName="Ku-Mo" GiverId="61539" X="2040.181" Y="4559.711" Z="133.8767" />
-			<If Condition="((HasQuest(30931)) &amp;&amp; (!IsQuestCompleted(30931)))" >
+			<While Condition="((HasQuest(30931)) &amp;&amp; (!IsQuestCompleted(30931)))" >
 			 <If Condition="((HasSpell(115913)) &amp;&amp; CanFly())" >
 				<CustomBehavior File="FlyTo" DestName="kill Et'kil" X="2014.557" Y="4833.926" Z="158.7839" />
 			 </If>
 				<!-- <Objective QuestName="My Father's Crossbow" QuestId="30931" Type="CollectItem" ItemId="82332" CollectCount="1" /> -->
 				<RunTo X="2057.646" Y="4858.151" Z="154.6169" />
-				<CustomBehavior File="GetOutOfGroundEffectAndAuras" QuestId="30931" StartNpcId="61540" PreferKillingMobIdN="63677" 
+				<CustomBehavior File="GetOutOfGroundEffectAndAuras" StartNpcId="61540" PreferKillingMobIdN="63677" 
 						EventX="2057.646" EventY="4858.151" EventZ="154.6169" 
 						MoveBehindMobCastingSpellId1="119688" 
 						MoveBehindMobCastingSpellId2="119694" 
@@ -1321,7 +1321,9 @@
 						<Hotspot X="2012.314" Y="4844.366" Z="159.3651" />
 					</Safespots>
 				</CustomBehavior>
-			</If>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<RunTo X="2057.646" Y="4858.151" Z="154.6169" />
+			</While>
 			<If Condition="((HasQuest(30931)) &amp;&amp; (IsQuestCompleted(30931)))" >
 			 <If Condition="((HasSpell(115913)) &amp;&amp; CanFly())" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2040.181" Y="4559.711" Z="133.8768" />
