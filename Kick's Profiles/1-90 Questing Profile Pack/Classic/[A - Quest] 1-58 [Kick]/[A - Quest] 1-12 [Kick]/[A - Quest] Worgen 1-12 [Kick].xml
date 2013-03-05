@@ -505,29 +505,8 @@
 		<PickUp QuestName="As the Land Shatters" QuestId="14396" GiverName="Lord Godfrey" GiverId="36290" />
 		<TurnIn QuestName="As the Land Shatters" QuestId="14396" TurnInName="Prince Liam Greymane" TurnInId="36451" />
 		<PickUp QuestName="Gasping for Breath" QuestId="14395" GiverName="Prince Liam Greymane" GiverId="36451" />
-			<While Condition="(HasQuest(14395)) &amp;&amp; (!IsQuestCompleted(14395))"> <!-- Behavior developer (natfoth, mastahg) - please make a behavior for this quest (grab a victim, bring him to shore) -->
-					<!-- We're now in GilneasPhase1, check out 27,35 Gilneas2 and GP1 and see which would be a better permanent mesh? -->
-					<!-- I checked out mesh and it is phased, but the differences are enormous - view land pre-phase before overriding tile -->
-					<!-- victim locations - Aura: Rescue Drowning Watchman	68735
-					// try and stay away from the guys in the sunken houses
-					<Hotspot X="-1940.7" Y="2538.642" Z="-7.017484" />
-					<Hotspot X="-1945.788" Y="2534.899" Z="-2.660557" />
-					<Hotspot X="-1983.66" Y="2514.29" Z="-1.576627" />
-					<Hotspot X="-1945.788" Y="2534.899" Z="-2.660557" />
-					<Hotspot X="-1919.474" Y="2575.895" Z="-1.581312" />
-					<Hotspot X="-1905.271" Y="2587.891" Z="-8.235822" />
-					<Hotspot X="-1940.7" Y="2538.642" Z="-7.017484" />
-					-->
-				<CustomBehavior File="AscendInWater" />
-				<RunTo X="-1914.521" Y="2541.698" Z="-1.684395" />
-				<RunTo X="-1961.113" Y="2535.205" Z="-1.662526" />
-				<CustomBehavior File="InteractWith" QuestId="14395" MobId="36440" Nav="CTM" />
-				<CustomBehavior File="AscendInWater" />
-				<RunTo X="-1914.521" Y="2541.698" Z="-1.684395" />
-				<CustomBehavior File="MyCTM" QuestId="14395" X="-1904.751" Y="2523.336" Z="-0.309191"/>
-				<CustomBehavior File="MyCTM" QuestId="14395" X="-1897.278" Y="2517.726" Z="1.458099"/>
-				<CustomBehavior File="WaitTimer" WaitTime="3000" />
-				<RunTo X="-1902.536" Y="2521.144" Z="1.441707" />
+			<While Condition="(HasQuest(14395)) &amp;&amp; (!IsQuestCompleted(14395))">
+				<CustomBehavior File="SpecificQuests\14395-Gilneas-GaspingForBreath" />
 			</While>
 		<TurnIn QuestName="Gasping for Breath" QuestId="14395" TurnInName="Prince Liam Greymane" TurnInId="36451" />
 		<PickUp QuestName="Evacuation" QuestId="14397" GiverName="Prince Liam Greymane" GiverId="36451" />
@@ -571,9 +550,10 @@
 		<TurnIn QuestName="The Crowley Orchard" QuestId="14406" TurnInName="Lorna Crowley" TurnInId="36457" />
 		<PickUp QuestName="The Hungry Ettin" QuestId="14416" GiverName="Lorna Crowley" GiverId="36457" /> <!-- I got stuck here after the last horse ... like the behavior didn't know I was not in a vehicle; please double check the behavior -->
 			<While Condition="(HasQuest(14416)) &amp;&amp; (!IsQuestCompleted(14416))">
-				<RunTo QuestId="14416" X="-2097.405" Y="2198.362" Z="21.79976" />
-				<CustomBehavior File="Vehicles\VehicleMover" QuestId="14416" VehicleID="36540" SpellId="1" Precision="2" X="-2059.331" Y="2256.912" Z="22.39411" />
-				<CustomBehavior File="WaitTimer" WaitTime="7000"/>
+				<CustomBehavior File="UserSettings" Preset="HarvestsOff" />
+				<CustomBehavior File="SpecificQuests\DeathknightStart\WaitForPatrol" AvoidMobId="36528" AvoidDistance="50" X="-2120.636" Y="2197.178" Z="18.23803" />
+				<CustomBehavior File="Vehicles\VehicleMover" QuestId="14416" VehicleID="36540" Precision="2" MobId="36457" X="-2093.622" Y="2259.525" Z="20.98417" />
+				<CustomBehavior File="UserSettings" Preset="UserOriginal" />
 			</While>
 		<TurnIn QuestName="The Hungry Ettin" QuestId="14416" TurnInName="Lorna Crowley" TurnInId="36457" />
 		<PickUp QuestName="Horses for Duskhaven" QuestId="14463" GiverName="Lorna Crowley" GiverId="36457" />
