@@ -340,8 +340,8 @@ namespace Styx.Bot.Quest_Behaviors.CombatUseItemOnV2
 
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: CombatUseItemOn.cs 273 2013-01-22 23:00:43Z natfoth $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 273 $"); } }
+        public override string SubversionId { get { return ("$Id$"); } }
+        public override string SubversionRevision { get { return ("$Revision$"); } }
         #endregion
 
 
