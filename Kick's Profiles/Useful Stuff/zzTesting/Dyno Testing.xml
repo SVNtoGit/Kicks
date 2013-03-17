@@ -31,8 +31,68 @@
 <RunTo X="" Y="" Z="" />
 -->
 
+			<If Condition="((!HasQuest(12261)) &amp;&amp; (!IsQuestCompleted(12261)))" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4376" Y="1492" Z="124" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="No Place to Run" QuestId="12261" GiverName="Serinar" GiverId="26593" />
+				<RunTo X="4376" Y="1492" Z="124" />
+			</If>
+			<While Condition="((HasQuest(12261)) &amp;&amp; (!IsQuestCompleted(12261)))" >
+				<CustomBehavior File="FlyTo" DestName="Objective" X="4384.706" Y="1305.638" Z="150.4314" />
+				<CustomBehavior File="ForcedDismount" />
+				<RunTo X="4384.706" Y="1305.638" Z="150.4314" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting to stop moving {TimeRemaining}" />
+			 <If Condition="((HasQuest(12261)) &amp;&amp; (!IsQuestCompleted(12261)))" >
+				<UseItem QuestName="No Place to Run" QuestId="12261" ItemId="37445" X="4384.706" Y="1305.638" Z="150.4314" />
+				<CustomBehavior File="WaitTimer" QuestId="12261" WaitTime="2000" GoalText="Waiting for totem to appear {TimeRemaining}" />
+			<!--<CustomBehavior File="DefendObject" QuestId="12261" MobId="27430" MaxRange="15" X="4384.706" Y="1305.638" Z="150.4314" />-->
+				<CustomBehavior File="EscortGroup" QuestId="12261" EscortMaxFightDistance="15" SearchForNpcsRadius="15" EscortNpcId1="27430" >
+					<SearchPath>
+						<Hotspot X="4384.706" Y="1305.638" Z="150.4314" />
+					</SearchPath>
+					<EscortPath>
+						<Hotspot X="4384.706" Y="1305.638" Z="150.4314" />
+						<Hotspot X="4375.527" Y="1496.358" Z="125.2791" />
+					</EscortPath>
+				</CustomBehavior>
+			 </If>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 <If Condition="((HasQuest(12261)) &amp;&amp; (!IsQuestCompleted(12261)))" >
+				<CustomBehavior File="AbandonQuest" QuestId="12261" />
+				
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4376" Y="1492" Z="124" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="No Place to Run" QuestId="12261" GiverName="Serinar" GiverId="26593" />
+				<RunTo X="4376" Y="1492" Z="124" />
+			 </If>
+			</While>
+			<!--
+		<TurnIn QuestName="No Place to Run" QuestId="12261" TurnInName="Serinar" TurnInId="26593" />
+			-->
+			<!-- This has not been tested
+		<PickUp QuestName="The Best of Intentions" QuestId="12263" GiverName="Serinar" GiverId="26593" />
+			<If Condition="(HasQuest(12263))" >
+					 <CustomBehavior File="InteractWith" QuestId="12263" MobId="26593" NumOfTimes="1" GossipOptions="1, 1" CollectionDistance="10" X="4451.42" Y="1652.292" Z="133.7449" />
+			</If>
+		<TurnIn QuestName="The Best of Intentions" QuestId="12263" TurnInName="Serinar" TurnInId="26593" />
+		<PickUp QuestName="Culling the Damned" QuestId="12264" GiverName="Serinar" GiverId="26593" />
+		<PickUp QuestName="Defiling the Defilers" QuestId="12265" GiverName="Serinar" GiverId="26593" />
+			<CustomBehavior File="InteractWith" QuestId="12265" ObjectType="GameObject" MobId="188695" NumOfTimes="8" CollectionDistance="500" XYZ />
+			<Objective QuestName="Culling the Damned" QuestId="12264" Type="KillMob" MobId="27358" KillCount="3" />
+			<Objective QuestName="Culling the Damned" QuestId="12264" Type="KillMob" MobId="27362" KillCount="6" />
+			<Objective QuestName="Culling the Damned" QuestId="12264" Type="KillMob" MobId="27363" KillCount="6" />
+		<TurnIn QuestName="Culling the Damned" QuestId="12264" TurnInName="Serinar" TurnInId="26593" />
+		<TurnIn QuestName="Defiling the Defilers" QuestId="12265" TurnInName="Serinar" TurnInId="26593" />
+		<PickUp QuestName="Neltharion's Flame" QuestId="12267" GiverName="Serinar" GiverId="26593" />
+			<If Condition="(HasQuest(12267))" >
+				<UseItem QuestName="Neltharion's Flame" QuestId="12267" ItemId="37539" XYZ />
+				<CustomBehavior File="WaitTimer" WaitTime="8000" />
+				<Objective QuestName="Neltharion's Flame" QuestId="12267" Type="KillMob" MobId="27355" MobName="Rothin the Decaying" KillCount="1" />
+			</If>
+		<TurnIn QuestName="Neltharion's Flame" QuestId="12267" TurnInName="Serinar" TurnInId="26593" />
+		<PickUp QuestName="Tales of Destruction" QuestId="12266" GiverName="Serinar" GiverId="26593" />
 
-
+	-->
 
 
 	
