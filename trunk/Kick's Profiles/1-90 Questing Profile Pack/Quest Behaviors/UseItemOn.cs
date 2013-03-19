@@ -1,4 +1,4 @@
-﻿// Behavior originally contributed by Nesox
+// Behavior originally contributed by Nesox / rework by Chinajade
 //
 // LICENSE:
 // This work is licensed under the
@@ -9,70 +9,54 @@
 //      Creative Commons // 171 Second Street, Suite 300 // San Francisco, California, 94105, USA.
 //
 // DOCUMENTATION:
-//     http://www.thebuddyforum.com/mediawiki/index.php?title=Honorbuddy_Custom_Behavior:_InteractWith
+//     http://www.thebuddyforum.com/mediawiki/index.php?title=Honorbuddy_Custom_Behavior:_UseItemOn
 //
-// TODO:
-// * This behavior needs a serious overhaul.
-//      + It contains Thread.Sleep() and many more sins.
-//      + It runs 'open loop', if you get interrupted while interacting, it counts it towards its completion goal
-//      + It needs to be recast in terms of TreeHooks, since it expects to act during combat.
-//          The old technique this behavior uses is glitchy.
-//      + etc.
-
 
 #region Summary and Documentation
-//
 // QUICK DOX:
-// INTERACTWITH interacts with mobs or objects in various fashions, including:
-//  * Gossiping with the mob through a set of dialogs
-//  * "Right-clicking" on the mob to complete a goal
-//  * Buying particular items off of vendors
-// The behavior initiates interaction by "right clicking" on the mob of interest.
-// The subsequent actions taken by the behavior depend on the attributes provided.
+// USEITEMON allows the toon to use items on nearby Npcs or Objects.
 //
-// BEHAVIOR ATTRIBUTES:
 // Basic Attributes:
+//      ItemId [REQUIRED; Default: none]
+//          The Id of the item to use.  The item must be in the toon's
+//          backpack; otherwise, the behavior will terminate.
 //      MobId1, MobId2, ... MobIdN [at least one MobId is REQUIRED]
-//          Identifies the mobs on which the interaction should take place.
+//          Identifies the mobs or objects on which the item should be used.
 //          These Ids can represent either NPCs (WoWUnit) or Object (WoWObject);
 //          however, the two cannot be mixed.  To choose the 'flavor' of the
-//          Id, set the ObjectType attribute appropriately.
-//      NpcState [optional; Default: DontCare]
+//          Id, set the MobType attribute appropriately.
+//      MobState [optional; Default: DontCare]
 //          [Allowed values: Alive, BelowHp, Dead, DontCare]
-//          This represents the state the NPC must be in when searching for targets
-//          with which we can interact.
+//          This represents the state the NPC must be in when searching for viable
+//          targets on which to use the item.
 //          (NB: You probably don't want to select "BelowHp"--it is here for backward
 //           compatibility only.  I.e., You do not want to use this behavior to
 //          "fight a mob then use an item"--as it is *very* unreliable
-//          in performing that action.  Instead, use the CombatUseItemOnV2 behavior.) 
-//      NumOfTimes [optional; Default: 1]
-//          This is the number of times the behavior should interact with MobIdN.
-//          Once this value is achieved, the behavior considers itself done.
-//      ObjectType [optional; Default: Npc]
+//          in performing that action.  Instead, use the CombatUseItemOnV2 behavior.)
+//      MobType [optional; Default: Npc]
 //          [Allowed values: GameObject, Npc]
 //          Selects whether the provided MobIdN are used to identify
 //          NPCs (WoWUnit) or Objects (WoWObject).  This attribute affects
 //          how _all_ MobIdN will be treated--there is no way to mix-n-match.
+//      NumOfTimes [optional; Default: 1]
+//          This is the number of times the behavior should use the object on MobIdN.
+//          Once this value is achieved, the behavior considers itself done.
+//      Range [optional; Default: 4.0]
+//          Defines the maximum range at which the toon should be away from MobIdN
+//          before the item is used.
+//          If the toon is out of range, the toon will be moved within this distance
+//          of the mob.
 //
-// Interaction type-Buying Items:
-//      BuyItemCount [optional; Default: 1]
-//          This is the number of items (specified by BuyItemId) that should be
-//          purchased from the Vendor (specified by MobId).
-//      BuyItemId [optional; Default: none]
-//          This is the ItemId of the item that should be purchased from the
-//          Vendor (specified by MobId).
-//
-// Interaction type-Fighting Mobs:
-// (NB: You do not want to use this behavior to "fight a mob then use an item"--
-// as it is *very* unreliable in performing that action.  Instead, use the
-// CombatUseItemOnV2 behavior.)
+// Use Item When:
+// If none of these attributes are provided, the item will be used without qualification
+// and immediately upon obtaining range with mob. If multiple "use item when" attributes
+// are provided, the item is used when _any_ of the conditions go true.
+//      HasAuraId [optional; Default: none]
+//          When the mob acquires the identified AuraId, the item is used on the mob.
+//      IsMissingAuraId [optional; Default: none]
+//          When the mob loses the identified AuraId, the item is used on the mob.
 //      MobHpPercentLeft [optional; Default: 100.0]
-//
-// Interaction type-Gossiping:
-//      GossipOptions [optional; Default: none]
-//          Defines a comma-separated list of (1-based) numbers tha specifies
-//          which Gossip option to select in each dialog frame when chatting with an NPC.
-//          This value should be separated with commas. ie. GossipOption="1,1,4,2".
+//          When the mob's health drops to or below the identified percentage, the item is used on the mob.
 //
 // Quest binding:
 //      QuestId [optional; Default:none]:
@@ -85,24 +69,13 @@
 //      CollectionDistance [optional; Default: 100.0]
 //          Measured from the toon's current location, this value specifies
 //          the maximum distance that should be searched when looking for
-//          a viable MobId with which to interact.
+//          a viable MobIdN on which to use the item.
 //      IgnoreCombat [optional; Default: false]
 //          If true, this behavior will not defend itself if attacked, and
 //          will carry on with its main task.
 //      IgnoreMobsInBlackspots [optional; Default: true]
 //          When true, any mobs within (or too near) a blackspot will be ignored
 //          in the list of viable targets that are considered for item use.
-//      KeepTargetSelected [optional; Default: true]
-//          If true, the behavior will not clear the toon's target after the interaction
-//          is complete.  Instead, the target will remain on the last interacted
-//          mob until a new mob is ready for interaction.
-//          If false, the behavior clears the toon's target immediately after
-//          it considers the interaction complete.
-//      Loot [optional; Default: false]
-//          If true, the behavior will pick up loot from any loot frame
-//          offered by the MobIdN.
-//          This feature is largely unused since the WoW game mechanics
-//          have changed.
 //      Nav [optional; Default: Mesh]
 //          [Allowed values: CTM, Mesh, None]
 //          Selects the navigational machinery that should be used to move.
@@ -111,25 +84,18 @@
 //          CTM (Click-To-Move) should be used as a last resort for areas that
 //          have substantial navigation issues.
 //          "None" is deprecated, and should not be used.
-//      NotMoving [optional; Default: false]
-//          If true, the behavior will only consider MobIdN that are not moving
-//          for purposes of interaction.
-//      Range [optional; Default: 4.0]
-//          Defines the maximum range at which the interaction with MobIdN should take place.
-//          If the toon is out of range, the toon will be moved within this distance
-//          of the mob.
 //      WaitForNpcs [optional; Default: true]
 //          This value affects what happens if there are no MobIds in the immediate area.
 //          If true, the behavior will move to the next hunting ground waypoint, or if there
 //          is only one waypoint, the behavior will stand and wait for MobIdN to respawn.
 //          If false, and the behavior cannot locate MobIdN in the immediate area, the behavior
 //          considers itself complete.
-//      WaitTime [optional; Default: 3000ms]
+//      WaitTime [optional; Default: 1500ms]
 //          Defines the number of milliseconds to wait after the interaction is successfully
 //          conducted before carrying on with the behavior on other mobs.
 //      X/Y/Z [optional; Default: toon's current location when behavior is started]
 //          This specifies the location where the toon should loiter
-//          while waiting to interact with MobIdN.  If you need a large hunting ground
+//          while waiting to use the item on a MobIdN.  If you need a large hunting ground
 //          you should prefer using the <HuntingGrounds> sub-element, as it allows for
 //          multiple locations (waypoints) to visit.
 //          This value is automatically converted to a <HuntingGrounds> waypoint.
@@ -157,27 +123,32 @@
 //                  The world coordinates of the waypoint.
 //              Radius [optional; Default: 7.0]
 //                  Once the toon gets within Radius of the waypoint, the next waypoint
-//                  will be sought.
 //
 // THiNGS TO KNOW:
-//  * The BuySlot attribute is still present for backward compatibility--but DO NOT USE IT!
-//      This attribute is deprecated, and BuySlot presents a number of problems.
-//      If a vendor presents 'seasonal' or limited-quantity wares, the slot number
-//      for the desired item can change.
+//  * 
+//
+// TODO:
+// * This behavior needs a serious overhaul.
+//      + It contains Thread.Sleep() and many more sins.
+//      + It runs 'open loop', if you get interrupted while using the item, it counts it towards its completion goal
+//      + It needs to be recast in terms of TreeHooks, since it expects to act during combat.
+//          The old technique this behavior uses is glitchy.
+//      + etc.
 //
 #endregion
 
 
 #region Examples
-// "Fear No Evil" (http://wowhead.com/quest=28809)
-// Revive four injured soldiers (by interacting with them) using Paxton's Prayer Book (http://wowhead.com/item=65733).
-//      <CustomBehavior File="InteractWith" QuestId="28809" MobId="50047" NumOfTimes="4"
-//          CollectionDistance="1" >
+// "Extinguishing Hope" (http://wowhead.com/quest=26391)
+// Use Milly's Fire Extinguisher (http://www.wowhead.com/item=58362) to put out eight fires
+// in her vineyard.
+//      <CustomBehavior File="UseItemOn" QuestId="26391" MobId="42940" ItemId="58362" NumOfTimes="8"
+//          WaitTime="3000" Range="10" CollectionDistance="100" >
 //          <HuntingGrounds WaypointVisitStrategy="Random" >
-//              <Hotspot Name="Eastern Tent and Campfire" X="-8789.213" Y="-253.3615" Z="82.46034" />
-//              <Hotspot Name="North Campfire" X="-8757.012" Y="-188.6659" Z="85.05094" />
-//              <Hotspot Name="Mine entrance" X="-8716.521" Y="-105.2505" Z="87.57959" />
-//              <Hotspot Name="NW LeanTo and Campfire" X="-8770.273" Y="-111.1501" Z="84.09385" />
+//              <Hotspot Name="wagon" X="-9050.408" Y="-300.6666" Z="73.69003" />
+//              <Hotspot Name="SW totem" X="-9111.854" Y="-312.8966" Z="73.42716" />
+//              <Hotspot Name="S burning tree" X="-9122.291" Y="-362.1429" Z="73.37186" />
+//              <Hotspot Name="fallen tree" X="-9036.503" Y="-346.3283" Z="73.72896" />
 //          </HuntingGrounds>
 //      </CustomBehavior>
 //
@@ -196,9 +167,11 @@ using System.Xml.Linq;
 using CommonBehaviors.Actions;
 using Styx;
 using Styx.CommonBot;
-using Styx.CommonBot.Frames;
 using Styx.CommonBot.Profiles;
+using Styx.CommonBot.Routines;
+using Styx.Helpers;
 using Styx.Pathing;
+using Styx.Plugins;
 using Styx.TreeSharp;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
@@ -207,12 +180,11 @@ using Action = Styx.TreeSharp.Action;
 #endregion
 
 
-namespace Honorbuddy.Quest_Behaviors.InteractWith
+namespace Honorbuddy.Quest_Behaviors.UseItemOn
 {
-    [CustomBehaviorFileName(@"InteractWith")]
-    public class InteractWith : CustomForcedBehavior
+    [CustomBehaviorFileName(@"UseItemOn")]
+    public class UseItemOn : CustomForcedBehavior
     {
-        #region Constructor and argument processing
         public enum ObjectType
         {
             Npc,
@@ -234,66 +206,44 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
             None,
         }
 
-        public InteractWith(Dictionary<string, string> args)
+
+        #region Constructor and argument processing
+        public UseItemOn(Dictionary<string, string> args)
             : base(args)
         {
             try
             {
-                // Warn of deprecated attributes...
-                if (args.ContainsKey("BuySlot"))
-                {
-                    LogWarning("*****\n"
-                                + "* THE BUYSLOT ATTRIBUTE IS DEPRECATED, and may be retired in a near, future release.\n"
-                                + "*\n"
-                                + "* BuySlot presents a number of problems.  If a vendor presents 'seasonal' or\n"
-                                + "* limited-quantity wares, the slot number for the desired item can change.\n"
-                                + "\n"
-                                + "* Please update the profile to use *BuyItemId* attribute in preference to BuySlot.\n"
-                                + "*****");
-                }
+                int tmpMobHasAuraId;
+                int tmpMobHasAuraMissingId;
 
                 DefaultHuntingGroundCenter = Me.Location;
 
-                BuyItemCount = GetAttributeAsNullable<int>("BuyItemCount", false, ConstrainAs.CollectionCount, null) ?? 1;
-                BuyItemId = GetAttributeAsNullable<int>("BuyItemId", false, ConstrainAs.ItemId, null) ?? 0;
-                BuySlot = GetAttributeAsNullable<int>("BuySlot", false, new ConstrainTo.Domain<int>(-1, 100), null) ?? -1;
-                CollectionDistance = GetAttributeAsNullable<double>("CollectionDistance", false, ConstrainAs.Range, null) ?? 100;
-                GossipOptions = GetAttributeAsArray<int>("GossipOptions", false, new ConstrainTo.Domain<int>(-1, 10), new[] { "GossipOption" }, null);
+                CollectionDistance = GetAttributeAsNullable<double>("CollectionDistance", false, ConstrainAs.Range, null) ?? 100.0;
+                tmpMobHasAuraId = GetAttributeAsNullable<int>("HasAuraId", false, ConstrainAs.AuraId, new[] { "HasAura" }) ?? 0;
+                tmpMobHasAuraMissingId = GetAttributeAsNullable<int>("IsMissingAuraId", false, ConstrainAs.AuraId, null) ?? 0;
+                MobHpPercentLeft = GetAttributeAsNullable<double>("MobHpPercentLeft", false, ConstrainAs.Percent, new[] { "HpLeftAmount" }) ?? 100.0;
+                ItemId = GetAttributeAsNullable<int>("ItemId", true, ConstrainAs.ItemId, null) ?? 0;
                 HuntingGroundCenter = GetAttributeAsNullable<WoWPoint>("", false, ConstrainAs.WoWPointNonEmpty, null) ?? DefaultHuntingGroundCenter;
-                Loot = GetAttributeAsNullable<bool>("Loot", false, null, null) ?? false;
                 MobIds = GetNumberedAttributesAsArray<int>("MobId", 1, ConstrainAs.MobId, new[] { "NpcId" });
-                ObjType = GetAttributeAsNullable<ObjectType>("ObjectType", false, null, new[] { "MobType" }) ?? ObjectType.Npc;
+                MobType = GetAttributeAsNullable<ObjectType>("MobType", false, null, new[] { "ObjectType" }) ?? ObjectType.Npc;
+                NumOfTimes = GetAttributeAsNullable<int>("NumOfTimes", false, ConstrainAs.RepeatCount, null) ?? 1;
                 NpcState = GetAttributeAsNullable<NpcStateType>("MobState", false, null, new[] { "NpcState" }) ?? NpcStateType.DontCare;
                 NavigationState = GetAttributeAsNullable<NavigationType>("Nav", false, null, new[] { "Navigation" }) ?? NavigationType.Mesh;
-                MobHpPercentLeft = GetAttributeAsNullable<double>("MobHpPercentLeft", false, ConstrainAs.Percent, new[] { "HpLeftAmount" }) ?? 100.0;
-                NotMoving = GetAttributeAsNullable<bool>("NotMoving", false, null, null) ?? false;
-                NumOfTimes = GetAttributeAsNullable<int>("NumOfTimes", false, ConstrainAs.RepeatCount, null) ?? 1;
-                Range = GetAttributeAsNullable<double>("Range", false, ConstrainAs.Range, null) ?? 4.0;
                 WaitForNpcs = GetAttributeAsNullable<bool>("WaitForNpcs", false, null, null) ?? true;
-                WaitTime = GetAttributeAsNullable<int>("WaitTime", false, ConstrainAs.Milliseconds, null) ?? 3000;
-                IgnoreCombat = GetAttributeAsNullable<bool>("IgnoreCombat", false, null, null) ?? false;
+                Range = GetAttributeAsNullable<double>("Range", false, ConstrainAs.Range, null) ?? 4;
+                WaitTime = GetAttributeAsNullable<int>("WaitTime", false, ConstrainAs.Milliseconds, null) ?? 1500;
                 IgnoreMobsInBlackspots = GetAttributeAsNullable<bool>("IgnoreMobsInBlackspots", false, null, null) ?? true;
-                KeepTargetSelected = GetAttributeAsNullable<bool>("KeepTargetSelected", false, null, null) ?? true;
+                IgnoreCombat = GetAttributeAsNullable<bool>("IgnoreCombat", false, null, null) ?? false;
+
+                MobAuraName = (tmpMobHasAuraId != 0) ? AuraNameFromId("HasAuraId", tmpMobHasAuraId) : null;
+                MobAuraMissingName = (tmpMobHasAuraMissingId != 0) ? AuraNameFromId("HasAuraId", tmpMobHasAuraMissingId) : null;
 
                 // QuestRequirement* attributes are explained here...
                 //    http://www.thebuddyforum.com/mediawiki/index.php?title=Honorbuddy_Programming_Cookbook:_QuestId_for_Custom_Behaviors
                 // ...and also used for IsDone processing.
-                QuestId = GetAttributeAsNullable("QuestId", false, ConstrainAs.QuestId(this), null) ?? 0;
+                QuestId = GetAttributeAsNullable<int>("QuestId", false, ConstrainAs.QuestId(this), null) ?? 0;
                 QuestRequirementComplete = GetAttributeAsNullable<QuestCompleteRequirement>("QuestCompleteRequirement", false, null, null) ?? QuestCompleteRequirement.NotComplete;
                 QuestRequirementInLog = GetAttributeAsNullable<QuestInLogRequirement>("QuestInLogRequirement", false, null, null) ?? QuestInLogRequirement.InLog;
-
-
-                for (int i = 0; i < GossipOptions.Length; ++i)
-                { GossipOptions[i] -= 1; }
-
-
-                IEnumerable<WoWUnit> mobs = ObjectManager.GetObjectsOfType<WoWUnit>(true, false)
-                                                    .Where(unit => MobIds.Contains((int)unit.Entry));
-
-                MobNames = string.Join(", ", mobs.Select(mob => (!string.IsNullOrEmpty(mob.Name)
-                                                                ? mob.Name
-                                                                : ("Mob(" + mob.Entry.ToString() + ")")))
-                                                 .ToArray());
             }
 
             catch (Exception except)
@@ -310,22 +260,19 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
             }
         }
 
+
         // Attributes provided by caller
-        public int BuyItemCount { get; private set; }
-        public int BuyItemId { get; private set; }
-        public int BuySlot { get; private set; }
         public double CollectionDistance { get; private set; }
         public WoWPoint DefaultHuntingGroundCenter { get; private set; }
-        public int[] GossipOptions { get; private set; }
-        public HuntingGroundType HuntingGrounds { get; set; }
+        public int ItemId { get; private set; }
         public WoWPoint HuntingGroundCenter { get; private set; }
-        public bool Loot { get; private set; }
+        public string MobAuraName { get; private set; }
+        public string MobAuraMissingName { get; private set; }
+        public double MobHpPercentLeft { get; private set; }
         public int[] MobIds { get; private set; }
-        public string MobNames { get; private set; }
+        public ObjectType MobType { get; private set; }
         public NpcStateType NpcState { get; private set; }
         public NavigationType NavigationState { get; private set; }
-        public ObjectType ObjType { get; private set; }
-        public bool NotMoving { get; private set; }
         public int NumOfTimes { get; private set; }
         public int QuestId { get; private set; }
         public QuestCompleteRequirement QuestRequirementComplete { get; private set; }
@@ -333,33 +280,33 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         public double Range { get; private set; }
         public bool WaitForNpcs { get; private set; }
         public int WaitTime { get; private set; }
-        public bool IgnoreCombat { get; private set; }
-        public double MobHpPercentLeft { get; private set; }
         public bool IgnoreMobsInBlackspots { get; private set; }
-        public bool KeepTargetSelected { get; private set; }
+        public bool IgnoreCombat { get; private set; }
         #endregion
 
 
         #region Private and Convenience variables
-        public int Counter { get; private set; }
+        private int Counter { get; set; }
         private WaypointType CurrentHuntingGroundWaypoint { get; set; }
         private readonly TimeSpan Delay_WoWClientMovementThrottle = TimeSpan.FromMilliseconds(100);
-        private LocalPlayer Me { get { return (StyxWoW.Me); } }
-
+        public HuntingGroundType HuntingGrounds { get; set; }
+        private LocalPlayer Me { get { return (StyxWoW.Me); } }  
+        
         private bool _isBehaviorDone;
         private bool _isDisposed;
+        private readonly List<ulong> _npcAuraWait = new List<ulong>();
         private readonly List<ulong> _npcBlacklist = new List<ulong>();
         public static Random _random = new Random((int)DateTime.Now.Ticks);
-        private Composite _root;
+        private Composite _root;  
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 372 2013-03-19 07:49:20Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 372 $"); } }
+        public override string SubversionId { get { return ("$Id: UseItemOn.cs 371 2013-03-19 07:21:58Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 371 $"); } }
         #endregion
 
 
         #region Destructor, Dispose, and cleanup
-        ~InteractWith()
+        ~UseItemOn()
         {
             Dispose(false);
         }
@@ -391,6 +338,26 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         #endregion
 
 
+        // May return 'null' if auraId is not valid.
+        private string AuraNameFromId(string attributeName,
+                                           int auraId)
+        {
+            string tmpString = null;
+
+            try
+            {
+                tmpString = WoWSpell.FromId(auraId).Name;
+            }
+            catch
+            {
+                LogMessage("fatal", "Could not find {0}({0}).", attributeName, auraId);
+                IsAttributeProblem = true;
+            }
+
+            return (tmpString);
+        }
+
+
         /// <summary> Current object we should interact with.</summary>
         /// <value> The object.</value>
         private WoWObject CurrentObject
@@ -398,54 +365,41 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
             get
             {
                 WoWObject @object = null;
-                switch (ObjType)
+
+                switch (MobType)
                 {
                     case ObjectType.GameObject:
-                        @object = ObjectManager.GetObjectsOfType<WoWGameObject>().Where(obj =>
-                            !_npcBlacklist.Contains(obj.Guid) &&
-                            obj.DistanceSqr < CollectionDistance * CollectionDistance &&
-                            MobIds.Contains((int)obj.Entry)).OrderBy(ret => ret.DistanceSqr).FirstOrDefault();
-
+                        @object = ObjectManager.GetObjectsOfType<WoWGameObject>()
+                                                .OrderBy(ret => ret.Distance)
+                                                .FirstOrDefault(obj => !_npcBlacklist.Contains(obj.Guid)
+                                                                        && obj.Distance < CollectionDistance
+                                                                        && MobIds.Contains((int)obj.Entry));
                         break;
 
                     case ObjectType.Npc:
+                        var baseTargets = ObjectManager.GetObjectsOfType<WoWUnit>()
+                                                               .OrderBy(target => target.Distance)
+                                                               .Where(target => !_npcBlacklist.Contains(target.Guid) && !BehaviorBlacklist.Contains(target.Guid)
+                                                                                && (target.Distance < CollectionDistance)
+                                                                                && MobIds.Contains((int)target.Entry) && (!IgnoreMobsInBlackspots || (IgnoreMobsInBlackspots && !Targeting.IsTooNearBlackspot(ProfileManager.CurrentProfile.Blackspots, target.Location))));
 
+                        var auraQualifiedTargets = baseTargets
+                                                            .Where(target => (((MobAuraName == null) && (MobAuraMissingName == null))
+                                                                              || ((MobAuraName != null) && target.HasAura(MobAuraName))
+                                                                              || ((MobAuraMissingName != null) && !target.HasAura(MobAuraMissingName))));
 
-
-                        List<WoWUnit> baseTargets = ObjectManager.GetObjectsOfType<WoWUnit>()
-                                                               .Where(obj => obj.IsValid && !_npcBlacklist.Contains(obj.Guid) && !BehaviorBlacklist.Contains(obj.Guid) &&
-                                                                   (!NotMoving || !obj.IsMoving) && (!IgnoreMobsInBlackspots || (IgnoreMobsInBlackspots && !Targeting.IsTooNearBlackspot(ProfileManager.CurrentProfile.Blackspots, obj.Location))) &&
-                                                                    MobIds.Contains((int)obj.Entry) &&
-                                                                   !Me.Minions.Contains(obj) &&
-                                                                   obj.DistanceSqr < CollectionDistance * CollectionDistance)
-                                                               .OrderBy(obj => obj.DistanceSqr).ToList();
-                        //Fix for undead-quest (and maybe some more), these npcs are minions
-                        if (baseTargets.Count == 0) baseTargets = ObjectManager.GetObjectsOfType<WoWUnit>()
-                                                                  .Where(obj => obj.IsValid && !_npcBlacklist.Contains(obj.Guid) && !BehaviorBlacklist.Contains(obj.Guid) &&
-                                                                      (!NotMoving || !obj.IsMoving) && (!IgnoreMobsInBlackspots || (IgnoreMobsInBlackspots && !Targeting.IsTooNearBlackspot(ProfileManager.CurrentProfile.Blackspots, obj.Location))) &&
-                                                                       MobIds.Contains((int)obj.Entry) &&
-                                                                      obj.DistanceSqr < CollectionDistance * CollectionDistance)
-                                                                  .OrderBy(obj => obj.DistanceSqr).ToList();
-
-                        var npcStateQualifiedTargets = baseTargets
-                                                            .OrderBy(obj => obj.DistanceSqr)
+                        var npcStateQualifiedTargets = auraQualifiedTargets
                                                             .Where(target => ((NpcState == NpcStateType.DontCare)
                                                                               || ((NpcState == NpcStateType.Dead) && target.IsDead)
                                                                               || ((NpcState == NpcStateType.Alive) && target.IsAlive)
                                                                               || ((NpcState == NpcStateType.BelowHp) && target.IsAlive && (target.HealthPercent < MobHpPercentLeft))));
 
-
                         @object = npcStateQualifiedTargets.FirstOrDefault();
-
                         break;
-
                 }
 
                 if (@object != null)
-                {
-                    LogDeveloperInfo(@object.Name);
-                }
-
+                { LogDeveloperInfo(@object.Name); }
 
                 return @object;
             }
@@ -480,179 +434,126 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
             return (false);
         }
 
+        
+
+        public WoWItem Item
+        {
+            get
+            {
+                return StyxWoW.Me.CarriedItems.FirstOrDefault(ret => ret.Entry == ItemId);
+            }
+        }
+
 
         #region Overrides of CustomForcedBehavior
 
         protected override Composite CreateBehavior()
         {
             return _root ?? (_root =
-                new PrioritySelector(
-                    new Decorator(ret => !_isBehaviorDone && !IsDone,
-                        new PrioritySelector(
-                            new Decorator(ret => Counter >= NumOfTimes,
-                                new Action(ret => _isBehaviorDone = true)),
+            new PrioritySelector(
+                new Decorator(ret => Counter >= NumOfTimes,
+                    new Action(ret => _isBehaviorDone = true)),
 
-                            new PrioritySelector(
-                                new Decorator(ret => CurrentObject != null && CurrentObject.DistanceSqr > Range * Range,
-                                    new Switch<NavigationType>(ret => NavigationState,
-                                        new SwitchArgument<NavigationType>(
-                                            NavigationType.CTM,
-                                            new Sequence(
-                                                new Action(ret => { TreeRoot.StatusText = "Moving to interact with - " + CurrentObject.Name; }),
-                                                new Action(ret => WoWMovement.ClickToMove(CurrentObject.Location))
-                                            )),
-                                        new SwitchArgument<NavigationType>(
-                                            NavigationType.Mesh,
-                                            new PrioritySelector(
-
-                                                new Decorator(ret => !Navigator.CanNavigateFully(StyxWoW.Me.Location, CurrentObject.Location) && !StyxWoW.Me.IsFlying,
-                                                    new Sequence(
-														new Action(ret => { TreeRoot.StatusText = "Unable to navigate to object, Skipping - " + CurrentObject.Name + " Distance: " + CurrentObject.Distance; }),
-                                                        new Action(ret => _npcBlacklist.Add(CurrentObject.Guid)),
-                                                        new ActionAlwaysSucceed())),
-
-                                                new Sequence(
-                                                    new Action(delegate { TreeRoot.StatusText = "Moving to interact with \"" + CurrentObject.Name + "\""; }),
-                                                    new Action(ret => Navigator.MoveTo(CurrentObject.Location))
-                                                ))),
-
-                                        new SwitchArgument<NavigationType>(
-                                            NavigationType.None,
-                                            new Sequence(
-                                                new Action(ret => { TreeRoot.StatusText = "Object is out of range, Skipping - " + CurrentObject.Name + " Distance: " + CurrentObject.Distance; }),
-                                                new Action(ret => _isBehaviorDone = true)
-                                            )))),
-
-                                new Decorator(ret => CurrentObject != null && CurrentObject.Location.DistanceSqr(Me.Location) <= Range * Range && StyxWoW.Me.IsFlying,
-                                        new Action(ret =>
-                                        {
-                                            WoWMovement.Move(WoWMovement.MovementDirection.Descend);
-                                            while (StyxWoW.Me.IsFlying)
-                                                Thread.Sleep(100);
-
-                                            WoWMovement.MoveStop(WoWMovement.MovementDirection.Descend);
-
-                                            WoWMovement.MoveStop();          
-                                        }
-                                        
-                                        )),
-
-                                new Decorator(ret => CurrentObject != null && CurrentObject.Location.DistanceSqr(Me.Location) <= Range * Range,
+                new Decorator(context => CurrentObject != null,
+                    new PrioritySelector(
+                        new Decorator(ret => CurrentObject.DistanceSqr > Range * Range,
+                            new Switch<NavigationType>(ret => NavigationState,
+                                new SwitchArgument<NavigationType>(
+                                    NavigationType.CTM,
                                     new Sequence(
-                                        new DecoratorContinue(ret => StyxWoW.Me.IsMoving,
-                                            new Action(ret =>
-                                            {
-                                                WoWMovement.MoveStop();
-                                                StyxWoW.SleepForLagDuration();
-                                            })),
-
-                                        new Action(ret =>
-                                        {
-                                            TreeRoot.StatusText = "Interacting with - " + CurrentObject.Name;
-
-                                            StyxWoW.Me.SetFacing(CurrentObject.Location);
-
-                                            Thread.Sleep(100);
-
-                                            if (KeepTargetSelected && CurrentObject.Type == WoWObjectType.Unit)
-                                                CurrentObject.ToUnit().Target();
-
-
-                                            CurrentObject.Interact();
-                                            if (CurrentObject != null)
-                                                _npcBlacklist.Add(CurrentObject.Guid);
-
-                                            Thread.Sleep(2000);
-											
-											if(!KeepTargetSelected)
-												StyxWoW.Me.ClearTarget();
-											
-                                            Counter++;
-                                        }),
-
-                                        new DecoratorContinue(
-                                            ret => GossipOptions.Length > 0,
-                                            new Action(ret =>
-                                            {
-                                                foreach (var gos in GossipOptions)
-                                                {
-                                                    GossipFrame.Instance.SelectGossipOption(gos);
-                                                    Thread.Sleep(1000);
-                                                }
-                                            })),
-
-                                        new DecoratorContinue(
-                                            ret => Loot && LootFrame.Instance.IsVisible,
-                                            new Action(ret => LootFrame.Instance.LootAll())),
-
-                                        new DecoratorContinue(
-                                            ret => BuyItemId != 0 && MerchantFrame.Instance.IsVisible,
-                                            new Action(ret =>
-                                            {
-                                                var items = MerchantFrame.Instance.GetAllMerchantItems();
-                                                var item = items.FirstOrDefault(i => i.ItemId == BuyItemId && (i.BuyPrice * (ulong)BuyItemCount) <= Me.Copper && (i.NumAvailable >= BuyItemCount || i.NumAvailable == -1));
-
-                                                if (item != null)
-                                                {
-                                                    MerchantFrame.Instance.BuyItem(item.Index, BuyItemCount);
-                                                    Thread.Sleep(1500);
-                                                }
-                                            })),
-
-                                        new DecoratorContinue(
-                                            ret => BuySlot != -1 && BuyItemId == 0 && MerchantFrame.Instance.IsVisible,
-                                            new Action(ret =>
-                                            {
-                                                var item = MerchantFrame.Instance.GetMerchantItemByIndex(BuySlot);
-                                                if (item != null && (item.BuyPrice * (ulong)BuyItemCount) <= Me.Copper && (item.NumAvailable >= BuyItemCount || item.NumAvailable == -1))
-                                                {
-                                                    MerchantFrame.Instance.BuyItem(BuySlot, BuyItemCount);
-                                                    Thread.Sleep(1500);
-                                                }
-                                            })),
-                                        new DecoratorContinue(
-                                            ret => Me.CurrentTarget != null && Me.CurrentTarget == CurrentObject && !KeepTargetSelected,
-                                            new Action(ret => Me.ClearTarget())),
-
-                                        new Action(ret => Thread.Sleep(WaitTime))
-
+                                        new Action(ret => { TreeRoot.StatusText = "Moving to use item on - " + CurrentObject.Name; }),
+                                        new Action(ret => WoWMovement.ClickToMove(CurrentObject.Location))
                                     )),
+                                new SwitchArgument<NavigationType>(
+                                    NavigationType.Mesh,
+                                    new Sequence(
+                                        new Action(delegate { TreeRoot.StatusText = "Moving to use item on \"" + CurrentObject.Name + "\""; }),
+                                        new Action(ret => Navigator.MoveTo(CurrentObject.Location))
+                                        )),
+                                new SwitchArgument<NavigationType>(
+                                    NavigationType.None,
+                                    new Sequence(
+                                        new Action(ret => { TreeRoot.StatusText = "Object is out of range, Skipping - " + CurrentObject.Name + " Distance: " + CurrentObject.Distance; }),
+                                        new Action(ret => _isBehaviorDone = true)
+                                    )))),
 
-                                // If we couldn't find a mob, move to next hunting grounds waypoint...
-                                new Decorator(context => CurrentObject == null,
-                                    new PrioritySelector(
-                                        new Decorator(context => Me.Location.Distance(CurrentHuntingGroundWaypoint.Location) <= CurrentHuntingGroundWaypoint.Radius,
-                                            new Action(context =>
-                                            {
-                                                if (!WaitForNpcs)
-                                                    { _isBehaviorDone = true; }
+                        new Decorator(ret => CurrentObject.DistanceSqr <= Range * Range && Item != null && Item.Cooldown == 0,
+                            new Sequence(
+                                new DecoratorContinue(ret => StyxWoW.Me.IsMoving,
+                                    new Action(ret =>
+                                    {
+                                        WoWMovement.MoveStop();
+                                        StyxWoW.SleepForLagDuration();
+                                    })),
 
-                                                else if (HuntingGrounds.Waypoints.Count() > 1)
-                                                    { CurrentHuntingGroundWaypoint = HuntingGrounds.FindNextWaypoint(CurrentHuntingGroundWaypoint.Location); }
+                                new Action(ret =>
+                                {
+                                    bool targeted = false;
+                                    TreeRoot.StatusText = "Using item on \"" + CurrentObject.Name + "\"";
+                                    if (CurrentObject is WoWUnit && (StyxWoW.Me.CurrentTarget == null || StyxWoW.Me.CurrentTarget != CurrentObject))
+                                    {
+                                        (CurrentObject as WoWUnit).Target();
+                                        targeted = true;
+                                        StyxWoW.SleepForLagDuration();
+                                    }
 
-                                                else
-                                                {
-                                                    string message = "Waiting for mobs or objects to respawn.";
-                                                    LogInfo(message);
-                                                    TreeRoot.StatusText = message;
-                                                }
-                                            })),
+                                    WoWMovement.Face(CurrentObject.Guid);
 
-                                        new Sequence(
-                                            new Action(context =>
-                                            {
-                                                string destinationName =
-                                                    string.IsNullOrEmpty(CurrentHuntingGroundWaypoint.Name)
-                                                    ? "Moving to next hunting ground waypoint"
-                                                    : string.Format("Moving to hunting ground waypoint '{0}'", CurrentHuntingGroundWaypoint.Name);
+                                    Item.UseContainerItem();
+                                    _npcBlacklist.Add(CurrentObject.Guid);
 
-                                                TreeRoot.StatusText = destinationName;
-                                                Navigator.MoveTo(CurrentHuntingGroundWaypoint.Location);
-                                            }),
-                                            new WaitContinue(Delay_WoWClientMovementThrottle, ret => false, new ActionAlwaysSucceed())
-                                        )
-                                    ))
-                        )))));
+                                    StyxWoW.SleepForLagDuration();
+                                    Counter++;
+
+                                    if (WaitTime < 100)
+                                        WaitTime = 100;
+
+                                    if (WaitTime > 100)
+                                    {
+                                        if (targeted)
+                                            StyxWoW.Me.ClearTarget();
+                                    }
+
+                                    Thread.Sleep(WaitTime);
+                                })
+                            ))
+                        )),
+
+                // If we couldn't find a mob, move to next hunting grounds waypoint...
+                new Decorator(context => CurrentObject == null,
+                    new PrioritySelector(
+                        new Decorator(context => Me.Location.Distance(CurrentHuntingGroundWaypoint.Location) <= CurrentHuntingGroundWaypoint.Radius,
+                            new Action(context =>
+                            {
+                                if (!WaitForNpcs)
+                                    { _isBehaviorDone = true; }
+
+                                else if (HuntingGrounds.Waypoints.Count() > 1)
+                                    { CurrentHuntingGroundWaypoint = HuntingGrounds.FindNextWaypoint(CurrentHuntingGroundWaypoint.Location); }
+
+                                else
+                                {
+                                    string message = "Waiting for mobs or objects to respawn.";
+                                    LogInfo(message);
+                                    TreeRoot.StatusText = message;
+                                }
+                            })),
+
+                        new Sequence(
+                            new Action(context =>
+                            {
+                                string destinationName =
+                                    string.IsNullOrEmpty(CurrentHuntingGroundWaypoint.Name)
+                                    ? "Moving to next hunting ground waypoint"
+                                    : string.Format("Moving to hunting ground waypoint '{0}'", CurrentHuntingGroundWaypoint.Name);
+
+                                TreeRoot.StatusText = destinationName;
+                                Navigator.MoveTo(CurrentHuntingGroundWaypoint.Location);
+                            }),
+                            new WaitContinue(Delay_WoWClientMovementThrottle, ret => false, new ActionAlwaysSucceed())
+                        )
+                    ))
+                ));
         }
 
 
@@ -671,7 +572,6 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                         || !UtilIsProgressRequirementsMet(QuestId, QuestRequirementInLog, QuestRequirementComplete));
             }
         }
-
 
         public override void OnStart()
         {
@@ -695,7 +595,6 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                 }
             }
             
-
             // This reports problems, and stops BT processing if there was a problem with attributes...
             // We had to defer this action, as the 'profile line number' is not available during the element's
             // constructor call.
@@ -705,7 +604,9 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
             // So we don't want to falsely inform the user of things that will be skipped.
             if (!IsDone)
             {
-                TreeRoot.GoalText = "Interacting with " + MobNames;
+                PlayerQuest quest = StyxWoW.Me.QuestLog.GetQuestById((uint)QuestId);
+
+                TreeRoot.GoalText = this.GetType().Name + ": " + ((quest != null) ? ("\"" + quest.Name + "\"") : "In Progress");
 
                 CurrentHuntingGroundWaypoint = HuntingGrounds.FindFirstWaypoint(Me.Location);
             }
@@ -1093,7 +994,6 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         #endregion
     }
 
-
     public static class WoWUnitExtensions
     {
         private static LocalPlayer Me { get { return (StyxWoW.Me); } }
@@ -1103,7 +1003,6 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
             return ((Me.PartyMembers.FirstOrDefault(partyMember => (partyMember.Guid == wowUnit.Guid))) != null);
         }
     }
-
 
     class BehaviorBlacklist
     {
