@@ -217,14 +217,31 @@
       <!-- Death Comes From On High - http://www.wowhead.com/quest=12641 -->
       <PickUp QuestName="Death Comes From On High" QuestId="12641" GiverName="The Lich King" GiverId="25462" />
       <If Condition="HasQuest(12641) &amp;&amp; !IsQuestCompleted(12641)" >
-        <CustomBehavior File="InteractWith" MobId = "191609" QuestId="12641" ObjectType="GameObject" NumOfTimes = "1" CollectionDistance = "4" X="2345.848" Y="-5696.338" Z="426.0303" />
-        <CustomBehavior File="WaitTimer" WaitTime="25000" />
-        <CustomBehavior File="Vehicles\VehicleMover" VehicleId="28511" UseNavigator="false" SpellId="51859" CastTime="7000" X="1654.104" Y="-5996.521" Z="183.0229"/>
-        <CustomBehavior File="Vehicles\VehicleMover" VehicleId="28511" UseNavigator="false" SpellId="51859" CastTime="7000" X="1799.286" Y="-6003.341" Z="170.4593"/>
-        <CustomBehavior File="Vehicles\VehicleMover" VehicleId="28511" UseNavigator="false" SpellId="51859" CastTime="7000" X="1592.047" Y="-5735.208" Z="196.1772"/>
-        <CustomBehavior File="Vehicles\VehicleMover" VehicleId="28511" UseNavigator="false" SpellId="51859" CastTime="7000" X="1384.774" Y="-5701.124" Z="199.2797"/>
+		<!-- *Must* disable mounting to use the Eye of Acherus...
+		  Since the Eye is a "proxy" vehicle, Honorbuddy will sense a huge change in distance,
+		  and mount while we're flying the Eye around, if we don't turn it off.
+		  If we're mounted, the Eye's spells will not be enabled for use. -CJ -->
+		<CustomBehavior File="ForcedDismount" />
+		<CustomBehavior File="UserSettings" UseMount="false" />
+		<If Condition="!Me.HasAura(51852)"> <!-- HB start/stop protection -->
+			<CustomBehavior File="InteractWith" MobId = "191609" QuestId="12641" ObjectType="GameObject" NumOfTimes = "1" CollectionDistance = "4" X="2345.848" Y="-5696.338" Z="426.0303" />
+			<CustomBehavior File="WaitTimer" WaitTime="25000" />
+		</If>
+        <CustomBehavior File="Vehicles\VehicleMover" QuestId="12641" QuestObjectiveIndex="3"
+			VehicleId="28511" AuraId_ProxyVehicle="51852" SpellId="51859" CastTime="9000"
+			UseNavigator="false" X="1654.104" Y="-5996.521" Z="183.0229"/>
+        <CustomBehavior File="Vehicles\VehicleMover" QuestId="12641" QuestObjectiveIndex="1"
+			VehicleId="28511" AuraId_ProxyVehicle="51852" SpellId="51859" CastTime="9000"
+			UseNavigator="false" X="1799.286" Y="-6003.341" Z="170.4593"/>
+        <CustomBehavior File="Vehicles\VehicleMover" QuestId="12641" QuestObjectiveIndex="2"
+			VehicleId="28511" AuraId_ProxyVehicle="51852" SpellId="51859" CastTime="9000"
+			UseNavigator="false" X="1592.047" Y="-5735.208" Z="196.1772"/>
+        <CustomBehavior File="Vehicles\VehicleMover" QuestId="12641" QuestObjectiveIndex="4"
+			VehicleId="28511" AuraId_ProxyVehicle="51852" SpellId="51859" CastTime="9000"
+			UseNavigator="false" X="1384.774" Y="-5701.124" Z="199.2797"/>
         <CustomBehavior File="WaitTimer" WaitTime="5000"/>
         <CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(52694)" />
+		<CustomBehavior File="UserSettings" UseMount="original" />
       </If>
       <TurnIn QuestName="Death Comes From On High" QuestId="12641" TurnInName="The Lich King" TurnInId="25462" />-->
 
