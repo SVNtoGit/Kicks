@@ -81,8 +81,9 @@
       <Blackspot X="1827.418" Y="-5918.569" Z="110.0699" Radius="5.324455" />
     </Blackspots>
     <AvoidMobs>
-      <Mob Name="Stable Master Kitrik" Entry="28683" />
-	  <Mob Name="Initiate's Training Dummy" Entry="32541" />
+		<Mob Name="Stable Master Kitrik" Entry="28683" />
+		<Mob Name="Initiate's Training Dummy" Entry="32541" />
+		<Mob Name="Scarlet Lord Jesseriah McCree" Entry="28964" />
     </AvoidMobs>
     <Vendors>
       <Vendor Name="Hargus the Gimp" Entry="28760" Type="Repair" X="2344.974" Y="-5720.853" Z="153.9221" />
@@ -198,6 +199,7 @@
         <MoveTo QuestId="12842" X="2505.115" Y="-5563.931" Z="420.6445" />
         <CustomBehavior File="WaitTimer" WaitTime="1000" />
         <CustomBehavior File="PerformTradeskillOn" QuestId="12842" TradeSkillId="53428" TradeSkillItemId="53341" NumOfTimes="1" CastOnItemId="38707" /> <!-- Runeforging = 53428, spell 53341 is Rune of Cinderglacier (the 'item' that we make, essentially), 38707 is our 2h sword -->
+		<CustomBehavior File="Misc\RunLua" Lua="CloseTradeSkill()" />
       </If>
       <TurnIn QuestName="Runeforging: Preparation For Battle" QuestId="12842" TurnInName="Razuvious" TurnInId="28357" />
 
@@ -224,7 +226,9 @@
 		<CustomBehavior File="ForcedDismount" />
 		<CustomBehavior File="UserSettings" UseMount="false" />
 		<If Condition="!Me.HasAura(51852)"> <!-- HB start/stop protection -->
-			<CustomBehavior File="InteractWith" MobId = "191609" ObjectType="GameObject" NumOfTimes = "1" CollectionDistance = "4" X="2345.848" Y="-5696.338" Z="426.0303" />
+			<CustomBehavior File="InteractWith" MobId="191609"
+				ObjectType="GameObject" NumOfTimes = "1" CollectionDistance="4"
+				X="2345.848" Y="-5696.338" Z="426.0303" />
 			<CustomBehavior File="WaitTimer" WaitTime="25000" />
 		</If>
         <CustomBehavior File="Vehicles\VehicleMover" QuestId="12641" QuestObjectiveIndex="3"
@@ -267,16 +271,17 @@
       <!-- If Chaos Drives, Let Suffering Hold The Reins - http://www.wowhead.com/quest=12678 -->
       <PickUp QuestName="If Chaos Drives, Let Suffering Hold The Reins" QuestId="12678" GiverName="Prince Valanar" GiverId="28377" />
 
-      <While Condition="HasQuest(12733) &amp;&amp; !IsQuestCompleted(12733)" >
-        <CustomBehavior File="InteractWith" MobId="28406" ObjectType="Npc" GossipOptions="1" NotMoving="true" NumOfTimes="1" CollectionDistance="50" X="2351.905" Y="-5698.78" Z="153.9228"  />
-        <CustomBehavior File="WaitTimer" WaitTime="10000" />
-      </While>
+		<CustomBehavior File="InteractWith" QuestId="12733" MobId="28406" ObjectType="Npc"
+			InteractByGossipOptions="1" NotMoving="true" CollectionDistance="100" NonCompeteDistance="10"
+			KeepTargetSelected="true" WaitTime="15000" X="2351.905" Y="-5698.78" Z="153.9228"  />
       <TurnIn QuestName="Death's Challenge" QuestId="12733" TurnInName="Olrun the Battlecaller" TurnInId="29047" />
 
       <While Condition="HasQuest(12680) &amp;&amp; !IsQuestCompleted(12680)" >
 		<RunTo X="2175.955" Y="-5769.175" Z="101.3312" />
         <CustomBehavior File="SpecificQuests\DeathknightStart\WaitForPatrol" AvoidMobId="28683" AvoidDistance="85" X="2175.955" Y="-5769.175" Z="101.3312" />
-        <CustomBehavior File="Vehicles\VehicleMover" VehicleId = "28605" VehicleId2 = "28606" VehicleId3 = "28607" UseNavigator = "true" MobId = "28653" SpellId = "52264" Hop = "true" X="2347.104" Y="-5695.789" Z="155.9568" />
+        <CustomBehavior File="Vehicles\VehicleMover" VehicleId="28605" VehicleId2="28606" VehicleId3="28607"
+			UseNavigator="true" MobId="28653" SpellId="52264" Hop="true"
+			X="2347.104" Y="-5695.789" Z="155.9568" />
         <CustomBehavior File="Misc\RunLua" Lua= "VehicleExit()" />
         <CustomBehavior File="WaitTimer" WaitTime="5000" />
       </While>
@@ -289,11 +294,15 @@
       </If>
       <While Condition= "HasQuest(12687) &amp;&amp; !IsQuestCompleted(12687)" >
         <If Condition="!Me.HasAura(&quot;Realm of Shadows&quot;)" >
-          <CustomBehavior File="InteractWith" MobId="28653" ObjectType="Npc" NumOfTimes="1" CollectionDistance="100" X="2336.86" Y="-5686.712" Z="153.9225" />
-          <CustomBehavior File="Misc\RunLua" Lua= "SelectGossipOptions(1)" />
+          <CustomBehavior File="InteractWith" MobId="28653" ObjectType="Npc" NumOfTimes="1"
+			InteractByGossipOptions="1" CollectionDistance="100"
+			X="2336.86" Y="-5686.712" Z="153.9225" />
         </If>
-        <CustomBehavior File="SpecificQuests\DeathknightStart\IntoTheRealmofShadows" X="2180.931" Y="-5726.148" Z="104.5497" />
-        <CustomBehavior File="Vehicles\VehicleMover" VehicleId = "28782" UseNavigator = "true" SpellId = "52362" Hop="True" X="2358.639" Y="-5708.643" Z="153.9229" />
+		<CustomBehavior File="InteractWith" MobId="28782" ObjectType="Npc"
+			X="2180.931" Y="-5726.148" Z="104.5497" />
+        <CustomBehavior File="Vehicles\VehicleMover" QuestId="12687" VehicleId="28782"
+			IgnoreCombat="true" UseNavigator="true" SpellId="52362" Hop="True"
+			X="2358.639" Y="-5708.643" Z="153.9229" />
       </While>
       <TurnIn QuestName="Into the Realm of Shadows" QuestId="12687" TurnInName="Salanar the Horseman" TurnInId="28653" />
       <CustomBehavior File="UserSettings" LootMobs="true" />
@@ -315,10 +324,14 @@
       <!-- The Gift That Keeps On Giving - http://www.wowhead.com/quest=12698 -->
       <PickUp QuestName="The Gift That Keeps On Giving" QuestId="12698" GiverName="Gothik the Harvester" GiverId="28658" />
       <If Condition = "HasQuest(12698)" >
-        <If Condition ="Me.Minions != null &amp;&amp; Me.Minions.Count &lt; 5">
-          <CustomBehavior File="SpecificQuests\DeathknightStart\TheGiftThatKeepsOnGiving" MobId = "28819" ItemId="39253" MinionCount = "5" HasGroundTarget ="true" NumOfTimes="200" X="2434.626" Y="-5929.263" Z="96.8934" />
-        </If>
+		<CustomBehavior File="UserSettings" PullDistance="0" />
+        <While Condition ="(Me.Minions != null) &amp;&amp; (Me.Minions.Count &lt; 5)">
+			<CustomBehavior File="InteractWith" MobId="28819" MobState="Alive"
+				InteractByUsingItemId="39253" Range="20" NonCompeteDistance="10" WaitTime="5000"
+				X="2434.626" Y="-5929.263" Z="96.8934" />
+        </While>
         <RunTo X="2348.769" Y="-5758.279" Z="153.9225" />
+		<CustomBehavior File="UserSettings" PullDistance="original" />
         <If Condition ="!IsQuestCompleted(12698) &amp;&amp; Me.Minions != null &amp;&amp; Me.Minions.Count &lt; 5">
           <CustomBehavior File="SpecificQuests\DeathknightStart\TheGiftThatKeepsOnGiving" MobId = "28819" ItemId="39253" WaitTime="7000" MinionCount = "5" HasGroundTarget ="true" NumOfTimes="200" X="2434.626" Y="-5929.263" Z="96.8934" />
         </If>
@@ -333,8 +346,8 @@
       <!-- Massacre At Light's Point - http://www.wowhead.com/quest=12701 -->
       <PickUp QuestName="Massacre At Light's Point" QuestId="12701" GiverName="Prince Valanar" GiverId="28377" />
       <If Condition="HasQuest(12701) &amp;&amp; !IsQuestCompleted(12701)" >
-        <CustomBehavior File="UseGameObject" QuestId="12701" ObjectId="190767" NumOfTimes="1" X="2391.104" Y="-5900.058" Z="109.1245" />
-        <CustomBehavior File="WaitTimer" WaitTime="75000" />
+        <CustomBehavior File="InteractWith" MobId="190767" ObjectType="GameObject" NumOfTimes="1"
+			WaitTime="75000" X="2391.104" Y="-5900.058" Z="109.1245" />
         <CustomBehavior File="InteractWith" MobId="28833" ObjectType="Npc" NumOfTimes="1" CollectionDistance="50" X="2264.77" Y="-6189.184" Z="13.61233"   />
         <CustomBehavior File="Vehicles\CannonControl" VehicleId="28833" QuestId="12701" MaxAngle="0.55" MinAngle="0.32" Buttons="2,1" ExitButton="5" />
         <CustomBehavior File="WaitTimer" WaitTime="60000" />
@@ -399,7 +412,20 @@
  		<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
 		<CustomBehavior File="EquipItem" ItemId="39371" />
         <!-- find and beat these NPCs until quest completes around the location -->
-        <CustomBehavior File="SpecificQuests\DeathknightStart\FindAndBeatNpcs" MobId="28610" MobId2="28936" MobId3="28939" QuestId="12720" X="1669.565" Y="-5896.56" Z="116.1651" />
+		<CustomBehavior File="UserSettings" PullDistance="0" />
+		<CustomBehavior File="InteractWith" QuestId="12720" CollectionDistance="300"
+			MobId="28610" MobId2="28936" MobId3="28939" MobState="Alive"
+			X="1688.283" Y="-5815.887" Z="116.1194" >
+			<HuntingGrounds>
+				<Hotspot Name="House" X="1726.401" Y="-5739.774" Z="110.2785" />
+				<Hotspot Name="Town Hall" X="1611.222" Y="-5782.503" Z="116.1144" />
+				<Hotspot Name="Orchard" X="1480.322" Y="-5811.161" Z="131.2116" />
+				<Hotspot Name="Keep" X="1623.648" Y="-5965.608" Z="131.0209" />
+				<Hotspot Name="Inn" X="1718.43" Y="-5871.962" Z="116.1407" />
+				<Hotspot Name="Ranch House" X="1659.578" Y="-5834.314" Z="116.1673" />
+			</HuntingGrounds>
+		</CustomBehavior>
+		<CustomBehavior File="UserSettings" PullDistance="original" />
         <!--Equip the main weapon -->
         <CustomBehavior File="EquipItem" ItemId="38707" />
       </If>
@@ -422,8 +448,10 @@
       <!-- Bloody Breakout - http://www.wowhead.com/quest=12727 -->
       <PickUp QuestName="Bloody Breakout" QuestId="12727" GiverName="Koltira Deathweaver" GiverId="28912" />
 		  <While Condition="HasQuest(12727) &amp;&amp; !IsQuestCompleted(12727)" >
-			<CustomBehavior File="InteractWith" MobId="28912" GossipOptions="1" WaitForNpcs="False" X="1652.649" Y="-6035.982" Z="127.5845" />
-			<CustomBehavior File="InteractWith" ObjectType="GameObject" MobId="191092" WaitForNpcs="False" Loot="True" X="1652.649" Y="-6035.982" Z="127.5845" />
+			<CustomBehavior File="InteractWith" MobId="28912" InteractByGossipOptions="1" WaitForNpcs="False"
+				X="1652.649" Y="-6035.982" Z="127.5845" />
+			<CustomBehavior File="InteractWith" ObjectType="GameObject" MobId="191092" WaitForNpcs="False"
+				InteractByLooting="true" X="1652.649" Y="-6035.982" Z="127.5845" />
 		  </While>
       <TurnIn QuestName="Bloody Breakout" QuestId="12727" TurnInName="Thassarian" TurnInId="28913" />
 
@@ -606,7 +634,6 @@
       <!-- The Lich King's Command - http://www.wowhead.com/quest=12800 -->
       <PickUp QuestName="The Lich King's Command" QuestId="12800" GiverName="The Lich King" GiverId="29110" />
       <TurnIn QuestName="The Lich King's Command" QuestId="12800" TurnInName="Scourge Commander Thalanor" TurnInId="31082" />
-      <CustomBehavior File="UserSettings" />
       <!-- The Light of Dawn - http://www.wowhead.com/quest=12801 -->
       <PickUp QuestName="The Light of Dawn" QuestId="12801" GiverName="Scourge Commander Thalanor" GiverId="31082" />
       <If Condition="HasQuest(12801) &amp;&amp; !IsQuestCompleted(12801)" >
@@ -648,15 +675,16 @@
       <!-- Horde -->
  		<If Condition="Me.IsHorde" >
      <If Condition="HasQuest(13189) &amp;&amp; Me.ZoneId == 139" >
- 		<CustomBehavior File="UserSettings" PullDistance="1" />
+ 		<CustomBehavior File="UserSettings" PullDistance="0" />
 		<CustomBehavior File="InteractWith" MobId="193052" ObjectType="GameObject" NumOfTimes="1" CollectionDistance="4" X="2348.233" Y="-5695.629" Z="382.2405" />
 		<CustomBehavior File="WaitTimer" WaitTime="20000" />
      </If>
       <If Condition="HasQuest(13189)" >
-			<CustomBehavior File="UserSettings" PullDistance="1" />
+			<CustomBehavior File="UserSettings" PullDistance="0" />
 			<CustomBehavior File="NoCombatMoveTo" X="1669.178" Y="-4343.229" Z="28.36206" />
 		<TurnIn QuestName="Warchief's Blessing" QuestId="13189" TurnInName="Garrosh Hellscream" TurnInId="39605" X="1669.178" Y="-4343.229" Z="28.36206" />
-				<CustomBehavior File="InteractWith" MobId="6929" GossipOptions="1" X="1573.266" Y="-4439.158" Z="16.05683" />
+				<CustomBehavior File="InteractWith" MobId="6929" InteractByGossipOptions="1"
+					X="1573.266" Y="-4439.158" Z="16.05683" />
 				<CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" NumOfTimes="1" WaitTime="5000"/> <!-- Set Hearth to Org -->
       </If>
 				
@@ -687,7 +715,7 @@
 			 </If>
 			
 				<EnableRepair />
-				<CustomBehavior File="UserSettings" PullDistance="25" />
+				<CustomBehavior File="UserSettings" PullDistance="original" />
 				<CustomBehavior File="EnablePlugin" Names="AutoEquip2" />
 				<CustomBehavior File="DeleteItems" Ids="39327,39328" /> <!-- DK Profile -->
 		</If>
@@ -697,15 +725,16 @@
       <!-- Alliance -->
  		<If Condition="Me.IsAlliance" >
       <If Condition="HasQuest(13188) &amp;&amp; Me.ZoneId == 139" >
-		<CustomBehavior File="UserSettings" PullDistance="1" />
+		<CustomBehavior File="UserSettings" PullDistance="0" />
         <CustomBehavior File="InteractWith" MobId="193053" ObjectType="GameObject" NumOfTimes="1" CollectionDistance="4"  X="2324.699" Y="-5659.518" Z="382.2405" />
 		<CustomBehavior File="WaitTimer" WaitTime="10000" />
       </If>
       <If Condition="HasQuest(13188)">
-			<CustomBehavior File="UserSettings" PullDistance="1" />
+			<CustomBehavior File="UserSettings" PullDistance="0" />
 			<CustomBehavior File="NoCombatMoveTo" X="-8363.06" Y="232.236" Z="156.9907" />
  		<TurnIn QuestId="13188" QuestName="Where Kings Walk" TurnInName="King Varian Wrynn" TurnInId="29611" X="-8363.06" Y="232.236" Z="156.9907" />
-				<CustomBehavior File="InteractWith" MobId="6740" GossipOptions="1" X="-8867.786" Y="673.6729" Z="97.90324" />
+				<CustomBehavior File="InteractWith" MobId="6740" InteractByGossipOptions="1"
+					X="-8867.786" Y="673.6729" Z="97.90324" />
 				<CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" NumOfTimes="1" WaitTime="5000"/> <!-- Set Hearth to SW -->
 		</If>
 			<If Condition="(Me.Level &lt;= 60)" >
@@ -728,7 +757,7 @@
 			</While>
 	  
 				<EnableRepair />
-				<CustomBehavior File="UserSettings" PullDistance="25" />
+				<CustomBehavior File="UserSettings" PullDistance="original" />
 				<CustomBehavior File="EnablePlugin" Names="AutoEquip2" />
 				<CustomBehavior File="DeleteItems" Ids="39327,39328" /> <!-- DK Profile -->
 			</If>
