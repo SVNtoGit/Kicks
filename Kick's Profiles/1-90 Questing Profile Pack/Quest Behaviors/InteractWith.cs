@@ -419,8 +419,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         public Stopwatch _waitTimer = new Stopwatch();
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 382 2013-03-26 20:42:26Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 382 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 385 2013-03-27 16:31:49Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 385 $"); } }
         #endregion
 
 
@@ -544,7 +544,13 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
             {
                 BotEvents.OnBotStop += BotEvents_OnBotStop;
         
-                TreeRoot.GoalText = "Interacting with " + string.Join(", ", MobIds.Select(m => FindMobName(m)));
+                PlayerQuest quest = Me.QuestLog.GetQuestById((uint)QuestId);
+
+                TreeRoot.GoalText = string.Format(
+                    "{0}: \"{1}\"\nInteracting with: {2}",
+                    this.GetType().Name,
+                    ((quest != null) ? ("\"" + quest.Name + "\"") : "In Progress (no associated quest)"),
+                    string.Join(", ", MobIds.Select(m => FindMobName(m))));
                 
                 CurrentHuntingGroundWaypoint = HuntingGrounds.FindFirstWaypoint(Me.Location);
 
@@ -986,12 +992,11 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
         private string FindMobName(int mobId)
         {
-            string mobName = ObjectManager.GetObjectsOfType<WoWObject>()
+            WoWObject wowObject = ObjectManager.GetObjectsOfType<WoWObject>(true)
                                 .Where(o => o.Entry == mobId)
-                                .Select(o => o.Name)
                                 .FirstOrDefault();
 
-            return mobName ?? string.Format("MobId({0})", mobId);
+            return (wowObject != null) ? wowObject.Name : string.Format("MobId({0})", mobId);
         }
 
 
