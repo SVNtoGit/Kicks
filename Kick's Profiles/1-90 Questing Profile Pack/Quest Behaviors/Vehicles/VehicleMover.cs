@@ -249,8 +249,8 @@ namespace Honorbuddy.Quest_Behaviors.Vehicles.VehicleMover
         public int[] VehicleIds { get; private set; }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: VehicleMover.cs 375 2013-03-20 12:49:57Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 375 $"); } }
+        public override string SubversionId { get { return ("$Id: VehicleMover.cs 383 2013-03-27 15:17:27Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 383 $"); } }
         #endregion
 
 
@@ -264,7 +264,7 @@ namespace Honorbuddy.Quest_Behaviors.Vehicles.VehicleMover
         private WoWPoint FinalDestination { get; set; }
         private string FinalDestinationName { get; set; }
         private LocalPlayer Me { get { return StyxWoW.Me; } }
-        private bool SuccessfullyMounted { get; set; }
+        private bool DidSuccessfullyMount { get; set; }
         private WoWUnit VehicleUnoccupied { get; set; }
 
         private Composite _behaviorTreeHook_CombatMain = null;
@@ -478,7 +478,7 @@ namespace Honorbuddy.Quest_Behaviors.Vehicles.VehicleMover
                             // If we were successfully mounted...
                             // and within a few yards of our destination when we were dismounted, we must
                             // assume we were auto-dismounted, and the behavior is complete...
-                            new Decorator(context => SuccessfullyMounted && IsInVehicle()
+                            new Decorator(context => DidSuccessfullyMount && !IsInVehicle()
                                                         && (Me.Location.Distance(FinalDestination) < 15.0),
                                 new Action(context => { _isBehaviorDone = true; })),
 
@@ -497,8 +497,8 @@ namespace Honorbuddy.Quest_Behaviors.Vehicles.VehicleMover
                                 })),
 
                             // If we successfully mounted the vehicle, record the fact...
-                            new Decorator(context => IsInVehicle() && !SuccessfullyMounted,
-                                new Action(context => { SuccessfullyMounted = true; })),
+                            new Decorator(context => IsInVehicle() && !DidSuccessfullyMount,
+                                new Action(context => { DidSuccessfullyMount = true; })),
 
                             // Move vehicle to destination...
                             UtilityBehavior_MoveTo(context => FinalDestination,
@@ -590,7 +590,7 @@ namespace Honorbuddy.Quest_Behaviors.Vehicles.VehicleMover
 
                     // If the spell is on cooldown, we need to wait...
                     new Decorator(context => Lua.GetReturnVal<double>(LuaCooldownCommand, 1) > 0.0,
-                        new Action(context => LogWarning("Waiting for cooldown") )),
+                        new Action(context => LogInfo("Waiting for cooldown") )),
 
                     // Cast the required spell...
                     new Sequence(
@@ -759,7 +759,10 @@ namespace Honorbuddy.Quest_Behaviors.Vehicles.VehicleMover
         public IEnumerable<int> GetOccupiedVehicleAuraIds()
         {
             List<int> occupiedVehicleAuraIds = new List<int>();
-            string auraDataFileName = Path.Combine(GlobalSettings.Instance.QuestBehaviorsPath, "DATA", "AuraIds_OccupiedVehicle.xml");
+            string auraDataFileName = Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName),
+                                                    GlobalSettings.Instance.QuestBehaviorsPath,
+                                                    "DATA",
+                                                    "AuraIds_OccupiedVehicle.xml");
 
             if (!File.Exists(auraDataFileName))
             {
