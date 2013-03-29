@@ -437,8 +437,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         public Stopwatch _waitTimer = new Stopwatch();
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 392 2013-03-28 20:12:33Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 392 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 395 2013-03-29 17:54:37Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 395 $"); } }
         #endregion
 
 
@@ -750,6 +750,12 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                                         new WaitContinue(Delay_WoWClientMovementThrottle, context => false, new ActionAlwaysSucceed())
                                     )),
                                         
+                                // Dismount to interact, if target is an object, or a non-flying NPC...
+                                new Decorator(context => Me.Mounted
+                                                        && ((SelectedInteractTarget.ToUnit() == null)
+                                                            || !SelectedInteractTarget.ToUnit().IsFlying),
+                                    new Action(context => { Mount.Dismount(); })),
+                                    
                                 // Prep to interact...
                                 new Decorator(context => !Me.IsSafelyFacing(SelectedInteractTarget),
                                     new Action(context => { Me.SetFacing(SelectedInteractTarget.Location); })),
