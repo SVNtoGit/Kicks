@@ -20,6 +20,9 @@
 //  * Gossiping with the mob through a set of dialogs
 //  * "Right-clicking" on the mob to complete a goal
 //  * Buying particular items off of vendors
+//  * Using an item on a mob or object.  The item can be one-click use, or two-click
+//      use (two-click: clicks once to get a 'placement cursor', and clicks the
+//      second time to drop the placement cursor on the mob or object).
 //  * Looting or harvesting (through interaction) an item off a mob or object
 // The behavior initiates interaction by "right clicking" on the mob of interest.
 // The subsequent actions taken by the behavior depend on the attributes provided.
@@ -74,7 +77,7 @@
 //      InteractByGossipOptions [optional; Default: none]
 //          Defines a comma-separated list of (1-based) numbers that specifies
 //          which Gossip option to select in each dialog frame when chatting with an NPC.
-//          This value should be separated with commas. ie. GossipOption="1,1,4,2".
+//          This value should be separated with commas. ie. InteractByGossipOptions="1,1,4,2".
 //
 // Interaction by Looting:
 //      InteractByLooting [optional; Default: false]
@@ -436,8 +439,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         public Stopwatch _waitTimer = new Stopwatch();
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 398 2013-03-30 19:18:51Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 398 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 401 2013-03-31 15:39:46Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 401 $"); } }
         #endregion
 
 
@@ -795,16 +798,20 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                                 new Decorator(context => GossipFrame.Instance.IsVisible,
                                     new Sequence(
                                         new DecoratorContinue(context => InteractByGossipOptions.Length > 0,
-                                            new Sequence(
-                                                new Action(context=> { LogInfo("Gossiping with {0}", SelectedInteractTarget.Name); }),
-                                                new Action(context => { GossipOptionIndex = 0; }),
-                                                new WhileLoop(RunStatus.Success, context => GossipOptionIndex < InteractByGossipOptions.Length,
-                                                    new Action(context => { GossipFrame.Instance.SelectGossipOption(InteractByGossipOptions[GossipOptionIndex++]); }),
-                                                    new WaitContinue(Delay_Interaction, context => false, new ActionAlwaysSucceed())
+                                            new Sequence(selectedTargetNameContext => SelectedInteractTarget.Name,
+                                                new Action(selectedTargetNameContext => { LogInfo("Gossiping with {0}", (string)selectedTargetNameContext); }),
+                                                new Action(selectedTargetNameContext => { GossipOptionIndex = 0; }),
+                                                new WhileLoop(RunStatus.Success, selectedTargetNameContext => GossipOptionIndex < InteractByGossipOptions.Length,
+                                                    new Action(selectedTargetNameContext => { GossipFrame.Instance.SelectGossipOption(InteractByGossipOptions[GossipOptionIndex++]); }),
+                                                    new WaitContinue(Delay_Interaction, selectedTargetNameContext => false, new ActionAlwaysSucceed())
                                                 ),
-                                                new Action(context =>
+                                                new Action(selectedTargetNameContext =>
                                                 {
-                                                    LogInfo("Gossip with {0} complete.", SelectedInteractTarget.Name);
+                                                    // NB: The SelectedInteractTarget may no longer be viable after gossiping.
+                                                    // For instance, the NPC may disappear, or if the toon was forced on a taxi ride
+                                                    // as a result of the gossip, the SelectedInteractTarget will no longer be viable
+                                                    // once we land.
+                                                    LogInfo("Gossip with {0} complete.", (string)selectedTargetNameContext);
 
                                                     // NB: Some merchants require that we gossip with them before purchase.
                                                     // If the caller has also specified a "buy item", then we're not done yet.
@@ -1001,6 +1008,13 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         #region Helpers
         private TimeSpan BlacklistInteractTarget(WoWObject selectedTarget)
         {
+            // NB: The selectedTarget can sometimes go "non viable".
+            // An example: We gossip with an NPC that results in a forced taxi ride.  Honorbuddy suspends
+            // this behavior while the taxi ride is in progress, and when we land, the selectedTarget
+            // is no longer viable to blacklist.
+            if (!IsViable(selectedTarget))
+                { return TimeSpan.Zero; }
+
             WoWUnit wowUnit = selectedTarget.ToUnit();
             bool isShortBlacklist = (wowUnit != null) && (wowUnit.IsVendor || wowUnit.IsFlightMaster);
             TimeSpan blacklistDuration = TimeSpan.FromSeconds(isShortBlacklist ? 30 : 180);
@@ -1711,7 +1725,4 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         }
         #endregion
     }
-
-
-
 }
