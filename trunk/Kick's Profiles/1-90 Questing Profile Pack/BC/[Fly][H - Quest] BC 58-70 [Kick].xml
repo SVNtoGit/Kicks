@@ -1377,32 +1377,35 @@
 				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 			</If>
 			
-			<!-- Flying Mount Procedures -->
-			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &gt;= 268) &amp;&amp; (Me.Level &gt;= 60)" >
+			<!-- Not 60, or 60 and no money --> 
+			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;) &amp;&amp; (Me.Gold &gt;= 268) &amp;&amp; (Me.Level &gt;= 60)" >
+				<CustomBehavior File="Message" Text="You have neither flying, nor the money for flying; defaulting to non-flying protocols" LogColor="CornflowerBlue" />
+			 <ElseIf Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;) &amp;&amp; (Me.Level &lt; 60)" >
+				<CustomBehavior File="Message" Text="You are not level 60 yet; defaulting to non-flying protocols" LogColor="CornflowerBlue" />
+			 </ElseIf>
+			</If>
+	
+			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;) &amp;&amp; (Me.Gold &gt;= 268) &amp;&amp; (Me.Level &gt;= 60)" >
 			 <If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
 				<CustomBehavior File="Message" Text="Compiling Learn Flying Mount Procedures" LogColor="Orange" />
 				<RunTo X="47.76153" Y="2742.022" Z="85.27119" />
 				<CustomBehavior File="ForceTrainRiding" MobId="35093" />
 				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
-				<While Condition="!HasItem(25474)">
-					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474" X="47.76153" Y="2742.022" Z="85.27119" />
-					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
-				</While>
-				<While Condition="HasItem(25474)">
+			 </If>
+			 <!-- We must now handle the case where toon already knows mount, since they are now shared -->
+			 <If Condition="!SpellManager.HasSpell(32243)" >
+				<If Condition="!HasItem(25474)">
+					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474"
+						WaitTime="4000" X="47.76153" Y="2742.022" Z="85.27119" />
+				</If>
+				<While Condition="HasItem(25474) &amp;&amp; !SpellManager.HasSpell(32243)">
 					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25474)" WaitTime="1000" />
 					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
 				</While>
 				<RunTo X="80.93826" Y="2713.029" Z="85.69721" />
 			 </If>
 			</If>
-			<!-- Not 60, or 60 and no money --> 
-			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Level &gt;= 60)" >
-				<CustomBehavior File="Message" Text="You do not having flying nor the money for flying; defaulting to non-flying protocols" LogColor="CornflowerBlue" />
-			 <ElseIf Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Level &lt; 60)" >
-				<CustomBehavior File="Message" Text="You are not level 60 yet; defaulting to non-flying protocols" LogColor="CornflowerBlue" />
-			 </ElseIf>
-			</If>
-	
+
 			<!--
 			<If Condition="(!IsQuestCompleted(9396))" >
 			-->
@@ -2754,26 +2757,31 @@
 			<GrindTo Level="62"/>
 			<Checkpoint Level="62"/>
 
-			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &lt;= 268)" >
+			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;) &amp;&amp; (Me.Gold &lt;= 268)" >
 				<!-- Mount is 40g, Training is 200g -->
 				<CustomBehavior File="UserDialog" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" Title="Get more Money." 
 				Text="You do not have the necessary amount of money to train 'Expert Riding' - please send some money; or farm for some money and continue when you have money" />
 			</If>
 			
-			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
+			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;) &amp;&amp; (Me.Gold &gt;= 268) &amp;&amp; (Me.Level &gt;= 60)" >
+			 <If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
 				<CustomBehavior File="Message" Text="Compiling Learn Flying Mount Procedures" LogColor="Orange" />
 				<RunTo X="47.76153" Y="2742.022" Z="85.27119" />
 				<CustomBehavior File="ForceTrainRiding" MobId="35093" />
 				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
-				<While Condition="!HasItem(25474)">
-					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474" X="47.76153" Y="2742.022" Z="85.27119" />
-					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
-				</While>
-				<While Condition="HasItem(25474)">
+			 </If>
+			 <!-- We must now handle the case where toon already knows mount, since they are now shared -->
+			 <If Condition="!SpellManager.HasSpell(32243)" >
+				<If Condition="!HasItem(25474)">
+					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474"
+						WaitTime="4000" X="47.76153" Y="2742.022" Z="85.27119" />
+				</If>
+				<While Condition="HasItem(25474) &amp;&amp; !SpellManager.HasSpell(32243)">
 					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25474)" WaitTime="1000" />
 					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
 				</While>
 				<RunTo X="80.93826" Y="2713.029" Z="85.69721" />
+			 </If>
 			</If>
 		
 		<CustomBehavior File="Message" Text="Compiling Zangarmarsh Quests" LogColor="Green" />
@@ -3305,26 +3313,31 @@
 			
 			<If Condition="Me.Level &gt;= 62" >
 			
-			<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; (Me.Gold &lt;= 268)" >
+			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;) &amp;&amp; (Me.Gold &lt;= 268)" >
 				<!-- Mount is 40g, Training is 200g -->
 				<CustomBehavior File="UserDialog" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" Title="Get more Money." 
 				Text="You do not have the necessary amount of money to train 'Expert Riding' - please send some money; or farm for some money and continue when you have money" />
 			</If>
 			
-			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
+			<If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;) &amp;&amp; (Me.Gold &gt;= 268) &amp;&amp; (Me.Level &gt;= 60)" >
+			 <If Condition="!SpellManager.HasSpell(&quot;Expert Riding&quot;)">
 				<CustomBehavior File="Message" Text="Compiling Learn Flying Mount Procedures" LogColor="Orange" />
 				<RunTo X="47.76153" Y="2742.022" Z="85.27119" />
 				<CustomBehavior File="ForceTrainRiding" MobId="35093" />
 				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
-				<While Condition="!HasItem(25474)">
-					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474" X="47.76153" Y="2742.022" Z="85.27119" />
-					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
-				</While>
-				<While Condition="HasItem(25474)">
+			 </If>
+			 <!-- We must now handle the case where toon already knows mount, since they are now shared -->
+			 <If Condition="!SpellManager.HasSpell(32243)" >
+				<If Condition="!HasItem(25474)">
+					<CustomBehavior File="InteractWith" MobId="35099" BuyItemId="25474"
+						WaitTime="4000" X="47.76153" Y="2742.022" Z="85.27119" />
+				</If>
+				<While Condition="HasItem(25474) &amp;&amp; !SpellManager.HasSpell(32243)">
 					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25474)" WaitTime="1000" />
 					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
 				</While>
 				<RunTo X="80.93826" Y="2713.029" Z="85.69721" />
+			 </If>
 			</If>
 			
 			</If>
