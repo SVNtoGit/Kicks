@@ -2833,27 +2833,17 @@
 		<PickUp QuestName="Needs a Little Lubrication" QuestId="13651" GiverName="Gorka" GiverId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
 			<Objective QuestName="Needs a Little Lubrication" QuestId="13651" Type="CollectItem" ItemId="45071" CollectCount="5" />
 		<TurnIn QuestName="Needs a Little Lubrication" QuestId="13651" TurnInName="Gorka" TurnInId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
-			<!-- Escort is too buggy 
-			<If Condition="((HasQuest(6544)) &amp;&amp; (!IsQuestCompleted(6544)))" >
-				<CustomBehavior File="AbandonQuest" QuestId="6544" Type="All" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to see if it failed {TimeRemaining}" />
+		<While Condition="!IsQuestCompleted(6544)" >
+			<If Condition="HasQuest(6544) &amp;&amp; !IsQuestCompleted(6544)" >
+				<CustomBehavior File="AbandonQuest" QuestId="6544" Type="Failed" />
 			</If>
-		<PickUp QuestName="Torek's Assault" QuestId="6544" GiverName="Torek" GiverId="12858" X="1773.833" Y="-2241.872" Z="106.4863" />
-			<While Condition="((HasQuest(6544)) &amp;&amp; (!IsQuestCompleted(6544)))" >
-				<CustomBehavior File="UserSettings" LootMobs="False" PullDistance="1"/>
-				<CustomBehavior File="Escort" QuestId="6544" MobId="12858" X="1779.005" Y="-2241.291" Z="107.9472" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-				<CustomBehavior File="UserSettings" LootMobs="True" PullDistance="25"/>
-				<If Condition="((HasQuest(6544)) &amp;&amp; (!IsQuestCompleted(6544)))" >
-					<CustomBehavior File="AbandonQuest" QuestId="6544" Type="Failed" />
-					<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to see if it failed {TimeRemaining}" />
-				</If>
-				<If Condition="((!HasQuest(6544)) &amp;&amp; (!IsQuestCompleted(6544)))" >
-		<PickUp QuestName="Torek's Assault" QuestId="6544" GiverName="Torek" GiverId="12858" X="1773.833" Y="-2241.872" Z="106.4863" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot to get quest{TimeRemaining}" />
-				</If>
-			</While>
-			-->
+			<If Condition="!HasQuest(6544)" >
+				<PickUp QuestName="Torek's Assault" QuestId="6544" GiverName="Torek" GiverId="12858"
+					X="1773.833" Y="-2241.872" Z="106.4863" />			
+			</If>
+			<CustomBehavior File="EscortGroup" QuestId="6544" EscortNpcId="12858" EscortNpcId2="12859" 
+				EscortMaxFollowDistance="10" EscortMaxFightDistance="17" />
+		</While>
 			<If Condition="((!HasQuest(13653)) &amp;&amp; (!IsQuestCompleted(13653)))" >
 		<PickUp QuestName="Crisis at Splintertree" QuestId="13653" GiverName="Gorka" GiverId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
 			</If>
@@ -2873,7 +2863,8 @@
 				<CustomBehavior File="WaitTimer" WaitTime="75000" GoalText="Waiting for ride {TimeRemaining}" />
 			</While>
 		<TurnIn QuestName="Crisis at Splintertree" QuestId="13653" TurnInName="Kadrak" TurnInId="8582" />
-		
+		<!-- CJ -->
+		<CustomBehavior File="UserDialog" Text="Fix This" />
 				<!-- seeing if this works here
 				
 							<CustomBehavior File="Escort6641" /> is Azenius's - maybe later
@@ -2915,6 +2906,7 @@
 		</SetGrindArea>
 		<GrindTo Level="23"/>
 		
+		<TurnIn QuestName="Torek's Assault" QuestId="6544" TurnInName="Ertog Ragetusk" TurnInId="12877" />
 			<!-- This quest sometimes bugs out because blizzard sucks at coding, I can't disable it w/o a 20 quest set being disabled -->
 			<!-- disabling these quests
 		<PickUp QuestName="To the Rescue!" QuestId="13712" GiverName="Kadrak" GiverId="8582" X="1236.776" Y="-2251.217" Z="91.92881" />
