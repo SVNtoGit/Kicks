@@ -98,6 +98,15 @@
 		<Mob Name="Raging Ancient" Id="33688" />
 		<Mob Name="Vindicator Vedaar" Entry="17303" />
 		<Mob Name="Sentinel Luciel Starwhisper" Entry="17287" />
+		
+		<!--  The majority of Southsea Cuthroats are red-named and on an Island off 
+			the Barrens east coast. However, there are two unpullable yellow-named
+			Cutthroats in cages on the Barrens east shore near "Baron Longshore".
+			Unfortunately, we must blacklist them all to keep HB from getting hung
+			forever trying to pull these unpullable mobs every time it paths through
+			this area.
+		 -->
+		<Mob Name="Southsea Cutthroat" Entry="3383" />
 	</AvoidMobs>
 	
 	<Vendors>
@@ -1734,7 +1743,7 @@
 
 	
 	
-	<QuestOrder IgnoreCheckPoints="False" >
+	<QuestOrder IgnoreCheckPoints="True" >
 			
 			 <If Condition="(Me.MapId == 1)" >
 			  <If Condition="(Me.Level &lt; 47)" >
@@ -2804,11 +2813,21 @@
 
 		<PickUp QuestName="Management Material" QuestId="13640" GiverName="Gorka" GiverId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
 			<While Condition="HasQuest(13640) &amp;&amp; !IsQuestCompleted(13640)" >
-				<CustomBehavior File="InteractWith" QuestId="13640" MobId="33440" GossipOptions="1" Range="8" WaitForNpcs="False" MobState="Alive" WaitTime="2000" CollectionDistance="500" X="1598.646" Y="-2510.856" Z="99.58018" />
-				<CustomBehavior File="InteractWith" QuestId="13640" MobId="33440" WaitForNpcs="False" Range="4" NumOfTimes="30" WaitTime="2000" CollectionDistance="25" />
-				<!-- Reflow this w/ the new escort w/o quest id required and follow until npc is dead or no longer avail -->
-				<CustomBehavior File="InteractWith" QuestId="13640" MobId="194349" WaitForNpcs="False" NumOfTimes="5" Range="8" ObjectType="GameObject" WaitTime="3000" />
-				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for Peon to disappear {TimeRemaining}" />
+				<CustomBehavior File="UserSettings" Preset="NoDistractions" />
+				<CustomBehavior File="EscortGroup" QuestId="13640" EscortCompleteWhen="QuestCompleteOrFails"
+					StartNpcId="33440" StartEscortGossipOptions="1" EscortNpcId="33440" EscortCountMax="1"
+					PriorityTargetId="33458"
+					NonCompeteDistance="20" EscortMaxFollowDistance="7" EscortMaxFightDistance="20" >
+					<SearchPath>
+						<Hotspot Name="Road intersection" X="1439.524" Y="-2271.142" Z="91.80054" />
+						<Hotspot Name="Stump by Road" X="1474.331" Y="-2383.012" Z="97.97305" />
+						<Hotspot Name="Lumber trucks" X="1575.772" Y="-2415.936" Z="101.3217" />
+						<Hotspot Name="Wagon Tongue" X="1641.269" Y="-2493.915" Z="98.93596" />
+					</SearchPath>
+				</CustomBehavior>
+				<CustomBehavior File="InteractWith" MobId="194349" ObjectType="GameObject" 
+					Loot="true" NumOfTimes="5" WaitForNpcs="False"  />
+				<CustomBehavior File="UserSettings" Preset="UserOriginal" />
 			</While>
 		<TurnIn QuestName="Management Material" QuestId="13640" TurnInName="Gorka" TurnInId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
 		<PickUp QuestName="Needs a Little Lubrication" QuestId="13651" GiverName="Gorka" GiverId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
