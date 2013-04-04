@@ -2848,43 +2848,15 @@
 		<PickUp QuestName="Crisis at Splintertree" QuestId="13653" GiverName="Gorka" GiverId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
 			</If>
 			<While Condition="HasQuest(13653) &amp;&amp; !IsQuestCompleted(13653)" >
-			 <While Condition="(!Me.IsOnTransport)" >
-				<CustomBehavior File="InteractWith" MobId="33421" GossipOptions="1" WaitTime="4000" X="1580.942" Y="-2506.081" Z="98.00504" />
-				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for ride {TimeRemaining}" />
-				<CustomBehavior File="ForcedDismount" />
-				<If Condition="(Me.HasAura(&quot;Ghost Wolf&quot;))" >
-					<CustomBehavior File="RunMacro" Macro="/cancelaura Ghost Wolf" NumOfTimes="1" WaitTime="1000" />
-					<CustomBehavior File="RunMacro" Macro="/cancelaura Ghost Wolf" NumOfTimes="1" WaitTime="1000" />
-					<CustomBehavior File="RunMacro" Macro="/cancelaura Ghost Wolf" NumOfTimes="1" WaitTime="1000" />
-					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for ride {TimeRemaining}" />
-				</If>
-			 </While>
-			
+				<While Condition="!Me.IsOnTransport" >
+					<RunTo Name="Gorka" X="1580.942" Y="-2506.081" Z="98.00504" />
+					<CustomBehavior QuestId="13653" File="ForcedDismount" />
+					<CustomBehavior File="InteractWith" MobId="33421" GossipOptions="1" 
+						WaitTime="12000" X="1580.942" Y="-2506.081" Z="98.00504" />
+				 </While>			
 				<CustomBehavior File="WaitTimer" WaitTime="75000" GoalText="Waiting for ride {TimeRemaining}" />
 			</While>
 		<TurnIn QuestName="Crisis at Splintertree" QuestId="13653" TurnInName="Kadrak" TurnInId="8582" />
-		<!-- CJ -->
-		<CustomBehavior File="UserDialog" Text="Fix This" />
-				<!-- seeing if this works here
-				
-							<CustomBehavior File="Escort6641" /> is Azenius's - maybe later
-
-		<PickUp QuestName="Vorsha the Lasher" QuestId="6641" GiverName="Muglash" GiverId="12717" />
-			<While Condition="((HasQuest(6641)) &amp;&amp; (!IsQuestCompleted(6641)))" >
-				<CustomBehavior File="UserSettings" LootMobs="False" PullDistance="5"/>
-				<CustomBehavior File="Escort" QuestId="6641" MobId="12717" X="3357.579" Y="970.9332" Z="7.769833" />
-			 <If Condition="((HasQuest(6641)) &amp;&amp; (!IsQuestCompleted(6641)))" >
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-				<CustomBehavior File="AbandonQuest" QuestId="6641" Type="Failed" />
-		<PickUp QuestName="Vorsha the Lasher" QuestId="6641" GiverName="Muglash" GiverId="12717" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-			 </If>
-			</While>
-			<If Condition="((HasQuest(6641)) &amp;&amp; (IsQuestCompleted(6641)))" >
-		<TurnIn QuestName="Vorsha the Lasher" QuestId="6641" TurnInName="Warsong Runner" TurnInId="12863" />
-				<CustomBehavior File="UserSettings" LootMobs="False" PullDistance="25"/>
-			</If>
-			 -->
 
 		<SetGrindArea>
 			<GrindArea>
@@ -3262,25 +3234,25 @@
 		-->
 		<PickUp QuestName="The Essence of Aku'Mai" QuestId="26890" GiverName="Dagrun Ragehammer" GiverId="34303" />
 		<PickUp QuestName="Naga at the Zoram Strand" QuestId="6442" GiverName="Marukai" GiverId="12719" />
-				<!-- I have to Escort and then interactwith at a place
-							<CustomBehavior File="Escort6641" /> is Azenius's - maybe later
-
-		<PickUp QuestName="Vorsha the Lasher" QuestId="6641" GiverName="Muglash" GiverId="12717" />
-			<While Condition="((HasQuest(6641)) &amp;&amp; (!IsQuestCompleted(6641)))" >
-				<CustomBehavior File="UserSettings" LootMobs="False" PullDistance="5"/>
-				<CustomBehavior File="Escort" QuestId="6641" MobId="12717" X="3357.579" Y="970.9332" Z="7.769833" />
-			 <If Condition="((HasQuest(6641)) &amp;&amp; (!IsQuestCompleted(6641)))" >
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+		<While Condition="!IsQuestCompleted(6641)" >
+			<If Condition="HasQuest(6641) &amp;&amp; !IsQuestCompleted(6641)" >
 				<CustomBehavior File="AbandonQuest" QuestId="6641" Type="Failed" />
-		<PickUp QuestName="Vorsha the Lasher" QuestId="6641" GiverName="Muglash" GiverId="12717" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-			 </If>
-			</While>
-			<If Condition="((HasQuest(6641)) &amp;&amp; (IsQuestCompleted(6641)))" >
-		<TurnIn QuestName="Vorsha the Lasher" QuestId="6641" TurnInName="Warsong Runner" TurnInId="12863" />
-				<CustomBehavior File="UserSettings" LootMobs="False" PullDistance="25"/>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
 			</If>
-			 -->
+			<PickUp QuestName="Vorsha the Lasher" QuestId="6641" GiverName="Muglash" GiverId="12717"
+				X="3358.74" Y="964.2664" Z="7.404287" />
+			<CustomBehavior File="UserSettings" Preset="NoDistractions" />
+			<CustomBehavior QuestId="6641" File="ForcedDismount" />
+			<CustomBehavior File="EscortGroup" QuestId="6641" EscortNpcId="12717"
+				EscortCompleteWhen="DestinationReached"
+				EscortCompleteX="3609.234" EscortCompleteY="1146.588" EscortCompleteZ="7.994207" />
+			<CustomBehavior File="WaitTimer" WaitTime="13000" />
+			<CustomBehavior File="InteractWith" MobId="178247" ObjectType="GameObject" />
+			<CustomBehavior File="EscortGroup" QuestId="6641" EscortNpcId="12717"
+				EscortMaxFollowDistance="10" EscortMaxFightDistance="17" />
+			<CustomBehavior File="UserSettings" Preset="UserOriginal" />
+		</While>
+		<TurnIn QuestName="Vorsha the Lasher" QuestId="6641" TurnInName="Warsong Runner" TurnInId="12863" />
 
 			 <!-- disabling this quest - if you die in the water, you can't get back to your body atm
 			<CustomBehavior File="CollectThings" CollectUntil="QuestComplete" QuestId="13883" ObjectId="195012" CollectItemId="46357" CollectItemCount="10" HuntingGroundRadius="200" X="3402.582" Y="1194.723" Z="-1.727643" />
