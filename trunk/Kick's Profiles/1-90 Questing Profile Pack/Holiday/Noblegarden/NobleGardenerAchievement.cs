@@ -1,21 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Styx.Plugins.PluginClass;
+﻿using Styx;
+using Styx.Common;
+using Styx.CommonBot;
+using Styx.CommonBot.Frames;
+using Styx.Pathing;
+using Styx.Plugins;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
-using Styx;
-using Styx.Helpers;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Xml;
-using System.Xml.Linq;
-using System.Windows.Forms;
-using Styx.Logic.Pathing;
-using Styx.Logic.BehaviorTree;
 using System.Threading;
-using Styx.Logic.Inventory.Frames.LootFrame;
+
+
 
 namespace NobleGardenerAchievement
 {
@@ -29,17 +25,19 @@ namespace NobleGardenerAchievement
         public override bool WantButton { get { return true; } }
 
         private static uint[,] _data = new uint[,] { 
-			{1, 35792}, // Mage Hunter Personal Effects for Quest(12000)
-			{1, 20767}, // Scum Covered Bag
-			{1, 61387}, // Hidden Stash
-			{1, 62829}, // Magnetized Scrap Collector
-			{1, 32724}, // Sludge Covered Object
-			{1, 45072}, // Noblegarden Egg
+            {1, 35792}, // Mage HunLootFrameter Personal Effects for Quest(12000)
+            {1, 20767}, // Scum Covered Bag
+            {1, 61387}, // Hidden Stash
+            {1, 62829}, // Magnetized Scrap Collector
+            {1, 32724}, // Sludge Covered Object
+            {1, 45072}, // Noblegarden Egg
         };
 
 
         private void slog(string format, params object[] args)
-        { Logging.Write(System.Drawing.Color.SeaGreen, Name + ": " + format, args); }
+        {
+            Logging.Write(LogLevel.Normal, System.Windows.Media.Colors.Aquamarine, Name + ": " + format, args);
+        }
 
         private static List<string> Chocolates = new List<string>();
         private static List<string> killAchievement = new List<string>();
@@ -47,7 +45,7 @@ namespace NobleGardenerAchievement
         private static Stopwatch stuckTimer = new Stopwatch();
         private static Stopwatch retreatTimer = new Stopwatch();
         private long retreatTime;
-        LocalPlayer Me = ObjectManager.Me;
+        LocalPlayer Me = StyxWoW.Me;
         private bool complete = false;
         private bool isInitialize;
         private bool moveBack;
@@ -59,6 +57,7 @@ namespace NobleGardenerAchievement
         {
             isInitialize = false;
             searchEgg = false;
+            slog("Initialized.");
         }
         public override void OnButtonPress()
         {
@@ -70,7 +69,7 @@ namespace NobleGardenerAchievement
         {
             return Math.Sqrt(Math.Pow(wgo.Location.X - StyxWoW.Me.Location.X, 2) + Math.Pow(wgo.Location.Y - StyxWoW.Me.Location.Y, 2));
         }
-                    //bool achievementFound = false;
+        //bool achievementFound = false;
 
         public override void Pulse()
         {
@@ -96,16 +95,16 @@ namespace NobleGardenerAchievement
                 //}
                 int i = 0;
                 while (i <= _ObjList.Count)
-                {                    
+                {
                     foreach (WoWGameObject egg in _ObjList)
                     {
                         ++i;
                         slog("search for best node");
                         TreeRoot.StatusText = Name + ": search for best node";
                         if (egg.Entry == 113768 && egg.CanUse() ||
-							(egg.Entry == 113769 && egg.CanUse()) ||
-							(egg.Entry == 113770 && egg.CanUse()) ||
-							(egg.Entry == 113771 && egg.CanUse()))
+                            (egg.Entry == 113769 && egg.CanUse()) ||
+                            (egg.Entry == 113770 && egg.CanUse()) ||
+                            (egg.Entry == 113771 && egg.CanUse()))
                         {
                             double dist = egg.Distance2D;
                             if (xyDist > dist)
@@ -150,36 +149,36 @@ namespace NobleGardenerAchievement
                         //TreeRoot.StatusText = "";
                         bestNode = null;
                         Thread.Sleep(1500);
-			CheckInventoryItems();
+                        CheckInventoryItems();
 
-			
+
                     }
                 }
                 stuckTimer.Stop(); stuckTimer.Reset();
             }
         }
 
-private void CheckInventoryItems()
+        private void CheckInventoryItems()
         {
-           foreach (WoWItem item in ObjectManager.GetObjectsOfType<WoWItem>())
+            foreach (WoWItem item in ObjectManager.GetObjectsOfType<WoWItem>())
             {
-            for (int i = 0; i <= _data.GetUpperBound(0); i++)
-            {
-                if (_data[i, 1] == item.Entry)
+                for (int i = 0; i <= _data.GetUpperBound(0); i++)
                 {
-                    int cnt = Convert.ToInt32(Lua.GetReturnValues(String.Format("return GetItemCount(\"{0}\")", item.Name), Name + ".lua")[0]);
-                    int max = (int)(cnt / _data[i, 0]);
-                    for (int j = 0; j < max; j++)
+                    if (_data[i, 1] == item.Entry)
                     {
-                        String s = String.Format("UseItemByName(\"{0}\")", item.Name);
-                        slog("Using {0} we have {1}", item.Name, cnt);
-                        Lua.DoString(s);
-                        StyxWoW.SleepForLagDuration();
+                        int cnt = Convert.ToInt32(Lua.GetReturnValues(String.Format("return GetItemCount(\"{0}\")", item.Name), Name + ".lua")[0]);
+                        int max = (int)(cnt / _data[i, 0]);
+                        for (int j = 0; j < max; j++)
+                        {
+                            String s = String.Format("UseItemByName(\"{0}\")", item.Name);
+                            slog("Using {0} we have {1}", item.Name, cnt);
+                            Lua.DoString(s);
+                            StyxWoW.SleepForLagDuration();
+                        }
+                        break;
                     }
-                    break;
                 }
             }
-        }
         }
 
 
@@ -214,7 +213,7 @@ private void CheckInventoryItems()
             //    string quantityString = RunLuaString(2418, AchievementMaxCriteria, "quantityString");
             //    string quantity = RunLuaString(2418, AchievementMaxCriteria, "quantity");   
             //    string flags = RunLuaString(2418, AchievementMaxCriteria, "flags");
-                
+
             //    //if (slog_) { slog("[{0}] ({1}/{2})  uncomplete! Search egs..", AchievementName(2418), done, AchievementMaxCriteria); }
             //    slog("quantityString: {0}  -  quantity: {1}  -  flags: {2}", quantityString, quantity, flags);
             //}
