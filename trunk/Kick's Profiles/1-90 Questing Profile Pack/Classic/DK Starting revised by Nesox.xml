@@ -116,16 +116,6 @@
       </Hotspots>
     </Objective>
   </Quest>
-  <Quest Id="12679" Name="Tonight We Dine In Havenshire">
-    <Objective Type="CollectItem" ItemId="39160" CollectCount="15">
-      <CollectFrom>
-        <GameObject Id="190691" Name="Saronite Arrow" />
-      </CollectFrom>
-      <Hotspots>
-        <Hotspot X="2035.39" Y="-5826.451" Z="100.8859" />
-      </Hotspots>
-    </Objective>
-  </Quest>
   <Quest Id="13166" Name="The Battle For The Ebon Hold">
     <Objective Type="KillMob" MobId="31099" KillCount="1">
       <Hotspots>
@@ -163,18 +153,30 @@
 
     <QuestOrder>
 	
- 		<CustomBehavior File="Message" Text="Loading Profile: DK Starting revised by Nesox" LogColor="CornflowerBlue" />
+	<CustomBehavior File="Message" Text="Loading Profile: DK Starting revised by Nesox" LogColor="CornflowerBlue" />
+	
+	<If Condition="(Me.Class != WoWClass.DeathKnight)" >
+		<CustomBehavior File="UserDialog" AllowBotStop="True" StopOnContinue="True" SoundCue="Exclamation" SoundCueInterval="1" Text="LOL Y U LOAD DK PROFILE? U NO DK!!! NOOB! ROFL" />
+	</If>
+	
+	<CustomBehavior File="RunMacro" Macro="/script SetCVar('AutoLootDefault', 1)" NumOfTimes="1" WaitTime="1000" />
 		
-			<If Condition="(Me.Class != WoWClass.DeathKnight)" >
-				<CustomBehavior File="UserDialog" AllowBotStop="True" StopOnContinue="True" SoundCue="Exclamation" SoundCueInterval="1" Text="LOL Y U LOAD DK PROFILE? U NO DK!!! NOOB! ROFL" />
-			</If>
-			
-			<CustomBehavior File="RunMacro" Macro="/script SetCVar('AutoLootDefault', 1)" NumOfTimes="1" WaitTime="1000" />
-			
-		<If Condition="Me.Level &lt;= 58" >
+	<!-- Settings checks:
+		We know the class is DeathKnight, and we need PullDistance set to something sane,
+		for when we restore the user's settings -->
+	<If Condition="CharacterSettings.Instance.PullDistance &gt; 25">
+		<CustomBehavior File="UserDialog" StopOnContinue="true"
+			Text="Your PullDistance is too high!  Please set it to 25 or less.\n\nHonorbuddy\n-> Settings &amp; Tools\n-> use &quot;Pull Distance&quot; slider" />
+	</If>
+	
+	<If Condition="Me.Level &lt;= 58" >
+		<If Condition="(Styx.Plugins.PluginManager.Plugins.FirstOrDefault(x =&gt; x.Name == &quot;AutoEquip2&quot;) != null) &amp;&amp; Styx.Plugins.PluginManager.Plugins.FirstOrDefault(x =&gt; x.Name == &quot;AutoEquip2&quot;).Enabled">
 			<CustomBehavior File="DisablePlugin" Names="AutoEquip2" />
-			<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="10" ExpiryAction="InputEnabled_Continue" Text="Disabling AutoEquip2 until we're in Outlands (DO NOT ENABLE AE2!!!!!!)" />
+			<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2"
+				ExpiryTime="60" ExpiryAction="InputEnabled_Continue"
+				Text="DO NOT ENABLE AutoEquip2 in the DeathKnight starting zone!\n\nWe have disabled your AutoEquip2 plugin.  This is required for questing in the DeathKnight starting zone, as some quests require the equipping of specific armor and weapons.\n\nPLEASE do not re-enable AutoEquip2 until we've left the Deathknight starting zone\n\n" />
 		</If>
+	</If>
 			
      <If Condition="HasQuest(12779)">
         <DisableRepair />
@@ -207,7 +209,7 @@
       <PickUp QuestName="The Endless Hunger" QuestId="12848" GiverName="Razuvious" GiverId="28357" />
       <While Condition="HasQuest(12848) &amp;&amp; !IsQuestCompleted(12848)" >
         <CustomBehavior File="EquipItem" ItemId="38707" Slot="MainHandSlot" />
-        <CustomBehavior File="UseGameObject" QuestId="12848" ObjectId="191577" NumOfTimes="1" X="2463" Y="-5569" Z="417" />
+        <CustomBehavior File="InteractWith" QuestId="12848" MobId="191577" X="2463" Y="-5569" Z="417" />
         <CustomBehavior File="WaitTimer" WaitTime="16000" />
       </While>
       <TurnIn QuestName="The Endless Hunger" QuestId="12848" TurnInName="Razuvious" TurnInId="28357" />
@@ -226,14 +228,13 @@
 		<CustomBehavior File="ForcedDismount" />
 		<CustomBehavior File="UserSettings" UseMount="false" />
 		<If Condition="!Me.HasAura(51852)"> <!-- HB start/stop protection -->
-			<CustomBehavior File="InteractWith" MobId="191609"
-				ObjectType="GameObject" NumOfTimes = "1" CollectionDistance="4"
+			<CustomBehavior File="InteractWith" MobId="191609" CollectionDistance="4"
 				X="2345.848" Y="-5696.338" Z="426.0303" />
 			<CustomBehavior File="WaitTimer" WaitTime="25000" />
 		</If>
         <CustomBehavior File="Vehicles\VehicleMover" QuestId="12641" QuestObjectiveIndex="3"
 			VehicleId="28511" AuraId_ProxyVehicle="51852" SpellId="51859" CastTime="9000"
-			UseNavigator="false" X="1654.104" Y="-5996.521" Z="183.0229"/>
+			UseNavigator="false" X="1654.104" Y="-5996.521" Z="183.0229" />
         <CustomBehavior File="Vehicles\VehicleMover" QuestId="12641" QuestObjectiveIndex="1"
 			VehicleId="28511" AuraId_ProxyVehicle="51852" SpellId="51859" CastTime="9000"
 			UseNavigator="false" X="1799.286" Y="-6003.341" Z="170.4593"/>
@@ -271,14 +272,15 @@
       <!-- If Chaos Drives, Let Suffering Hold The Reins - http://www.wowhead.com/quest=12678 -->
       <PickUp QuestName="If Chaos Drives, Let Suffering Hold The Reins" QuestId="12678" GiverName="Prince Valanar" GiverId="28377" />
 
-		<CustomBehavior File="InteractWith" QuestId="12733" MobId="28406" ObjectType="Npc" NumOfTimes="10"
+		<CustomBehavior File="InteractWith" QuestId="12733" MobId="28406" NumOfTimes="10"
 			InteractByGossipOptions="1" NotMoving="true" CollectionDistance="100" NonCompeteDistance="15"
+			PreInteractMountStrategy="Dismount"
 			KeepTargetSelected="true" WaitTime="15000" X="2351.905" Y="-5698.78" Z="153.9228"  />
       <TurnIn QuestName="Death's Challenge" QuestId="12733" TurnInName="Olrun the Battlecaller" TurnInId="29047" />
 
       <While Condition="HasQuest(12680) &amp;&amp; !IsQuestCompleted(12680)" >
-		<RunTo X="2175.955" Y="-5769.175" Z="101.3312" />
-        <CustomBehavior File="SpecificQuests\DeathknightStart\WaitForPatrol" AvoidMobId="28683" AvoidDistance="85" X="2175.955" Y="-5769.175" Z="101.3312" />
+        <CustomBehavior File="SpecificQuests\DeathknightStart\WaitForPatrol" AvoidMobId="28683" AvoidDistance="85"
+			X="2175.955" Y="-5769.175" Z="101.3312" />
         <CustomBehavior File="Vehicles\VehicleMover" VehicleId="28605" VehicleId2="28606" VehicleId3="28607"
 			UseNavigator="true" MobId="28653" SpellId="52264" Hop="true"
 			X="2347.104" Y="-5695.789" Z="155.9568" />
@@ -294,12 +296,10 @@
       </If>
       <While Condition= "HasQuest(12687) &amp;&amp; !IsQuestCompleted(12687)" >
         <If Condition="!Me.HasAura(&quot;Realm of Shadows&quot;)" >
-          <CustomBehavior File="InteractWith" MobId="28653" ObjectType="Npc" NumOfTimes="1"
-			InteractByGossipOptions="1" CollectionDistance="100"
-			X="2336.86" Y="-5686.712" Z="153.9225" />
+			<CustomBehavior File="InteractWith" MobId="28653" InteractByGossipOptions="1" CollectionDistance="100"
+				X="2336.86" Y="-5686.712" Z="153.9225" />
         </If>
-		<CustomBehavior File="InteractWith" MobId="28782" ObjectType="Npc"
-			X="2180.931" Y="-5726.148" Z="104.5497" />
+		<CustomBehavior File="InteractWith" MobId="28782" X="2180.931" Y="-5726.148" Z="104.5497" />
         <CustomBehavior File="Vehicles\VehicleMover" QuestId="12687" VehicleId="28782"
 			IgnoreCombat="true" UseNavigator="true" SpellId="52362" Hop="True"
 			X="2358.639" Y="-5708.643" Z="153.9229" />
@@ -307,8 +307,8 @@
       <TurnIn QuestName="Into the Realm of Shadows" QuestId="12687" TurnInName="Salanar the Horseman" TurnInId="28653" />
       <CustomBehavior File="UserSettings" LootMobs="true" />
       <CustomBehavior File="EquipItem" ItemId="39208" Slot="RangedSlot" />
-
-      <Objective QuestName="Tonight We Dine In Havenshire" QuestId="12679" Type="CollectItem" ItemId="39160" CollectCount="15" />
+	  <CustomBehavior File="InteractWith" QuestId="12679" MobId="190691"
+		InteractByLooting="true" NumOfTimes="100" X="1995.621" Y="-5835.836" Z="100.6458" />
       <Objective QuestName="If Chaos Drives, Let Suffering Hold The Reins" QuestId="12678" Type="KillMob" MobId="28763" KillCount="10" />
       <Objective QuestName="If Chaos Drives, Let Suffering Hold The Reins" QuestId="12678" Type="KillMob" MobId="28764" KillCount="10" />
       <TurnIn QuestName="If Chaos Drives, Let Suffering Hold The Reins" QuestId="12678" TurnInName="Prince Valanar" TurnInId="28377" />
@@ -327,7 +327,7 @@
 		<CustomBehavior File="UserSettings" PullDistance="0" />
         <While Condition ="(Me.Minions != null) &amp;&amp; (Me.Minions.Count &lt; 5)">
 			<CustomBehavior File="InteractWith" MobId="28819" MobState="Alive"
-				InteractByUsingItemId="39253" Range="20" NonCompeteDistance="10" WaitTime="5000"
+				InteractByUsingItemId="39253" Range="20" WaitTime="5000"
 				X="2434.626" Y="-5929.263" Z="96.8934" />
         </While>
         <RunTo X="2348.769" Y="-5758.279" Z="153.9225" />
@@ -343,9 +343,15 @@
       <!-- Massacre At Light's Point - http://www.wowhead.com/quest=12701 -->
       <PickUp QuestName="Massacre At Light's Point" QuestId="12701" GiverName="Prince Valanar" GiverId="28377" />
       <If Condition="HasQuest(12701) &amp;&amp; !IsQuestCompleted(12701)" >
-        <CustomBehavior File="InteractWith" MobId="190767" ObjectType="GameObject" NumOfTimes="1"
-			WaitTime="75000" X="2391.104" Y="-5900.058" Z="109.1245" />
-        <CustomBehavior File="InteractWith" MobId="28833" ObjectType="Npc" NumOfTimes="1" CollectionDistance="50" X="2264.77" Y="-6189.184" Z="13.61233"   />
+		<!-- NB: The ore mine cart ride does not always take us to the same boat!
+			This check is stop/start protection.  It only tries to go to the mine cart ride,
+			if we are not already on one of the two boats.
+			-->
+		<If Condition="(Me.Location.Distance(new WoWPoint(2270.801, -6196.619, 13.22168)) &gt;= 30.0) &amp;&amp; (Me.Location.Distance(new WoWPoint(2115.99, -6196.928, 13.31354)) &gt;= 30.0)" >
+			<CustomBehavior File="InteractWith" MobId="190767"
+				WaitTime="85000" X="2391.104" Y="-5900.058" Z="109.1245" />
+		</If>
+        <CustomBehavior File="InteractWith" MobId="28833" CollectionDistance="50" />
         <CustomBehavior File="Vehicles\CannonControl" VehicleId="28833" QuestId="12701" MaxAngle="0.55" MinAngle="0.32" Buttons="2,1" ExitButton="5" />
         <CustomBehavior File="WaitTimer" WaitTime="60000" />
       </If>
@@ -444,12 +450,12 @@
       <CustomBehavior File="EquipItem" ItemId="38667" />
       <!-- Bloody Breakout - http://www.wowhead.com/quest=12727 -->
       <PickUp QuestName="Bloody Breakout" QuestId="12727" GiverName="Koltira Deathweaver" GiverId="28912" />
-		  <While Condition="HasQuest(12727) &amp;&amp; !IsQuestCompleted(12727)" >
-			<CustomBehavior File="InteractWith" MobId="28912" InteractByGossipOptions="1" WaitForNpcs="False"
-				X="1652.649" Y="-6035.982" Z="127.5845" />
-			<CustomBehavior File="InteractWith" ObjectType="GameObject" MobId="191092" WaitForNpcs="False"
-				InteractByLooting="true" X="1652.649" Y="-6035.982" Z="127.5845" />
-		  </While>
+		<While Condition="HasQuest(12727) &amp;&amp; !IsQuestCompleted(12727)" >
+			<CustomBehavior File="InteractWith" MobId="28912" InteractByGossipOptions="1" WaitForNpcs="false"
+				CollectionDistance="15" WaitTime="20000" X="1648.09" Y="-6039.421" Z="127.7657" />
+			<CustomBehavior File="InteractWith" MobId="191092" CollectionDistance="15" WaitForNpcs="false"
+				InteractByLooting="true" NonCompeteDistance="0" X="1648.09" Y="-6039.421" Z="127.7657" />
+		</While>
       <TurnIn QuestName="Bloody Breakout" QuestId="12727" TurnInName="Thassarian" TurnInId="28913" />
 
       <!-- A Cry For Vengeance! - http://www.wowhead.com/quest=12738 -->
@@ -462,8 +468,9 @@
         <PickUp QuestName="A Special Surprise" QuestId="12742" GiverName="Knight Commander Plaguefist" GiverId="29053" />
         <If Condition="HasQuest(12742)" >
           <MoveTo QuestId="12742" X="1322.76" Y="-5743.032" Z="137.4825" />
-          <CustomBehavior File="WaitTimer" WaitTime="65000" />
-          <Objective QuestName="A Special Surprise" QuestId="12742" Type="KillMob" MobId="29061" KillCount="1" />
+		  <CustomBehavior File="ForcedDismount" />
+          <CustomBehavior File="WaitTimer" QuestId="12742" WaitTime="65000" />
+		  <CustomBehavior File="InteractWith" QuestId="12742" MobId="29061" />
           <TurnIn QuestName="A Special Surprise" QuestId="12742" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
       </If>
@@ -471,8 +478,9 @@
         <PickUp QuestName="A Special Surprise" QuestId="12743" GiverName="Knight Commander Plaguefist" GiverId="29053" />
         <If Condition="HasQuest(12743)" >
           <MoveTo QuestId="12743" X="1320.915" Y="-5763.294" Z="137.7958" />
-          <CustomBehavior File="WaitTimer" WaitTime="65000" />
-          <Objective QuestName="A Special Surprise" QuestId="12743" Type="KillMob" MobId="29065" KillCount="1" />
+		  <CustomBehavior File="ForcedDismount" />
+          <CustomBehavior File="WaitTimer" QuestId="12743" WaitTime="65000" />
+		  <CustomBehavior File="InteractWith" QuestId="12743" MobId="29065" />
           <TurnIn QuestName="A Special Surprise" QuestId="12743" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
       </If>
@@ -480,8 +488,9 @@
         <PickUp QuestName="A Special Surprise" QuestId="12744" GiverName="Knight Commander Plaguefist" GiverId="29053" />
         <If Condition="HasQuest(12744)" >
           <MoveTo QuestId="12744" X="1328.813" Y="-5756.786" Z="137.5204" />
-          <CustomBehavior File="WaitTimer" WaitTime="65000" />
-          <Objective QuestName="A Special Surprise" QuestId="12744" Type="KillMob" MobId="29067" KillCount="1" />
+		  <CustomBehavior File="ForcedDismount" />
+          <CustomBehavior File="WaitTimer" QuestId="12744" WaitTime="65000" />
+		  <CustomBehavior File="InteractWith" QuestId="12744" MobId="29067" />
           <TurnIn QuestName="A Special Surprise" QuestId="12744" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
       </If>
@@ -489,8 +498,9 @@
         <PickUp QuestName="A Special Surprise" QuestId="12745" GiverName="Knight Commander Plaguefist" GiverId="29053" />
         <If Condition="HasQuest(12745)" >
           <MoveTo QuestId="12745" X="1323.075" Y="-5753.536" Z="137.4002" />
-          <CustomBehavior File="WaitTimer" WaitTime="65000" />
-          <Objective QuestName="A Special Surprise" QuestId="12745" Type="KillMob" MobId="29068" KillCount="1" />
+		  <CustomBehavior File="ForcedDismount" />
+          <CustomBehavior File="WaitTimer" QuestId="12745" WaitTime="65000" />
+		  <CustomBehavior File="InteractWith" QuestId="12745" MobId="29068" />
           <TurnIn QuestName="A Special Surprise" QuestId="12745" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
       </If>
@@ -498,8 +508,9 @@
         <PickUp QuestName="A Special Surprise" QuestId="12746" GiverName="Knight Commander Plaguefist" GiverId="29053" />
         <If Condition="HasQuest(12746)" >
           <MoveTo QuestId="12746" X="1328.571" Y="-5770.191" Z="137.7798" />
-          <CustomBehavior File="WaitTimer" WaitTime="65000" />
-          <Objective QuestName="A Special Surprise" QuestId="12746" Type="KillMob" MobId="29070" KillCount="1" />
+		  <CustomBehavior File="ForcedDismount" />
+          <CustomBehavior File="WaitTimer" QuestId="12746" WaitTime="65000" />
+		  <CustomBehavior File="InteractWith" QuestId="12746" MobId="29070" />
           <TurnIn QuestName="A Special Surprise" QuestId="12746" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
       </If>
@@ -507,8 +518,9 @@
         <PickUp QuestName="A Special Surprise" QuestId="28649" GiverName="Knight Commander Plaguefist" GiverId="29053" />
         <If Condition="HasQuest(28649)" >
           <MoveTo QuestId="28649" X="1329.528" Y="-5760.226" Z="137.6601" />
-          <CustomBehavior File="WaitTimer" WaitTime="65000" />
-          <Objective QuestName="A Special Surprise" QuestId="28649" Type="KillMob" MobId="49355" KillCount="1" />
+		  <CustomBehavior File="ForcedDismount" />
+          <CustomBehavior File="WaitTimer" QuestId="28649" WaitTime="65000" />
+		  <CustomBehavior File="InteractWith" QuestId="28649" MobId="49355" />
           <TurnIn QuestName="A Special Surprise" QuestId="28649" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
       </If>
@@ -517,8 +529,9 @@
         <PickUp QuestName="A Special Surprise" QuestId="12747" GiverName="Knight Commander Plaguefist" GiverId="29053" />
         <If Condition="HasQuest(12747)" >
           <MoveTo QuestId="12747" X="1329.184" Y="-5764.597" Z="137.8205" />
-          <CustomBehavior File="WaitTimer" WaitTime="65000" />
-          <Objective QuestName="A Special Surprise" QuestId="12747" Type="KillMob" MobId="29074" KillCount="1" />
+		  <CustomBehavior File="ForcedDismount" />
+          <CustomBehavior File="WaitTimer" QuestId="12747" WaitTime="65000" />
+		  <CustomBehavior File="InteractWith" QuestId="12747" MobId="29074" />
           <TurnIn QuestName="A Special Surprise" QuestId="12747" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
       </If>
@@ -526,8 +539,9 @@
         <PickUp QuestName="A Special Surprise" QuestId="12748" GiverName="Knight Commander Plaguefist" GiverId="29053" />
         <If Condition="HasQuest(12748)" >
           <MoveTo QuestId="12748" X="1330.117" Y="-5748.344" Z="137.3985" />
-          <CustomBehavior File="WaitTimer" WaitTime="65000" />
-          <Objective QuestName="A Special Surprise" QuestId="12748" Type="KillMob" MobId="29072" KillCount="1" />
+		  <CustomBehavior File="ForcedDismount" />
+          <CustomBehavior File="WaitTimer" QuestId="12748" WaitTime="65000" />
+		  <CustomBehavior File="InteractWith" QuestId="12748" MobId="29072" />
           <TurnIn QuestName="A Special Surprise" QuestId="12748" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
       </If>
@@ -535,8 +549,9 @@
         <PickUp QuestName="A Special Surprise" QuestId="12749" GiverName="Knight Commander Plaguefist" GiverId="29053" />
         <If Condition="HasQuest(12749)" >
           <MoveTo QuestId="12749" X="1324.012" Y="-5749.29" Z="137.3751"  />
-          <CustomBehavior File="WaitTimer" WaitTime="65000" />
-          <Objective QuestName="A Special Surprise" QuestId="12749" Type="KillMob" MobId="29073" KillCount="1" />
+		  <CustomBehavior File="ForcedDismount" />
+          <CustomBehavior File="WaitTimer" QuestId="12749" WaitTime="65000" />
+		  <CustomBehavior File="InteractWith" QuestId="12749" MobId="29073" />
           <TurnIn QuestName="A Special Surprise" QuestId="12749" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
       </If>
@@ -544,8 +559,9 @@
         <PickUp QuestName="A Special Surprise" QuestId="12750" GiverName="Knight Commander Plaguefist" GiverId="29053" />
         <If Condition="HasQuest(12750)" >
           <MoveTo QuestId="12750" X="1330.277" Y="-5742.156" Z="137.5444" />
-          <CustomBehavior File="WaitTimer" WaitTime="65000" />
-          <Objective QuestName="A Special Surprise" QuestId="12750" Type="KillMob" MobId="29071" KillCount="1" />
+		  <CustomBehavior File="ForcedDismount" />
+          <CustomBehavior File="WaitTimer" QuestId="12750" WaitTime="65000" />
+		  <CustomBehavior File="InteractWith" QuestId="12750" MobId="29071" />
           <TurnIn QuestName="A Special Surprise" QuestId="12750" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
       </If>
@@ -553,8 +569,9 @@
         <PickUp QuestName="A Special Surprise" QuestId="12739" GiverName="Knight Commander Plaguefist" GiverId="29053" />
         <If Condition="HasQuest(12739)" >
           <MoveTo QuestId="12739" X="1320.289" Y="-5769.147" Z="137.7749" />
-          <CustomBehavior File="WaitTimer" WaitTime="65000" />
-          <Objective QuestName="A Special Surprise" QuestId="12739" Type="KillMob" MobId="29032" KillCount="1" />
+		  <CustomBehavior File="ForcedDismount" />
+          <CustomBehavior File="WaitTimer" QuestId="12739" WaitTime="65000" />
+		  <CustomBehavior File="InteractWith" QuestId="12739" MobId="29032" />
           <TurnIn QuestName="A Special Surprise" QuestId="12739" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
       </If>
@@ -562,8 +579,9 @@
         <PickUp QuestName="A Special Surprise" QuestId="28650" GiverName="Knight Commander Plaguefist" GiverId="29053" />
         <If Condition="HasQuest(28650)" >
           <MoveTo QuestId="28650" X="1322.655" Y="-5759.51" Z="137.6409" />
-          <CustomBehavior File="WaitTimer" WaitTime="65000" />
-          <Objective QuestName="A Special Surprise" QuestId="28650" Type="KillMob" MobId="49356" KillCount="1" />
+		  <CustomBehavior File="ForcedDismount" />
+          <CustomBehavior File="WaitTimer" QuestId="28650" WaitTime="65000" />
+		  <CustomBehavior File="InteractWith" QuestId="28650" MobId="49356" />
           <TurnIn QuestName="A Special Surprise" QuestId="28650" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
       </If>
@@ -623,7 +641,7 @@
           <Hop X="1571.101" Y="-5953.635" Z="160.7214" />
           <Hop X="1804.955" Y="-5931.821" Z="160.8009" />
         </CustomBehavior>
-        <MoveTo X="2324.595" Y="-5729.186" Z="153.9202" />
+		<MoveTo X="2328.458" Y="-5725.838" Z="153.9189" />
       </If>
       <TurnIn QuestName="An End To All Things..." QuestId="12779" TurnInName="The Lich King" TurnInId="29110" />
       <EnableRepair />
@@ -647,7 +665,7 @@
       <If Condition="HasQuest(13165)" >
         <CustomBehavior File="Misc\RunLua" Lua = "CastSpellByID(50977)" />
         <CustomBehavior File="WaitTimer" WaitTime="11000" />
-        <CustomBehavior File="UseGameObject" ObjectId="190942" NumOfTimes="1" X="0" Y="0" Z="0" />
+        <CustomBehavior File="InteractWith" MobId="190942" />
       </If>
       <TurnIn QuestName="Taking Back Acherus" QuestId="13165" TurnInName="Highlord Darion Mograine" TurnInId="31084" />
 
@@ -673,7 +691,8 @@
  		<If Condition="Me.IsHorde" >
      <If Condition="HasQuest(13189) &amp;&amp; Me.ZoneId == 139" >
  		<CustomBehavior File="UserSettings" PullDistance="0" />
-		<CustomBehavior File="InteractWith" MobId="193052" ObjectType="GameObject" NumOfTimes="1" CollectionDistance="4" X="2348.233" Y="-5695.629" Z="382.2405" />
+		<CustomBehavior File="InteractWith" MobId="193052" CollectionDistance="4"
+			X="2348.233" Y="-5695.629" Z="382.2405" />
 		<CustomBehavior File="WaitTimer" WaitTime="20000" />
      </If>
       <If Condition="HasQuest(13189)" >
@@ -688,7 +707,8 @@
 		<If Condition="(Me.Level &lt;= 60)" >
 			 <If Condition="(Me.ZoneId == 1637)" > <!-- Org -->
 				<RunTo X="1772.016" Y="-4328.45" Z="-8.219744" />
-				<CustomBehavior File="InteractWith" MobId="195142" ObjectType="GameObject" Range="2" NumOfTimes="1" CollectionDistance="1000" X="1772.016" Y="-4328.45" Z="-8.219744" />
+				<CustomBehavior File="InteractWith" MobId="195142" Range="2"
+					CollectionDistance="1000" X="1772.016" Y="-4328.45" Z="-8.219744" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
 			 </If>
 			 <If Condition="Me.MapId == 0" >
@@ -723,7 +743,8 @@
  		<If Condition="Me.IsAlliance" >
       <If Condition="HasQuest(13188) &amp;&amp; Me.ZoneId == 139" >
 		<CustomBehavior File="UserSettings" PullDistance="0" />
-        <CustomBehavior File="InteractWith" MobId="193053" ObjectType="GameObject" NumOfTimes="1" CollectionDistance="4"  X="2324.699" Y="-5659.518" Z="382.2405" />
+        <CustomBehavior File="InteractWith" MobId="193053" CollectionDistance="4"
+			X="2324.699" Y="-5659.518" Z="382.2405" />
 		<CustomBehavior File="WaitTimer" WaitTime="10000" />
       </If>
       <If Condition="HasQuest(13188)">
@@ -737,7 +758,8 @@
 			<If Condition="(Me.Level &lt;= 60)" >
 			<If Condition="Me.ZoneId == 1519" >
 				<RunTo X="-9006.36" Y="869.7172" Z="129.693" />
-				<CustomBehavior File="InteractWith" MobId="195141" ObjectType="GameObject" Range="8" NumOfTimes="1" WaitTime="10000" CollectionDistance="1000" X="-9006.36" Y="869.7172" Z="129.693" />
+				<CustomBehavior File="InteractWith" MobId="195141" Range="8" WaitTime="10000" 
+					CollectionDistance="1000" X="-9006.36" Y="869.7172" Z="129.693" />
 			</If>
 			<While Condition="Me.MapId == 0" >
 			 <If Condition="Me.MapId == 0" >
