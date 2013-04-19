@@ -495,8 +495,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private WaitTimer _waitTimerAfterInteracting = new WaitTimer(TimeSpan.Zero);
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 452 2013-04-19 07:05:33Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 452 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 453 2013-04-19 09:02:02Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 453 $"); } }
         #endregion
 
 
@@ -1101,7 +1101,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         {
             if (InteractByBuyingItemInSlotNum != -1)
             {
-                DeprecationWarning_Attribute(Element,
+                DeprecationWarning_Attribute(Element, "InteractByBuyingItemInSlotNum/BuySlot", 
                     "The InteractByBuyingItemInSlotNum/BuySlot attributes have been deprecated.\n"
                     + "Please replace them with InteractByBuyingItemId attribute."
                     + "Your InteractByBuyingItemInSlotNum/BuySlot attribute will still be honored, but it may yield unexpected surprises,"
@@ -1110,7 +1110,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
             if (Args.Keys.Contains("Nav"))
             {
-                DeprecationWarning_Attribute(Element,
+                DeprecationWarning_Attribute(Element, "Nav",
                     string.Format("Automatically converted Nav=\"{0}\" attribute into MovementBy=\"{1}\"."
                                     + "  Please update profile to use MovementBy, instead.",
                                     Args["Nav"],
@@ -1119,7 +1119,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                 
             if (Args.Keys.Contains("ObjectType"))
             {
-                DeprecationWarning_Attribute(Element,
+                DeprecationWarning_Attribute(Element, "ObjectType",
                     "The ObjectType attribute is no longer used by InteractWith."
                     + "  You may safely remove it from the profile call to the InteractWith behavior.");
             }
