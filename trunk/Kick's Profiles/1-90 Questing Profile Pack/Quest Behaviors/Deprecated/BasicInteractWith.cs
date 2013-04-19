@@ -134,8 +134,8 @@ namespace Honorbuddy.Quest_Behaviors.BasicInteractWith
         }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: BasicInteractWith.cs 448 2013-04-19 05:00:43Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 448 $"); } }
+        public override string SubversionId { get { return ("$Id: BasicInteractWith.cs 452 2013-04-19 07:05:33Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 452 $"); } }
 
 
         ~BasicInteractWith()
@@ -282,7 +282,7 @@ namespace Honorbuddy.Quest_Behaviors.BasicInteractWith
             // So we don't want to falsely inform the user of things that will be skipped.
             if (!IsDone)
             {
-                QuestBehaviorBase.DeprecationWarning(Element, "BasicInteractWith", "InteractWith", BuildReplacementArguments());
+                QuestBehaviorBase.DeprecationWarning_Behavior(Element, "BasicInteractWith", "InteractWith", BuildReplacementArguments());
 
                 TreeRoot.GoalText = "Interacting with " + MobName;
             }
