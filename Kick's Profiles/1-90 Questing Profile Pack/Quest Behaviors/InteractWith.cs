@@ -495,7 +495,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
             const double rangeEpsilon = 3.0;
             UsageCheck_SemanticCoherency(xElement,
-                ((RangeMax - RangeMin) < RangeMinMaxEpsilon),
+                Args.Keys.Contains("MinRange") && ((RangeMax - RangeMin) < RangeMinMaxEpsilon),
                 context => string.Format("Range({0}) must be at least {1} greater than MinRange({2}).",
                                         RangeMax, RangeMinMaxEpsilon, RangeMin)); 
         }
@@ -517,14 +517,14 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private int GossipPageIndex { get; set; }
         private HuntingGroundsType HuntingGrounds { get; set; }
         private WoWItem ItemToUse { get; set; }
-        private double RangeMinMaxEpsilon = 3.0;
+        private const double RangeMinMaxEpsilon = 3.0;
         private WoWObject SelectedInteractTarget { get; set; }
 
-        private WaitTimer _waitTimerAfterInteracting = new WaitTimer(TimeSpan.Zero);
+        private readonly WaitTimer _waitTimerAfterInteracting = new WaitTimer(TimeSpan.Zero);
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 456 2013-04-20 09:32:04Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 456 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 457 2013-04-20 10:19:03Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 457 $"); } }
         #endregion
 
 
