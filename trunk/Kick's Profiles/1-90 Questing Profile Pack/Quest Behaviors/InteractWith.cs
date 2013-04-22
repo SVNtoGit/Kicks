@@ -1,4 +1,4 @@
-﻿// Behavior originally contributed by Nesox / rework by Chinajade
+﻿// Behavior originally contributed by Nesox / completely reworked by Chinajade
 //
 // LICENSE:
 // This work is licensed under the
@@ -215,6 +215,10 @@
 // * If the InteractByGossipOptions selects a "bind to this location" option, then InteractWith
 //      will automatically confirm the request to bind at the location.  After the binding is complete
 //      InteractWith displays a confirmation message of the new bind location.
+//
+// * The behavior pro-actively clears mobs within aggro range of the selected interact target.
+//      This prevents the mobs from interfering with the interaction.  If IgnoreCombat="true",
+//      then this pro-active clearing is also turned off.
 //
 // * Deprecated attributes:
 //      + BuySlot
@@ -523,8 +527,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private readonly WaitTimer _waitTimerAfterInteracting = new WaitTimer(TimeSpan.Zero);
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 457 2013-04-20 10:19:03Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 457 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 461 2013-04-22 07:59:12Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 461 $"); } }
         #endregion
 
 
@@ -987,7 +991,12 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
                         #region Interact with, or use item on, selected target...
                         new Decorator(context => (ItemToUse != null) && (ItemToUse.CooldownTimeLeft > TimeSpan.Zero),
-                            new Action(context => { LogDeveloperInfo("Waiting for {0} cooldown", ItemToUse.Name); })),
+                            new Action(context =>
+                            {
+                                TreeRoot.StatusText = string.Format("Waiting for {0} cooldown ({1} remaining)",
+                                    ItemToUse.Name,
+                                    PrettyTime(TimeSpan.FromSeconds((int)ItemToUse.CooldownTimeLeft.TotalSeconds)));
+                            })),
 
                         new Sequence(
                             // Interact by item use...
@@ -1312,7 +1321,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                 { reasons.Add(string.Format("ExceedsCollectionDistance({0})", CollectionDistance)); }
 
             if ((MovementBy == MovementByType.NavigatorOnly) && !Navigator.CanNavigateFully(Me.Location, wowObject.Location))
-                { reasons.Add("NonNavigable"); }
+                { reasons.Add("NotMeshNavigable"); }
 
             if (IsBlacklistedForInteraction(wowObject))
                 { reasons.Add("Blacklisted"); }
