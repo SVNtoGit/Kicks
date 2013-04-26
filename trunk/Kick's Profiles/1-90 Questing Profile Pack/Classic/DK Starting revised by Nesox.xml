@@ -170,6 +170,11 @@
 	</If>
 	
 	<If Condition="Me.Level &lt;= 58" >
+		<!-- NB: The following Condition will evaluate incorrectly, if Honorbuddy has just been started.
+			This is because plugins have yet to be initialized when the profile is started
+			for the first time.  However, if the user stop/starts Honorbuddy, the Condition will
+			be avaluated correctly, thus eliminating some "noise" to the user.
+			-->
 		<If Condition="(Styx.Plugins.PluginManager.Plugins.FirstOrDefault(x =&gt; x.Name == &quot;AutoEquip2&quot;) != null) &amp;&amp; Styx.Plugins.PluginManager.Plugins.FirstOrDefault(x =&gt; x.Name == &quot;AutoEquip2&quot;).Enabled">
 			<CustomBehavior File="DisablePlugin" Names="AutoEquip2" />
 			<CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2"
@@ -228,22 +233,21 @@
 		<CustomBehavior File="ForcedDismount" />
 		<CustomBehavior File="UserSettings" UseMount="false" />
 		<If Condition="!Me.HasAura(51852)"> <!-- HB start/stop protection -->
-			<CustomBehavior File="InteractWith" MobId="191609" CollectionDistance="4"
-				X="2345.848" Y="-5696.338" Z="426.0303" />
+			<CustomBehavior File="InteractWith" MobId="191609" X="2345.848" Y="-5696.338" Z="426.0303" />
 			<CustomBehavior File="WaitTimer" WaitTime="25000" />
 		</If>
         <CustomBehavior File="Vehicles\VehicleMover" QuestId="12641" QuestObjectiveIndex="3"
 			VehicleId="28511" AuraId_ProxyVehicle="51852" SpellId="51859" CastTime="9000"
-			UseNavigator="false" X="1654.104" Y="-5996.521" Z="183.0229" />
+			MovementBy="ClickToMoveOnly" X="1654.104" Y="-5996.521" Z="183.0229" />
         <CustomBehavior File="Vehicles\VehicleMover" QuestId="12641" QuestObjectiveIndex="1"
 			VehicleId="28511" AuraId_ProxyVehicle="51852" SpellId="51859" CastTime="9000"
-			UseNavigator="false" X="1799.286" Y="-6003.341" Z="170.4593"/>
+			MovementBy="ClickToMoveOnly" X="1799.286" Y="-6003.341" Z="170.4593"/>
         <CustomBehavior File="Vehicles\VehicleMover" QuestId="12641" QuestObjectiveIndex="2"
 			VehicleId="28511" AuraId_ProxyVehicle="51852" SpellId="51859" CastTime="9000"
-			UseNavigator="false" X="1592.047" Y="-5735.208" Z="196.1772"/>
+			MovementBy="ClickToMoveOnly" X="1592.047" Y="-5735.208" Z="196.1772"/>
         <CustomBehavior File="Vehicles\VehicleMover" QuestId="12641" QuestObjectiveIndex="4"
 			VehicleId="28511" AuraId_ProxyVehicle="51852" SpellId="51859" CastTime="9000"
-			UseNavigator="false" X="1384.774" Y="-5701.124" Z="199.2797"/>
+			MovementBy="ClickToMoveOnly" X="1384.774" Y="-5701.124" Z="199.2797"/>
         <CustomBehavior File="WaitTimer" WaitTime="5000"/>
         <CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(52694)" />
 		<CustomBehavior File="UserSettings" UseMount="original" />
@@ -282,7 +286,7 @@
         <CustomBehavior File="SpecificQuests\DeathknightStart\WaitForPatrol" AvoidMobId="28683" AvoidDistance="85"
 			X="2175.955" Y="-5769.175" Z="101.3312" />
         <CustomBehavior File="Vehicles\VehicleMover" VehicleId="28605" VehicleId2="28606" VehicleId3="28607"
-			UseNavigator="true" MobId="28653" SpellId="52264" Hop="true"
+			MovementBy="ClickToMoveOnly" MobId="28653" SpellId="52264" Hop="true"
 			X="2347.104" Y="-5695.789" Z="155.9568" />
         <CustomBehavior File="Misc\RunLua" Lua= "VehicleExit()" />
         <CustomBehavior File="WaitTimer" WaitTime="5000" />
@@ -301,7 +305,7 @@
         </If>
 		<CustomBehavior File="InteractWith" MobId="28782" X="2180.931" Y="-5726.148" Z="104.5497" />
         <CustomBehavior File="Vehicles\VehicleMover" QuestId="12687" VehicleId="28782"
-			IgnoreCombat="true" UseNavigator="true" SpellId="52362" Hop="True"
+			IgnoreCombat="true" MovementBy="ClickToMoveOnly" SpellId="52362" Hop="True"
 			X="2358.639" Y="-5708.643" Z="153.9229" />
       </While>
       <TurnIn QuestName="Into the Realm of Shadows" QuestId="12687" TurnInName="Salanar the Horseman" TurnInId="28653" />
@@ -323,17 +327,18 @@
 
       <!-- The Gift That Keeps On Giving - http://www.wowhead.com/quest=12698 -->
       <PickUp QuestName="The Gift That Keeps On Giving" QuestId="12698" GiverName="Gothik the Harvester" GiverId="28658" />
-      <If Condition = "HasQuest(12698)" >
-		<CustomBehavior File="UserSettings" PullDistance="0" />
-        <While Condition ="(Me.Minions != null) &amp;&amp; (Me.Minions.Count &lt; 5)">
-			<CustomBehavior File="InteractWith" MobId="28819" MobState="Alive"
-				InteractByUsingItemId="39253" Range="20" WaitTime="5000"
-				X="2434.626" Y="-5929.263" Z="96.8934" />
-        </While>
-        <RunTo X="2348.769" Y="-5758.279" Z="153.9225" />
-		<CustomBehavior File="UserSettings" PullDistance="original" />
-        <TurnIn QuestName="The Gift That Keeps On Giving" QuestId="12698" TurnInName="Gothik the Harvester" TurnInId="28658" />
-      </If>
+		    <While Condition="HasQuest(12698) &amp;&amp; !IsQuestCompleted(12698)" >
+				<While Condition ="(Me.Minions != null) &amp;&amp; (Me.Minions.Count &lt; 5)">
+					<CustomBehavior File="InteractWith" MobId="28819" MobState="Alive"
+						InteractByUsingItemId="39253" Range="20" WaitTime="5000"
+						X="2434.626" Y="-5929.263" Z="96.8934" />
+				</While>
+				<CustomBehavior File="UserSettings" PullDistance="0" />
+				<RunTo X="2348.769" Y="-5758.279" Z="153.9225" />
+				<CustomBehavior File="UserSettings" PullDistance="original" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" />
+		    </While>
+      <TurnIn QuestName="The Gift That Keeps On Giving" QuestId="12698" TurnInName="Gothik the Harvester" TurnInId="28658" />
 
       <!-- An Attack Of Opportunity - http://www.wowhead.com/quest=12700 -->
       <PickUp QuestName="An Attack Of Opportunity" QuestId="12700" GiverName="Gothik the Harvester" GiverId="28658" />
@@ -351,7 +356,8 @@
 			<CustomBehavior File="InteractWith" MobId="190767"
 				WaitTime="85000" X="2391.104" Y="-5900.058" Z="109.1245" />
 		</If>
-        <CustomBehavior File="InteractWith" MobId="28833" CollectionDistance="50" />
+        <CustomBehavior File="InteractWith" MobId="28833" PreInteractMountStrategy="Dismount"
+			X="2389.416" Y="-5901.79" Z="108.9628" />
         <CustomBehavior File="Vehicles\CannonControl" VehicleId="28833" QuestId="12701" MaxAngle="0.55" MinAngle="0.32" Buttons="2,1" ExitButton="5" />
         <CustomBehavior File="WaitTimer" WaitTime="60000" />
       </If>
@@ -379,15 +385,24 @@
       <PickUp QuestName="Nowhere To Run And Nowhere To Hide" QuestId="12719" GiverName="Prince Keleseth" GiverId="28911" />
       <!-- Lambs To The Slaughter - http://www.wowhead.com/quest=12722 -->
       <PickUp QuestName="Lambs To The Slaughter" QuestId="12722" GiverName="Baron Rivendare" GiverId="28910" />
-
-      <Objective QuestName="Nowhere To Run And Nowhere To Hide" QuestId="12719" Type="KillMob" MobId="28945" KillCount="1" />
-      <Objective QuestName="Nowhere To Run And Nowhere To Hide" QuestId="12719" Type="CollectItem" ItemId="39362" CollectCount="1" />
-	  <!-- <Objective QuestName="Lambs To The Slaughter" QuestId="12722" Type="KillMob" MobId="28986" KillCount="15" /> -->
-      <Objective QuestName="Lambs To The Slaughter" QuestId="12722" Type="KillMob" MobId="28984" KillCount="10" />
-	  <CustomBehavior File="KillUntilComplete" QuestId="12722" MobId1="28942" MobId2="28939" MobId3="28610" MobId4="28946" X="1620.13" Y="-5785.031" Z="116.1579" />
-      <Objective QuestName="The Plaguebringer's Request" QuestId="12716" Type="CollectItem" ItemId="39324" CollectCount="1" />
-      <Objective QuestName="The Plaguebringer's Request" QuestId="12716" Type="CollectItem" ItemId="39326" CollectCount="1" />
-      <Objective QuestName="The Plaguebringer's Request" QuestId="12716" Type="CollectItem" ItemId="39328" CollectCount="10" />
+		<!-- CJ: We use InteractWith for "Lambs to the Slaughter", since it will proactively clear mobs...
+			Without InteractWith, Honorbuddy will just run into the building to collect the item, aggro a dozen
+			mobs, and wind up in a death loop.  The KillBetweenHotspots setting doesn't help this situation.
+		 -->
+		<CustomBehavior File="InteractWith" QuestId="12719" QuestObjectiveIndex="1" MobId="28945"
+			X="1580.829" Y="-5702.371" Z="121.6818" /> <!-- Mayor Quimby -->
+		<CustomBehavior File="InteractWith" QuestId="12719" QuestObjectiveIndex="2" MobId="190947"
+			X="1580.829" Y="-5702.371" Z="121.6818" /> <!-- New Avalon Registry -->
+		<Objective QuestName="Lambs To The Slaughter" QuestId="12722" Type="KillMob" MobId="28984" KillCount="10" />
+		<CustomBehavior File="KillUntilComplete" QuestId="12722" MobId1="28942" MobId2="28939" MobId3="28610" MobId4="28946" X="1620.13" Y="-5785.031" Z="116.1579" />
+		
+		<!-- CJ: Switch to InteractWith here also.  Honorbuddy 'Objectives' seem really goobered for
+			these things. -->
+		<CustomBehavior File="InteractWith" QuestId="12716" QuestObjectiveIndex="1" MobId="190937"
+			IgnoreMobsInBlackspots="false" NonCompeteDistance="0" X="1784.615" Y="-5875.238" Z="109.4968" />
+		<CustomBehavior File="InteractWith" QuestId="12716" QuestObjectiveIndex="2" MobId="190938"
+			IgnoreMobsInBlackspots="false" NonCompeteDistance="0" X="1811.489" Y="-6002.574" Z="117.6457" />
+		<Objective QuestName="The Plaguebringer's Request" QuestId="12716" Type="CollectItem" ItemId="39328" CollectCount="10" />
 
       <TurnIn QuestName="Nowhere To Run And Nowhere To Hide" QuestId="12719" TurnInName="Prince Keleseth" TurnInId="28911" />
       <!-- How To Win Friends And Influence Enemies - http://www.wowhead.com/quest=12720 -->
@@ -415,7 +430,6 @@
  		<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
 		<CustomBehavior File="EquipItem" ItemId="39371" />
         <!-- find and beat these NPCs until quest completes around the location -->
-		<CustomBehavior File="UserSettings" PullDistance="0" />
 		<CustomBehavior File="InteractWith" QuestId="12720" CollectionDistance="300"
 			MobId="28610" MobId2="28936" MobId3="28939" MobState="Alive" NumOfTimes="1000"
 			X="1688.283" Y="-5815.887" Z="116.1194" >
@@ -428,7 +442,6 @@
 				<Hotspot Name="Ranch House" X="1659.578" Y="-5834.314" Z="116.1673" />
 			</HuntingGrounds>
 		</CustomBehavior>
-		<CustomBehavior File="UserSettings" PullDistance="original" />
         <!--Equip the main weapon -->
         <CustomBehavior File="EquipItem" ItemId="38707" />
       </If>
@@ -453,7 +466,7 @@
 		<While Condition="HasQuest(12727) &amp;&amp; !IsQuestCompleted(12727)" >
 			<CustomBehavior File="InteractWith" MobId="28912" InteractByGossipOptions="1" WaitForNpcs="false"
 				CollectionDistance="15" WaitTime="20000" X="1648.09" Y="-6039.421" Z="127.7657" />
-			<CustomBehavior File="InteractWith" MobId="191092" CollectionDistance="15" WaitForNpcs="false"
+			<CustomBehavior File="InteractWith" MobId="191092" WaitForNpcs="false"
 				InteractByLooting="true" NonCompeteDistance="0" X="1648.09" Y="-6039.421" Z="127.7657" />
 		</While>
       <TurnIn QuestName="Bloody Breakout" QuestId="12727" TurnInName="Thassarian" TurnInId="28913" />
