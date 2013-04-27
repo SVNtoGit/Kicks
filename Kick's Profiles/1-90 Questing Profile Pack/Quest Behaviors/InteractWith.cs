@@ -398,7 +398,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                 AuraIdsOnMob = GetNumberedAttributesAsArray<int>("AuraIdOnMob", 0, ConstrainAs.AuraId, null);
                 AuraIdsMissingFromMob = GetNumberedAttributesAsArray<int>("AuraIdMissingFromMob", 0, ConstrainAs.AuraId, null);
 
-                MobState = GetAttributeAsNullable<MobStateType>("MobState", false, null, new[] { "NpcState" }) ?? MobStateType.Alive;
+                MobState = GetAttributeAsNullable<MobStateType>("MobState", false, null, new[] { "NpcState" }) ?? MobStateType.DontCare;
                 NumOfTimes = GetAttributeAsNullable<int>("NumOfTimes", false, ConstrainAs.RepeatCount, null) ?? 1;
 
 
@@ -568,8 +568,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private readonly WaitTimer _waitTimerAfterInteracting = new WaitTimer(TimeSpan.Zero);
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 463 2013-04-26 07:45:48Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 463 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 465 2013-04-27 11:31:47Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 465 $"); } }
         #endregion
 
 
