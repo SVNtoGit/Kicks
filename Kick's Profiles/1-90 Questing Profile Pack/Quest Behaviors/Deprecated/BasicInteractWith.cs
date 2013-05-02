@@ -37,7 +37,8 @@ using Action = Styx.TreeSharp.Action;
 
 namespace Honorbuddy.Quest_Behaviors.BasicInteractWith
 {
-    [CustomBehaviorFileName(@"BasicInteractWith")]
+    [CustomBehaviorFileName(@"Deprecated\BasicInteractWith")]
+    [CustomBehaviorFileName(@"BasicInteractWith")]  // Deprecated location--do not use
     public class BasicInteractWith : CustomForcedBehavior
     {
         public BasicInteractWith(Dictionary<string, string> args)
@@ -134,8 +135,8 @@ namespace Honorbuddy.Quest_Behaviors.BasicInteractWith
         }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: BasicInteractWith.cs 452 2013-04-19 07:05:33Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 452 $"); } }
+        public override string SubversionId { get { return ("$Id: BasicInteractWith.cs 479 2013-05-02 15:50:00Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 479 $"); } }
 
 
         ~BasicInteractWith()
@@ -282,7 +283,7 @@ namespace Honorbuddy.Quest_Behaviors.BasicInteractWith
             // So we don't want to falsely inform the user of things that will be skipped.
             if (!IsDone)
             {
-                QuestBehaviorBase.DeprecationWarning_Behavior(Element, "BasicInteractWith", "InteractWith", BuildReplacementArguments());
+                QuestBehaviorBase.DeprecationWarning_Behavior(this, "InteractWith", BuildReplacementArguments());
 
                 TreeRoot.GoalText = "Interacting with " + MobName;
             }

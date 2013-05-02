@@ -21,7 +21,8 @@ using Action = Styx.TreeSharp.Action;
 
 namespace Honorbuddy.Quest_Behaviors.BasicUseObject
 {
-    [CustomBehaviorFileName(@"BasicUseObject")]
+    [CustomBehaviorFileName(@"Deprecated\BasicUseObject")]
+    [CustomBehaviorFileName(@"BasicUseObject")]  // Deprecated location--do not use
     public class BasicUseObject : CustomForcedBehavior
     {
         public BasicUseObject(Dictionary<string, string> args)
@@ -229,11 +230,11 @@ namespace Honorbuddy.Quest_Behaviors.BasicUseObject
             // So we don't want to falsely inform the user of things that will be skipped.
             if (!IsDone)
             {
-                QuestBehaviorBase.DeprecationWarning_Behavior(Element, "BasicUseObject", "InteractWith", BuildReplacementArguments());
+                QuestBehaviorBase.DeprecationWarning_Behavior(this, "InteractWith", BuildReplacementArguments());
 
                 PlayerQuest quest = StyxWoW.Me.QuestLog.GetQuestById((uint)QuestId);
 
-                TreeRoot.GoalText = this.GetType().Name + ": " + ((quest != null) ? ("\"" + quest.Name + "\"") : "In Progress");
+                TreeRoot.GoalText = GetType().Name + ": " + ((quest != null) ? ("\"" + quest.Name + "\"") : "In Progress");
             }
         }
 
