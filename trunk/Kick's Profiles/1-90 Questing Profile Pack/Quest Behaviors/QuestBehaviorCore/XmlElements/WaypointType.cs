@@ -28,7 +28,10 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
                 Name = GetAttributeAs<string>("Name", false, ConstrainAs.StringNonEmpty, null) ?? string.Empty;
                 Radius = GetAttributeAsNullable<double>("Radius", false, ConstrainAs.Range, null) ?? 10.0;
 
-                OnStart_HandleAttributeProblem();
+                if (string.IsNullOrEmpty(Name))
+                    { Name = GetDefaultName(Location); }
+
+                HandleAttributeProblem();
             }
 
             catch (Exception except)
@@ -46,7 +49,7 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
         public WaypointType(WoWPoint location, string name = "", double radius = 10.0)
         {
             Location = location;
-            Name = name ?? string.Empty;
+            Name = name ?? GetDefaultName(location);
             Radius = radius;
         }
 
@@ -79,6 +82,12 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
             tmp.AppendFormat("{0}/>", fieldSeparator);
 
             return tmp.ToString();
+        }
+
+
+        private string GetDefaultName(WoWPoint wowPoint)
+        {
+            return string.Format("Waypoint({0})", wowPoint.ToString());   
         }
     }
 }
