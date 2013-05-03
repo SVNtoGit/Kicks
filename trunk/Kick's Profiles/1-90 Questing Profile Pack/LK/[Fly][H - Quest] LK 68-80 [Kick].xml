@@ -7509,8 +7509,11 @@
 				<Objective QuestName="An Intriguing Plan" QuestId="12165" Type="CollectItem" ItemId="36850" CollectCount="1" />
 				<Objective QuestName="An Intriguing Plan" QuestId="12165" Type="CollectItem" ItemId="36851" CollectCount="1" />
 
-				<CustomBehavior File="Misc\RunLua" WaitTime="2000" NumOfTimes="1" Lua="UseItemByName(36849)" />
-				<CustomBehavior File="WaitTimer" WaitTime="4000" />
+				<!-- Combining the blueprint sometimes fails, so we keep trying -->
+				<While Condition="!HasItem(36848)" >
+					<CustomBehavior File="Misc\RunLua" WaitTime="2000" NumOfTimes="1" Lua="UseItemByName(36849)" />
+					<CustomBehavior File="WaitTimer" WaitTime="4000" />
+				</While>
 			</If>
 			<If Condition="HasQuest(12165) &amp;&amp; IsQuestCompleted(12165)">
 				<CustomBehavior File="FlyTo" X="3863.796" Y="-4526.803" Z="209.8488" />
