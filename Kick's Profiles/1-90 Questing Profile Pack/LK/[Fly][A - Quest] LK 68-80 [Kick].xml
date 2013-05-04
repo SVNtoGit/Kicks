@@ -6317,7 +6317,7 @@
 			</If>
 			<While Condition="((HasQuest(12000)) &amp;&amp; (!IsQuestCompleted(12000)))" >
 			 <If Condition="(!Me.HasItem(35792))">
-				<CustomBehavior File="InteractWith" MobId="26477" GossipOptions="1" CollectionDistance="500" X="3402.501" Y="2291.558" Z="30.3925" />
+				<CustomBehavior File="InteractWith" MobId="26477" CollectionDistance="500" X="3402.501" Y="2291.558" Z="30.3925" />
 			 </If>
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35792)" WaitTime="1000" />
 			</While>
@@ -8375,7 +8375,9 @@
 				<CustomBehavior File="FlyTo" DestName="throw rocks down" Distance="2" X="5004.226" Y="-4633.891" Z="291.8737" />
 				<CustomBehavior File="ForcedDismount" />
 				<!-- We error out if we run out of rocks -->
-				<CustomBehavior File="UseItemTargetLocation" QuestId="11982" ItemId="35734" UseType="PointToObject" WaitTime="1500" MinRange="30" Range="90" MobId1="26268" MobId2="26270" X="5007.596" Y="-4633.813" Z="292.1327" />
+			 <While Condition="(GetItemCount(35734) &gt;= 1) &amp;&amp; (!IsQuestCompleted(11982))" > <!-- deleted questid bc we error out if we run out of rocks -->
+				<CustomBehavior File="UseItemTargetLocation" ItemId="35734" UseType="PointToObject" WaitTime="1500" MinRange="30" Range="90" MobId1="26268" MobId2="26270" X="5007.596" Y="-4633.813" Z="292.1327" />
+			 </While>
 				
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<RunTo X="5017.887" Y="-4629.757" Z="293.9718" />
