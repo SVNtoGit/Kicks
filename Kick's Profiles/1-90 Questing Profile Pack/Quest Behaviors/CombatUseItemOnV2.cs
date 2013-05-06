@@ -335,7 +335,7 @@ namespace Honorbuddy.Quest_Behaviors.CombatUseItemOnV2
                     && (UseWhenMobHasHealthPercent <= 0)),
                 context => "One or more of the following attributes must be specified:\n"
                             + "UseWhenMeHasAuraId, UseWhenMeMissingAuraId, UseWhenMobCastingSpellId,"
-                            + " UseWhenMobHasAuraId, UseWhenMobMissingAuraId, UseWhenMobHasHpPercentLeft");
+                            + " UseWhenMobHasAuraId, UseWhenMobMissingAuraId, UseWhenMobHasHealthPercent");
 
             UsageCheck_SemanticCoherency(xElement,
                 ((ItemAppliesAuraId <= 0)
@@ -352,7 +352,6 @@ namespace Honorbuddy.Quest_Behaviors.CombatUseItemOnV2
         #region Private and Convenience variables
         private int Counter { get; set; }
         private HuntingGroundsType HuntingGrounds { get; set; }
-        private bool IsItemUsed { get; set; }
         private WoWItem ItemToUse { get; set; }
         private WoWUnit SelectedTarget { get; set; }
         
@@ -476,37 +475,6 @@ namespace Honorbuddy.Quest_Behaviors.CombatUseItemOnV2
                     new Decorator(context => !Me.Combat && IsViableForItemUse(SelectedTarget),
                         UtilityBehaviorPS_GetMobsAttention(context => SelectedTarget)),
 
-                    // If the target has the Item's Aura, count success...
-                    new Decorator(context => IsViable(SelectedTarget)
-                                                && IsItemUsed
-                                                && (ItemUseAlwaysSucceeds || SelectedTarget.HasAura(ItemAppliesAuraId)),
-                        new Action(context =>
-                        {
-                            // Count our success if no associated quest...
-                            if (QuestId == 0)
-                                { ++Counter; }
-
-                            // If we can only use the item once per target, blacklist this target from subsequent selection...
-                            if ((UseItemStrategy == UseItemStrategyType.UseItemOncePerTarget)
-                                || (UseItemStrategy == UseItemStrategyType.UseItemOncePerTargetDontDefend))
-                            {
-                                BlacklistForInteracting(SelectedTarget, TimeSpan.FromSeconds(180));
-                            }
-
-                            // If we can't defend ourselves from the target, blacklist it for combat and move on...
-                            if (IsViable(SelectedTarget)
-                                && ((UseItemStrategy == UseItemStrategyType.UseItemContinuouslyOnTargetDontDefend)
-                                    || (UseItemStrategy == UseItemStrategyType.UseItemOncePerTargetDontDefend)))
-                            {
-                                Blacklist.Add(SelectedTarget, BlacklistFlags.Combat, TimeSpan.FromSeconds(180));
-                                BotPoi.Clear();
-                                Me.ClearTarget();
-                                SelectedTarget = null;
-                            }
-
-                            IsItemUsed = false;
-                        })),
-
                     // No mobs in immediate vicinity...
                     // NB: if the terminateBehaviorIfNoTargetsProvider argument evaluates to 'true', calling
                     // this sub-behavior will terminate the overall behavior.
@@ -564,7 +532,9 @@ namespace Honorbuddy.Quest_Behaviors.CombatUseItemOnV2
                             new Decorator(context => IsViable(ItemToUse) && IsUseItemNeeded(SelectedTarget),
                                 new PrioritySelector(
                                     // Halt combat until we are able to use the item...
-                                    new Decorator(context => !ItemToUse.Usable,
+                                    new Decorator(context => !ItemToUse.Usable
+                                                                && ((UseItemStrategy == UseItemStrategyType.UseItemContinuouslyOnTargetDontDefend)
+                                                                    || (UseItemStrategy == UseItemStrategyType.UseItemOncePerTargetDontDefend)),
                                         new Action(context =>
                                         {
                                             // We use LUA to stop casting, since SpellManager.StopCasting() doesn't seem to work...
@@ -573,16 +543,46 @@ namespace Honorbuddy.Quest_Behaviors.CombatUseItemOnV2
                                             
                                             if (Me.IsMoving)
                                                 { WoWMovement.MoveStop(); }
+
+                                            TreeRoot.StatusText = string.Format("Combat halted--waiting for {0} to become usable.", ItemToUse.Name);
                                         })),
 
                                     new Sequence(
                                         UtilityBehaviorSeq_UseItemOn(context => ItemToUse, context => SelectedTarget),
+                                        // Allow a brief time for WoWclient to apply aura to mob...
+                                        new WaitContinue(TimeSpan.FromMilliseconds(5000),
+                                            context => ItemUseAlwaysSucceeds || SelectedTarget.HasAura(ItemAppliesAuraId),
+                                            new ActionAlwaysSucceed()),
                                         new Action(context =>
                                         {
                                             _waitTimerAfterUsingItem.Reset();
-                                            IsItemUsed = true;
-                                        }))
-                                ))
+
+                                            if (ItemUseAlwaysSucceeds || SelectedTarget.HasAura(ItemAppliesAuraId))
+                                            {
+                                                // Count our success if no associated quest...
+                                                if (QuestId == 0)
+                                                    { ++Counter; }
+
+                                                // If we can only use the item once per target, blacklist this target from subsequent selection...
+                                                if ((UseItemStrategy == UseItemStrategyType.UseItemOncePerTarget)
+                                                    || (UseItemStrategy == UseItemStrategyType.UseItemOncePerTargetDontDefend))
+                                                {
+                                                    BlacklistForInteracting(SelectedTarget, TimeSpan.FromSeconds(180));
+                                                }
+
+                                                // If we can't defend ourselves from the target, blacklist it for combat and move on...
+                                                if (IsViable(SelectedTarget)
+                                                    && ((UseItemStrategy == UseItemStrategyType.UseItemContinuouslyOnTargetDontDefend)
+                                                        || (UseItemStrategy == UseItemStrategyType.UseItemOncePerTargetDontDefend)))
+                                                {
+                                                    Blacklist.Add(SelectedTarget, BlacklistFlags.Combat, TimeSpan.FromSeconds(180));
+                                                    BotPoi.Clear();
+                                                    Me.ClearTarget();
+                                                    SelectedTarget = null;
+                                                }
+                                            }
+                                        })
+                                )))
                         ))
                     ));
         }
