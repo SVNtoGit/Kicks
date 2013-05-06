@@ -576,8 +576,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private WaitTimer _timerToReachDestination = null;
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 488 2013-05-06 13:06:23Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 488 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 489 2013-05-06 13:15:10Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 489 $"); } }
         #endregion
 
 
@@ -1384,6 +1384,9 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
         private bool IsClearTargetNeeded(WoWObject wowObject)
         {
+            if (wowObject == null)
+                { return false; }
+
             WoWUnit wowUnit = wowObject.ToUnit();
 
             return
