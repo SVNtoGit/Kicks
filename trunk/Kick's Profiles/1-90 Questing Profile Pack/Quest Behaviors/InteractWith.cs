@@ -95,7 +95,7 @@
 //          have changed.
 //
 // Interaction by Quest frames:
-//      InteractByQuestFrameDisposition [optional; Default: TerminateProfile]
+//      InteractByQuestFrameDisposition [optional; Default: TerminateBehavior]
 //          [Allowed values: Accept/Complete/Continue/Ignore/TerminateBehavior/TerminateProfile]
 //          This attribute determines the behavior's response should the NPC
 //          with which we've interacted offer us a quest frame.
@@ -184,6 +184,7 @@
 //          is only one waypoint, the behavior will stand and wait for MobIdN to respawn.
 //          If false, and the behavior cannot locate MobIdN in the immediate area, the behavior
 //          considers itself complete.
+//          Please see "Things to know", below.
 //      WaitTime [optional; Default: 0ms]
 //          Defines the number of milliseconds to wait after the interaction is successfully
 //          conducted before carrying on with the behavior on other mobs.
@@ -238,6 +239,14 @@
 // * If you are trying to gossip with NPCs that are in combat, this behavior will help the NPC
 //      kill the mob so the NPC will leave combat.  This is necessary because many NPCs will not
 //      gossip when they are in combat.
+//
+// * Be careful when specifying the WaitForNpcs="true".
+//      The 'interact blacklist' is internal to the behavior.  The means the blacklist is destroyed
+//      any time the behavior exits, and a fresh one is created upon re-entry to the behavior.
+//      This means InteractWith does not know which mobs have already been interacted and which
+//      have not, when WaitForNpcs="true".  The can cause slow progress as the failure detection
+//      mechnaisms built into the behavior kick in and re-exclude non-viable mobs as they are
+//      rediscovered.
 //
 // * Deprecated attributes:
 //      + BuySlot
@@ -417,7 +426,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                     ?? GetAttributeAsNullable<bool>("Loot", false, null, null) /* Legacy name--don't use*/
                     ?? false;
                 InteractByQuestFrameAction = GetAttributeAsNullable<QuestFrameDisposition>("InteractByQuestFrameDisposition", false, null, null)
-                    ?? QuestFrameDisposition.TerminateProfile;
+                    ?? QuestFrameDisposition.TerminateBehavior;
                 InteractByUsingItemId = GetAttributeAsNullable<int>("InteractByUsingItemId", false, ConstrainAs.ItemId, null) ?? 0;
 
 
@@ -576,8 +585,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private WaitTimer _timerToReachDestination = null;
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 489 2013-05-06 13:15:10Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 489 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 493 2013-05-08 00:23:49Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 493 $"); } }
         #endregion
 
 
