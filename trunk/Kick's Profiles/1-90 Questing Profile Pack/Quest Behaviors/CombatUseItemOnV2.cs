@@ -314,8 +314,8 @@ namespace Honorbuddy.Quest_Behaviors.CombatUseItemOnV2
         private int WaitTimeAfterItemUse { get; set; }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: CombatUseItemOn.cs 273 2013-01-22 23:00:43Z natfoth $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 273 $"); } }
+        public override string SubversionId { get { return ("$Id: CombatUseItemOnV2.cs 505 2013-05-13 02:21:15Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 505 $"); } }
 
 
         protected override void EvaluateUsage_DeprecatedAttributes(XElement xElement)
@@ -413,25 +413,16 @@ namespace Honorbuddy.Quest_Behaviors.CombatUseItemOnV2
                         new Action(context => { BehaviorDone(); })),
 
                     // If WoWclient has not placed items in our bag, wait for it...
-                    // If it doesn't show up in a reasonable time, we're done.
-                    new Decorator(context => !IsViable(ItemToUse),
+                    // NB: This clumsiness is because Honorbuddy can launch and start using the behavior before the pokey
+                    // WoWclient manages to put the item into our bag after accepting a quest.  This delay waits
+                    // for the item to show up, if its going to.
+                    new Decorator(context => (ItemId > 0) && !IsViable(ItemToUse),
                         new PrioritySelector(
-                            new Decorator(context => _waitTimerForItemToAppear.IsFinished,
-                                new Action(context =>
-                                {
-                                    LogProfileError(BuildMessageWithContext(Element,
-                                        "Unable to locate {0} in our bags--terminating behavior.",
-                                        GetItemNameFromId(ItemId)));
-                                    BehaviorDone();                                    
-                                })),
-                            new Decorator(context => ItemToUse == null,
-                                new Action(context =>
-                                {
-                                    TreeRoot.StatusText = string.Format("Waiting {0} for {1} to arrive in our bags.",
-                                        PrettyTime(_waitTimerForItemToAppear.WaitTime),
-                                        GetItemNameFromId(ItemId));
-                                    ItemToUse = Me.CarriedItems.FirstOrDefault(i => (i.Entry == ItemId));
-                                }))
+                            UtilityBehaviorPS_WaitForInventoryItem(context => ItemId),
+                            new Action(context =>
+                            {
+                                ItemToUse = Me.CarriedItems.FirstOrDefault(i => (i.Entry == ItemId));
+                            })
                         )),
 
                     // If item is no longer viable to use, warn user and we're done...
@@ -701,6 +692,9 @@ namespace Honorbuddy.Quest_Behaviors.CombatUseItemOnV2
             {
                 excludedUnitReasons.Insert(0, string.Format("{0}Excluded Units:{0}",
                     Environment.NewLine));
+                excludedUnitReasons.AppendFormat("{0}    {1}",
+                    Environment.NewLine,
+                    GetXmlFileReference(Element));
             }
 
             return excludedUnitReasons.ToString();
