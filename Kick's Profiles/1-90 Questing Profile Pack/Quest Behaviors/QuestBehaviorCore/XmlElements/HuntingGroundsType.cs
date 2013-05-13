@@ -68,8 +68,8 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
         public List<WaypointType> Waypoints { get; set; }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return "$Id$"; } }
-        public override string SubversionRevision { get { return "$Rev$"; } }
+        public override string SubversionId { get { return "$Id: HuntingGroundsType.cs 501 2013-05-10 16:29:10Z chinajade $"; } }
+        public override string SubversionRevision { get { return "$Rev: 501 $"; } }
         #endregion
 
         #region Private and Convenience variables

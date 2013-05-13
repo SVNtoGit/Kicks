@@ -38,8 +38,8 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
         public Dictionary<string, string> Attributes { get; private set; }
         public XElement Element { get; private set; }
 
-        public virtual string SubversionId { get { return "$Id$"; } }
-        public virtual string SubversionRevision { get { return "$Rev$"; } }
+        public virtual string SubversionId { get { return "$Id: QuestBehaviorXmlBase.cs 501 2013-05-10 16:29:10Z chinajade $"; } }
+        public virtual string SubversionRevision { get { return "$Rev: 501 $"; } }
 
         public static class ConstrainAs
         {
