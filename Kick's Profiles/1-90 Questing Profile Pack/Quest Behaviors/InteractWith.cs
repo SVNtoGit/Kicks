@@ -585,8 +585,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private WaitTimer _timerToReachDestination = null;
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 505 2013-05-13 02:21:15Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 505 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 507 2013-05-14 19:05:14Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 507 $"); } }
         #endregion
 
 
@@ -636,6 +636,13 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                 CharacterSettings.Instance.PullDistance = 0;
 
                 _waitTimerAfterInteracting.WaitTime = TimeSpan.FromMilliseconds(WaitTime);
+
+                // NB: With the post-.557 HB releases, Honorbuddy will keep the NPC dialog boxes up
+                // after a <PickUp> directive.  This looks more human like, and is a good thing.
+                // Unfortunately, a <PickUp> immediate followed by an <InteractWith> will cause InteractWith
+                // to see an unexpected quest dialog frame.  To prevent problems, we close all dialogs
+                // when InteractWith is started, here.
+                CloseOpenFrames(true);
             }
         }
 
