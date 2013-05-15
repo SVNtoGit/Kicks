@@ -3332,8 +3332,10 @@
 	<Quest Id="26214" Name="Hot On the Trail: Murlocs">
 		<Objective Type="CollectItem" ItemId="57756" CollectCount="1">
 			<Hotspots>
-				<Hotspot X="-9640.961" Y="1041.321" Z="9.507117" />
-				<Hotspot X="-9589.541" Y="1059.516" Z="4.451361" />
+				<Hotspot X="-9602.362" Y="1045.218" Z="6.883531" />
+				<Hotspot X="-9638.977" Y="1147.965" Z="5.216144" />
+				<Hotspot X="-9614.749" Y="1498.076" Z="6.047361" />
+				<Hotspot X="-9646.642" Y="1356.586" Z="10.50259" />
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -3822,7 +3824,7 @@
 	
 	<!-- End of Quest Overrides -->
   
-	<QuestOrder IgnoreCheckPoints="False" >
+	<QuestOrder IgnoreCheckPoints="True" >
 	
 		<If Condition="Me.IsHorde" >
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You must be Alliance to run this profile" />
@@ -3885,17 +3887,18 @@
 			<If Condition="((HasQuest(26378)) &amp;&amp; (IsQuestCompleted(26378)))" >
 		<TurnIn QuestName="Hero's Call: Westfall!" QuestId="26378" TurnInName="Lieutenant Horatio Laine" TurnInId="42308" X="-9849.856" Y="914.9618" Z="30.27025" />
 			</If>
-			<If Condition="(!IsQuestCompleted(26761))" >
-			<If Condition="((!HasQuest(26209)) &amp;&amp; (!IsQuestCompleted(26209)))" >
+			<If Condition="!IsQuestCompleted(26761)" >
+			<If Condition="Me.HearthstoneAreaId != 5148" >
 				<CustomBehavior File="Message" Text="Moving to set hearth to SW Innkeeper" LogColor="Red" />
-				<CustomBehavior File="InteractWith" MobId="6740" GossipOptions="1" X="-8867.786" Y="673.6729" Z="97.90324" />
-				<CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" NumOfTimes="1" WaitTime="5000"/> <!-- Set Hearth to SW -->
+				<CustomBehavior File="InteractWith" MobId="6740" GossipOptions="1"
+					X="-8867.786" Y="673.6729" Z="97.90324" />
 				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
-		<PickUp QuestName="Murder Was The Case That They Gave Me" QuestId="26209" GiverName="Lieutenant Horatio Laine" GiverId="42308" />
 			</If>
-			<While Condition="((HasQuest(26209)) &amp;&amp; (!IsQuestCompleted(26209)))" >
-				<CustomBehavior File="InteractWith" QuestId="26209" MobId1="42386" MobId2="42384" MobId3="42391" MobId4="42383" MobState="Alive" NumOfTimes="20" GossipOptions="1" WaitTime="1000" CollectionDistance="100" X="-9819.229" Y="974.2356" Z="29.13065" />
-			</While>
+		<PickUp QuestName="Murder Was The Case That They Gave Me" QuestId="26209" GiverName="Lieutenant Horatio Laine" GiverId="42308" />
+			<CustomBehavior File="InteractWith" QuestId="26209"
+				MobId1="42386" MobId2="42384" MobId3="42391" MobId4="42383" MobState="Alive"
+				NumOfTimes="1000" GossipOptions="1" WaitTime="1000"
+				CollectionDistance="100" X="-9819.229" Y="974.2356" Z="29.13065" />
 		<TurnIn QuestName="Murder Was The Case That They Gave Me" QuestId="26209" TurnInName="Lieutenant Horatio Laine" TurnInId="42308" />
 		<PickUp QuestName="Hot On the Trail: The Riverpaw Clan" QuestId="26213" GiverName="Lieutenant Horatio Laine" GiverId="42308" />
 		<PickUp QuestName="Hot On the Trail: Murlocs" QuestId="26214" GiverName="Lieutenant Horatio Laine" GiverId="42308" />
@@ -3920,11 +3923,13 @@
 		<TurnIn QuestName="Feast or Famine" QuestId="26230" TurnInName="Mama Celeste" TurnInId="42497" />
 		<TurnIn QuestName="Livin' the Life" QuestId="26228" TurnInName="Two-Shoed Lou" TurnInId="42405" />
 		<PickUp QuestName="Lou's Parting Thoughts" QuestId="26232" GiverName="Two-Shoed Lou" GiverId="42405" />
-				<While Condition="((HasQuest(26232)) &amp;&amp; (!IsQuestCompleted(26232)))" >
-					<CustomBehavior File="UserSettings" PullDistance="1" />
-					<RunTo X="-9855.365" Y="1325.681" Z="42.06393" />
-					<CustomBehavior File="WaitTimer" WaitTime="40000"/>
-				<CustomBehavior File="UserSettings" PullDistance="25" />
+				<While Condition="HasQuest(26232) &amp;&amp; !IsQuestCompleted(26232)" >
+					<!-- CJ: Quest is peculiar, we stand in middle of them for a couple of words... -->
+					<RunTo X="-9857.436" Y="1333.767" Z="41.90308" />
+					<CustomBehavior File="WaitTimer" QuestId="26232" WaitTime="5000" />
+					<!-- CJ: ...then we duck around the corner, and wait for them to 'notice' us. -->
+					<RunTo X="-9875.226" Y="1338.025" Z="42.60117" />
+					<CustomBehavior File="WaitTimer" QuestId="26232" WaitTime="180000" />					
 				</While>
 		<TurnIn QuestName="Lou's Parting Thoughts" QuestId="26232" TurnInName="Lieutenant Horatio Laine" TurnInId="42558" />
 		<PickUp QuestName="Shakedown at the Saldean's" QuestId="26236" GiverName="Lieutenant Horatio Laine" GiverId="42558" />
@@ -4059,22 +4064,16 @@
 		<PickUp QuestName="A Vision of the Past" QuestId="26320" GiverName="Thoralius the Wise" GiverId="42651" />
 			<While Condition="((HasQuest(26320)) &amp;&amp; (!IsQuestCompleted(26320)))" >
 			 <If Condition="(Me.X &lt; -100)" > <!-- Deadmines -->
-				<RunTo X="-11207.96" Y="1676.653" Z="24.5689" />
-				<RunTo X="-11207.88" Y="1679.389" Z="24.11489" />
-				<CustomBehavior File="WaitTimer" WaitTime="30000"/>
+				<RunTo X="-11207.8" Y="1674.6" Z="24.62998" />
+				<CustomBehavior File="GoThruPortal" X="-11207.9" Y="1677.421" Z="24.49709" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
 				<CustomBehavior File="Misc\RunLua" QuestId="26320" Lua="UseItemByName(58147)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="170000"/>
 			 </If>
 			 <If Condition="(Me.ZoneId == 1581)" > <!-- Deadmines -->
-				<CustomBehavior File="MyCTM" X="-18.37925" Y="-383.6385" Z="62.00214" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
-				<CustomBehavior File="MyCTM" X="-13.17323" Y="-384.2595" Z="62.22301" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000"/>
-				<CustomBehavior File="Misc\RunLua" Lua="StrafeRightStart(GetTime()*1000 + 1000);" />
-				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for  {TimeRemaining}" />
-				<CustomBehavior File="Misc\RunLua" Lua="StrafeRightStop(GetTime()*1000 + 1000);" />
-				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for  {TimeRemaining}" />
-				<CustomBehavior File="WaitTimer" WaitTime="30000"/>
+				<RunTo X="-14.75194" Y="-383.4387" Z="61.70891" />
+				<CustomBehavior File="GoThruPortal"  X="-14.81625" Y="-387.5312" Z="62.92838" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
 			 </If>
 			 <If Condition="(Me.X &lt; -100)" > <!-- Deadmines -->
 				<CustomBehavior File="MyCTM" X="-11208.5" Y="1670.755" Z="24.73903" />
@@ -4164,13 +4163,18 @@
 			<If Condition="((HasQuest(26508)) &amp;&amp; (!IsQuestCompleted(26508)))" >
 				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<CustomBehavior File="CollectThings" QuestId="26508" ObjectId="154357" CollectItemCount="1" CollectItemId="10958" HuntingGroundRadius="200" >
-					<Hotspot X="-9385.866" Y="-2176.933" Z="54.66352" />
-					<Hotspot X="-9361.567" Y="-2371.773" Z="53.78986" />
-					<Hotspot X="-9360.799" Y="-2244.835" Z="54.67013" />
+					<Hotspot X="-9323.758" Y="-2003.687" Z="45.79288" />
+					<Hotspot X="-9340.211" Y="-2048.584" Z="45.4017" />
+					<Hotspot X="-9359.721" Y="-2102.028" Z="45.50304" />
+					<Hotspot X="-9346.002" Y="-2148.619" Z="47.11066" />
+					<Hotspot X="-9324.588" Y="-2155.08" Z="51.52002" />
+					<Hotspot X="-9374.233" Y="-2183.293" Z="50.35162" />
+					<Hotspot X="-9372.462" Y="-2254.087" Z="51.73122" />
+					<Hotspot X="-9367.621" Y="-2312.608" Z="52.03944" />
+					<Hotspot X="-9375.429" Y="-2389.031" Z="45.36008" />
 				</CustomBehavior>
 				<CustomBehavior File="AscendInWater" />
 				<CustomBehavior File="UserSettings" PullDistance="25" />
-			<!-- <Objective QuestName="Nida's Necklace" QuestId="26508" Type="CollectItem" ItemId="" CollectCount="1" /> -->
 			</If>
 			<Objective QuestName="We Must Prepare!" QuestId="26510" Type="CollectItem" ItemId="58894" CollectCount="1" />
 			<Objective QuestName="Lake Everstill Clean Up" QuestId="26511" Type="KillMob" MobId="422" KillCount="10" />
@@ -4230,27 +4234,17 @@
 		<TurnIn QuestName="He Who Controls the Ettins" QuestId="26519" TurnInName="Ettin Control Orb" TurnInId="204351" X="-8831.982" Y="-1939.935" Z="133.0036" />
 			</If>
 		<PickUp QuestName="Saving Foreman Oslow" QuestId="26520" GiverName="Ettin Control Orb" GiverId="204351" X="-8831.982" Y="-1939.935" Z="133.0036" />
-			<If Condition="((HasQuest(26520)) &amp;&amp; (!IsQuestCompleted(26520)))" >
-			 <While Condition="(!Me.HasAura(82558))" > <!-- Canyon Ettin Spawn Spell -->
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-	
-			<If Condition="(Me.Level &gt;= 81)" >
-	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="5" Text="You are too high for this Combat UseItemOn quest, please manually do it!" />
-			</If>
-		
-				<CustomBehavior File="CombatUseItemOn" MobId="43094" ItemId="58895" NumOfTimes="1" MobHpPercentLeft="95" MaxRange="5" WaitTime="5000" X="-9002.048" Y="-2133.902" Z="143.1395" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-			 </While>
-			 <While Condition="((HasQuest(26520)) &amp;&amp; (!IsQuestCompleted(26520))) &amp;&amp; (Me.HasAura(82558))" >
-				<RunTo X="-9274.281" Y="-2288.214" Z="68.1276" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
-			  <If Condition="(Me.HasAura(82558))" > <!-- Canyon Ettin Spawn Spell -->
-				<RunTo X="-9274.12" Y="-2288.6" Z="68.15446" />
-				<CustomBehavior File="UseItemOn" QuestId="26520" MobId="43196" ItemId="58895" WaitTime="2000" Range="5" CollectionDistance="500" X="-9274.12" Y="-2288.6" Z="68.15446" />
-				<CustomBehavior File="WaitTimer" WaitTime="45000"/>
-			  </If>
-			 </While>
-			</If>
+			<While Condition="HasQuest(26520) &amp;&amp; !IsQuestCompleted(26520)">
+				<If Condition="!Me.HasAura(82558)" > <!-- Canyon Ettin Spawn Spell -->
+					<CustomBehavior File="InteractWith" MobId="43094" MobState="Alive"
+						InteractByUsingItemId="58895" X="-9002.048" Y="-2133.902" Z="143.1395" />
+				</If>
+				<If Condition="Me.HasAura(82558)" > <!-- Canyon Ettin Spawn Spell -->
+					<CustomBehavior File="InteractWith" QuestId="26520" MobId="43196"
+						InteractByUsingItemId="58895" Range="15" WaitTime="37000"
+						NonCompeteDistance="0" X="-9274.12" Y="-2288.6" Z="68.15446" />
+				</If>
+			</While>
 		<TurnIn QuestName="Saving Foreman Oslow" QuestId="26520" TurnInName="Magistrate Solomon" TurnInId="344" />
 		<TurnIn QuestName="Yowler Must Die!" QuestId="26545" TurnInName="Magistrate Solomon" TurnInId="344" X="-9218.61" Y="-2221.804" Z="67.5397" />
 		<TurnIn QuestName="Like a Fart in the Wind" QuestId="26513" TurnInName="Marshal Marris" TurnInId="382" X="-9283.36" Y="-2297.5" Z="67.4972" />
