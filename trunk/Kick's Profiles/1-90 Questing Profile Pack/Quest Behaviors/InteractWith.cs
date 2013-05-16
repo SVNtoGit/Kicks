@@ -184,7 +184,6 @@
 //          is only one waypoint, the behavior will stand and wait for MobIdN to respawn.
 //          If false, and the behavior cannot locate MobIdN in the immediate area, the behavior
 //          considers itself complete.
-//          Please see "Things to know", below.
 //      WaitTime [optional; Default: 0ms]
 //          Defines the number of milliseconds to wait after the interaction is successfully
 //          conducted before carrying on with the behavior on other mobs.
@@ -235,18 +234,6 @@
 // * The behavior pro-actively clears mobs within aggro range of the selected interact target.
 //      This prevents the mobs from interfering with the interaction.  If IgnoreCombat="true",
 //      then this pro-active clearing is also turned off.
-//
-// * If you are trying to gossip with NPCs that are in combat, this behavior will help the NPC
-//      kill the mob so the NPC will leave combat.  This is necessary because many NPCs will not
-//      gossip when they are in combat.
-//
-// * Be careful when specifying the WaitForNpcs="true".
-//      The 'interact blacklist' is internal to the behavior.  The means the blacklist is destroyed
-//      any time the behavior exits, and a fresh one is created upon re-entry to the behavior.
-//      This means InteractWith does not know which mobs have already been interacted and which
-//      have not, when WaitForNpcs="true".  The can cause slow progress as the failure detection
-//      mechnaisms built into the behavior kick in and re-exclude non-viable mobs as they are
-//      rediscovered.
 //
 // * Deprecated attributes:
 //      + BuySlot
@@ -550,7 +537,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
 
         #region Private and Convenience variables
-        private const int AttemptCountMax = 7;
+
         private enum BindingEventStateType
         {
             BindingEventUnhooked,
@@ -574,19 +561,15 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         }
         private int GossipPageIndex { get; set; }
         private HuntingGroundsType HuntingGrounds { get; set; }
-        private int InteractAttemptCount { get; set; }
         private WoWItem ItemToUse { get; set; }
         private const double RangeMinMaxEpsilon = 3.0;
-        private WoWUnit SelectedAliveTarget { get; set; }
         private WoWObject SelectedInteractTarget { get; set; }
 
         private readonly WaitTimer _waitTimerAfterInteracting = new WaitTimer(TimeSpan.Zero);
-        private WaitTimer _waitTimerForItemToAppear = null;
-        private WaitTimer _timerToReachDestination = null;
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 510 2013-05-15 06:06:07Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 510 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 470 2013-04-29 11:27:22Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 470 $"); } }
         #endregion
 
 
@@ -637,12 +620,12 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
                 _waitTimerAfterInteracting.WaitTime = TimeSpan.FromMilliseconds(WaitTime);
 
-                // NB: With the post-.557 HB releases, Honorbuddy will keep the NPC dialog boxes up
-                // after a <PickUp> directive.  This looks more human like, and is a good thing.
-                // Unfortunately, a <PickUp> immediate followed by an <InteractWith> will cause InteractWith
-                // to see an unexpected quest dialog frame.  To prevent problems, we close all dialogs
-                // when InteractWith is started, here.
-                CloseOpenFrames(true);
+                ItemToUse = Me.CarriedItems.FirstOrDefault(i => (i.Entry == InteractByUsingItemId));
+                if ((InteractByUsingItemId > 0) && (ItemToUse == null))
+                {
+                    LogProfileError("Unable to locate ItemId({0}) in our bags", InteractByUsingItemId);
+                    BehaviorDone();
+                }
             }
         }
 
@@ -652,239 +635,25 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         #region Main Behaviors
         protected override Composite CreateBehavior_CombatMain()
         {
-            return new Decorator(context => !IsDone,
-                new PrioritySelector(
-                    // Force recalculation of time to reach destination after combat completes...
-                    new Decorator(context => Me.Combat,
-                        new Action(context =>
-                        {
-                            _timerToReachDestination = null;
-                            CloseOpenFrames(true);
-                            return RunStatus.Failure;   // fall through
-                        })),
-
-                    new Decorator(context => !Me.Combat,
-                        UtilityBehaviorPS_HealAndRest()),
-
-                    // If a mob is targeting us, deal with it immediately, so our interact actions won't be interrupted...
-                    new Decorator(context => !IgnoreCombat
-                                            && !Me.IsFlying
-                                            && ((ProactiveCombatStrategy == ProactiveCombatStrategyType.ClearAll)
-                                                || (ProactiveCombatStrategy == ProactiveCombatStrategyType.ClearMobsTargetingUs)),
-                       UtilityBehaviorPS_SpankMobTargetingUs(context => FindBestInteractTargets(MobState) /*excluded units*/
-                                                                        .Where(o => o.ToUnit() != null)
-                                                                        .Select(o => o.ToUnit()))),
-
-                    // Delay, if necessary...
-                    // NB: We must do this prior to checking for 'behavior done'.  Otherwise, profiles
-                    // that don't have an associated quest, and put the behavior in a <While> loop will not behave
-                    // as the profile writer expects.  They expect the delay to be executed if the interaction
-                    // succeeded.
-                    new Decorator(context => !_waitTimerAfterInteracting.IsFinished,
-                        new Action(context =>
-                        {
-                            TreeRoot.StatusText = string.Format("Completing {0} wait of {1}",
-                                PrettyTime(TimeSpan.FromSeconds((int)_waitTimerAfterInteracting.TimeLeft.TotalSeconds)),
-                                PrettyTime(_waitTimerAfterInteracting.WaitTime));
-                        })),
-
-                    // Counter is used to determine 'done'...
-                    // NB: If QuestObjectiveIndex was specified, we don't care what counter is.  Instead,
-                    // we want the objective to complete.
-                    new Decorator(context => (QuestObjectiveIndex == 0) && (Counter >= NumOfTimes),
-                        new Action(context => { BehaviorDone(); })),
-                    
-                    // If quest is done, behavior is done...
-                    new Decorator(context => IsDone,
-                        new Action(context => { BehaviorDone(); })),
-
-                    // If WoWclient has not placed items in our bag, wait for it...
-                    // NB: This clumsiness is because Honorbuddy can launch and start using the behavior before the pokey
-                    // WoWclient manages to put the item into our bag after accepting a quest.  This delay waits
-                    // for the item to show up, if its going to.
-                    new Decorator(context => (InteractByUsingItemId > 0) && !IsViable(ItemToUse),
-                        new PrioritySelector(
-                            UtilityBehaviorPS_WaitForInventoryItem(context => InteractByUsingItemId),
-                            new Action(context =>
-                            {
-                                ItemToUse = Me.CarriedItems.FirstOrDefault(i => (i.Entry == InteractByUsingItemId));
-                            })
-                        )),
-                        
-                    // If we've an alive target to make dead, go make it so...
-                    new Decorator(context => IsViable(SelectedAliveTarget) && SelectedAliveTarget.IsAlive,
-                        new Sequence(
-                            new Action(context => { LogInfo("Going after 'alive' {0} to make it 'dead'", SelectedAliveTarget.Name); }),
-                            UtilityBehaviorPS_SpankMob(context => SelectedAliveTarget))),
-
-                    // If interact target no longer meets qualifications, try to find another...
-                    new Decorator(context => !IsInteractNeeded(SelectedInteractTarget, MobState),
-                        new PrioritySelector(
-                            new Action(context =>
-                            {
-                                CloseOpenFrames();
-                                Me.ClearTarget();
-                                SelectedInteractTarget = FindBestInteractTargets(MobState).FirstOrDefault();
-                                _timerToReachDestination = null;
-                                InteractAttemptCount = 0;
-                                if (SelectedInteractTarget != null)
-                                    { UpdateGoalText(GoalText); }
-
-                                // If we're looking for 'dead' targets, and there are none...
-                                // But, there are 'alive' targets that fit the bill, go convert the 'alive' ones to 'dead'.
-                                if ((SelectedInteractTarget == null) && (MobState == MobStateType.Dead))
-                                {
-                                    SelectedAliveTarget = FindBestInteractTargets(MobStateType.Alive).FirstOrDefault() as WoWUnit;
-                                    if (SelectedAliveTarget != null)
-                                        { return RunStatus.Success; }
-                                }
-
-                                return RunStatus.Failure;   // fall through
-                            }),
-
-                            // No mobs in immediate vicinity...
-                            // NB: if the terminateBehaviorIfNoTargetsProvider argument evaluates to 'true', calling
-                            // this sub-behavior will terminate the overall behavior.
-                            new Decorator(context => !IsViable(SelectedInteractTarget),
-                                UtilityBehaviorPS_NoMobsAtCurrentWaypoint(
-                                    context => HuntingGrounds,
-                                    context => !WaitForNpcs,
-                                    context => MobIds.Select(m => GetObjectNameFromId(m)).Distinct(),
-                                    context => Debug_BuildExclusions()))
-                        )),
-
-                    #region Deal with mob we've selected for interaction...
-                    new Decorator(context => IsViableForInteracting(SelectedInteractTarget),
-                        new PrioritySelector(
-                            // Place upper bound on time allowed to reach destination...
-                            new Decorator(context => _timerToReachDestination == null,
-                                new Action(context =>
-                                {
-                                    _timerToReachDestination = new WaitTimer(CalculateMaxTimeToDestination(SelectedInteractTarget.Location));
-                                    _timerToReachDestination.Reset();
-                                    return RunStatus.Failure; // fall through
-                                })),
-
-                            new Decorator(context => _timerToReachDestination.IsFinished,
-                                new Action(context =>
-                                {
-                                    var blacklistTime = BlacklistInteractTarget(SelectedInteractTarget);
-                                    LogWarning("Taking too long to reach {0}--blacklisting for {1}",
-                                        SelectedInteractTarget.SafeName(),
-                                        PrettyTime(blacklistTime));
-                                    _timerToReachDestination = null;
-                                })),
-
-                            // Take out any nearby mobs that will aggro, if we get close to destination...
-                            new Decorator(context => !IgnoreCombat
-                                                    && !Me.IsFlying
-                                                    && ((ProactiveCombatStrategy == ProactiveCombatStrategyType.ClearAll)
-                                                        || (ProactiveCombatStrategy == ProactiveCombatStrategyType.ClearMobsThatWillAggro)),
-                                UtilityBehaviorPS_SpankMobWithinAggroRange(context => SelectedInteractTarget.Location,
-                                                                           context => SelectedInteractTarget.InteractRange,
-                                                                           () => MobIds /*excluded mobs*/)),
-
-                            SubBehaviorPS_HandleLootFrame(),
-                            SubBehaviorPS_HandleGossipFrame(),
-                            SubBehaviorPS_HandleMerchantFrame(),
-                            SubBehaviorPS_HandleQuestFrame(),
-                            SubBehaviorPS_HandleFramesComplete(),
-
-                            // If anything in the frame handling made the target no longer viable for interacting,
-                            // go find a new target...
-                            // NB: This mostly happens when NPCs close the gossip dialog on their end and walk away
-                            // or despawn, or outright go 'non viable' after the chat.
-                            new Decorator(context => !IsViableForInteracting(SelectedInteractTarget),
-                                new ActionAlwaysSucceed()),
-
-                            #region Interact with, or use item on, selected target...
-                            // Show user the target that's interesting to us...
-                            // NB: If we've been in combat, our current target may remain on a dead body or other object.
-                            // This will confuse HB as we try to interact with an object.  So, we either guarantee that
-                            // a target is selected if it is a WoWUnit, or clear the target if its an object.
-                            new Decorator(context => Me.CurrentTarget != SelectedInteractTarget,
-                                new Action(context =>
-                                {
-                                    WoWUnit wowUnit = SelectedInteractTarget.ToUnit();
-                                    if ((wowUnit != null) && ((wowUnit.Distance < RangeMax) || IsInLineOfSight(wowUnit)))
-                                        { wowUnit.Target(); }
-                                    else if (Me.CurrentTarget != null)
-                                        { Me.ClearTarget(); }
-
-                                    return RunStatus.Failure;   // fall through
-                                })),                                       
-
-                            SubBehaviorPS_DoMoveToTarget(),
-
-                            // NB: We do the move before waiting for the cooldown.  The hope is that for most items, the
-                            // cooldown will have elapsed by the time we get within range of the next target.
-                            new Decorator(context => (ItemToUse != null) && (ItemToUse.CooldownTimeLeft > TimeSpan.Zero),
-                                new Action(context =>
-                                {
-                                    TreeRoot.StatusText = string.Format("Waiting for {0} cooldown ({1} remaining)",
-                                        ItemToUse.Name,
-                                        PrettyTime(TimeSpan.FromSeconds((int)ItemToUse.CooldownTimeLeft.TotalSeconds)));
-                                })),
-
-                            new Sequence(
-                                // If we've exceeded our maximum allowed attempts to interact, blacklist mob for a while...
-                                new Action(context =>
-                                {
-                                    if (++InteractAttemptCount > AttemptCountMax)
-                                    {
-                                        var blacklistTime = TimeSpan.FromSeconds(180);
-
-                                        LogWarning("Exceeded our maximum count({0}) at attempted interactions--blacklisting {1} for {2}",
-                                            AttemptCountMax, SelectedInteractTarget.SafeName(), PrettyTime(blacklistTime));
-                                        BlacklistInteractTarget(SelectedInteractTarget);
-                                        return RunStatus.Failure;
-                                    }
-
-                                    return RunStatus.Success;
-                                }),
-
-                                // Interact by item use...
-                                new DecoratorContinue(context => ItemToUse != null,
-                                    UtilityBehaviorSeq_UseItemOn(context => ItemToUse, context => SelectedInteractTarget)),
-
-                                // Interact by right-click...
-                                new DecoratorContinue(context => ItemToUse == null,
-                                    UtilityBehaviorSeq_InteractWith(context => SelectedInteractTarget, context => false)),
-
-                                // Record usage...
-                                new Action(context =>
-                                {
-                                    LogDeveloperInfo("{0} {1}",
-                                        ((ItemToUse != null)
-                                            ? string.Format("Used {0}({1}) on", ItemToUse.Name, ItemToUse.Entry)
-                                            : "Interacted with"),
-                                        GetName(SelectedInteractTarget));
-                                }),
-                            
-                                // Peg tally, if follow-up actions not expected...
-                                new DecoratorContinue(context => !IsFrameExpectedFromInteraction(),
-                                    new Action(context =>
-                                    {
-                                        BlacklistInteractTarget(SelectedInteractTarget);
-                                        _waitTimerAfterInteracting.Reset();
-                                        ++Counter;
-
-                                        if (IsClearTargetNeeded(SelectedInteractTarget))
-                                            { Me.ClearTarget(); }
-
-                                        SelectedInteractTarget = null;
-                                    }))
-                            )
-                            #endregion
-                    ))
-                    #endregion
-                ));
+            return new PrioritySelector(
+                // If a mob is targeting us, deal with it immediately, so our interact actions won't be interrupted...
+                new Decorator(context => !IgnoreCombat
+                                        && ((ProactiveCombatStrategy == ProactiveCombatStrategyType.ClearAll)
+                                            || (ProactiveCombatStrategy == ProactiveCombatStrategyType.ClearMobsTargetingUs)),
+                   UtilityBehaviorPS_SpankMobTargetingUs())
+                );
         }
 
 
         protected override Composite CreateBehavior_CombatOnly()
         {
             return new PrioritySelector(
+                new Action(context =>
+                {
+                    CloseOpenFrames();
+                    return RunStatus.Failure;   // fall through
+                }),
+                    
                 // If current target is not attackable, blacklist it...
                 new Decorator(context => (Me.CurrentTarget != null) && !Me.CurrentTarget.Attackable,
                     new Action(context =>
@@ -911,8 +680,161 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         protected override Composite CreateMainBehavior()
         {
             return new PrioritySelector(
-                // empty, for now
-                );
+                // Delay, if necessary...
+                // NB: We must do this prior to checking for 'behavior done'.  Otherwise, profiles
+                // that don't have an associated quest, and put the behavior in a <While> loop will not behave
+                // as the profile writer expects.  They expect the delay to be executed if the interaction
+                // succeeded.
+                new Decorator(context => !_waitTimerAfterInteracting.IsFinished,
+                    new PrioritySelector(
+                        // Take out any nearby mobs that aggro on us while we wait...
+                        new Decorator(context => !Me.IsFlying,
+                            UtilityBehaviorPS_SpankMobTargetingUs()),
+                        new Action(context =>
+                        {
+                            TreeRoot.StatusText = string.Format("Completing {0} wait of {1}",
+                                PrettyTime(TimeSpan.FromSeconds((int)_waitTimerAfterInteracting.TimeLeft.TotalSeconds)),
+                                PrettyTime(_waitTimerAfterInteracting.WaitTime));
+                        })
+                    )),
+
+                // Counter is used to determine 'done'...
+                new Decorator(context => Counter >= NumOfTimes,
+                    new Action(context => { BehaviorDone(); })),
+                    
+                // If quest is done, behavior is done...
+                new Decorator(context => IsDone,
+                    new Action(context => { BehaviorDone(); })),
+
+                // If interact target no longer meets qualifications, try to find another...
+                new Decorator(context => !IsInteractNeeded(SelectedInteractTarget),
+                    new Action(context =>
+                    {
+                        CloseOpenFrames();
+                        Me.ClearTarget();
+                        SelectedInteractTarget = FindBestInteractTarget();
+                        if (SelectedInteractTarget != null)
+                            { UpdateGoalText(GoalText); }
+                        return RunStatus.Failure;   // fall through
+                    })),
+
+
+                #region Deal with mob we've selected for interaction...
+                new Decorator(context => IsViable(SelectedInteractTarget),
+                    new PrioritySelector(
+
+                        // Take out any nearby mobs that will aggro, if we get close to destination...
+                        new Decorator(context => !IgnoreCombat
+                                                && !Me.IsFlying
+                                                && ((ProactiveCombatStrategy == ProactiveCombatStrategyType.ClearAll)
+                                                    || (ProactiveCombatStrategy == ProactiveCombatStrategyType.ClearMobsThatWillAggro)),
+                            UtilityBehaviorPS_SpankMobWithinAggroRange(context => SelectedInteractTarget.Location,
+                                                                       context => SelectedInteractTarget.InteractRange,
+                                                                       () => MobIds /*excluded mobs*/)),
+
+                        SubBehaviorPS_HandleLootFrame(),
+                        SubBehaviorPS_HandleGossipFrame(),
+                        SubBehaviorPS_HandleMerchantFrame(),
+                        SubBehaviorPS_HandleQuestFrame(),
+                        SubBehaviorPS_HandleFramesComplete(),
+
+
+                        #region Interact with, or use item on, selected target...
+                        // Show user the target that's interesting to us...
+                        // NB: If we've been in combat, our current target may remain on a dead body or other object.
+                        // This will confuse HB as we try to interact with an object.  So, we either guarantee that
+                        // a target is selected if it is a WoWUnit, or clear the target if its an object.
+                        new Decorator(context => Me.CurrentTarget != SelectedInteractTarget,
+                            new Action(context =>
+                            {
+                                WoWUnit wowUnit = SelectedInteractTarget.ToUnit();
+                                if ((wowUnit != null) && ((wowUnit.Distance < RangeMax) || IsInLineOfSight(wowUnit)))
+                                    { wowUnit.Target(); }
+                                else if (Me.CurrentTarget != null)
+                                    { Me.ClearTarget(); }
+
+                                return RunStatus.Failure;   // fall through
+                            })),                                       
+
+                        SubBehaviorPS_DoMoveToTarget(),
+
+                        // NB: We do the move before waiting for the cooldown.  The hope is that for most items, the
+                        // cooldown will have elapsed by the time we get within range of the next target.
+                        new Decorator(context => (ItemToUse != null) && (ItemToUse.CooldownTimeLeft > TimeSpan.Zero),
+                            new Action(context =>
+                            {
+                                TreeRoot.StatusText = string.Format("Waiting for {0} cooldown ({1} remaining)",
+                                    ItemToUse.Name,
+                                    PrettyTime(TimeSpan.FromSeconds((int)ItemToUse.CooldownTimeLeft.TotalSeconds)));
+                            })),
+
+                        new Sequence(
+                            // Interact by item use...
+                            new DecoratorContinue(context => ItemToUse != null,
+                                new Sequence(
+                                    new Action(context =>
+                                    {
+                                        TreeRoot.StatusText = string.Format("Using {0} on {1}",
+                                                                    ItemToUse.Name,
+                                                                    GetName(SelectedInteractTarget));
+                                        ItemToUse.Use(SelectedInteractTarget.Guid);
+                                    }),
+                                    new WaitContinue(Delay_AfterItemUse, context => false, new ActionAlwaysSucceed()),
+                                    new WaitContinue(TimeSpan.FromSeconds(5),
+                                        context => (StyxWoW.Me.CurrentPendingCursorSpell != null),
+                                        new Action(context => { SpellManager.ClickRemoteLocation(SelectedInteractTarget.Location); })),
+                                    // If we've leftover spell cursor dangling, clear it...
+                                    // NB: This can happen for "use item on location" type activites where you get interrupted
+                                    // (e.g., a walk-in mob).
+                                    new DecoratorContinue(context => StyxWoW.Me.CurrentPendingCursorSpell != null,
+                                        new Action(context => { Lua.DoString("SpellStopTargeting()"); }))
+                                )),
+                            // Interact by right-click...
+                            new DecoratorContinue(context => ItemToUse == null,
+                                new Sequence(
+                                    new Action(context => { SelectedInteractTarget.Interact(); }),
+                                    new WaitContinue(Delay_Interaction, context => false, new ActionAlwaysSucceed())
+                                )),
+                            // Peg tally, if follow-up actions not expected...
+                            new DecoratorContinue(context => !IsFrameExpectedFromInteraction(),
+                                new Sequence(
+                                    new Action(context =>
+                                    {
+                                        LogDeveloperInfo("{0} {1}",
+                                            ((ItemToUse != null)
+                                                ? string.Format("Used {0}({1}) on", ItemToUse.Name, ItemToUse.Entry)
+                                                : "Interacted with"),
+                                            GetName(SelectedInteractTarget));
+                                    }),
+                                    new WaitContinue(TimeSpan.FromSeconds(15),
+                                        context => (ItemToUse == null) || !(Me.IsCasting || Me.IsChanneling),
+                                        new ActionAlwaysSucceed()),
+                                    new Action(context =>
+                                    {
+                                        BlacklistInteractTarget(SelectedInteractTarget);
+                                        _waitTimerAfterInteracting.Reset();
+                                        ++Counter;
+
+                                        if (IsClearTargetNeeded(SelectedInteractTarget))
+                                            { Me.ClearTarget(); }
+
+                                        SelectedInteractTarget = null;
+                                    })
+                                ))
+                        )
+                        #endregion
+                )),
+                #endregion
+
+                // No mobs in immediate vicinity...
+                // NB: if the terminateBehaviorIfNoTargetsProvider argument evaluates to 'true', calling
+                // this sub-behavior will terminate the overall behavior.
+                UtilityBehaviorPS_NoMobsAtCurrentWaypoint(
+                    context => HuntingGrounds,
+                    context => !WaitForNpcs,
+                    context => MobIds.Select(m => GetObjectNameFromId(m)).Distinct(),
+                    context => Debug_BuildExclusions())
+            );
         }
         #endregion
 
@@ -960,13 +882,6 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                                                         SelectedInteractTarget.Distance,
                                                         IsInLineOfSight(SelectedInteractTarget) ? "" : ", noLoS"))
                         )),
-
-                    // If we expect to gossip, and mob in combat and offers no gossip, help mob...
-                    // NB: Mobs frequently will not offer their gossip options while they are in combat.
-                    new Decorator(context => (InteractByGossipOptions.Length > 0)
-                                                && (SelectedInteractTarget.ToUnit() != null)
-                                                && (SelectedInteractTarget.ToUnit().Combat),
-                        UtilityBehaviorPS_SpankMob(context => SelectedInteractTarget.ToUnit().CurrentTarget)),
 
                     // Prep to interact...
                     UtilityBehaviorPS_MoveStop(),
@@ -1092,22 +1007,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                                                 }
                                             }
                                         }),
-                                        new WaitContinue(Delay_AfterInteraction, context => !GossipFrame.Instance.IsVisible, new ActionAlwaysSucceed())
-                                    ),
-
-                                    // If the NPC pops down the dialog for us, or goes non-viable after gossip...
-                                    // Go ahead and blacklist it, so we don't try to interact again.
-                                    new DecoratorContinue(context => !GossipFrame.Instance.IsVisible || !IsViable(SelectedInteractTarget),
-                                        new Action(context =>
-                                        {
-                                            TreeRoot.StatusText = string.Format("Gossip with {0} complete.", GetName(SelectedInteractTarget));
-                                            _waitTimerAfterInteracting.Reset();
-                                            ++Counter;
-
-                                            BlacklistInteractTarget(SelectedInteractTarget);
-                                            if (IsClearTargetNeeded(SelectedInteractTarget))
-                                                { Me.ClearTarget(); }
-                                        }))
+                                        new WaitContinue(Delay_Interaction, context => !GossipFrame.Instance.IsVisible, new ActionAlwaysSucceed())
+                                    )
                                 )),
 
                             // Only a problem if Gossip frame, and not also another frame type...
@@ -1115,7 +1016,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                                 new Action(context => { LogWarning("[PROFILE ERROR]: Gossip frame not expected--ignoring."); })),
 
                             // Wait, not WaitContinue, because we want to 'fall through' when delay is complete...
-                            new Wait(Delay_AfterInteraction, context => false, new ActionAlwaysFail())
+                            new Wait(Delay_Interaction, context => false, new ActionAlwaysFail())
                         )),
 
                     // Tell user if he is now bound to a new location...
@@ -1123,7 +1024,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                         new Wait(TimeSpan.FromSeconds(10),
                             context => BindingEventState == BindingEventStateType.BindingEventFired,
                             new Sequence(
-                                new WaitContinue(Delay_AfterInteraction, context => false, new ActionAlwaysSucceed()),
+                                new WaitContinue(Delay_Interaction, context => false, new ActionAlwaysSucceed()),
                                 new Action(context =>
                                 {
                                     Lua.DoString("ConfirmBinder(); StaticPopup_Hide('CONFIRM_BINDER')");
@@ -1164,7 +1065,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                             return RunStatus.Failure; // fall through
                         }),
                         // Wait, not WaitContinue, because we want to 'fall through' when delay is complete...
-                        new Wait(Delay_AfterInteraction, context => false, new ActionAlwaysFail())
+                        new Wait(Delay_Interaction, context => false, new ActionAlwaysFail())
                     ));
         }
 
@@ -1221,7 +1122,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                         }),
 
                         // Wait, not WaitContinue, because we want to 'fall through' when delay is complete...
-                        new Wait(Delay_AfterInteraction, context => false, new ActionAlwaysFail())
+                        new Wait(Delay_Interaction, context => false, new ActionAlwaysFail())
                     ));
         }
 
@@ -1238,21 +1139,6 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                             new Action(context => { QuestFrame.Instance.CompleteQuest(); })),
                         new DecoratorContinue(context => InteractByQuestFrameAction == QuestFrameDisposition.Continue,
                             new Action(context => { QuestFrame.Instance.ClickContinue(); })),
-                            
-                        // If the NPC pops down the dialog for us, or goes non-viable after gossip...
-                        // Go ahead and blacklist it, so we don't try to interact again.
-                        new DecoratorContinue(context => !QuestFrame.Instance.IsVisible || !IsViable(SelectedInteractTarget),
-                            new Action(context =>
-                            {
-                                TreeRoot.StatusText = string.Format("Quest accept from {0} complete.", GetName(SelectedInteractTarget));
-                                _waitTimerAfterInteracting.Reset();
-                                ++Counter;
-
-                                BlacklistInteractTarget(SelectedInteractTarget);
-                                if (IsClearTargetNeeded(SelectedInteractTarget))
-                                    { Me.ClearTarget(); }
-                            })),
-
                         new DecoratorContinue(context => InteractByQuestFrameAction == QuestFrameDisposition.Ignore,
                             new Action(context => { QuestFrame.Instance.Close(); })),
                         new DecoratorContinue(context => InteractByQuestFrameAction == QuestFrameDisposition.TerminateBehavior && !IsMultipleFramesVisible(),
@@ -1260,7 +1146,6 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                             {
                                 LogDeveloperInfo("Behavior Done--due to {0} providing a quest frame, and InteractByQuestFrameDisposition=TerminateBehavior",
                                     GetName(SelectedInteractTarget));
-                                CloseOpenFrames(true);
                                 BehaviorDone();
                             })),
                         new DecoratorContinue(context => InteractByQuestFrameAction == QuestFrameDisposition.TerminateProfile && !IsMultipleFramesVisible(),
@@ -1270,12 +1155,11 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                                     + "  Please provide an appropriate InteractByQuestFrameDisposition attribute to instruct"
                                     + " the behavior how to handle this situation.",
                                     GetName(SelectedInteractTarget));
-                                CloseOpenFrames(true);
                                 BehaviorDone();
                             })),
 
                         // Wait, not WaitContinue, because we want to 'fall through' when delay is complete...
-                        new Wait(Delay_AfterInteraction, context => false, new ActionAlwaysFail())
+                        new Wait(Delay_Interaction, context => false, new ActionAlwaysFail())
                     ));
         }
         #endregion
@@ -1300,31 +1184,28 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         }
 
 
-        private void CloseOpenFrames(bool forceClose = false)
+        private void CloseOpenFrames()
         {
-            if (forceClose || IsClearTargetNeeded(SelectedInteractTarget))
+            if (GossipFrame.Instance.IsVisible)
+                { GossipFrame.Instance.Close(); }
+            if (MerchantFrame.Instance.IsVisible)
+                { MerchantFrame.Instance.Close(); }
+            if (QuestFrame.Instance.IsVisible)
+                { QuestFrame.Instance.Close(); }
+            if (TaxiFrame.Instance.IsVisible)
             {
-                if (GossipFrame.Instance.IsVisible)
-                    { GossipFrame.Instance.Close(); }
-                if (MerchantFrame.Instance.IsVisible)
-                    { MerchantFrame.Instance.Close(); }
-                if (QuestFrame.Instance.IsVisible)
-                    { QuestFrame.Instance.Close(); }
-                if (TaxiFrame.Instance.IsVisible)
-                {
-                    // HBCORE BUG: TaxiFrame does not have a close method
-                    // new Action(context => { TaxiFrame.Instance.Close(); }),
-                    LogError("Unable to close Taxi Frame");
-                }
-                if (TrainerFrame.Instance.IsVisible)
-                    { TrainerFrame.Instance.Close(); }
+                // HBCORE BUG: TaxiFrame does not have a close method
+                // new Action(context => { TaxiFrame.Instance.Close(); }),
+                LogError("Unable to close Taxi Frame");
             }
+            if (TrainerFrame.Instance.IsVisible)
+                { TrainerFrame.Instance.Close(); }
         }
 
 
         /// <summary> Current object we should interact with.</summary>
         /// <value> The object.</value>
-        private IEnumerable<WoWObject> FindBestInteractTargets(MobStateType mobState)
+        private WoWObject FindBestInteractTarget()
         {
             double collectionDistanceSqr = CollectionDistance * CollectionDistance;
             bool isMeSwimmingOrFlying = Me.IsSwimming || Me.IsFlying;
@@ -1334,20 +1215,19 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
             Func<WoWObject, bool>   isInterestingToUs =
                 ((wowObject) =>
                 {
-                    WoWGameObject wowGameObject = wowObject.ToGameObject();
                     WoWUnit wowUnit = wowObject.ToUnit();
 
-                    return (((wowGameObject != null) || (wowUnit != null)) && MobIds.Contains((int)wowObject.Entry))
+                    return MobIds.Contains((int)wowObject.Entry)
                             || ((wowUnit != null) && FactionIds.Contains((int)wowUnit.FactionId));
                 });
 
-            var entities = 
-                from wowObject in ObjectManager.GetObjectsOfType<WoWObject>(true, false)
+            WoWObject entity = 
+               (from wowObject in ObjectManager.GetObjectsOfType<WoWObject>(true, false)
                 where
                     IsViable(wowObject)
                     && isInterestingToUs(wowObject)
                     && (wowObject.DistanceSqr < collectionDistanceSqr)
-                    && IsInteractNeeded(wowObject, mobState)
+                    && IsInteractNeeded(wowObject)
                     && ((MovementBy != MovementByType.NavigatorOnly) || Navigator.CanNavigateFully(myLocation, wowObject.Location))
                 orderby
                     // NB: we use the 'surface path' to calculate distance to mobs.
@@ -1359,9 +1239,10 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
                     // Fix for undead-quest (and maybe some more), where the targets can be minions...
                     + (Me.Minions.Contains(wowObject) ? minionWeighting : 1)
-                select wowObject;
+                select wowObject)
+                .FirstOrDefault();
 
-            return entities;
+            return entity;
         }
 
 
@@ -1384,13 +1265,10 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         {
             BindingEventState = BindingEventStateType.BindingEventFired;
         }
-       
+        
 
         private bool IsClearTargetNeeded(WoWObject wowObject)
         {
-            if (wowObject == null)
-                { return false; }
-
             WoWUnit wowUnit = wowObject.ToUnit();
 
             return
@@ -1436,7 +1314,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
 
         // 24Feb2013-08:11UTC chinajade
-        private bool IsInteractNeeded(WoWObject wowObject, MobStateType mobState)
+        private bool IsInteractNeeded(WoWObject wowObject)
         {
             if (wowObject == null)
                 { return false; }
@@ -1446,18 +1324,18 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
             // We're done, if not a WoWUnit...
             if (wowUnit == null)
-                { return isViableForInteracting; }
+            {
+                return
+                    isViableForInteracting;
+            }
                 
             // Additional qualifiers for WoWUnits...        
             return
                 isViableForInteracting
                 && (!NotMoving || !wowUnit.IsMoving)
-                // Many times, units can't gossip unti they're out of combat.  So, assume they can gossip if they are in combat...
-                // Once out of combat, we can re-evaluate whether this was a good choice or not.w
-                && ((InteractByGossipOptions.Length <= 0) || wowUnit.Combat || wowUnit.CanGossip)
                 && ((AuraIdsOnMob.Length <= 0) || wowUnit.GetAllAuras().Any(a => AuraIdsOnMob.Contains(a.SpellId)))
                 && ((AuraIdsMissingFromMob.Length <= 0) || !wowUnit.GetAllAuras().Any(a => AuraIdsMissingFromMob.Contains(a.SpellId)))
-                && IsMob_StateTypeMatch(wowObject, mobState, MobHpPercentLeft);
+                && IsMob_StateTypeMatch(wowObject, MobState, MobHpPercentLeft);
         }
 
         
@@ -1498,9 +1376,6 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
             {
                 excludedUnitReasons.Insert(0, string.Format("{0}Excluded Units:{0}",
                     Environment.NewLine));
-                excludedUnitReasons.AppendFormat("{0}    {1}",
-                    Environment.NewLine,
-                    GetXmlFileReference(Element));
             }
 
             return excludedUnitReasons.ToString();
@@ -1540,12 +1415,6 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
                 if (NotMoving && wowUnit.IsMoving)
                     { reasons.Add("Moving"); }
-
-                if ((InteractByGossipOptions.Length > 0) && !wowUnit.CanGossip)
-                    { reasons.Add("NoGossip"); }
-
-                if (!wowUnit.IsUntagged())
-                    { reasons.Add("Tagged"); }
 
                 if ((AuraIdsOnMob.Length > 0) && !wowUnitAuras.Any(a => AuraIdsOnMob.Contains(a.SpellId)))
                 {
