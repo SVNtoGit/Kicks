@@ -5464,17 +5464,31 @@
 		<TurnIn QuestName="The Focus on the Beach" QuestId="12066" TurnInName="Image of Archmage Aethas Sunreaver" TurnInId="26471" />
 		<PickUp QuestName="Atop the Woodlands" QuestId="12084" GiverName="Image of Archmage Aethas Sunreaver" GiverId="26471" />
 		<PickUp QuestName="Strengthen the Ancients" QuestId="12096" GiverName="Earthwarden Grife" GiverId="26854" />
-			<If Condition="((HasQuest(12096)) &amp;&amp; (!IsQuestCompleted(12096)))" >
-				<CustomBehavior File="FlyTo" DestName="Objective" X="2929.471" Y="1754.225" Z="139.9233" />
-				<CustomBehavior File="ForcedDismount" />
-				<!-- You will run into an elite here and may die -->
-			 <While Condition="((HasQuest(12096)) &amp;&amp; (!IsQuestCompleted(12096)))" >
-			  <While Condition="(GetItemCount(36786) &lt; 3)" >
-				<CustomBehavior File="InteractWith" QuestId="12096" MobId="26421" GossipOptions="1" Range="4" MobState="Alive" CollectionDistance="500" PreInteractMountStrategy="Dismount" X="3229.479" Y="1844.142" Z="134.4824" />
-			  </While>
-				<CustomBehavior File="UseItemOn" QuestId="12096" ItemId="36786" MobId="26321" NumOfTimes="3" MobState="Alive" WaitTime="6000" CollectionDistance="500" X="3229.479" Y="1844.142" Z="134.4824" />
-			 </While>
-			</If>
+			<!-- You will run into an elite here and may die -->
+			<While Condition="HasQuest(12096) &amp;&amp; !IsQuestCompleted(12096)" >
+				<While Condition="GetItemCount(36786) &lt; 3" >
+					<CustomBehavior File="InteractWith" QuestId="12096" MobId="26421"
+						Range="4" MobState="Alive" CollectionDistance="500"
+						PreInteractMountStrategy="Dismount" >
+						<HuntingGrounds>
+							<Hotspot Name="SW Area" X="3062.218" Y="1821.743" Z="134.7145" />
+							<Hotspot Name="NW Area" X="3224.629" Y="1899.378" Z="133.0594" />
+							<Hotspot Name="NE Area" X="3163.715" Y="1702.433" Z="146.8571" />
+							<Hotspot Name="SE Area" X="3005.483" Y="1737.012" Z="132.3067" />
+						</HuntingGrounds>
+					</CustomBehavior>
+				</While>
+				<CustomBehavior File="InteractWith" QuestId="12096" InteractByUsingItemId="36786"
+					MobId="26321" NumOfTimes="100" MobState="Alive"
+					CollectionDistance="500" PreInteractMountStrategy="Dismount" >
+					<HuntingGrounds>
+						<Hotspot Name="SW Area" X="3062.218" Y="1821.743" Z="134.7145" />
+						<Hotspot Name="NW Area" X="3224.629" Y="1899.378" Z="133.0594" />
+						<Hotspot Name="NE Area" X="3163.715" Y="1702.433" Z="146.8571" />
+						<Hotspot Name="SE Area" X="3005.483" Y="1737.012" Z="132.3067" />
+					</HuntingGrounds>
+				</CustomBehavior>
+			</While>
 			<If Condition="((HasQuest(12084)) &amp;&amp; (!IsQuestCompleted(12084)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="2929.471" Y="1754.225" Z="139.9233" />
 				<CustomBehavior File="ForcedDismount" />
