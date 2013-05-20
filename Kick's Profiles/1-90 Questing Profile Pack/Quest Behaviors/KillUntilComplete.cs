@@ -91,8 +91,8 @@ namespace Honorbuddy.Quest_Behaviors.KillUntilComplete
         }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: KillUntilComplete.cs 521 2013-05-19 22:59:03Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 521 $"); } }
+        public override string SubversionId { get { return ("$Id: KillUntilComplete.cs 523 2013-05-20 22:46:26Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 523 $"); } }
 
 
         ~KillUntilComplete()
@@ -137,7 +137,7 @@ namespace Honorbuddy.Quest_Behaviors.KillUntilComplete
                     case Styx.WoWClass.Hunter:
                         return SpellManager.Spells["Arcane Shot"];
                     case Styx.WoWClass.Mage:
-                        return SpellManager.Spells["Frostfirebolt"];
+                        return SpellManager.Spells["Frostfire Bolt"];
                     case Styx.WoWClass.Priest:
                         return SpellManager.Spells["Smite"];
                     case Styx.WoWClass.Shaman:
