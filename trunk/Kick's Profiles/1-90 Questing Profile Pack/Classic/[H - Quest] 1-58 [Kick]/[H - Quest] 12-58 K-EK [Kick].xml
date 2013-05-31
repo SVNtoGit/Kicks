@@ -3353,7 +3353,29 @@
 			<!-- Silverwind Refuge Quests -->
 			<CustomBehavior File="Message" Text="Compiling Silverwind Refuge Quests" LogColor="CornflowerBlue" />
 
-			<!-- Add a farm for Sharptalon's Claw - item 16305 and starts quest 2 -->
+			<!-- Sharptalon's Claw -->
+			<If Condition="((!HasQuest(2)) &amp;&amp; (!IsQuestCompleted(2)))" >
+				<SetGrindArea>
+					<GrindArea>
+						<TargetMinLevel>18</TargetMinLevel>
+						<TargetMaxLevel>25</TargetMaxLevel>
+						<Factions>14 22 38 1514</Factions>
+						<Hotspots>
+							<Hotspot X="1270.607" Y="-2345.978" Z="97.81049" />
+							<Hotspot X="1400.632" Y="-2351.827" Z="100.6796" />
+							<Hotspot X="1506.225" Y="-2462.012" Z="113.8883" />
+							<Hotspot X="1627.574" Y="-2252.677" Z="100.3265" />
+							<Hotspot X="1821.605" Y="-2438.534" Z="86.18951" />
+						</Hotspots>
+				   </GrindArea>
+				</SetGrindArea>
+				<GrindTo Condition="HasItem(16305)" />
+		<PickUp QuestName="Sharptalon's Claw" QuestId="2" GiverName="Sharptalon's Claw" GiverId="16305" GiverType="Item" />
+			</If>
+			<If Condition="((HasQuest(2)) &amp;&amp; (IsQuestCompleted(2)))" >
+		<TurnIn QuestName="Sharptalon's Claw" QuestId="2" TurnInName="Senani Thunderheart" TurnInId="12696" />
+			</If>
+
 			<If Condition="((HasQuest(13974)) &amp;&amp; (IsQuestCompleted(13974)))" >
 		<TurnIn QuestName="Tweedle's Tiny Package" QuestId="13974" TurnInName="Flooz" TurnInId="34569" />
 				<CustomBehavior File="WaitTimer" WaitTime="7000" GoalText="Waiting for quest to complete {TimeRemaining}" />
