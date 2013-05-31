@@ -585,8 +585,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private WaitTimer _timerToReachDestination = null;
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 536 2013-05-31 00:03:16Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 536 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 539 2013-05-31 05:11:02Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 539 $"); } }
         #endregion
 
 
@@ -1556,7 +1556,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
             if (IgnoreMobsInBlackspots && Targeting.IsTooNearBlackspot(ProfileManager.CurrentProfile.Blackspots, wowObject.Location))
                 { reasons.Add(string.Format("InBlackspot(object @{0})", wowObject.Location)); }
 
-            if (IsInCompetition(wowObject))
+            if (IsInCompetition(wowObject, NonCompeteDistance))
             {
                 reasons.Add(string.Format("InCompetition({0} players within {1:F1})",
                     FindPlayersNearby(wowObject.Location, NonCompeteDistance).Count(),
