@@ -3732,14 +3732,16 @@
 		<TurnIn QuestName="Krom'gar Fortress" QuestId="26004" TurnInName="Overlord Krom'gar" TurnInId="41023" X="899.7665" Y="-2.713895" Z="92.90426" />
 		<PickUp QuestName="Ashes to Ashes" QuestId="26010" GiverName="Overlord Krom'gar" GiverId="41023" />
 		<PickUp QuestName="Enemy of the Horde: Marshal Paltrow" QuestId="26011" GiverName="Spy-Mistress Anara" GiverId="40903" />
-		<If Condition="!HasQuest(28084) &amp;&amp; !IsQuestCompleted(28084)" > <!-- Might of Krom'gar -->
-			<CustomBehavior File="InteractWith" MobId="42028" InteractByQuestFrameDisposition="Complete"
-				X="881.3611" Y="16.40972" Z="92.87994" />
-			<!-- CJ: DELETE THIS when above verified to work...
-			<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
-			<CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />	
-			-->
-		</If>
+			<While Condition="((!HasQuest(28084)) &amp;&amp; (!IsQuestCompleted(28084)))" > <!-- Might of Krom'gar -->
+				<CustomBehavior File="InteractWith" MobId="42028" InteractByQuestFrameDisposition="TerminateBehavior" WaitTime="2000" X="881.3611" Y="16.40972" Z="92.87994" />
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="2000" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="2000" />	
+				<!-- CJ: DELETE THIS when above verified to work...
+				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />	
+				<CustomBehavior File="InteractWith" MobId="42028" InteractByQuestFrameDisposition="Complete" X="881.3611" Y="16.40972" Z="92.87994" />
+				-->
+			</While>
 			<!-- disabling this quest - we keep getting stuck in combat; it works fine once singular is fixed
 		<PickUp QuestName="Dream of a Better Tomorrow" QuestId="26026" GiverName="Clarissa" GiverId="40907" />
 			<If Condition="(HasQuest(26026)) &amp;&amp; (!IsQuestCompleted(26026))">
@@ -3785,11 +3787,9 @@
 			</If>
 		<TurnIn QuestName="Mr. D's Wild Ride" QuestId="26028" TurnInName="Overlord Krom'gar" TurnInId="41023" /> -->
 			<Objective QuestName="Enemy of the Horde: Marshal Paltrow" QuestId="26011" Type="KillMob" MobId="41937" KillCount="1" />
-			<If Condition="((HasQuest(26010)) &amp;&amp; (!IsQuestCompleted(26010)))" >
-				<CustomBehavior File="InteractWith" QuestId="26010" MobId="203431" InteractByUsingItemId="56473"
-					NumOfTimes="30" MobType="GameObject" WaitTime="8500" Range="5" CollectionDistance="500"
-					X="843.1978" Y="205.8929" Z="27.36547" />
-			</If>
+			<While Condition="((HasQuest(26010)) &amp;&amp; (!IsQuestCompleted(26010)))" >
+				<CustomBehavior File="InteractWith" QuestId="26010" MobId="203431" InteractByUsingItemId="56473" NumOfTimes="30" MobType="GameObject" WaitTime="9000" Range="8" PreInteractMountStrategy="Dismount" CollectionDistance="500" X="843.1978" Y="205.8929" Z="27.36547" />
+			</While>
 		<TurnIn QuestName="Enemy of the Horde: Marshal Paltrow" QuestId="26011" TurnInName="Spy-Mistress Anara" TurnInId="40903" />
 		<TurnIn QuestName="Ashes to Ashes" QuestId="26010" TurnInName="Overlord Krom'gar" TurnInId="41023" />
 		<PickUp QuestName="Report to Bombgutz" QuestId="26020" GiverName="Overlord Krom'gar" GiverId="41023" />
@@ -3813,7 +3813,6 @@
 		<PickUp QuestName="In Defense of Krom'gar Fortress" QuestId="26058" GiverName="Chief Blastgineer Bombgutz" GiverId="40902" />
 		<!-- Veh Bev - Vlad. This Beh messes up the camera.  Natfoth actually has a behavior just like this that needs a little fixing too -->
 			<If Condition="((HasQuest(26058)) &amp;&amp; (!IsQuestCompleted(26058)))" >
-				<CustomBehavior File="Message" Text="If the bot stops here - copy the behaviors from my SVN into your HB quest behaviors folder" LogColor="Orange" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="SpecificQuests\26058-Stonetalon-InDefenseofKromgarFortress" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for quest to complete {TimeRemaining}" />
