@@ -4159,9 +4159,10 @@
 		<PickUp QuestName="Warriors' Redemption" QuestId="24512" GiverName="Holgom" GiverId="37153" />
 		<PickUp QuestName="Feeding the Fear" QuestId="25284" GiverName="Holgom" GiverId="37153" />
 		<PickUp QuestName="Eye for an Eye" QuestId="24513" GiverName="Oltarg" GiverId="37136" />
-			<If Condition="HasQuest(24512) &amp;&amp; !IsQuestCompleted(24512)">
+			<If Condition="HasQuest(24512) &amp;&amp; !IsQuestCompleted(24512) &amp;&amp; (Me.Location.Distance(new WoWPoint(-619.1614, -1416.233, 156.8051)) &lt; 30)">
 				<!-- Hitch ride back down using the Coiled Rope -->
-				<CustomBehavior File="InteractWith" MobId="201707" WaitTime="7000" />
+				<CustomBehavior File="InteractWith" MobId="201707" WaitTime="7000"
+					PreInteractMountStrategy="Dismount" X="-556.5788" Y="-1410.983" Z="92.25488" />
 			</If>
 			<If Condition="((HasQuest(24513)) &amp;&amp; (!IsQuestCompleted(24513)))" >
 				<CustomBehavior File="InteractWith" QuestId="24513" MobId="37154"
@@ -4172,17 +4173,21 @@
 			</If>
 			<TurnIn QuestName="Eye for an Eye" QuestId="24513" TurnInName="Oltarg" TurnInId="37136" />
 			<While Condition="HasQuest(24512) &amp;&amp; !IsQuestCompleted(24512)">
-				<CustomBehavior File="InteractWith" QuestId="24512" MobId="201701" 
-					InteractByLooting="true" NonCompeteDistance="10"
-					IgnoreMobsInBlackspots="false" X="-466.149" Y="-1434.061" Z="93.79244" />
-				<CustomBehavior File="InteractWith" QuestId="24512" MobId="37167"
-					InteractByGossipOptions="1" IgnoreMobsInBlackspots="false"
-					X="-491.8387" Y="-1401.663" Z="96.82635" />
+				<While Condition="!IsQuestCompleted(24512) &amp;&amp; (GetItemCount(49769) &lt; 5)" >
+					<CustomBehavior File="InteractWith" QuestId="24512" MobId="201701" 
+						InteractByLooting="true" NonCompeteDistance="10"
+						IgnoreMobsInBlackspots="true" X="-466.149" Y="-1434.061" Z="93.79244" />
+				</While>
+				<While Condition="!IsQuestCompleted(24512) &amp;&amp; (GetItemCount(49769) &gt; 0)" >
+					<CustomBehavior File="InteractWith" QuestId="24512" MobId="37167"
+						InteractByGossipOptions="1" IgnoreMobsInBlackspots="true"
+						NonCompeteDistance="3" X="-491.8387" Y="-1401.663" Z="96.82635" />
+				</While>
 			</While>
 			<Objective QuestName="Feeding the Fear" QuestId="25284" Type="KillMob" MobId="37160" KillCount="5" />
 			<If Condition="HasQuest(24512) &amp;&amp; IsQuestCompleted(24512)">
 				<!-- Hitch ride back up using the Coiled Rope -->
-				<CustomBehavior File="InteractWith" MobId="201708" ObjectType="GameObject" WaitTime="7000" />
+				<CustomBehavior File="InteractWith" MobId="201708" X="-554.7875" Y="-1410.588" Z="92.38741" />
 			</If>
 		<TurnIn QuestName="Warriors' Redemption" QuestId="24512" TurnInName="Holgom" TurnInId="37153" />
 		<TurnIn QuestName="Feeding the Fear" QuestId="25284" TurnInName="Holgom" TurnInId="37153" />
