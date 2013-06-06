@@ -5771,16 +5771,30 @@
 		<PickUp QuestName="Sinking From Within" QuestId="26663" GiverName="Captain Stillwater's Charts" GiverId="204450" X="-14922.5" Y="124.6836" Z="7.519333" />
 		<PickUp QuestName="Making Mutiny" QuestId="26664" GiverName="Captain Stillwater's Charts" GiverId="204450" X="-14922.5" Y="124.6836" Z="7.519333" />
 			<If Condition="((HasQuest(26662)) || (HasQuest(26663)) || (HasQuest(26664)))" >
-				<CustomBehavior File="InteractWith" QuestId="26662" MobId="43659" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="-14922.18" Y="83.89478" Z="7.52217" />
-				<CustomBehavior File="InteractWith" QuestId="26663" ObjectType="GameObject" MobId="204454" NumOfTimes="1" GossipOptions="1" CollectionDistance="50" X="-14924.14" Y="111.393" Z="0.1993347" />
-			<While Condition="((HasQuest(26664)) &amp;&amp; (!IsQuestCompleted(26664)))" >
-				<CustomBehavior File="InteractWith" QuestId="26664" MobId="43636" MobState="Alive" NumOfTimes="4" GossipOptions="1" WaitTime="500" CollectionDistance="75" X="-14919.97" Y="81.40756" Z="7.521839" />
-				<CustomBehavior File="InteractWith" QuestId="26664" MobId="43636" MobState="Alive" NumOfTimes="4" GossipOptions="1" WaitTime="500" CollectionDistance="100" X="-14964.19" Y="344.7558" Z="0.2198106" />
-			</While>
-				<CustomBehavior File="InteractWith" QuestId="26663" ObjectType="GameObject" MobId="204455" NumOfTimes="1" GossipOptions="1" CollectionDistance="50" X="-14985.14" Y="261.9698" Z="0.6302685" />
-				<CustomBehavior File="InteractWith" QuestId="26662" MobId="43660" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="-14995.92" Y="264.099" Z="0.6008537" />
-				<CustomBehavior File="InteractWith" QuestId="26663" ObjectType="GameObject" MobId="204456" NumOfTimes="1" GossipOptions="1" CollectionDistance="50" X="-14964.19" Y="344.7558" Z="0.2198106" />
-				<CustomBehavior File="InteractWith" QuestId="26662" MobId="43661" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="-14968.89" Y="351.6974" Z="7.544088" />
+				<CustomBehavior File="InteractWith" QuestId="26662" QuestObjectiveIndex="1" MobId="43659"
+					GossipOptions="1" WaitTime="1000" CollectionDistance="50"
+					NonCompeteDistance="3" X="-14922.18" Y="83.89478" Z="7.52217" />
+				<CustomBehavior File="InteractWith" QuestId="26663" QuestObjectiveIndex="1" MobId="204454"
+					GossipOptions="1"
+					NonCompeteDistance="3" X="-14924.14" Y="111.393" Z="0.1993347" />
+				<CustomBehavior File="InteractWith" QuestId="26664" MobId="43636" MobState="Alive"
+					NumOfTimes="100" GossipOptions="1" WaitTime="2500" CollectionDistance="75" WaitForNpcs="false"
+					MovementBy="NavigatorPreferred" >
+					<HuntingGrounds WaypointVisitStrategy="InOrder" >
+						<Hotspot X="-14919.97" Y="81.40756" Z="7.521839" />
+						<Hotspot X="-14964.19" Y="344.7558" Z="0.2198106" />
+					</HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="InteractWith" QuestId="26663" QuestObjectiveIndex="2" MobId="204455"
+					GossipOptions="1"
+					MovementBy="NavigatorPreferred" X="-14985.14" Y="261.9698" Z="0.6302685" />
+				<CustomBehavior File="InteractWith" QuestId="26662" QuestObjectiveIndex="2" MobId="43660"
+					GossipOptions="1" WaitTime="1000" X="-14995.92" Y="264.099" Z="0.6008537" />
+				<CustomBehavior File="InteractWith" QuestId="26663" QuestObjectiveIndex="3" MobId="204456"
+					GossipOptions="1"
+					MovementBy="NavigatorPreferred" X="-14964.19" Y="344.7558" Z="0.2198106" />
+				<CustomBehavior File="InteractWith" QuestId="26662" QuestObjectiveIndex="3" MobId="43661"
+					WaitTime="1000" X="-14968.89" Y="351.6974" Z="7.544088" />
 			</If>
 			<If Condition="((HasQuest(26663)) &amp;&amp; (IsQuestCompleted(26663)))" >
 				<CustomBehavior File="CompleteLogQuest" QuestId="26663" />
