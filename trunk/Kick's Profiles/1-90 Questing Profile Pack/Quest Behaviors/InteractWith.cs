@@ -585,8 +585,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private WaitTimer _timerToReachDestination = null;
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 542 2013-06-04 19:46:55Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 542 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 545 2013-06-06 18:28:04Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 545 $"); } }
         #endregion
 
 
@@ -984,11 +984,13 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
                             UtilityBehaviorPS_MoveTo(
                                 context => SelectedInteractTarget.Location,
-                                context => string.Format("interact with {0} (id: {1}, dist: {2:F1}{3})",
+                                context => string.Format("interact with {0} (id: {1}, dist: {2:F1}{3}, TtB: {4})",
                                                         GetName(SelectedInteractTarget),
                                                         SelectedInteractTarget.Entry,
                                                         SelectedInteractTarget.Distance,
-                                                        IsInLineOfSight(SelectedInteractTarget) ? "" : ", noLoS"))
+                                                        (IsInLineOfSight(SelectedInteractTarget) ? "" : ", noLoS"),
+                                                        // Time-to-Blacklist
+                                                        PrettyTime(_timerToReachDestination.TimeLeft)))
                         )),
 
                     // If we expect to gossip, and mob in combat and offers no gossip, help mob...
