@@ -72,10 +72,12 @@ namespace Honorbuddy.QuestBehaviorCore
     public abstract partial class QuestBehaviorBase : CustomForcedBehavior
     {
         #region Consructor and Argument Processing
-        protected QuestBehaviorBase(Dictionary<string, string> args)
+        protected QuestBehaviorBase(Dictionary<string, string> args,
+                                    bool isDoneChecksQuestProgress = true)
             : base(args)
         {
             BehaviorLoggingContext = this;
+            _isDoneChecksQuestProgress = isDoneChecksQuestProgress;
 
             try
             {
@@ -126,8 +128,8 @@ namespace Honorbuddy.QuestBehaviorCore
         public double NonCompeteDistance { get; private set; }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return "$Id: QuestBehaviorBase.cs 532 2013-05-28 14:01:35Z chinajade $"; } }
-        public override string SubversionRevision { get { return "$Rev: 532 $"; } }
+        public override string SubversionId { get { return "$Id: QuestBehaviorBase.cs 545 2013-06-06 18:28:04Z chinajade $"; } }
+        public override string SubversionRevision { get { return "$Rev: 545 $"; } }
         #endregion
 
 
@@ -138,6 +140,7 @@ namespace Honorbuddy.QuestBehaviorCore
         private Composite _behaviorTreeHook_Main;
         private ConfigMemento _mementoSettings;
         private bool _isBehaviorDone;
+        private bool _isDoneChecksQuestProgress;
         protected bool _isDisposed { get; private set; }
         #endregion
 
@@ -235,7 +238,8 @@ namespace Honorbuddy.QuestBehaviorCore
             { 
                 return _isBehaviorDone     // normal completion
                         || Me.IsQuestObjectiveComplete(QuestId, QuestObjectiveIndex)
-                        || !UtilIsProgressRequirementsMet(QuestId, QuestRequirementInLog, QuestRequirementComplete);
+                        || (_isDoneChecksQuestProgress
+                            && !UtilIsProgressRequirementsMet(QuestId, QuestRequirementInLog, QuestRequirementComplete));
             }
         }
 
