@@ -5816,11 +5816,31 @@
 		<TurnIn QuestName="Seeking Seahorn" QuestId="26698" TurnInName="Fleet Master Seahorn" TurnInId="2487" X="-14435.83" Y="469.5399" Z="15.46633" />	
 		<PickUp QuestName="Turning the Brashtide" QuestId="26699" GiverName="Fleet Master Seahorn" GiverId="2487" />
 		<PickUp QuestName="The Damsel's (Bad) Luck" QuestId="26700" GiverName="Fleet Master Seahorn" GiverId="2487" />
-			<If Condition="((HasQuest(26700)) &amp;&amp; (!IsQuestCompleted(26700)))" >
-				<CustomBehavior File="InteractWith" QuestId="26700" ObjectType="GameObject" MobId="204585" NumOfTimes="1" CollectionDistance="50" X="-14437.92" Y="472.2964" Z="15.32849" />
-				<Objective QuestName="The Damsel's (Bad) Luck" QuestId="26700" Type="KillMob" MobId="43726" KillCount="8" />
+			<SetGrindArea>
+				<GrindArea>
+					<Name>Pirate Ship in BootyBay Harbor</Name>
+					<MobId>43726</MobId>
+					<Hotspots>
+						<Hotspot X="-14381.1" Y="480.9642" Z="13.09807" />
+						<Hotspot X="-14381" Y="482.3469" Z="7.613095" />
+						<Hotspot X="-14400.93" Y="472.2835" Z="0.2887615" />
+					</Hotspots>
+				</GrindArea>
+			</SetGrindArea>
+			<While Condition="HasQuest(26700) &amp;&amp; !IsQuestCompleted(26700)">
+				<!-- CJ: Use rope to swing across to pirate boat -->
+				<If Condition="Navigator.CanNavigateFully(Me.Location, new WoWPoint(-14441.81, 469.915, 15.32084))" >
+					<CustomBehavior File="InteractWith" QuestId="26700" MobId="204585"
+						CollectionDistance="50" X="-14437.92" Y="472.2964" Z="15.32849" />
+				</If>
+				<!-- CJ: Grind until quest complete, or we fall off of boat (due to stuck handler, etc) -->
+				<GrindTo Condition="IsQuestCompleted(26700) || !Navigator.CanNavigateFully(Me.Location, new WoWPoint(-14380.39, 481.0799, 13.11036))" />
+			</While>
+			<!-- CJ: If we're on boat, use rope to swing back -->
+			<If Condition="Navigator.CanNavigateFully(Me.Location, new WoWPoint(-14380.39, 481.0799, 13.11036))">
 				<RunTo X="-14383.84" Y="487.1568" Z="12.94241" />
-				<CustomBehavior File="InteractWith" ObjectType="GameObject" MobId="204586" NumOfTimes="1" CollectionDistance="50" X="-14383.84" Y="487.1568" Z="12.94241" />
+				<CustomBehavior File="InteractWith" MobId="204586" NumOfTimes="1" CollectionDistance="50"
+					X="-14383.84" Y="487.1568" Z="12.94241" />
 			</If>
 			<Objective QuestName="Prepare for Takeoff" QuestId="26695" Type="CollectItem" ItemId="59524" CollectCount="1" />
 			<Objective QuestName="Turning the Brashtide" QuestId="26699" Type="KillMob" MobId="43716" KillCount="10" />
