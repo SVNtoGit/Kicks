@@ -232,6 +232,9 @@
 //      will automatically confirm the request to bind at the location.  After the binding is complete
 //      InteractWith displays a confirmation message of the new bind location.
 //
+// * If you specify MobState="Dead", but only alive mobs exist in the area, InteractWith
+//      will kill the alive mobs, and then try to interact with them once they are dead.
+//
 // * The behavior pro-actively clears mobs within aggro range of the selected interact target.
 //      This prevents the mobs from interfering with the interaction.  If IgnoreCombat="true",
 //      then this pro-active clearing is also turned off.
@@ -585,8 +588,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private WaitTimer _timerToReachDestination = null;
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 550 2013-06-08 06:17:15Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 550 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 552 2013-06-08 06:30:47Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 552 $"); } }
         #endregion
 
 
