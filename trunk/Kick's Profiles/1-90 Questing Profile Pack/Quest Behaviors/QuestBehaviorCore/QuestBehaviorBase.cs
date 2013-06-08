@@ -76,7 +76,7 @@ namespace Honorbuddy.QuestBehaviorCore
                                     bool isDoneChecksQuestProgress = true)
             : base(args)
         {
-            BehaviorLoggingContext = this;
+            QBCLog.BehaviorLoggingContext = this;
             _isDoneChecksQuestProgress = isDoneChecksQuestProgress;
 
             try
@@ -107,7 +107,7 @@ namespace Honorbuddy.QuestBehaviorCore
                     // * The Honorbuddy core was changed, and the behavior wasn't adjusted for the new changes.
                     // In any case, we pinpoint the source of the problem area here, and hopefully it can be quickly
                     // resolved.
-                    LogError("[MAINTENANCE PROBLEM]: " + except.Message
+                    QBCLog.Error("[MAINTENANCE PROBLEM]: " + except.Message
                              + "\nFROM HERE:\n"
                              + except.StackTrace + "\n");
                 }
@@ -128,8 +128,8 @@ namespace Honorbuddy.QuestBehaviorCore
         public double NonCompeteDistance { get; private set; }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return "$Id: QuestBehaviorBase.cs 545 2013-06-06 18:28:04Z chinajade $"; } }
-        public override string SubversionRevision { get { return "$Rev: 545 $"; } }
+        public override string SubversionId { get { return "$Id: QuestBehaviorBase.cs 550 2013-06-08 06:17:15Z chinajade $"; } }
+        public override string SubversionRevision { get { return "$Rev: 550 $"; } }
         #endregion
 
 
@@ -201,7 +201,7 @@ namespace Honorbuddy.QuestBehaviorCore
                 TreeRoot.GoalText = string.Empty;
                 TreeRoot.StatusText = string.Empty;
 
-                BehaviorLoggingContext = null;
+                QBCLog.BehaviorLoggingContext = null;
                 base.Dispose();
             }
 
@@ -285,7 +285,7 @@ namespace Honorbuddy.QuestBehaviorCore
                 // Monitored Behaviors...
                 if (QuestBehaviorCoreSettings.Instance.MonitoredBehaviors.Contains(GetType().Name))
                 {
-                    LogWarning("MONITORED BEHAVIOR: {0}", GetType().Name);
+                    QBCLog.Warning("MONITORED BEHAVIOR: {0}", GetType().Name);
                     AudibleNotifyOn(true);
                 }
 
@@ -316,7 +316,7 @@ namespace Honorbuddy.QuestBehaviorCore
         {
             if (!_isBehaviorDone)
             {
-                LogDeveloperInfo("{0} behavior complete.  {1}", GetType().Name, (extraMessage ?? string.Empty));
+                QBCLog.DeveloperInfo("{0} behavior complete.  {1}", GetType().Name, (extraMessage ?? string.Empty));
                 _isBehaviorDone = true;
             }
         }

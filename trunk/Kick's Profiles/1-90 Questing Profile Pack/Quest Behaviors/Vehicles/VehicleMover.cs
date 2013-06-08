@@ -199,7 +199,7 @@ namespace Honorbuddy.Quest_Behaviors.Vehicles.VehicleMover
                 // For backward compatibility, we do not error off on an invalid SpellId, but merely warn the user...
                 if ((1 <= SpellId) && (SpellId <= 12))
                 {
-                    LogError("SpellId of {0} is not valid--did you accidently provde an ActionBarIndex instead?", SpellId);
+                    QBCLog.Error("SpellId of {0} is not valid--did you accidently provde an ActionBarIndex instead?", SpellId);
                 }
             }
 
@@ -210,9 +210,9 @@ namespace Honorbuddy.Quest_Behaviors.Vehicles.VehicleMover
                 // * The Honorbuddy core was changed, and the behavior wasn't adjusted for the new changes.
                 // In any case, we pinpoint the source of the problem area here, and hopefully it
                 // can be quickly resolved.
-                LogError("[MAINTENANCE PROBLEM]: " + except.Message
-                        + "\nFROM HERE:\n"
-                        + except.StackTrace + "\n");
+                QBCLog.Error("[MAINTENANCE PROBLEM]: " + except.Message
+                            + "\nFROM HERE:\n"
+                            + except.StackTrace + "\n");
                 IsAttributeProblem = true;
             }
         }
@@ -230,8 +230,8 @@ namespace Honorbuddy.Quest_Behaviors.Vehicles.VehicleMover
         public int[] VehicleIds { get; private set; }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: VehicleMover.cs 539 2013-05-31 05:11:02Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 539 $"); } }
+        public override string SubversionId { get { return ("$Id: VehicleMover.cs 550 2013-06-08 06:17:15Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 550 $"); } }
 
 
         protected override void EvaluateUsage_DeprecatedAttributes(XElement xElement)
@@ -379,7 +379,7 @@ namespace Honorbuddy.Quest_Behaviors.Vehicles.VehicleMover
                             new Decorator(context => ProxyObserver().IsMoving,
                                 new Sequence(
                                     new Action(context => { WoWMovement.MoveStop(); }),
-                                    new WaitContinue(Delay_LagDuration, context => false, new ActionAlwaysSucceed())
+                                    new WaitContinue(Delay.LagDuration, context => false, new ActionAlwaysSucceed())
                                 )),
 
                             // Arrived at destination, use spell if necessary...
@@ -442,14 +442,14 @@ namespace Honorbuddy.Quest_Behaviors.Vehicles.VehicleMover
                     new Decorator(context => ProxyObserver().IsMoving,
                         new Sequence(
                             new Action(context => { WoWMovement.MoveStop(); }),
-                            new WaitContinue(Delay_LagDuration, context => false, new ActionAlwaysSucceed())
+                            new WaitContinue(Delay.LagDuration, context => false, new ActionAlwaysSucceed())
                         )),
                         
                     // If we cannot retrieve the spell info, its a bad SpellId...
                     new Decorator(context => string.IsNullOrEmpty(Lua.GetReturnVal<string>(luaRetrieveSpellInfoCommand, 0)),
                         new Action(context =>
                         {
-                            LogWarning("SpellId({0}) is not known--ignoring the cast", SpellId);
+                            QBCLog.Warning("SpellId({0}) is not known--ignoring the cast", SpellId);
                             CastCounter = NumOfTimes +1; // force 'done'
                         })),
 

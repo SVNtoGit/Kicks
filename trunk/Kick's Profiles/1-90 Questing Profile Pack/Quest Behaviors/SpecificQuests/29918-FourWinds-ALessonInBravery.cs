@@ -76,8 +76,8 @@ namespace Honorbuddy.Quest_Behaviors.SpecificQuests.ALessonInBravery
         private LocalPlayer Me { get { return (StyxWoW.Me); } }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: 29918-FourWinds-ALessonInBravery.cs 532 2013-05-28 14:01:35Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 532 $"); } }
+        public override string SubversionId { get { return ("$Id: 29918-FourWinds-ALessonInBravery.cs 550 2013-06-08 06:17:15Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 550 $"); } }
 
 
         ~FourWindsLessonInBravery()
@@ -186,7 +186,7 @@ namespace Honorbuddy.Quest_Behaviors.SpecificQuests.ALessonInBravery
                             new Sequence(
                                 // Small variant delay to prevent looking like a bot...
                                 new WaitContinue(
-                                    QuestBehaviorBase.Delay_BeforeButtonClick,
+                                    Delay.BeforeButtonClick,
                                     context => false,
                                     new ActionAlwaysSucceed()),
                                 new Action(context => { Lua.DoString("RunMacroText('/click ExtraActionButton1')");  })
