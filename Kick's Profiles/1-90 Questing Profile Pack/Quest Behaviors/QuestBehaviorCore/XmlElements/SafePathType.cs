@@ -58,7 +58,7 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
             {
                 if (QuestBehaviorBase.IsExceptionReportingNeeded(except))
                 {
-                    QuestBehaviorBase.LogError("[PROFILE PROBLEM with \"{0}\"]: {1}\nFROM HERE ({2}):\n{3}\n",
+                    QBCLog.Error("[PROFILE PROBLEM with \"{0}\"]: {1}\nFROM HERE ({2}):\n{3}\n",
                                                xElement.ToString(), except.Message, except.GetType().Name,
                                                except.StackTrace);
                 }
@@ -73,8 +73,8 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
         public IList<WaypointType> Waypoints { get; private set; }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return "$Id: SafePathType.cs 529 2013-05-28 02:00:24Z chinajade $"; } }
-        public override string SubversionRevision { get { return "$Rev: 529 $"; } }
+        public override string SubversionId { get { return "$Id: SafePathType.cs 550 2013-06-08 06:17:15Z chinajade $"; } }
+        public override string SubversionRevision { get { return "$Rev: 550 $"; } }
 
 
         public void AppendWaypoint(WoWPoint wowPoint, string name = "", double radius = 7.0)
@@ -172,7 +172,7 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
 
                 if (!safePath.Waypoints.Any())
                 {
-                    QuestBehaviorBase.LogError("Neither the X/Y/Z attributes nor the <{0}> sub-element has been specified.",
+                    QBCLog.Error("Neither the X/Y/Z attributes nor the <{0}> sub-element has been specified.",
                                 elementName);
                     safePath.IsAttributeProblem = true;
                 }
