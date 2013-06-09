@@ -10324,6 +10324,7 @@
 				<CustomBehavior File="AbandonQuest" QuestId="12570" Type="Incomplete" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to abandon {TimeRemaining}" />
 			 </If>
+			 <!-- Kick's Old Code
 			<While Condition="(!IsQuestCompleted(12570))" >
 				<CustomBehavior File="FlyTo" DestName="talk to Oracle" X="5400.678" Y="4502.84" Z="-130.8759" />
 				<CustomBehavior File="ForcedDismount" />
@@ -10331,10 +10332,6 @@
 				<CustomBehavior File="InteractWith" MobId="28217" GossipOptions="1" WaitTime="2000" CollectionDistance="10" X="5400.678" Y="4502.84" Z="-130.8759" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 			 </While>
-		<!--
-		<TurnIn QuestName="Just Following Orders" QuestId="12540" TurnInName="Injured Rainspeaker Oracle" TurnInId="28217" X="5400.678" Y="4502.84" Z="-130.8759" />
-		<PickUp QuestName="Fortunate Misunderstandings" QuestId="12570" GiverName="Injured Rainspeaker Oracle" GiverId="28217" X="5400.678" Y="4502.84" Z="-130.8759" />
-		-->
 			 <If Condition="(Me.GetReputationLevelWith(1104) &gt;= Styx.WoWUnitReaction.Neutral)" >
 				<CustomBehavior File="InteractWith" MobId="28217" CollectionDistance="10" X="5400.678" Y="4502.84" Z="-130.8759" />
 				<CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
@@ -10363,6 +10360,43 @@
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for bot {TimeRemaining}" />
 			  </If>
 			 </While>
+			</While>
+			-->
+			<!-- CJ's new code -->
+			<While Condition="(!IsQuestCompleted(12570))" >
+				<!-- Start in known-state of 'no quest'... -->
+				<If Condition="HasQuest(12570)">
+					<CustomBehavior File="AbandonQuest" QuestId="12570" Type="All" />
+				</If>
+				<!-- Fetch quest -->
+				<If Condition="!HasQuest(12570)">
+					<!-- CJ: We must gossip with the injured Rainspeaker before he offers quest.
+						We want to gossip with one with the 'feign death' aura. -->
+					<CustomBehavior File="InteractWith" MobId="28217" InteractByGossipOptions="1" 
+						PreInteractMountStrategy="Dismount" AuraIdOnMob="51329" WaitTime="3000"
+						X="5402.302" Y="4507.198" Z="-130.883" />
+					<!-- CJ: Non-traditional quest pickup...
+						NB: We must do it this way, otherwise HBcore will run off to another NPC
+						that doesn't match the aura criteria, or with which we've already interacted
+						in order to do the quest PickUp. (The quest-giving NPCs are not unique,
+						and HBcore doesn't deal with this.) -->
+					<CustomBehavior File="InteractWith" MobId="28217"
+						PreInteractMountStrategy="Dismount" AuraIdMissingFromMob="51329"
+						InteractByQuestFrameDisposition="Accept" WaitTime="2000" />
+				</If>
+				<!-- CJ: We *must* abandon the quest, and re-take it to work around a bug in the
+					WoWclient.  If we don't, the Rainspeaker will offer us a gossip dialog with
+					no gossip options on it. -->
+				<If Condition="HasQuest(12570)">
+					<CustomBehavior File="AbandonQuest" QuestId="12570" Type="All" />
+					<!-- CJ: Non-traditional quest pickup... -->
+					<CustomBehavior File="InteractWith" MobId="28217"
+						PreInteractMountStrategy="Dismount" AuraIdMissingFromMob="51329"
+						InteractByQuestFrameDisposition="Accept" WaitTime="2000" />
+				</If>
+				<CustomBehavior File="EscortGroup" QuestId="12570" StartNpcId="28217"
+					StartEscortGossipOptions="1" EscortNpcId="28217" EscortCountMax="1"
+					EscortCompleteWhen="QuestCompleteOrFails" />
 			</While>
 			<If Condition="((HasQuest(12570)) &amp;&amp; (IsQuestCompleted(12570)))" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5651.868" Y="4560.372" Z="-134.7812" />
