@@ -2188,16 +2188,27 @@
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(30858)" WaitTime="1000" />
 				<CustomBehavior File="DeleteItems" Ids="30858" /> <!-- Peon Sleep Potion -->
 			</If>
-		<PickUp QuestName="Shizz Work" QuestId="10629" GiverName="Foreman Razelcraz" GiverId="16915" X="430.101" Y="2886.575" Z="52.23165" />
-			<While Condition="HasQuest(10629) &amp;&amp; !IsQuestCompleted(10629)">
-			 <If Condition="HasQuest(10629) &amp;&amp; !IsQuestCompleted(10629) &amp;&amp; HasItem(30803)">
-				<RunTo X="431.1503" Y="2889.698" Z="52.17432" />
-				<CustomBehavior File="Misc\RunLua" WaitTime="6000" NumOfTimes="1" Lua="UseItemByName(30803)" />
-				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for  {TimeRemaining}" />
-			 </If>
-				<CustomBehavior File="InteractWith" QuestId="10629" MobId="16863" MobId2="184980"
-					WaitTime="8000" Range="8" 
-					PreInteractMountStrategy="Dismount" CollectionDistance="1000" >
+			<!-- Shizz Work (10629): Pickup, and Complete -->
+			<While Condition="!IsQuestCompleted(10629)">
+				<!-- If we've lost the whistle, abandon quest and re-fetch -->
+				<If Condition="!HasQuest(10629) || !HasItem(30803)">
+					<If Condition="HasQuest(10629)">
+						<CustomBehavior File="AbandonQuest" QuestId="10629" Type="All" />
+					</If>
+					<PickUp QuestName="Shizz Work" QuestId="10629" GiverName="Foreman Razelcraz" GiverId="16915"
+						X="430.101" Y="2886.575" Z="52.23165" />
+				</If>
+				<!-- If we've lost ze poochie-poochie, go get a new one... -->
+				<If Condition="HasItem(30803) &amp;&amp; (Me.Minions.Count &lt; 1)">
+					<RunTo DestName="Foreman Razelcraz" X="431.1503" Y="2889.698" Z="52.17432" />
+					<CustomBehavior File="Misc\RunLua" WaitTime="1000" NumOfTimes="1" Lua="UseItemByName(30803)" />
+				</If>
+				<!-- Deal with poo (ewwww!) -->
+				<CustomBehavior File="InteractWith" QuestId="10629" MobId="184980" WaitForNpcs="false"
+					NumOfTimes="10" PreInteractMountStrategy="Dismount" CollectionDistance="1000" />
+				<!-- Kill ze Hellboar! -->
+				<CustomBehavior File="InteractWith" QuestId="10629" MobId="16863" MobState="Alive"
+					Range="8" PreInteractMountStrategy="Dismount" CollectionDistance="1000" >
 					<HuntingGrounds>
 						<Hotspot X="450.3281" Y="2979.167" Z="23.8316" />
 						<Hotspot X="450.3281" Y="2979.167" Z="23.8316" />
@@ -2221,9 +2232,11 @@
 						<Hotspot X="358.4205" Y="3078.583" Z="22.5267" />
 					</HuntingGrounds>
 				</CustomBehavior>
+				<CustomBehavior File="WaitTimer" QuestId="10629" WaitTime="8000" VariantTime="2000"
+					GoalText="Waiting {TimeRemaining} for Felhound to poop" />
 			</While>
-			<If Condition="((HasQuest(10629)) &amp;&amp; (IsQuestCompleted(10629)))" >
-		 	 <If Condition="(CanFly())" >
+			<If Condition="HasQuest(10629) &amp;&amp; IsQuestCompleted(10629)" >
+		 	 <If Condition="CanFly()" >
 				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="428.9583" Y="2890.82" Z="52.16166" />
 			 </If>
 		<TurnIn QuestName="Shizz Work" QuestId="10629" TurnInName="Foreman Razelcraz" TurnInId="16915" />
