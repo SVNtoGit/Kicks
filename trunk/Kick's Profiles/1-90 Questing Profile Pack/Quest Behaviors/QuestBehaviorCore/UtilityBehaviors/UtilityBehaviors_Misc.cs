@@ -12,9 +12,13 @@
 using System;
 using System.Linq;
 
+using CommonBehaviors.Actions;
+using Styx;
 using Styx.Common.Helpers;
 using Styx.CommonBot;
+using Styx.CommonBot.Frames;
 using Styx.TreeSharp;
+using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
 
 using Action = Styx.TreeSharp.Action;
@@ -25,6 +29,69 @@ namespace Honorbuddy.QuestBehaviorCore
 {
     public abstract partial class QuestBehaviorBase
     {
+        // TODO: Need to make this event-driven, if possible...
+        public Composite UtilityBehaviorPS_Looting()
+        {
+            WoWUnit mob = null;
+
+            Func<WoWUnit, bool> isViableForLooting =
+                (wowUnit) =>
+                {
+                    return
+                        IsViable(wowUnit)
+                        && (wowUnit.Lootable || wowUnit.CanSkin)
+                        && !Blacklist.Contains(wowUnit.Guid, BlacklistFlags.Loot);
+                };
+
+
+            Func<object, WoWUnit> mobNeedingToLoot =
+                (context) =>
+                {
+                    if (!isViableForLooting(mob))
+                    {
+                        using (StyxWoW.Memory.AcquireFrame())
+                        {
+                            mob =
+                               (from wowUnit in ObjectManager.GetObjectsOfType<WoWUnit>(true, false)
+                                where isViableForLooting(wowUnit)
+                                orderby wowUnit.DistanceSqr
+                                select wowUnit)
+                                .FirstOrDefault();
+                        }
+                    }
+
+                    return mob;
+                };
+
+            return new Decorator(context => IsViable(mob = mobNeedingToLoot(context)),
+                new PrioritySelector(
+                    new Decorator(context => mob.Distance > mob.InteractRange,
+                        UtilityBehaviorPS_MoveTo(
+                            context => mob.Location,
+                            context => mob.Name)),
+                    UtilityBehaviorPS_MoveStop(),
+                    new Decorator(context => (LootFrame.Instance != null) && LootFrame.Instance.IsVisible,
+                        new Sequence(
+                            new Action(context => { LootFrame.Instance.LootAll(); }),
+                            new WaitContinue(Delay.AfterInteraction, context => false, new ActionAlwaysSucceed()),
+                            new Action(context => { LootFrame.Instance.Close(); })
+                        )),
+
+                    new Action(context =>
+                    {
+                        if (mob.Lootable || mob.CanSkin)
+                            { mob.Interact(); }
+                        else
+                        {
+                            if ((LootFrame.Instance != null) && LootFrame.Instance.IsVisible)
+                                { LootFrame.Instance.Close(); }
+                            Blacklist.Add(mob.Guid, BlacklistFlags.Loot, TimeSpan.FromMinutes(3));
+                        }
+                    })
+                ));
+            }
+
+
         /// <summary>
         /// <para>This behavior waits MAXWAITTIMEINMILLISECONDSDELEGATE for item ITEMIDDELEGATE to arrive in our bags.
         /// If the item doesn't arrived within the specified time, the behavior is terminated.

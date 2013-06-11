@@ -412,7 +412,7 @@ namespace Honorbuddy.Quest_Behaviors.CombatUseItemOnV2
                 new PrioritySelector(
                     // Since we do the bulk of the work in the CombatMain hook, we have to allow for looting, also...
                     new Decorator(context => !Me.Combat,
-                        LevelBot.CreateLootBehavior()),
+                        UtilityBehaviorPS_Looting()),
 
                     // Done due to count completing?
                     new Decorator(context => (QuestObjectiveIndex <= 0) && (Counter >= NumOfTimesToUseItem),
@@ -673,6 +673,7 @@ namespace Honorbuddy.Quest_Behaviors.CombatUseItemOnV2
         {
             return
                 IsViableForInteracting(wowUnit)
+                && IsViableForPulling(wowUnit)
                 && wowUnit.IsAlive
                 && wowUnit.Attackable
                 && (ItemUseAlwaysSucceeds || !wowUnit.HasAura(ItemAppliesAuraId));

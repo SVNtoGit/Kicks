@@ -73,7 +73,7 @@ namespace Honorbuddy.QuestBehaviorCore
                         RoutineManager.Current.RestBehavior),
                     new Decorator(context => RoutineManager.Current.NeedRest,
                         new Action(context => { RoutineManager.Current.Rest(); })),
-                    LevelBot.CreateLootBehavior()
+                    UtilityBehaviorPS_Looting()
                 ));
         }
 

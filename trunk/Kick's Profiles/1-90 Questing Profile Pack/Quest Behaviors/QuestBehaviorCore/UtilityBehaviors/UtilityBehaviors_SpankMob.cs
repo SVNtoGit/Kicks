@@ -20,7 +20,6 @@ using Styx.CommonBot;
 using Styx.CommonBot.POI;
 using Styx.CommonBot.Profiles;
 using Styx.CommonBot.Routines;
-using Styx.Pathing;
 using Styx.TreeSharp;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
@@ -80,6 +79,8 @@ namespace Honorbuddy.QuestBehaviorCore
                                         PrettyTime(_ubpsSpankMob_EngagementTimer.WaitTime),
                                         PrettyTime(blacklistForPullTime));
                                     BlacklistForPulling(_ubpsSpankMob_Mob, blacklistForPullTime);
+                                    BotPoi.Clear();
+                                    Me.ClearTarget();
                                     _ubpsSpankMob_Mob = null;
                                 }
                                 _ubpsSpankMob_EngagementTimer = null;
