@@ -1045,6 +1045,18 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+	<Quest Name="Stalling the Survey" Id="24519" >
+		<Objective Type="Henry Sykes" MobId="37165" Name="Mob" KillCount="1">
+			<Hotspots>
+				<Hotspot X="-538.01" Y="-1633.858" Z="80.09428" />
+				<Hotspot X="-656.7101" Y="-1672.851" Z="74.94727" />
+				<Hotspot X="-753.0968" Y="-1698.699" Z="70.39118" />
+				<Hotspot X="-807.1333" Y="-1750.836" Z="77.07196" />
+				<Hotspot X="-967.5078" Y="-1801.24" Z="81.95001" />
+				<Hotspot X="-1153.412" Y="-1831.701" Z="82.07024" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 	<Quest Id="24539" Name="When Plants Attack">
 		<Objective Type="KillMob" MobId="37548" KillCount="5">
 			<Hotspots>
@@ -4208,11 +4220,45 @@
 		<TurnIn QuestName="Holdout at Hunter's Hill" QuestId="24505" TurnInName="Onatay" TurnInId="37138" />	
 		<PickUp QuestName="Raptor Scraps" QuestId="24514" GiverName="Onatay" GiverId="37138" />
 		<PickUp QuestName="Signals in the Sky" QuestId="24515" GiverName="Onatay" GiverId="37138" />
-		<PickUp QuestName="Put the Fear in Them" QuestId="24517" GiverName="Kilrok Gorehammer" GiverId="37154" />
+				
+		<PickUp QuestName="Put the Fear in Them" QuestId="24517" GiverName="Kilrok Gorehammer" GiverId="37154" X="-778.2344" Y="-1581.339" Z="140.8037" />
 			<Objective QuestName="Put the Fear in Them" QuestId="24517" Type="KillMob" MobId="37161" KillCount="8" />
 			<Objective QuestName="Put the Fear in Them" QuestId="24517" Type="KillMob" MobId="37216" KillCount="1" />
+
+			<If Condition="(HasItem(49776))" >
+				<PickUp QuestName="The Low Road" QuestId="24518" GiverName="Roadway Plans" GiverId="49776" GiverType="Item" />
+				<CustomBehavior File="Message" Text="'The Low Road'" LogColor="Green" />	
+			</If>
+
+			<!-- We should already have the Roadway Plans item but just in case lets grind -->
+			<If Condition="!HasQuest(24518) &amp;&amp; !IsQuestCompleted(24518)" >
+				<SetGrindArea>
+					<GrindArea>
+						<TargetMinLevel>30</TargetMinLevel>
+						<TargetMaxLevel>50</TargetMaxLevel>
+						<MobId>37216</MobId>
+						<Hotspots>
+							<Hotspot X="-715.123" Y="-1731.698" Z="72.55502" />
+							<Hotspot X="-615.1475" Y="-1659.364" Z="73.48781" />
+						</Hotspots>
+					</GrindArea>
+				</SetGrindArea>
+				<GrindTo Condition="HasItem(49776)" GoalText="Getting DropQuest Item - Roadway Plans" />
+				<PickUp QuestName="The Low Road" QuestId="24518" GiverName="Roadway Plans" GiverId="49776" GiverType="Item" />
+			</If>		
+
 			<Objective QuestName="Raptor Scraps" QuestId="24514" Type="CollectItem" ItemId="49772" CollectCount="8" />
+
+		<TurnIn QuestName="The Low Road" QuestId="24518" TurnInName="Kilrok Gorehammer" TurnInId="37154" />
 		<TurnIn QuestName="Put the Fear in Them" QuestId="24517" TurnInName="Kilrok Gorehammer" TurnInId="37154" />
+		<PickUp QuestName="Stalling the Survey" QuestId="24519" GiverName="Kilrok Gorehammer" GiverId="37154" />
+			<Objective QuestName="Stalling the Survey" QuestId="24519" Type="KillMob" MobId="37165" KillCount="1" />
+		<TurnIn QuestName="Stalling the Survey" QuestId="24519" TurnInName="Kilrok Gorehammer" TurnInId="37154" />
+
+
+
+		
+
 		<TurnIn QuestName="Raptor Scraps" QuestId="24514" TurnInName="Onatay" TurnInId="37138" />
 		<TurnIn QuestName="Signals in the Sky" QuestId="24515" TurnInName="Makaba Flathoof" TurnInId="11857" />
 		<PickUp QuestName="Bad to Worse" QuestId="24529" GiverName="Makaba Flathoof" GiverId="11857" />
