@@ -4445,16 +4445,29 @@
 		<PickUp QuestName="Don't Kill the Fat One" QuestId="9889" GiverName="Kilrath" GiverId="18273" />
 			<Objective QuestName="Don't Kill the Fat One" QuestId="9889" Type="KillMob" MobId="18260" KillCount="10" />
 			<While Condition="HasQuest(9889) &amp;&amp; !IsQuestCompleted(9889)">
-				<CustomBehavior File="InteractWith" MobId="18262" GossipOptions="1" WaitTime="5000"
-					InteractByQuestFrameDisposition="Continue" X="-3276.786" Y="5999.964" Z="-2.636937" />
+				<CustomBehavior File="InteractWith" MobId="18262" WaitTime="5000"
+					InteractByQuestFrameDisposition="Ignore" X="-3276.786" Y="5999.964" Z="-2.636937" />
 				<CustomBehavior File="RunMacro" Macro="/cleartarget" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-				<CustomBehavior File="InteractWith" MobId="18262" GossipOptions="1" WaitTime="5000" 
-					InteractByQuestFrameDisposition="Continue" X="-3276.786" Y="5999.964" Z="-2.636937" />
+				<CustomBehavior File="InteractWith" MobId="18262" WaitTime="5000" 
+					InteractByQuestFrameDisposition="Ignore" X="-3276.786" Y="5999.964" Z="-2.636937" />
 				<CustomBehavior File="RunMacro" Macro="/cleartarget" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 			</While>
-		<TurnIn QuestName="Don't Kill the Fat One" QuestId="9889" TurnInName="Unkor the Ruthless" TurnInId="18262" />
-		<PickUp QuestName="Success!" QuestId="9890" GiverName="Unkor the Ruthless" GiverId="18262" />
+			<While Condition="HasQuest(9889) &amp;&amp; IsQuestCompleted(9889)">
+				<CustomBehavior File="InteractWith" MobId="18262" WaitTime="2000"
+					InteractByQuestFrameDisposition="Ignore" X="-3276.786" Y="5999.964" Z="-2.636937" />
+				<CustomBehavior File="InteractWith" MobId="18262" WaitTime="2000"
+					InteractByQuestFrameDisposition="Ignore" X="-3276.786" Y="5999.964" Z="-2.636937" />
+				<CustomBehavior File="RunMacro" Macro="/cleartarget" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" MobId="18262" WaitTime="2000" 
+					InteractByQuestFrameDisposition="Complete" X="-3276.786" Y="5999.964" Z="-2.636937" />
+				<CustomBehavior File="RunMacro" Macro="/cleartarget" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+		<!--<TurnIn QuestName="Don't Kill the Fat One" QuestId="9889" TurnInName="Unkor the Ruthless" TurnInId="18262" X="-3276.786" Y="5999.964" Z="-2.636937" />-->
+			</While>
+		<PickUp QuestName="Success!" QuestId="9890" GiverName="Unkor the Ruthless" GiverId="18262" X="-3276.786" Y="5999.964" Z="-2.636937" />
 			<If Condition="HasQuest(9890) &amp;&amp; IsQuestCompleted(9890)">
 				<CustomBehavior File="FlyTo" X="-3188.519" Y="6018.684" Z="0.000164786" />
 				<CustomBehavior File="ForcedDismount" />
