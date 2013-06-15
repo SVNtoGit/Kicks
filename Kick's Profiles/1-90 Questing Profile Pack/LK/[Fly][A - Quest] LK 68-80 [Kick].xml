@@ -3305,12 +3305,14 @@
 			</If>
 			<If Condition="((HasQuest(11582)) &amp;&amp; (!IsQuestCompleted(11582)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="3799.384" Y="6045.493" Z="-0.2553928" />
-				<!-- <CustomBehavior File="ForcedDismount" /> -->
-				<CustomBehavior File="RunMacro" Macro="/dismount\n/cancelaura Flight Form\n/cancelaura Swift Flight Form" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="ForcedDismount" />
 				
-				<CustomBehavior File="MyCTM" X="3806.885" Y="6035.52" Z="-132.859" />
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(34669)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for cast {TimeRemaining}" />
+				<While Condition="!IsQuestCompleted(11582)">
+					<CustomBehavior File="MyCTM" X="3806.885" Y="6035.52" Z="-132.859" />
+					<CustomBehavior File="WaitTimer" WaitTime="1500" VariantTime="1500" GoalText="Stop moving" />
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(34669)" WaitTime="1000" />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for cast {TimeRemaining}" />
+				</While>
 				<!-- I need flightor to work before removing these myctm's -->
 				<CustomBehavior File="MyCTM" X="3805.329" Y="6023.042" Z="-79.5155" />
 				<CustomBehavior File="MyCTM" X="3740.958" Y="5996.458" Z="-7.010993" />
