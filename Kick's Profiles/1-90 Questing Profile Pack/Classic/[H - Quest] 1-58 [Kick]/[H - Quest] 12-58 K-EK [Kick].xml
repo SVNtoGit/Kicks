@@ -99,6 +99,7 @@
 		<!-- <Mob Name="Arcane Roller" Entry="48681" /> -->
 		<Mob Name="Garginox" Entry="45681" />
 		<Mob Name="Kalimdor Eagle" Entry="34886" />
+		<Mob Name="Kor'kron Demolisher" Entry="71005" />
 		<Mob Name="Grimtotem Mercenary" Entry="11911" />
 		<Mob Name="Grimtotem Brute" Entry="11912" />
 		<Mob Name="Spirit Wolf" Entry="42855" />
@@ -1747,7 +1748,7 @@
 
 	
 	
-	<QuestOrder IgnoreCheckPoints="False" >
+	<QuestOrder IgnoreCheckPoints="True" > <!-- CJ: TODO: Undo this -->
 			
 			 <If Condition="(Me.MapId == 1)" >
 			  <If Condition="(Me.Level &lt; 47)" >
@@ -2880,6 +2881,7 @@
 				<CustomBehavior File="WaitTimer" WaitTime="75000" GoalText="Waiting for ride {TimeRemaining}" />
 			</While>
 		<TurnIn QuestName="Crisis at Splintertree" QuestId="13653" TurnInName="Kadrak" TurnInId="8582" />
+		<CustomBehavior File="UserSettings" PullDistance="35" />
 
 		<SetGrindArea>
 			<GrindArea>
@@ -3258,19 +3260,20 @@
 		<PickUp QuestName="Naga at the Zoram Strand" QuestId="6442" GiverName="Marukai" GiverId="12719" />
 		<While Condition="!IsQuestCompleted(6641)" >
 			<If Condition="HasQuest(6641) &amp;&amp; !IsQuestCompleted(6641)" >
-				<CustomBehavior File="AbandonQuest" QuestId="6641" Type="Failed" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+				<CustomBehavior File="AbandonQuest" QuestId="6641" WaitTime="3000" Type="Failed" />
 			</If>
 			<PickUp QuestName="Vorsha the Lasher" QuestId="6641" GiverName="Muglash" GiverId="12717"
 				X="3358.74" Y="964.2664" Z="7.404287" />
 			<CustomBehavior File="UserSettings" Preset="NoDistractions" />
 			<CustomBehavior QuestId="6641" File="ForcedDismount" />
-			<CustomBehavior File="EscortGroup" QuestId="6641" EscortNpcId="12717"
+			<CustomBehavior File="EscortGroup" QuestId="6641" EscortNpcId="12717" EscortCountMax="1"
 				EscortCompleteWhen="DestinationReached"
 				EscortCompleteX="3609.234" EscortCompleteY="1146.588" EscortCompleteZ="7.994207" />
 			<CustomBehavior File="WaitTimer" WaitTime="13000" />
-			<CustomBehavior File="InteractWith" MobId="178247" />
-			<CustomBehavior File="EscortGroup" QuestId="6641" EscortNpcId="12717"
+			<CustomBehavior File="InteractWith" MobId="178247" NonCompeteDistance="0" 
+				CollectionDistance="20" />
+			<CustomBehavior File="EscortGroup" QuestId="6641" EscortNpcId="12717" EscortCountMax="1"
+				EscortCompleteWhen="QuestCompleteOrFails"
 				EscortMaxFollowDistance="10" EscortMaxFightDistance="17" />
 			<CustomBehavior File="UserSettings" Preset="UserOriginal" />
 		</While>
