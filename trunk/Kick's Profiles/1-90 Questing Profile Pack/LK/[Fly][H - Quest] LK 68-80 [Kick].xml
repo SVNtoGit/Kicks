@@ -5159,14 +5159,17 @@
 				<CustomBehavior File="ForcedDismount" />
 		<Pickup QuestName="Avenge this Atrocity" QuestId="12006" GiverName="Ethenial Moonshadow" GiverId="26501" />
 			</If>
-			<If Condition="((HasQuest(11999)) &amp;&amp; (!IsQuestCompleted(11999)))" >
+			<If Condition="HasQuest(11999) &amp;&amp; !IsQuestCompleted(11999)" >
 				<CustomBehavior File="FlyTo" DestName="get satchel" X="3329.438" Y="2263.193" Z="39.00249" />
 				<CustomBehavior File="ForcedDismount" />
 				
-			 <While Condition="((HasQuest(11999)) &amp;&amp; (!IsQuestCompleted(11999)))" >
-				<CustomBehavior File="InteractWith" MobId="26477" CollectionDistance="500" X="3402.501" Y="2291.558" Z="30.3925" />
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35792)" WaitTime="1000" />
-			 </While>
+				<While Condition="HasQuest(11999) &amp;&amp; !IsQuestCompleted(11999)" >
+					 <If Condition="!HasItem(35792)">
+						<CustomBehavior File="InteractWith" MobId="26477" CollectionDistance="500"
+							X="3402.501" Y="2291.558" Z="30.3925" />
+					 </If>
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35792)" WaitTime="1000" />
+				</While>
 			</If>
 			<If Condition="((HasQuest(12006)) &amp;&amp; (!IsQuestCompleted(12006)))" >
 				<CustomBehavior File="FlyTo" DestName="Objective" X="3519.774" Y="2404.995" Z="64.09921" />
