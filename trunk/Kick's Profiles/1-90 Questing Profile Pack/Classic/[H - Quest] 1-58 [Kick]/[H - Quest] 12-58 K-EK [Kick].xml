@@ -2822,9 +2822,13 @@
 		<PickUp QuestName="Got Wood?" QuestId="13628" GiverName="Truun" GiverId="33284" />
 			<If Condition="((HasQuest(13628)) &amp;&amp; (!IsQuestCompleted(13628)))" >
 				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UserSettings" UseMount="False" />
+				<MoveTo X="1314.293" Y="-2192.942" Z="92.8638" />
 				<CustomBehavior File="InteractWith" MobId="8582" GossipOptions="1" X="1235.06" Y="-2246.561" Z="91.76642" />
+				<MoveTo X="1314.293" Y="-2192.942" Z="92.8638" />
 				<CustomBehavior File="MountVehOnly" VehicleMountId="33374" X="1195.282" Y="-2258.377" Z="91.67519" />
 				<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Waiting for ride {TimeRemaining}" />
+				<CustomBehavior File="UserSettings" UseMount="True" />
 			</If>
 		<TurnIn QuestName="Got Wood?" QuestId="13628" TurnInName="Gorka" TurnInId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
 			<!-- End of The Mor'shan Rampart Quests -->
@@ -2900,6 +2904,38 @@
 	   <GrindTo Level="23"/>
 		
 		<TurnIn QuestName="Torek's Assault" QuestId="6544" TurnInName="Ertog Ragetusk" TurnInId="12877" />
+			<!-- added quest back -->
+		<PickUp QuestName="To the Rescue!" QuestId="13712" GiverName="Kadrak" GiverId="8582" X="1236.776" Y="-2251.217" Z="91.92881" />
+			<While Condition="((HasQuest(13712)) &amp;&amp; (!IsQuestCompleted(13712)))" >
+				<CustomBehavior File="WaitTimer" WaitTime="2000" />
+				<CustomBehavior File="InteractWith" QuestId="13712" MobId="8582" NumOfTimes="1" WaitForNpcs="False" GossipOptions="1" X="1236.776" Y="-2251.217" Z="91.92881" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for ride {TimeRemaining}" />
+
+			 <If Condition="(Me.ZoneId == 17)" >
+				<CustomBehavior File="InteractWith" QuestId="13712" MobId="8582" NumOfTimes="1" WaitForNpcs="False" GossipOptions="2" X="1236.776" Y="-2251.217" Z="91.92881" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="WaitTimer" WaitTime="65000" GoalText="Waiting for flight to end: {TimeRemaining}" />
+			 </If>
+			 <If Condition="(Me.IsOnTransport)" >
+				<CustomBehavior File="WaitTimer" WaitTime="125000" GoalText="Waiting for ride {TimeRemaining}" />
+			 </If>
+			 <While Condition="(Me.IsOnTransport)" >
+			 	<CustomBehavior File="Message" Text="It looks like we got stuck here! Waiting 30s (This Quest is broken by Blizzard)" LogColor="Orange" />
+				<CustomBehavior File="Message" Text="If you are still stuck here, hearth to Orgrimmar and press start" LogColor="Orange" />
+				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for ride {TimeRemaining}" />
+			 </While>
+			 <If Condition="((HasQuest(13712)) &amp;&amp; (!IsQuestCompleted(13712)))" >
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+				<CustomBehavior File="AbandonQuest" QuestId="13712" Type="Incomplete" />
+				<CustomBehavior File="NoCombatMoveTo" X="1236.776" Y="-2251.217" Z="91.92881" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+				<RunTo X="-441.8" Y="-2596.08" Z="96.06" />
+		<PickUp QuestName="To the Rescue!" QuestId="13712" GiverName="Kadrak" GiverId="8582" X="1236.776" Y="-2251.217" Z="91.92881" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+				<RunTo X="-441.8" Y="-2596.08" Z="96.06" />
+			 </If>
+			</While>		
 			<!-- This quest sometimes bugs out because blizzard sucks at coding, I can't disable it w/o a 20 quest set being disabled -->
 			<!-- disabling these quests
 		<PickUp QuestName="To the Rescue!" QuestId="13712" GiverName="Kadrak" GiverId="8582" X="1236.776" Y="-2251.217" Z="91.92881" />
@@ -2927,9 +2963,10 @@
 				<RunTo X="-441.8" Y="-2596.08" Z="96.06" />
 			 </If>
 			</While>
-			// End of Warsong Labor Camp Quests \\
+			-->
+			<!-- End of Warsong Labor Camp Quests -->
 			
-			// Splintertree Post Quests \\
+			<!-- Splintertree Post Quests -->
 			<CustomBehavior File="Message" Text="Compiling Splintertree Post Quests" LogColor="CornflowerBlue" />
 			
 		<TurnIn QuestName="To the Rescue!" QuestId="13712" TurnInName="Kadrak" TurnInId="33837" X="2284.792" Y="-2544.701" Z="98.32894" />
@@ -3035,7 +3072,7 @@
 		<TurnIn QuestName="All Apologies" QuestId="13841" TurnInName="Garrosh Hellscream" TurnInId="39605" />
  			<If Condition="((!HasQuest(13842)) &amp;&amp; (!IsQuestCompleted(13842)))" >
 		<PickUp QuestName="Dread Head Redemption" QuestId="13842" GiverName="Garrosh Hellscream" GiverId="39605" />
-				// Set Hearth to Orgrimmar \\
+				<!-- Set Hearth to Orgrimmar -->
 				<CustomBehavior File="InteractWith" MobId="6929" GossipOptions="1" X="1572.816" Y="-4437.691" Z="16.05642" /> 
 				<CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" NumOfTimes="1" WaitTime="5000"/> 
 			<CustomBehavior File="Message" Text="Force Sell, Repair, Mail, Train Initiated - Do not interrupt the bot!" LogColor="Orange" />
@@ -3100,9 +3137,8 @@
 		<TurnIn QuestName="Gurtar's Request" QuestId="13875" TurnInName="Splintertree Demolisher" TurnInId="33726" />
 		<TurnIn QuestName="Demon Duty" QuestId="13806" TurnInName="Locke Okarr" TurnInId="11820" />
 		<TurnIn QuestName="Satyr Horns" QuestId="6441" TurnInName="Pixel" TurnInId="12724" />
-		// End of Splintertree Post Quests \\
+		<!-- End of Splintertree Post Quests -->
 		
-		-->
 
 		<SetGrindArea>
 			<GrindArea>
