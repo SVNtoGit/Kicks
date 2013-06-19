@@ -353,15 +353,31 @@
 				<CustomBehavior File="CompleteLogQuest" QuestId="24502" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
+			
+			
+			<If Condition="Me.Gender == WoWGender.Female">
 		<PickUp QuestName="Fourth and Goal" QuestId="28414" GiverName="Coach Crosscheck" GiverId="37106"/>
 			<If Condition="HasQuest(28414)">
 				<CustomBehavior File="MountVehOnly" VehicleMountId="48526" X="-8250.91" Y="1484.29" Z="41.4168"/>
 				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
 				<CustomBehavior File="UsePetAbility" SpellIndex="1"/>
-				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+				<CustomBehavior File="WaitTimer" WaitTime="8000"/>
 				<CustomBehavior File="EjectVeh" Eject="True"/>
 			</If>
-		<TurnIn QuestName="Fourth and Goal" QuestId="28414" TurnInName="Coach Crosscheck" TurnInId="37106"/>
+			<TurnIn QuestName="Fourth and Goal" QuestId="28414" TurnInName="Coach Crosscheck" TurnInId="37106"/>
+			<Else>
+					<PickUp QuestName="Fourth and Goal" QuestId="24503" GiverName="Coach Crosscheck" GiverId="37106"/>
+			<If Condition="HasQuest(24503)">
+				<CustomBehavior File="MountVehOnly" VehicleMountId="48526" X="-8250.91" Y="1484.29" Z="41.4168"/>
+				<CustomBehavior File="WaitTimer" WaitTime="5000"/>
+				<CustomBehavior File="UsePetAbility" SpellIndex="1"/>
+				<CustomBehavior File="WaitTimer" WaitTime="8000"/>
+				<CustomBehavior File="EjectVeh" Eject="True"/>
+			</If>
+			<TurnIn QuestName="Fourth and Goal" QuestId="24503" TurnInName="Coach Crosscheck" TurnInId="37106"/>
+			</Else>
+			</If>
+		
 		<PickUp QuestName="Give Sassy the News" QuestId="24520" GiverName="Coach Crosscheck" GiverId="37106"/>
 		<TurnIn QuestName="Give Sassy the News" QuestId="24520" TurnInName="Sassy Hardwrench" TurnInId="34668"/>
 		<TurnIn QuestName="Do it Yourself" QuestId="14070" TurnInName="Sassy Hardwrench" TurnInId="34668"/>
@@ -554,7 +570,8 @@
 				<CustomBehavior File="InteractWith" QuestId="14125" MobId="201736" ObjectType="GameObject" Range="6" X="-8422.473" Y="1328.263" Z="102.0118" />
 				<CustomBehavior File="WaitTimer" WaitTime="16000" />
 			</While>
-        <TurnIn QuestName="447" QuestId="14125" TurnInName="Claims Adjuster" TurnInId="37602" />
+	<SetBehavior Name="Combat" State="off" />
+				        <TurnIn QuestName="447" QuestId="14125" TurnInName="Claims Adjuster" TurnInId="37602" />
         <PickUp QuestName="Life Savings" QuestId="14126" GiverName="Sassy Hardwrench" GiverId="34668" />
 		<!--<CustomBehavior File="ToggleCombat" CombatEnabled="false" />-->
 			<If Condition="((HasQuest(14126)) &amp;&amp; (IsQuestCompleted(14126)))" >
@@ -569,12 +586,11 @@
 
 			<!-- Lost Isles Quests -->
 				<CustomBehavior File="Message" Text="Compiling Lost Isles Quests" LogColor="Green" />
-
 			<If Condition="((!HasQuest(14239)) &amp;&amp; (!IsQuestCompleted(14239)))" >
 				<!-- for some reason - hb doesn't like to find this npc with interactwith - it keeps saying waiting for npc to spawn -->
 				<!-- how do i turn off self heals / food? -->
 				<CustomBehavior File="BasicInteractWith" MobId="36608" />
-                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />	
+				<CustomBehavior File="InteractWith" MobId="36608" InteractByQuestFrameDisposition="Complete" WaitTime="2000"/>
 			</If>
 			<If Condition="Me.Class ==WoWClass.Mage || Me.Class ==WoWClass.Priest || Me.Class ==WoWClass.Warlock">
 		<PickUp QuestName="Goblin Escape Pods" QuestId="14474" GiverName="Geargrinder Gizmo" GiverId="36600" X="534.835" Y="3272.92" Z="0.171872" />
