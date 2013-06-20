@@ -5047,6 +5047,27 @@
 		<TurnIn QuestName="The Theramore Docks" QuestId="1202" TurnInName="Nazeer Bloodpike" TurnInId="4791" />
 		<PickUp QuestName="Check Up on Tabetha" QuestId="11213" GiverName="Nazeer Bloodpike" GiverId="4791" />
 		
+		<If Condition="(Me.Level &lt; 38)" >
+			<PickUp QuestName="A Line in the Dirt" QuestId="24546" GiverName="Kirge Sternhorn" GiverId="3418" X="-2094.175" Y="-1728.589" Z="98.65244" />
+			<PickUp QuestName="Meet the New Boss" QuestId="24551" GiverName="Tatternack Steelforge" GiverId="3433" />
+			<PickUp QuestName="Lion's Pride" QuestId="24552" GiverName="Jorn Skyseer" GiverId="3387" />
+
+			<If Condition="HasQuest(24546) &amp;&amp; !IsQuestCompleted(24546)" >
+				<While Condition="HasQuest(24546) &amp;&amp; !IsQuestCompleted(24546)" >
+					<RunTo DestName="Hamburger Hill" X="-2129.969" Y="-2079.831" Z="99.33013" />	
+					<CustomBehavior File="InteractWith" Range="5" QuestId="24546" MobId="201781" PreInteractMountStrategy="Dismount" X="-2129.969" Y="-2079.831" Z="99.33013" />	
+					<CustomBehavior File="InteractWith" QuestId="24546" MobState="Alive" MobId1="37585" Range="5" NumOfTimes="100" PreInteractMountStrategy="Dismount" CollectionDistance="5" X="-2129.969" Y="-2079.831" Z="99.33013" />
+				</While>
+			</If>
+
+			<Objective QuestName="Meet the New Boss" QuestId="24551" Type="CollectItem" ItemId="49850" CollectCount="10" />
+			<Objective QuestName="Lion's Pride" QuestId="24552" Type="KillMob" MobId="37207" KillCount="5" />
+
+			<TurnIn QuestName="A Line in the Dirt" QuestId="24546" TurnInName="Kirge Sternhorn" TurnInId="3418" />
+			<TurnIn QuestName="Lion's Pride" QuestId="24552" TurnInName="Jorn Skyseer" TurnInId="3387" />
+			<TurnIn QuestName="Meet the New Boss" QuestId="24551" TurnInName="Warlord Bloodhilt" TurnInId="37679" />
+		</If>
+		
 		<SetGrindArea>
 			<GrindArea>
 				<Name>Grind to Level 38</Name>
