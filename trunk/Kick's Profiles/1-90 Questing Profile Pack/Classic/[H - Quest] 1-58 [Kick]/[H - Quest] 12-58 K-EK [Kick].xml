@@ -2930,66 +2930,46 @@
 	   <GrindTo Level="23"/>
 		
 		<TurnIn QuestName="Torek's Assault" QuestId="6544" TurnInName="Ertog Ragetusk" TurnInId="12877" />
-			<!-- added quest back -->
+			<!-- Hawker added this buggy quest back -->
 		<PickUp QuestName="To the Rescue!" QuestId="13712" GiverName="Kadrak" GiverId="8582" X="1236.776" Y="-2251.217" Z="91.92881" />
-			<While Condition="((HasQuest(13712)) &amp;&amp; (!IsQuestCompleted(13712)))" >
-				<CustomBehavior File="WaitTimer" WaitTime="2000" />
-				<CustomBehavior File="InteractWith" QuestId="13712" MobId="8582" NumOfTimes="1" WaitForNpcs="False" GossipOptions="1" X="1236.776" Y="-2251.217" Z="91.92881" />
-				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for ride {TimeRemaining}" />
+		<While Condition="((HasQuest(13712)) &amp;&amp; (!IsQuestCompleted(13712)))" >
+			<CustomBehavior File="WaitTimer" WaitTime="2000" />
+			<CustomBehavior File="InteractWith" QuestId="13712" MobId="8582" NumOfTimes="1" WaitForNpcs="False" GossipOptions="1" X="1236.776" Y="-2251.217" Z="91.92881" />
+			<CustomBehavior File="ForcedDismount" />
+			<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for Brutusk to carry us {TimeRemaining}" />
 
-			 <If Condition="(Me.ZoneId == 17)" >
+			<!-- Brutusk hasn't spawned so take the faster flight -->
+			<If Condition="(Me.ZoneId == 17)" >
 				<CustomBehavior File="InteractWith" QuestId="13712" MobId="8582" NumOfTimes="1" WaitForNpcs="False" GossipOptions="2" X="1236.776" Y="-2251.217" Z="91.92881" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="WaitTimer" WaitTime="65000" GoalText="Waiting for flight to end: {TimeRemaining}" />
-			 </If>
-			 <If Condition="(Me.IsOnTransport)" >
-				<CustomBehavior File="WaitTimer" WaitTime="125000" GoalText="Waiting for ride {TimeRemaining}" />
-			 </If>
-			 <While Condition="(Me.IsOnTransport)" >
-			 	<CustomBehavior File="Message" Text="It looks like we got stuck here! Waiting 30s (This Quest is broken by Blizzard)" LogColor="Orange" />
-				<CustomBehavior File="Message" Text="If you are still stuck here, hearth to Orgrimmar and press start" LogColor="Orange" />
-				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for ride {TimeRemaining}" />
-			 </While>
-			 <If Condition="((HasQuest(13712)) &amp;&amp; (!IsQuestCompleted(13712)))" >
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
-				<CustomBehavior File="AbandonQuest" QuestId="13712" Type="Incomplete" />
-				<CustomBehavior File="NoCombatMoveTo" X="1236.776" Y="-2251.217" Z="91.92881" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
-				<RunTo X="-441.8" Y="-2596.08" Z="96.06" />
-		<PickUp QuestName="To the Rescue!" QuestId="13712" GiverName="Kadrak" GiverId="8582" X="1236.776" Y="-2251.217" Z="91.92881" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
-				<RunTo X="-441.8" Y="-2596.08" Z="96.06" />
-			 </If>
-			</While>		
-			<!-- This quest sometimes bugs out because blizzard sucks at coding, I can't disable it w/o a 20 quest set being disabled -->
-			<!-- disabling these quests
-		<PickUp QuestName="To the Rescue!" QuestId="13712" GiverName="Kadrak" GiverId="8582" X="1236.776" Y="-2251.217" Z="91.92881" />
-			<While Condition="((HasQuest(13712)) &amp;&amp; (!IsQuestCompleted(13712)))" >
-				<CustomBehavior File="WaitTimer" WaitTime="2000" />
-				<CustomBehavior File="InteractWith" QuestId="13712" MobId="8582" NumOfTimes="1" WaitForNpcs="False" GossipOptions="1" X="1236.776" Y="-2251.217" Z="91.92881" />
-				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for ride {TimeRemaining}" />
-			 <If Condition="(Me.IsOnTransport)" >
-				<CustomBehavior File="WaitTimer" WaitTime="125000" GoalText="Waiting for ride {TimeRemaining}" />
-		 	 </If>
-			 <While Condition="(Me.IsOnTransport)" >
+			</If>
+			
+			<!-- Brutusk has spawned so we wait on transport while he does his moves -->
+			<If Condition="(Me.IsOnTransport)" >
+				<CustomBehavior File="WaitTimer" WaitTime="125000" GoalText="Waiting for Brutusk to get to Splintertree {TimeRemaining}" />
+			</If>
+			
+			<!-- Something has gone wrong -->
+			<While Condition="(Me.IsOnTransport)" >
 				<CustomBehavior File="Message" Text="It looks like we got stuck here! Waiting 30s (This Quest is broken by Blizzard)" LogColor="Orange" />
 				<CustomBehavior File="Message" Text="If you are still stuck here, hearth to Orgrimmar and press start" LogColor="Orange" />
 				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for ride {TimeRemaining}" />
-			 </While>
-			 <If Condition="((HasQuest(13712)) &amp;&amp; (!IsQuestCompleted(13712)))" >
+			</While>
+			
+			<!-- Drop quest and try again -->
+			<If Condition="((HasQuest(13712)) &amp;&amp; (!IsQuestCompleted(13712)))" >
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
 				<CustomBehavior File="AbandonQuest" QuestId="13712" Type="Incomplete" />
 				<CustomBehavior File="NoCombatMoveTo" X="1236.776" Y="-2251.217" Z="91.92881" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
 				<RunTo X="-441.8" Y="-2596.08" Z="96.06" />
-		<PickUp QuestName="To the Rescue!" QuestId="13712" GiverName="Kadrak" GiverId="8582" X="1236.776" Y="-2251.217" Z="91.92881" />
+				<PickUp QuestName="To the Rescue!" QuestId="13712" GiverName="Kadrak" GiverId="8582" X="1236.776" Y="-2251.217" Z="91.92881" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
 				<RunTo X="-441.8" Y="-2596.08" Z="96.06" />
-			 </If>
-			</While>
-			-->
+			</If>
+		</While>	
+
 			<!-- End of Warsong Labor Camp Quests -->
 			
 			<!-- Splintertree Post Quests -->
