@@ -6464,11 +6464,13 @@
 		<PickUp QuestName="Hazzard Disposal" QuestId="28213" GiverName="Kelnir Leafsong" GiverId="47696" />
 		<PickUp QuestName="Cleanup at Bloodvenom Post" QuestId="28214" GiverName="Altsoba Ragetotem" GiverId="47692" />
 		
-			<If Condition="(HasQuest(28213)) &amp;&amp; (!IsQuestCompleted(28213))">
-				<UseItem ItemId="63284" QuestName="Hazzard Disposal" QuestId="28213" X="5102.24" Y="-358.321" Z="357.1801" />
-			</If>
-			<Objective QuestName="Hazzard Disposal" QuestId="28213" Type="KillMob" MobId="47679" KillCount="1" />
-			<Objective QuestName="Cleanup at Bloodvenom Post" QuestId="28214" Type="KillMob" MobId="47675" KillCount="6" />
+		<While Condition="(HasQuest(28213)) &amp;&amp; (!IsQuestCompleted(28213))">
+			<UseItem ItemId="63284" QuestName="Hazzard Disposal" QuestId="28213" X="5102.24" Y="-358.321" Z="357.1801" />
+			<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for Hazzard {TimeRemaining}" />	
+		</While>
+		<Objective QuestName="Hazzard Disposal" QuestId="28213" Type="KillMob" MobId="47679" KillCount="1" />
+		
+		<Objective QuestName="Cleanup at Bloodvenom Post" QuestId="28214" Type="KillMob" MobId="47675" KillCount="6" />
 		
 		<TurnIn QuestName="Hazzard Disposal" QuestId="28213" TurnInName="Kelnir Leafsong" TurnInId="47696" />
 		<TurnIn QuestName="Cleanup at Bloodvenom Post" QuestId="28214" TurnInName="Altsoba Ragetotem" TurnInId="47692" />
