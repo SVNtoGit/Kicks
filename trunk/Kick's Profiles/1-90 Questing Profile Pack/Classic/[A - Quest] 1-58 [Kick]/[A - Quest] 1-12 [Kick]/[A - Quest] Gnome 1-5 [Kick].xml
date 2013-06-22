@@ -259,10 +259,27 @@
 		<PickUp QuestName="Staging in Brewnall" QuestId="26339" GiverName="Kelsey Steelspark" GiverId="42366" />
 		<TurnIn QuestName="Staging in Brewnall" QuestId="26339" TurnInName="Jarvi Shadowstep" TurnInId="42353" />
 			<!-- End of Gnomeregan Quests -->
+			
+		<PickUp QuestName="Bound for Kharanos" QuestId="26380" GiverName="Ciara Deepstone" GiverId="42933" X="-5410.04" Y="-306.828" Z="400.6929" />
+		<If Condition="HasQuest(26380) &amp;&amp; !IsQuestCompleted(26380)" > <!-- Fargodeep Mine quest-->
+			<RunTo DestName="Kharanos Flight Path" X="-5662.568" Y="-495.9951" Z="397.1285" />
+			<CustomBehavior File="InteractWith" Range="5" MobId="43701" X="-5664.08" Y="-497.684" Z="397.3411" />
+		</If>
+		<TurnIn QuestName="Bound for Kharanos" QuestId="26380" TurnInName="Innkeeper Belm" TurnInId="1247" />
 
-				<!-- Going to SW -->
-				<CustomBehavior File="Message" Text="Compiling GoTo SW functions" LogColor="CornflowerBlue" />
 
+
+		<!-- Going to SW via flight paths-->		
+		<CustomBehavior File="Message" Text="Loading Kick's Human Profile" LogColor="Orange" />
+
+		<CustomBehavior File="LoadProfile" ProfileName="[A - Quest] EK 5-12 [Kick]" /> 
+		<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
+
+			
+
+				
+		<!-- Just hiding this pre-Cata logic as we can fly now -->
+		<If Condition="Me.IsHorde" >
 			<If Condition="(Me.ZoneId == 1 || Me.ZoneId == 1537)" > <!-- Dun Morogh or IF -->
 				<CustomBehavior File="Message" Text="Running to IF Tram" LogColor="CornflowerBlue" />
 				<RunTo X="-4820.689" Y="-1155.133" Z="502.21" />
@@ -276,42 +293,37 @@
 
 			<If Condition="Me.ZoneId == 1537" > <!-- IF -->
 				<CustomBehavior File="Message" Text="Running into IF Tram portal" LogColor="CornflowerBlue" />
-
 				<RunTo X="-4838.846" Y="-1315.321" Z="501.8681" />
 				<CustomBehavior File="MyCTM" X="-4840.166" Y="-1323.635" Z="501.868" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
 			</If>
-		
+
 			<If Condition="Me.ZoneId == 2257" > <!-- Deeprun Tram -->
-			 <If Condition="Me.Y &lt; 30" > <!-- IF side -->
-				<CustomBehavior File="Message" Text="Riding Tram to SW from IF" LogColor="CornflowerBlue" />
+				<If Condition="Me.Y &lt; 30" > <!-- IF side -->
+					<CustomBehavior File="Message" Text="Riding Tram to SW from IF" LogColor="CornflowerBlue" />
+					<RunTo X="15.43877" Y="7.605853" Z="-4.295578" />
 
-				<RunTo X="15.43877" Y="7.605853" Z="-4.295578" />
+					<!-- Get on at IF, off at SW --><!-- old one was 176081 -->
+					<CustomBehavior File="UseTransport" TransportId="216507" 
+					WaitAtX="15.43877" WaitAtY="7.605853" WaitAtZ="-4.295578"
+					GetOffX="16.77427" GetOffY="2490.513"  GetOffZ="-4.291193"
+					StandOnX="4.528066" StandOnY="8.435292" StandOnZ="-3.46"
+					TransportStartX="4.528066" TransportStartY="8.435292" TransportStartZ="7.011068"
+					TransportEndX="4.527849" TransportEndY="2490.735" TransportEndZ="7.197604" />
+				</If>
 
-				<!-- Get on at IF, off at SW --><!-- old one was 176081 -->
-				<CustomBehavior File="UseTransport" TransportId="216507" 
-											WaitAtX="15.43877" WaitAtY="7.605853" WaitAtZ="-4.295578"
-											GetOffX="16.77427" GetOffY="2490.513"  GetOffZ="-4.291193"
-											StandOnX="4.528066" StandOnY="8.435292" StandOnZ="-3.46"
-											TransportStartX="4.528066" TransportStartY="8.435292" TransportStartZ="7.011068"
-											TransportEndX="4.527849" TransportEndY="2490.735" TransportEndZ="7.197604" />
-			 </If>
+				<If Condition="Me.Y &gt; 2400" > <!-- SW side -->
+					<CustomBehavior File="Message" Text="Running into portal from Deeprun Tram (SW Side) to SW" LogColor="CornflowerBlue" />
 
-			 <If Condition="Me.Y &gt; 2400" > <!-- SW side -->
-				<CustomBehavior File="Message" Text="Running into portal from Deeprun Tram (SW Side) to SW" LogColor="CornflowerBlue" />
-
-				<RunTo X="65.96149" Y="2490.913" Z="-4.295956" />
-				<CustomBehavior File="MyCTM" X="73.21138" Y="2491.088" Z="-4.295956" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
-			 </If>
-			 
+					<RunTo X="65.96149" Y="2490.913" Z="-4.295956" />
+					<CustomBehavior File="MyCTM" X="73.21138" Y="2491.088" Z="-4.295956" />
+					<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
+				</If>
 			</If>
+		</If>
 			
 
-				<CustomBehavior File="Message" Text="Loading Kick's Human Profile" LogColor="Orange" />
 
-				<CustomBehavior File="LoadProfile" ProfileName="[A - Quest] EK 5-12 [Kick]" /> 
-				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
 		
 		
 	</QuestOrder>
