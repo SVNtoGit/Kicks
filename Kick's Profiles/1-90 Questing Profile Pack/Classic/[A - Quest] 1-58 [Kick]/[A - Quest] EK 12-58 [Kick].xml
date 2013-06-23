@@ -393,6 +393,7 @@
 		<Vendor Name="Farseer Javad" Entry="23127" Type="Train" TrainClass="Shaman" X="-4720.412" Y="-1149.962" Z="502.448" />
 		<Vendor Name="Kelstrum Stonebreaker" Entry="1901" Type="Train" TrainClass="Warrior" X="-5044.874" Y="-1243.064" Z="507.7531" />
 		<Vendor Name="Olmin Burningbeard" Entry="5116" Type="Train" TrainClass="Hunter" X="-5010.387" Y="-1274.048" Z="507.7523" />
+		
 	</Vendors>
 	
   <!-- Quest Overrides -->
@@ -4584,6 +4585,11 @@
 		<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue == 0 &amp;&amp; Me.Silver &gt;= 450" >
 				<CustomBehavior File="Message" Text="Compiling Train 60 Speed Mount Function" LogColor="Orange" />
 
+				<!-- Mail and Vendor if in Duskwood or Redridge Mountains-->
+				<If Condition="(Me.ZoneId == 10 || Me.ZoneId == 44)" > 
+					<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+				</If>
+				
 				<If Condition="Me.Race == WoWRace.Human">
 					<RunTo X="-8780.128" Y="380.0052" Z="100.8152" />
 					<CustomBehavior File="InteractWith" MobId="43693" WaitTime="1000" CollectionDistance="50" X="-8780.128" Y="380.0052" Z="100.8152" />
@@ -4722,7 +4728,6 @@
 				 </If>
 					<CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" PullDistance="25" />
 
-				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 		</If>
 		
 			<If Condition="(!IsQuestCompleted(26787))" >
