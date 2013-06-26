@@ -2,7 +2,20 @@
 	<Name>Hawker's Horde Feralas-Tanaris 40-45 Profile</Name>
 	<MinLevel>38</MinLevel>
 	<MaxLevel>101</MaxLevel>
-		<MinDurability>0.3</MinDurability>
+	
+	<MailGrey>False</MailGrey>
+	<MailWhite>True</MailWhite>
+	<MailGreen>True</MailGreen>
+	<MailBlue>True</MailBlue>
+	<MailPurple>True</MailPurple>
+  
+	<SellGrey>True</SellGrey>
+	<SellWhite>True</SellWhite>
+	<SellGreen>True</SellGreen>
+	<SellBlue>True</SellBlue>
+	<SellPurple>False</SellPurple>
+	
+	<MinDurability>0.3</MinDurability>
 	<MinFreeBagSlots>3</MinFreeBagSlots>
 	<Blackspots>
 		<!-- Thargad's Camp -->
@@ -31,7 +44,8 @@
 		<!-- Tanaris Boat by Gadgetzan -->
 		<Blackspot X="-7349.556" Y="-3752.817" Z="10.03149" Radius="2.74395" />
 		<!-- Zulfarrak entrance -->
-		<Blackspot X="-6824.681" Y="-2905.454" Z="8.877857" Radius="11.23763" />
+		<Blackspot X="-6824.681" Y="-2905.454" Z="8.877857" Radius="15" />
+		<Blackspot X="-6848.615" Y="-2912.729" Z="10.31885" Radius="20" />
 		<!-- Risky hut in Lost Rigger Cove -->
 		<Blackspot X="-8026.649" Y="-5198.58" Z="0.5750445" Radius="10" />
 		<!-- Ship in Lost Rigger Cove -->
@@ -44,6 +58,42 @@
 
 	<QuestOrder>
 		<CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" UseFlightPaths="True" PullDistance="25" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
+		<ClearVendor />
+		<SetVendor>
+			<Vendors>
+				<!-- Desolace -->
+				<Vendor Name="Hae'Wilani" Entry="12045" Type="Repair" X="-1677.031" Y="3073.266" Z="34.53783" />
+				<Vendor Name="Tukk" Entry="12027" Type="Food" X="-1701.76" Y="3112.569" Z="32.64054" />
+				<!-- Stonemaul Hold -->
+				<Vendor Name="Kerthunk" Entry="44377" Type="Repair" X="-4600.19" Y="1853.25" Z="88.60656" />
+				<Vendor Name="Lucretia" Entry="44379" Type="Food" X="-4580.5" Y="1862.21" Z="88.73944" />
+				<!-- Camp Mojache -->
+				<Vendor Name="Cawind Trueaim" Entry="9548" Type="Repair" X="-4484.554" Y="233.5269" Z="48.3943" />
+				<Vendor Name="Innkeeper Greul" Entry="7737" Type="Food" X="-4460.097" Y="242.7223" Z="39.1076" />		
+				<Vendor Name="Worb Strongstitch" Entry="8159" Type="Repair" X="-4339.655" Y="249.374" Z="26.31752" />
+			<!-- Tanaris -->
+				<Vendor Name="Krinkle Goodsteel" Entry="5411" Type="Repair" X="-7232.01" Y="-3751.71" Z="9.093862" />
+				<Vendor Name="Dirge Quikcleave" Entry="40589" Type="Food" X="-7167.672" Y="-3853.661" Z="8.41981" />
+				<Vendor Name="Chase Everseek" Entry="43980" Type="Repair" X="-9478.8" Y="-2473.88" Z="17.00157" />
+				<Vendor Name="Cordelia Everseek" Entry="43972" Type="Food" X="-9476.79" Y="-2475.67" Z="17.00157" />
+			<!-- Camp Ataya -->
+				<Vendor Name="Cohanae" Entry="44386" Type="Repair" X="-3071.69" Y="2547.66" Z="50.1791" />
+				<Vendor Name="Adene Treetotem" Entry="40467" Type="Food" X="-3097.09" Y="2563.181" Z="50.17947" />
+			</Vendors>
+		</SetVendor>
+
+		<ClearMailbox />
+		<SetMailbox>
+			<Mailboxes>
+				<!--Shadowprey Village-->
+				<Mailbox X="-1610.831" Y="3117.088" Z="44.47738" />
+				<!-- Camp Mojache-->
+				<Mailbox X="-4405.488" Y="239.2851" Z="27.05856" />
+				<!-- Gadgetzan -->
+				<Mailbox X="-7084.046" Y="-3851.074" Z="9.695802" />
+			</Mailboxes>
+		</SetMailbox>
+			
 		<!-- We need to get to Feralas without drowning so go through Desolace unless you have already done "Signs of Change" 25210 in which case you have the flight path. -->
 		<If Condition="!HasQuest(25210) &amp;&amp; !IsQuestCompleted(25210)" >
 			<RunTo DestName="Shadowprey Village" X="-1768.705" Y="3264.669" Z="5.132476" />
@@ -145,6 +195,22 @@
 		<Objective QuestName="The Gordunni Threat" QuestId="25209" Type="KillMob" MobId="5234" KillCount="16" />
 		<Objective QuestName="The Gordunni Orb" QuestId="25341" Type="CollectItem" ItemId="52832" CollectCount="1" />
 		
+		<!-- We should get what we need for "Find OOX-22/FE!" QuestId 25475 first as quest item looting is sometimes bugged.  -->
+		<If Condition="(!HasQuest(25475)) &amp;&amp; (!IsQuestCompleted(25475))" >
+			<SetGrindArea>
+				<GrindArea>
+					<TargetMinLevel>33</TargetMinLevel>
+					<TargetMaxLevel>39</TargetMaxLevel>
+					<Factions>16</Factions>
+					<Hotspots>
+						<Hotspot X="-4935.266" Y="1579.438" Z="67.40195" />
+						<Hotspot X="-5033.688" Y="1790.529" Z="71.75254" />
+					</Hotspots>
+				</GrindArea>
+			</SetGrindArea>
+			<GrindTo Condition="HasItem(8705)" GoalText="Getting DropQuest Item - Find OOX-22/FE!" />
+		</If>
+		
 		<TurnIn QuestName="The Gordunni Threat" QuestId="25209" TurnInName="Orhan Ogreblade" TurnInId="39656" />
 		<TurnIn QuestName="The Gordunni Orb" QuestId="25341" TurnInName="Orhan Ogreblade" TurnInId="39656" />
 		<TurnIn QuestName="Testing the Vessel" QuestId="25336" TurnInName="Gombana" TurnInId="39894" />
@@ -159,11 +225,11 @@
 		
 		<Objective QuestName="Even More Fuel for the Zapping" QuestId="25466" Type="CollectItem" ItemId="18958" CollectCount="10" />
 		
-		<!-- "Still With The Zapped Giants" 25465 -->
-		<CustomBehavior File="CombatUseItemOnV2" QuestId="25465" ItemId="18904"
-			MobId="5359" NumOfTimesToUseItem="2" CollectionDistance="50"
-			UseItemStrategy="UseItemOncePerTarget" ItemAppliesAuraId="14915"
-			UseWhenMobHasHealthPercent="80" MaxRangeToUseItem="5" >
+		 <!-- "Still With The Zapped Giants" 25465 -->
+		  <CustomBehavior File="CombatUseItemOnV2" QuestId="25465" ItemId="18904"
+		   MobId="5359" NumOfTimesToUseItem="2" CollectionDistance="50"
+		   UseItemStrategy="UseItemOncePerTarget" ItemAppliesAuraId="AssumeItemUseAlwaysSucceeds"
+		   UseWhenMobHasHealthPercent="100" MaxRangeToUseItem="5" >
 			<HuntingGrounds>
 				<Hotspot X="-5618.036" Y="2321.29" Z="0.1283673" />
 				<Hotspot X="-5612.896" Y="2323.631" Z="-0.9579833" />
@@ -192,25 +258,13 @@
 		<TurnIn QuestName="Talk to Swar'jan" QuestId="25342" TurnInName="Swar'jan" TurnInId="39840" />
 
 		<PickUp QuestName="Ogre Abduction" QuestId="25344" GiverName="Swar'jan" GiverId="39840" />
-		<PickUp QuestName="Rulers of Dire Maul" QuestId="25252" GiverName="Orhan Ogreblade" GiverId="39656" />		
-		
-		<!-- We should get what we need for "Find OOX-22/FE!" QuestId 25475 first as quest item looting is sometimes bugged -->
-		<If Condition="(HasQuest(25252)) &amp;&amp; (!HasQuest(25475)) &amp;&amp; (!IsQuestCompleted(25475)))" >
-			<SetGrindArea>
-				<GrindArea>
-					<TargetMinLevel>33</TargetMinLevel>
-					<TargetMaxLevel>39</TargetMaxLevel>
-					<Factions>16</Factions>
-					<Hotspots>
-						<Hotspot X="-4935.266" Y="1579.438" Z="67.40195" />
-						<Hotspot X="-5033.688" Y="1790.529" Z="71.75254" />
-					</Hotspots>
-				</GrindArea>
-			</SetGrindArea>
-			<GrindTo Condition="HasItem(8705)" GoalText="Getting DropQuest Item - Find OOX-22/FE!" />
+		<PickUp QuestName="Rulers of Dire Maul" QuestId="25252" GiverName="Orhan Ogreblade" GiverId="39656" />			
+
+		<If Condition="HasItem(8705)" >
+			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for looting to complete {TimeRemaining}" />
 			<PickUp QuestName="Find OOX-22/FE!" QuestId="25475" GiverName="Find OOX-22/FE!" GiverId="8705" GiverType="Item" />
 		</If>
-		
+	
 		<If Condition="HasQuest(25475)" >
 			<CustomBehavior File="Message" Text="Moving to turn in 'Find OOX-22/FE!'" LogColor="Green" />
 			<MoveTo X="-4946.963" Y="1732.738" Z="62.20434" />
@@ -433,9 +487,8 @@
 		<PickUp QuestName="Taerar's Fall" QuestId="25379" GiverName="Ysondre" GiverId="39407" />
 		
 		<While Condition="HasQuest(25379) &amp;&amp; !IsQuestCompleted(25379)" >
-			<RunTo QuestId="25379" DestName="Taerar" X="-4337.343" Y="-213.7469" Z="138.9056" />
-			<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for Taerar {TimeRemaining}" />
-			<CustomBehavior File="InteractWith" QuestId="25379"  MobId="39853" PreInteractMountStrategy="Dismount" X="-4337.343" Y="-213.7469" Z="138.9056" />
+			<RunTo QuestId="25379" DestName="Taerar" X="-4337.523" Y="-211.8387" Z="125.1737" />
+			<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for Taerar {TimeRemaining}" />
 		</While>
 		
 		<TurnIn QuestName="Taerar's Fall" QuestId="25379" TurnInName="Ysondre" TurnInId="39407" />
@@ -560,6 +613,7 @@
 		
 		<PickUp QuestName="I'm With Scorpid" QuestId="25521" GiverName="Gus Rustflutter" GiverId="40580" />
 		<PickUp QuestName="Blood to Thrive" QuestId="25021" GiverName="Mazoga" GiverId="38927" />
+		<RunTo QuestId="25021" X="-7263.331" Y="-2906.432" Z="9.663424" />
 		<Objective QuestName="Blood to Thrive" QuestId="25021" Type="CollectItem" ItemId="52064" CollectCount="6" />
 		<Objective QuestName="I'm With Scorpid" QuestId="25521" Type="CollectItem" ItemId="54856" CollectCount="6" />
 		<TurnIn QuestName="I'm With Scorpid" QuestId="25521" TurnInName="Gus Rustflutter" TurnInId="40580" />		
@@ -583,8 +637,13 @@
 		<CustomBehavior File="InteractWith" QuestId="25032" MobId="202441" GossipOptions="1" WaitTime="10000" NumOfTimes="1" 
 			PreInteractMountStrategy="Dismount" X="-7450.754" Y="-2881.353" Z="6.68323" />
 		<Objective QuestName="Secrets in the Oasis" QuestId="25032" Type="KillMob" MobId="39159" KillCount="1" />
-		<TurnIn QuestName="Secrets in the Oasis" QuestId="25032" TurnInName="Trenton Lighthammer" TurnInId="7804" />			
-		
+		<TurnIn QuestName="Secrets in the Oasis" QuestId="25032" TurnInName="Trenton Lighthammer" TurnInId="7804" />		
+
+		<!-- Delete the Wet Sand -->
+		<If Condition="HasItem(52074)" >
+			<CustomBehavior File="DeleteItems" Ids="52074" />
+		</If>		
+	
 
 		<TurnIn QuestName="Momentum" QuestId="24947" TurnInName="Megs Dreadshredder" TurnInId="38703"  X="-7954.868" Y="-5245.221" Z="1.250963" />
 		
@@ -647,7 +706,7 @@
 
 		<PickUp QuestName="A Great Idea" QuestId="24951" GiverName="Zeke Bootscuff" GiverId="38706" />
 		<While Condition="((HasQuest(24951)) &amp;&amp; (!IsQuestCompleted(24951)))" >
-			<CustomBehavior File="InteractWith" QuestId="24951" InteractByUsingItemId="52031"  MobId1="5451" Range="5" NumOfTimes="1" 
+			<CustomBehavior File="InteractWith" QuestId="24951" InteractByUsingItemId="52031"  MobId1="5451" MobState="Alive" Range="10" NumOfTimes="1" 
 				PreInteractMountStrategy="Dismount" CollectionDistance="300" >
 				<HuntingGrounds>
 					<Hotspot X="-8763.223" Y="-4093.716" Z="11.04831" />
@@ -664,6 +723,14 @@
 
 		<TurnIn QuestName="A Great Idea" QuestId="24951" TurnInName="Zeke Bootscuff" TurnInId="38706" />
 		<CustomBehavior File="UserSettings" UseMount="True" />
+		
+		<PickUp QuestName="Just Trying to Kill Some Bugs" QuestId="24953" GiverName="Zeke Bootscuff" GiverId="38706" />
+		<If Condition="HasQuest(24953)" >
+			<CustomBehavior File="InteractWith" MobId="11811" InteractByGossipOptions="1" PreInteractMountStrategy="Dismount" />
+			<RunTo QuestId="24953" X="-9238.044" Y="-4005.315" Z="-34.10043" />
+			<CustomBehavior File="UsePetAbility" SpellIndex="2" />
+		</If>
+		<TurnIn QuestName="Just Trying to Kill Some Bugs" QuestId="24953" TurnInName="Zeke Bootscuff" TurnInId="38706" />
 
 		
 		<!-- We should already have OOX-17/TN Distress Beacon -->	
@@ -876,9 +943,8 @@
 				<Mob Name="Sandfury Firecaller"  Id="5647" />
 			</CollectFrom>
 			<Hotspots>
-				<Hotspot X="-6857.757" Y="-3008.29" Z="9.372679" />
-				<Hotspot X="-7095.675" Y="-2656.605" Z="10.40543" />
-				<Hotspot X="-7027.977" Y="-2889.405" Z="8.942765" />
+				<Hotspot X="-7263.331" Y="-2906.432" Z="9.663424" />
+				<Hotspot X="-6899.653" Y="-2686.587" Z="14.04604" />
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -1286,50 +1352,10 @@
 		</Objective>
 	</Quest>
 	
-	<Quest Name="DummyBossKill" Id="123456" >
-		<Objective Type="KillMob" MobId="1" Name="Boss" KillCount="1">
-		<Hotspots>
-			<Hotspot X="1" Y="1" Z="1" />
-		</Hotspots>
-		</Objective>
-	</Quest>
-
-	 <Vendors>
-	 <!-- Un'Goro -->
-		<Vendor Name="Gibbert" Entry="3000" Type="Repair" X="-7491.394" Y="-1501.245" Z="-266.0465" />
-		<Vendor Name="Nergal" Entry="12959" Type="Food" X="-7507.721" Y="-1492.495" Z="-265.7489" />
-		<Vendor Name="Dramm Riverhorn" Entry="38561" Type="Repair" X="-6992.45" Y="-1074.266" Z="-270.2546" />
-		<!-- Desolace -->
-		<Vendor Name="Hae'Wilani" Entry="12045" Type="Repair" X="-1677.031" Y="3073.266" Z="34.53783" />
-		<Vendor Name="Tukk" Entry="12027" Type="Food" X="-1701.76" Y="3112.569" Z="32.64054" />
-		<!-- Stonemaul Hold -->
-		<Vendor Name="Kerthunk" Entry="44377" Type="Repair" X="-4600.19" Y="1853.25" Z="88.60656" />
-		<Vendor Name="Lucretia" Entry="44379" Type="Food" X="-4580.5" Y="1862.21" Z="88.73944" />
-		<!-- Camp Mojache -->
-		<Vendor Name="Cawind Trueaim" Entry="9548" Type="Repair" X="-4484.554" Y="233.5269" Z="48.3943" />
-		<Vendor Name="Innkeeper Greul" Entry="7737" Type="Food" X="-4460.097" Y="242.7223" Z="39.1076" />		
-		<Vendor Name="Worb Strongstitch" Entry="8159" Type="Repair" X="-4339.655" Y="249.374" Z="26.31752" />
-	<!-- Tanaris -->
-		<Vendor Name="Krinkle Goodsteel" Entry="5411" Type="Repair" X="-7232.01" Y="-3751.71" Z="9.093862" />
-		<Vendor Name="Dirge Quikcleave" Entry="40589" Type="Food" X="-7167.672" Y="-3853.661" Z="8.41981" />
-		<Vendor Name="Chase Everseek" Entry="43980" Type="Repair" X="-9478.8" Y="-2473.88" Z="17.00157" />
-		<Vendor Name="Cordelia Everseek" Entry="43972" Type="Food" X="-9476.79" Y="-2475.67" Z="17.00157" />
-	<!-- Camp Ataya -->
-		<Vendor Name="Cohanae" Entry="44386" Type="Repair" X="-3071.69" Y="2547.66" Z="50.1791" />
-		<Vendor Name="Adene Treetotem" Entry="40467" Type="Food" X="-3097.09" Y="2563.181" Z="50.17947" />
-	</Vendors>
-	<Mailboxes>
-		<!--Shadowprey Village-->
-		<Mailbox X="-1610.831" Y="3117.088" Z="44.47738" />
-		<!-- Camp Mojache-->
-		<Mailbox X="-4405.488" Y="239.2851" Z="27.05856" />
-		<!-- Gadgetzan -->
-		<Mailbox X="-7084.046" Y="-3851.074" Z="9.695802" />
-	</Mailboxes>
 	
-		<AvoidMobs>
-			<Mob Name="Covert Ops Hardsuit" Entry="38646" />
-			<Mob Name="Covert Ops Pounder" Entry="38649" />
-		</AvoidMobs>
+	<Blacklist>
+		<Mob Name="Covert Ops Hardsuit" Entry="38646" Flags="Combat, Pull, Interact" />  
+		<Mob Name="Covert Ops Pounder" Entry="38649" Flags="Combat, Pull, Interact" />  
+	</Blacklist>
 </HBProfile>
   
