@@ -5546,11 +5546,15 @@
 			<Objective QuestName="Good-Fer-Nothin' Slither-Dogs" QuestId="26822" Type="KillMob" MobId="44127" KillCount="12" />
 		<TurnIn QuestName="Good-Fer-Nothin' Slither-Dogs" QuestId="26822" TurnInName="Goris" TurnInId="44100" X="-13617.6" Y="-63.2622" Z="35.23936" />
 		
-		<If Condition="((HasQuest(26823)) &amp;&amp; (IsQuestCompleted(26823)))" >			
-			<TurnIn QuestName="Too Big For His Britches" QuestId="26823" TurnInName="Dask &quot;The Flask&quot; Gobfizzle" TurnInId="44099" X="-13619.7" Y="-74.0313" Z="35.23998" />
+		<TurnIn QuestName="Too Big For His Britches" QuestId="26823" TurnInName="Dask &quot;The Flask&quot; Gobfizzle" TurnInId="44099" X="-13619.7" Y="-74.0313" Z="35.23998" />
+		
+		<PickUp QuestName="Perfectly Pure" QuestId="26817" GiverName="Dask &quot;The Flask&quot; Gobfizzle" GiverId="44099" X="-13619.7" Y="-74.0313" Z="35.23998" />
+		
+		<If Condition="HasQuest(26817) &amp; &amp; !HasQuest(26818)" >		
+			<PickUp QuestName="Plush Pelts" QuestId="26818" GiverName="Linzi Hewstrike" GiverId="44083" X="-13626.7" Y="-77.9288" Z="35.24041" />
 			<CustomBehavior File="LoadProfile" ProfileName="[A - Quest] EK 12-58 [Kick]" /> 
 		</If>
-		<PickUp QuestName="Perfectly Pure" QuestId="26817" GiverName="Dask &quot;The Flask&quot; Gobfizzle" GiverId="44099" X="-13619.7" Y="-74.0313" Z="35.23998" />
+		
 		<PickUp QuestName="Plush Pelts" QuestId="26818" GiverName="Linzi Hewstrike" GiverId="44083" X="-13626.7" Y="-77.9288" Z="35.24041" />
 		<PickUp QuestName="If They're Just Going to Leave Them Lying Around..." QuestId="26820" GiverName="Linzi Hewstrike" GiverId="44083" X="-13626.7" Y="-77.9288" Z="35.24041" />
 		<PickUp QuestName="Akiris by the Bundle" QuestId="26819" GiverName="Linzi Hewstrike" GiverId="44083" />
@@ -6632,6 +6636,20 @@
 		<TurnIn QuestName="Smokey and the Bandage" QuestId="27458" TurnInName="Smokey LaRue" TurnInId="11033" />
 			<Objective QuestName="Gathering Some Grub(s)" QuestId="27456" Type="CollectItem" ItemId="13853" CollectCount="15" />
 		<TurnIn QuestName="Gathering Some Grub(s)" QuestId="27456" TurnInName="Rimblat Earthshatter" TurnInId="16134" />
+		
+			<While Condition="(HasItem(20768))" > <!-- Oozing Bag -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(20768)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for loot {TimeRemaining}" />
+			</While>
+			<While Condition="(HasItem(20767))" > <!-- Scum Covered Bag -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(20767)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for loot {TimeRemaining}" />
+			</While>
+			<While Condition="(HasItem(61387))" > <!-- Hidden Stash -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(61387)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for loot {TimeRemaining}" />
+			</While>
+			
 		<PickUp QuestName="An Opportune Alliance" QuestId="27457" GiverName="Rimblat Earthshatter" GiverId="16134" />
 		<PickUp QuestName="Argent Call: Northdale" QuestId="27466" GiverName="Tarenar Sunstrike" GiverId="45729" />
 
@@ -6761,6 +6779,19 @@
 		<TurnIn QuestName="The Plaguewood Tower" QuestId="27532" TurnInName="Argent Apothecary Judkins" TurnInId="45828" />
 		<PickUp QuestName="Just a Little Touched" QuestId="27535" GiverName="Argent Apothecary Judkins" GiverId="45828" />
 		<PickUp QuestName="Counter-Plague Research" QuestId="27531" GiverName="Argent Apothecary Judkins" GiverId="45828" />
+					<While Condition="(HasItem(20768))" > <!-- Oozing Bag -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(20768)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for loot {TimeRemaining}" />
+			</While>
+			<While Condition="(HasItem(20767))" > <!-- Scum Covered Bag -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(20767)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for loot {TimeRemaining}" />
+			</While>
+			<While Condition="(HasItem(61387))" > <!-- Hidden Stash -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(61387)" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for loot {TimeRemaining}" />
+			</While>
+			
 			<!-- c/p from horde profile - is this the best place to put this? -->
 			<While Condition="HasQuest(27523) &amp;&amp; !IsQuestCompleted(27523)">
 				<CustomBehavior File="UseItem" ItemId="61334" QuestId="27523" X="2819.863" Y="-4118.636" Z="97.17213" />
@@ -6901,8 +6932,9 @@
 			<If Condition="((!HasQuest(27762)) &amp;&amp; (!IsQuestCompleted(27762))) &amp;&amp; (Me.ZoneId == 139)" >
 		<PickUp QuestName="Fuselight, Ho!" GiverName="Gek Nozzlerocket" QuestId="27762" GiverId="48704" X="2278.151" Y="-5259.874" Z="81.60403" />
 			</If>
-			<If Condition="((HasQuest(27762)) &amp;&amp; (Me.ZoneId == 139))">
-				<CustomBehavior File="MountVehOnly" VehicleMountId="48708" X="2276.458" Y="-5258.253" Z="81.52869" />	
+		<If Condition="((HasQuest(27762)) &amp;&amp; (Me.ZoneId == 139))">
+				<CustomBehavior File="InteractWith" MobId="48708" PreInteractMountStrategy="DismountOrCancelShapeshift" X="2276.458" Y="-5258.253" Z="81.52869" />
+				<CustomBehavior File="Misc\RunLua" Lua="StaticPopup1Button1:Click()" NumOfTimes="1" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="360000" />
 			</If>
 			<If Condition="((HasQuest(27762)) &amp;&amp; (IsQuestCompleted(27762)))" >
