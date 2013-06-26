@@ -109,7 +109,7 @@ namespace Honorbuddy.Quest_Behaviors.SpecificQuests.theballadofmaximillian
                 // Call parent Dispose() (if it exists) here ...
                 base.Dispose();
             }
-            //Logging.Write("Disposing");
+            Logging.Write("Disposing");
 
             //LevelBot.BehaviorFlags |= ~BehaviorFlags.Combat;
 
