@@ -427,7 +427,9 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                     ?? false;
                 InteractByQuestFrameAction = GetAttributeAsNullable<QuestFrameDisposition>("InteractByQuestFrameDisposition", false, null, null)
                     ?? QuestFrameDisposition.TerminateProfile;
-                InteractByUsingItemId = GetAttributeAsNullable<int>("InteractByUsingItemId", false, ConstrainAs.ItemId, null) ?? 0;
+                InteractByUsingItemId = GetAttributeAsNullable<int>("InteractByUsingItemId", false, ConstrainAs.ItemId, null)
+                    ?? GetAttributeAsNullable<int>("ItemId", false, ConstrainAs.ItemId, null) /*Legacy name--don't use */
+                    ?? 0;
 
                 // Tunables...
                 BuyItemCount = GetAttributeAsNullable<int>("BuyItemCount", false, ConstrainAs.CollectionCount, null) ?? 1;
@@ -576,8 +578,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private WaitTimer _timerToReachDestination = null;
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 574 2013-06-28 08:54:59Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 574 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 575 2013-06-28 19:23:23Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 575 $"); } }
         #endregion
 
 
@@ -634,9 +636,16 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                 // to see an unexpected quest dialog frame.  To prevent problems, we close all dialogs
                 // when InteractWith is started, here.
                 CloseOpenFrames(true);
+
+                // If toon doesn't know any of the prescribed spells, we're done...
+                if ((InteractByCastingSpellId > 0) && !SpellManager.HasSpell(InteractByCastingSpellId))
+                {
+                    var message = string.Format("Toon doesn't know: {0}", Utility.GetSpellNameFromId(InteractByCastingSpellId));
+                    QBCLog.ProfileError(message);
+                    BehaviorDone(message);
+                }
             }
         }
-
         #endregion
 
 
