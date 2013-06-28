@@ -1,27 +1,18 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Linq;
-using System.Xml.Linq;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Windows.Media;
 
 using Styx;
-using Styx.Plugins.PluginClass;
-using Styx.Logic.BehaviorTree;
-using Styx.Helpers;
-using Styx.WoWInternals;
-using Styx.Logic.Pathing;
-using Styx.Logic.Combat;
-using Styx.WoWInternals.WoWObjects;
-using Styx.Logic.Inventory.Frames.Quest;
-using Styx.Logic.Questing;
+using Styx.Common;
+using Styx.CommonBot;
+using Styx.CommonBot.Frames;
+using Styx.Pathing;
 using Styx.Plugins;
-using Styx.Logic.Inventory.Frames.Gossip;
-using Styx.Logic.Common;
-using Styx.Logic.Inventory.Frames.Merchant;
-using Styx.Logic;
-using Styx.Logic.Profiles;
-using Styx.Logic.Inventory.Frames.LootFrame;
+using Styx.WoWInternals;
+using Styx.WoWInternals.WoWObjects;
 
 
 namespace HighVoltz
@@ -29,19 +20,20 @@ namespace HighVoltz
 	class NetherwingCollector: HBPlugin
 	{
         // ********* you can modify the following settings ********************
-        static bool CollectOre = true;
-        static bool CollectHerbs = true;
-        static bool CollectEggs = true;
+        private static bool CollectOre = true;
+        private static bool CollectHerbs = true;
+        private static bool CollectEggs = true;
         
         // ***** anything below here isn't meant to be modified *************
-		public static string name { get { return "NetherwingCollector " + _version.ToString(); } }
 		public override string Name { get { return name; } }
 		public override string Author { get { return "HighVoltz"; } }
-		private readonly static Version _version = new Version(1, 9);
+		private readonly static Version _version = new Version(1, 9, 0, 1);
 		public override Version Version { get { return _version; } }
 		public override string ButtonText { get { return "NetherwingCollector"; } }
 		public override bool WantButton { get { return false; } }
-		public static LocalPlayer Me = ObjectManager.Me;
+
+        private static string name { get { return "NetherwingCollector " + _version.ToString(); } }
+        private static readonly LocalPlayer Me = StyxWoW.Me;
 
 		public override void OnButtonPress()
 		{
@@ -61,9 +53,9 @@ namespace HighVoltz
 			}
 		}
 
-		public static void movetoLoc(WoWPoint loc)
+		public static void MoveToLoc(WoWPoint loc)
 		{
-			Mount.MountUp();
+			Mount.MountUp(() => loc);
 			while (loc.Distance(Me.Location) > 8)
 			{
 				Navigator.MoveTo(loc);
@@ -86,7 +78,7 @@ namespace HighVoltz
 				.OrderBy(o => o.Distance).ToList();
 			foreach (WoWGameObject o in objList)
 			{
-				movetoLoc(WoWMovement.CalculatePointFrom(o.Location, -4));
+				MoveToLoc(WoWMovement.CalculatePointFrom(o.Location, -4));
 				if (inCombat) 
 				{
 					if (Me.Mounted) Mount.Dismount();
@@ -120,7 +112,7 @@ namespace HighVoltz
                     Thread.Sleep(100);
                     if (lootTimer.ElapsedMilliseconds > 5000)
                     {
-                        Log(System.Drawing.Color.Red,"looks like you have some addon interfering with loot. Disable any looting addons pls");
+                        Log(Colors.Red,"looks like you have some addon interfering with loot. Disable any looting addons pls");
                         return;
                     }
                 }
@@ -128,7 +120,7 @@ namespace HighVoltz
 		}
 		static public void Log(string msg, params object[] args) { Logging.Write(msg, args); }
 
-		static public void Log(System.Drawing.Color c, string msg, params object[] args) { Logging.Write(c, msg, args); }
+		static public void Log(Color c, string msg, params object[] args) { Logging.Write(c, msg, args); }
 		
 		static public bool inCombat
 		{
