@@ -386,8 +386,8 @@ namespace Honorbuddy.Quest_Behaviors.EscortGroup
         public QuestInLogRequirement QuestRequirementInLog { get; private set; }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return "$Id: EscortGroup.cs 501 2013-05-10 16:29:10Z chinajade $"; } }
-        public override string SubversionRevision { get { return "$Rev: 501 $"; } }
+        public override string SubversionId { get { return "$Id: EscortGroup.cs 579 2013-06-29 21:29:01Z chinajade $"; } }
+        public override string SubversionRevision { get { return "$Rev: 579 $"; } }
         #endregion
 
 
@@ -1382,7 +1382,18 @@ namespace Honorbuddy.Quest_Behaviors.EscortGroup
                                 if (Me.Mounted)
                                     { Mount.Dismount(); }
                             })),
-                        new Decorator(targetContext => !((WoWUnit)targetContext).IsTargetingMeOrPet,new PrioritySelector(RoutineManager.Current.CombatBuffBehavior,RoutineManager.Current.CombatBehavior))
+                        new Decorator(targetContext => !((WoWUnit)targetContext).IsTargetingMeOrPet,
+                            new PrioritySelector(
+                                // The NeedHeal and NeedCombatBuffs are part of legacy custom class support
+                                // and pair with the Heal and CombatBuff virtual methods.  If a legacy custom class is loaded,
+                                // HonorBuddy automatically wraps calls to Heal and CustomBuffs it in a Decorator checking those for you.
+                                // So, no need to duplicate that work here.
+                                new Decorator(ctx => RoutineManager.Current.HealBehavior != null,
+                                    RoutineManager.Current.HealBehavior),
+                                new Decorator(ctx => RoutineManager.Current.CombatBuffBehavior != null,
+                                    RoutineManager.Current.CombatBuffBehavior),
+                                RoutineManager.Current.CombatBehavior
+                            ))
                     )));
         }
 
