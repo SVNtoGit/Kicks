@@ -147,7 +147,7 @@ namespace Honorbuddy.Quest_Behaviors.SpecificQuests.Olblasty
             var rock = new Honorbuddy.QuestBehaviorCore.VehicleWeapon(3, weaponArticulation, 25);
             var WeaponChoice = rock;
             var projectileFlightTime = WeaponChoice.CalculateTimeOfProjectileFlight(who.Location);
-            var anticipatedLocation = Honorbuddy.QuestBehaviorCore.Extensions_WoWObject.AnticipatedLocationz(who, projectileFlightTime);
+            var anticipatedLocation = Honorbuddy.QuestBehaviorCore.Extensions_WoWObject.AnticipatedLocation(who, projectileFlightTime);
             //Me.CurrentTarget.AnticipatedLocation(projectileFlightTime);
             var isAimed = WeaponChoice.WeaponAim(anticipatedLocation);
             //if (isAimed)
