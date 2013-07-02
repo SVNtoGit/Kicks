@@ -136,14 +136,16 @@
 		
 		
 		<RunTo QuestId="8304" X="-8020.625" Y="1108.113" Z="2.875897" />
-		<CustomBehavior File="InteractWith" QuestId="8304" MobId="15170" InteractByGossipOptions="1,1,1,1,1,1,1,1" Range="5" X="-8013.063" Y="1099.647" Z="4.636153" />
-		<CustomBehavior File="InteractWith" QuestId="8304" MobId="15171" InteractByGossipOptions="1,1,1,1,1,1,1,1" Range="5" X="-8022.499" Y="1115.789" Z="2.738349" />		
+		<While Condition="((HasQuest(8304)) &amp;&amp; (!IsQuestCompleted(8304)))" >
+			<CustomBehavior File="InteractWith" QuestId="8304" MobId="15170" InteractByGossipOptions="1,1,1,1,1,1,1,1" Range="5" X="-8013.063" Y="1099.647" Z="4.636153" />
+			<CustomBehavior File="InteractWith" QuestId="8304" MobId="15171" InteractByGossipOptions="1,1,1,1,1,1,1,1" Range="5" X="-8022.499" Y="1115.789" Z="2.738349" />	
+		</While>
 		
 	
-		<While Condition="((HasQuest(8304)) &amp;&amp; (IsQuestCompleted(8304)))" >
+		<If Condition="((HasQuest(8304)) &amp;&amp; (IsQuestCompleted(8304)))" >
 			<CustomBehavior File="CompleteLogQuest" QuestId="8304" /> <!-- Get 186 -->
 			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for Commander Mar'alith {TimeRemaining}" />
-		</While>
+		</If>
 		
 		<PickUp QuestName="Breaking the Code" QuestId="8310" GiverName="Frankal Stonebridge" GiverId="15171" />
 		<PickUp QuestName="Glyph Chasing" QuestId="8309" GiverName="Rutgar Glyphshaper" GiverId="15170" />
@@ -503,6 +505,9 @@
 		<Vendor Name="Gibbert" Entry="3000" Type="Repair" X="-7491.394" Y="-1501.245" Z="-266.0465" />
 		<Vendor Name="Vargus" Entry="15176" Type="Repair" X="-6860.931" Y="753.0439" Z="42.47247" />
 	</Vendors>
+	<ForceSell>
+	
+	</ForceSell>
 	
 	<Mailboxes>
 		<!-- Cenarion Hold -->
