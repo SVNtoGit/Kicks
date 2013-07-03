@@ -403,10 +403,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                 // NB: Core attributes are parsed by QuestBehaviorBase parent (e.g., QuestId, NonCompeteDistance, etc)
 
                 // Primary attributes...
-                MobIds = GetAttributeAsArray<int>("MobIds", false, ConstrainAs.MobId, new[] { "NpcIds" }, null);
-
-                if (MobIds != null && MobIds.Count() == 0)
-                    MobIds = GetNumberedAttributesAsArray<int>("MobId", 1, ConstrainAs.MobId, new[] { "NpcId" });
+                MobIds = GetNumberedAttributesAsArray<int>("MobId", 0, ConstrainAs.MobId, new[] { "NpcId" });
                 MobIdIncludesSelf = GetAttributeAsNullable<bool>("MobIdIncludesSelf", false, null, null) ?? false;
                 FactionIds = GetNumberedAttributesAsArray<int>("FactionId", 0, ConstrainAs.MobId, null );
                 NumOfTimes = GetAttributeAsNullable<int>("NumOfTimes", false, ConstrainAs.RepeatCount, null) ?? 1;
@@ -554,8 +551,10 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
                             + "InteractByCastingSpellId, InteractByUsingItemId");
 
             UsageCheck_SemanticCoherency(xElement,
-                (MobHpPercentLeft < 100.0) && (MobState != MobStateType.BelowHp),
-                context => "If \"MobHpPercentLeft\" is specified, then \"MobState\" must be \"BelowHp\".");
+                MobState == MobStateType.BelowHp,
+                context => "Please remove the 'MobState=\"BelowHp\"' attribute."
+                            + "  The \"BelowHp\" value is no longer used, and has been deprecated."
+                            + "  The \"MobHpPercentLeft\" attribute alone is sufficient to capture intent.");
         }
         #endregion
 
@@ -583,8 +582,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private WaitTimer _timerToReachDestination = null;
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 578 2013-06-29 19:38:40Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 578 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 587 2013-07-03 09:15:58Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 587 $"); } }
         #endregion
 
 
