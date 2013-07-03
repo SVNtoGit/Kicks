@@ -245,7 +245,7 @@
 		<PickUp QuestName="The Fare of Lar'korwi" QuestId="24731" GiverName="Torwa Pathfinder" GiverId="9619" X="-7855.455" Y="-2102.509" Z="-267.0055" />
 		<RunTo QuestId="24731" X="-7816.187" Y="-1872.776" Z="-273.6982" />
 		<CustomBehavior File="InteractWith" QuestId="24731" MobId="166863" GossipOptions="1" WaitTime="10000" NumOfTimes="4" IgnoreLoSToTarget="true" PreInteractMountStrategy="Dismount" 
-			Range="10" X="-7815.72" Y="-1862.199" Z="-272.4502" />
+			NonCompeteDistance="0" Range="10" X="-7815.72" Y="-1862.199" Z="-272.4502" />
 		<Objective QuestName="The Fare of Lar'korwi" QuestId="24731" Type="CollectItem" ItemId="11504" CollectCount="1" />
 		<TurnIn QuestName="The Fare of Lar'korwi" QuestId="24731" TurnInName="Torwa Pathfinder" TurnInId="9619" />
 		<PickUp QuestName="The Scent of Lar'korwi" QuestId="24732" GiverName="Torwa Pathfinder" GiverId="9619" />
@@ -271,8 +271,6 @@
 		<While Condition="!IsQuestCompleted(24733)">
 			<!-- Sometimes we have already used the Torwa's Pouch so check if item 11568 is in the bags -->
 			<If Condition="HasItem(11568)" >
-				<UseItem ItemId="11568" QuestName="The Bait for Lar'korwi" QuestId="24733" X="-6974.321" Y="-2056.963" Z="-272.1174" />
-				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for item cd {TimeRemaining}" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(11568)" WaitTime="5000" />
 			</If>
 			
@@ -312,7 +310,7 @@
 			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting to prepare for teleport: {TimeRemaining}" />
 		</If>
 		<PickUp QuestName="The Eastern Pylon" QuestId="24721" GiverName="Ithis Moonwarden" GiverId="38263" />
-			<CustomBehavior File="InteractWith" QuestId="24721" MobId="38263" InteractByGossipOptions="1" Range="5" PreInteractMountStrategy="Dismount" 
+			<CustomBehavior File="InteractWith" QuestId="24721" MobId="38263" InteractByGossipOptions="1" Range="5" PreInteractMountStrategy="Dismount" NonCompeteDistance="0"
 				X="-7159.061" Y="-2294.832" Z="-268.1789" />
 		<If Condition="HasQuest(24721) &amp;&amp; !IsQuestCompleted(24721)" >
 			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for teleport: {TimeRemaining}" />
@@ -339,7 +337,7 @@
 			<RunTo QuestId="24742" LocationName="The hottest pillar." X="-7029.406" Y="-1257.39" Z="-270.5621" />
 		</If>
 		<CustomBehavior File="InteractWith" QuestId="24742" InteractByUsingItemId="12472" MobId="148503" NumOfTimes="1" Range="5" WaitTime="6000" PreInteractMountStrategy="Dismount" 
-			IgnoreLoSToTarget="True" X="-7029.406" Y="-1257.39" Z="-270.5621" />
+			NonCompeteDistance="0" IgnoreLoSToTarget="True" X="-7029.406" Y="-1257.39" Z="-270.5621" />
 
 		<Objective QuestName="Finding the Source" QuestId="24742" Type="KillMob" MobId="10541" KillCount="1" />
 		<Objective QuestName="Finding the Source" QuestId="24742" Type="CollectItem" ItemId="12472" CollectCount="1" />
@@ -383,15 +381,18 @@
 		
 		<!-- Turn this in first to get the flight path -->
 		<CustomBehavior File="InteractWith" QuestId="24700"  MobId="39175" X="-6960.243" Y="-1098.884" Z="-272.6487" />
-		
-		<While Condition="((HasQuest(24737)) &amp;&amp; (!IsQuestCompleted(24737)))" >
-			<CustomBehavior File="UseItemOn" QuestId="24737" MobId1="6517" MobId2="6527" ItemId="50742" NumOfTimes="5" WaitTime="3000" WaitForNpcs="False" MobState="DontCare" Range="2" X="-6757" Y="-1638.748" Z="-272.2241" />
-			<CustomBehavior File="UseItemOn" QuestId="24737" MobId1="6517" MobId2="6527" ItemId="50742" NumOfTimes="5" WaitTime="3000" WaitForNpcs="False" MobState="DontCare" Range="2" X="-6800.883" Y="-1696.593" Z="-272.519" />
-			<CustomBehavior File="UseItemOn" QuestId="24737" MobId1="6517" MobId2="6527" ItemId="50742" NumOfTimes="5" WaitTime="3000" WaitForNpcs="False" MobState="DontCare" Range="2" X="-6677.063" Y="-1672.677" Z="-270.861" />
-			<CustomBehavior File="UseItemOn" QuestId="24737" MobId1="6517" MobId2="6527" ItemId="50742" NumOfTimes="5" WaitTime="3000" WaitForNpcs="False" MobState="DontCare" Range="2" X="-6523.7" Y="-1667.127" Z="-269.3867" />
-			<CustomBehavior File="UseItemOn" QuestId="24737" MobId1="6517" MobId2="6527" ItemId="50742" NumOfTimes="5" WaitTime="3000" WaitForNpcs="False" MobState="DontCare" Range="2" X="-6533.347" Y="-1792.479" Z="-271.794" />
-			<CustomBehavior File="UseItemOn" QuestId="24737" MobId1="6517" MobId2="6527" ItemId="50742" NumOfTimes="5" WaitTime="3000" WaitForNpcs="False" MobState="DontCare" Range="2" X="-6538.733" Y="-1883.712" Z="-272.0732" />
-		</While>			
+
+		<CustomBehavior File="InteractWith" QuestId="24737" InteractByUsingItemId="50742" MobState="Dead" MobId1="6517" MobId2="6527" Range="5" WaitTime="3000" NumOfTimes="150" 
+			PreInteractMountStrategy="Dismount" CollectionDistance="300" >
+			<HuntingGrounds>
+				<Hotspot X="-6757" Y="-1638.748" Z="-272.2241" />
+				<Hotspot X="-6800.883" Y="-1696.593" Z="-272.519" />
+				<Hotspot X="-6677.063" Y="-1672.677" Z="-270.861" />
+				<Hotspot X="-6523.7" Y="-1667.127" Z="-269.3867" />
+				<Hotspot X="-6533.347" Y="-1792.479" Z="-271.794" />
+				<Hotspot X="-6538.733" Y="-1883.712" Z="-272.0732" />
+			</HuntingGrounds>
+		</CustomBehavior>		
 
 		<TurnIn QuestName="Super Sticky" QuestId="24737" TurnInName="Tara" TurnInId="38276" />
 
@@ -400,8 +401,9 @@
 		<Objective QuestName="Hard to Harvest" QuestId="24700" Type="CollectItem" ItemId="50258" CollectCount="4" />
 		
 		<While Condition="((HasQuest(24699)) &amp;&amp; (!IsQuestCompleted(24699)))" >
-			<CustomBehavior File="UseItemOn" QuestId="24699" MobId1="38307" ItemId="50746" NumOfTimes="5" WaitTime="3000" WaitForNpcs="False" MobState="DontCare" Range="2" X="-6726.729" Y="-1657.355" Z="-280.7948" />
-		</While>
+			<CustomBehavior File="InteractWith" QuestId="24699" InteractByUsingItemId="50746" MobState="Dead" MobId1="38307" Range="5" WaitTime="3000" NumOfTimes="150" 
+			PreInteractMountStrategy="Dismount" CollectionDistance="300" X="-6726.729" Y="-1657.355" Z="-280.7948" />
+	</While>
 		
 		<TurnIn QuestName="Gormashh the Glutinous" QuestId="24699" TurnInName="Tara" TurnInId="38276" />
 		<TurnIn QuestName="Hard to Harvest" QuestId="24700" TurnInName="Tara" TurnInId="38276" />
@@ -459,7 +461,8 @@
 
 		
 		<PickUp QuestName="The Northern Pylon" QuestId="24722" GiverName="Gremix" GiverId="38275" />
-		<CustomBehavior File="InteractWith" QuestId="24722" MobId="164955" InteractByGossipOptions="1" Range="5" PreInteractMountStrategy="Dismount" X="-6273.905" Y="-1552.985" Z="-230.4688" />
+		<CustomBehavior File="InteractWith" QuestId="24722" MobId="164955" InteractByGossipOptions="1" Range="5" PreInteractMountStrategy="Dismount" 
+			NonCompeteDistance="0" X="-6273.905" Y="-1552.985" Z="-230.4688" />
 		<TurnIn QuestName="The Northern Pylon" QuestId="24722" TurnInName="J.D. Collie" TurnInId="9117" />
 		
 		<If Condition="!IsQuestCompleted(24730)" >
@@ -495,7 +498,7 @@
 				<!-- Talk to the Belf Damsel -->
 				<CustomBehavior File="InteractWith" QuestId="24705" MobId="38238" WaitTime="5000" X="-7431.207" Y="-817.8577" Z="-272.8682" />
 				<!-- Pick up the gear -->
-				<CustomBehavior File="InteractWith" QuestId="24705" MobId="202065" X="-7425.752" Y="-813.772" Z="-278.141" />
+				<CustomBehavior File="InteractWith" QuestId="24705" MobId="202065" NonCompeteDistance="0" X="-7425.752" Y="-813.772" Z="-278.141" />
 				<!-- This is because it gets stuck in the water -->
 				<RunTo QuestId="24705" LocationName="A safe spot out of the water." X="-7421.692" Y="-828.6119" Z="-273.8026" />
 				<RunTo QuestId="24705" LocationName="The damsel." X="-7431.207" Y="-817.8577" Z="-272.8682" />
@@ -612,7 +615,7 @@
 		<TurnIn QuestName="A Tale of Two Shovels" QuestId="24709" TurnInName="Spark Nilminer" TurnInId="9272" />
 		
 		<PickUp QuestName="The Western Pylon" QuestId="24723" GiverName="Spark Nilminer" GiverId="9272" />
-		<CustomBehavior File="InteractWith" QuestId="24723" MobId="164956" InteractByGossipOptions="1" Range="5" X="-7199.983" Y="-334.9223" Z="-226.1769" />
+		<CustomBehavior File="InteractWith" QuestId="24723" MobId="164956" InteractByGossipOptions="1" Range="5" NonCompeteDistance="0" X="-7199.983" Y="-334.9223" Z="-226.1769" />
 		<TurnIn QuestName="The Western Pylon" QuestId="24723" TurnInName="J.D. Collie" TurnInId="9117" />
 		<PickUp QuestName="The Dunes of Silithus" QuestId="28859" GiverName="Zen'Aliri" GiverId="38269" X="-7461.412" Y="-1528.385" Z="-268.8134" />	
 
