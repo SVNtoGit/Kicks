@@ -20,6 +20,8 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
 {
     public class WaypointType : QuestBehaviorXmlBase
     {
+        public const double DefaultRadius = 10.0;
+
         public WaypointType(XElement xElement)
             : base(xElement)
         {
@@ -27,7 +29,7 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
             {
                 Location = GetAttributeAsNullable<WoWPoint>("", true, ConstrainAs.WoWPointNonEmpty, null) ?? WoWPoint.Empty;
                 Name = GetAttributeAs<string>("Name", false, ConstrainAs.StringNonEmpty, null) ?? string.Empty;
-                Radius = GetAttributeAsNullable<double>("Radius", false, ConstrainAs.Range, null) ?? 10.0;
+                Radius = GetAttributeAsNullable<double>("Radius", false, ConstrainAs.Range, null) ?? DefaultRadius;
 
                 if (string.IsNullOrEmpty(Name))
                     { Name = GetDefaultName(Location); }
@@ -48,7 +50,7 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
         }
 
 
-        public WaypointType(WoWPoint location, string name = "", double radius = 10.0)
+        public WaypointType(WoWPoint location, string name = "", double radius = DefaultRadius)
         {
             Location = location;
             Name = name ?? GetDefaultName(location);
@@ -83,8 +85,8 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
         const double NavigatorPathPrecisionBuffer = 1.5;
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return "$Id: WaypointType.cs 591 2013-07-07 10:29:48Z chinajade $"; } }
-        public override string SubversionRevision { get { return "$Rev: 591 $"; } }
+        public override string SubversionId { get { return "$Id: WaypointType.cs 593 2013-07-08 10:41:44Z chinajade $"; } }
+        public override string SubversionRevision { get { return "$Rev: 593 $"; } }
 
 
         public override string ToString()

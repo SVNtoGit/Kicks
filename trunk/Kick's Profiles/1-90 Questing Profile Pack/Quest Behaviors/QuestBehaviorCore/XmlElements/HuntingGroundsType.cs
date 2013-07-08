@@ -86,13 +86,13 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
         private readonly WaypointType _initialPositionWaypoint = new WaypointType(StyxWoW.Me.Location, "my initial position");
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return "$Id: HuntingGroundsType.cs 591 2013-07-07 10:29:48Z chinajade $"; } }
-        public override string SubversionRevision { get { return "$Rev: 591 $"; } }
+        public override string SubversionId { get { return "$Id: HuntingGroundsType.cs 593 2013-07-08 10:41:44Z chinajade $"; } }
+        public override string SubversionRevision { get { return "$Rev: 593 $"; } }
         #endregion
 
 
         // 22Mar2013-11:49UTC chinajade
-        public void AppendWaypoint(WoWPoint wowPoint, string name = "", double radius = 7.0)
+        public void AppendWaypoint(WoWPoint wowPoint, string name = "", double radius = WaypointType.DefaultRadius)
         {
             Waypoints.Add(new WaypointType(wowPoint, name, radius));
         }
@@ -203,7 +203,7 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
             {
                 // If user didn't provide a HuntingGrounds, and he provided a default center point, add it...
                 if (!huntingGrounds.Waypoints.Any() && defaultHuntingGroundCenter.HasValue)
-                    { huntingGrounds.AppendWaypoint(defaultHuntingGroundCenter.Value, "hunting ground center", Navigator.PathPrecision); }
+                    { huntingGrounds.AppendWaypoint(defaultHuntingGroundCenter.Value, "hunting ground center"); }
 
                 if (!huntingGrounds.Waypoints.Any())
                 {
