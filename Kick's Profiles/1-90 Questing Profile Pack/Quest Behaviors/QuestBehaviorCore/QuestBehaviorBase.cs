@@ -24,11 +24,6 @@
 //          The argument specifies the index of the sub-goal of a quest.
 //
 // Tunables (ideally, the profile would _never_ provide these arguments):
-//      CombatMaxEngagementDistance [optional; Default: 23.0]
-//          This is a work around for some buggy Combat Routines.  If a targetted mob is
-//          "too far away", some Combat Routines refuse to engage it for killing.  This
-//          value moves the toon within an appropriate distance to the requested target
-//          so the Combat Routine will perform as expected.
 //      IgnoreMobsInBlackspots [optional; Default: true]
 //          When true, any mobs within (or too near) a blackspot will be ignored
 //          in the list of viable targets that are considered for item use.
@@ -154,7 +149,6 @@ namespace Honorbuddy.QuestBehaviorCore
                 QuestObjectiveIndex = GetAttributeAsNullable<int>("QuestObjectiveIndex", false, new ConstrainTo.Domain<int>(1, 5), null) ?? 0;
 
                 // Tunables...
-                CombatMaxEngagementDistance = GetAttributeAsNullable<double>("CombatMaxEngagementDistance", false, new ConstrainTo.Domain<double>(1.0, 40.0), null) ?? 23.0;
                 IgnoreMobsInBlackspots = GetAttributeAsNullable<bool>("IgnoreMobsInBlackspots", false, null, null) ?? true;
                 MaxDismountHeight = GetAttributeAsNullable<double>("MaxDismountHeight", false, new ConstrainTo.Domain<double>(1.0, 75.0), null) ?? 8.0;
                 MovementBy = GetAttributeAsNullable<MovementByType>("MovementBy", false, null, null) ?? MovementByType.FlightorPreferred;
@@ -183,7 +177,6 @@ namespace Honorbuddy.QuestBehaviorCore
 
 
         // Variables for Attributes provided by caller
-        public double CombatMaxEngagementDistance { get; private set; }
         public bool IgnoreMobsInBlackspots { get; private set; }
         public double MaxDismountHeight { get; private set; }
         public MovementByType MovementBy { get; set; }
@@ -195,8 +188,8 @@ namespace Honorbuddy.QuestBehaviorCore
         public Func<bool> TerminateWhen { get; private set; }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return "$Id: QuestBehaviorBase.cs 600 2013-07-09 17:21:38Z chinajade $"; } }
-        public override string SubversionRevision { get { return "$Rev: 600 $"; } }
+        public override string SubversionId { get { return "$Id: QuestBehaviorBase.cs 601 2013-07-09 17:34:22Z chinajade $"; } }
+        public override string SubversionRevision { get { return "$Rev: 601 $"; } }
         #endregion
 
 
@@ -374,6 +367,14 @@ namespace Honorbuddy.QuestBehaviorCore
 
             // Deprecated attributes...
             EvaluateUsage_DeprecatedAttributes(Element);
+
+            // CombatMaxEngagementDistance was a mis-step.
+            UsageCheck_DeprecatedAttribute(Element,
+                Args.Keys.Contains("CombatMaxEngagementDistance"),
+                "CombatMaxEngagementDistance",
+                context => string.Format("Automatically converted Nav=\"{0}\" attribute into MovementBy=\"{1}\"."
+                                          + "  Please update profile to use MovementBy, instead.",
+                                          Args["Nav"], MovementBy));
 
             // This reports problems, and stops BT processing if there was a problem with attributes...
             // We had to defer this action, as the 'profile line number' is not available during the element's
