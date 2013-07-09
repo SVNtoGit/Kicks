@@ -450,7 +450,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
                 // Deprecated attributes...
                 InteractByBuyingItemInSlotNum = GetAttributeAsNullable<int>("InteractByBuyingItemInSlotNum", false, new ConstrainTo.Domain<int>(-1, 100), new [] { "BuySlot" }) ?? -1;
-                GetAttributeAsNullable<MobType>("ObjectType", false, null, new[] { "MobType" }); // Deprecated--no longer used
+                GetAttributeAsNullable<Deprecated_MobType>("ObjectType", false, null, new[] { "MobType" }); // Deprecated--no longer used
                 var navigationMode = GetAttributeAsNullable<NavigationModeType>("Nav", false, null, new[] { "Navigation" });
                 if (navigationMode != null)
                 {
@@ -585,8 +585,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private WaitTimer _timerToReachDestination = null;
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 598 2013-07-09 16:08:33Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 598 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 599 2013-07-09 16:54:00Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 599 $"); } }
         #endregion
 
 
