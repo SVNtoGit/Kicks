@@ -212,13 +212,13 @@
 //              multiple bos are running the same quest.
 //          Each Waypoint is provided by a <Hotspot ... /> element with the following
 //          attributes:
-//              Name [optional; Default: ""]
+//              Name [optional; Default: X/Y/Z location of the waypoint]
 //                  The name of the waypoint is presented to the user as it is visited.
 //                  This can be useful for debugging purposes, and for making minor adjustments
 //                  (you know which waypoint to be fiddling with).
 //              X/Y/Z [REQUIRED; Default: none]
 //                  The world coordinates of the waypoint.
-//              Radius [optional; Default: 7.0]
+//              Radius [optional; Default: 10.0]
 //                  Once the toon gets within Radius of the waypoint, the next waypoint
 //                  will be sought.
 //
@@ -585,8 +585,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private WaitTimer _timerToReachDestination = null;
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 597 2013-07-09 14:48:09Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 597 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 598 2013-07-09 16:08:33Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 598 $"); } }
         #endregion
 
 

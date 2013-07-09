@@ -38,22 +38,25 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
                 WaypointVisitStrategy = GetAttributeAsNullable<WaypointVisitStrategyType>("WaypointVisitStrategy", false, null, null) ?? WaypointVisitStrategyType.Random;
                 Waypoints = new List<WaypointType>();
 
-                var waypointElementsQuery =
-                    from element in xElement.Elements()
-                    where
-                        (element.Name == "Hotspot")
-                        || (element.Name == "Waypoint")
-                        || (element.Name == "WaypointType")
-                    select element;
-
-                foreach (XElement childElement in waypointElementsQuery)
+                if (xElement != null)
                 {
-                    var waypoint = new WaypointType(childElement);
+                    var waypointElementsQuery =
+                        from element in xElement.Elements()
+                        where
+                            (element.Name == "Hotspot")
+                            || (element.Name == "Waypoint")
+                            || (element.Name == "WaypointType")
+                        select element;
 
-                    if (!waypoint.IsAttributeProblem)
+                    foreach (XElement childElement in waypointElementsQuery)
+                    {
+                        var waypoint = new WaypointType(childElement);
+
+                        if (!waypoint.IsAttributeProblem)
                         { Waypoints.Add(waypoint); }
 
-                    IsAttributeProblem |= waypoint.IsAttributeProblem;
+                        IsAttributeProblem |= waypoint.IsAttributeProblem;
+                    }
                 }
 
                 HandleAttributeProblem();
@@ -86,8 +89,8 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
         private readonly WaypointType _initialPositionWaypoint = new WaypointType(StyxWoW.Me.Location, "my initial position");
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return "$Id: HuntingGroundsType.cs 593 2013-07-08 10:41:44Z chinajade $"; } }
-        public override string SubversionRevision { get { return "$Rev: 593 $"; } }
+        public override string SubversionId { get { return "$Id: HuntingGroundsType.cs 598 2013-07-09 16:08:33Z chinajade $"; } }
+        public override string SubversionRevision { get { return "$Rev: 598 $"; } }
         #endregion
 
 
