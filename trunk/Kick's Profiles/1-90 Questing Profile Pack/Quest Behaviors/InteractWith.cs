@@ -585,8 +585,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private WaitTimer _timerToReachDestination = null;
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 589 2013-07-06 02:39:23Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 589 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 597 2013-07-09 14:48:09Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 597 $"); } }
         #endregion
 
 
@@ -896,7 +896,14 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
                                 // Interact by item use...
                                 new DecoratorContinue(context => InteractByUsingItemId > 0,
-                                    new UtilityBehaviorSeq.UseItem(context => InteractByUsingItemId, context => SelectedTarget)),
+                                    new UtilityBehaviorSeq.UseItem(
+                                        context => InteractByUsingItemId,
+                                        context => SelectedTarget,
+                                        context =>
+                                        {
+                                            BehaviorDone(string.Format("Terminating behavior due to missing {0}",
+                                                Utility.GetItemNameFromId(InteractByUsingItemId)));
+                                        })),
 
                                 // Interact by right-click...
                                 new DecoratorContinue(context => !((InteractByUsingItemId > 0) || (InteractByCastingSpellId > 0)),
