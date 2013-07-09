@@ -320,8 +320,8 @@ namespace Honorbuddy.Quest_Behaviors.CombatUseItemOnV2
         private int WaitTimeAfterItemUse { get; set; }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: CombatUseItemOnV2.cs 597 2013-07-09 14:48:09Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 597 $"); } }
+        public override string SubversionId { get { return ("$Id: CombatUseItemOnV2.cs 603 2013-07-09 17:47:04Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 603 $"); } }
 
 
         protected override void EvaluateUsage_DeprecatedAttributes(XElement xElement)
@@ -727,7 +727,7 @@ namespace Honorbuddy.Quest_Behaviors.CombatUseItemOnV2
                 where
                     IsViableForItemUse(wowUnit)
                     && (wowUnit.Distance < CollectionDistance)
-                orderby wowUnit.CollectionDistance()
+                orderby wowUnit.Location.CollectionDistance()
                 select wowUnit; 
             
             using (StyxWoW.Memory.AcquireFrame())

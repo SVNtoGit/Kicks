@@ -585,8 +585,8 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
         private WaitTimer _timerToReachDestination = null;
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return ("$Id: InteractWith.cs 599 2013-07-09 16:54:00Z chinajade $"); } }
-        public override string SubversionRevision { get { return ("$Revision: 599 $"); } }
+        public override string SubversionId { get { return ("$Id: InteractWith.cs 603 2013-07-09 17:47:04Z chinajade $"); } }
+        public override string SubversionRevision { get { return ("$Revision: 603 $"); } }
         #endregion
 
 
@@ -1379,7 +1379,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
 
             var entities =
                 from wowObject in Query.FindMobsAndFactions(MobIds, MobIdIncludesSelf, FactionIds)
-                let objectCollectionDistance = wowObject.CollectionDistance()
+                let objectCollectionDistance = wowObject.Location.CollectionDistance()
                 where
                     Query.IsViable(wowObject)
                     && (objectCollectionDistance <= CollectionDistance)
@@ -1529,7 +1529,7 @@ namespace Honorbuddy.Quest_Behaviors.InteractWith
             TargetExclusionAnalysis.CheckAuras(exclusionReasons, wowObject, AuraIdsOnMob, AuraIdsMissingFromMob);
             TargetExclusionAnalysis.CheckMobState(exclusionReasons, wowObject, MobState, MobHpPercentLeft);
 
-            var objectCollectionDistance = wowObject.CollectionDistance();
+            var objectCollectionDistance = wowObject.Location.CollectionDistance();
             if (objectCollectionDistance > CollectionDistance)
                 { exclusionReasons.Add(string.Format("ExceedsCollectionDistance({0:F1}, saw {1:F1})", CollectionDistance, objectCollectionDistance)); }
 
