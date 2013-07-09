@@ -73,8 +73,8 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
         public IList<WaypointType> Waypoints { get; private set; }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return "$Id: SafePathType.cs 595 2013-07-09 12:19:37Z chinajade $"; } }
-        public override string SubversionRevision { get { return "$Rev: 595 $"; } }
+        public override string SubversionId { get { return "$Id: SafePathType.cs 596 2013-07-09 14:42:06Z chinajade $"; } }
+        public override string SubversionRevision { get { return "$Rev: 596 $"; } }
 
 
         public void AppendWaypoint(WoWPoint wowPoint, string name = "", double radius = 7.0)
@@ -168,7 +168,7 @@ namespace Honorbuddy.QuestBehaviorCore.XmlElements
             {
                 // If user didn't provide a HuntingGrounds, and he provided a default center point, add it...
                 if (!safePath.Waypoints.Any() && safespotLocation.HasValue)
-                    { safePath.AppendWaypoint(safespotLocation.Value, "safe spot", Navigator.PathPrecision); }
+                    { safePath.AppendWaypoint(safespotLocation.Value, "safe spot"); }
 
                 if (!safePath.Waypoints.Any())
                 {
