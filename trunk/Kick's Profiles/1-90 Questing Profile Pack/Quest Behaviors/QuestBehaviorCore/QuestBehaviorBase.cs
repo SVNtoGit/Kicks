@@ -188,13 +188,13 @@ namespace Honorbuddy.QuestBehaviorCore
         public Func<bool> TerminateWhen { get; private set; }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return "$Id: QuestBehaviorBase.cs 602 2013-07-09 17:39:26Z chinajade $"; } }
-        public override string SubversionRevision { get { return "$Rev: 602 $"; } }
+        public override string SubversionId { get { return "$Id: QuestBehaviorBase.cs 609 2013-07-10 10:51:27Z chinajade $"; } }
+        public override string SubversionRevision { get { return "$Rev: 609 $"; } }
         #endregion
 
 
         #region Private and Convenience variables
-        protected BehaviorFlags _behaviorFlagsOriginal;
+        protected BehaviorFlags? _behaviorFlagsOriginal;
         private Composite _behaviorTreeHook_CombatMain;
         private Composite _behaviorTreeHook_CombatOnly;
         private Composite _behaviorTreeHook_DeathMain;
@@ -290,7 +290,11 @@ namespace Honorbuddy.QuestBehaviorCore
                     _mementoSettings = null;
                 }
 
-                LevelBot.BehaviorFlags = _behaviorFlagsOriginal;
+                if (_behaviorFlagsOriginal.HasValue)
+                {
+                    LevelBot.BehaviorFlags = _behaviorFlagsOriginal.Value;
+                    _behaviorFlagsOriginal = null;
+                }
 
                 TreeRoot.GoalText = string.Empty;
                 TreeRoot.StatusText = string.Empty;
