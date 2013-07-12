@@ -188,8 +188,8 @@ namespace Honorbuddy.QuestBehaviorCore
         public Func<bool> TerminateWhen { get; private set; }
 
         // DON'T EDIT THESE--they are auto-populated by Subversion
-        public override string SubversionId { get { return "$Id: QuestBehaviorBase.cs 609 2013-07-10 10:51:27Z chinajade $"; } }
-        public override string SubversionRevision { get { return "$Rev: 609 $"; } }
+        public override string SubversionId { get { return "$Id: QuestBehaviorBase.cs 612 2013-07-12 16:20:34Z chinajade $"; } }
+        public override string SubversionRevision { get { return "$Rev: 612 $"; } }
         #endregion
 
 
@@ -290,7 +290,10 @@ namespace Honorbuddy.QuestBehaviorCore
                     _mementoSettings = null;
                 }
 
-                if (_behaviorFlagsOriginal.HasValue)
+                // Restore behavior flags...
+                // If the flags haven't changed, don't bother restoring.  This will prevent HBcore from generating
+                // 'noise' messages to the log.
+                if ((_behaviorFlagsOriginal.HasValue) && (_behaviorFlagsOriginal.Value != LevelBot.BehaviorFlags))
                 {
                     LevelBot.BehaviorFlags = _behaviorFlagsOriginal.Value;
                     _behaviorFlagsOriginal = null;
