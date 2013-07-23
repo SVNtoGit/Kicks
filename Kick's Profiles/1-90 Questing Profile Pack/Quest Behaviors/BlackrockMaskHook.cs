@@ -70,7 +70,7 @@ namespace Honorbuddy.Quest_Behaviors.BlackrockMaskHook
             get { return StyxWoW.Me.HasAura(89261); }
         }
 
-                public static Composite _myHook;
+        public static Composite _myHook;
         public static Composite myHook
         {
             get
@@ -89,24 +89,29 @@ namespace Honorbuddy.Quest_Behaviors.BlackrockMaskHook
                     return _myHook;
                 }
             }
+            set
+            {
+                _myHook = value;
+            }
         }
+
         public override void OnStart()
         {
             OnStart_HandleAttributeProblem();
-            
-            if (myHook == null)
-            {
 
+            if (_myHook == null)
+            {
+                Logging.Write("Inserting blackrock hook - gfrsa");
                 TreeHooks.Instance.InsertHook("Questbot_Main", 0, myHook);
             }
             else
             {
+                Logging.Write("removing blackrock hook - gfrsa");
                 TreeHooks.Instance.RemoveHook("Questbot_Main", myHook);
+                myHook = null;
             }
-
-
-
             inserted = true;
+
         }
 
 
