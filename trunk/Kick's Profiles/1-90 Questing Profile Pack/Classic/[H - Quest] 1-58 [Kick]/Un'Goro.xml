@@ -19,13 +19,10 @@
 	<MinFreeBagSlots>3</MinFreeBagSlots>
 	
 	<Blackspots>
-		<!-- Honor's Stand -->
-		<Blackspot X="-319.418" Y="-1237.539" Z="85.99202" Height="1" Radius="40" />
 		<!-- Fire on Splithoof Heights when running to Tanaris from Dustwallow Marsh-->
 		<Blackspot X="-5512.707" Y="-4398.647" Z="84.86179" Height="1" Radius="5" />
 		<!--Trees and stuff in Un'Goro -->
-		<Blackspot X="-7291.939" Y="-1964.401" Z="-273.5006" Height="1" Radius="5" />
-		<Blackspot X="-6072.851" Y="-3911.267" Z="21.72411" Height="1" Radius="35"/>
+		<Blackspot X="-7291.939" Y="-1964.401" Z="-273.5006" Height="1" Radius="5" />		
 		<Blackspot X="-7859.072" Y="-2026.279" Z="-271.563" Height="1" Radius="15"/>
 		<Blackspot X="-7287.887" Y="-2038.332" Z="-272.4879" Height="1" Radius="15"/>
 		<Blackspot X="-5548.286" Y="-4373.554" Z="86.54609" Height="1" Radius="15"/>
@@ -84,6 +81,8 @@
 		<Blackspot X="-6551.374" Y="-1449.44" Z="-274.7065" Height="1" Radius="5" />
 		<!-- Deadly bugged Diemetradon in river on both US and EU realms -->
 		<Blackspot X="-6917.712" Y="-1316.092" Z="-276.2291" Height="1" Radius="15" />
+		<!-- no idea -->
+		<Blackspot X="-6072.851" Y="-3911.267" Z="21.72411" Height="1" Radius="35"/>
 	</Blackspots>
 	
 	<Vendors>
@@ -98,13 +97,15 @@
 		<!-- Gadgetzan -->
 		<Mailbox X="-7084.046" Y="-3851.074" Z="9.695802" />
 	</Mailboxes>
-  
 
 	<QuestOrder>
 		<CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" UseFlightPaths="True" PullDistance="35" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
 		
 		<!-- For toons that are on Eastern Kingdoms -->
 		<If Condition="Me.MapId == 0" >	
+			<If Condition="(CanFly())" >
+				<CustomBehavior File="FlyTo" X="-14288.29" Y="549.3284" Z="8.689642" />
+			</If>
 			<RunTo X="-14288.29" Y="549.3284" Z="8.689642" />
 			<CustomBehavior File="ForcedDismount" />
 				<!-- BB dock to Ratchet -->
@@ -128,14 +129,31 @@
 					</Vendors>  
 			</SetVendor>
 			
-			<If Condition="!HasQuest(25020) &amp;&amp; !IsQuestCompleted(25020)" >
-				<RunTo DestName="Gadgetzan" X="-7098.417" Y="-3816.016" Z="9.489635" />
-				<!-- Get Gadgetzan flight path from Bulkrek Ragefist -->
-				<CustomBehavior File="InteractWith" Range="5" MobId="7824" X="-7098.417" Y="-3816.016" Z="9.489635" />
-				<!-- Make sure to get Bootlegger Outpost Flight paths off Slick Dropdip -->
-				<MoveTo DestName="Bootlegger Outpost" X="-8684.64" Y="-4093.03" Z="40.45159" />
-				<CustomBehavior File="InteractWith" MobId="41214" Range="5" X="-8684.64" Y="-4093.03" Z="40.45159" />
-				<RunTo DestName="Dawnrise Expedition"  X="-9490.44" Y="-2464.22" Z="17.00235" />
+			<!-- "Fragments of Language" QuestId="25020" -->	
+			<If Condition="!HasQuest(25020) &amp;&amp; !IsQuestCompleted(25020)" >	
+				<!--PickUp QuestName="Bloodfen Feathers" GiverName="Brogg" QuestId="27407" GiverId="23579" -->
+				<If Condition="!HasQuest(27407) &amp;&amp; !IsQuestCompleted(27407)" >
+					<RunTo DestName="Ratchet" X="-898.2459" Y="-3769.652" Z="11.71004" />
+					<CustomBehavior File="InteractWith" Range="5" MobId="16227" X="-898.2459" Y="-3769.652" Z="11.71004" />
+					<RunTo DestName="Mudsprocket" X="-4568.401" Y="-3223.187" Z="34.9063" />
+					<CustomBehavior File="InteractWith" Range="5" MobId="40358" X="-4568.401" Y="-3223.187" Z="34.9063" />
+				</If>
+				
+				<!-- PickUp QuestName="Puddle Stomping" QuestId="24907" GiverName="Megs Dreadshredder" GiverId="38534" -->		
+				<If Condition="!HasQuest(24907) &amp;&amp; !IsQuestCompleted(24907)" >				
+					<RunTo DestName="Gadgetzan" X="-7098.417" Y="-3816.016" Z="9.489635" />
+					<!-- Get Gadgetzan flight path-->
+					<CustomBehavior File="InteractWith" MobId="7823" X="-7188.603" Y="-3766.392" Z="9.166555" />
+				</If>
+				
+				<!-- PickUp QuestName="Bootlegger Outpost" QuestId="25103" GiverName="Megs Dreadshredder" GiverId="38703" -->
+				<If Condition="!HasQuest(25103) &amp;&amp; !IsQuestCompleted(25103)" >			
+					<MoveTo DestName="Bootlegger Outpost" X="-8684.64" Y="-4093.03" Z="40.45159" />
+					<!-- Make sure to get Bootlegger Outpost Flight paths off Slick Dropdip -->
+					<CustomBehavior File="InteractWith" MobId="41214" Range="5" X="-8684.64" Y="-4093.03" Z="40.45159" />
+				</If>			
+						
+			<RunTo DestName="Dawnrise Expedition"  X="-9490.44" Y="-2464.22" Z="17.00235" />
 			</If>
 
 			<CustomBehavior File="Message" Text="Compiling Dawnrise Expedition Quests" LogColor="Green" />
@@ -185,6 +203,7 @@
 			<ClearVendor />
 			<SetVendor>
 				<Vendors>
+					<Vendor Name="Razbo Rustgear" Entry="23571" Type="Repair" X="-4603.661" Y="-3210.939" Z="34.9258" />
 					<Vendor Name="Krinkle Goodsteel" Entry="5411" Type="Repair" X="-7232.01" Y="-3751.71" Z="9.093862" />
 					<Vendor Name="Gibbert" Entry="3000" Type="Repair" X="-7491.394" Y="-1501.245" Z="-266.0465" />
 					<Vendor Name="Dramm Riverhorn" Entry="38561" Type="Repair" X="-6992.45" Y="-1074.266" Z="-270.2546" />
@@ -193,12 +212,29 @@
 				</Vendors>
 			</SetVendor>
 			
-			<If Condition="!HasQuest(24911) &amp;&amp; !IsQuestCompleted(24911)" >
-				<!--Gadgetzan flight path-->
-				<CustomBehavior File="InteractWith" MobId="7823" X="-7188.603" Y="-3766.392" Z="9.166555" />
-				<!-- Make sure to get Bootlegger Outpost Flight paths off Slick Dropdip -->
-				<CustomBehavior File="InteractWith" MobId="41214" Range="5" X="-8684.64" Y="-4093.03" Z="40.45159" />
-				<!-- Southmoon Ruins flight path-->
+			
+			<If Condition="!HasQuest(25420) &amp;&amp; !IsQuestCompleted(25420)" >
+				<!--PickUp QuestName="Bloodfen Feathers" GiverName="Brogg" QuestId="27407" GiverId="23579" -->
+				<If Condition="!HasQuest(27407) &amp;&amp; !IsQuestCompleted(27407)" >
+					<RunTo DestName="Mudsprocket" X="-4568.401" Y="-3223.187" Z="34.9063" />
+					<CustomBehavior File="InteractWith" Range="5" MobId="40358" X="-4568.401" Y="-3223.187" Z="34.9063" />
+				</If>
+				
+				<!-- PickUp QuestName="Puddle Stomping" QuestId="24907" GiverName="Megs Dreadshredder" GiverId="38534" -->		
+				<If Condition="!HasQuest(24907) &amp;&amp; !IsQuestCompleted(24907)" >				
+					<RunTo DestName="Gadgetzan" X="-7098.417" Y="-3816.016" Z="9.489635" />
+					<!-- Get Gadgetzan flight path from Bulkrek Ragefist -->
+					<CustomBehavior File="InteractWith" Range="5" MobId="7823" X="-7188.603" Y="-3766.392" Z="9.165956" />
+				</If>
+				
+				<!-- PickUp QuestName="Bootlegger Outpost" QuestId="25103" GiverName="Megs Dreadshredder" GiverId="38703" -->
+				<If Condition="!HasQuest(25103) &amp;&amp; !IsQuestCompleted(25103)" >			
+					<MoveTo DestName="Bootlegger Outpost" X="-8684.64" Y="-4093.03" Z="40.45159" />
+					<!-- Make sure to get Bootlegger Outpost Flight paths off Slick Dropdip -->
+					<CustomBehavior File="InteractWith" MobId="41214" Range="5" X="-8684.64" Y="-4093.03" Z="40.45159" />
+				</If>			
+			
+				<!-- Gunstan's Dig flight path-->
 				<CustomBehavior File="InteractWith" MobId="40827" X="-9499.326" Y="-2950.922" Z="12.85121" />
 			</If>
 
@@ -588,7 +624,7 @@
 			<TurnIn QuestName="The Ballad of Maximillian" QuestId="24707" TurnInName="Maximillian of Northshire" TurnInId="38237" />
 		</If>
 		
-		<If Condition="HasQuest(26698)" >	
+		<If Condition="HasQuest(24698)" >	
 			<TurnIn QuestName="Adventures in Archaeology" QuestId="24698" TurnInName="Spark Nilminer" TurnInId="9272" />
 		</If>
 		
@@ -656,6 +692,11 @@
 	
 		<TurnIn QuestName="The Dunes of Silithus" QuestId="28859" TurnInName="Windcaller Proudhorn" TurnInId="15191" X="-6847.807" Y="755.6797" Z="42.14317" />
 		
+		<!-- Delete 'Power Crystal and Bloodpetal Sprout' items -->
+		<If Condition="HasItem(11315)" >
+			<CustomBehavior File="DeleteItems" Ids="11184, 11185, 11186, 11188, 11315" />
+		</If>
+		
 		<CustomBehavior File="LoadProfile" ProfileName="Silithus" />
 		
 		<If Condition="Me.IsHorde" >	
@@ -664,11 +705,11 @@
 		</If>
 		
 		<CustomBehavior File="Message" Text="All done in Un'Goro." LogColor="Yellow" />
-		<CustomBehavior File="Halt" />
+
 
 	</QuestOrder>  
 	
-  <!--Quest Overrides--> 
+  <!--Quest Overrides for the Un'Goro profile section--> 
 	<Quest Id="25019" Name="Laying Claim">
 		<Objective Type="KillMob" MobId="38998" Name="Explorer's League Digger" KillCount="10">
 			<Hotspots>
