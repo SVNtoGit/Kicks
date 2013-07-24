@@ -46,6 +46,49 @@
 										GetOffX="-996.8669" GetOffY="-3826.07" GetOffZ="5.536246" />
 		</If>	
 		
+		<If Condition="Me.IsAlliance" >		
+			<ClearVendor />
+			<SetVendor>
+				<Vendors>
+					<Vendor Name="Razbo Rustgear" Entry="23571" Type="Repair" X="-4603.661" Y="-3210.939" Z="34.9258" />
+					<Vendor Name="Krinkle Goodsteel" Entry="5411" Type="Repair" X="-7232.01" Y="-3751.71" Z="9.093862" />
+					<Vendor Name="Gibbert" Entry="3000" Type="Repair" X="-7491.394" Y="-1501.245" Z="-266.0465" />
+					<Vendor Name="Dramm Riverhorn" Entry="38561" Type="Repair" X="-6992.45" Y="-1074.266" Z="-270.2546" />
+					<!-- Alliance Only -->
+					<Vendor Name="Brod Anvilbeard" Entry="40826" Type="Food" X="-9478.37" Y="-2968.17" Z="12.55388" />
+				</Vendors>
+			</SetVendor>
+			
+			
+			<If Condition="!HasQuest(28859) &amp;&amp; !IsQuestCompleted(28859)" >
+				<!--PickUp QuestName="Bloodfen Feathers" GiverName="Brogg" QuestId="27407" GiverId="23579" -->
+				<If Condition="!HasQuest(27407) &amp;&amp; !IsQuestCompleted(27407)" >
+					<RunTo DestName="Mudsprocket" X="-4568.401" Y="-3223.187" Z="34.9063" />
+					<CustomBehavior File="InteractWith" Range="5" MobId="40358" X="-4568.401" Y="-3223.187" Z="34.9063" />
+				</If>
+				
+				<!-- PickUp QuestName="Puddle Stomping" QuestId="24907" GiverName="Megs Dreadshredder" GiverId="38534" -->		
+				<If Condition="!HasQuest(24907) &amp;&amp; !IsQuestCompleted(24907)" >				
+					<RunTo DestName="Gadgetzan" X="-7098.417" Y="-3816.016" Z="9.489635" />
+					<!-- Get Gadgetzan flight path from Bulkrek Ragefist -->
+					<CustomBehavior File="InteractWith" Range="5" MobId="7823" X="-7188.603" Y="-3766.392" Z="9.165956" />
+				</If>
+				
+				<!-- PickUp QuestName="Bootlegger Outpost" QuestId="25103" GiverName="Megs Dreadshredder" GiverId="38703" -->
+				<If Condition="!HasQuest(25103) &amp;&amp; !IsQuestCompleted(25103)" >			
+					<MoveTo DestName="Bootlegger Outpost" X="-8684.64" Y="-4093.03" Z="40.45159" />
+					<!-- Make sure to get Bootlegger Outpost Flight paths off Slick Dropdip -->
+					<CustomBehavior File="InteractWith" MobId="41214" Range="5" X="-8684.64" Y="-4093.03" Z="40.45159" />
+				</If>			
+			
+				<!-- Gunstan's Dig flight path-->
+				<CustomBehavior File="InteractWith" MobId="40827" X="-9499.326" Y="-2950.922" Z="12.85121" />
+				<Runto DestName="Marshall's Stand" X="-7461.412" Y="-1528.385" Z="-268.8134" />	
+			</If>
+		</If>
+		
+		<PickUp QuestName="The Dunes of Silithus" QuestId="28859" GiverName="Zen'Aliri" GiverId="38269" X="-7461.412" Y="-1528.385" Z="-268.8134" />	
+		
 		<If Condition="HasQuest(28859)" >
 			<RunTo X="-6843.563" Y="756.0581" Z="42.38491" />
 			<TurnIn QuestName="The Dunes of Silithus" QuestId="28859" TurnInName="Windcaller Proudhorn" TurnInId="15191" X="-6847.807" Y="755.6797" Z="42.14317" />
@@ -214,6 +257,29 @@
 		<PickUp QuestName="Unraveling the Mystery" QuestId="8314" GiverName="Rutgar Glyphshaper" GiverId="15170" />	
 		
 		<TurnIn QuestName="Unraveling the Mystery" QuestId="8314" TurnInName="Geologist Larksbane" TurnInId="15183" />
+		
+		<SetGrindArea>
+			<GrindArea>
+				<Name>Grinding to Level 58</Name>
+				<Factions>14 16</Factions>
+				<TargetMinLevel>52</TargetMinLevel>
+				<TargetMaxLevel>58</TargetMaxLevel>
+				<Hotspots>
+					<Hotspot X="-7035.473" Y="1099.451" Z="5.219384" />
+					<Hotspot X="-6926.106" Y="1249.856" Z="5.20635" />
+					<Hotspot X="-6943.58" Y="1094.687" Z="1.608419" />
+					<Hotspot X="-7059.649" Y="1210.637" Z="0.3497658" />
+					<Hotspot X="-7827.51" Y="1926.173" Z="5.640767" />
+					<Hotspot X="-7972.875" Y="1806.636" Z="2.405842" />
+					<Hotspot X="-7948.423" Y="1946.38" Z="6.90883" />
+					<Hotspot X="-6800.691" Y="1620.447" Z="3.199211" />
+					<Hotspot X="-6839.785" Y="1689.428" Z="-0.01458124" />
+					<Hotspot X="-6748.827" Y="1695.199" Z="2.267287" />
+				</Hotspots>
+			</GrindArea>
+		</SetGrindArea>
+		
+		<GrindTo Level="58"/>
 		
 		<RunTo DestName="The Inn at Cenarion Hold" X="-6867.857" Y="730.6714" Z="45.66279" />
 		
