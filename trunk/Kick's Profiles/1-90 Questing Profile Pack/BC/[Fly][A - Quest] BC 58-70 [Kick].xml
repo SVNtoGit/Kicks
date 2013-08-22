@@ -55,7 +55,7 @@
 		<Mob Name="Luanga the Imprisoner" Entry="18533" />
 		<Mob Name="Floon" Entry="18588" />
 		<Mob Name="Garadar Defender" Entry="18489" />
-		<Mob Name="Banthar" Entry="18529" />
+
 		<Mob Name="Durn the Hungerer" Entry="18411" />
 		<Mob Name="Mountain Gronn" Entry="19201" />
 	</AvoidMobs>
@@ -1821,7 +1821,7 @@
 		</Objective>
 	</Quest>
 
-	<QuestOrder IgnoreCheckPoints="False">
+	<QuestOrder IgnoreCheckPoints="True">
 
 		<If Condition="Me.IsHorde">
 			<CustomBehavior File="LoadProfile" ProfileName="[Fly][H - Quest] BC 58-70 [Kick]" />
@@ -4850,32 +4850,28 @@
 			<CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" UseFlightPaths="True" PullDistance="45" />
 
 			<CustomBehavior File="FlyTo" DestName="Windroc Mastery" QuestId="9856" X="-636.7315" Y="8308.747" Z="53.21259" />
-			<Objective QuestName="Windroc Mastery" QuestId="9856" Type="CollectItem" ItemId="24513" CollectCount="1" />
+			<Objective Nav="Fly" QuestName="Windroc Mastery" QuestId="9856" Type="CollectItem" ItemId="24513" CollectCount="1" />
 
 			<CustomBehavior File="FlyTo" DestName="Talbuk Mastery" QuestId="9859" X="-1177.466" Y="8594.914" Z="37.26402" />
-			<Objective QuestName="Talbuk Mastery" QuestId="9859" Type="CollectItem" ItemId="24523" CollectCount="1" />
+			<Objective Nav="Fly" QuestName="Talbuk Mastery" QuestId="9859" Type="CollectItem" ItemId="24523" CollectCount="1" />
 
 			<CustomBehavior File="FlyTo" DestName="Clefthoof Mastery" QuestId="9851" X="-2132.072" Y="8243.842" Z="-20.71958" />
-			<Objective QuestName="Clefthoof Mastery" QuestId="9851" Type="CollectItem" ItemId="24496" CollectCount="1" />
+			<Objective Nav="Fly" QuestName="Clefthoof Mastery" QuestId="9851" Type="CollectItem" ItemId="24496" CollectCount="1" />
 
 			<If Condition="HasQuest(9851) &amp;&amp; IsQuestCompleted(9851)">
 				<CustomBehavior File="FlyTo" DestName="Nesingwary Safari" X="-1446.501" Y="6347.028" Z="37.53339" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
 
-			<TurnIn QuestName="Windroc Mastery" QuestId="9856" TurnInName="Shado 'Fitz' Farstrider" TurnInId="18200" />
-			<TurnIn QuestName="Talbuk Mastery" QuestId="9859" TurnInName="Harold Lane" TurnInId="18218" />
-			<TurnIn QuestName="Clefthoof Mastery" QuestId="9851" TurnInName="Hemet Nesingwary" TurnInId="18180" />
-			<PickUp QuestName="The Ultimate Bloodsport" QuestId="9852" GiverName="Hemet Nesingwary" GiverId="18180" />
+			<TurnIn Nav="Fly" QuestName="Windroc Mastery" QuestId="9856" TurnInName="Shado 'Fitz' Farstrider" TurnInId="18200" />
+			<TurnIn Nav="Fly" QuestName="Talbuk Mastery" QuestId="9859" TurnInName="Harold Lane" TurnInId="18218" />
+			<TurnIn Nav="Fly" QuestName="Clefthoof Mastery" QuestId="9851" TurnInName="Hemet Nesingwary" TurnInId="18180" />
+			<PickUp Nav="Fly" QuestName="The Ultimate Bloodsport" QuestId="9852" GiverName="Hemet Nesingwary" GiverId="18180" />
 
 			<CustomBehavior File="FlyTo" DestName="The Ultimate Bloodsport" QuestId="9852" X="-2359.303" Y="7850.584" Z="-4.383435" />
-			<Objective QuestName="The Ultimate Bloodsport" QuestId="9852" Type="CollectItem" ItemId="24505" CollectCount="1" />
+			<Objective Nav="Fly" QuestName="The Ultimate Bloodsport" QuestId="9852" Type="CollectItem" ItemId="24505" CollectCount="1" />
 
-			<If Condition="HasQuest(9852) &amp;&amp; IsQuestCompleted(9852)">
-				<CustomBehavior File="FlyTo" DestName="Nesingwary Safari" X="-1446.501" Y="6347.028" Z="37.53339" />
-				<CustomBehavior File="ForcedDismount" />
-				<TurnIn QuestName="The Ultimate Bloodsport" QuestId="9852" TurnInName="Hemet Nesingwary" TurnInId="18180" />
-			</If>
+			<TurnIn Nav="Fly" QuestName="The Ultimate Bloodsport" QuestId="9852" TurnInName="Hemet Nesingwary" TurnInId="18180" />
 
 			<If Condition="HasQuest(9819) &amp;&amp; !IsQuestCompleted(9819)">
 				<CustomBehavior File="FlyTo" DestName="kill 10 Rocks" X="-1304.029" Y="6639.784" Z="49.66998" />
@@ -5250,7 +5246,8 @@
 				</While>
 			</If>
 			<While Condition="HasQuest(9931) &amp;&amp; !IsQuestCompleted(9931)">
-				<CustomBehavior File="InteractWith" QuestId="9931" MobId1="17138" MobId2="18064" InteractByUsingItemId="25555" NumOfTimes="100" WaitTime="7000" CollectionDistance="300" X="-831.4334" Y="7755.943" Z="34.49262" />
+				<CustomBehavior File="InteractWith" QuestId="9931" MobId1="17138" MobId2="18064" MobState="Dead" PreInteractMountStrategy="Dismount" 
+					InteractByUsingItemId="25555" NumOfTimes="100" WaitTime="7000" CollectionDistance="300" X="-831.4334" Y="7755.943" Z="34.49262" />
 			</While>
 
 			<If Condition="HasQuest(9956) &amp;&amp; !IsQuestCompleted(9956)">

@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <HBProfile> <!-- Developed by Kickazz006 -->
 	<Name>[A - Quest] Gnome 1-5 [Kick] ($Rev$)</Name>
 	<MinLevel>1</MinLevel>
@@ -54,7 +55,7 @@
 		<Vendor Name="Burdrak Harglhelm" Entry="3162" Type="Repair" X="-5367.575" Y="287.7031" Z="394.3148" />
 		<Vendor Name="Drill Sergeant Steamcrank" Entry="42324" Type="Train" TrainClass="Warrior" X="-5166.505" Y="458.7344" Z="391.1533" />
 		<Vendor Name="" Entry="42323" Type="Train" TrainClass="Priest" X="-5077.156" Y="477.2257" Z="401.7406" />
-		<Vendor Name="Kelsey Steelspark" Entry="42366" Type="Train" TrainClass="Rogue"	X="-5141.02" Y="502.714" Z="395.5452" />
+		<Vendor Name="Kelsey Steelspark" Entry="42366" Type="Train" TrainClass="Rogue" X="-5141.02" Y="502.714" Z="395.5452" />
 		<Vendor Name="Bipsi Frostflinger" Entry="42331" Type="Train" TrainClass="Mage" X="-5086.4" Y="446.071" Z="409.8239" />
 		<Vendor Name="Alamar Grimm" Entry="460" Type="Train" TrainClass="Warlock" X="-5195.21" Y="509.182" Z="387.7732" />
 		
@@ -69,13 +70,13 @@
 		<Vendor Name="Jade Ramalot" Entry="46996" Type="Repair" X="-4594.17" Y="-1714.2" Z="503.476" />
 		
 		<Vendor Name="Grif Wildheart" Entry="1231" Type="Train" TrainClass="Hunter" X="-5618.542" Y="-454.0711" Z="407.6592" />
-		<Vendor Name="Halbin Frosthammer" Entry="43464" Type="Train" TrainClass="Shaman"  X="-5581.44" Y="-536.977" Z="403.5413" />
+		<Vendor Name="Halbin Frosthammer" Entry="43464" Type="Train" TrainClass="Shaman" X="-5581.44" Y="-536.977" Z="403.5413" />
 		<Vendor Name="Azar Stronghammer" Entry="1232" Type="Train" TrainClass="Paladin" X="-5586.76" Y="-542.163" Z="403.5417" />
 		<Vendor Name="Magis Sparkmantle" Entry="1228" Type="Train" TrainClass="Mage" X="-5586.94" Y="-537.173" Z="403.5413" />
 		<Vendor Name="Granis Swiftaxe" Entry="1229" Type="Train" TrainClass="Warrior" X="-5605.73" Y="-530.385" Z="399.6557" />
 		<Vendor Name="Maxan Anvol" Entry="1226" Type="Train" TrainClass="Priest" X="-5590.56" Y="-529.656" Z="399.6527" />
 		<Vendor Name="Hogral Bakkan" Entry="1234" Type="Train" TrainClass="Rogue" X="-5604.44" Y="-540.3233" Z="399.0975" />
-		<Vendor Name="Gimrizz Shadowcog" Entry="5612"  Type="Train" TrainClass="Warlock" X="-5640.001" Y="-528.8012" Z="404.2961" />
+		<Vendor Name="Gimrizz Shadowcog" Entry="5612" Type="Train" TrainClass="Warlock" X="-5640.001" Y="-528.8012" Z="404.2961" />
 
 		<!--Ironforge-->
 		<Vendor Name="Braenna Flintcrag" Entry="5142" Type="Train" TrainClass="Priest" X="-4617.629" Y="-906.6656" Z="501.073" />
@@ -125,8 +126,12 @@
   
 		<CustomBehavior File="Message" Text="Compiling The Old Dormitory Quests" LogColor="CornflowerBlue" />
 
-			<If Condition="(!IsQuestCompleted(27674))" >
-				<CustomBehavior File="UserSettings" LootMobs="True" UseFlightPaths="False" PullDistance="3" />
+			<If Condition="(!IsQuestCompleted(27674))">
+				<CustomBehavior File="UserSettings" LootMobs="True" UseFlightPaths="True" PullDistance="30" />
+			</If>
+			
+			<If Condition="Me.Class == WoWClass.Warrior || Me.Class == WoWClass.Rogue || Me.Class == WoWClass.Monk">
+				<CustomBehavior File="UserSettings" LootMobs="True" PullDistance="5" />
 			</If>
 	
 		<PickUp QuestName="Pinned Down" QuestId="27670" GiverName="Nevin Twistwrench" GiverId="45966" />
@@ -154,19 +159,18 @@
 		<PickUp QuestName="Report to Carvo Blastbolt" QuestId="28167" GiverName="Nevin Twistwrench" GiverId="45966" />
 		<TurnIn QuestName="Report to Carvo Blastbolt" QuestId="28167" TurnInName="Carvo Blastbolt" TurnInId="47250" />
 		<PickUp QuestName="See to the Survivors" QuestId="27671" GiverName="Carvo Blastbolt" GiverId="47250" />
-			<CustomBehavior File="InteractWith" QuestId="27671" MobId="46268" InteractByUsingItemId="62057"
-				NumOfTimes="100" X="-4986.168" Y="808.9982" Z="276.2368" />
+			<CustomBehavior File="InteractWith" QuestId="27671" MobId="46268" InteractByUsingItemId="62057" NumOfTimes="100" X="-4986.168" Y="808.9982" Z="276.2368" />
 		<TurnIn QuestName="See to the Survivors" QuestId="27671" TurnInName="Carvo Blastbolt" TurnInId="47250" />
 		<PickUp QuestName="Withdraw to the Loading Room!" QuestId="28169" GiverName="Carvo Blastbolt" GiverId="47250" />
 		<TurnIn QuestName="Withdraw to the Loading Room!" QuestId="28169" TurnInName="Gaffer Coilspring" TurnInId="46274" />
 		<PickUp QuestName="Decontamination" QuestId="27635" GiverName="Gaffer Coilspring" GiverId="46274" />
-			<If Condition="((HasQuest(27635)) &amp;&amp; (!IsQuestCompleted(27635)))" >
+			<If Condition="HasQuest(27635) &amp;&amp; !IsQuestCompleted(27635)">
 				<CustomBehavior File="InteractWith" QuestId="27635" MobId="46185" X="-5175.427" Y="745.7177" Z="287.397" />
 				<CustomBehavior File="WaitTimer" WaitTime="25000" />
 			</If>
 		<TurnIn QuestName="Decontamination" QuestId="27635" TurnInName="Technician Braggle" TurnInId="46255" />
 		<PickUp QuestName="To the Surface" QuestId="27674" GiverName="Technician Braggle" GiverId="46255" />
-			<If Condition="HasQuest(27674) &amp;&amp; (Me.Z &lt; 320)" >
+			<If Condition="HasQuest(27674) &amp;&amp; (Me.Z &lt; 320)">
 				<CustomBehavior File="InteractWith" MobId="46293" GossipOptions="1" WaitTime="4000" X="-5180.833" Y="686.3102" Z="287.7943" />
 			</If>
 		<TurnIn QuestName="To the Surface" QuestId="27674" TurnInName="Nevin Twistwrench" TurnInId="42396" />
@@ -176,13 +180,13 @@
 		<CustomBehavior File="Message" Text="Compiling New Tinkertown Quests" LogColor="CornflowerBlue" />
 		<CustomBehavior File="UserSettings" LootMobs="True" UseFlightPaths="True" PullDistance="30" />
 
-			<If Condition="(Me.Class == WoWClass.Warrior)" >
+			<If Condition="(Me.Class == WoWClass.Warrior)">
 		<PickUp QuestName="The Future of Gnomeregan" QuestId="26203" GiverName="Nevin Twistwrench" GiverId="42396" />
 		<TurnIn QuestName="The Future of Gnomeregan" QuestId="26203" TurnInName="Drill Sergeant Steamcrank" TurnInId="42324" />
 		<PickUp QuestName="Meet the High Tinker" QuestId="26425" GiverName="Drill Sergeant Steamcrank" GiverId="42324" />
 		<TurnIn QuestName="Meet the High Tinker" QuestId="26425" TurnInName="High Tinker Mekkatorque" TurnInId="42317" />
 			</If>
-			<If Condition="(Me.Class == WoWClass.Priest)" >
+			<If Condition="(Me.Class == WoWClass.Priest)">
 		<PickUp QuestName="The Future of Gnomeregan" QuestId="26199" GiverName="Nevin Twistwrench" GiverId="42396" />
 		<TurnIn QuestName="The Future of Gnomeregan" QuestId="26199" TurnInName="Doc Cogspin" TurnInId="42323" />
 		<PickUp QuestName="Meet the High Tinker" QuestId="26422" GiverName="Doc Cogspin" GiverId="42323" />
@@ -193,25 +197,25 @@
 		-->
 		<TurnIn QuestName="Meet the High Tinker" QuestId="26422" TurnInName="High Tinker Mekkatorque" TurnInId="42317" />
 			</If>
-			<If Condition="(Me.Class == WoWClass.Rogue)" >
+			<If Condition="(Me.Class == WoWClass.Rogue)">
 		<PickUp QuestName="The Future of Gnomeregan" QuestId="26206" GiverName="Nevin Twistwrench" GiverId="42396" />
 		<TurnIn QuestName="The Future of Gnomeregan" QuestId="26206" TurnInName="Kelsey Steelspark" TurnInId="42366" />
 		<PickUp QuestName="Meet the High Tinker" QuestId="26423" GiverName="Kelsey Steelspark" GiverId="42366" />
 		<TurnIn QuestName="Meet the High Tinker" QuestId="26423" TurnInName="High Tinker Mekkatorque" TurnInId="42317" />
 			</If>
-			<If Condition="(Me.Class == WoWClass.Mage)" >
+			<If Condition="(Me.Class == WoWClass.Mage)">
 		<PickUp QuestName="The Future of Gnomeregan" QuestId="26197" GiverName="Nevin Twistwrench" GiverId="42396" />
 		<TurnIn QuestName="The Future of Gnomeregan" QuestId="26197" TurnInName="Bipsi Frostflinger" TurnInId="42331" />
 		<PickUp QuestName="Meet the High Tinker" QuestId="26421" GiverName="Bipsi Frostflinger" GiverId="42331" />
 		<TurnIn QuestName="Meet the High Tinker" QuestId="26421" TurnInName="High Tinker Mekkatorque" TurnInId="42317" />
 			</If>
-			<If Condition="(Me.Class == WoWClass.Warlock)" >
+			<If Condition="(Me.Class == WoWClass.Warlock)">
 				<PickUp QuestName="The Future of Gnomeregan" QuestId="26202" GiverName="Nevin Twistwrench" GiverId="42396" />
 				<TurnIn QuestName="The Future of Gnomeregan" QuestId="26202" TurnInName="Alamar Grimm" TurnInId="460" />
 				<PickUp QuestName="Meet the High Tinker" QuestId="26424" GiverName="Alamar Grimm" GiverId="460" />
 				<TurnIn QuestName="Meet the High Tinker" QuestId="26424" TurnInName="High Tinker Mekkatorque" TurnInId="42317" />
 			</If>
-			<If Condition="(Me.Class == WoWClass.Monk)" >
+			<If Condition="(Me.Class == WoWClass.Monk)">
 				<PickUp QuestName="The Future of Gnomeregan" QuestId="31135" GiverName="Nevin Twistwrench" GiverId="42396" />
 				<TurnIn QuestName="The Future of Gnomeregan" QuestId="31135" TurnInName="Xi, Friend to the Small" TurnInId="63238" />
 				<PickUp QuestName="Meet the High Tinker" QuestId="31137" GiverName="Xi, Friend to the Small" GiverId="63238" />
@@ -219,12 +223,12 @@
 			</If>
 			
 		<PickUp QuestName="The Fight Continues" QuestId="26208" GiverName="High Tinker Mekkatorque" GiverId="42317" />
-			<If Condition="((HasQuest(26208)) &amp;&amp; (!IsQuestCompleted(26208)))" >
+			<If Condition="HasQuest(26208) &amp;&amp; !IsQuestCompleted(26208)">
 				<RunTo X="-5138.378" Y="496.1674" Z="395.5457" />
 				<CustomBehavior File="WaitTimer" WaitTime="110000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
 		<TurnIn QuestName="The Fight Continues" QuestId="26208" TurnInName="High Tinker Mekkatorque" TurnInId="42317" />
-			<If Condition="((!HasQuest(26566)) &amp;&amp; (!IsQuestCompleted(26566)))" >
+			<If Condition="!HasQuest(26566) &amp;&amp; !IsQuestCompleted(26566)">
 			<!-- spams pickup
 		<PickUp QuestName="A Triumph of Gnomish Ingenuity" QuestId="26566" GiverName="High Tinker Mekkatorque" GiverId="42317" X="-5130.65" Y="488.8413" Z="395.5453" /> -->
 				<CustomBehavior File="InteractWith" MobId="42317" X="-5130.65" Y="488.8413" Z="395.5453" />
@@ -238,8 +242,7 @@
 		<PickUp QuestName="A Job for the Multi-Bot" QuestId="26205" GiverName="Engineer Grindspark" GiverId="42553" />
 		<PickUp QuestName="What's Left Behind" QuestId="26264" GiverName="Tock Sprysprocket" GiverId="42611" />
 		<PickUp QuestName="Dealing with the Fallout" QuestId="26265" GiverName="Corporal Fizzwhistle" GiverId="42630" />
-			<CustomBehavior File="InteractWith" QuestId="26205" MobId="203975 " NumOfTimes="100" 
-				WaitTime="3500" Range="3" X="-5358.981" Y="448.5872" Z="384.1597" />
+			<CustomBehavior File="InteractWith" QuestId="26205" MobId="203975 " NumOfTimes="100" WaitTime="3500" Range="3" X="-5358.981" Y="448.5872" Z="384.1597" />
 			<Objective QuestName="What's Left Behind" QuestId="26264" Type="CollectItem" ItemId="57987" CollectCount="6" />
 			<Objective QuestName="Dealing with the Fallout" QuestId="26265" Type="KillMob" MobId="42185" KillCount="6" />
 		<TurnIn QuestName="Dealing with the Fallout" QuestId="26265" TurnInName="Corporal Fizzwhistle" TurnInId="42630" />
@@ -249,8 +252,7 @@
 		<TurnIn QuestName="What's Keeping Jessup?" QuestId="26316" TurnInName="Jessup McCree" TurnInId="42708" />
 		<PickUp QuestName="Get Me Explosives Back!" QuestId="26285" GiverName="Jessup McCree" GiverId="42708" />
 		<PickUp QuestName="Missing in Action" QuestId="26284" GiverName="Jessup McCree" GiverId="42708" />
-			<CustomBehavior File="InteractWith" QuestId="26284" MobId="204019" NumOfTimes="100" Range="4"
-				CollectionDistance="500" X="-5567.554" Y="522.3546" Z="381.4504" />
+			<CustomBehavior File="InteractWith" QuestId="26284" MobId="204019" NumOfTimes="100" Range="4" CollectionDistance="500" X="-5567.554" Y="522.3546" Z="381.4504" />
 			<Objective QuestName="Get Me Explosives Back!" QuestId="26285" Type="CollectItem" ItemId="58202" CollectCount="7" />
 		<TurnIn QuestName="Get Me Explosives Back!" QuestId="26285" TurnInName="Jessup McCree" TurnInId="42708" />
 		<TurnIn QuestName="Missing in Action" QuestId="26284" TurnInName="Jessup McCree" TurnInId="42708" />
@@ -262,8 +264,7 @@
 		<TurnIn QuestName="One More Thing" QuestId="26329" TurnInName="High Tinker Mekkatorque" TurnInId="42317" />
 		<PickUp QuestName="Crushcog's Minions" QuestId="26331" GiverName="High Tinker Mekkatorque" GiverId="42317" />
 		<PickUp QuestName="No Tanks!" QuestId="26333" GiverName="Hinkles Fastblast" GiverId="42491" />
-			<CustomBehavior File="InteractWith" QuestId="26333" MobId="42224" InteractByUsingItemId="58200"
-				NumOfTimes="100" X="-5010.189" Y="151.4061" Z="386.7669" />
+			<CustomBehavior File="InteractWith" QuestId="26333" MobId="42224" InteractByUsingItemId="58200" NumOfTimes="100" X="-5010.189" Y="151.4061" Z="386.7669" />
 			<Objective QuestName="Crushcog's Minions" QuestId="26331" Type="KillMob" MobId="42223" KillCount="8" />
 		<TurnIn QuestName="Crushcog's Minions" QuestId="26331" TurnInName="High Tinker Mekkatorque" TurnInId="42317" />
 		<TurnIn QuestName="No Tanks!" QuestId="26333" TurnInName="Hinkles Fastblast" TurnInId="42491" />
@@ -272,7 +273,7 @@
 			<!-- End of Gnomeregan Quests -->
 			
 		<PickUp QuestName="Bound for Kharanos" QuestId="26380" GiverName="Ciara Deepstone" GiverId="42933" X="-5410.04" Y="-306.828" Z="400.6929" />
-		<If Condition="HasQuest(26380) &amp;&amp; !IsQuestCompleted(26380)" > <!-- Fargodeep Mine quest-->
+		<If Condition="HasQuest(26380) &amp;&amp; !IsQuestCompleted(26380)"> <!-- Fargodeep Mine quest-->
 			<RunTo DestName="Kharanos Flight Path" X="-5662.568" Y="-495.9951" Z="397.1285" />
 			<CustomBehavior File="InteractWith" Range="5" MobId="43701" X="-5664.08" Y="-497.684" Z="397.3411" />
 		</If>
@@ -290,8 +291,8 @@
 
 				
 		<!-- Just hiding this pre-Cata logic as we can fly now -->
-		<If Condition="Me.IsHorde" >
-			<If Condition="(Me.ZoneId == 1 || Me.ZoneId == 1537)" > <!-- Dun Morogh or IF -->
+		<If Condition="Me.IsHorde">
+			<If Condition="(Me.ZoneId == 1 || Me.ZoneId == 1537)"> <!-- Dun Morogh or IF -->
 				<CustomBehavior File="Message" Text="Running to IF Tram" LogColor="CornflowerBlue" />
 				<RunTo X="-4820.689" Y="-1155.133" Z="502.21" />
 				<CustomBehavior File="UserSettings" UseFlightPaths="True" />
@@ -302,28 +303,23 @@
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting {TimeRemaining}" />
 			</If>
 
-			<If Condition="Me.ZoneId == 1537" > <!-- IF -->
+			<If Condition="Me.ZoneId == 1537"> <!-- IF -->
 				<CustomBehavior File="Message" Text="Running into IF Tram portal" LogColor="CornflowerBlue" />
 				<RunTo X="-4838.846" Y="-1315.321" Z="501.8681" />
 				<CustomBehavior File="MyCTM" X="-4840.166" Y="-1323.635" Z="501.868" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
 			</If>
 
-			<If Condition="Me.ZoneId == 2257" > <!-- Deeprun Tram -->
-				<If Condition="Me.Y &lt; 30" > <!-- IF side -->
+			<If Condition="Me.ZoneId == 2257"> <!-- Deeprun Tram -->
+				<If Condition="Me.Y &lt; 30"> <!-- IF side -->
 					<CustomBehavior File="Message" Text="Riding Tram to SW from IF" LogColor="CornflowerBlue" />
 					<RunTo X="15.43877" Y="7.605853" Z="-4.295578" />
 
 					<!-- Get on at IF, off at SW --><!-- old one was 176081 -->
-					<CustomBehavior File="UseTransport" TransportId="216507" 
-					WaitAtX="15.43877" WaitAtY="7.605853" WaitAtZ="-4.295578"
-					GetOffX="16.77427" GetOffY="2490.513"  GetOffZ="-4.291193"
-					StandOnX="4.528066" StandOnY="8.435292" StandOnZ="-3.46"
-					TransportStartX="4.528066" TransportStartY="8.435292" TransportStartZ="7.011068"
-					TransportEndX="4.527849" TransportEndY="2490.735" TransportEndZ="7.197604" />
+					<CustomBehavior File="UseTransport" TransportId="216507" WaitAtX="15.43877" WaitAtY="7.605853" WaitAtZ="-4.295578" GetOffX="16.77427" GetOffY="2490.513" GetOffZ="-4.291193" StandOnX="4.528066" StandOnY="8.435292" StandOnZ="-3.46" TransportStartX="4.528066" TransportStartY="8.435292" TransportStartZ="7.011068" TransportEndX="4.527849" TransportEndY="2490.735" TransportEndZ="7.197604" />
 				</If>
 
-				<If Condition="Me.Y &gt; 2400" > <!-- SW side -->
+				<If Condition="Me.Y &gt; 2400"> <!-- SW side -->
 					<CustomBehavior File="Message" Text="Running into portal from Deeprun Tram (SW Side) to SW" LogColor="CornflowerBlue" />
 
 					<RunTo X="65.96149" Y="2490.913" Z="-4.295956" />
