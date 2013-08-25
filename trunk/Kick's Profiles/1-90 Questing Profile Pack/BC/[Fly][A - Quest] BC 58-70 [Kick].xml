@@ -3619,7 +3619,9 @@
 		<Objective QuestName="Glowcap Mushrooms" QuestId="9808" Type="CollectItem" ItemId="24245" CollectCount="10" />
 		<Objective QuestName="Fertile Spores" QuestId="9806" Type="CollectItem" ItemId="24449" CollectCount="6" />
 
-		<If Condition="HasQuest(9808) &amp;&amp; IsQuestCompleted(9808)">
+		<!-- CJ: This quest is not available if you are Friendly or higher with Sporeggar;
+		    so, need to accommodate that. -->
+		<If Condition="!HasQuest(9808) &amp;&amp; !IsQuestCompleted(9808) &amp;&amp; (Me.GetReputationLevelWith(970) &lt; WoWUnitReaction.Friendly)" >
 			<CustomBehavior File="FlyTo" DestName="TurnIn: Glowcap Mushrooms" X="210.8893" Y="8504.154" Z="24.22618" />
 			<RunTo X="205.8044" Y="8500.641" Z="24.57679" />
 			<CustomBehavior File="ForcedDismount" />
