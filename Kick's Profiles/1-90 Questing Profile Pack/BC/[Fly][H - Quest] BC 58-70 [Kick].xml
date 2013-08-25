@@ -3498,7 +3498,9 @@
 			<TurnIn Nav="Fly" QuestName="Sporeggar" QuestId="9919" TurnInName="Msshi'fn" TurnInId="17924" X="189.901" Y="8485.713" Z="26.94084" />
 		</If>
 
-		<If Condition="!HasQuest(9808) &amp;&amp; !IsQuestCompleted(9808)" >
+		<!-- CJ: This quest is not available if you are Friendly or higher with Sporeggar;
+		    so, need to accommodate that. -->
+		<If Condition="!HasQuest(9808) &amp;&amp; !IsQuestCompleted(9808) &amp;&amp; (Me.GetReputationLevelWith(970) &lt; WoWUnitReaction.Friendly)" >
 			<CustomBehavior File="FlyTo" DestName="Pickup: Glowcap Mushrooms"  X="210.8893" Y="8504.154" Z="24.22618" />
 			<RunTo X="205.8044" Y="8500.641" Z="24.57679" />
 			<CustomBehavior File="ForcedDismount" />
