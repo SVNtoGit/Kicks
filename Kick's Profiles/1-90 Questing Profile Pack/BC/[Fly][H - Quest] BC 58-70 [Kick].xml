@@ -3218,10 +3218,10 @@
             </If>
 
             <If Condition="((HasQuest(9912)) &amp;&amp; (IsQuestCompleted(9912)))" >
-                <If Condition="CanFly()" >
-                    <CustomBehavior File="FlyTo" DestName="Turnin: The Cenarion Expedition" X="-212.9323" Y="5502.058" Z="21.52795" />
-                </If>
+                <CustomBehavior File="FlyTo" DestName="Turnin: The Cenarion Expedition" X="-212.9323" Y="5502.058" Z="21.52795" />
+
                 <TurnIn QuestName="The Cenarion Expedition" QuestId="9912" TurnInName="Ysiel Windsinger" TurnInId="17841" X="-143.4519" Y="5533.816" Z="31.06601" />
+				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
             </If>
 
             <If Condition="((!HasQuest(9747)) &amp;&amp; (!IsQuestCompleted(9747)))" >
@@ -3765,7 +3765,7 @@
         <!-- Terrokar Forest -->
         <Checkpoint Level="64" />
 
-        <If Condition="!IsQuestCompleted(9406)" >
+        <If Condition="!IsQuestCompleted(9797)" >
             <CustomBehavior File="Message" Text="Compiling Terrokar Forest Quests" LogColor="Green" />
             <CustomBehavior File="UserSettings" LootMobs="True" UseFlightPaths="True" PullDistance="35" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
 
@@ -3799,6 +3799,7 @@
 
             <If Condition="HasQuest(10037) &amp;&amp; IsQuestCompleted(10037)" >
                 <TurnIn Nav="Fly" QuestName="Rather Be Fishin'" QuestId="10037" TurnInName="Seth" TurnInId="18653" X="-1619.308" Y="5300.907" Z="-40.20843" />
+				<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
             </If>
 
             <PickUp Nav="Fly" QuestName="A'dal" QuestId="10210" GiverName="Haggard War Veteran" GiverId="19684" X="-1702.186" Y="5374.703" Z="3.867954" />
@@ -4409,8 +4410,6 @@
             </While>
 
             <PickUp Nav="Fly" QuestName="Reinforcements for Garadar" QuestId="9797" GiverName="Messenger Gazgrigg" GiverId="18091" X="261.7116" Y="7860.628" Z="23.40682"  />
-            <TurnIn Nav="Fly" QuestName="Reinforcements for Garadar" QuestId="9797" TurnInName="Captain Kroghan" TurnInId="18090" X="-1337.888" Y="7236.774" Z="33.45564" />
-
             <TurnIn Nav="Fly" QuestName="Welcoming the Wolf Spirit" QuestId="10791" TurnInName="Malukaz" TurnInId="18384" X="-2651.536" Y="4396.26" Z="36.21259"  />
 
             <!--in case flying fails-->
@@ -4429,11 +4428,7 @@
 		<TurnIn Nav="Fly" QuestName="Letting Earthbinder Tavgren Know" QuestId="10006" TurnInName="Earthbinder Tavgren" TurnInId="18446" X="-1947.286" Y="4686.039" Z="-2.221095" />
 		-->
 
-            <PickUp Nav="Fly" QuestName="Reinforcements for Garadar" QuestId="9797" GiverName="Messenger Gazgrigg" GiverId="18091" X="261.7116" Y="7860.628" Z="23.40682" />
-
-
-
-            <If Condition="(Me.Level &lt; 66)" >
+         <If Condition="(Me.Level &lt; 66)" >
                 <CustomBehavior File="FlyTo" X="-1535.106" Y="7594.53" Z="-5.453713" />
                 <CustomBehavior File="ForcedDismount" />
             </If>
@@ -4456,12 +4451,7 @@
             <!-- Nagrand -->
             <CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" UseFlightPaths="True" PullDistance="35" />
 
-            <If Condition="(HasQuest(9797))" >
-                <CustomBehavior File="FlyTo" DestName="Garadar" X="-1264.014" Y="7130.042" Z="57.65467" />
-                <!--Gursha for flight path-->
-                <CustomBehavior File="InteractWith" MobId="18808" X="-1256.629" Y="7136.169" Z="57.26531" />
-                <TurnIn Nav="Fly" QuestName="Reinforcements for Garadar" QuestId="9797" TurnInName="Captain Kroghan" TurnInId="18090" X="-1337.888" Y="7236.774" Z="33.45564" />
-            </If>
+			<TurnIn Nav="Fly" QuestName="Reinforcements for Garadar" QuestId="9797" TurnInName="Captain Kroghan" TurnInId="18090" X="-1337.888" Y="7236.774" Z="33.45564" />
             <!-- Grind to Neutral -->
             <If Condition="Me.GetReputationLevelWith(941) &lt; Styx.WoWUnitReaction.Neutral" >
                 <!-- add the 9407 questline here -->
@@ -4584,9 +4574,10 @@
                     </Hotspots>
                 </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="(HasItem(24504))" GoalText="Dropquest Item" />
+            <GrindTo Condition="(HasItem(24504))" GoalText="'The Howling Wind' Dropquest Item" />
         </If>
         <If Condition="(HasItem(24504))" >
+			<CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
             <PickUp Nav="Fly" QuestName="The Howling Wind" QuestId="9861" GiverType="Item" GiverId="24504" />
         </If>
 
