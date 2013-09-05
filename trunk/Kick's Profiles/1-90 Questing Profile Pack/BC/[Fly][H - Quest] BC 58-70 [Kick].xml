@@ -137,6 +137,16 @@
             </Hotspots>
         </Objective>
     </Quest>
+	
+	<Quest Name="An Unwelcome Presence" Id="10000" >
+        <Objective Type="KillMob" MobId="18595" Name="Peon" KillCount="12">
+            <Hotspots>
+				<Hotspot X="-2767.078" Y="3569.081" Z="-13.85617" />
+				<Hotspot X="-2806.926" Y="3365.606" Z="-24.92703" />
+				<Hotspot X="-2870.627" Y="3536.157" Z="-26.43118" />
+            </Hotspots>
+        </Objective>
+    </Quest>
 
     <Quest Name="DummyCollectfromMob" Id="123456" >
         <Objective Type="CollectItem" ItemId="1" Name="Item" CollectCount="1">
@@ -1544,7 +1554,7 @@
     </Quest>
 
 
-    <QuestOrder IgnoreCheckPoints="False" >
+    <QuestOrder IgnoreCheckPoints="True" >
 
         <If Condition="Me.IsAlliance" >
             <CustomBehavior File="LoadProfile" ProfileName="[Fly][A - Quest] BC 58-70 [Kick]" />
@@ -3424,8 +3434,9 @@
             <TurnIn Nav="Fly" QuestName="Glowcap Mushrooms" QuestId="9808" TurnInName="Msshi'fn" TurnInId="17924" X="189.901" Y="8485.713" Z="26.94084" />
 
             <TurnIn Nav="Fly" QuestName="Fertile Spores" QuestId="9806" TurnInName="Gshaff" TurnInId="17925" X="280.2096" Y="8512.685" Z="24.21214" />
-
-            <TurnIn Nav="Fly" QuestName="Report to Zurai" QuestId="10103" TurnInName="Zurai" TurnInId="18011" X="106.0771" Y="5204.103" Z="21.48164" />
+			<If Condition="HasQuest(10103) &amp;&amp; IsQuestCompleted(10103)" >
+				<TurnIn Nav="Fly" QuestName="Report to Zurai" QuestId="10103" TurnInName="Zurai" TurnInId="18011" X="106.0771" Y="5204.103" Z="21.48164" />
+			</If>
             <PickUp Nav="Fly" QuestName="News from Zangarmarsh" QuestId="9796" GiverName="Zurai" GiverId="18011" X="106.0771" Y="5204.103" Z="21.48164" />
             <PickUp Nav="Fly" QuestName="Thick Hydra Scales" QuestId="9774" GiverName="Zurai" GiverId="18011" X="106.0771" Y="5204.103" Z="21.48164" />
             <PickUp Nav="Fly" QuestName="Report to Shadow Hunter Denjai" QuestId="9775" GiverName="Zurai" GiverId="18011" X="106.0771" Y="5204.103" Z="21.48164" />
@@ -4153,50 +4164,39 @@
                 <Objective QuestName="Vengeful Souls" QuestId="10842" Type="KillMob" MobId="21636" KillCount="5" />
             </If>
 
-            <While Condition="HasQuest(10874) &amp;&amp; !IsQuestCompleted(10874)">
-                <!-- CJ: We *must* use a small mount, the big ones get hung up under awnings.
-					We *know* the user has a Tawny Wind Rider, because we bought him one earlier,
-					so we'll use that. -->
-                <CustomBehavior File="UserSettings" MountName="32243" FlyingMountName="32243" UseRandomMount="false" />
+               <While Condition="HasQuest(10874) &amp;&amp; !IsQuestCompleted(10874)">
+				<CustomBehavior File="FlyTo" DestName="Veil Shalas" X="-3632.429" Y="4086.216" Z="80" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UserSettings" UseMount="False" UseFlightPaths="False" />
                 <If Condition="HasQuest(10874) &amp;&amp; !IsObjectiveComplete(1, 10874)">
                     <!--Sapphire-->
-                    <CustomBehavior File="FlyTo" X="-3425.015" Y="4101.764" Z="63.51812" />
-                    <CustomBehavior File="ForcedDismount" />
-                    <Objective QuestName="Veil Shalas: Signal Fires" QuestId="10874" Type="UseObject" ObjectId="185216" UseCount="1" X="-3425.015" Y="4101.764" Z="63.51812" />
+                    <Objective QuestName="Veil Shalas: Signal Fires" QuestId="10874" Type="UseObject" ObjectId="185216" UseCount="1" X="-3416.785" Y="4107.211" Z="62.56548" />
                     <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for objective to complete and aggro to clear {TimeRemaining}" />
                 </If>
 
                 <If Condition="HasQuest(10874) &amp;&amp; !IsObjectiveComplete(2, 10874)">
                     <!--Emerald-->
-                    <CustomBehavior File="FlyTo" X="-3513.895" Y="4077.027" Z="93.67577" />
-                    <CustomBehavior File="ForcedDismount" />
-                    <Objective Nav="Fly" QuestName="Veil Shalas: Signal Fires" QuestId="10874" Type="UseObject" ObjectId="185217" UseCount="1" X="-3513.895" Y="4077.027" Z="93.67577" />
+                     <Objective QuestName="Veil Shalas: Signal Fires" QuestId="10874" Type="UseObject" ObjectId="185217" UseCount="1" X="-3511.099" Y="4086.252" Z="92.93172" />
                     <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for objective to complete and aggro to clear {TimeRemaining}" />
                 </If>
 
                 <If Condition="HasQuest(10874) &amp;&amp; !IsObjectiveComplete(3, 10874)">
-                    <!--Violet:
-			bot lands on ground below this and messes up badly
-			-->
-                    <Objective Nav="Fly" QuestName="Veil Shalas: Signal Fires" QuestId="10874" Type="UseObject" ObjectId="185218" UseCount="1" X="-3465.475" Y="4053.03" Z="45.22929" />
+                    <!--Violet-->
+                    <Objective QuestName="Veil Shalas: Signal Fires" QuestId="10874" Type="UseObject" ObjectId="185218" UseCount="1" X="-3489.826" Y="4032.026" Z="113.1205" />
                     <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for objective to complete and aggro to clear {TimeRemaining}" />
                 </If>
 
                 <If Condition="HasQuest(10874) &amp;&amp; !IsObjectiveComplete(4, 10874)">
                     <!--Bloodstone-->
-                    <CustomBehavior File="FlyTo" X="-3465.475" Y="4053.03" Z="45.22929" />
-                    <CustomBehavior File="ForcedDismount" />
-                    <Objective Nav="Fly" QuestName="Veil Shalas: Signal Fires" QuestId="10874" Type="UseObject" ObjectId="185219" UseCount="1" X="-3465.475" Y="4053.03" Z="45.22929" />
+                    <Objective QuestName="Veil Shalas: Signal Fires" QuestId="10874" Type="UseObject" ObjectId="185219" UseCount="1"  X="-3605.015" Y="4054.175" Z="112.0037" />
                     <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for objective to complete and aggro to clear {TimeRemaining}" />
                 </If>
 
 
             </While>
-            <If Condition="HasQuest(10874) &amp;&amp; IsQuestCompleted(10874)">
-                <CustomBehavior File="FlyTo" X="-2840.595" Y="5067.291" Z="-17.61316" />
-                <CustomBehavior File="ForcedDismount" />
-            </If>
-            <CustomBehavior File="UserSettings" Preset="UserOriginal" />
+			
+			<CustomBehavior File="UserSettings" UseMount="True" UseFlightPaths="True"  />
+			
             <TurnIn Nav="Fly" QuestName="Veil Shalas: Signal Fires" QuestId="10874" TurnInName="Kirrik the Awakened" TurnInId="22272" X="-2840.595" Y="5067.291" Z="-17.61316" />
             <PickUp Nav="Fly" QuestName="Return to Shattrath" QuestId="10889" GiverName="Kirrik the Awakened" GiverId="22272" X="-2840.595" Y="5067.291" Z="-17.61316" />
             <TurnIn Nav="Fly" QuestName="The Tomb of Lights" QuestId="10840" TurnInName="High Priest Orglum" TurnInId="22278" />
