@@ -24,6 +24,7 @@
         <!-- Belf in cage -->
         <Mob Name="Wounded Blood Elf Pilgrim" Entry="16993" />
         <Mob Name="Bat Rider Guard" Entry="15242" />
+		<Mob Name="Garadar Wolf Rider" Entry="19068" />
     </Blacklist>
 	
             <Vendors>
@@ -99,6 +100,7 @@
         <Mob Name="Luanga the Imprisoner" Entry="18533" />
         <Mob Name="Floon" Entry="18588" />
         <Mob Name="Garadar Defender" Entry="18489" />
+		<Mob Name="Garadar Wolf Rider" Entry="19068" />
 
         <Mob Name="Durn the Hungerer" Entry="18411" />
         <Mob Name="Mountain Gronn" Entry="19201" />
@@ -520,6 +522,16 @@
                 <Hotspot X="892.5046" Y="6953.546" Z="22.1692" />
                 <Hotspot X="910.025" Y="7230.285" Z="20.58565" />
                 <Hotspot X="685.3542" Y="7460.526" Z="23.79371" />
+            </Hotspots>
+        </Objective>
+    </Quest>
+	
+	<Quest Name="Unruly Neighbors" Id="9998" >
+        <Objective Type="KillMob" MobId="18595" Name="Peon" KillCount="12">
+            <Hotspots>
+				<Hotspot X="-2767.078" Y="3569.081" Z="-13.85617" />
+				<Hotspot X="-2806.926" Y="3365.606" Z="-24.92703" />
+				<Hotspot X="-2870.627" Y="3536.157" Z="-26.43118" />
             </Hotspots>
         </Objective>
     </Quest>
@@ -1907,7 +1919,7 @@
         </Objective>
     </Quest>
 
-    <QuestOrder IgnoreCheckPoints="False">
+    <QuestOrder IgnoreCheckPoints="True">
 
         <If Condition="Me.IsHorde">
             <CustomBehavior File="LoadProfile" ProfileName="[Fly][H - Quest] BC 58-70 [Kick]" />
@@ -3647,15 +3659,16 @@
             <TurnIn QuestName="Sporeggar" QuestId="9919" TurnInName="Msshi'fn" TurnInId="17924" X="189.901" Y="8485.713" Z="26.94084" />
         </If>
 
-        <If Condition="!HasQuest(9808) &amp;&amp; !IsQuestCompleted(9808)">
-            <CustomBehavior File="FlyTo" DestName="Pickup: Glowcap Mushrooms" X="210.8893" Y="8504.154" Z="24.22618" />
-            <RunTo X="205.8044" Y="8500.641" Z="24.57679" />
-            <CustomBehavior File="ForcedDismount" />
-            <Pickup QuestName="Glowcap Mushrooms" QuestId="9808" GiverName="Msshi'fn" GiverId="17924" X="189.901" Y="8485.713" Z="26.94084" />
-        </If>
+		<!--This is a daily so added check if Unfinished Business' 9901 is already done-->
+		<If Condition="!HasQuest(9808) &amp;&amp; !IsQuestCompleted(9808) &amp;&amp; !IsQuestCompleted(9901)" >
+			<PickUp Nav="Fly" QuestName="Glowcap Mushrooms" QuestId="9808" GiverName="Msshi'fn" GiverId="17924" X="189.901" Y="8485.713" Z="26.94084" />
+		</If>
 
         <Pickup QuestName="Fertile Spores" QuestId="9806" GiverName="Gshaff" GiverId="17925" X="280.2096" Y="8512.685" Z="24.21214" />
-        <Objective QuestName="Glowcap Mushrooms" QuestId="9808" Type="CollectItem" ItemId="24245" CollectCount="10" />
+		
+		<If Condition="HasQuest(9808)" >
+			<Objective QuestName="Glowcap Mushrooms" QuestId="9808" Type="CollectItem" ItemId="24245" CollectCount="10" />
+		</If>
         <Objective QuestName="Fertile Spores" QuestId="9806" Type="CollectItem" ItemId="24449" CollectCount="6" />
 
         <!-- CJ: This quest is not available if you are Friendly or higher with Sporeggar;
@@ -4127,7 +4140,7 @@
         <While Condition="!IsQuestCompleted(10211)">
             <If Condition="HasQuest(10211)">
                 <CustomBehavior File="UserSettings" UseMount="False" />
-                <CustomBehavior File="EscortGroup" QuestId="10211" EscortNpcId="19685" EscortCompleteWhen="QuestCompleteOrFails" EscortMaxFollowDistance="10" />
+                <CustomBehavior File="EscortGroup" QuestId="10211" EscortNpcId="19685" EscortCompleteWhen="QuestCompleteOrFails" EscortMaxFollowDistance="5" />
                 <CustomBehavior File="WaitTimer" QuestId="10211" WaitTime="30000" GoalText="Waiting for City of Light to complete: {TimeRemaining}" />
             </If>
             <If Condition="HasQuest(10211) &amp;&amp; !IsQuestCompleted(10211)">
@@ -4311,6 +4324,8 @@
         <Objective QuestName="Magical Disturbances" QuestId="10026" Type="KillMob" KillCount="10" Name="Warp Stalker" MobId="18464" />
         <Objective QuestName="Timber Worg Tails" QuestId="10016" Type="CollectItem" CollectCount="12" Name="Timber Worg Tail" ItemId="25807" />
         <Objective QuestName="Unruly Neighbors" QuestId="9998" Type="KillMob" KillCount="12" Name="Warped Peon" MobId="18595" />
+		
+
         <If Condition="HasQuest(9998) &amp;&amp; IsQuestCompleted(9998)">
             <CustomBehavior File="FlyTo" X="-2598.303" Y="3321.859" Z="0.6106899" />
             <CustomBehavior File="ForcedDismount" />
@@ -4434,6 +4449,9 @@
             <CustomBehavior File="ForcedDismount" />
         </If>
         <TurnIn QuestName="Veil Skith: Darkstone of Terokk" QuestId="10839" TurnInName="Kirrik the Awakened" TurnInId="22272" />
+		
+
+
         <Pickup QuestName="Veil Rhaze: Unliving Evil" QuestId="10848" GiverName="Kirrik the Awakened" GiverId="22272" />
         <TurnIn QuestName="Missing Friends" QuestId="10852" TurnInName="Ethan" TurnInId="22365" />
         <Pickup QuestName="The Tomb of Lights" QuestId="10840" GiverName="High Priest Orglum" GiverId="22278" />
@@ -4527,6 +4545,61 @@
         </If>
         <TurnIn QuestName="Helping the Lost Find Their Way" QuestId="10031" TurnInName="Soolaveen" TurnInId="18675" />
         <TurnIn QuestName="Veil Rhaze: Unliving Evil" QuestId="10848" TurnInName="Kirrik the Awakened" TurnInId="22272" />
+		
+				         <PickUp Nav="Fly" QuestName="Veil Lithic: Preemptive Strike" QuestId="10861" GiverName="Kirrik the Awakened" GiverId="22272" X="-2840.595" Y="5067.291" Z="-17.61316" />
+				 
+				             <While Condition="HasQuest(10861) &amp;&amp; !IsQuestCompleted(10861)">
+                <CustomBehavior File="CollectThings" QuestId="10861" ObjectId1="185210" ObjectId2="185211" CollectUntil="QuestComplete" HuntingGroundRadius="200">
+                    <Hotspot X="-3599.117" Y="5766.679" Z="-2.005004" />
+                    <Hotspot X="-3612.872" Y="5694.539" Z="1.672304" />
+                    <Hotspot X="-3692.619" Y="5776.052" Z="-0.2158126" />
+                    <Hotspot X="-3615.737" Y="5809.607" Z="-3.495775" />
+                </CustomBehavior>
+                <CustomBehavior File="AscendInWater" />
+                <!--	<CustomBehavior File="InteractWith" MobId1="185212" MobId2="185210" MobId3="185211"
+					MobId4="185208" Range="7" NumOfTimes="1" GossipOptions="1" WaitTime="3000"
+					X="-2521.825" Y="5444.137" Z="0.0509126" /> -->
+            </While>
+		
+		            <TurnIn Nav="Fly" QuestName="Veil Lithic: Preemptive Strike" QuestId="10861" TurnInName="Kirrik the Awakened" TurnInId="22272" X="-2840.595" Y="5067.291" Z="-17.61316" />
+            <PickUp Nav="Fly" QuestName="Veil Shalas: Signal Fires" QuestId="10874" GiverName="Kirrik the Awakened" GiverId="22272" X="-2840.595" Y="5067.291" Z="-17.61316" />
+		
+           <While Condition="HasQuest(10874) &amp;&amp; !IsQuestCompleted(10874)">
+				<CustomBehavior File="FlyTo" DestName="Veil Shalas" X="-3632.429" Y="4086.216" Z="80" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="UserSettings" UseMount="False" UseFlightPaths="False" />
+                <If Condition="HasQuest(10874) &amp;&amp; !IsObjectiveComplete(1, 10874)">
+                    <!--Sapphire-->
+                    <Objective QuestName="Veil Shalas: Signal Fires" QuestId="10874" Type="UseObject" ObjectId="185216" UseCount="1" X="-3416.785" Y="4107.211" Z="62.56548" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for objective to complete and aggro to clear {TimeRemaining}" />
+                </If>
+
+                <If Condition="HasQuest(10874) &amp;&amp; !IsObjectiveComplete(2, 10874)">
+                    <!--Emerald-->
+                     <Objective QuestName="Veil Shalas: Signal Fires" QuestId="10874" Type="UseObject" ObjectId="185217" UseCount="1" X="-3511.099" Y="4086.252" Z="92.93172" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for objective to complete and aggro to clear {TimeRemaining}" />
+                </If>
+
+                <If Condition="HasQuest(10874) &amp;&amp; !IsObjectiveComplete(3, 10874)">
+                    <!--Violet:
+			bot lands on ground below this and messes up badly
+			-->
+                    <Objective QuestName="Veil Shalas: Signal Fires" QuestId="10874" Type="UseObject" ObjectId="185218" UseCount="1" X="-3489.826" Y="4032.026" Z="113.1205" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for objective to complete and aggro to clear {TimeRemaining}" />
+                </If>
+
+                <If Condition="HasQuest(10874) &amp;&amp; !IsObjectiveComplete(4, 10874)">
+                    <!--Bloodstone-->
+                    <Objective QuestName="Veil Shalas: Signal Fires" QuestId="10874" Type="UseObject" ObjectId="185219" UseCount="1"  X="-3605.015" Y="4054.175" Z="112.0037" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for objective to complete and aggro to clear {TimeRemaining}" />
+                </If>
+
+
+            </While>
+			
+			<CustomBehavior File="UserSettings" UseMount="True" UseFlightPaths="True"  />
+
+            <TurnIn Nav="Fly" QuestName="Veil Shalas: Signal Fires" QuestId="10874" TurnInName="Kirrik the Awakened" TurnInId="22272" X="-2840.595" Y="5067.291" Z="-17.61316" />
         <If Condition="HasQuest(10873) &amp;&amp; IsQuestCompleted(10873)">
             <CustomBehavior File="FlyTo" X="-3748.205" Y="5395.333" Z="-3.554028" />
             <CustomBehavior File="ForcedDismount" />
@@ -4569,6 +4642,8 @@
             <CustomBehavior File="ForcedDismount" />
             <TurnIn QuestName="The Fallen Exarch" QuestId="10915" TurnInName="Commander Ra'vaj" TurnInId="22446" />
         </If>
+		
+
 
         <!-- <Pickup QuestName="Veil Lithic: Preemptive Strike" QuestId="10861" GiverName="Kirrik the Awakened" GiverId="22272" /> -->
         <!-- i've had issues with this quest. 185211 and 212 don't work.  neither does 208 209, but eggs are sometimes left with 210 -->
@@ -4924,9 +4999,8 @@
             </If>
             <If Condition="(HasQuest(9871))">
                 <CustomBehavior File="FlyTo" X="-2563.329" Y="7261.376" Z="14.54596" />
-                <CustomBehavior File="ForcedDismount" />
-                <TurnIn QuestName="Murkblood Invaders" QuestId="9871" TurnInName="Arechron" TurnInId="18183" />
-                <Pickup QuestName="Ortor My Old Friend..." QuestId="9873" GiverName="Arechron" GiverId="18183" />
+                <TurnIn Nav="Fly" QuestName="Murkblood Invaders" QuestId="9871" TurnInName="Arechron" TurnInId="18183" />
+                <Pickup Nav="Fly" QuestName="Ortor My Old Friend..." QuestId="9873" GiverName="Arechron" GiverId="18183" />
             </If>
 
             <If Condition="HasQuest(9815) &amp;&amp; !IsQuestCompleted(9815)">
