@@ -1368,11 +1368,13 @@
 			 <While Condition="((HasQuest(29982)) &amp;&amp; (!IsObjectiveComplete(2, 29982)))">
 				<CustomBehavior File="InteractWith" QuestId="29982" MobId="57121" GossipOptions="1" CollectionDistance="100" X="-362.3142" Y="2175.087" Z="113.5161"  /> <!-- Feng Spadepaw -->
 			 </While>
-			 <While Condition="((HasQuest(29982)) &amp;&amp; (!IsObjectiveComplete(1, 29982)))">
-				<CustomBehavior File="InteractWith" QuestId="29982" MobId="57120" GossipOptions="1" NumOfTimes="1" CollectionDistance="100" X="-338.9201" Y="2398.733" Z="140.4559"  /> <!-- Wei Blacksoil 1-->
-				<CustomBehavior File="InteractWith" QuestId="29982" MobId="57120" GossipOptions="1" NumOfTimes="1" CollectionDistance="100" X="-338.9201" Y="2398.733" Z="140.4559"  /> <!-- Wei Blacksoil 2-->
-				<CustomBehavior File="InteractWith" QuestId="29982" MobId="57120" GossipOptions="1" NumOfTimes="1" CollectionDistance="100" X="-338.9201" Y="2398.733" Z="140.4559"  /> <!-- Wei Blacksoil 3-->
-				<CustomBehavior File="InteractWith" QuestId="29982" MobId="57120" GossipOptions="1" NumOfTimes="1" CollectionDistance="100" X="-338.9201" Y="2398.733" Z="140.4559"  /> <!-- Wei Blacksoil 4-->
+			 <!-- We must speak to Wei Blacksoil four times before objective completes...
+			     Thankfully, all of them are GossipOption="1"
+				 -->
+			 <While Condition="HasQuest(29982) &amp;&amp; !IsObjectiveComplete(1, 29982)">
+				<CustomBehavior File="InteractWith" QuestId="29982" MobId="57120" GossipOptions="1" NumOfTimes="1"
+					WaitForNpcs="False" WaitTime="5000" CollectionDistance="100"
+					X="-338.9201" Y="2398.733" Z="140.4559"  /> <!-- Wei Blacksoil -->
 			 </While>
 			</While>
 			<Objective QuestName="Stemming the Swarm" QuestId="29981" Type="KillMob" MobId="57195" KillCount="14" />
