@@ -1593,18 +1593,14 @@
 				<CustomBehavior File="AbandonQuest" QuestId="29754" Type="Incomplete" />
 			</If>
 		<PickUp QuestName="To Bridge Earth and Sky" QuestId="29754" GiverName="Pei-Zhi" GiverId="55614" X="2952.861" Y="-1636.967" Z="252.8331" />
-			<If Condition="((HasQuest(29754)) &amp;&amp; (!IsQuestCompleted(29754)))" >
+			<If Condition="HasQuest(29754) &amp;&amp; !IsQuestCompleted(29754)" >
 				<!-- This quest may bug and will have to be abandoned -->
-				<RunTo X="3069.272" Y="-1608.356" Z="222.764" />
-				<SetGrindArea><GrindArea>
-					<Factions>2478</Factions>
-					<Hotspots>
-						<Hotspot X="3069.272" Y="-1608.356" Z="222.764" />
-					</Hotspots>
-				</GrindArea></SetGrindArea>
-				<GrindTo Condition="(IsQuestCompleted(29754))" />
+				<RunTo X="3059.411" Y="-1600.553" Z="222.7645" />
+				<!-- If we stay mounted, we run past the quest mobs... -->
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="SlayTheFools" QuestId="29754" MobId="55902" CollectionDistance="20" X="3059.411" Y="-1600.553" Z="222.7645" />
 			</If>
-			<While Condition="((HasQuest(29754)) &amp;&amp; (IsQuestCompleted(29754)))" >
+			<While Condition="HasQuest(29754) &amp;&amp; IsQuestCompleted(29754)" >
 				<TurnIn QuestId="29754" /> <!-- 29755 -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
 			</While>
