@@ -1136,17 +1136,25 @@
 			<Objective QuestName="Children of the Water" QuestId="32045" Type="KillMob" MobId="67099" KillCount="1" />
 			<!-- Nat, make a behavior for this -->
 		<PickUp QuestName="Gardener Fran and the Watering Can" QuestId="30050" GiverName="Gardener Fran" GiverId="62377" X="219.8021" Y="783.0156" Z="161.6616" />
-			<While Condition="((HasQuest(30053)) &amp;&amp; (!IsObjectiveComplete(1, 30053)))"> <!-- Gardener Fran -->
-				<CustomBehavior File="InteractWith" MobId="62377" GossipOptions="1" X="219.8021" Y="783.0156" Z="161.6616" />
+			<While Condition="HasQuest(30053) &amp;&amp; !IsObjectiveComplete(1, 30053)"> <!-- Gardener Fran -->
+				<!-- Only pick up watering can, if we don't already have it...
+				     NB: The gossip option disappears when we have the watering can aura.
+				-->
+				<If Condition="!Me.HasAura(108123)" >
+					<CustomBehavior File="InteractWith" MobId="62377" GossipOptions="1" X="219.8021" Y="783.0156" Z="161.6616" />
+				</If>
 			</While>
-			<If Condition="((HasQuest(30050)) &amp;&amp; (!IsQuestCompleted(30050)))" >
+			<If Condition="HasQuest(30050) &amp;&amp; !IsQuestCompleted(30050)" >
 				<CustomBehavior File="ForcedMount" />
-			  <While Condition="(!IsQuestCompleted(30050))" > <!-- Gardener Fran -->
-				<CustomBehavior File="InteractWith" MobId="62377" GossipOptions="1" X="219.8021" Y="783.0156" Z="161.6616" />
-				<CustomBehavior File="UseItemOn" QuestId="30050" NumOfTimes="1000" MobId="41200" ItemId="77281" WaitTime="0" WaitForNpcs="False" Range="10" CollectionDistance="1000" X="273.1572" Y="735.7474" Z="161.6087" />
-			  </While>
+				<While Condition="!IsQuestCompleted(30050)" > <!-- Gardener Fran -->
+					<!-- If we've run out of water, go back and get some more... -->
+					<If Condition="!Me.HasAura(108123)" >
+						<CustomBehavior File="InteractWith" MobId="62377" GossipOptions="1" X="219.8021" Y="783.0156" Z="161.6616" />
+					</If>
+					<CustomBehavior File="UseItemOn" QuestId="30050" NumOfTimes="1000" MobId="41200" ItemId="77281" WaitTime="0" WaitForNpcs="False" Range="10" CollectionDistance="1000" X="273.1572" Y="735.7474" Z="161.6087" />
+				</While>
 			</If>
-			<If Condition="((HasQuest(30050)) &amp;&amp; (IsQuestCompleted(30050)))" >
+			<If Condition="HasQuest(30050) &amp;&amp; IsQuestCompleted(30050)" >
 		<TurnIn QuestName="Gardener Fran and the Watering Can" QuestId="30050" TurnInName="Gardener Fran" TurnInId="62377" X="219.8021" Y="783.0156" Z="161.6616" />
 				<CustomBehavior File="InteractWith" MobId="62377" GossipOptions="1" X="219.8021" Y="783.0156" Z="161.6616" />
 			</If>
