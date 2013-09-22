@@ -2067,34 +2067,35 @@
 			  </If>
 			</If>
 		<PickUp QuestName="The Seal is Broken" QuestId="31303" GiverName="Lorewalker Cho" GiverId="59411" X="529.7031" Y="-1674.799" Z="198.8996" />
-		<CustomBehavior File="ToggleCombat" CombatEnabled="false" />
-			<If Condition="((HasQuest(31303)) &amp;&amp; (!IsQuestCompleted(31303)))" >
+		<DisableBehavior Name="Combat" />
+			<If Condition="HasQuest(31303) &amp;&amp; !IsQuestCompleted(31303)" >
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for transport to mount {TimeRemaining}" />
-			 <If Condition="(!Me.IsOnTransport)" >
-				<!-- If we are not at serpent's overlook -->
-			  <If Condition="(!((Me.Z &lt; 200) &amp;&amp; (Me.Z &gt; 180))) &amp;&amp; (!((Me.X &gt; 450) &amp;&amp; (Me.X &lt; 530))) &amp;&amp; (!((Me.Y &gt; -1750) &amp;&amp; (Me.Y &lt; -1500)))">
-				<RunTo X="1499.969" Y="-1833.453" Z="246.2003" />
-				<CustomBehavior File="UserSettings" UseFlightPaths="True" />
-				<CustomBehavior File="InteractWith" MobId="59186" X="1499.969" Y="-1833.453" Z="246.2003" /> <!-- FP Master, Dawn's Overlook -->
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for transport to mount {TimeRemaining}" />
-				<RunTo X="526.9421" Y="-1672.902" Z="198.8996" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for transport to mount {TimeRemaining}" />
-			  </If>
-				<CustomBehavior File="InteractWith" MobId="64244" GossipOptions="1" X="531.9583" Y="-1674.62" Z="198.8996" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for transport to mount {TimeRemaining}" />
-			 </If>
-			 <If Condition="(Me.IsOnTransport)" >
-				<CustomBehavior File="SpecificQuests\31303-JadeForest-TheSealIsBroken"/>
-			 </If>
+			    <If Condition="!Me.IsOnTransport" >
+					<!-- If we are not at serpent's overlook -->
+					<If Condition="(!((Me.Z &lt; 200) &amp;&amp; (Me.Z &gt; 180))) &amp;&amp; (!((Me.X &gt; 450) &amp;&amp; (Me.X &lt; 530))) &amp;&amp; (!((Me.Y &gt; -1750) &amp;&amp; (Me.Y &lt; -1500)))">
+						<RunTo X="1499.969" Y="-1833.453" Z="246.2003" />
+						<CustomBehavior File="UserSettings" UseFlightPaths="True" />
+						<CustomBehavior File="InteractWith" MobId="59186" X="1499.969" Y="-1833.453" Z="246.2003" /> <!-- FP Master, Dawn's Overlook -->
+						<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for transport to mount {TimeRemaining}" />
+						<RunTo X="526.9421" Y="-1672.902" Z="198.8996" />
+						<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for transport to mount {TimeRemaining}" />
+					</If>
+					<CustomBehavior File="InteractWith" MobId="64244" GossipOptions="1" WaitTime="7000" X="531.9583" Y="-1674.62" Z="198.8996" />
+			    </If>
+			    <If Condition="Me.IsOnTransport" >
+					<CustomBehavior File="SpecificQuests\31303-JadeForest-TheSealIsBroken"/>
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for transport to mount {TimeRemaining}" />
+			    </If>
 				<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for transport to mount {TimeRemaining}" />
 			</If>
-			<CustomBehavior File="ToggleCombat" CombatEnabled="true" />
+		<EnableBehavior Name="Combat" />
 		<TurnIn QuestName="The Seal is Broken" QuestId="31303" TurnInName="Lorewalker Cho" TurnInId="59418" X="790.9219" Y="-1990.325" Z="54.25745" />
 		<PickUp QuestName="Residual Fallout" QuestId="30500" GiverName="Lorewalker Cho" GiverId="59418" X="790.9219" Y="-1990.325" Z="54.25745" />
 			<!-- optional quest, too hard for now
 		<PickUp QuestName="Jaded Heart" QuestId="30502" GiverName="Lorewalker Cho" GiverId="59418" X="790.9219" Y="-1990.325" Z="54.25745" />-->
 		<PickUp QuestName="Emergency Response" QuestId="30504" GiverName="Lorewalker Cho" GiverId="59418" X="790.9219" Y="-1990.325" Z="54.25745" />
-			<If Condition="((HasQuest(30504)) &amp;&amp; (!IsQuestCompleted(30504)))" >
+			<If Condition="HasQuest(30504) &amp;&amp; !IsQuestCompleted(30504)" >
 			  <While Condition="!IsObjectiveComplete(1, 30504)" > <!-- Nazgrim -->
 				<RunTo X="777.8867" Y="-1908.515" Z="59.11979" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(86467)" WaitTime="1000" />
