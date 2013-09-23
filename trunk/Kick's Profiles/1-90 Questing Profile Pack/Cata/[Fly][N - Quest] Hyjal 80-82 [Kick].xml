@@ -1525,14 +1525,17 @@
 					<Hotspot X="4582.719" Y="-2612.859" Z="1125.571" />
 				</HuntingGrounds>
 			</CustomBehavior>
+			<DisableBehavior Name="Combat" />
 
     <!-- 
                 <CustomBehavior File="CombatUseItemOnV2" MobId="40340" ItemId="54744" UseWhenMobHasHealthPercent="100" MaxRangeToUseItem="25" UseItemStrategy="UseItemOncePerTarget" ItemAppliesAuraId="AssumeItemUseAlwaysSucceeds" X="4582.719" Y="-2612.859" Z="1125.571" />
             
 				<CustomBehavior File="UseItemOn" QuestId="25507" MobId="40340" ItemId="54744" WaitTime="1000" MinRange="15" Range="25" CollectionDistance="500" />
 				-->
-                <CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-                <CustomBehavior File="InteractWith" QuestId="25507" MobId="40340" WaitForNpcs="False" NumOfTimes="1" Range="10" WaitTime="8000" IgnoreCombat="False" CollectionDistance="25" />
+                <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+                <CustomBehavior File="InteractWith" QuestId="25507" MobId="40340" WaitForNpcs="False" ProactiveCombatStrategy="NoClear" 
+					NumOfTimes="1" Range="10" WaitTime="8000" IgnoreCombat="False" CollectionDistance="25" />
+				<EnableBehavior Name="All" />
             </While>
 
         </If>
@@ -2828,23 +2831,32 @@
 				-->
         </While>
         <While Condition="HasQuest(25550) &amp;&amp; !IsQuestCompleted(25550)">
-            <CustomBehavior File="FlyTo" DestName="King Moltron" Distance="2" X="3870.265" Y="-2782.629" Z="999.007" />
-
-            <If Condition="Me.Level &gt;= 86">
-                <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="5" Text="You are too high for this Combat UseItemOn quest, please manually do it!" />
-            </If>
+            <CustomBehavior File="FlyTo" DestName="King Moltron" X="3819.421" Y="-2794.383" Z="998.0917" />
 
             <CustomBehavior File="ForcedDismount" />
-				
+			<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(55179)" WaitTime="1000" />
+		<CustomBehavior File="WaitTimer" WaitTime="10000" /> 
+		<!--
+					<CustomBehavior File="CombatUseItemOnV2" QuestId="25550" ItemId="55179" MobId="40998" UseItemStrategy="UseItemOncePerTarget" ItemAppliesAuraId="AssumeItemUseAlwaysSucceeds" 
+						UseWhenMobHasHealthPercent="90" MaxRangeToUseItem="30" WaitTime="20000" >
+			<HuntingGrounds WaypointVisitStrategy="InOrder">
+<Hotspot X="3839.964" Y="-2770.528" Z="998.7775" />
+			</HuntingGrounds>
+		</CustomBehavior> -->
+	
+	
+				<!--
                 <CustomBehavior File="InteractWith" QuestId="25550" PreInteractMountStrategy="Dismount" InteractByUsingItemId="55179" MobState="Alive" WaitTime="20000" MobId="40998" Range="35"
                     ProactiveCombatStrategy="NoClear" NonCompeteDistance="10" >
                     <HuntingGrounds >
                         <Hotspot X="3839.964" Y="-2770.528" Z="998.7775" />
                     </HuntingGrounds>
                 </CustomBehavior>
-			       <!--   -->
-			<Objective QuestName="Magma Monarch" QuestId="25550" Type="KillMob" MobId="40998" KillCount="1" />	
-            <CustomBehavior File="WaitTimer" WaitTime="10000" />
+
+			
+            <CustomBehavior File="WaitTimer" WaitTime="10000" />    -->
+			
+				<Objective QuestName="Magma Monarch" QuestId="25550" Type="KillMob" MobId="40998" KillCount="1" />	
 
             <CustomBehavior File="Message" QuestId="25550" Text="If you chain die here, turn off agro generating spells and help turtle kill the King" LogColor="Orange" />
             <!--
