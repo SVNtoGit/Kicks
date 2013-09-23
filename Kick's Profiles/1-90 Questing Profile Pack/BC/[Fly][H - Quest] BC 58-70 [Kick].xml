@@ -2771,42 +2771,39 @@
             </If>
 
             <PickUp QuestName="Arelion's Mistress" QuestId="9472" GiverName="Magistrix Carinda" GiverId="16793" />
-            <If Condition="HasQuest(9472) &amp;&amp; !HasItem(29112)" >
-                <CustomBehavior File="FlyTo" DestName="Innkeeper Coryth Stoktron" X="-216.1101" Y="5498.881" Z="21.79396" />
-                <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="InteractWith" QuestId="9472" MobId="18907" NumOfTimes="1" BuyItemId="29112" WaitTime="3000" GossipOptions="2" CollectionDistance="20" X="-174.478" Y="5529.211" Z="29.40781" />
-                <CustomBehavior File="WaitTimer" WaitTime="2000"/>
-            </If>
+			
+			<While Condition="HasQuest(9472) &amp;&amp; !IsQuestCompleted(9472)">
+				<While Condition="!HasItem(29112)" >
+					<CustomBehavior File="FlyTo" DestName="Innkeeper Coryth Stoktron" X="-216.1101" Y="5498.881" Z="21.79396" />
+					<CustomBehavior File="ForcedDismount" />
+					<CustomBehavior File="InteractWith" QuestId="9472" MobId="18907" NumOfTimes="1" BuyItemId="29112" WaitTime="3000" GossipOptions="2" CollectionDistance="20" X="-174.478" Y="5529.211" Z="29.40781" />
+					<CustomBehavior File="WaitTimer" WaitTime="2000"/>
+										<CustomBehavior File="InteractWith" QuestId="9472" MobId="18907" NumOfTimes="1" BuyItemId="29112" WaitTime="3000" GossipOptions="2" CollectionDistance="20" X="-174.478" Y="5529.211" Z="29.40781" />
+					<CustomBehavior File="WaitTimer" WaitTime="2000"/>
+										<CustomBehavior File="InteractWith" QuestId="9472" MobId="18907" NumOfTimes="1" BuyItemId="29112" WaitTime="3000" GossipOptions="2" CollectionDistance="20" X="-174.478" Y="5529.211" Z="29.40781" />
+					<CustomBehavior File="WaitTimer" WaitTime="2000"/>
+										<CustomBehavior File="InteractWith" QuestId="9472" MobId="18907" NumOfTimes="1" BuyItemId="29112" WaitTime="3000" GossipOptions="2" CollectionDistance="20" X="-174.478" Y="5529.211" Z="29.40781" />
+					<CustomBehavior File="WaitTimer" WaitTime="2000"/>
+				</While>
 
-            <If Condition="HasQuest(10103) &amp;&amp; IsQuestCompleted(10103)" >
-                <If Condition="CanFly()" >
-                    <CustomBehavior File="FlyTo" X="59.37819" Y="5293.984" Z="176.8624" />
-                    <CustomBehavior File="FlyTo" DestName="Swamprat Post" X="106.0771" Y="5204.103" Z="21.48164" />
-                </If>
-                <CustomBehavior File="ForcedDismount" />
-                <TurnIn QuestName="Report to Zurai" QuestId="10103" TurnInName="Zurai" TurnInId="18011" X="106.0771" Y="5204.103" Z="21.48164" />
-                <RunTo DestName="Gur'zil in Swamprat Post" X="91.67" Y="5214.92" Z="23.09952" />
-                <CustomBehavior File="TaxiRide" MobId="20762" DestName="Falcon" WaitTime="1100" />
-            </If>
+				<If Condition="HasItem(29112)" >
+					<CustomBehavior File="FlyTo" QuestId="9472" DestName="Viera Sunwhisper" X="-655.4415" Y="4139.25" Z="64.49839" />
+					<CustomBehavior File="WaitTimer" QuestId="9472" GoalText="Waiting for Viera Sunwhisper: {TimeRemaining}" WaitTime="5000"/>
+					<CustomBehavior File="InteractWith" NonCompeteDistance="10" PreInteractMountStrategy="Dismount" QuestId="9472" MobId="17226" NumOfTimes="1" WaitForNpcs="True" X="-657.8125" Y="4137.41" Z="64.41744" />	
+					<CustomBehavior File="WaitTimer" GoalText="Waiting for Viera Sunwhisper: {TimeRemaining}" WaitTime="5000"/>
+					<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteButton:Click()" WaitTime="2000" />
+					<CustomBehavior File="WaitTimer" GoalText="Waiting for Viera Sunwhisper: {TimeRemaining}" WaitTime="5000"/>
+					<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" WaitTime="2000" />
+					<CustomBehavior File="WaitTimer" GoalText="Waiting for Viera Sunwhisper: {TimeRemaining}" WaitTime="5000"/>
+					<RunTo QuestId="9472" X="-692.8049" Y="4184.876" Z="57.03519" />
+					<CustomBehavior File="WaitTimer" GoalText="Waiting for Viera Sunwhisper: {TimeRemaining}" WaitTime="15000"/>
+					<RunTo QuestId="9472" X="-712.3768" Y="4180.436" Z="53.81225" />
+					<CustomBehavior File="WaitTimer" GoalText="Waiting for Viera Sunwhisper to get comfortable: {TimeRemaining}" WaitTime="20000"/>
 
-            <CustomBehavior File="FlyTo" QuestId="9472" DestName="Viera Sunwhisper" X="-655.4415" Y="4139.25" Z="64.49839" />
-            <CustomBehavior File="WaitTimer" QuestId="9472" GoalText="Waiting for Viera Sunwhisper: {TimeRemaining}" WaitTime="5000"/>
-            <CustomBehavior File="InteractWith" NonCompeteDistance="0" QuestId="9472" MobId="17226" NumOfTimes="1" WaitForNpcs="True" X="-657.8125" Y="4137.41" Z="64.41744" />
-
-            <If Condition="HasQuest(9472)" >
-                <CustomBehavior File="WaitTimer" GoalText="Waiting for Viera Sunwhisper: {TimeRemaining}" WaitTime="5000"/>
-                <CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteButton:Click()" WaitTime="2000" />
-                <CustomBehavior File="WaitTimer" GoalText="Waiting for Viera Sunwhisper: {TimeRemaining}" WaitTime="5000"/>
-                <CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" WaitTime="2000" />
-                <CustomBehavior File="WaitTimer" GoalText="Waiting for Viera Sunwhisper: {TimeRemaining}" WaitTime="5000"/>
-                <RunTo QuestId="9472" X="-692.8049" Y="4184.876" Z="57.03519" />
-                <CustomBehavior File="WaitTimer" GoalText="Waiting for Viera Sunwhisper: {TimeRemaining}" WaitTime="15000"/>
-                <RunTo QuestId="9472" X="-712.3768" Y="4180.436" Z="53.81225" />
-                <CustomBehavior File="WaitTimer" GoalText="Waiting for Viera Sunwhisper to get comfortable: {TimeRemaining}" WaitTime="20000"/>
-
-                <CustomBehavior File="InteractWith" NonCompeteDistance="0"  QuestId="9472" InteractByUsingItemId="23693" PreInteractMountStrategy="Dismount" MobId="17226" NumOfTimes="1"
-                    X="-714.46" Y="4178.013" Z="53.19424" />
-            </If>
+					<CustomBehavior File="InteractWith" NonCompeteDistance="0"  QuestId="9472" InteractByUsingItemId="23693" PreInteractMountStrategy="Dismount" MobId="17226" NumOfTimes="1"
+						X="-714.46" Y="4178.013" Z="53.19424" />
+				</If>
+			</While>
 
             <TurnIn QuestName="Arelion's Mistress" QuestId="9472" TurnInName="Magistrix Carinda" TurnInId="16793" />
 
@@ -3219,6 +3216,28 @@
         </If>
         <Checkpoint Level="62"/>
 
+        <If Condition="Me.MapId == 1" >
+            <If Condition="CanFly()" >
+                <CustomBehavior File="FlyTo" DestName="Valley of Strength entrace to Cleft of Shadows" X="1707.794" Y="-4323.348" Z="31.33346" />
+            </If>
+            <Runto DestName="Portal to Blasted Lands from Cleft of Shadows" X="1771.351" Y="-4327.187" Z="-8.267691" />
+            <CustomBehavior File="InteractWith" MobId="195142" ObjectType="Gameobject" Range="5" X="1767.845" Y="-4325.489" Z="-8.386265" />
+            <CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting to port to Blasted Lands {TimeRemaining}" />
+        </If>
+
+          <While Condition="Me.MapId == 0" >
+            <If Condition="Me.MapId == 0" >
+                <RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+            </If>
+            <If Condition="Me.MapId == 0" >
+                <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+            </If>
+            <If Condition="Me.MapId == 0" >
+                <CustomBehavior File="WaitTimer" WaitTime="15000" />
+            </If>
+        </While>
 
         <If Condition="!IsQuestCompleted(9817)" >
             <CustomBehavior File="Message" Text="Compiling Zangarmarsh Quests" LogColor="Green" />
@@ -3778,6 +3797,35 @@
         </If>
         <!-- Terrokar Forest -->
         <Checkpoint Level="64" />
+        <If Condition="Me.MapId == 1" >
+            <If Condition="CanFly()" >
+                <CustomBehavior File="FlyTo" DestName="Valley of Strength entrace to Cleft of Shadows" X="1707.794" Y="-4323.348" Z="31.33346" />
+            </If>
+            <Runto DestName="Portal to Blasted Lands from Cleft of Shadows" X="1771.351" Y="-4327.187" Z="-8.267691" />
+            <CustomBehavior File="InteractWith" MobId="195142" ObjectType="Gameobject" Range="5" X="1767.845" Y="-4325.489" Z="-8.386265" />
+            <CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting to port to Blasted Lands {TimeRemaining}" />
+        </If>
+
+        <If Condition="Me.MapId == 0 &amp;&amp; !IsQuestCompleted(10120) &amp;&amp; !HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
+            <!-- Warchief's Command: Outland! -->
+            <RunTo DestName="Warlord Dar'toon" X="-11817.19" Y="-3184.226" Z="-30.43544" />
+            <PickUp QuestName="Through the Dark Portal" QuestId="9407" GiverName="Warlord Dar'toon" GiverId="19254" X="-11817.3" Y="-3187.891" Z="-30.67894" />
+        </If>
+
+
+        <While Condition="Me.MapId == 0" >
+            <If Condition="Me.MapId == 0" >
+                <RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+            </If>
+            <If Condition="Me.MapId == 0" >
+                <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+            </If>
+            <If Condition="Me.MapId == 0" >
+                <CustomBehavior File="WaitTimer" WaitTime="15000" />
+            </If>
+        </While>
 
         <If Condition="!IsQuestCompleted(9797)" >
             <CustomBehavior File="Message" Text="Compiling Terrokar Forest Quests" LogColor="Green" />
@@ -4451,6 +4499,35 @@
             </SetGrindArea>
             <GrindTo Level="66" />
             <Checkpoint Level="66" />
+        <If Condition="Me.MapId == 1" >
+            <If Condition="CanFly()" >
+                <CustomBehavior File="FlyTo" DestName="Valley of Strength entrace to Cleft of Shadows" X="1707.794" Y="-4323.348" Z="31.33346" />
+            </If>
+            <Runto DestName="Portal to Blasted Lands from Cleft of Shadows" X="1771.351" Y="-4327.187" Z="-8.267691" />
+            <CustomBehavior File="InteractWith" MobId="195142" ObjectType="Gameobject" Range="5" X="1767.845" Y="-4325.489" Z="-8.386265" />
+            <CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting to port to Blasted Lands {TimeRemaining}" />
+        </If>
+
+        <If Condition="Me.MapId == 0 &amp;&amp; !IsQuestCompleted(10120) &amp;&amp; !HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
+            <!-- Warchief's Command: Outland! -->
+            <RunTo DestName="Warlord Dar'toon" X="-11817.19" Y="-3184.226" Z="-30.43544" />
+            <PickUp QuestName="Through the Dark Portal" QuestId="9407" GiverName="Warlord Dar'toon" GiverId="19254" X="-11817.3" Y="-3187.891" Z="-30.67894" />
+        </If>
+
+
+        <While Condition="Me.MapId == 0" >
+            <If Condition="Me.MapId == 0" >
+                <RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+            </If>
+            <If Condition="Me.MapId == 0" >
+                <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+            </If>
+            <If Condition="Me.MapId == 0" >
+                <CustomBehavior File="WaitTimer" WaitTime="15000" />
+            </If>
+        </While>
             <!-- Nagrand -->
             <CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" UseFlightPaths="True" PullDistance="35" />
 			 <PickUp Nav="Fly" QuestName="Reinforcements for Garadar" QuestId="9797" GiverName="Messenger Gazgrigg" GiverId="18091" X="261.7116" Y="7860.628" Z="23.40682"  />
@@ -5407,6 +5484,35 @@
             <GrindTo Level="68"/>
         </If>
         <CheckPoint Level="68"/>
+        <If Condition="Me.MapId == 1" >
+            <If Condition="CanFly()" >
+                <CustomBehavior File="FlyTo" DestName="Valley of Strength entrace to Cleft of Shadows" X="1707.794" Y="-4323.348" Z="31.33346" />
+            </If>
+            <Runto DestName="Portal to Blasted Lands from Cleft of Shadows" X="1771.351" Y="-4327.187" Z="-8.267691" />
+            <CustomBehavior File="InteractWith" MobId="195142" ObjectType="Gameobject" Range="5" X="1767.845" Y="-4325.489" Z="-8.386265" />
+            <CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting to port to Blasted Lands {TimeRemaining}" />
+        </If>
+
+        <If Condition="Me.MapId == 0 &amp;&amp; !IsQuestCompleted(10120) &amp;&amp; !HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
+            <!-- Warchief's Command: Outland! -->
+            <RunTo DestName="Warlord Dar'toon" X="-11817.19" Y="-3184.226" Z="-30.43544" />
+            <PickUp QuestName="Through the Dark Portal" QuestId="9407" GiverName="Warlord Dar'toon" GiverId="19254" X="-11817.3" Y="-3187.891" Z="-30.67894" />
+        </If>
+
+
+        <While Condition="Me.MapId == 0" >
+            <If Condition="Me.MapId == 0" >
+                <RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+            </If>
+            <If Condition="Me.MapId == 0" >
+                <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+            </If>
+            <If Condition="Me.MapId == 0" >
+                <CustomBehavior File="WaitTimer" WaitTime="15000" />
+            </If>
+        </While>
 
         <!-- Kick's Netherstorm -->
         <CustomBehavior File="Message" Text="Compiling Netherstorm Quests" LogColor="Green" />
