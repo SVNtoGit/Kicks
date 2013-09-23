@@ -247,6 +247,11 @@
             </Hotspots>
         </Objective>
     </Quest>
+	
+
+
+
+
 
     <Quest Name="Materiel Plunder" Id="12209" >
         <Objective Type="CollectItem" ItemId="37137" Name="Scarlet Onslaught Weapon" CollectCount="8">
@@ -661,10 +666,11 @@
     <Quest Id="12304" Name="Beachfront Property">
         <Objective Type="KillMob" MobId="27220" KillCount="20">
             <Hotspots>
-                <Hotspot X="2899.431" Y="-883.1484" Z="9.510953" />
-                <Hotspot X="2949.519" Y="-996.3788" Z="5.417311" />
-                <Hotspot X="2918.513" Y="-1198.756" Z="5.852705" />
-                <Hotspot X="3051.125" Y="-1183.764" Z="4.522867" />
+	<Hotspot X="2908.671" Y="-889.3572" Z="10.2644" />
+<Hotspot X="2941.648" Y="-995.5492" Z="5.213074" />
+<Hotspot X="2988.46" Y="-1130.084" Z="6.406502" />
+<Hotspot X="2969.101" Y="-1202.32" Z="6.022169" />
+<Hotspot X="2995.638" Y="-998.1799" Z="13.40896" />
             </Hotspots>
         </Objective>
     </Quest>
@@ -673,9 +679,11 @@
             <CollectFrom>
             </CollectFrom>
             <Hotspots>
-                <Hotspot X="2949.519" Y="-996.3788" Z="5.417311" />
-                <Hotspot X="2918.513" Y="-1198.756" Z="5.852705" />
-                <Hotspot X="3051.125" Y="-1183.764" Z="4.522867" />
+	<Hotspot X="2908.671" Y="-889.3572" Z="10.2644" />
+<Hotspot X="2941.648" Y="-995.5492" Z="5.213074" />
+<Hotspot X="2988.46" Y="-1130.084" Z="6.406502" />
+<Hotspot X="2969.101" Y="-1202.32" Z="6.022169" />
+<Hotspot X="2995.638" Y="-998.1799" Z="13.40896" />
             </Hotspots>
         </Objective>
     </Quest>
@@ -1596,7 +1604,7 @@
     </Quest>
 
 
-    <QuestOrder IgnoreCheckPoints="False">
+    <QuestOrder IgnoreCheckPoints="True">
 
 
         <If Condition="Me.IsAlliance">
@@ -1655,11 +1663,15 @@
                 <CustomBehavior File="RunMacro" Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
 
                 <PickUp QuestName="Hellscream's Vigil" QuestId="11585" GiverName="Warsong Recruitment Officer" GiverId="25273" X="2822.696" Y="6171.691" Z="121.9801" />
+								<CustomBehavior File="UserSettings" UseMount="False" />
+				<RunTo DestName="Armorer Orkuruk for repair and sell" X="2766.192" Y="6193.661" Z="83.51713" />
                 <CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 
                 <TurnIn QuestName="Hellscream's Vigil" QuestId="11585" TurnInName="Garrosh Hellscream" TurnInId="25237"  X="2838.318" Y="6187.358" Z="84.68269" />
             </If>
 
+		
+			<CustomBehavior File="UserSettings" UseMount="True" />
             <!-- Train riding -->
             <If Condition="!HasSpell(54197)">
                 <CustomBehavior File="Message" Text="Training Riding" LogColor="CornflowerBlue" />
@@ -4302,6 +4314,42 @@
         </SetGrindArea>
         <GrindTo Level="71" />
         <!--<Checkpoint Level="71"/>-->
+		
+        <If Condition="Me.MapId == 1 &amp;&amp; CanFly()" >
+            <CustomBehavior File="FlyTo" DestName="Borean Tundra Zeppelin" X="1763.389" Y="-4283.858" Z="133.1073" />
+        </If>
+
+        <If Condition="Me.MapId == 1 &amp;&amp; (Me.ZoneId == 1637)" >
+            <!-- Train riding -->
+            <If Condition="!HasSpell(54197)">
+                <CustomBehavior File="Message" Text="Training Riding in Orgrimmar." LogColor="CornflowerBlue" />
+                <If Condition="Me.Gold &gt;= 401">
+                    <RunTo DestName="Maztha in Orgrimmar" X="1799.233" Y="-4362.396" Z="102.5011" />
+                    <CustomBehavior File="ForceTrainRiding" MobId="44919" />
+                    <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting {TimeRemaining}" />
+                </If>
+            </If>
+            <If Condition="!HasSpell(54197)">
+                <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" StopOnContinue="True" Text="You don't have enough money to fly!" />
+            </If>
+
+
+            <CustomBehavior File="Message" Text="Running to Org Zepp to Borean" LogColor="CornflowerBlue" />
+            <If Condition="Me.MapId == 1 &amp;&amp; CanFly()" >
+                <CustomBehavior File="FlyTo" DestName="Borean Tundra Zeppelin" X="1743.162" Y="-4279.574" Z="133.1004" />
+            </If>
+            <RunTo X="1763.389" Y="-4283.858" Z="133.1073" />
+            <CustomBehavior File="DeleteItems" Ids="25416, 25745, 26043, 29443, 30529, 26042, 29740, 25552, 25555, 29739, 24475, 24558, 25539, 33340, 35188, 25658, 20404, 30431" />
+            <CustomBehavior File="Message" Text="Waiting for Org Zepp to Borean - don't interact!" LogColor="Orange" />
+
+            <CustomBehavior File="UseTransport" TransportId="186238"
+                                        WaitAtX="1763.203" WaitAtY="-4284.529" WaitAtZ="133.1072"
+                                        TransportStartX="1775.066" TransportStartY="-4299.745" TransportStartZ="151.0326"
+                                        StandOnX="1770.22" StandOnY="-4292.056" StandOnZ="133.1872"
+                                        TransportEndX="2837.908" TransportEndY="6187.443" TransportEndZ="140.1648"
+                                        GetOffX="2836.831" GetOffY="6185.15" GetOffZ="121.9923" />
+
+        </If>
 
         <!-- Howling Fjord Quests -->
         <CustomBehavior File="Message" Text="Compiling Howling Fjord Quests" LogColor="Green" />
@@ -4921,6 +4969,7 @@
             <PickUp QuestName="Mimicking Nature's Call" QuestId="11281" GiverName="Nokoma Snowseer" GiverId="24123" />
             <TurnIn QuestName="Suppressing the Elements" QuestId="11311" TurnInName="Wind Tamer Kagan" TurnInId="24256" />
             <PickUp Nav="Fly" QuestName="The Book of Runes" QuestId="11350" GiverName="Longrunner Pembe" GiverId="24362" X="2653.775" Y="-4372.879" Z="279.5223" />
+
             <TurnIn QuestName="Hasty Preparations" QuestId="11271" TurnInName="Ahota Whitefrost" TurnInId="24127" />
             <!-- March of the Giants - 2 Player quest -->
             <If Condition="HasQuest(11281) &amp;&amp; !IsQuestCompleted(11281)">
@@ -5053,6 +5102,8 @@
                 <CustomBehavior File="ForcedDismount" />
                 <TurnIn QuestName="Keeper Witherleaf" QuestId="11428" TurnInName="Lurielle" TurnInId="24117" />
             </If>
+			
+			<PickUp Nav="Fly" QuestName="The Book of Runes" QuestId="11350" GiverName="Longrunner Pembe" GiverId="24362" X="2653.775" Y="-4372.879" Z="279.5223" />
 
             <If Condition="HasQuest(11350) &amp;&amp; !IsQuestCompleted(11350)">
                 <CustomBehavior File="FlyTo" X="2130.394" Y="-5375.467" Z="237.8083" />
@@ -5061,12 +5112,14 @@
                 <Objective QuestName="The Book of Runes" QuestId="11350" Type="CollectItem" ItemId="33780" CollectCount="1" />
                 <Objective QuestName="The Book of Runes" QuestId="11350" Type="CollectItem" ItemId="33778" CollectCount="1" />
                 <Objective QuestName="The Book of Runes" QuestId="11350" Type="CollectItem" ItemId="33779" CollectCount="1" />
-
-                <While Condition="HasQuest(11350) &amp;&amp; !IsQuestCompleted(11350)">
-                    <CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Using item {TimeRemaining}" />
-                    <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(33779)" WaitTime="1000" />
-                    <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Using item {TimeRemaining}" />
-                </While>
+				
+				<If Condition="HasItem(33778) &amp;&amp; HasItem(33779) &amp;&amp; HasItem(33780)">
+					<While Condition="HasQuest(11350) &amp;&amp; !IsQuestCompleted(11350)">
+						<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Using item {TimeRemaining}" />
+						<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(33779)" WaitTime="1000" />
+						<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Using item {TimeRemaining}" />
+					</While>
+				</If>
             </If>
 
             <TurnIn Nav="Fly" QuestName="The Book of Runes" QuestId="11350" TurnInName="Longrunner Pembe" TurnInId="24362" X="2653.775" Y="-4372.879" Z="279.5223" />
@@ -5241,6 +5294,42 @@
         </SetGrindArea>
         <GrindTo Level="72" />
         <Checkpoint Level="72" />
+		
+        <If Condition="Me.MapId == 1 &amp;&amp; CanFly()" >
+            <CustomBehavior File="FlyTo" DestName="Borean Tundra Zeppelin" X="1763.389" Y="-4283.858" Z="133.1073" />
+        </If>
+
+        <If Condition="Me.MapId == 1 &amp;&amp; (Me.ZoneId == 1637)" >
+            <!-- Train riding -->
+            <If Condition="!HasSpell(54197)">
+                <CustomBehavior File="Message" Text="Training Riding in Orgrimmar." LogColor="CornflowerBlue" />
+                <If Condition="Me.Gold &gt;= 401">
+                    <RunTo DestName="Maztha in Orgrimmar" X="1799.233" Y="-4362.396" Z="102.5011" />
+                    <CustomBehavior File="ForceTrainRiding" MobId="44919" />
+                    <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting {TimeRemaining}" />
+                </If>
+            </If>
+            <If Condition="!HasSpell(54197)">
+                <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" StopOnContinue="True" Text="You don't have enough money to fly!" />
+            </If>
+
+
+            <CustomBehavior File="Message" Text="Running to Org Zepp to Borean" LogColor="CornflowerBlue" />
+            <If Condition="Me.MapId == 1 &amp;&amp; CanFly()" >
+                <CustomBehavior File="FlyTo" DestName="Borean Tundra Zeppelin" X="1743.162" Y="-4279.574" Z="133.1004" />
+            </If>
+            <RunTo X="1763.389" Y="-4283.858" Z="133.1073" />
+            <CustomBehavior File="DeleteItems" Ids="25416, 25745, 26043, 29443, 30529, 26042, 29740, 25552, 25555, 29739, 24475, 24558, 25539, 33340, 35188, 25658, 20404, 30431" />
+            <CustomBehavior File="Message" Text="Waiting for Org Zepp to Borean - don't interact!" LogColor="Orange" />
+
+            <CustomBehavior File="UseTransport" TransportId="186238"
+                                        WaitAtX="1763.203" WaitAtY="-4284.529" WaitAtZ="133.1072"
+                                        TransportStartX="1775.066" TransportStartY="-4299.745" TransportStartZ="151.0326"
+                                        StandOnX="1770.22" StandOnY="-4292.056" StandOnZ="133.1872"
+                                        TransportEndX="2837.908" TransportEndY="6187.443" TransportEndZ="140.1648"
+                                        GetOffX="2836.831" GetOffY="6185.15" GetOffZ="121.9923" />
+
+        </If>
 
         <!-- Dragonblight Quests -->
         <CustomBehavior File="Message" Text="Compiling Dragonblight Quests" LogColor="Green" />
@@ -6429,11 +6518,9 @@
                 <TurnIn QuestName="Imbeciles Abound!" QuestId="12189" TurnInName="Chief Plaguebringer Middleton" TurnInId="27172" />
                 <PickUp QuestName="The Forsaken Blight and You: How Not to Die" QuestId="12188" GiverName="Chief Plaguebringer Middleton" GiverId="27172" />
             </If>
-            <If Condition="!HasQuest(12188) &amp;&amp; !IsQuestCompleted(12188)">
-                <CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3244.794" Y="-705.6263" Z="167.0694" />
-                <CustomBehavior File="ForcedDismount" />
-                <PickUp QuestName="The Forsaken Blight and You: How Not to Die" QuestId="12188" GiverName="Chief Plaguebringer Middleton" GiverId="27172" />
-            </If>
+
+                <PickUp Nav="Fly" QuestName="The Forsaken Blight and You: How Not to Die" QuestId="12188" GiverName="Chief Plaguebringer Middleton" GiverId="27172" X="3244.794" Y="-705.6263" Z="167.0694" />
+
             <PickUp QuestName="Blighted Last Rites" QuestId="12206" GiverName="Apothecary Vicky Levine" GiverId="27248" />
             <While Condition="HasQuest(12206) &amp;&amp; !IsQuestCompleted(12206)">
                 <!--<CustomBehavior File="UseItemOn" QuestId="12206" MobId="27349" ItemId="37129" Range="10" X="3222.266" Y="-693.4669" Z="167.1631" />-->
@@ -6444,55 +6531,15 @@
             <PickUp Nav="Fly" QuestName="Let Them Not Rise!" QuestId="12211" GiverName="Apothecary Vicky Levine" GiverId="27248" />
             <PickUp QuestName="Wanted: The Scarlet Onslaught" QuestId="12205" GiverName="Wanted Poster" GiverId="188649" GiverType="Object" X="3226.115" Y="-688.8558" Z="167.145" />
             <PickUp QuestName="To Conquest Hold, But Be Careful!" QuestId="12487" GiverName="High Executor Wroth" GiverId="27243" />
-            <PickUp QuestName="Funding the War Effort" QuestId="12303" GiverName="Quartermaster Bartlett" GiverId="27267" />
+            <PickUp Nav="Fly" QuestName="Funding the War Effort" QuestId="12303" GiverName="Quartermaster Bartlett" GiverId="27267" />
             <PickUp QuestName="Materiel Plunder" QuestId="12209" GiverName="Quartermaster Bartlett" GiverId="27267" />
-            <If Condition="!HasQuest(12304) &amp;&amp; !IsQuestCompleted(12304)">
-                <CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3139.711" Y="-821.7073" Z="48.04916" />
-                <CustomBehavior File="ForcedDismount" />
-            </If>
-            <PickUp QuestName="Beachfront Property" QuestId="12304" GiverName="Surveyor Hansen" GiverId="32599" />
-            <If Condition="HasQuest(12303) &amp;&amp; !IsQuestCompleted(12303)">
-                <CustomBehavior File="FlyTo" DestName="Funding the War Effort" X="2918.513" Y="-1198.756" Z="10" />
-                <CustomBehavior File="UserSettings" UseMount="False" />
-                <CustomBehavior File="CollectThings" QuestId="12303" ObjectId="189306" CollectItemCount="6" CollectItemId="37580" HuntingGroundRadius="200">
-                    <Hotspot X="2949.519" Y="-996.3788" Z="5.417311" />
-                    <Hotspot X="2918.513" Y="-1198.756" Z="5.852705" />
-                    <Hotspot X="3051.125" Y="-1183.764" Z="4.522867" />
-                </CustomBehavior>
-                <CustomBehavior File="AscendInWater" />
-            </If>
-            <CustomBehavior File="UserSettings" UseMount="True" />
-            <!--
-			<Objective QuestName="Funding the War Effort" QuestId="12303" Type="CollectItem" ItemId="37580" CollectCount="6" />
-			-->
-            <If Condition="HasQuest(12188) &amp;&amp; !IsQuestCompleted(12188)">
-                <CustomBehavior File="FlyTo" DestName="Forsaken Blight" X="3078.895" Y="-991.2938" Z="30" />
-                <CustomBehavior File="UserSettings" UseMount="False" />
-                <CustomBehavior File="CollectThings" QuestId="12188" MobId="27226" CollectItemCount="10" CollectItemId="37121" HuntingGroundRadius="200">
-                    <Hotspot X="3094.943" Y="-947.1584" Z="30.59895" />
-                    <Hotspot X="3078.895" Y="-991.2938" Z="24.47476" />
-                    <Hotspot X="3105.284" Y="-1061.567" Z="27.56089" />
-                </CustomBehavior>
-                <CustomBehavior File="AscendInWater" />
-            </If>
-            <CustomBehavior File="UserSettings" UseMount="True" />
-            <!--
+
+            <PickUp Nav="Fly" QuestName="Beachfront Property" QuestId="12304" GiverName="Surveyor Hansen" GiverId="32599" />
+<Objective QuestName="Funding the War Effort" QuestId="12303" Type="CollectItem" ItemId="37580" CollectCount="6" />
+
 			<Objective QuestName="The Forsaken Blight and You: How Not to Die" QuestId="12188" Type="CollectItem" ItemId="37121" CollectCount="10" />
-			-->
-            <If Condition="HasQuest(12304) &amp;&amp; !IsQuestCompleted(12304)">
-                <CustomBehavior File="FlyTo" DestName="Beachfront Property" X="3078.895" Y="-991.2938" Z="30" />
-                <CustomBehavior File="UserSettings" UseMount="False" />
-                <CustomBehavior File="CollectThings" QuestId="12304" MobId="27226" CollectUntil="QuestComplete" HuntingGroundRadius="200">
-                    <Hotspot X="3094.943" Y="-947.1584" Z="30.59895" />
-                    <Hotspot X="3078.895" Y="-991.2938" Z="24.47476" />
-                    <Hotspot X="3105.284" Y="-1061.567" Z="27.56089" />
-                </CustomBehavior>
-                <CustomBehavior File="AscendInWater" />
-            </If>
-            <CustomBehavior File="UserSettings" UseMount="True" />
-            <!--
+
 			<Objective QuestName="Beachfront Property" QuestId="12304" Type="KillMob" MobId="27220" KillCount="20" />
-			-->
 
             <TurnIn Nav="Fly" QuestName="Beachfront Property" QuestId="12304" TurnInName="Surveyor Hansen" TurnInId="32599" X="3139.711" Y="-821.7073" Z="48.04916" />
 
@@ -6845,6 +6892,42 @@
         </SetGrindArea>
         <GrindTo Level="74" />
         <Checkpoint Level="74" />
+		
+        <If Condition="Me.MapId == 1 &amp;&amp; CanFly()" >
+            <CustomBehavior File="FlyTo" DestName="Borean Tundra Zeppelin" X="1763.389" Y="-4283.858" Z="133.1073" />
+        </If>
+
+        <If Condition="Me.MapId == 1 &amp;&amp; (Me.ZoneId == 1637)" >
+            <!-- Train riding -->
+            <If Condition="!HasSpell(54197)">
+                <CustomBehavior File="Message" Text="Training Riding in Orgrimmar." LogColor="CornflowerBlue" />
+                <If Condition="Me.Gold &gt;= 401">
+                    <RunTo DestName="Maztha in Orgrimmar" X="1799.233" Y="-4362.396" Z="102.5011" />
+                    <CustomBehavior File="ForceTrainRiding" MobId="44919" />
+                    <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting {TimeRemaining}" />
+                </If>
+            </If>
+            <If Condition="!HasSpell(54197)">
+                <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" StopOnContinue="True" Text="You don't have enough money to fly!" />
+            </If>
+
+
+            <CustomBehavior File="Message" Text="Running to Org Zepp to Borean" LogColor="CornflowerBlue" />
+            <If Condition="Me.MapId == 1 &amp;&amp; CanFly()" >
+                <CustomBehavior File="FlyTo" DestName="Borean Tundra Zeppelin" X="1743.162" Y="-4279.574" Z="133.1004" />
+            </If>
+            <RunTo X="1763.389" Y="-4283.858" Z="133.1073" />
+            <CustomBehavior File="DeleteItems" Ids="25416, 25745, 26043, 29443, 30529, 26042, 29740, 25552, 25555, 29739, 24475, 24558, 25539, 33340, 35188, 25658, 20404, 30431" />
+            <CustomBehavior File="Message" Text="Waiting for Org Zepp to Borean - don't interact!" LogColor="Orange" />
+
+            <CustomBehavior File="UseTransport" TransportId="186238"
+                                        WaitAtX="1763.203" WaitAtY="-4284.529" WaitAtZ="133.1072"
+                                        TransportStartX="1775.066" TransportStartY="-4299.745" TransportStartZ="151.0326"
+                                        StandOnX="1770.22" StandOnY="-4292.056" StandOnZ="133.1872"
+                                        TransportEndX="2837.908" TransportEndY="6187.443" TransportEndZ="140.1648"
+                                        GetOffX="2836.831" GetOffY="6185.15" GetOffZ="121.9923" />
+
+        </If>
 
         <!-- Grizzly Hills Quests -->
         <CustomBehavior File="Message" Text="Compiling Grizzly Hills Quests" LogColor="Green" />
@@ -7776,6 +7859,41 @@
         </SetGrindArea>
         <GrindTo Level="75" />
         <!--<Checkpoint Level="76" />-->
+        <If Condition="Me.MapId == 1 &amp;&amp; CanFly()" >
+            <CustomBehavior File="FlyTo" DestName="Borean Tundra Zeppelin" X="1763.389" Y="-4283.858" Z="133.1073" />
+        </If>
+
+        <If Condition="Me.MapId == 1 &amp;&amp; (Me.ZoneId == 1637)" >
+            <!-- Train riding -->
+            <If Condition="!HasSpell(54197)">
+                <CustomBehavior File="Message" Text="Training Riding in Orgrimmar." LogColor="CornflowerBlue" />
+                <If Condition="Me.Gold &gt;= 401">
+                    <RunTo DestName="Maztha in Orgrimmar" X="1799.233" Y="-4362.396" Z="102.5011" />
+                    <CustomBehavior File="ForceTrainRiding" MobId="44919" />
+                    <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting {TimeRemaining}" />
+                </If>
+            </If>
+            <If Condition="!HasSpell(54197)">
+                <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" StopOnContinue="True" Text="You don't have enough money to fly!" />
+            </If>
+
+
+            <CustomBehavior File="Message" Text="Running to Org Zepp to Borean" LogColor="CornflowerBlue" />
+            <If Condition="Me.MapId == 1 &amp;&amp; CanFly()" >
+                <CustomBehavior File="FlyTo" DestName="Borean Tundra Zeppelin" X="1743.162" Y="-4279.574" Z="133.1004" />
+            </If>
+            <RunTo X="1763.389" Y="-4283.858" Z="133.1073" />
+            <CustomBehavior File="DeleteItems" Ids="25416, 25745, 26043, 29443, 30529, 26042, 29740, 25552, 25555, 29739, 24475, 24558, 25539, 33340, 35188, 25658, 20404, 30431" />
+            <CustomBehavior File="Message" Text="Waiting for Org Zepp to Borean - don't interact!" LogColor="Orange" />
+
+            <CustomBehavior File="UseTransport" TransportId="186238"
+                                        WaitAtX="1763.203" WaitAtY="-4284.529" WaitAtZ="133.1072"
+                                        TransportStartX="1775.066" TransportStartY="-4299.745" TransportStartZ="151.0326"
+                                        StandOnX="1770.22" StandOnY="-4292.056" StandOnZ="133.1872"
+                                        TransportEndX="2837.908" TransportEndY="6187.443" TransportEndZ="140.1648"
+                                        GetOffX="2836.831" GetOffY="6185.15" GetOffZ="121.9923" />
+
+        </If>
 
         <!-- Zul'Drak -->
         <CustomBehavior File="Message" Text="Compiling Zul'Drak Quests" LogColor="Green" />
@@ -8157,7 +8275,7 @@
                 <CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="UserSettings" UseMount="False" UseFlightPaths="False" />
                 <While Condition="HasQuest(12740) &amp;&amp; !IsQuestCompleted(12740)">
-                    <CustomBehavior File="UseItemOn" QuestId="12740" MobId="28028" ItemId="39615" IsMissingAuraId="53031" NumOfTimes="30" WaitTime="6000" Range="20" CollectionDistance="300" X="5442.787" Y="-2517.135" Z="292.4196" />
+                    <CustomBehavior File="InteractWith" QuestId="12740" MobId="28028" InteractByUsingItemId="39615" IsMissingAuraId="53031" PreInteractMountStrategy="Dismount" NumOfTimes="30" WaitTime="6000" Range="20" CollectionDistance="300" X="5442.787" Y="-2517.135" Z="292.4196" />
                 </While>
             </If>
 			<CustomBehavior File="UserSettings" UseMount="True" UseFlightPaths="True" />
@@ -8651,6 +8769,42 @@
         </SetGrindArea>
         <GrindTo Level="77" />
         <Checkpoint Level="77" />
+
+        <If Condition="Me.MapId == 1 &amp;&amp; CanFly()" >
+            <CustomBehavior File="FlyTo" DestName="Borean Tundra Zeppelin" X="1763.389" Y="-4283.858" Z="133.1073" />
+        </If>
+
+        <If Condition="Me.MapId == 1 &amp;&amp; (Me.ZoneId == 1637)" >
+            <!-- Train riding -->
+            <If Condition="!HasSpell(54197)">
+                <CustomBehavior File="Message" Text="Training Riding in Orgrimmar." LogColor="CornflowerBlue" />
+                <If Condition="Me.Gold &gt;= 401">
+                    <RunTo DestName="Maztha in Orgrimmar" X="1799.233" Y="-4362.396" Z="102.5011" />
+                    <CustomBehavior File="ForceTrainRiding" MobId="44919" />
+                    <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting {TimeRemaining}" />
+                </If>
+            </If>
+            <If Condition="!HasSpell(54197)">
+                <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" StopOnContinue="True" Text="You don't have enough money to fly!" />
+            </If>
+
+
+            <CustomBehavior File="Message" Text="Running to Org Zepp to Borean" LogColor="CornflowerBlue" />
+            <If Condition="Me.MapId == 1 &amp;&amp; CanFly()" >
+                <CustomBehavior File="FlyTo" DestName="Borean Tundra Zeppelin" X="1743.162" Y="-4279.574" Z="133.1004" />
+            </If>
+            <RunTo X="1763.389" Y="-4283.858" Z="133.1073" />
+            <CustomBehavior File="DeleteItems" Ids="25416, 25745, 26043, 29443, 30529, 26042, 29740, 25552, 25555, 29739, 24475, 24558, 25539, 33340, 35188, 25658, 20404, 30431" />
+            <CustomBehavior File="Message" Text="Waiting for Org Zepp to Borean - don't interact!" LogColor="Orange" />
+
+            <CustomBehavior File="UseTransport" TransportId="186238"
+                                        WaitAtX="1763.203" WaitAtY="-4284.529" WaitAtZ="133.1072"
+                                        TransportStartX="1775.066" TransportStartY="-4299.745" TransportStartZ="151.0326"
+                                        StandOnX="1770.22" StandOnY="-4292.056" StandOnZ="133.1872"
+                                        TransportEndX="2837.908" TransportEndY="6187.443" TransportEndZ="140.1648"
+                                        GetOffX="2836.831" GetOffY="6185.15" GetOffZ="121.9923" />
+
+        </If>
 
         <!-- Sholazar Basin Quests -->
         <CustomBehavior File="Message" Text="Compiling Sholazar Basin Quests (You will get stuck in trees)" LogColor="Green" />
@@ -9504,8 +9658,8 @@
                 <PickUp QuestName="Lifeblood of the Mosswalker Shrine" QuestId="12579" GiverName="Moodle" GiverId="28122" />
             </If>
             <While Condition="HasQuest(12580) &amp;&amp; !IsQuestCompleted(12580)">
-                <CustomBehavior File="InteractWith" NonCompeteDistance="0" QuestId="12580" MobId="28113" MobState="Alive" WaitForNpcs="False" GossipOptions="1"
-						CollectionDistance="50" Waittime="1500" >
+                <CustomBehavior File="InteractWith" NonCompeteDistance="0" QuestId="12580" MobId="28113" MobState="Alive" WaitForNpcs="False" GossipOptions="1" PreInteractMountStrategy="Dismount" 
+						CollectionDistance="30" Waittime="1500" >
                     <HuntingGrounds>
                         <Hotspot X="5813.002" Y="3631.94" Z="-11.94503" />
                         <Hotspot X="5800.179" Y="3680.162" Z="-20.23062" />
@@ -10299,7 +10453,7 @@
                     <CustomBehavior File="InteractWith" QuestId="12828" MobId="191553" NumOfTimes="1" GossipOptions="1" CollectionDistance="50" X="6401.575" Y="-1120.398" Z="425.8143" />
                     <CustomBehavior File="FlyTo" X="6173.439" Y="-765.3783" Z="398.8278" />
                     <CustomBehavior File="ForcedDismount" />
-                    <CustomBehavior File="UseItemOn" QuestId="12828" MobId="29402" ItemId="40686" WaitTime="5000" Range="30" CollectionDistance="1000" X="6182.865" Y="-709.2883" Z="401.3564" />
+                    <CustomBehavior File="InteractWith" QuestId="12828" MobId="29402" InteractByUsingItemId="40686" WaitTime="5000" Range="30" CollectionDistance="1000" X="6182.865" Y="-709.2883" Z="401.3564" />
                     <CustomBehavior File="InteractWith" QuestId="12828" MobId="192693" NumOfTimes="1" WaitForNpcs="False" CollectionDistance="1000" X="6182.865" Y="-709.2883" Z="401.3564" />
                     <CustomBehavior File="InteractWith" QuestId="12828" MobId="191567" NumOfTimes="20" WaitForNpcs="False" CollectionDistance="1000" X="6182.865" Y="-709.2883" Z="401.3564" />
                     <CustomBehavior File="WaitTimer" QuestId="12828" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
@@ -10409,7 +10563,7 @@
                 <PickUp QuestName="Moving In" QuestId="12829" GiverName="Tore Rumblewrench" GiverId="29430" />
             </If>
             <If Condition="!HasQuest(12831) &amp;&amp; !IsQuestCompleted(12831)">
-                <CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6449.68" Y="-1033.194" Z="430.8594" />
+                <CustomBehavior File="FlyTo" DestName="Crystalweb Cavern" X="6461.917" Y="-1037.51" Z="472.951" />
                 <CustomBehavior File="ForcedDismount" />
                 <PickUp QuestName="Only Partly Forgotten" QuestId="12831" GiverName="Injured Goblin Miner" GiverId="29434" X="6630.178" Y="-1250.886" Z="396.1312" />
             </If>
@@ -10480,7 +10634,7 @@
             <CustomBehavior File="FlyTo" DestName="Sifreldar Village" X="6599.201" Y="-988.3707" Z="840.3089" />
             <CustomBehavior File="FlyTo" DestName="collect 8 K3 Equipment's" X="6668.205" Y="-1025.524" Z="767.0791" />
             <CustomBehavior File="ForcedDismount" />
-            <Objective QuestName="Equipment Recovery" QuestId="12844" Type="CollectItem" CollectCount="8" ItemId="40726" />
+            <Objective Nav="Fly" QuestName="Equipment Recovery" QuestId="12844" Type="CollectItem" CollectCount="8" ItemId="40726" />
         </If>
         <If Condition="HasQuest(12843) &amp;&amp; !IsQuestCompleted(12843)">
             <CustomBehavior File="FlyTo" DestName="get 5 keys" X="6721.84" Y="-1054.548" Z="766.6909" />
@@ -10718,8 +10872,15 @@
         <!-- Various Health and Mana Pots (Classic, BC, LK) -->
         <CustomBehavior File="DeleteItems" Ids="34960,37265,40645,38563,38551,35188" />
         <!-- Various quest crap in LK -->
+		
+		
+		<If Condition="Me.IsHorde">
+		<CustomBehavior File="FlyTo" DestName="Dalaran Portal to Orgrimmar" Land="True" X="5895.532" Y="564.8495" Z="639.517" />
+     <CustomBehavior File="InteractWith" NonCompeteDistance="0" MobId="191009" PreInteractMountStrategy="Dismount" CollectionDistance="50" />
+	 <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for lag to clear {TimeRemaining}" />
+	 </If>
 
-        <CustomBehavior File="LoadProfile" ProfileName="..\GoTo\H LK to K" />
+        <CustomBehavior File="LoadProfile" ProfileName="..\Cata\[Fly][N - Quest] Hyjal 80-82 [Kick]" />
 
     </QuestOrder>
 
