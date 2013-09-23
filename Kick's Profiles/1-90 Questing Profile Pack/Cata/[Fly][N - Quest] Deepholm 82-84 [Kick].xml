@@ -265,7 +265,7 @@
 				<Vendors>
 					<Vendor Nav="Fly" Name="Rocky Cliffedge" Entry="44972" Type="Repair" X="666.938" Y="1779.79" Z="341" />
 					<!-- Fractured Front - West -->
-					<Vendor Nav="Fly" Name="Earthmender Doros" Entry="45363" Type="Repair" X="54.9115" Y="-274.955" Z="208.6113" />
+					<Vendor Name="Earthmender Doros" Entry="45363" Type="Repair" X="54.9115" Y="-274.955" Z="208.6113" />
 					<!-- Twilight Overlook - SE -->
 					<!-- Twilight Overlook - Food
 			<Vendor Name="Hegrid Blazewing" Entry="45361" Type="Food" X="19.7554" Y="-294.1531" Z="201.3132" />
@@ -994,7 +994,7 @@
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 				<TurnIn QuestId="27102" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
-				<RunTo X="457.8258" Y="-449.9126" Z="45.94074" />
+				<CustomBehavior File="FlyTo" X="457.8258" Y="-449.9126" Z="45.94074" />
 			</While>
 			<If Condition="HasQuest(27061)">
 				<CustomBehavior File="FlyTo" DestName="Twilight Overlook" X="-18.77893" Y="-241.1315" Z="287.0805" />
@@ -1211,24 +1211,41 @@
 			<TurnIn QuestId="27934" />
 			<CustomBehavior File="WaitTimer" WaitTime="2000" />
 		</While>
+		<If Condition="!HasQuest(27935)" >
+			<PickUp Nav="Fly" QuestName="Bring Down the Avalanche" QuestId="27936" GiverName="Slate Quicksand" GiverId="47195" X="153.002" Y="1488.77" Z="227.349" />
+		</If>
 		<If Condition="HasQuest(27935) &amp;&amp; !IsQuestCompleted(27935)">
 			<CustomBehavior File="KillUntilComplete" QuestId="27935" MobId1="44372" X="-233.503" Y="658.175" Z="142.0042" />
-			<!--
-				<CustomBehavior File="MyCTM" X="-253.2673" Y="658.0421" Z="142.7941" />
-				<CustomBehavior File="MyCTM" X="-233.3487" Y="654.575" Z="141.7787" />
-				<Objective QuestName="Bring Down the Avalanche" QuestId="27935" Type="KillMob" MobId="44372" KillCount="1" />
-				<CustomBehavior File="MyCTM" X="-189.8965" Y="660.8942" Z="115.1548" />
-				<CustomBehavior File="NoCombatMoveTo" X="459.53" Y="1628.21" Z="352.1236" />
-				-->
+			<Runto DestName="Avalanchion's Cave Entrance" X="-5.36551" Y="839.7243" Z="149.7813" />
+			<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for aggro to clear." />
 		</If>
 		<If Condition="HasQuest(27935) &amp;&amp; IsQuestCompleted(27935)">
 			<If Condition="Me.IsIndoors">
 				<CustomBehavior File="FlyTo"  X="25.89841" Y="862.6547" Z="146.0991" />
 				<RunTo X="25.89841" Y="862.6547" Z="146.0991" />
 			</If>
+			<CustomBehavior File="ForcedMount" MountType="Flying" />
 			<CustomBehavior File="FlyTo" X="458.9504" Y="1634.358" Z="351.065" />
 			<CustomBehavior File="ForcedDismount" />
 			<TurnIn QuestName="Bring Down the Avalanche" QuestId="27935" TurnInName="Crag Rockcrusher" TurnInId="43071" X="459.53" Y="1628.21" Z="352.1236" />
+			<PickUp QuestName="Stonefather's Boon" GiverName="Crag Rockcrusher" QuestId="26499" GiverId="43071" X="459.53" Y="1628.21" Z="352.1236" />
+		</If>
+		
+				<If Condition="HasQuest(27936) &amp;&amp; !IsQuestCompleted(27936)">
+				<CustomBehavior File="FlyTo" DestName="Avalanchion's Cave Entrance" X="-5.36551" Y="839.7243" Z="149.7813" />
+			<CustomBehavior File="KillUntilComplete" QuestId="27936" MobId1="44372" X="-233.503" Y="658.175" Z="142.0042" />
+			<Runto DestName="Avalanchion's Cave Entrance" X="-5.36551" Y="839.7243" Z="149.7813" />
+			<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for aggro to clear." />
+		</If>
+		<If Condition="HasQuest(27936) &amp;&amp; IsQuestCompleted(27936)">
+			<If Condition="Me.IsIndoors">
+				<CustomBehavior File="FlyTo"  X="25.89841" Y="862.6547" Z="146.0991" />
+				<RunTo X="25.89841" Y="862.6547" Z="146.0991" />
+			</If>
+			<CustomBehavior File="ForcedMount" MountType="Flying" />
+			<CustomBehavior File="FlyTo" X="458.9504" Y="1634.358" Z="351.065" />
+			<CustomBehavior File="ForcedDismount" />
+			<TurnIn QuestName="Bring Down the Avalanche" QuestId="27936" TurnInName="Crag Rockcrusher" TurnInId="43071" X="459.53" Y="1628.21" Z="352.1236" />
 			<PickUp QuestName="Stonefather's Boon" GiverName="Crag Rockcrusher" QuestId="26499" GiverId="43071" X="459.53" Y="1628.21" Z="352.1236" />
 		</If>
 		<PickUp QuestName="We're Surrounded" GiverName="Earthbreaker Dolomite" QuestId="26500" GiverId="43160" X="428.764" Y="1613.22" Z="360.7727" />
@@ -1303,22 +1320,16 @@
 		</If>
 		<TurnIn QuestName="Rush Delivery" TurnInName="Peak Grindstone" QuestId="27126" TurnInId="45043" />
 		<PickUp Nav="Fly" QuestName="Close Escort" GiverName="Peak Grindstone" QuestId="26632" GiverId="45043" X="702.7242" Y="1992.475" Z="329.6427" />
-		<While Condition="HasQuest(26632) &amp;&amp; !IsQuestCompleted(26632)">
-			<CustomBehavior File="InteractWith" QuestId="26632" MobId="45043" GossipOptions="1" WaitTime="1000" X="702.7242" Y="1992.475" Z="329.6427" />
-			<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for quest to spawn {TimeRemaining}" />
-			<!-- <CustomBehavior File="Escort" QuestId="26632" MobId="43509" X="702.7242" Y="1992.475" Z="329.6427" /> -->
-			<CustomBehavior File="Escort" EscortUntil="DestinationReached" MobId="43509" X="702.7242" Y="1992.475" Z="329.6427" EscortDestX="1017.44" EscortDestY="1958.24" EscortDestZ="307.0953" />
-			<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-			<If Condition="HasQuest(26632) &amp;&amp; !IsQuestCompleted(26632)">
-				<CustomBehavior File="AbandonQuest" QuestId="26632" Type="Incomplete" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to abandon {TimeRemaining}" />
-
-				<CustomBehavior File="FlyTo" X="702.7242" Y="1992.475" Z="329.6427" />
-				<CustomBehavior File="ForcedDismount" />
-				<PickUp QuestName="Close Escort" GiverName="Peak Grindstone" QuestId="26632" GiverId="45043" />
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for bot {TimeRemaining}" />
+		<While Condition="!IsQuestCompleted(26632)">
+			<If Condition="!HasQuest(26632)">
+				<PickUp Nav="Fly" QuestName="Close Escort" GiverName="Peak Grindstone" QuestId="26632" GiverId="45043"
+					X="702.7242" Y="1992.475" Z="329.6427" />
 			</If>
-			
+
+			<CustomBehavior File="InteractWith" QuestId="26632" MobId="45043" GossipOptions="1" WaitTime="1000" 
+				X="702.7242" Y="1992.475" Z="329.6427" />
+			<CustomBehavior File="EscortGroup" QuestId="26632" 
+				EscortNpcId="43509" EscortCountMax="1" EscortCompleteWhen="QuestCompleteOrFails" />
 		</While>
 		<CustomBehavior File="UserSettings" PullDistance="35" LootMobs="False" />
 		<TurnIn QuestName="Close Escort" TurnInName="Pyrium Lodestone" QuestId="26632" TurnInId="43897" X="1027.22" Y="1895.48" Z="308.1165" />
@@ -1339,9 +1350,9 @@
 		
 		<If Condition="HasQuest(26762) &amp;&amp; !IsQuestCompleted(26762)">
 			<CustomBehavior File="ForcedMount" MountType="Flying" />
-			<CustomBehavior File="FlyTo"  DestName="Safe take-off point" X="1022.251" Y="1828.201" Z="336.4881" />
-			<CustomBehavior File="FlyTo" X="946.5524" Y="1853.949" Z="388.0756" />
-			<CustomBehavior File="FlyTo" X="1237.268" Y="1939.59" Z="303.6772" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True" DestName="Safe take-off point" X="1022.251" Y="1828.201" Z="336.4881" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"  X="946.5524" Y="1853.949" Z="388.0756" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"  X="1237.268" Y="1939.59" Z="303.6772" />
 			<CustomBehavior File="ForcedDismount" />
 			<CustomBehavior File="InteractWith" QuestId="26762" MobId="43984" NumOfTimes="10" CollectionDistance="500" X="1275.259" Y="1880.676" Z="302.162" />
 		</If>
@@ -1349,9 +1360,9 @@
 		<If Condition="HasQuest(26770) &amp;&amp; IsQuestCompleted(26770)">
 		<CustomBehavior File="ForcedMount" MountType="Flying" />
 			<CustomBehavior File="ForcedMount" MountType="Flying" />
-			<CustomBehavior File="FlyTo" DestName="a safe take off spot." X="1438.337" Y="1722.481" Z="302.3002" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"  DestName="a safe take off spot." X="1438.337" Y="1722.481" Z="302.3002" />
 			
-			<CustomBehavior File="FlyTo" DestName="safe approach to Pyrium Lodestone and Flint Oremantle." X="1030.18" Y="1888.69" Z="357.9503" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"  DestName="safe approach to Pyrium Lodestone and Flint Oremantle." X="1030.18" Y="1888.69" Z="357.9503" />
 			<CustomBehavior File="ForcedDismount" />
 		</If>
 		<TurnIn QuestName="Mystic Masters" TurnInName="Flint Oremantle" QuestId="26770" TurnInId="43898" />
@@ -1359,10 +1370,10 @@
 		<PickUp QuestName="Down Into the Chasm" GiverName="Pyrium Lodestone" QuestId="26834" GiverId="43897" X="1027.22" Y="1895.48" Z="308.1165" />
 		<If Condition="HasQuest(26834)">
 			<CustomBehavior File="ForcedMount" MountType="Flying" />
-			<CustomBehavior File="FlyTo"  DestName="Safe take-off point" X="1022.251" Y="1828.201" Z="346.4881" />
-			<CustomBehavior File="FlyTo" X="1025.944" Y="1894.388" Z="425.3623" />
-			<CustomBehavior File="FlyTo" X="1220.044" Y="1552.123" Z="284.5173" />
-			<CustomBehavior File="FlyTo" X="1268.771" Y="1643.923" Z="205.0936" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"   DestName="Safe take-off point" X="1022.251" Y="1828.201" Z="346.4881" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"  X="1025.944" Y="1894.388" Z="425.3623" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"  X="1220.044" Y="1552.123" Z="284.5173" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"  X="1268.771" Y="1643.923" Z="205.0936" />
 			<CustomBehavior File="ForcedDismount" />
 		</If>
 		<TurnIn Nav="Fly" QuestName="Down Into the Chasm" TurnInName="Slate Quicksand" QuestId="26834" TurnInId="44143" X="1271.51" Y="1645.2" Z="174.8254" />
@@ -1372,40 +1383,40 @@
 			<If Condition="!Me.HasAura(82537)" >
 				<CustomBehavior File="InteractWith" QuestId="26791" MobId="44126" NumOfTimes="1" CollectionDistance="50" X="1268.771" Y="1643.923" Z="175.0936" />
 			</If>
-			<CustomBehavior File="FlyTo" DestName="Sprout No More" X="1496.561" Y="1665.411" Z="178.0996" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"  DestName="Sprout No More" X="1496.561" Y="1665.411" Z="178.0996" />
 			<CustomBehavior File="InteractWith" QuestId="26791" MobId="44049" NumOfTimes="20" CollectionDistance="500" X="1496.561" Y="1665.411" Z="178.0996" />
 		</If>
 		<Objective QuestName="Fungal Monstrosities" QuestId="26792" Type="KillMob" KillCount="5" MobId="44035" />
 		<If Condition="HasQuest(26792) &amp;&amp; IsQuestCompleted(26792)">
-			<CustomBehavior File="FlyTo" X="1268.771" Y="1643.923" Z="175.0936" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"  X="1268.771" Y="1643.923" Z="175.0936" />
 			<CustomBehavior File="ForcedDismount" />
 		</If>
 		<TurnIn QuestName="Sprout No More" TurnInName="Slate Quicksand" QuestId="26791" TurnInId="44143" X="1271.51" Y="1645.2" Z="174.8254" />
 		<TurnIn QuestName="Fungal Monstrosities" TurnInName="Slate Quicksand" QuestId="26792" TurnInId="44143" X="1271.51" Y="1645.2" Z="174.8254" />
 		<PickUp QuestName="A Slight Problem" GiverName="Slate Quicksand" QuestId="26835" GiverId="44143" X="1271.51" Y="1645.2" Z="174.8254" />
 		<If Condition="HasQuest(26835)">
-			<CustomBehavior File="FlyTo" DestName="Safe approach to Pyrium Lodestone and Flint Oremantle." X="1030.18" Y="1888.69" Z="347.9503" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"  DestName="Safe approach to Pyrium Lodestone and Flint Oremantle." X="1030.18" Y="1888.69" Z="347.9503" />
 			<CustomBehavior File="ForcedDismount" />
 		</If>
 		<TurnIn QuestName="A Slight Problem" TurnInName="Pyrium Lodestone" QuestId="26835" TurnInId="43897" X="1027.22" Y="1895.48" Z="308.1165" />
 		<PickUp Nav="Fly" QuestName="Rescue the Stonefather... and Flint" GiverName="Pyrium Lodestone" QuestId="26836" GiverId="43897" X="1027.22" Y="1895.48" Z="308.1165" />
 		<While Condition="HasQuest(26836) &amp;&amp; !IsQuestCompleted(26836)">
 			<CustomBehavior File="ForcedMount" MountType="Flying" />
-			<CustomBehavior File="FlyTo"  DestName="Safe take-off point" X="1022.251" Y="1828.201" Z="346.4881" />
-			<CustomBehavior File="FlyTo" DestName="Rescue the Stonefather... and Flint" X="1692.978" Y="1792.932" Z="355.1466" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"   DestName="Safe take-off point" X="1022.251" Y="1828.201" Z="346.4881" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"  DestName="Rescue the Stonefather... and Flint" X="1692.978" Y="1792.932" Z="355.1466" />
 			<CustomBehavior File="ForcedDismount" />
 			<Objective Nav="Fly" QuestName="Rescue the Stonefather... and Flint"  QuestId="26836" Type="KillMob" KillCount="10" MobId="44151" />
 		</While>
 		<If Condition="HasQuest(26836) &amp;&amp; IsQuestCompleted(26836)">
-			<CustomBehavior File="FlyTo" DestName="Safe approach to Pyrium Lodestone and Flint Oremantle." X="1030.18" Y="1888.69" Z="339.9503" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"  DestName="Safe approach to Pyrium Lodestone and Flint Oremantle." X="1030.18" Y="1888.69" Z="339.9503" />
 			<CustomBehavior File="ForcedDismount" />
 		</If>
 		<TurnIn QuestName="Rescue the Stonefather... and Flint" TurnInName="Pyrium Lodestone" QuestId="26836" TurnInId="43897" X="1027.22" Y="1895.48" Z="308.1165" />
 		<PickUp QuestName="The Hero Returns" GiverName="Pyrium Lodestone" QuestId="27937" GiverId="43897" X="1027.22" Y="1895.48" Z="308.1165" />
 		<If Condition="HasQuest(27937)">
 			<CustomBehavior File="ForcedMount" MountType="Flying" />
-			<CustomBehavior File="FlyTo"  DestName="Safe take-off point" X="1022.251" Y="1828.201" Z="336.4881" />
-			<CustomBehavior File="FlyTo" X="459.133" Y="1633.808" Z="351.1767" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"   DestName="Safe take-off point" X="1022.251" Y="1828.201" Z="336.4881" />
+			<CustomBehavior File="FlyTo"  IgnoreIndoors="True"  X="459.133" Y="1633.808" Z="351.1767" />
 			<CustomBehavior File="ForcedDismount" />
 		</If>
 		<TurnIn QuestName="The Hero Returns" TurnInName="Stonefather Oremantle" QuestId="27937" TurnInId="44204" />
@@ -1563,7 +1574,7 @@
 		</While>
 		<Objective QuestName="Making Things Crystal Clear" QuestId="26437" Type="Collect" CollectCount="8" ItemId="58845" />
 		<Objective Type="KillMob" QuestName="Intervention" QuestId="26438" MobId="42524" KillCount="12" />
-		<TurnIn QuestName="Intervention" TurnInName="Kor the Immovable" QuestId="26438" TurnInId="42469" X="1631.01" Y="1310.04" Z="5.009744" />
+		<TurnIn Nav="Fly" QuestName="Intervention" TurnInName="Kor the Immovable" QuestId="26438" TurnInId="42469" X="1631.01" Y="1310.04" Z="5.009744" />
 		<TurnIn QuestName="Making Things Crystal Clear" TurnInName="Kor the Immovable" QuestId="26437" TurnInId="42469" X="1631.01" Y="1310.04" Z="5.009744" />
 		<TurnIn QuestName="Putting the Pieces Together" TurnInName="Berracite" QuestId="26439" TurnInId="43344" />
 		<PickUp QuestName="Clingy" GiverName="Pebble" QuestId="26440" GiverId="43116" />
