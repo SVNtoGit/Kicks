@@ -36,7 +36,6 @@
         <Mob Name="Myzerian" Entry="48374" />
         <Mob Name="Unconscious Trooper" Id="46976" />
         <Mob Name="Myzerian" Entry="48444" />
-        <Mob Name="Slacking Laborer" Entry="47292" />
         <Mob Name="Burly Sea Trooper" Entry="46980" />
     </AvoidMobs>
 
@@ -337,6 +336,8 @@
                 <If Condition="HasQuest(28295)">
                     <TurnIn QuestName="Meetup With the Caravan" QuestId="28295" TurnInName="Adarrah" TurnInId="44833" X="-8920.7" Y="-2261.42" Z="8.878302" />
                 </If>
+			
+
             </If>
 
             <!-- Horde -->
@@ -362,6 +363,13 @@
             </If>
 
         </If>
+		
+		<If Condition="Me.IsAlliance &amp;&amp; Me.MapId == 0">
+			<CustomBehavior File="FlyTo" DestName="Uldum Portal in SW" X="-8230.783" Y="420.0706" Z="117.6104" />
+			<CustomBehavior File="ForcedDismount" />
+
+			<CustomBehavior File="InteractWith" MobId="207695" Range="5" WaitTime="10000" X="-8230.783" Y="420.0706" Z="117.6104" />
+		</If>
 
         <!-- Uldum Quests -->
         <CustomBehavior File="Message" Text="Compiling Uldum Quests" LogColor="Green" />
@@ -871,7 +879,7 @@
             <TurnIn QuestName="By the Light of the Stars" TurnInName="Harrison Jones" QuestId="27549" TurnInId="45296" />
             <CustomBehavior File="WaitTimer" WaitTime="70000" />
         </If>
-        <PickUp QuestName="Tipping the Balance" GiverName="Harrison Jones" QuestId="27431" GiverId="45296" />
+        <PickUp Nav="Fly" QuestName="Tipping the Balance" GiverName="Harrison Jones" QuestId="27431" GiverId="45296" />
         <If Condition="HasQuest(27431) &amp;&amp; !IsQuestCompleted(27431)">
             <CustomBehavior File="InteractWith" QuestId="27431" MobId="45296" NumOfTimes="1" GossipOptions="1" WaitTime="2000" CollectionDistance="50" X="-9185.5" Y="-1553.5" Z="-172.5593" />
             <CustomBehavior File="WaitTimer" WaitTime="25000" />
@@ -977,7 +985,7 @@
 
             <While Condition="!IsQuestCompleted(28501)" >
                 <If Condition="HasQuest(28501)" >
-                                <CustomBehavior File="InteractWith" QuestId="28501" MobId1="49228" X="-9766.647" Y="-1688.25" Z="22.25573" />
+                                <CustomBehavior File="InteractWith" NonCompeteDistance="0" QuestId="28501" MobId1="49228" X="-9766.647" Y="-1688.25" Z="22.25573" />
             <CustomBehavior File="SpecificQuests\28501-Uldum-TheDefenseOfNahom" X="-9771.43" Y="-1702.41" Z="22.25561" />
             <CustomBehavior File="EjectVeh" Eject="True" />
                 </If>
@@ -1029,7 +1037,7 @@
             <CustomBehavior File="ForcedDismount" />
         </If>
         <TurnIn QuestName="Artificial Intelligence" QuestId="27760" TurnInName="A. I. D.A. Terminal" TurnInId="206293" X="-10691.36" Y="-2147.385" Z="104.4498" />
-        <Pickup QuestName="A Disarming Distraction" QuestId="27761" GiverName="A. I. D.A. Terminal" GiverId="206293" GiverType="GameObject" X="-10691.36" Y="-2147.385" Z="104.4498" />
+        <Pickup Nav="Fly" QuestName="A Disarming Distraction" QuestId="27761" GiverName="A. I. D.A. Terminal" GiverId="206293" GiverType="GameObject" X="-10691.36" Y="-2147.385" Z="104.4498" />
         <Pickup QuestName="Core Access Codes" QuestId="27777" GiverName="A. I. D.A. Terminal" GiverId="206293" GiverType="GameObject" X="-10691.36" Y="-2147.385" Z="104.4498" />
         <While Condition="HasQuest(27777) &amp;&amp; !IsQuestCompleted(27777)">
             <CustomBehavior File="FlyTo" X="-10970.76" Y="-2092.311" Z="171.718" />
@@ -1043,40 +1051,40 @@
             <Objective QuestName="Core Access Codes" QuestId="27777" Type="CollectItem" ItemId="62399" CollectCount="1" />
         </While>
         <If Condition="HasQuest(27761) &amp;&amp; !IsQuestCompleted(27761)">
-            <CustomBehavior File="UserSettings" PullDistance="1" />
             <While Condition="(HasQuest(27761)) &amp;&amp; (!IsObjectiveComplete(3, 27761))">
                 <CustomBehavior File="FlyTo" DestName="1st Sparkles" Distance="1" X="-10704.05" Y="-2455.384" Z="133.0618" />
-				<DisableBehavior Name="Combat" />
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="0" />
-                <CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for item cd {TimeRemaining}" />
+                <CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for stripper bot {TimeRemaining}" />
                 <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="0" />
-                <CustomBehavior File="InteractWith" QuestId="27761" MobId="206397" Range="4.75" WaitTime="300" />
+                <CustomBehavior File="InteractWith" QuestId="27761" MobId="206397" Range="4.75" WaitTime="5000" ProactiveCombatStrategy="NoClear" />
+				<DisableBehavior Name="Combat" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="1500" />
                 <CustomBehavior File="ForcedMount" MountType="Flying" />
+				<EnableBehavior Name="All" />
                 <CustomBehavior File="FlyTo" DestName="Up" X="-10702.17" Y="-2455.62" Z="133.2423" />
             </While>
-<EnableBehavior Name="All" />
             <While Condition="(HasQuest(27761)) &amp;&amp; (!IsObjectiveComplete(2, 27761))">
                 <CustomBehavior File="FlyTo" DestName="2nd Sparkles" Distance="1" X="-10678.92" Y="-2452.069" Z="110.3572" />
-				<DisableBehavior Name="Combat" />
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="0" />
-                <CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for item cd {TimeRemaining}" />
+                <CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for stripper bot {TimeRemaining}" />
                 <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="0" />
-                <CustomBehavior File="InteractWith" QuestId="27761" MobId="206396" Range="4.75" WaitTime="300" />
+                <CustomBehavior File="InteractWith" QuestId="27761" MobId="206396" Range="4.75" WaitTime="5000" ProactiveCombatStrategy="NoClear" />
+				<DisableBehavior Name="Combat" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="1500" />
                 <CustomBehavior File="ForcedMount" MountType="Flying" />
+				<EnableBehavior Name="All" />
                 <CustomBehavior File="FlyTo" DestName="Up" X="-10678.92" Y="-2452.069" Z="110.3572" />
             </While>
-<EnableBehavior Name="All" />
             <While Condition="(HasQuest(27761)) &amp;&amp; (!IsObjectiveComplete(1, 27761))">
-                <CustomBehavior File="FlyTo" DestName="3rd Sparkles" Distance="1" X="-10589.87" Y="-2437.749" Z="103.84882" />
-				<DisableBehavior Name="Combat" />
+                <CustomBehavior File="FlyTo" DestName="3rd Sparkles" Distance="1" X="-10589.87" Y="-2437.749" Z="103.84882" />				
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="0" />
-                <CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for item cd {TimeRemaining}" />
+                <CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for stripper bot {TimeRemaining}" />
                 <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="0" />
-                <CustomBehavior File="InteractWith" QuestId="27761" MobId="206395" Range="4.75" WaitTime="300" />
+                <CustomBehavior File="InteractWith" QuestId="27761" MobId="206395" Range="4.75" WaitTime="5000" ProactiveCombatStrategy="NoClear"  />
+				<DisableBehavior Name="Combat" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62398)" WaitTime="1500" />
                 <CustomBehavior File="ForcedMount" MountType="Flying" />
+				<EnableBehavior Name="All" />
                 <CustomBehavior File="FlyTo" DestName="Up" X="-10591.21" Y="-2443.066" Z="114.61473" />
             </While>
 <EnableBehavior Name="All" />
@@ -1087,6 +1095,7 @@
                 <CustomBehavior File="FlyTo" DestName="Up" X="-10591.21" Y="-2443.066" Z="114.61473" />
             </If>
         </If>
+<EnableBehavior Name="All" />
         <If Condition="HasQuest(27777) &amp;&amp; IsQuestCompleted(27777)">
             <CustomBehavior File="FlyTo" X="-10692.67" Y="-2147.128" Z="104.4498" />
             <CustomBehavior File="ForcedDismount" />
@@ -1184,9 +1193,9 @@
             <CustomBehavior File="MyCTM" X="-10384.47" Y="-284.4851" Z="336.5962" />
             <CustomBehavior File="ForcedDismount" />
         </If>
-        <TurnIn QuestName="That Gleam in his Eye" TurnInName="Harrison Jones" QuestId="27899" TurnInId="46978" />
-        <PickUp QuestName="I've Got This Guy" GiverName="Harrison Jones" QuestId="27900" GiverId="46978" />
-        <PickUp QuestName="They Don't Know What They've Got Here" QuestId="27901" GiverName="Harrison Jones" GiverId="46978" />
+        <TurnIn Nav="Fly" QuestName="That Gleam in his Eye" TurnInName="Harrison Jones" QuestId="27899" TurnInId="46978" X="-10386.4" Y="-282.365" Z="336.5995" />
+        <PickUp Nav="Fly" QuestName="I've Got This Guy" GiverName="Harrison Jones" QuestId="27900" GiverId="46978" X="-10386.4" Y="-282.365" Z="336.5995" />
+        <PickUp Nav="Fly" QuestName="They Don't Know What They've Got Here" QuestId="27901" GiverName="Harrison Jones" GiverId="46978" X="-10386.4" Y="-282.365" Z="336.5995" />
         <If Condition="HasQuest(27901) &amp;&amp; !IsQuestCompleted(27901)">
             <Objective Nav="Fly" QuestName="They Don't Know What They've Got Here" QuestId="27901" Type="CollectItem" ItemId="62608" CollectCount="6" />
             <Objective Nav="Fly" QuestName="They Don't Know What They've Got Here" QuestId="27901" Type="CollectItem" ItemId="62610" CollectCount="6" />
@@ -1217,13 +1226,9 @@
         <If Condition="HasItem(62768)">
             <PickUp QuestName="Efficient Excavations" QuestId="28132" GiverType="Item" GiverId="62768" />
         </If>
-        <If Condition="HasQuest(27900) &amp;&amp; IsQuestCompleted(27900)">
-            <CustomBehavior File="FlyTo" X="-10386.13" Y="-280.8733" Z="336.5973" />
-            <CustomBehavior File="ForcedDismount" />
-        </If>
-        <TurnIn QuestName="I've Got This Guy" TurnInName="Harrison Jones" QuestId="27900" TurnInId="46978" />
-        <TurnIn QuestName="They Don't Know What They've Got Here" TurnInName="Harrison Jones" QuestId="27901" TurnInId="46978" />
-        <PickUp Nav="Fly" QuestName="Ignition" GiverName="Harrison Jones" QuestId="27903" GiverId="46978" />
+        <TurnIn Nav="Fly" QuestName="I've Got This Guy" TurnInName="Harrison Jones" QuestId="27900" TurnInId="46978" X="-10386.4" Y="-282.365" Z="336.5995" />
+        <TurnIn Nav="Fly" QuestName="They Don't Know What They've Got Here" TurnInName="Harrison Jones" QuestId="27901" TurnInId="46978" X="-10386.4" Y="-282.365" Z="336.5995" />
+        <PickUp Nav="Fly" QuestName="Ignition" GiverName="Harrison Jones" QuestId="27903" GiverId="46978" X="-10386.4" Y="-282.365" Z="336.5995" />
         <If Condition="HasQuest(27903) &amp;&amp; !IsQuestCompleted(27903)">
             <CustomBehavior File="FlyTo" IgnoreIndoors="True" X="-10673.33" Y="-454.8588" Z="376.9813" />
             <CustomBehavior File="FlyTo" IgnoreIndoors="True" X="-10613.47" Y="-456.754" Z="275.1818" />
@@ -1241,7 +1246,7 @@
             <TurnIn QuestName="Ignition" TurnInName="Titan Mechanism" QuestId="27903" TurnInId="50401" />
             <CustomBehavior File="WaitTimer" WaitTime="45000" />
         </If>
-        <PickUp QuestName="Tailgunner!" GiverName="Harrison Jones" QuestId="27905" GiverId="46978" />
+        <PickUp Nav="Fly" QuestName="Tailgunner!" GiverName="Harrison Jones" QuestId="27905" GiverId="46978" X="-10386.4" Y="-282.365" Z="336.5995" />
         <If Condition="HasQuest(27905)">
             <CustomBehavior File="WaitTimer" WaitTime="210000" />
         </If>
@@ -1268,7 +1273,13 @@
         <If Condition="HasQuest(27939) &amp;&amp; !IsQuestCompleted(27939)">
             <CustomBehavior File="FlyTo" DestName="The Desert Fox" X="-11045.16" Y="-367.5157" Z="28.3505" />
             <While Condition="HasQuest(27939) &amp;&amp; !IsQuestCompleted(27939)">
-                <CustomBehavior File="InteractWith" QuestId="27939" MobId="47201" NumOfTimes="100" Range="4" CollectionDistance="500" X="-10864.21" Y="-109.3275" Z="20.31794" MovementBy="NavigatorOnly" />
+                <CustomBehavior File="InteractWith" QuestId="27939" MobId="47201" NumOfTimes="100" Range="4" CollectionDistance="500" MovementBy="NavigatorOnly" >
+
+							<HuntingGrounds >
+				<Hotspot X="-11030.06" Y="-376.35" Z="19.27682" />
+				<Hotspot X="-10864.21" Y="-109.3275" Z="20.31794"  />
+			</HuntingGrounds>
+		</CustomBehavior>
 
             </While>
 
@@ -1313,15 +1324,20 @@
             <If Condition="Me.Level &gt;= 86">
                 <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="5" Text="You are too high for this Combat UseItemOn quest, please manually do it!" />
             </If>
-
+			<While Condition="HasQuest(27943) &amp;&amp; !IsQuestCompleted(27943)">
+<CustomBehavior File="CombatUseItemOnV2" QuestId="27943" ItemId="62794" MobId="47220" UseWhenMobHasHealthPercent="49" Range="10" WaitTimeAfterItemUse="5000" X="-10639.89" Y="459.0928" Z="24.41246" /></While>
             <While Condition="HasQuest(27943) &amp;&amp; !IsQuestCompleted(27943)">
                 <CustomBehavior File="CombatUseItemOn" QuestId="27943" MobId="47220" ItemId="62794" MobHpPercentLeft="49" MaxRange="10" WaitTime="5000" X="-10639.89" Y="459.0928" Z="24.41246" />
             </While>
         </If>
         <While Condition="HasQuest(27941) &amp;&amp; !IsQuestCompleted(27941)">
-            <CustomBehavior File="InteractWith" QuestId="27941" MobId1="47207" MobId2="47213" MobId3="47219" NumOfTimes="5" Range="8" WaitForNpcs="False" CollectionDistance="500" X="-10554.47" Y="576.6568" Z="25.6509" />
-            <CustomBehavior File="InteractWith" QuestId="27941" MobId1="47207" MobId2="47213" MobId3="47219" NumOfTimes="5" Range="8" WaitForNpcs="False" CollectionDistance="500" X="-10683.08" Y="432.2956" Z="20.76402" />
-            <CustomBehavior File="InteractWith" QuestId="27941" MobId1="47207" MobId2="47213" MobId3="47219" NumOfTimes="5" Range="8" WaitForNpcs="False" CollectionDistance="500" X="-10801.13" Y="391.395" Z="24.81909" />
+            <CustomBehavior File="InteractWith" QuestId="27941" MobId1="47207" MobId2="47213" MobId3="47219" NumOfTimes="5" Range="8" WaitForNpcs="False" CollectionDistance="50" >
+			               <HuntingGrounds WaypointVisitStrategy="Random">
+                    <Hotspot X="-10554.47" Y="576.6568" Z="25.6509" />
+                    <Hotspot X="-10683.08" Y="432.2956" Z="20.76402" />
+                    <Hotspot  X="-10801.13" Y="391.395" Z="24.81909" />
+                </HuntingGrounds>
+            </CustomBehavior>
         </While>
         <If Condition="HasQuest(27942) &amp;&amp; !IsQuestCompleted(27942)">
             <Objective QuestName="Idolatry" QuestId="27942" Type="Collect" CollectCount="8" ItemId="62792" />
@@ -1341,7 +1357,22 @@
         <If Condition="HasQuest(27950) &amp;&amp; IsQuestCompleted(27950)">
             <TurnIn QuestId="27950" />
         </If>
-        <PickUp QuestName="Make Yourself Useful" QuestId="27969" GiverName="Commander Schnottz" GiverId="47159" />
+        <PickUp Nav="Fly" QuestName="Make Yourself Useful" QuestId="27969" GiverName="Commander Schnottz" GiverId="47159" />
+		<While Condition="HasQuest(27969) &amp;&amp; !IsQuestCompleted(27969)">
+			            <If Condition="!Me.HasAura(88210)">
+						<CustomBehavior File="ForcedDismount" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62813)" WaitTime="1000" />
+				</If>
+
+<CustomBehavior File="InteractWith" QuestId="27969" MobId="47292" NumOfTimes="15" WaitForNpcs="False" IgnoreMobsInBlackspots="True" GossipOptions="1" 
+	TerminateWhen="!Me.HasAura(88210)" WaitTime="1000" CollectionDistance="1000" >
+			<HuntingGrounds >
+				<Hotspot X="-10632.27" Y="1272.939" Z="29.25661" />
+				<Hotspot X="-10516.4" Y="922.7902" Z="43.51749" />
+			</HuntingGrounds>
+		</CustomBehavior>
+		</While>
+<!--
         <While Condition="HasQuest(27969) &amp;&amp; !IsQuestCompleted(27969)">
             <If Condition="!Me.HasAura(88210)">
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62813)" WaitTime="1000" />
@@ -1351,14 +1382,41 @@
                 <CustomBehavior File="ForcedDismount" />
             </If>
             <While Condition="HasQuest(27969) &amp;&amp; !IsQuestCompleted(27969) &amp;&amp; (Me.HasAura(88210))">
+				 <CustomBehavior File="UserSettings" UseMount="False" />
                 <CustomBehavior File="InteractWith" QuestId="27969" MobId="47292" NumOfTimes="5" WaitForNpcs="False" IgnoreMobsInBlackspots="True" GossipOptions="1" WaitTime="1000" CollectionDistance="1000" X="-10632.27" Y="1272.939" Z="29.25661" />
+				            <If Condition="!Me.HasAura(88210)">
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62813)" WaitTime="1000" />
+                <CustomBehavior File="WaitTimer" WaitTime="5000" />
+				</If>
                 <CustomBehavior File="InteractWith" QuestId="27969" MobId="47292" NumOfTimes="5" WaitForNpcs="False" IgnoreMobsInBlackspots="True" GossipOptions="1" WaitTime="1000" CollectionDistance="1000" X="-10519.89" Y="1320.084" Z="63.92843" />
+								            <If Condition="!Me.HasAura(88210)">
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62813)" WaitTime="1000" />
+                <CustomBehavior File="WaitTimer" WaitTime="5000" />
+				</If>
                 <CustomBehavior File="InteractWith" QuestId="27969" MobId="47292" NumOfTimes="5" WaitForNpcs="False" IgnoreMobsInBlackspots="True" GossipOptions="1" WaitTime="1000" CollectionDistance="1000" X="-10452.37" Y="1205.464" Z="58.24797" />
+								            <If Condition="!Me.HasAura(88210)">
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62813)" WaitTime="1000" />
+                <CustomBehavior File="WaitTimer" WaitTime="5000" />
+				</If>
                 <CustomBehavior File="InteractWith" QuestId="27969" MobId="47292" NumOfTimes="5" WaitForNpcs="False" IgnoreMobsInBlackspots="True" GossipOptions="1" WaitTime="1000" CollectionDistance="1000" X="-10478.47" Y="1144.944" Z="43.84812" />
+								            <If Condition="!Me.HasAura(88210)">
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62813)" WaitTime="1000" />
+                <CustomBehavior File="WaitTimer" WaitTime="5000" />
+				</If>
                 <CustomBehavior File="InteractWith" QuestId="27969" MobId="47292" NumOfTimes="5" WaitForNpcs="False" IgnoreMobsInBlackspots="True" GossipOptions="1" WaitTime="1000" CollectionDistance="1000" X="-10566.76" Y="1126.898" Z="32.15169" />
+								            <If Condition="!Me.HasAura(88210)">
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62813)" WaitTime="1000" />
+                <CustomBehavior File="WaitTimer" WaitTime="5000" />
+				</If>
                 <CustomBehavior File="InteractWith" QuestId="27969" MobId="47292" NumOfTimes="5" WaitForNpcs="False" IgnoreMobsInBlackspots="True" GossipOptions="1" WaitTime="1000" CollectionDistance="1000" X="-10515.07" Y="996.5267" Z="43.2226" />
+								            <If Condition="!Me.HasAura(88210)">
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(62813)" WaitTime="1000" />
+                <CustomBehavior File="WaitTimer" WaitTime="5000" />
+				</If>
             </While>
+			 <CustomBehavior File="UserSettings" UseMount="True" />
         </While>
+		-->
         <If Condition="HasQuest(27969) &amp;&amp; IsQuestCompleted(27969)">
             <CustomBehavior File="FlyTo" X="-10674.5" Y="945.8282" Z="25.38928" />
             <CustomBehavior File="ForcedDismount" />
@@ -1377,6 +1435,7 @@
             <If Condition="!Me.IsOnTransport">
                 <RunTo X="-10695.45" Y="1117.557" Z="21.96807" />
 				<DisableBehavior Name="All" />
+				 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="InteractWith" QuestId="27990" MobId="47732" X="-10696.6" Y="1124.12" Z="21.46347" />
 				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for movement to start {TimeRemaining}" />				
             </If>
