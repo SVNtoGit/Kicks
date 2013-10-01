@@ -91,7 +91,16 @@
 			</If>
 		</If>
 		
-		<PickUp QuestName="The Dunes of Silithus" QuestId="28859" GiverName="Zen'Aliri" GiverId="38269" X="-7461.412" Y="-1528.385" Z="-268.8134" />	
+		<!-- Abandon "Warchief's Command: Silithus" if we have it...
+		     This will prevent us from picking up "The Dunes of Silithus" which is worth more XP + Rep -->
+		<If Condition="HasQuest(28527)">
+			<CustomBehavior File="AbandonQuest" QuestId="28527" />
+		</If>
+		<!-- If we've completed "Warchief's Command: Silithus", skip "The Dunes of Silithus"
+		     since it will no longer be offered -->
+		<If Condition="!IsQuestCompleted(28527)">
+			<PickUp QuestName="The Dunes of Silithus" QuestId="28859" GiverName="Zen'Aliri" GiverId="38269" X="-7461.412" Y="-1528.385" Z="-268.8134" />
+		</If>
 		
 		<If Condition="HasQuest(28859)" >
 			<RunTo DestName="Windcaller Proudhorn" X="-6843.563" Y="756.0581" Z="42.38491" />
