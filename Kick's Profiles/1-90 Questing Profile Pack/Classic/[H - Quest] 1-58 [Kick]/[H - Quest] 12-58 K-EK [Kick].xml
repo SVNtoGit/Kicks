@@ -3728,7 +3728,11 @@
 			<PickUp QuestName="Management Material" QuestId="13640" GiverName="Gorka" GiverId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
 			<While Condition="HasQuest(13640) &amp;&amp; !IsQuestCompleted(13640)">
 				<CustomBehavior File="UserSettings" Preset="NoDistractions" />
-				<CustomBehavior File="EscortGroup" QuestId="13640" EscortCompleteWhen="QuestCompleteOrFails" StartNpcId="33440" StartEscortGossipOptions="1" EscortNpcId="33440" EscortCountMax="1" PriorityTargetId="33458" NonCompeteDistance="20" EscortMaxFollowDistance="7" EscortMaxFightDistance="20">
+				<CustomBehavior File="EscortGroup" QuestId="13640"
+					EscortCompleteWhen="QuestCompleteOrFails" PreInteractMountStrategy="Dismount"
+					StartNpcId="33440" StartEscortGossipOptions="1" EscortNpcId="33440" EscortCountMax="1"
+					PriorityTargetId="33458" NonCompeteDistance="20" EscortMaxFollowDistance="7"
+					EscortMaxFightDistance="20" >
 					<SearchPath>
 						<Hotspot Name="Road intersection" X="1439.524" Y="-2271.142" Z="91.80054" />
 						<Hotspot Name="Stump by Road" X="1474.331" Y="-2383.012" Z="97.97305" />
@@ -3736,22 +3740,28 @@
 						<Hotspot Name="Wagon Tongue" X="1641.269" Y="-2493.915" Z="98.93596" />
 					</SearchPath>
 				</CustomBehavior>
-				<CustomBehavior File="InteractWith" MobId="194349" IgnoreLoSToTarget="true" Loot="true" NumOfTimes="5" WaitForNpcs="False" />
+				<CustomBehavior File="InteractWith" MobId="194349" IgnoreLoSToTarget="true" 
+					Loot="true" NumOfTimes="5" WaitForNpcs="false" >
+					<Blackspots>
+						<Blackspot Name="Tree Stump with occasional spawn" X="1620.111" Y="-2512.109" Z="103.556" />
+					</Blackspots>
+				</CustomBehavior>
 				<CustomBehavior File="UserSettings" Preset="UserOriginal" />
 			</While>
 			<TurnIn QuestName="Management Material" QuestId="13640" TurnInName="Gorka" TurnInId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
 			<PickUp QuestName="Needs a Little Lubrication" QuestId="13651" GiverName="Gorka" GiverId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
 			<Objective QuestName="Needs a Little Lubrication" QuestId="13651" Type="CollectItem" ItemId="45071" CollectCount="5" />
 			<TurnIn QuestName="Needs a Little Lubrication" QuestId="13651" TurnInName="Gorka" TurnInId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
-			<PickUp QuestName="Torek's Assault" QuestId="6544" GiverName="Torek" GiverId="12858" X="1773.833" Y="-2241.872" Z="106.4863" />
-			<While Condition="(HasQuest(6544)) &amp;&amp; (!IsQuestCompleted(6544))">
-				<CustomBehavior File="EscortGroup" QuestId="6544" EscortNpcId="12858" EscortNpcId2="12859" EscortCompleteWhen="QuestCompleteOrFails" EscortMaxFollowDistance="10" EscortMaxFightDistance="17" />
-				<If Condition="HasQuest(6544) &amp;&amp; !IsQuestCompleted(6544)">
-					<CustomBehavior File="AbandonQuest" QuestId="6544" Type="Failed" />
-					<CustomBehavior File="WaitTimer" WaitTime="3000" />
-					<PickUp QuestName="Torek's Assault" QuestId="6544" GiverName="Torek" GiverId="12858" X="1773.833" Y="-2241.872" Z="106.4863" />
-					<CustomBehavior File="WaitTimer" WaitTime="3000" />
+			<!-- Torek's Assault, pickup, completion, and retry on failure -->
+			<While Condition="!IsQuestCompleted(6544)">
+				<If Condition="HasQuest(6544)">
+					<CustomBehavior File="AbandonQuest" QuestId="6544" Type="All" />
 				</If>
+				<PickUp QuestName="Torek's Assault" QuestId="6544" GiverName="Torek" GiverId="12858"
+					X="1773.833" Y="-2241.872" Z="106.4863" />
+				<CustomBehavior File="EscortGroup" QuestId="6544" EscortNpcId="12858" EscortNpcId2="12859"
+					EscortCompleteWhen="QuestCompleteOrFails"
+					EscortMaxFollowDistance="10" EscortMaxFightDistance="17" />
 			</While>
 			<If Condition="!HasQuest(13653) &amp;&amp; !IsQuestCompleted(13653)">
 				<PickUp QuestName="Crisis at Splintertree" QuestId="13653" GiverName="Gorka" GiverId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
@@ -3828,9 +3838,8 @@
 			<PickUp QuestName="Pierce Their Heart!" QuestId="13805" GiverName="Durak" GiverId="33760" X="2456.776" Y="-2463.134" Z="109.8879" />
 			<PickUp QuestName="Playing With Felfire" QuestId="13730" GiverName="Splintertree Demolisher" GiverId="33726" />
 			<PickUp QuestName="Dead Elves Walking" QuestId="13801" GiverName="Pixel" GiverId="12724" />
-			<If Condition="HasQuest(13730) &amp;&amp; !IsQuestCompleted(13730)">
-				<CustomBehavior File="InteractWith" QuestId="13730" MobId="33736" InteractByUsingItemId="45478" WaitTime="7500" NumOfTimes="21" Range="3" CollectionDistance="400" X="2088.558" Y="-3006.204" Z="110.2349" />
-			</If>
+				<CustomBehavior File="InteractWith" QuestId="13730" MobId="33736"
+					PreInteractMountStrategy="Dismount" InteractByUsingItemId="45478" WaitTime="1500" NumOfTimes="21" CollectionDistance="400" X="2088.558" Y="-3006.204" Z="110.2349" />
 			<Objective QuestName="Destroy the Legion" QuestId="26448" Type="KillMob" MobId="11697" KillCount="15" />
 			<If Condition="!HasQuest(26447) &amp;&amp; !IsQuestCompleted(26447)">
 				<SetGrindArea>
@@ -3875,43 +3884,23 @@
 			<PickUp QuestName="Dirty Deeds" QuestId="13797" GiverName="Durak" GiverId="33760" X="2456.776" Y="-2463.134" Z="109.8879" />
 			<Objective QuestName="Dirty Deeds" QuestId="13797" Type="CollectItem" ItemId="45576" CollectCount="10" />
 			<TurnIn QuestName="Dirty Deeds" QuestId="13797" TurnInName="Durak" TurnInId="33760" />
+			<CustomBehavior File="UserSettings" UseMount="false" />
+			<DisableBehavior Name="Loot" />
 			<PickUp QuestName="Rain of Destruction" QuestId="13798" GiverName="Durak" GiverId="33760" X="2456.776" Y="-2463.134" Z="109.8879" />
-			<If Condition="HasQuest(13798) &amp;&amp; !IsQuestCompleted(13798)">
-				<CustomBehavior File="UserSettings" UseMount="False" />
-				<CustomBehavior File="UserSettings" PullDistance="1" />
+			<While Condition="HasQuest(13798) &amp;&amp; !IsQuestCompleted(13798)">
 				<RunTo X="2246.625" Y="-2496.338" Z="125.1114" />
-				<While Condition="HasQuest(13798) &amp;&amp; !IsQuestCompleted(13798)">
-					<If Condition="HasQuest(13798) &amp;&amp; !IsQuestCompleted(13798)">
-						<CustomBehavior File="UseItemTargetLocation" ItemId="45598" UseType="PointToPoint" MobId1="33912" MobId2="33914" X="2246.388" Y="-2494.701" Z="125.1088" ClickToX="2181.033" ClickToY="-2476.388" ClickToZ="89.52979" />
-						<CustomBehavior File="WaitTimer" WaitTime="16000" />
-					</If>
-					<If Condition="HasQuest(13798) &amp;&amp; !IsQuestCompleted(13798)">
-						<CustomBehavior File="UseItemTargetLocation" ItemId="45598" UseType="PointToPoint" MobId1="33912" MobId2="33914" X="2246.388" Y="-2494.701" Z="125.1088" ClickToX="2175.482" ClickToY="-2519.185" ClickToZ="81.38219" />
-						<CustomBehavior File="WaitTimer" WaitTime="16000" />
-					</If>
-					<If Condition="HasQuest(13798) &amp;&amp; !IsQuestCompleted(13798)">
-						<CustomBehavior File="UseItemTargetLocation" ItemId="45598" UseType="PointToPoint" MobId1="33912" MobId2="33914" X="2246.388" Y="-2494.701" Z="125.1088" ClickToX="2175.482" ClickToY="-2519.185" ClickToZ="81.38219" />
-						<CustomBehavior File="WaitTimer" WaitTime="16000" />
-					</If>
-					<If Condition="HasQuest(13798) &amp;&amp; !IsQuestCompleted(13798)">
-						<CustomBehavior File="UseItemTargetLocation" ItemId="45598" UseType="PointToPoint" MobId1="33912" MobId2="33914" X="2246.388" Y="-2494.701" Z="125.1088" ClickToX="2195.556" ClickToY="-2520.327" ClickToZ="81.57591" />
-						<CustomBehavior File="WaitTimer" WaitTime="16000" />
-					</If>
-					<If Condition="HasQuest(13798) &amp;&amp; !IsQuestCompleted(13798)">
-						<CustomBehavior File="UseItemTargetLocation" ItemId="45598" UseType="PointToPoint" MobId1="33912" MobId2="33914" X="2246.388" Y="-2494.701" Z="125.1088" ClickToX="2205.731" ClickToY="-2496.992" ClickToZ="82.73148" />
-						<CustomBehavior File="WaitTimer" WaitTime="16000" />
-					</If>
-					<If Condition="HasQuest(13798) &amp;&amp; !IsQuestCompleted(13798)">
-						<CustomBehavior File="UseItemTargetLocation" ItemId="45598" UseType="PointToPoint" MobId1="33912" MobId2="33914" X="2246.388" Y="-2494.701" Z="125.1088" ClickToX="2227.348" ClickToY="-2491.969" ClickToZ="88.57593" />
-						<CustomBehavior File="WaitTimer" WaitTime="16000" />
-					</If>
-				</While>
-				<RunTo X="2458.066" Y="-2464.168" Z="109.563" />
-			</If>
-			<If Condition="HasQuest(13798) &amp;&amp; IsQuestCompleted(13798)">
-				<TurnIn QuestName="Rain of Destruction" QuestId="13798" TurnInName="Durak" TurnInId="33977" />
-			</If>
-			<CustomBehavior File="UserSettings" PullDistance="25" UseMount="True" />
+				<!-- Elves -->
+				<CustomBehavior File="InteractWith" QuestId="13798" QuestObjectiveIndex="1"
+					CollectionDistance="300" InteractByUsingItemId="45598" MobId="33914" MobId2="33945"
+					ProactiveCombatStrategy="NoClear" Range="300" NumOfTimes="200" MovementBy="None" />
+				<!-- Raging Ancients -->
+				<CustomBehavior File="InteractWith" QuestId="13798" QuestObjectiveIndex="2"
+					CollectionDistance="300" InteractByUsingItemId="45598" MobId="33912"
+					ProactiveCombatStrategy="NoClear" Range="300" NumOfTimes="200" MovementBy="None" />
+			</While>
+			<TurnIn QuestName="Rain of Destruction" QuestId="13798" TurnInName="Durak" TurnInId="33977" />
+			<EnableBehavior Name="Loot" />
+			<CustomBehavior File="UserSettings" Preset="UserOriginal" />
 			<PickUp QuestName="All Apologies" QuestId="13841" GiverName="Splintertree Demolisher" GiverId="33726" />
 			<TurnIn QuestName="All Apologies" QuestId="13841" TurnInName="Garrosh Hellscream" TurnInId="39605" />
 			<If Condition="!HasQuest(13842) &amp;&amp; !IsQuestCompleted(13842)">
@@ -3956,12 +3945,13 @@
 			<Objective QuestName="Wet Work" QuestId="13865" Type="KillMob" MobId="34294" KillCount="1" />
 			<Objective QuestName="Wet Work" QuestId="13865" Type="KillMob" MobId="34204" KillCount="1" />
 			<Objective QuestName="Wet Work" QuestId="13865" Type="KillMob" MobId="34177" KillCount="12" />
-			<If Condition="HasQuest(13815) &amp;&amp; IsQuestCompleted(13815)">
+			<!-- Summon Krokk for TurnIn -->
+			<While Condition="HasQuest(13815) &amp;&amp; IsQuestCompleted(13815) &amp;&amp; (Unit(33889) == null)">
 				<RunTo X="2611.031" Y="-3058.034" Z="156.4043" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(45710)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for npc to spawn {TimeRemaining}" />
-			</If>
+			</While>
 			<TurnIn QuestName="Wet Work" QuestId="13865" TurnInName="Krokk" TurnInId="33889" X="2611.031" Y="-3058.034" Z="156.4043" />
 			<TurnIn QuestName="Making Stumps" QuestId="13815" TurnInName="Krokk" TurnInId="33889" X="2611.031" Y="-3058.034" Z="156.4043" />
 			<PickUp QuestName="As Good as it Gets" QuestId="13870" GiverName="Krokk" GiverId="33889" X="2611.031" Y="-3058.034" Z="156.4043" />
