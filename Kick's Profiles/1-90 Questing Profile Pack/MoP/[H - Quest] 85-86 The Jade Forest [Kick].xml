@@ -878,22 +878,20 @@
 		<If Condition="!HasQuest(31765) &amp;&amp; !IsQuestCompleted(31765)">
 			<PickUp QuestName="Paint it Red!" QuestId="31765" GiverName="General Nazgrim" GiverId="55135" X="3178.839" Y="-696.882" Z="321.0265" />
 		</If>
-		<If Condition="HasQuest(31765) &amp;&amp; !IsQuestCompleted(31765)">
+		<While Condition="HasQuest(31765) &amp;&amp; !IsQuestCompleted(31765)">
 			<If Condition="!Me.IsOnTransport">
-				<RunTo X="3149.459" Y="-737.6939" Z="300.2653" />
-				<CustomBehavior File="ForcedDismount" />
+				<!-- if we fell off ship then take portal back up -->
+				<If Condition="Me.Z &lt; 250" >
+					<CustomBehavior File="InteractWith" PreInteractMountStrategy="Dismount" MobId="215766" Range="3" X="3108.971" Y="-748.2408" Z="227.5901" />
+				</If>
 				<RunTo X="3151.49" Y="-742.8947" Z="300.9396" />
-				<CustomBehavior File="InteractWith" MobId="66676" Range="8" X="3152.183" Y="-745.0104" Z="300.9999" />
+				<CustomBehavior File="InteractWith" PreInteractMountStrategy="Dismount" MobId="66676" Range="8" WaitForNpcs="False" X="3152.183" Y="-745.0104" Z="300.9999" />
 				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for mount {TimeRemaining}" />
 			</If>
 			<If Condition="Me.IsOnTransport">
-				<!--
-				<CustomBehavior File="NoControlVehicle" QuestId="31765" VehicleMountId="66677" TargetId="66200" TargetId2="66202" TargetId3="66203" AttackButton="1" />
-				<CustomBehavior File="EjectVeh" />
-				-->
 				<CustomBehavior File="SpecificQuests\31765-JadeForest-PaintItRed" />
 			</If>
-		</If>
+		</While>
 		<If Condition="HasQuest(31765) &amp;&amp; IsQuestCompleted(31765)">
 			<TurnIn QuestName="Paint it Red!" QuestId="31765" TurnInName="Rivett Clutchpop" TurnInId="66667" X="3139.378" Y="-713.7153" Z="296.7773" />
 		</If>
@@ -910,7 +908,7 @@
 		</If>
 		<PickUp QuestName="Finish Them!" QuestId="31767" GiverName="General Nazgrim" GiverId="66190" />
 		<PickUp QuestName="Fire Is Always the Answer" QuestId="31768" GiverName="General Nazgrim" GiverId="66190" />
-		<CustomBehavior File="InteractWith" QuestId="31768" InteractByUsingItemId="89605" MobId="66308" CollectionDistance="1000" NumOfTimes="100" Range="5">
+		<CustomBehavior File="InteractWith" QuestId="31768" InteractByUsingItemId="89605" MobId="66308" CollectionDistance="1000" NumOfTimes="100" Range="10">
 			<HuntingGrounds>
 				<Hotspot X="3380.088" Y="-792.0156" Z="245.9969" />
 				<Hotspot X="3383.708" Y="-819.4318" Z="245.9957" />
