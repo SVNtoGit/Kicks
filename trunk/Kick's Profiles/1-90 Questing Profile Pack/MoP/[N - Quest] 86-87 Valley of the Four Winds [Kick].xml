@@ -1201,15 +1201,15 @@
 			<CustomBehavior File="InteractWith" MobId="62377" GossipOptions="1" X="219.8021" Y="783.0156" Z="161.6616" />
 		</If>
 		<PickUp QuestName="Enough is Ookin' Enough" QuestId="30054" GiverName="Mung-Mung" GiverId="57401" X="200.1684" Y="945.7778" Z="174.7017" />
-		<!-- hard quest
-		<PickUp QuestName="The Farmer's Daughter" QuestId="30056" GiverName="Den Mudclaw" GiverId="62385" X="200.6997" Y="942.033" Z="174.7217" />-->
-		<While Condition="(HasQuest(30053)) &amp;&amp; (!IsObjectiveComplete(3, 30053))">
+		<!-- hard quest 
+				<PickUp QuestName="The Farmer's Daughter" QuestId="30056" GiverName="Den Mudclaw" GiverId="62385" X="200.6997" Y="942.033" Z="174.7217" />-->
 			<!-- Den Mudclaw -->
+		<While Condition="(HasQuest(30053)) &amp;&amp; (!IsObjectiveComplete(3, 30053))">
 			<RunTo X="200.6997" Y="942.033" Z="174.7217" />
-			<CustomBehavior File="InteractWith" MobId1="62385" GossipOptions="1" CollectionDistance="100" X="200.6997" Y="942.033" Z="174.7217" />
+			<CustomBehavior File="InteractWith" MobId1="62385" GossipOptions="1" IgnoreMobsInBlackspots="False" CollectionDistance="100" X="200.6997" Y="942.033" Z="174.7217" />
 		</While>
-		<!--
-		<TurnIn QuestName="The Farmer's Daughter" QuestId="30056" TurnInName="Mina Mudclaw" TurnInId="57408" X="97.83681" Y="1057.049" Z="135.9427" />
+
+<!-- 		<TurnIn QuestName="The Farmer's Daughter" QuestId="30056" TurnInName="Mina Mudclaw" TurnInId="57408" X="97.83681" Y="1057.049" Z="135.9427" />
 		<PickUp QuestName="Seeing Orange" QuestId="30057" GiverName="Mina Mudclaw" GiverId="57408" X="97.83681" Y="1057.049" Z="135.9427" />
 			<If Condition="((HasQuest(30057)) &amp;&amp; (!IsQuestCompleted(30057)))" >
 			 <While Condition="!IsQuestCompleted(30057)" >
@@ -1233,7 +1233,7 @@
 			  </While>
 			</If>
 		<TurnIn QuestName="Seeing Orange" QuestId="30057" TurnInName="Den Mudclaw" TurnInId="62385" X="200.6997" Y="942.033" Z="174.7216" />
-		-->
+ -->
 		<Objective QuestName="Enough is Ookin' Enough" QuestId="30054" Type="CollectItem" ItemId="77379" CollectCount="100" />
 		<TurnIn QuestName="Enough is Ookin' Enough" QuestId="30054" TurnInName="Mung-Mung" TurnInId="57401" X="200.1684" Y="945.7778" Z="174.7017" />
 
@@ -1336,11 +1336,11 @@
 			</CustomBehavior>
 		</While>
 		<If Condition="HasQuest(30032) &amp;&amp; !IsQuestCompleted(30032)">
-			<CustomBehavior File="InteractWith" QuestId="30032" MobId="210039" ObjectType="GameObject" X="-929.8704" Y="667.9568" Z="159.2042" />
+			<CustomBehavior File="InteractWith" QuestId="30032" MobId="210039" PreInteractMountStrategy="DismountOrCancelShapeshift" X="-929.8704" Y="667.9568" Z="159.2042" />
 			<!-- Rope -->
 			<CustomBehavior File="WaitTimer" WaitTime="25000" />
 			<While Condition="Me.Z &gt; 150">
-				<CustomBehavior File="InteractWith" QuestId="30032" MobId="210039" ObjectType="GameObject" X="-929.8704" Y="667.9568" Z="159.2042" />
+				<CustomBehavior File="InteractWith" QuestId="30032" MobId="210039" PreInteractMountStrategy="DismountOrCancelShapeshift" X="-929.8704" Y="667.9568" Z="159.2042" />
 				<!-- Rope -->
 				<CustomBehavior File="WaitTimer" WaitTime="25000" />
 			</While>
@@ -1349,7 +1349,7 @@
 			<CustomBehavior File="WaitTimer" WaitTime="10000" />
 		</If>
 		<While Condition="HasQuest(30032) &amp;&amp; IsQuestCompleted(30032) &amp;&amp; (Me.Z &lt; 50)">
-			<CustomBehavior File="InteractWith" MobId="210040" ObjectType="GameObject" X="-955.5291" Y="668.3517" Z="25.61816" />
+			<CustomBehavior File="InteractWith" MobId="210040" PreInteractMountStrategy="DismountOrCancelShapeshift" X="-955.5291" Y="668.3517" Z="25.61816" />
 			<CustomBehavior File="WaitTimer" WaitTime="25000" />
 		</While>
 		<TurnIn QuestName="The Quest for Better Barley" QuestId="30032" TurnInName="Li Li" TurnInId="56138" X="-548.3038" Y="611.2031" Z="137.9538" />
@@ -1370,17 +1370,14 @@
 		<PickUp QuestName="The Fanciest Water" QuestId="30076" GiverName="Mudmug" GiverId="56474" X="-690.9375" Y="1413.134" Z="135.9694" />
 		<PickUp QuestName="Barrels, Man" QuestId="30077" GiverName="Li Li" GiverId="56138" X="-695.8993" Y="1409.991" Z="135.5762" />
 		<PickUp QuestName="Clear the Way" QuestId="30075" GiverName="Chen Stormstout" GiverId="56133" X="-692.3299" Y="1418.3" Z="135.6133" />
-		<If Condition="Me.ZoneId == 5805">
-			<!-- Vot4W -->
-			<CustomBehavior File="BarrelHook" />
-		</If>
+		<!-- Vot4W -->
+		<CustomBehavior File="BarrelHook" />
 		<If Condition="HasQuest(30077) &amp;&amp; !IsQuestCompleted(30077)">
 			<CustomBehavior File="UserSettings" UseMount="False" />
-			<DisableBehavior Name="Pull" />
 			<CustomBehavior File="ForcedDismount" />
 			<CustomBehavior File="Message" Text="Bot will do next quests alone, but will take long time. With human assistance, just need few minutes. If Ook-Ook catches the bot, use the Break Barrel Button to escape.!!! " />
 			<While Condition="!IsQuestCompleted(30077)">
-				<CustomBehavior File="InteractWith" QuestId="30077" MobId="57662" >
+				<CustomBehavior File="InteractWith" QuestId="30077" MobId="57662">
 					<HuntingGrounds>
 						<Hotspot X="-682.0347" Y="1372.914" Z="137.4296" />
 						<Hotspot X="-682.0347" Y="1372.914" Z="137.4296" />
@@ -1392,10 +1389,10 @@
 				</CustomBehavior>
 			</While>
 			<CustomBehavior File="UserSettings" UseMount="True" />
-			<EnableBehavior Name="Pull" />
 		</If>
 		<Objective QuestName="The Fanciest Water" QuestId="30076" Type="CollectItem" ItemId="77471" CollectCount="3" />
 		<Objective QuestName="Clear the Way" QuestId="30075" Type="KillMob" MobId="57672" KillCount="10" />
+		<CustomBehavior File="BarrelHook" />
 		<TurnIn QuestName="Barrels, Man" QuestId="30077" TurnInName="Li Li" TurnInId="56138" X="-711.0729" Y="1261.214" Z="136.0238" />
 		<TurnIn QuestName="The Fanciest Water" QuestId="30076" TurnInName="Mudmug" TurnInId="56474" X="-712.3212" Y="1266.222" Z="136.024" />
 		<TurnIn QuestName="Clear the Way" QuestId="30075" TurnInName="Chen Stormstout" TurnInId="56133" X="-709.3073" Y="1264.693" Z="136.0241" />
@@ -1466,13 +1463,13 @@
 		<PickUp QuestName="Tenderpaw By Name, Tender Paw By Reputation" QuestId="29992" GiverName="Lin Tenderpaw" GiverId="56111" X="284.5486" Y="1970.241" Z="164.8414" />
 		<While Condition="HasQuest(29986) &amp;&amp; !IsQuestCompleted(29986)">
 			<While Condition="(HasQuest(29986)) &amp;&amp; (!IsObjectiveComplete(1, 29986))">
-				<CustomBehavior File="InteractWith" MobId="209945" ObjectType="GameObject" X="255.7744" Y="2049.366" Z="164.804" />
+				<CustomBehavior File="InteractWith" MobId="209945" QuestId="29986" QuestObjectiveIndex="1" X="255.7744" Y="2049.366" Z="164.804" />
 			</While>
 			<While Condition="(HasQuest(29986)) &amp;&amp; (!IsObjectiveComplete(2, 29986))">
-				<CustomBehavior File="InteractWith" MobId="209946" ObjectType="GameObject" X="132.0617" Y="2094.166" Z="145.1819" />
+				<CustomBehavior File="InteractWith" MobId="209946" QuestId="29986" QuestObjectiveIndex="2" X="132.0617" Y="2094.166" Z="145.1819" />
 			</While>
 			<While Condition="(HasQuest(29986)) &amp;&amp; (!IsObjectiveComplete(3, 29986))">
-				<CustomBehavior File="InteractWith" MobId="209947" ObjectType="GameObject" X="10.70793" Y="1967.125" Z="143.4625" />
+				<CustomBehavior File="InteractWith" MobId="209947" QuestId="29986" QuestObjectiveIndex="3" X="10.70793" Y="1967.125" Z="143.4625" />
 			</While>
 		</While>
 		<Objective QuestName="Tenderpaw By Name, Tender Paw By Reputation" QuestId="29992" Type="CollectItem" ItemId="76499" CollectCount="18" />
