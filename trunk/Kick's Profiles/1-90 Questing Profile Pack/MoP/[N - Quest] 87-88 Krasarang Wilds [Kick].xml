@@ -1840,8 +1840,12 @@
 		</While>
 		<While Condition="HasQuest(30623) &amp;&amp; !IsQuestCompleted(30623)">
 			<!-- This quest may bug out -->
-			<CustomBehavior File="CombatUseItemOnV2" QuestId="30623" MobId="56723" ItemId="80337" UseWhenMobHasHealthPercent="100" WaitTime="5000" MaxRange="5" X="-218.2491" Y="1992.779" Z="133.9916" />
-			<CustomBehavior File="CombatUseItemOnV2" QuestId="30623" MobId="56723" ItemId="80337" UseWhenMobHasHealthPercent="100" WaitTime="5000" MaxRange="5" X="-364.5523" Y="2166.679" Z="110.4025" />
+			<CustomBehavior File="InteractWith" QuestId="30623" MobId="56723" InteractByUsingItemId="80337" MobState="Alive" WaitTime="5000" MaxRange="5">
+				<HuntingGrounds>
+					<Hotspot X="-364.5523" Y="2166.679" Z="110.4025" />
+					<Hotspot X="-364.5523" Y="2166.679" Z="110.4025" />
+				</HuntingGrounds>
+			</CustomBehavior>
 		</While>
 		<While Condition="HasQuest(30623) &amp;&amp; IsQuestCompleted(30623)">
 			<TurnIn QuestId="30623" />
@@ -1860,12 +1864,9 @@
 		<While Condition="HasQuest(30627) &amp;&amp; !IsQuestCompleted(30627)">
 			<!-- I may need a behavior for this, Natfoth -->
 			<If Condition="!Me.IsOnTransport">
-				<CustomBehavior File="InteractWith" QuestId="30627" MobId="59857" GossipOptions="1" X="-387.776" Y="1975.049" Z="131.2439" />
-				<!-- Miss Fanny -->
-				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting to get thrown {TimeRemaining}" />
 				<While Condition="!Me.IsOnTransport">
-					<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting to get thrown {TimeRemaining}" />
-					<CustomBehavior File="InteractWith" QuestId="30627" MobId="59857" GossipOptions="1" X="-387.776" Y="1975.049" Z="131.2439" />
+					<CustomBehavior File="InteractWith" QuestId="30627" MobId="59857" GossipOptions="1" WaitForNpc="False" X="-387.776" Y="1975.049" Z="131.2439" />
+					<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Waiting to get thrown {TimeRemaining}" />
 					<!-- Miss Fanny -->
 				</While>
 			</If>
@@ -1877,7 +1878,9 @@
 		<TurnIn QuestName="The Savior of Stoneplow" QuestId="30627" TurnInName="Loon Mai" TurnInId="56720" X="-375.5746" Y="1978.884" Z="130.7429" />
 		<If Condition="!HasQuest(30628) &amp;&amp; !IsQuestCompleted(30628)">
 			<PickUp QuestName="The Gratitude of Stoneplow" QuestId="30628" GiverName="Loon Mai" GiverId="56720" X="-375.5746" Y="1978.884" Z="130.7429" />
-			<CustomBehavior File="NoCombatMoveTo" X="-367.6" Y="1901.614" Z="150.1806" />
+			<DisableBehavior Name="Combat" />
+			<RunTo X="-367.6" Y="1901.614" Z="150.1806" />
+			<EnableBehavior Name="Combat" />
 		</If>
 		<TurnIn QuestName="The Gratitude of Stoneplow" QuestId="30628" TurnInName="The Commander's Cache" TurnInId="211316" TurnInType="GameObject" X="-367.6" Y="1901.614" Z="150.1806" />
 		<!-- End of Krasarang Quests -->
