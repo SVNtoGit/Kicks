@@ -966,7 +966,7 @@
 			<CustomBehavior File="InteractWith" QuestId="30058" WaitForNpcs="False" ObjectType="GameObject" MobId="210117" CollectionDistance="100" X="-419.9195" Y="151.931" Z="154.1383" />
 			<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for Moth {TimeRemaining}" />
 			<!--<Objective QuestName="Mothran!" QuestId="30058" Type="KillMob" MobId="57421" KillCount="1" />-->
-			<CustomBehavior File="InteractWith" QuestId="30058" MobId="57421" WaitForNpcs="False" X="-419.2398" Y="144.8118" Z="152.7649" />
+			<CustomBehavior File="InteractWith" QuestId="30058" MobId="57421" NonCompeteDistance="0" X="-419.2398" Y="144.8118" Z="152.7649" />
 			<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for Moth {TimeRemaining}" />
 			<!-- I need a behavior to free the guys, maybe -->
 		</While>
@@ -1124,8 +1124,7 @@
 				<CustomBehavior File="InteractWith" QuestId="31945" MobId="58718" BuyItemId="80591" BuyItemCount="1" X="-268.316" Y="603.4114" Z="167.5479" />
 			  </If>
 				<RunTo X="-168.9328" Y="639.4129" Z="165.4094" />
-				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="InteractWith" QuestId="31945" MobId="58562" X="-171.543" Y="637.844" Z="165.4107" />
+				<CustomBehavior File="InteractWith" PreInteractMountStrategy="DismountOrCancelShapeshift" QuestId="31945" MobId="58562" X="-171.543" Y="637.844" Z="165.4107" />
 			 </If>
 			 <If Condition="((HasQuest(31945)) &amp;&amp; (!IsObjectiveComplete(2, 31945)))">
 			 </If>
@@ -1252,7 +1251,6 @@
 		<PickUp QuestName="Weed War" QuestId="30052" GiverName="Gai Lan" GiverId="57385" X="-257.5347" Y="1164.847" Z="169.5992" />
 			-->
 		</If>
-		<!-- BreakPoint Condition="Me.IsHorde" Note="Break point test." -->
 		<While Condition="HasQuest(30052) &amp;&amp; !IsQuestCompleted(30052)">
 			<CustomBehavior File="InteractWith" MobId="57385" Range="5" GossipOptions="1" X="-257.5347" Y="1164.847" Z="169.5992" />
 			<CustomBehavior File="InteractWith" QuestId="30052" MobId="210056" WaitForNpcs="False" ObjectType="GameObject" CollectionDistance="1000" X="-243.6589" Y="1161.729" Z="165.936" />
@@ -1374,11 +1372,9 @@
 		<!-- Vot4W -->
 		<CustomBehavior File="BarrelHook" />
 		<If Condition="HasQuest(30077) &amp;&amp; !IsQuestCompleted(30077)">
-			<CustomBehavior File="UserSettings" UseMount="False" />
-			<CustomBehavior File="ForcedDismount" />
 			<CustomBehavior File="Message" Text="Bot will do next quests alone, but will take long time. With human assistance, just need few minutes. If Ook-Ook catches the bot, use the Break Barrel Button to escape.!!! " />
 			<While Condition="!IsQuestCompleted(30077)">
-				<CustomBehavior File="InteractWith" QuestId="30077" MobId="57662">
+				<CustomBehavior File="InteractWith" PreInteractMountStrategy="DismountOrCancelShapeshift" QuestId="30077" MobId="57662">
 					<HuntingGrounds>
 						<Hotspot X="-682.0347" Y="1372.914" Z="137.4296" />
 						<Hotspot X="-682.0347" Y="1372.914" Z="137.4296" />
