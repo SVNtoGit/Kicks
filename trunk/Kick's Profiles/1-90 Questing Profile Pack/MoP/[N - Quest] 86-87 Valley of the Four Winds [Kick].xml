@@ -1356,8 +1356,16 @@
 		<TurnIn QuestName="Grain Recovery" QuestId="30028" TurnInName="Grainlord Kai" TurnInId="57211" X="-552.4879" Y="609.3976" Z="137.8373" />
 		<TurnIn QuestName="The Chen Taste Test" QuestId="30047" TurnInName="Chen Stormstout" TurnInId="56133" X="-197.7969" Y="485.3542" Z="187.189" />
 		<If Condition="!HasQuest(30073) &amp;&amp; !IsQuestCompleted(30073)">
-			<PickUp QuestName="The Emperor" QuestId="30073" GiverName="Chen Stormstout" GiverId="56133" X="-197.7969" Y="485.3542" Z="187.189" />
-			<CustomBehavior File="WaitTimer" WaitTime="37000" />
+			<While Condition="!IsQuestCompleted(30073)">
+				<If Condition="!HasQuest(30073)">
+					<PickUp QuestName="The Emperor" QuestId="30073" GiverName="Chen Stormstout" GiverId="56133" X="-197.7969" Y="485.3542" Z="187.189" />
+				</If>
+				<CustomBehavior File="WaitTimer" WaitTime="37000" />
+				<!-- if quest bugs out and didn't complete, abandon it and pick it up again. -->
+				<If Condition="!IsQuestCompleted(30073)">
+					<CustomBehavior File="AbandonQuest" QuestId="30073" Type="All" />
+				</If>
+			</While>
 		</If>
 		<TurnIn QuestName="The Emperor" QuestId="30073" TurnInName="Chen Stormstout" TurnInId="56133" X="-197.7969" Y="485.3542" Z="187.189" />
 		<PickUp QuestName="Knocking on the Door" QuestId="30074" GiverName="Chen Stormstout" GiverId="56133" X="-197.7969" Y="485.3542" Z="187.189" />
