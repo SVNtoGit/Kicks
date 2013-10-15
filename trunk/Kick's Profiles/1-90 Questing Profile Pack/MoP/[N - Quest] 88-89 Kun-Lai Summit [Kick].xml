@@ -2374,40 +2374,16 @@
 		<TurnIn QuestName="Enemies At Our Door" QuestId="31011" TurnInName="Lorewalker Cho" TurnInId="63750" X="4406.11" Y="939.1094" Z="116.0033" />
 		<If Condition="!HasQuest(30946) &amp;&amp; !IsQuestCompleted(30946)">
 			<DisableBehavior Name="Combat" />
-			<MoveTo X="4421.239" Y="940.3" Z="115.8543" />
+			<RunTo X="4421.239" Y="940.3" Z="115.8543" />
 			<EnableBehavior Name="Combat" />			
 			<PickUp QuestName="Revelations" QuestId="30946" GiverName="Lorewalker Cho" GiverId="63784" X="4406.11" Y="939.1094" Z="116.0033" />
 		</If>
 		<If Condition="HasQuest(30946) &amp;&amp; !IsQuestCompleted(30946)">
-			<If Condition="GlobalSettings.Instance.ProfileDebuggingMode" >
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" 
-												SoundCueInterval="2" ExpiryTime="30" ExpiryAction="InputEnabled_BotStop" 
-												Text="Chain CTM is bad, Replace these." />
-			</If>
-			<If Condition="Me.Z &lt; 123">
-				<RunTo X="4407.573" Y="933.0406" Z="115.9916" />
-				<RunTo X="4409.428" Y="922.7703" Z="120.2877" />
-				<CustomBehavior File="MyCTM" X="4407.687" Y="930.087" Z="123.6936" />
-				<CustomBehavior File="MyCTM" X="4413.028" Y="933.3857" Z="123.6998" />
-				<CustomBehavior File="MyCTM" X="4415.284" Y="929.3837" Z="123.6881" />
-			</If>
 			<While Condition="!IsQuestCompleted(30946)">
 				<CustomBehavior File="InteractWith" QuestId="30946" MobId="62629" GossipOptions="1" Range="4" X="4415.284" Y="929.3837" Z="123.6881" />
 				<CustomBehavior File="WaitTimer" WaitTime="60000" GoalText="Waiting for  {TimeRemaining}" />
 				<!--<CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />-->
 			</While>
-		</If>
-		<If Condition="HasQuest(30946) &amp;&amp; IsQuestCompleted(30946)">
-			<If Condition="GlobalSettings.Instance.ProfileDebuggingMode" >
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" 
-											SoundCueInterval="2" ExpiryTime="30" ExpiryAction="InputEnabled_BotStop" 
-											Text="Chain CTM is bad, Replace these." />
-			</If>
-			<If Condition="Me.Z &gt; 123">
-				<CustomBehavior File="MyCTM" X="4413.028" Y="933.3857" Z="123.6998" />
-				<CustomBehavior File="MyCTM" X="4408.616" Y="931.2897" Z="123.6966" />
-				<CustomBehavior File="MyCTM" X="4412.271" Y="923.9578" Z="120.3421" />
-			</If>
 		</If>
 		<TurnIn QuestName="Revelations" QuestId="30946" TurnInName="Lorewalker Cho" TurnInId="63784" X="4406.11" Y="939.1094" Z="116.0033" />
 		<PickUp QuestName="Prophet Khar'zul" QuestId="31228" GiverName="Lorewalker Cho" GiverId="63784" X="4406.11" Y="939.1094" Z="116.0033" />
@@ -2638,7 +2614,7 @@
 		<Objective QuestName="Hozen Love Their Keys" QuestId="30607" Type="CollectItem" ItemId="80535" CollectCount="1" />
 		<While Condition="HasQuest(30607) &amp;&amp; !IsQuestCompleted(30607)">
 			<CustomBehavior File="InteractWith" QuestId="30607" MobId="211365" ObjectType="GameObject" CollectionDistance="1000" X="3142.993" Y="1773.161" Z="625.9234" />
-			<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for ride {TimeRemaining}" />
+			<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Waiting for ride {TimeRemaining}" />
 		</While>
 		<TurnIn QuestName="Hozen Love Their Keys" QuestId="30607" TurnInName="Brother Yakshoe" TurnInId="59894" X="2815.293" Y="1584.186" Z="653.932" />
 		<TurnIn QuestName="The Snackrifice" QuestId="30608" TurnInName="Brother Yakshoe" TurnInId="59894" X="2815.293" Y="1584.186" Z="653.932" />
@@ -2680,7 +2656,9 @@
 			</CustomBehavior>
 			<!--<Objective QuestName="The Leader Hozen" QuestId="30612" Type="KillMob" MobId="60188" KillCount="1" />-->
 		</If>
+		<DisableBehavior Name="Pull" />
 		<TurnIn QuestName="The Leader Hozen" QuestId="30612" TurnInName="Brother Rabbitsfoot" TurnInId="59452" X="2814.116" Y="1586.976" Z="653.9404" />
+		<EnableBehavior Name="Pull" />
 		<PickUp QuestName="The Burlap Trail: To Kota Basecamp" QuestId="30692" GiverName="Brother Trailscenter" GiverId="59703" X="2788.244" Y="1606.597" Z="655.2983" />
 		<While Condition="HasQuest(30692) &amp;&amp; !IsQuestCompleted(30692)">
 			<CustomBehavior File="EscortGroup" QuestId="30692" EscortMaxFightDistance="20" SearchForNpcsRadius="75" EscortNpcId1="59556" EscortNpcId2="59593" EscortNpcId3="59578" EscortNpcId4="59526" EscortNpcId5="59527">
@@ -2754,7 +2732,7 @@
 			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
 			<CustomBehavior File="ForcedMount" MountType="Ground" />
 			<DisableBehavior Name="Combat" />
-			<Run X="2725.47" Y="2178.908" Z="590.5787" />
+			<RunTo X="2725.47" Y="2178.908" Z="590.5787" />
 			<EnableBehavior Name="Combat" />
 		</If>
 		<If Condition="HasQuest(30747) &amp;&amp; IsQuestCompleted(30747) &amp;&amp; (Me.IsOnTransport)">
