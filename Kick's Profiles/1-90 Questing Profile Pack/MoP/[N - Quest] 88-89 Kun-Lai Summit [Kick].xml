@@ -1566,6 +1566,11 @@
 				<RunTo X="2135.829" Y="1451.476" Z="487.8863" />
 			</If>
 			<If Condition="HasQuest(30651) &amp;&amp; !IsQuestCompleted(30651)">
+					<If Condition="GlobalSettings.Instance.ProfileDebuggingMode" >
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" 
+											SoundCueInterval="2" ExpiryTime="30" ExpiryAction="InputEnabled_BotStop" 
+											Text="Test this" />
+				</If>
 				<!-- I had an issue with Eastern Oil Rig's gameobject, so i changed it to the North Barrel -->
 				<While Condition="!IsObjectiveComplete(1, 30651)">
 					<While Condition="(!HasItem(80528)) &amp;&amp; (!IsQuestCompleted(30651))">
@@ -2900,11 +2905,13 @@
 		</If>
 		<TurnIn QuestName="Lao-Chin's Gambit" QuestId="30994" TurnInName="Lao-Chin the Iron Belly" TurnInId="61820" X="3110.619" Y="2848.267" Z="470.8852" />
 		<PickUp QuestName="Do a Barrel Roll!" QuestId="30991" GiverName="Lao-Chin the Iron Belly" GiverId="61820" X="3110.619" Y="2848.267" Z="470.8852" />
+		<DisableBehavior Name="Pull" />
 		<While Condition="HasQuest(30991) &amp;&amp; !IsQuestCompleted(30991)">
 			<RunTo X="3097.47" Y="2836.993" Z="470.1034" />
 			<CustomBehavior File="SpecificQuests\30991-KunLai-DoABarrelRoll" />
 		</While>
 		<TurnIn QuestName="Do a Barrel Roll!" QuestId="30991" TurnInName="Lao-Chin the Iron Belly" TurnInId="61820" X="3110.619" Y="2848.267" Z="470.8852" />
+		<EnableBehavior Name="Pull" />
 		<If Condition="!HasQuest(30992) &amp;&amp; !IsQuestCompleted(30992)">
 			<PickUp QuestName="Finish This!" QuestId="30992" GiverName="Lao-Chin the Iron Belly" GiverId="61820" X="3110.619" Y="2848.267" Z="470.8852" />
 			<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for cutscene {TimeRemaining}" />
