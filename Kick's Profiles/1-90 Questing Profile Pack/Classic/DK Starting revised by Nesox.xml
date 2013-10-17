@@ -12,6 +12,7 @@
 	<MailBlue>True</MailBlue>
 	<MailPurple>True</MailPurple>
 	<TargetElites>False</TargetElites>
+	<TargetingDistance>25</TargetingDistance>
   
   
 
@@ -161,14 +162,7 @@
 	
 	<CustomBehavior File="RunMacro" Macro="/script SetCVar('AutoLootDefault', 1)" NumOfTimes="1" WaitTime="1000" />
 		
-	<!-- Settings checks:
-		We know the class is DeathKnight, and we need PullDistance set to something sane,
-		for when we restore the user's settings -->
-	<If Condition="CharacterSettings.Instance.PullDistance &gt; 25">
-		<CustomBehavior File="UserDialog" StopOnContinue="true"
-			Text="Your PullDistance is too high!  Please set it to 25 or less.\n\nTo correct:\n1. Close this dialog (but not yet)\n2. Alter Honorbuddy's Pull Distance setting after the bot is stopped\n        Honorbuddy\n        -> Settings &amp; Tools\n        -> use &quot;Pull Distance&quot; slider\n3. Start Honorbuddy again.\n\nOkay, now please close the dialog and follow the above instructions.  The instructions will be in your log window should you need to review them again." />
-	</If>
-	
+
 	<If Condition="Me.Level &lt;= 58" >
 		<!-- NB: The following Condition will evaluate incorrectly, if Honorbuddy has just been started.
 			This is because plugins have yet to be initialized when the profile is started
