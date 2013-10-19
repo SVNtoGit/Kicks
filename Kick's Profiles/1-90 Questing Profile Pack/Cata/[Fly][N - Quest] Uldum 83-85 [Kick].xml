@@ -1002,17 +1002,17 @@
         <TurnIn QuestName="The Cypher of Keset" TurnInName="Salhet" QuestId="28500" TurnInId="48761" />
         <PickUp Nav="Fly" QuestName="The Defense of Nahom" GiverName="Salhet" QuestId="28501" GiverId="48761" />
 
-        <While Condition="!IsQuestCompleted(28501)" >
+         <While Condition="!IsQuestCompleted(28501)" >
+			<CustomBehavior File="AbandonQuest" QuestId="28501" Type="Failed" WaitTime="3000" />
+			<If Condition="!HasQuest(28501)" >
+				<PickUp QuestName="The Defense of Nahom" GiverName="Salhet" QuestId="28501" GiverId="48761" />
+                <CustomBehavior File="WaitTimer" WaitTime="3000" />
+			</If>
             <If Condition="HasQuest(28501)" >
                 <CustomBehavior File="InteractWith" NonCompeteDistance="0" QuestId="28501" MobId1="49228"
                                 X="-9766.647" Y="-1688.25" Z="22.25573" />
                 <CustomBehavior File="SpecificQuests\28501-Uldum-TheDefenseOfNahom" X="-9771.43" Y="-1702.41" Z="22.25561" />
                 <CustomBehavior File="EjectVeh" Eject="True" />
-            </If>
-            <If Condition="HasQuest(28501) &amp;&amp; !IsQuestCompleted(28501)" >
-                <CustomBehavior File="AbandonQuest" QuestId="28501" Type="Failed" />
-                <CustomBehavior File="WaitTimer" WaitTime="3000" />
-                <PickUp QuestName="The Defense of Nahom" GiverName="Salhet" QuestId="28501" GiverId="48761" />
                 <CustomBehavior File="WaitTimer" WaitTime="3000" />
             </If>
         </While>
