@@ -4178,9 +4178,11 @@
         </If>
 
         <If Condition="(HasQuest(9792))">
-            <CustomBehavior File="FlyTo" X="-2562.235" Y="7260.752" Z="14.61272" />
-            <CustomBehavior File="ForcedDismount" />
-            <TurnIn QuestName="A Message to Telaar" QuestId="9792" TurnInName="Warden Moi'bff Jill" TurnInId="18408" X="-2568.979" Y="7271.639" Z="15.48032" />
+            <!-- CJ: "Message to Telaar" is a breadcrumb quest.
+               If you do certain other quests, it is no longer available, and may have not been
+               completed either.  This confuses Honorbuddy, so we need the <If> protection.
+               -->
+            <TurnIn Nav="Fly" QuestName="A Message to Telaar" QuestId="9792" TurnInName="Warden Moi'bff Jill" TurnInId="18408" X="-2568.979" Y="7271.639" Z="15.48032" />
         </If>
         <If Condition="!HasQuest(10210) &amp;&amp; !IsQuestCompleted(10210)">
             <CustomBehavior File="FlyTo" DestName="Shattrath" X="-1821.938" Y="5342.519" Z="-12.42718" />
@@ -4863,7 +4865,13 @@
         <CustomBehavior File="Message" Text="Compiling Nagrand Quests" LogColor="Green" />
         <CustomBehavior File="UserSettings" LootMobs="True" PullDistance="45" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
 
-		<TurnIn Nav="Fly" QuestName="A Message to Telaar" QuestId="9792" TurnInName="Warden Moi'bff Jill" TurnInId="18408" X="-2568.979" Y="7271.639" Z="15.48032" />
+        <If Condition="(HasQuest(9792))">
+            <!-- CJ: "Message to Telaar" is a breadcrumb quest.
+               If you do certain other quests, it is no longer available, and may have not been
+               completed either.  This confuses Honorbuddy, so we need the <If> protection.
+               -->
+            <TurnIn Nav="Fly" QuestName="A Message to Telaar" QuestId="9792" TurnInName="Warden Moi'bff Jill" TurnInId="18408" X="-2568.979" Y="7271.639" Z="15.48032" />
+        </If>
 		
         <If Condition="(!IsQuestCompleted(9956))">
             <If Condition="!HasQuest(9936) &amp;&amp; !IsQuestCompleted(9936)">
