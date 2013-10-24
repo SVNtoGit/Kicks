@@ -1511,6 +1511,18 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+	<Quest Id="27525" Name="Guardians of Stratholme">
+		<Objective Type="KillMob" MobId="45867" KillCount="1">
+			<Hotspots>
+							<Hotspot X="3172.015" Y="-3311.365" Z="165.16" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="KillMob" MobId="45868" KillCount="1">
+			<Hotspots>
+							<Hotspot X="3176.062" Y="-3470.209" Z="167.3955" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 	<Quest Id="27534" Name="Augustus' Receipt Book">
 		<Objective Type="CollectItem" ItemId="15884" Name="Augustus' Recipt Book" CollectCount="1">
 			<Hotspots>
@@ -3211,7 +3223,7 @@
 		<CustomBehavior File="Message" Text="Compiling N. Barrens Quests" LogColor="Green" />
 		<CustomBehavior File="EnablePlugin" Names="Questhelper - ItemForAura,Azenius,Anti Drown,AutoEquip2,Talented" />
 
-		<CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" UseFlightPaths="True" PullDistance="25" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
+		<CustomBehavior File="UserSettings" LootMobs="True" UseFlightPaths="True" PullDistance="25" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
 
 		<!-- BEGIN LEVEL 12-20-->
 		<If Condition="HasQuest(840) &amp;&amp; IsQuestCompleted(840)">
@@ -3670,9 +3682,6 @@
 		<GrindTo Level="20" />
 		<Checkpoint Level="20" />
 
-
-		<CustomBehavior File="UserSettings" UseMount="True" />
-
 		<CustomBehavior File="Message" Text="Compiling Ashenvale Quests" LogColor="Green" />
 
 
@@ -3714,13 +3723,13 @@
 			<PickUp QuestName="Got Wood?" QuestId="13628" GiverName="Truun" GiverId="33284" />
 			<If Condition="HasQuest(13628) &amp;&amp; !IsQuestCompleted(13628)">
 				<CustomBehavior File="ForcedDismount" />
-				<CustomBehavior File="UserSettings" UseMount="False" />
+				<UseMount Value="False" />
 				<MoveTo X="1314.293" Y="-2192.942" Z="92.8638" />
 				<CustomBehavior File="InteractWith" MobId="8582" GossipOptions="1" X="1235.06" Y="-2246.561" Z="91.76642" />
 				<MoveTo X="1314.293" Y="-2192.942" Z="92.8638" />
 				<CustomBehavior File="MountVehOnly" VehicleMountId="33374" X="1195.282" Y="-2258.377" Z="91.67519" />
 				<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Waiting for ride {TimeRemaining}" />
-				<CustomBehavior File="UserSettings" UseMount="True" />
+				<UseMount Value="True" />
 			</If>
 			<TurnIn QuestName="Got Wood?" QuestId="13628" TurnInName="Gorka" TurnInId="33421" X="1580.942" Y="-2506.081" Z="98.00504" />
 			<!-- End of The Mor'shan Rampart Quests -->
@@ -3888,7 +3897,7 @@
 			<PickUp QuestName="Dirty Deeds" QuestId="13797" GiverName="Durak" GiverId="33760" X="2456.776" Y="-2463.134" Z="109.8879" />
 			<Objective QuestName="Dirty Deeds" QuestId="13797" Type="CollectItem" ItemId="45576" CollectCount="10" />
 			<TurnIn QuestName="Dirty Deeds" QuestId="13797" TurnInName="Durak" TurnInId="33760" />
-			<CustomBehavior File="UserSettings" UseMount="false" />
+			<UseMount Value="False" />
 			<DisableBehavior Name="Loot" />
 			<PickUp QuestName="Rain of Destruction" QuestId="13798" GiverName="Durak" GiverId="33760" X="2456.776" Y="-2463.134" Z="109.8879" />
 			<While Condition="HasQuest(13798) &amp;&amp; !IsQuestCompleted(13798)">
@@ -4093,7 +4102,7 @@
 				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 			</If>
 
-			<CustomBehavior File="UserSettings" UseMount="True" />
+			<UseMount Value="True" />
 
 			<!-- Zoram'gar Outpost Quests -->
 			<CustomBehavior File="Message" Text="Compiling Zoram'gar Outpost Quests" LogColor="CornflowerBlue" />
@@ -4310,7 +4319,7 @@
 			<Objective QuestName="Building Your Own Coffin" QuestId="13983" Type="CollectItem" ItemId="46773" CollectCount="3" />
 			<Objective QuestName="Building Your Own Coffin" QuestId="13983" Type="CollectItem" ItemId="46771" CollectCount="5" />
 			<While Condition="HasQuest(13980) &amp;&amp; !IsQuestCompleted(13980)">
-				<CustomBehavior File="UserSettings" UseMount="false" />
+				<UseMount Value="False" />
 				<CustomBehavior File="ForcedDismount" />
 				<If Condition="(!Me.HasAura(&quot;Jinx's Elf Detection Ray&quot;))">
 					<RunTo X="2129.699" Y="-644.2228" Z="104.7444" />
@@ -4338,7 +4347,7 @@
 					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(46776)" WaitTime="1000" />
 					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Using item {TimeRemaining}" />
 				</If>
-				<CustomBehavior File="UserSettings" UseMount="original" />
+				<UseMount Value="True" />
 			</While>
 			<TurnIn QuestName="Building Your Own Coffin" QuestId="13983" TurnInName="Foreman Jynx" TurnInId="34596" />
 			<TurnIn QuestName="They're Out There!" QuestId="13980" TurnInName="Foreman Jynx" TurnInId="34596" />
@@ -5059,7 +5068,7 @@
 		<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Using item {TimeRemaining}" />
 		</If>
 		<If Condition="((HasQuest(14260)) &amp;&amp; (IsQuestCompleted(14260)))" >
-		<CustomBehavior File="UserSettings" UseMount="False" />
+		<UseMount Value="False" />
 		<TurnIn QuestName="Going Deep" QuestId="14260" TurnInName="Valishj" TurnInId="35827" X="-473.8542" Y="2842.509" Z="25.44441" />
 		</If>
 		<PickUp QuestName="Wetter Than Wet" QuestId="14264" GiverName="Valishj" GiverId="35827" X="-473.8542" Y="2842.509" Z="25.44441" />
@@ -5105,7 +5114,7 @@
 			<TurnIn QuestName="Smeed's Harnesses" QuestId="14341" TurnInName="Smeed Scrabblescrew" TurnInId="11596" />
 			<PickUp QuestName="Kodo Roundup" QuestId="5561" GiverName="Smeed Scrabblescrew" GiverId="11596" />
 			<If Condition="HasQuest(5561) &amp;&amp; !IsQuestCompleted(5561)">
-				<CustomBehavior File="UserSettings" UseMount="False" />
+				<UseMount Value="False" />
 				<CustomBehavior File="ForcedDismount" />
 				<While Condition="HasQuest(5561) &amp;&amp; !IsQuestCompleted(5561)">
 					<CustomBehavior File="InteractWith" QuestId="5561" MobId1="4702" MobId2="4700" InteractByUsingItemId="13892" WaitTime="6000" Range="5" CollectionDistance="500" X="-1295.744" Y="1840.136" Z="52.33176" />
@@ -5114,7 +5123,7 @@
 					<CustomBehavior File="InteractWith" QuestId="5561" MobId1="11627" MobId2="4700" MobId3="4702" CollectionDistance="100" WaitForNpcs="False" X="-1408.956" Y="1504.514" Z="59.06141" />
 					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for bot {TimeRemaining}" />
 				</While>
-				<CustomBehavior File="UserSettings" UseMount="True" />
+				<UseMount Value="True" />
 			</If>
 			<TurnIn QuestName="Kodo Roundup" QuestId="5561" TurnInName="Smeed Scrabblescrew" TurnInId="11596" />
 			<!-- gay quest, combatuseitemon issue or something, idk -->
@@ -6009,15 +6018,12 @@
 
 			<PickUp QuestName="Two If By Boat" QuestId="25489" GiverName="Motega Firemane" GiverId="39963" />
 			<If Condition="HasQuest(25489)">
-				<CustomBehavior File="UserSettings" UseMount="False" UseFlightPaths="False" />
+				<UseMount Value="False" />
 				<CustomBehavior File="WaitTimer" WaitTime="130000" GoalText="Waiting for boat trip to end: {TimeRemaining}" />
-				<CustomBehavior File="UserSettings" UseMount="False" UseFlightPaths="False" />
 				<CustomBehavior File="MyCTM" X="-6193.828" Y="-3903.306" Z="4.235507" />
 				<CustomBehavior File="MyCTM" X="-6172.166" Y="-3892.485" Z="6.083038" />
+				<UseMount Value="True" />
 			</If>
-
-			<CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" UseFlightPaths="True" PullDistance="35" />
-
 			<TurnIn QuestName="Two If By Boat" QuestId="25489" TurnInName="Pozzik" TurnInId="40028" X="-6157.863" Y="-3774.054" Z="33.50721" />
 
 			<PickUp QuestName="Do Me a Favor?" QuestId="25505" GiverName="Pozzik" GiverId="40028" />
@@ -6076,7 +6082,7 @@
 
 		<Objective QuestName="Rocket Rescue" QuestId="24910" Type="KillMob" MobId="38576" KillCount="5" />
 		<Objective QuestName="Rocket Rescue" QuestId="24910" Type="KillMob" MobId="40583" KillCount="40" />
-		<TurnIn QuestName="Rocket Rescue" QuestId="24910" TurnInName="Megs Dreadshredder" TurnInId="38534" />
+		<TurnIn QuestName="Rocket Rescue" QuestId="24910" TurnInName="Megs Dreadshredder" TurnInId="38534" X="-7211.632" Y="-3757.743" Z="9.189915" />
 
 		<PickUp QuestName="Momentum" QuestId="24947" GiverName="Megs Dreadshredder" GiverId="38534" />
 
@@ -6245,14 +6251,13 @@
 					<Hotspot X="-9096.504" Y="-4162.766" Z="9.944347" />
 				</HuntingGrounds>
 			</CustomBehavior>
-			<CustomBehavior File="UserSettings" UseMount="False" />
+			<UseMount Value="False" />
 			<MoveTo QuestId="24951" X="-8682.899" Y="-4069.877" Z="40.59719" />
 			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for teleport: {TimeRemaining}" />
-			<CustomBehavior File="UserSettings" UseMount="True" />
+			<UseMount Value="True" />
 		</While>
 
 		<TurnIn QuestName="A Great Idea" QuestId="24951" TurnInName="Zeke Bootscuff" TurnInId="38706" />
-		<CustomBehavior File="UserSettings" UseMount="True" />
 
 		<PickUp QuestName="Just Trying to Kill Some Bugs" QuestId="24953" GiverName="Zeke Bootscuff" GiverId="38706" />
 		<If Condition="HasQuest(24953)">
@@ -6466,7 +6471,7 @@
 				<Objective QuestName="I'm Not Supposed to Tell You This" QuestId="27392" Type="CollectItem" ItemId="60987" CollectCount="1" />
 
 				<If Condition="HasQuest(27384) &amp;&amp; !IsQuestCompleted(27384)">
-					<CustomBehavior File="UserSettings" UseMount="false" />
+					<UseMount Value="False" />
 					<CustomBehavior File="ForcedDismount" />
 					<CustomBehavior File="CollectThings" QuestId="27384" MobId="176116" IgnoreMobsInBlackspots="false" CollectItemId="12886" CollectItemCount="1" X="1437.439" Y="-3703.893" Z="76.86717" />
 					<CustomBehavior File="CollectThings" QuestId="27384" MobId="176142" IgnoreMobsInBlackspots="false" CollectItemId="12887" CollectItemCount="1" X="1437.439" Y="-3703.893" Z="76.86717" />
@@ -6474,7 +6479,7 @@
 					<While Condition="HasQuest(27384) &amp;&amp; !IsQuestCompleted(27384)">
 						<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(12886)" WaitTime="1000" />
 					</While>
-					<CustomBehavior File="UserSettings" UseMount="True" />
+					<UseMount Value="True" />
 				</If>
 
 				<TurnIn QuestName="Pamela's Doll" TurnInName="Pamela Redpath" QuestId="27384" TurnInId="10926" X="1452.869" Y="-3596.774" Z="86.9902" />
@@ -7924,7 +7929,7 @@
 		-->
 
 		<CheckPoint Level="50" />
-		<CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" UseFlightPaths="True" PullDistance="35" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
+		<CustomBehavior File="UserSettings" LootMobs="True" UseFlightPaths="True" PullDistance="35" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
 
 		<ClearVendor />
 		<SetVendor>
@@ -8606,11 +8611,10 @@
 		<While Condition="HasQuest(8283) &amp;&amp; IsQuestCompleted(8283)">
 			<RunTo DestName="Tower with Vish Kozus in Cenarion Hold" X="-6737.583" Y="770.1729" Z="90.92376" />
 			<CustomBehavior File="ForcedDismount" />
-			<CustomBehavior File="UserSettings" UseMount="False" />
+			<UseMount Value="False" />
 			<TurnIn QuestName="Wanted - Deathclasp, Terror of the Sands" QuestId="8283" TurnInName="Vish Kozus" TurnInId="15182" X="-6740.078" Y="769.562" Z="128.4377" />
-			<CustomBehavior File="UserSettings" UseMount="True" />
+			<UseMount Value="True" />
 		</While>
-		<CustomBehavior File="UserSettings" UseMount="True" />
 
 		<PickUp QuestName="Twilight Geolords" QuestId="8320" GiverName="Huum Wildmane" GiverId="15270" />
 		<PickUp QuestName="Secret Communication" QuestId="8318" GiverName="Bor Wildmane" GiverId="15306" />
