@@ -169,7 +169,6 @@
     <QuestOrder IgnoreCheckpoints="True" >
 	
 		<CustomBehavior File="RunMacro" Macro="/script SetCVar('AutoLootDefault', 1)" NumOfTimes="1" WaitTime="1000" />
-		<CustomBehavior File="UserSettings" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" LootMobs="True" PullDistance="15" />
 	
 		<CustomBehavior File="Message" Text="If the bot takes more than 10 seconds to move, it is compiling quests to see where you are - it's about 1 minute per zone completed" LogColor="CornflowerBlue" />
 		<CustomBehavior File="Message" Text="Compiling Worgen(Human Form) Quests" LogColor="Green" />
@@ -338,11 +337,9 @@
 			</If>
 			<If Condition="((!HasQuest(28850)) &amp;&amp; (!IsQuestCompleted(28850)))" >
 		<PickUp QuestName="The Prison Rooftop" QuestId="28850" GiverName="Captain Broderick" GiverId="50371" />
-				<CustomBehavior File="UserSettings" PullDistance="10" />
 			</If>
 			<If Condition="((HasQuest(28850)) &amp;&amp; (IsQuestCompleted(28850)))" >
 		<TurnIn QuestName="The Prison Rooftop" QuestId="28850" TurnInName="Lord Darius Crowley" TurnInId="35077" X="-1679.734" Y="1442.122" Z="52.28712" />
-				<CustomBehavior File="UserSettings" PullDistance="15" />
 			</If>
 		<PickUp QuestName="By the Skin of His Teeth" QuestId="14154" GiverName="Lord Darius Crowley" GiverId="35077" X="-1679.734" Y="1442.122" Z="52.28712" />
 			<While Condition="(HasQuest(14154)) &amp;&amp; (!IsQuestCompleted(14154))">
@@ -397,8 +394,8 @@
 			</If>
 		<TurnIn QuestName="Sacrifices" QuestId="14212" TurnInName="Tobias Mistmantle" TurnInId="35618" />
 		<PickUp QuestName="By Blood and Ash" QuestId="14218" GiverName="Tobias Mistmantle" GiverId="35618" />
+            <DisableBehavior Name="Pull" />
 			<While Condition="(HasQuest(14218)) &amp;&amp; (!IsQuestCompleted(14218))">
-				<CustomBehavior File="UserSettings" PullDistance="1" />
 				<CustomBehavior File="NoCombatMoveTo" X="-1524.081" Y="1569.992" Z="26.53791" />
 				<CustomBehavior File="Vehicles\CannonControl" VehicleId="35317" QuestId="14218" MaxAngle="0.55" MinAngle="0.02" Buttons="1" ExitButton="5" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for agro to clear {TimeRemaining}" />
@@ -407,8 +404,8 @@
 		<PickUp QuestName="Never Surrender, Sometimes Retreat" QuestId="14221" GiverName="Tobias Mistmantle" GiverId="35618" />
 			<If Condition="((HasQuest(14221)) &amp;&amp; (IsQuestCompleted(14221)))" >
 		<TurnIn QuestName="Never Surrender, Sometimes Retreat" QuestId="14221" TurnInName="Lord Darius Crowley" TurnInId="35566" />
-				<CustomBehavior File="UserSettings" PullDistance="15" />
 			</If>
+            <EnableBehavior Name="Pull" />
 		<PickUp QuestName="Last Stand" QuestId="14222" GiverName="Lord Darius Crowley" GiverId="35566" />
 			<Objective QuestName="Last Stand" QuestId="14222" Type="KillMob" MobId="35627" KillCount="8" />
 			<DisableBehavior Name="All" />
@@ -437,13 +434,13 @@
 		<TurnIn QuestName="Invasion" QuestId="14321" TurnInName="Gwen Armstead" TurnInId="34571" />
 			<If Condition="((!HasQuest(14336)) &amp;&amp; (!IsQuestCompleted(14336)))" >
 		<PickUp QuestName="Kill or Be Killed" QuestId="14336" GiverName="Gwen Armstead" GiverId="34571" />
-				<CustomBehavior File="UserSettings" PullDistance="1" />
+                <DisableBehavior Name="Pull" />
 			</If>
 		<TurnIn QuestName="Kill or Be Killed" QuestId="14336" TurnInName="Prince Liam Greymane" TurnInId="36140" />
 		<PickUp QuestName="Hold the Line" QuestId="14347" GiverName="Prince Liam Greymane" GiverId="36140" />
 		<PickUp QuestName="You Can't Take 'Em Alone" QuestId="14348" GiverName="Prince Liam Greymane" GiverId="36140" />
 			<While Condition="(HasQuest(14348)) &amp;&amp; (!IsQuestCompleted(14348))">
-				<CustomBehavior File="UserSettings" PullDistance="2" />
+				<DisableBehavior Name="Pull" />
 			 <While Condition="(!HasItem(49202)) &amp;&amp; (!IsQuestCompleted(14348))" >
 				<CustomBehavior File="CollectThings" QuestId="14348" ObjectId="196403" CollectItemCount="1" CollectItemId="49202" HuntingGroundRadius="55" >
 					<Hotspot X="-1988.496" Y="2314.655" Z="29.41515" />
@@ -457,10 +454,10 @@
 				<CustomBehavior File="UseItemOn" QuestId="14348" ItemId="49202" MobId="36231" CollectionDistance="500" NumOfTimes="1" MobState="Alive" WaitTime="7500" Range="20" X="-1928.829" Y="2374.512" Z="31.7461" />
 			 </While>
 			</While>
+        <EnableBehavior Name="Pull" />
 			<If Condition="((HasQuest(14347)) &amp;&amp; (!IsQuestCompleted(14347)))" >
-				<CustomBehavior File="UserSettings" PullDistance="15" />
 				<Objective QuestName="Hold the Line" QuestId="14347" Type="KillMob" MobId="34511" KillCount="10" />
-				<CustomBehavior File="UserSettings" PullDistance="1" />
+                <DisableBehavior Name="Pull" />
 			</If>
 		<TurnIn QuestName="Hold the Line" QuestId="14347" TurnInName="Prince Liam Greymane" TurnInId="36140" />
 		<TurnIn QuestName="You Can't Take 'Em Alone" QuestId="14348" TurnInName="Prince Liam Greymane" TurnInId="36140" />
@@ -477,8 +474,8 @@
 			<While Condition="(HasQuest(14382)) &amp;&amp; (!IsQuestCompleted(14382))"> 
 				<CustomBehavior File="SpecificQuests\14382-Gilneas-TwoBySea" />
 			</While>
+            <EnableBehavior Name="Pull" />
 			<While Condition="(HasQuest(14368)) &amp;&amp; (!IsQuestCompleted(14368))">
-				<CustomBehavior File="UserSettings" PullDistance="10" />
 			 <While Condition="((HasQuest(14368)) &amp;&amp; (!IsObjectiveComplete(1, 14368)))"> <!-- Cynthia, in field -->
 				<CustomBehavior File="InteractWith" QuestId="14368" MobId="36287" X="-1987.47" Y="2508.71" Z="1.39213" />
 			 </While>
@@ -493,21 +490,20 @@
 			<Objective QuestName="Unleash the Beast" QuestId="14369" Type="KillMob" MobId="36634" KillCount="8" />
 			<If Condition="((HasQuest(14368)) &amp;&amp; (IsQuestCompleted(14368)))" >
 				<CustomBehavior File="NoCombatMoveTo" X="-1882.678" Y="2543.867" Z="1.628508" />
-				<CustomBehavior File="UserSettings" PullDistance="15" />
 			</If>
 		<TurnIn QuestName="Save the Children!" QuestId="14368" TurnInName="Melinda Hammond" TurnInId="36291" />
 		<TurnIn QuestName="Unleash the Beast" QuestId="14369" TurnInName="Lord Godfrey" TurnInId="36290" X="-1874.202" Y="2531.46" Z="-6.387275" />
 		<TurnIn QuestName="Two By Sea" QuestId="14382" TurnInName="Lord Godfrey" TurnInId="36290" />
 		<PickUp QuestName="Leader of the Pack" QuestId="14386" GiverName="Lord Godfrey" GiverId="36290" />
 			<While Condition="(HasQuest(14386)) &amp;&amp; (!IsQuestCompleted(14386))">
-				<CustomBehavior File="UserSettings" LootMobs="False" />
+                <LootMobs Value="false" />
 				<CustomBehavior File="UseItemOn" QuestId="14386" ItemId="49240" MobId="36312" Range="30" X="-1943.728" Y="2653.24" Z="0.9589877" />
 				<Objective QuestName="Leader of the Pack" QuestId="14386" Type="KillMob" MobId="36312" KillCount="1" />
 			</While>
  			<If Condition="((HasQuest(14386)) &amp;&amp; (IsQuestCompleted(14386)))" >
 				<CustomBehavior File="NoCombatMoveTo" X="-1890.512" Y="2538.008" Z="1.866061" />
-				<CustomBehavior File="UserSettings" LootMobs="True" />
 			</If>
+            <LootMobs Value="true" />
 		<TurnIn QuestName="Leader of the Pack" QuestId="14386" TurnInName="Lord Godfrey" TurnInId="36290" />
 		<PickUp QuestName="As the Land Shatters" QuestId="14396" GiverName="Lord Godfrey" GiverId="36290" />
 		<TurnIn QuestName="As the Land Shatters" QuestId="14396" TurnInName="Prince Liam Greymane" TurnInId="36451" />
@@ -534,7 +530,7 @@
 			</While>
 		<TurnIn QuestName="Grandma's Cat" QuestId="14401" TurnInName="Grandma Wahl" TurnInId="36458" />
 			<If Condition="HasQuest(14403)">
-				<CustomBehavior File="UserSettings" PullDistance="1" />
+                <DisableBehavior Name="Pull" />
 				<CustomBehavior File="NoCombatMoveTo" X="-2302.522" Y="2278.062" Z="-0.1799628" />
 			</If>
 		<TurnIn QuestName="The Hayward Brothers" QuestId="14403" TurnInName="Sebastian Hayward" TurnInId="36456" />
@@ -543,17 +539,17 @@
 			<Objective QuestName="Not Quite Shipshape" QuestId="14404" Type="CollectItem" ItemId="49337" CollectCount="1" />
 			<Objective QuestName="Not Quite Shipshape" QuestId="14404" Type="CollectItem" ItemId="49338" CollectCount="1" />
 			<Objective QuestName="Not Quite Shipshape" QuestId="14404" Type="CollectItem" ItemId="49339" CollectCount="1" />
+            <EnableBehavior Name="Pull" />
 			<If Condition="(HasQuest(14412)) &amp;&amp; (!IsQuestCompleted(14412))">
-				<CustomBehavior File="UserSettings" PullDistance="10" />
 				<Objective QuestName="Washed Up" QuestId="14412" Type="KillMob" MobId="36488" KillCount="6" />
-				<CustomBehavior File="UserSettings" PullDistance="1" />
 			</If>
+            <DisableBehavior Name="Pull" />
 		<TurnIn QuestName="Washed Up" QuestId="14412" TurnInName="Sebastian Hayward" TurnInId="36456" />
 		<TurnIn QuestName="Not Quite Shipshape" QuestId="14404" TurnInName="Sebastian Hayward" TurnInId="36456" />
 			<If Condition="HasQuest(14406)">
 				<CustomBehavior File="NoCombatMoveTo" X="-2060.109" Y="2256.748" Z="22.41121" />
-				<CustomBehavior File="UserSettings" PullDistance="15" />
 			</If>
+            <EnableBehavior Name="Pull" />
 		<TurnIn QuestName="The Crowley Orchard" QuestId="14406" TurnInName="Lorna Crowley" TurnInId="36457" />
 		<PickUp QuestName="The Hungry Ettin" QuestId="14416" GiverName="Lorna Crowley" GiverId="36457" /> <!-- I got stuck here after the last horse ... like the behavior didn't know I was not in a vehicle; please double check the behavior -->
 			<While Condition="(HasQuest(14416)) &amp;&amp; (!IsQuestCompleted(14416))">
@@ -626,18 +622,13 @@
 		<PickUp QuestName="Take Back What's Ours" QuestId="24646" GiverName="Lord Darius Crowley" GiverId="37195" />
 			<While Condition="(HasQuest(24646)) &amp;&amp; (!IsQuestCompleted(24646))">
 				<DisableBehavior Name="All" />
-				<CustomBehavior File="UserSettings" PullDistance="1" />
-				
-
 				<RunTo QuestId="24646" X="-2182.577" Y="1619.321" Z="-41.1452" />
-				
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(50134)" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="6000"/>
 				<CustomBehavior File="NoCombatMoveTo" X="-2122.085" Y="1629.767" Z="-42.22638" />
 				<CustomBehavior File="InteractWith" MobId="201939" NonCompeteDistance="0" IgnoreCombat="true" CollectionDistance="200" ObjectType="GameObject" X="-2121.341" Y="1628.219" Z="-42.23239" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(50134)" WaitTime="1000" />
 				<CustomBehavior File="NoCombatMoveTo" X="-2182.577" Y="1619.321" Z="-41.1452" />
-				<CustomBehavior File="UserSettings" PullDistance="15" />
 				<EnableBehavior Name="All" />
 			</While>
 		<TurnIn QuestName="Take Back What's Ours" QuestId="24646" TurnInName="Lord Darius Crowley" TurnInId="37195" />
@@ -652,7 +643,7 @@
 		<TurnIn QuestName="Onwards and Upwards" QuestId="24672" TurnInName="Krennan Aranas" TurnInId="37874" />
 		<PickUp QuestName="Betrayal at Tempest's Reach" QuestId="24592" GiverName="Krennan Aranas" GiverId="37874" />
 			<While Condition="((HasQuest(24592)) &amp;&amp; (!IsQuestCompleted(24592)))" >
-				<CustomBehavior File="UserSettings" PullDistance="1" />
+                <DisableBehavior Name="Pull" />
 				<UseItem ItemId="50218" QuestName="Betrayal at Tempest's Reach" QuestId="24592" X="-2112.302" Y="1022.551" Z="58.13521" />
 				<CustomBehavior File="NoCombatMoveTo" X="-1896.995" Y="950.402" Z="77.13059" />
 				<Objective QuestName="Betrayal at Tempest's Reach" QuestId="24592" Type="KillMob" MobId="37733" KillCount="1" />
@@ -668,7 +659,7 @@
 			</While>
 			<If Condition="(HasQuest(24592)) &amp;&amp; (IsQuestCompleted(24592))">
 		<TurnIn QuestName="Betrayal at Tempest's Reach" QuestId="24592" TurnInName="King Genn Greymane" TurnInId="37876" />
-				<CustomBehavior File="UserSettings" PullDistance="15" />
+        <EnableBehavior Name="Pull" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000"/>
 			</If>
 		<PickUp QuestName="Flank the Forsaken" QuestId="24677" GiverName="King Genn Greymane" GiverId="37876" />
@@ -701,12 +692,12 @@
 		<PickUp QuestName="The Battle for Gilneas City" QuestId="24904" GiverName="Lorna Crowley" GiverId="37783" />
 			<While Condition="(HasQuest(24904)) &amp;&amp; (!IsQuestCompleted(24904))"> <!-- the bot randomly gets lost escorting and pulling random fucking mobs -->
 				<CustomBehavior File="InteractWith" MobId="38553" GossipOptions="1" WaitForNpcs="False" WaitTime="2000" CollectionDistance="200" />
-				<CustomBehavior File="UserSettings" PullDistance="1" />
+                <DisableBehavior Name="Pull" />
 				<!-- the bot randomly gets lost escorting and pulling random fucking mobs -->
 				<!-- check mesh for entire area - <Hotspot X="-1805.337" Y="1431.922" Z="19.61528" /> -->
 				<CustomBehavior File="Escort" QuestId="24904" MobId1="38218" MobId2="38470" X="-1392.526" Y="1222.099" Z="35.55768"/>
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-				<CustomBehavior File="UserSettings" PullDistance="25" />
+                <EnableBehavior Name="Pull" />
 			</While>
 		<TurnIn QuestName="The Battle for Gilneas City" QuestId="24904" TurnInName="Lorna Crowley" TurnInId="38611" />
 
@@ -737,10 +728,10 @@
 		<TurnIn QuestName="Slowing the Inevitable" QuestId="24920" TurnInName="King Genn Greymane" TurnInId="38539" />
 		<PickUp QuestName="Knee-Deep" QuestId="24678" GiverName="King Genn Greymane" GiverId="38539" />
 			<If Condition="HasQuest(24678)" >
-				<CustomBehavior File="UserSettings" PullDistance="1" />
+                <DisableBehavior Name="Pull" />
 				<CustomBehavior File="NoCombatMoveTo" X="-1642.377" Y="1635.776" Z="10.13438" />
 				<CustomBehavior File="ItemWhileMoving" ItemId="50220" X="-1727.067" Y="1873.281" Z="17.85262" />
-				<CustomBehavior File="UserSettings" PullDistance="25" />
+                <EnableBehavior Name="Pull" />
 			</If>
 		<TurnIn QuestName="Knee-Deep" QuestId="24678" TurnInName="Krennan Aranas" TurnInId="38144" />
 		<PickUp QuestName="Laid to Rest" QuestId="24602" GiverName="Krennan Aranas" GiverId="38144" />
