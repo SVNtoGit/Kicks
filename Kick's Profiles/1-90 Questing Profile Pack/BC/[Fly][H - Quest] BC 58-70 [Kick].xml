@@ -1415,6 +1415,28 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+	<Quest Id="10874" Name="Veil Shalas: Signal Fires">
+		<Objective Type="UseObject" ObjectId="185216" UseCount="1">
+			<Hotspots>
+							<Hotspot X="-3419.712" Y="4103.795" Z="62.63953" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="UseObject" ObjectId="185217" UseCount="1">
+			<Hotspots>
+							<Hotspot X="-3511.699" Y="4088.579" Z="92.88254" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="UseObject" ObjectId="185218" UseCount="1">
+			<Hotspots>
+							<Hotspot X="-3491.598" Y="4025.171" Z="113.1172" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="UseObject" ObjectId="185219" UseCount="1">
+			<Hotspots>
+							<Hotspot X="-3609.845" Y="4051.854" Z="111.999" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 	<Quest Id="9987" Name="Styming the Arakkoa">
 		<Objective Type="KillMob" MobId="18539" KillCount="1">
 			<Hotspots>
@@ -3664,6 +3686,23 @@
 			<TurnIn Nav="Fly" QuestName="Us or Them" QuestId="9823" TurnInName="Shadow Hunter Denjai" TurnInId="18013" X="276.875" Y="7849.026" Z="23.77924"  />
 			<TurnIn Nav="Fly" QuestName="Message to the Daggerfen" QuestId="10118" TurnInName="Shadow Hunter Denjai" TurnInId="18013" X="276.875" Y="7849.026" Z="23.77924"  />
 			<TurnIn Nav="Fly" QuestName="Wanted: Chieftain Mummaki" QuestId="10117" TurnInName="Shadow Hunter Denjai" TurnInId="18013" X="276.875" Y="7849.026" Z="23.77924"  />
+
+			<SetGrindArea>
+				<GrindArea>
+					<Factions>14 74 </Factions>
+					<!-- [Monster, Naga] -->
+					<TargetMinLevel>62</TargetMinLevel>
+					<TargetMaxLevel>64</TargetMaxLevel>
+					<Hotspots>
+						<Hotspot X="335.4396" Y="8116.737" Z="17.39147" />
+						<Hotspot X="503.9812" Y="8149.035" Z="20.26604" />
+						<Hotspot X="533.8148" Y="8032.664" Z="22.44428" />
+						<Hotspot X="439.6223" Y="8067.649" Z="19.04515" />
+					</Hotspots>
+				</GrindArea>
+			</SetGrindArea>
+			<GrindTo Level="64" />
+
 			<PickUp Nav="Fly" QuestName="The Ogre Threat" QuestId="9795" GiverName="Shadow Hunter Denjai" GiverId="18013" X="276.875" Y="7849.026" Z="23.77924"  />
 
 			<!--Force train flight path-->
@@ -3866,9 +3905,13 @@
 			</If>
 
 			<PickUp Nav="Fly" QuestName="A'dal" QuestId="10210" GiverName="Haggard War Veteran" GiverId="19684" X="-1702.186" Y="5374.703" Z="3.867954" />
-			<TurnIn Nav="Fly" QuestName="A'dal" Questid="10210" TurnInName="A'dal" TurnInId="18481" X="-1863.683" Y="5430.042" Z="-9.703983" />
-
-			<PickUp Nav="Fly" QuestName="City of Light" QuestId="10211" GiverName="Khadgar" GiverId="18166" X="-1863.683" Y="5430.042" Z="-9.703983" />
+			<!-- bot has issues flying in and out of the the Terrace of Light building  -->
+			<If Condition="HasQuest(10210)" >
+				<If Condition="Me.Location.Distance(new WoWPoint(-1863.683, 5430.042, -9.703983)) &gt; 75">
+					<MoveTo Nav="Fly" X="-1786.219" Y="5469.234" Z="-12.42815" />
+				</If>
+				<TurnIn QuestName="A'dal" Questid="10210" TurnInName="A'dal" TurnInId="18481" X="-1863.683" Y="5430.042" Z="-9.703983" />
+			</If>
 			<!--Template for all escort quests-->
 			<While Condition="!IsQuestCompleted(10211)" >
 				<If Condition="HasQuest(10211)" >
@@ -3880,6 +3923,14 @@
 					<CustomBehavior File="AbandonQuest" QuestId="10211" Type="Failed" />
 					<CustomBehavior File="WaitTimer" WaitTime="3000" />
 					<PickUp Nav="Fly" QuestName="City of Light" QuestId="10211" GiverName="Khadgar" GiverId="18166" X="-1863.683" Y="5430.042" Z="-9.703983" />
+				</If>
+				<If Condition="!HasQuest(10211)  &amp;&amp; !IsQuestCompleted(10211)" >
+					<If Condition="Me.Location.Distance(new WoWPoint(-1863.683, 5430.042, -9.703983)) &gt; 75">
+						<UseMount Value="False"/>
+						<MoveTo Nav="Fly" X="-1786.219" Y="5469.234" Z="-12.42815" />
+						<UseMount Value="True"/>
+					</If>
+					<PickUp QuestName="City of Light" QuestId="10211" GiverName="Khadgar" GiverId="18166" X="-1863.683" Y="5430.042" Z="-9.703983" />
 					<CustomBehavior File="WaitTimer" WaitTime="3000" />
 				</If>
 			</While>
