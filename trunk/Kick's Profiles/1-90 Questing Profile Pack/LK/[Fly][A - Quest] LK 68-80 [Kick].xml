@@ -6339,23 +6339,32 @@
                 <CustomBehavior File="ForcedDismount" />
                 <PickUp QuestName="The Yeti Next Door" QuestId="11284" GiverName="Foreman Colbey" GiverId="24176" />
             </If>
-            <If Condition="HasQuest(11284) &amp;&amp; !IsQuestCompleted(11284)">
-                <CustomBehavior File="FlyTo" DestName="get ram meat" X="2466.384" Y="-5281.186" Z="281.232" />
-                <CustomBehavior File="ForcedDismount" />
-                <Objective Nav="Fly" QuestName="The Yeti Next Door" QuestId="11284" Type="CollectItem" ItemId="33352" CollectCount="4" />
+            <!-- CJ: This is in a 'while' loop because assembling the meal sometimes fails in the WoWclient -->
+            <While Condition="HasQuest(11284) &amp;&amp; !IsQuestCompleted(11284)">
+                <!-- If we don't possess Giant Yeti Meal, acquire Tough Ram Meat -->
+                <If Condition="!HasItem(33477) &amp;&amp; (GetItemCount(33352) &lt; 4)">
+                    <CustomBehavior File="FlyTo" DestName="get ram meat" X="2466.384" Y="-5281.186" Z="281.232" />
+                    <CustomBehavior File="ForcedDismount" />
+                    <Objective Nav="Fly" QuestName="The Yeti Next Door" QuestId="11284" Type="CollectItem" ItemId="33352" CollectCount="4" />
+                </If>
 
-                <CustomBehavior File="FlyTo" DestName="Yeti cave" X="2549.667" Y="-5002.124" Z="289.3648" />
-                <CustomBehavior File="ForcedDismount" />
-                <RunTo DestName="Yeti" X="2635.426" Y="-5050.363" Z="295.4715" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(33352)" WaitTime="1000" />
-                <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="casting {TimeRemaining}" />
-
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(33477)" WaitTime="1000" />
-                <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="casting {TimeRemaining}" />
-                <Objective QuestName="The Yeti Next Door" QuestId="11284" Type="KillMob" MobId="24178" KillCount="1" X="2638.735" Y="-5057.321" Z="295.7177" />
-
-                <RunTo X="2549.667" Y="-5002.124" Z="289.3648" />
-            </If>
+                <!-- Turn the Tough Ram eat into a Giant Yeti Meal -->
+                <If Condition="GetItemCount(33352) &gt;= 4">
+                    <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(33352)" WaitTime="1000" />
+                    <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="casting {TimeRemaining}" />
+                </If>
+                
+                <!-- Use the Giant Yeti Meal to awaken and spank the Giant Yeti -->
+                <If Condition="HasItem(33477)">
+                    <CustomBehavior File="FlyTo" DestName="Yeti cave" X="2549.667" Y="-5002.124" Z="289.3648" />
+                    <CustomBehavior File="ForcedDismount" />
+                    <RunTo DestName="Yeti" X="2635.426" Y="-5050.363" Z="295.4715" />
+                    <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(33477)" WaitTime="1000" />
+                    <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="casting {TimeRemaining}" />
+                    <Objective QuestName="The Yeti Next Door" QuestId="11284" Type="KillMob" MobId="24178"      KillCount="1" X="2638.735" Y="-5057.321" Z="295.7177" />
+                    <RunTo X="2549.667" Y="-5002.124" Z="289.3648" />
+                </If>
+            </While>
             <If Condition="HasQuest(11284) &amp;&amp; IsQuestCompleted(11284)">
                 <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="2479.501" Y="-5037.002" Z="288.7401" />
                 <CustomBehavior File="ForcedDismount" />
