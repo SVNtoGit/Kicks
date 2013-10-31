@@ -3686,7 +3686,7 @@
 
 	<!-- End of Quest Overrides -->
 
-	<QuestOrder IgnoreCheckPoints="False">
+	<QuestOrder IgnoreCheckPoints="True">
 
 		<If Condition="Me.IsHorde">
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You must be Alliance to run this profile" />
@@ -3902,6 +3902,8 @@
 			<TurnIn QuestName="Find Agent Kearnen" QuestId="26289" TurnInName="Agent Kearnen" TurnInId="7024" />
 			<PickUp QuestName="Secrets of the Tower" QuestId="26290" GiverName="Agent Kearnen" GiverId="7024" />
 			<While Condition="HasQuest(26290) &amp;&amp; !IsQuestCompleted(26290)">
+                <!-- Need to disable harvest & pulling while doing "Secrets of the Tower" -->
+                <DisableBehavior Name="Loot,Pull" />
 				<CustomBehavior File="NoCombatMoveTo" X="-11123.45" Y="575.9608" Z="33.79729" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 				<CustomBehavior File="NoCombatMoveTo" X="-11124.63" Y="573.5479" Z="35.05834" />
@@ -3919,6 +3921,7 @@
 				<CustomBehavior File="WaitTimer" WaitTime="2000" />
 				<CustomBehavior File="NoCombatMoveTo" X="-11044.71" Y="624.3614" Z="34.43306" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" />
+                <EnableBehavior Name="Loot,Pull" />
 			</While>
 			<TurnIn QuestName="Secrets of the Tower" QuestId="26290" TurnInName="Agent Kearnen" TurnInId="7024" />
 			<PickUp QuestName="Big Trouble in Moonbrook" QuestId="26291" GiverName="Agent Kearnen" GiverId="7024" />
