@@ -4473,28 +4473,15 @@
 				<CustomBehavior File="WaitTimer" WaitTime="10000" />
 			</While>
 		</If>
-		<While Condition="HasQuest(10852) &amp;&amp; !IsQuestCompleted(10852)">
-			<If Condition="HasQuest(10852) &amp;&amp; !IsQuestCompleted(10852)">
-				<Objective QuestName="Missing Friends" QuestId="10852" Type="CollectItem" ItemId="31655" CollectCount="4" />
-			</If>
-			<CustomBehavior File="InteractWith" QuestId="10852" ObjectType="GameObject" MobId="185202" NumOfTimes="1" PreInteractMountStrategy="Dismount" WaitTime="6000" CollectionDistance="500" X="-2521.643" Y="5439.058" Z="0.04680837" />
-			<CustomBehavior File="InteractWith" QuestId="10852" ObjectType="GameObject" MobId="185203" NumOfTimes="1" PreInteractMountStrategy="Dismount" WaitTime="6000" CollectionDistance="500" X="-2521.643" Y="5439.058" Z="0.04680837" />
-			<CustomBehavior File="InteractWith" QuestId="10852" ObjectType="GameObject" MobId="185204" NumOfTimes="1" PreInteractMountStrategy="Dismount" WaitTime="6000" CollectionDistance="500" X="-2521.643" Y="5439.058" Z="0.04680837" />
-			<CustomBehavior File="InteractWith" QuestId="10852" ObjectType="GameObject" MobId="185205" NumOfTimes="1" PreInteractMountStrategy="Dismount" WaitTime="6000" CollectionDistance="500" X="-2521.643" Y="5439.058" Z="0.04680837" />
-		</While>
-
-		<While Condition="HasQuest(10852) &amp;&amp; !IsQuestCompleted(10852)">
-			<If Condition="HasQuest(10852) &amp;&amp; !IsQuestCompleted(10852)">
-				<Objective QuestName="Missing Friends" QuestId="10852" Type="CollectItem" ItemId="31655" CollectCount="4" />
-			</If>
-			<!--
-			<CustomBehavior File="CollectThings" MobId1="18452" MobId2="18453" CollectItemId="31655"
-				CollectItemCount="4" HuntingGroundRadius="200" NonCompeteDistance="10" >
-				<Hotspot X="-2439.534" Y="5366.974" Z="2.13563" />
-				<Hotspot X="-2529.827" Y="5447.823" Z="0.4364949" />
-			</CustomBehavior> -->
-			<CustomBehavior File="InteractWith" PreInteractMountStrategy="Dismount" MobId1="185202" MobId2="185203" MobId3="185204" MobId4="185205" NumOfTimes="4" Range="7" NonCompeteDistance="10" X="-2521.825" Y="5444.137" Z="0.0509126" />
-		</While>
+        <UseMount Value="False"/>
+        <While Condition="HasQuest(10852) &amp;&amp; !IsQuestCompleted(10852)">
+            <Objective QuestName="Missing Friends" QuestId="10852" Type="CollectItem" ItemId="31655" CollectCount="4" />
+            <CustomBehavior File="InteractWith" MobId1="185202" MobId2="185203" MobId3="185204" MobId4="185205"
+                PreInteractMountStrategy="Dismount" NumOfTimes="4" NonCompeteDistance="10"
+                TerminateWhen="!HasItem(31655)" WaitTime="1500"
+                X="-2521.825" Y="5444.137" Z="0.0509126" />
+        </While>
+        <UseMount Value="True"/>
 		<If Condition="HasQuest(10839) &amp;&amp; IsQuestCompleted(10839)">
 			<CustomBehavior File="FlyTo" X="-2842.617" Y="5068.758" Z="-17.83318" />
 			<CustomBehavior File="ForcedDismount" />
