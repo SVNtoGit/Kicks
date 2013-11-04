@@ -158,18 +158,6 @@
     <QuestOrder IgnoreCheckpoints="False">
 
         <CustomBehavior File="Message" Text="Compiling GoTo Deepholm Quests" LogColor="Green" />
-        <If Condition="!Me.IsOnTransport">
-            <!-- CJ: DELETE THIS WHEN OMISSION CONFIRMED HARMLESS...
-                 <CustomBehavior File="UserSettings" LootMobs="True" UseFlightPaths="False"
-                 GroundMountFarmingMode="False" KillBetweenHotspots="True" />
-            -->
-        </If>
-        <If Condition="Me.IsOnTransport">
-            <!-- CJ: DELETE THIS WHEN OMISSION CONFIRMED HARMLESS...
-                 <CustomBehavior File="UserSettings" LootMobs="False" UseFlightPaths="False" />
-            -->
-        </If>
-
         <!-- Ally SW to Deepholm Quests -->
         <If Condition="Me.IsAlliance">
             <If Condition="!HasQuest(27727) &amp;&amp; !IsQuestCompleted(27727) &amp;&amp; (Me.MapId == 0)">
@@ -219,10 +207,16 @@
 
         <!-- Horde Org to Deepholm Quests -->
         <If Condition="Me.IsHorde">
-            <If Condition="(HasQuest(27722) &amp;&amp; IsQuestCompleted(27722)) &amp;&amp; (!HasQuest(27203) &amp;&amp; !IsQuestCompleted(27203))">
+            <If Condition="!HasQuest(27722) &amp;&amp; IsQuestCompleted(27722) &amp;&amp; !HasQuest(27203) &amp;&amp; !IsQuestCompleted(27203)">
                 <CustomBehavior File="FlyTo" DestName="Pickup Quest" Land="true" X="1587.082" Y="-4369.409" Z="20.83522" />
                 <PickUp QuestName="Warchief's Command: Deepholm!" QuestId="27722" GiverName="Warchief's Command Board"
                         GiverId="206109" X="1598.488" Y="-4370.302" Z="21.23272" GiverType="Object" />
+            </If>
+            <If Condition="HasQuest(28790) &amp;&amp; IsQuestCompleted(28790)">
+                <CustomBehavior File="FlyTo" DestName="Turnin 'A Personal Summons'"
+                                Land="true" X="2043.181" Y="-4381.469" Z="99.21494" />
+                <TurnIn QuestName="A Personal Summons" QuestId="28790" TurnInName="Farseer Krogar" TurnInId="45244"
+                        X="2041.576" Y="-4384.234" Z="99.11556" />
             </If>
             <If Condition="HasQuest(27722) &amp;&amp; IsQuestCompleted(27722)">
                 <TurnIn QuestName="Warchief's Command: Deepholm!" QuestId="27722" TurnInName="Farseer Krogar"
@@ -230,16 +224,8 @@
             </If>
             <If Condition="!HasQuest(27203) &amp;&amp; !IsQuestCompleted(27203)">
                 <CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2044.42" Y="-4381.222" Z="99.21552" />
-                <!--
                     <PickUp QuestName="The Maelstrom" QuestId="27203" GiverName="Naraat the Earthspeaker"
                     GiverId="45244" X="2044.42" Y="-4381.222" Z="99.21552" />
-                -->
-                <While Condition="HasQuestAvailable(45244) &amp;&amp; !HasQuest(27203)">
-                    <CustomBehavior File="InteractWith" MobId="45244" X="2044.42" Y="-4381.222" Z="99.21552" />
-                    <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
-                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1" WaitTime="1000" />
-                    <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
-                </While>
                 <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
             </If>
             <If Condition="HasQuest(27203)">
@@ -392,8 +378,7 @@
             <CustomBehavior File="ForcedDismount" />
 
             <While Condition="!IsQuestCompleted(27136)">
-                <!-- CJ: DELETE THIS USERSETTINGS WHEN WE GET AN OFFICIAL SUBSTITUTE... -->
-                <CustomBehavior File="UserSettings" UseMount="False" />
+                <UseMount Value="False" />
                 <CustomBehavior File="CombatUseItemOnV2" QuestId="27136" ItemId="60835" MobId1="43254" MobId2="43258"
                                 UseItemStrategy="UseItemOncePerTarget" ItemAppliesAuraId="AssumeItemUseAlwaysSucceeds"
                                 UseWhenMobHasHealthPercent="95" MaxRangeToUseItem="5" WaitTimeAfterItemUse="500"
@@ -408,8 +393,7 @@
                     </HuntingGrounds>
                 </CustomBehavior>
             </While>
-            <!-- CJ: DELETE THIS USERSETTINGS WHEN WE GET AN OFFICIAL SUBSTITUTE... -->
-            <CustomBehavior File="UserSettings" UseMount="True" />
+            <UseMount Value="True" />
             <!--
                 <CustomBehavior File="CombatUseItemOnV2" QuestId="27136" ItemId="60835" MobId1="43254" MobId2="43258"
                 UseItemStrategy="UseItemOncePerTarget" ItemAppliesAuraId="AssumeItemUseAlwaysSucceeds"
@@ -427,8 +411,6 @@
 
 
         </If>
-        <!-- CJ: DELETE THIS USERSETTINGS WHEN WE GET AN OFFICIAL SUBSTITUTE... -->
-        <CustomBehavior File="UserSettings" UseMount="True" />
         <If Condition="HasQuest(26245) &amp;&amp; !IsQuestCompleted(26245)">
             <CustomBehavior File="FlyTo" X="236.8346" Y="203.1733" Z="87.83885" />
             <CustomBehavior File="FlyTo" Land="true" X="197.0669" Y="160.1366" Z="42.12129" />
@@ -471,8 +453,7 @@
         <!--Start of boat bypass-->
         <If Condition="IsQuestCompleted(1234567)">
             <DisableBehavior Name="Loot" />
-            <!-- CJ: DELETE THIS USERSETTINGS WHEN WE GET AN OFFICIAL SUBSTITUTE... -->
-            <CustomBehavior File="UserSettings" UseMount="False" />
+            <UseMount Value="False" />
             <PickUp QuestName="Diplomacy First" GiverName="Maruut Stonebinder" QuestId="26247" GiverId="43065" />
 
             <!-- Boat Quests -->
@@ -905,8 +886,7 @@
                 <TurnIn QuestName="Return to the Temple of Earth" TurnInName="Maruut Stonebinder" QuestId="26255"
                         TurnInId="43065" />
             </If>
-            <!-- CJ: DELETE THIS USERSETTINGS WHEN WE GET AN OFFICIAL SUBSTITUTE... -->
-            <CustomBehavior File="UserSettings" UseMount="True" />
+            <UseMount Value="True" />
             <EnableBehavior Name="Loot" />
             <!-- End of boat Quests -->
         </If>
