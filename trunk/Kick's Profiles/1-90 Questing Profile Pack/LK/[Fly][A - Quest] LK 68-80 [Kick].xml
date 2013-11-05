@@ -6985,23 +6985,19 @@
                 <CustomBehavior File="ForcedDismount" />
                 <PickUp QuestName="Projections and Plans" QuestId="12060" GiverName="Image of Archmage Modera" GiverId="26673" />
             </If>
-            <If Condition="HasQuest(12060) &amp;&amp; !IsQuestCompleted(12060)">
+            <While Condition="HasQuest(12060) &amp;&amp; !IsQuestCompleted(12060)">
                 <CustomBehavior File="FlyTo" DestName="Objective" X="3394.922" Y="2362.038" Z="68.94074" />
                 <CustomBehavior File="ForcedDismount" />
-                <RunTo X="3434.143" Y="2362.257" Z="38.29017" />
-
-                <CustomBehavior File="UserSettings" PullDistance="10" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(36747)" WaitTime="1000" />
-                <CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Using item {TimeRemaining}" />
-                <RunTo X="3326.894" Y="2505.445" Z="197.317" />
-                <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for event {TimeRemaining}" />
-
-                <RunTo X="3326.894" Y="2505.445" Z="197.317" />
-                <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(36747)" WaitTime="1000" />
-                <CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Using item {TimeRemaining}" />
-                <CustomBehavior File="UserSettings" PullDistance="40" />
-            </If>
+                <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting to use item" />
+                <CustomBehavior File="UseItem" ItemId="36747" WaitTime="4000" X="3434.143" Y="2362.257" Z="38.29017" />
+                <If Condition="Me.Z &gt;= 190" >
+                    <RunTo X="3326.894" Y="2505.445" Z="197.317" />
+                    <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for event {TimeRemaining}" />
+                    <CustomBehavior File="UseItem" ItemId="36747" WaitTime="4000" X="3326.894" Y="2505.445" Z="197.317" />
+                    <RunTo X="3433.547" Y="2337.061" Z="34.86465" />
+                </If>
+            </While>
+            
             <If Condition="HasQuest(12060) &amp;&amp; IsQuestCompleted(12060)">
                 <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3498.927" Y="1999.767" Z="65.07062" />
                 <CustomBehavior File="ForcedDismount" />
