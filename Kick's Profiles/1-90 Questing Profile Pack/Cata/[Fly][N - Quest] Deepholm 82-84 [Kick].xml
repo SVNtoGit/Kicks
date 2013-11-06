@@ -175,21 +175,12 @@
                         TurnInName="Naraat the Earthspeaker"
                         TurnInId="45226" />
             </If>
-            <While Condition="!HasQuest(27203) &amp;&amp; !IsQuestCompleted(27203) &amp;&amp; (Me.MapId == 0)">
+            <While Condition="!HasQuest(27203) &amp;&amp; !IsQuestCompleted(27203) &amp;&amp; Me.MapId == 0">
                 <CustomBehavior File="FlyTo" Land="true" X="-8214.752" Y="428.5352" Z="118.0506" />
-                <!--
-                    <PickUp QuestName="The Maelstrom" QuestId="27203" GiverName="Naraat the Earthspeaker" GiverId="45226"
-                    X="-8214.752" Y="428.5352" Z="118.0506" />
-                -->
-                <While Condition="HasQuestAvailable(45226) &amp;&amp; !HasQuest(27203)">
-                    <CustomBehavior File="InteractWith" MobId="45226" X="-8214.752" Y="428.5352" Z="118.0506" />
-                    <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
-                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" NumOfTimes="1"
-                                    WaitTime="1000" />
-                    <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
-                </While>
+                <PickUp QuestName="The Maelstrom" QuestId="27203" GiverName="Naraat the Earthspeaker" GiverId="45226"
+                        X="-8214.752" Y="428.5352" Z="118.0506" />
             </While>
-            <If Condition="HasQuest(27203) &amp;&amp; (Me.ZoneId == 1519)">
+            <If Condition="HasQuest(27203) &amp;&amp; Me.ZoneId == 1519">
                 <CustomBehavior File="InteractWith" MobId="205268" NumOfTimes="1" CollectionDistance="50"
                                 X="-8210.629" Y="428.1908" Z="118.0512" />
                 <CustomBehavior File="WaitTimer" WaitTime="5000" />
@@ -210,23 +201,23 @@
         <!-- Horde Org to Deepholm Quests -->
         <If Condition="Me.IsHorde">
             <If
-                Condition="!HasQuest(27722) &amp;&amp; IsQuestCompleted(27722) &amp;&amp; !HasQuest(27203) &amp;&amp; !IsQuestCompleted(27203)">
+                Condition="!HasQuest(27722) &amp;&amp; IsQuestCompleted(27722) &amp;&amp; !HasQuest(27203) &amp;&amp; !IsQuestCompleted(27203) &amp;&amp; Me.MapId == 1">
                 <CustomBehavior File="FlyTo" DestName="Pickup Quest" Land="true" X="1587.082" Y="-4369.409"
                                 Z="20.83522" />
                 <PickUp QuestName="Warchief's Command: Deepholm!" QuestId="27722" GiverName="Warchief's Command Board"
                         GiverId="206109" X="1598.488" Y="-4370.302" Z="21.23272" GiverType="Object" />
             </If>
-            <If Condition="HasQuest(28790) &amp;&amp; IsQuestCompleted(28790)">
+            <If Condition="HasQuest(28790) &amp;&amp; IsQuestCompleted(28790)  &amp;&amp; Me.MapId == 1">
                 <CustomBehavior File="FlyTo" DestName="Turnin 'A Personal Summons'"
                                 Land="true" X="2043.181" Y="-4381.469" Z="99.21494" />
                 <TurnIn QuestName="A Personal Summons" QuestId="28790" TurnInName="Farseer Krogar" TurnInId="45244"
                         X="2041.576" Y="-4384.234" Z="99.11556" />
             </If>
-            <If Condition="HasQuest(27722) &amp;&amp; IsQuestCompleted(27722)">
+            <If Condition="HasQuest(27722) &amp;&amp; IsQuestCompleted(27722) &amp;&amp; Me.MapId == 1">
                 <TurnIn QuestName="Warchief's Command: Deepholm!" QuestId="27722" TurnInName="Farseer Krogar"
                         TurnInId="45244" X="2041.576" Y="-4384.234" Z="99.11546" />
             </If>
-            <If Condition="!HasQuest(27203) &amp;&amp; !IsQuestCompleted(27203)">
+            <If Condition="!HasQuest(27203) &amp;&amp; !IsQuestCompleted(27203) &amp;&amp; Me.MapId == 1">
                 <CustomBehavior File="FlyTo" DestName="Pickup Quest" X="2044.42" Y="-4381.222" Z="99.21552" />
                 <PickUp QuestName="The Maelstrom" QuestId="27203" GiverName="Naraat the Earthspeaker"
                         GiverId="45244" X="2044.42" Y="-4381.222" Z="99.21552" />
@@ -682,8 +673,7 @@
 
                     <If Condition="HasQuest(26427) &amp;&amp; !IsQuestCompleted(26427)">
                         <!-- Rope -->
-                        <CustomBehavior File="BasicUseObject" ObjectId="204279" />
-                        <CustomBehavior File="WaitTimer" WaitTime="5000" />
+                        <CustomBehavior File="InteractWith" MobId="204279" NonCompeteDistance="0" WaitTime="5000" />
                     </If>
 
                     <!-- Main Deck to Downstairs -->
@@ -699,8 +689,7 @@
 
                 <If Condition="HasQuest(26427) &amp;&amp; !IsQuestCompleted(26427)">
                     <!-- Bottle -->
-                    <CustomBehavior File="BasicUseObject" ObjectId="204280" />
-                    <CustomBehavior File="WaitTimer" WaitTime="5000" />
+                    <CustomBehavior File="InteractWith" MobId="204280" NonCompeteDistance="0" WaitTime="5000" />
                 </If>
 
                 <!-- In case we stop / start while downstairs -->
@@ -1320,6 +1309,14 @@
                     X="459.53" Y="1628.21" Z="352.1236" />
         </If>
 
+        <If Condition="!HasQuest(26499) &amp;&amp; !IsQuestCompleted(26499)">
+            <If Condition="Me.Location.Distance(new WoWPoint(459.53, 1628.21, 352.1236)) &gt; 100">
+                <CustomBehavior File="FlyTo" Land="true" X="458.9504" Y="1634.358" Z="351.065" />
+            </If>
+            <PickUp QuestName="Stonefather's Boon" GiverName="Crag Rockcrusher" QuestId="26499" GiverId="43071"
+                    X="459.53" Y="1628.21" Z="352.1236" />
+        </If>
+
         <If Condition="HasQuest(27936) &amp;&amp; !IsQuestCompleted(27936)">
             <CustomBehavior File="FlyTo" DestName="Avalanchion's Cave Entrance" X="-5.36551" Y="839.7243" Z="149.7813" />
             <CustomBehavior File="KillUntilComplete" QuestId="27936" MobId1="44372" X="-233.503" Y="658.175"
@@ -1342,7 +1339,8 @@
         <PickUp QuestName="We're Surrounded" GiverName="Earthbreaker Dolomite" QuestId="26500" GiverId="43160"
                 X="428.764" Y="1613.22" Z="360.7727" />
         <If Condition="HasQuest(26499) &amp;&amp; !IsQuestCompleted(26499)">
-            <CustomBehavior File="UseItemOn" QuestId="26499" MobId="43138" IsMissingAuraId="80668" ItemId="58884"
+            <CustomBehavior File="InteractWith" QuestId="26499" MobId="43138" AuraIdMissingFromMob="80668"
+                            InteractByUsingItemId="58884"
                             NumOfTimes="50" WaitTime="6000" CollectionDistance="500"
                             X="385.9591" Y="1461.629" Z="350.2574" />
         </If>
@@ -1352,11 +1350,13 @@
                 X="382.6332" Y="1462.683" Z="350.5556" />-->
         </If>
         <If Condition="HasQuest(26500) &amp;&amp; IsQuestCompleted(26500)">
-            <!--
+            <If Condition="Me.Location.Distance(new WoWPoint(459.53, 1628.21, 352.1236)) &gt; 100">
                 <CustomBehavior File="FlyTo" X="458.9504" Y="1634.358" Z="351.065" />
                 <CustomBehavior File="ForcedDismount" />
-            -->
-            <CustomBehavior File="NoCombatMoveTo" X="459.53" Y="1628.21" Z="352.1236" />
+            </If>
+            <DisableBehavior Name="Pull" />
+            <MoveTo X="459.53" Y="1628.21" Z="352.1236" />
+            <EnableBehavior Name="Pull" />
         </If>
         <TurnIn QuestName="Stonefather's Boon" TurnInName="Crag Rockcrusher" QuestId="26499" TurnInId="43071"
                 X="459.53" Y="1628.21" Z="352.1236" />
