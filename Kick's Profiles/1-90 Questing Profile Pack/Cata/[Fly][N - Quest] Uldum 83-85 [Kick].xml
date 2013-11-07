@@ -166,9 +166,7 @@
                 <Mob Name="Schnottz Sea Trooper" Id="47982" />
             </CollectFrom>
             <Hotspots>
-                <Hotspot X="-10827.74" Y="817.9169" Z="13.23341" />
-                <Hotspot X="-10847.98" Y="825.2668" Z="13.13186" />
-                <Hotspot X="-10858.6" Y="819.189" Z="7.747382" />
+                <Hotspot X="-10833.06" Y="822.5018" Z="13.2394" />
             </Hotspots>
         </Objective>
     </Quest>
@@ -301,9 +299,6 @@
         <!-- GoTo Uldum Quests -->
         <CustomBehavior File="Message" Text="Compiling GoTo Uldum Quests" LogColor="Green" />
 
-        <!-- CJ: DELETE THIS WHEN OMISSION CONFIRMED HARMLESS...
-             <CustomBehavior File="UserSettings" UseFlightPaths="False" LootMobs="True" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
-        -->
         <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
 
         <If Condition="!HasQuest(27003) &amp;&amp; !IsQuestCompleted(27003)">
@@ -613,8 +608,7 @@
 
         <If Condition="HasQuest(27836) &amp;&amp; !IsQuestCompleted(27836)">
             <CustomBehavior File="FlyTo" Land="true" DestName="eggs in water." X="-9712.487" Y="-1180.395" Z="101.7927" />
-            <!-- CJ: DELETE THIS USERSETTINGS WHEN WE GET AN OFFICIAL SUBSTITUTE... -->
-            <CustomBehavior File="UserSettings" UseMount="False" />
+            <UseMount Value="False" />
             <CustomBehavior File="CollectThings" QuestId="27836" ObjectId="206390" CollectUntil="QuestComplete"
                             HuntingGroundRadius="200">
                 <Hotspot X="-9663.469" Y="-947.6186" Z="62.47423" />
@@ -628,8 +622,6 @@
             </CustomBehavior>
             <CustomBehavior File="AscendInWater" />
         </If>
-        <!-- CJ: DELETE THIS USERSETTINGS WHEN WE GET AN OFFICIAL SUBSTITUTE... -->
-        <CustomBehavior File="UserSettings" UseMount="False" />
         <While Condition="HasQuest(27836) &amp;&amp; !IsQuestCompleted(27836)">
             <CustomBehavior File="FlyTo" Land="true" DestName="snakes in water." X="-9712.487" Y="-1180.395"
                             Z="101.7927" />
@@ -642,8 +634,7 @@
             <CustomBehavior File="MyCTM" X="-9571.146" Y="-796.7645" Z="85.2894" />
             <CustomBehavior File="MyCTM" X="-9598.507" Y="-881.228" Z="74.83436" />
         </While>
-        <!-- CJ: DELETE THIS USERSETTINGS WHEN WE GET AN OFFICIAL SUBSTITUTE... -->
-        <CustomBehavior File="UserSettings" UseMount="True" />
+        <UseMount Value="True" />
 
         <If Condition="HasQuest(27837) &amp;&amp; !IsQuestCompleted(27837)">
             <CustomBehavior File="CollectThings" QuestId="27837" MobId="46868" CollectUntil="QuestComplete"
@@ -677,38 +668,19 @@
             <PickUp QuestName="The Defilers' Ritual" QuestId="28611" GiverName="High Priest Amet" GiverId="46135" />
         </If>
         <If Condition="HasQuest(28611) &amp;&amp; !IsQuestCompleted(28611)">
-            <DisableBehavior Name="Loot,Pull" />
-            <If Condition="Me.Z &gt; 80">
+            <DisableBehavior Name="Loot,Pull" />            
+            <If Condition="Me.Z &gt; 80 || Me.Location.Distance(new WoWPoint(-9685.484, -650.8316, 75.21174)) > 200">
                 <CustomBehavior File="FlyTo" Land="true" X="-9696.501" Y="-794.7971" Z="102.2886" />
-
-                <CustomBehavior File="MyCTM" X="-9687.747" Y="-772.587" Z="52.81313" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
             </If>
-            <If Condition="Me.Z &lt; 80">
-                <CustomBehavior File="MyCTM" X="-9689.689" Y="-695.9143" Z="71.88603" />
-                <CustomBehavior File="MyCTM" X="-9686.33" Y="-689.7313" Z="71.73323" />
-                <CustomBehavior File="MyCTM" X="-9700.046" Y="-681.6902" Z="74.03061" />
-            </If>
+            
             <While Condition="HasQuest(28611) &amp;&amp; !IsQuestCompleted(28611)">
+                <MoveTo X="-9686.459" Y="-678.4603" Z="73.39355" />
                 <CustomBehavior File="SpecificQuests\28611-Uldum-TheDefilersRitual" X="-9686.459" Y="-678.4603"
                                 Z="73.39355" />
             </While>
-            <If Condition="Me.Z &lt; 80">
-                <If Condition="Me.Z &gt; 55">
-                    <CustomBehavior File="MyCTM" X="-9686.576" Y="-676.929" Z="73.39931" />
-                    <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
-                    <CustomBehavior File="MyCTM" X="-9687.747" Y="-772.587" Z="52.81313" />
-                    <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
-                </If>
-                <If Condition="Me.Z &lt; 55">
-                    <CustomBehavior File="MyCTM" X="-9696.501" Y="-794.7971" Z="95.2886" />
-                    <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
-                    <CustomBehavior File="AscendInWater" />
-                </If>
-            </If>
             <EnableBehavior Name="Loot,Pull" />
         </If>
-        <If
+        <!--<If
             Condition="HasQuest(28611) &amp;&amp; IsQuestCompleted(28611) &amp;&amp; (Me.Z &lt; 80) &amp;&amp; (Me.Y &gt; -875)">
             <If Condition="Me.Z &gt; 55">
                 <CustomBehavior File="MyCTM" X="-9705.629" Y="-687.7986" Z="71.99752" />
@@ -721,7 +693,7 @@
                 <CustomBehavior File="MyCTM" X="-9696.501" Y="-794.7971" Z="95.2886" />
                 <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for  {TimeRemaining}" />
             </If>
-        </If>
+        </If>-->
         <TurnIn QuestName="The Defilers' Ritual" TurnInName="High Priest Amet" QuestId="28611" TurnInId="46135" />
         <PickUp QuestName="The Root of the Corruption" GiverName="High Priest Amet" QuestId="27838" GiverId="46135" />
         <If Condition="HasQuest(27838) &amp;&amp; !IsQuestCompleted(27838)">
@@ -1462,7 +1434,7 @@
             <CustomBehavior File="FlyTo" Land="true" X="-10643.53" Y="1276.284" Z="29.88369" />
             </If>
             <While Condition="HasQuest(27969) &amp;&amp; !IsQuestCompleted(27969) &amp;&amp; (Me.HasAura(88210))">
-            <CustomBehavior File="UserSettings" UseMount="False" />
+            <UseMount Value="False" />
             <CustomBehavior File="InteractWith" QuestId="27969" MobId="47292" NumOfTimes="5" WaitForNpcs="False"
             IgnoreMobsInBlackspots="True" GossipOptions="1" WaitTime="1000" CollectionDistance="1000"
             X="-10632.27" Y="1272.939" Z="29.25661" />
@@ -1506,7 +1478,7 @@
             <CustomBehavior File="WaitTimer" WaitTime="5000" />
             </If>
             </While>
-            <CustomBehavior File="UserSettings" UseMount="True" />
+            <UseMount Value="True" />
             </While>
         -->
         <If Condition="HasQuest(27969) &amp;&amp; IsQuestCompleted(27969)">
