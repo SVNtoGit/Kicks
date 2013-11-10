@@ -11,6 +11,7 @@
                 <xs:extension base="subProfileType">
                     <xs:choice minOccurs="0" maxOccurs="unbounded">
                         <xs:element ref="Quest"/>
+                        <xs:element name="QuestOrder" type="questOrderType" minOccurs="1" maxOccurs="1"/>
                     </xs:choice>
                 </xs:extension>
             </xs:complexContent>
@@ -21,9 +22,18 @@
 
     <xs:simpleType name="objectiveTypeType">
         <xs:restriction base="xs:string">
+            <xs:enumeration value="TurnIn" />
             <xs:enumeration value="CollectItem" />
             <xs:enumeration value="KillMob" />
             <xs:enumeration value="UseObject" />
+            
+            <!-- these are aliases for the above enumerations but nobody uses them and there is no reason to.
+            <xs:enumeration value="HandIn" />
+            <xs:enumeration value="Grind" />
+            <xs:enumeration value="Kill" />
+            <xs:enumeration value="Slay" />
+            <xs:enumeration value="SlayMob" />
+            <xs:enumeration value="Use" />-->
         </xs:restriction>
     </xs:simpleType>
     
@@ -63,23 +73,6 @@
         </xs:attribute>
     </xs:complexType>
 
-    <xs:complexType name="vendorObjectiveType">
-        <xs:annotation>
-            <xs:documentation>Identifies a vendor needed to complete an objective</xs:documentation>
-        </xs:annotation>
-        <xs:attribute ref="Nav" />
-        <xs:attribute name="Name" type="xs:string" >
-            <xs:annotation>
-                <xs:documentation>The name of the vendor</xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="Id" type="xs:positiveInteger" use="required" >
-            <xs:annotation>
-                <xs:documentation>The Id of the vendor</xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:complexType>
-    
     <xs:complexType name="objectiveMetaType" >
         <xs:annotation>
             <xs:documentation>Used to describe an objective within a "Quest Override" section of a profile</xs:documentation>
@@ -88,6 +81,7 @@
             <xs:element name="TargetMinLevel" type="xs:positiveInteger" maxOccurs="1" />
             <xs:element name="TargetMaxLevel" type="xs:positiveInteger" maxOccurs="1" />
             <xs:element ref="CollectFrom" maxOccurs="1" />
+            <xs:element name="TurnIn" type="turninObjectiveType"  maxOccurs="1" />
             <xs:element ref="Hotspots" minOccurs="1" maxOccurs="1" />
         </xs:choice>
         <xs:attribute name="CollectCount" type="xs:positiveInteger" >
@@ -210,7 +204,59 @@
             </xs:annotation>
         </xs:attribute>
     </xs:complexType>
-        
+
+    <xs:complexType name="questOrderBaseType">
+        <xs:choice minOccurs="0" maxOccurs="unbounded" >
+        </xs:choice>
+    </xs:complexType>
+    
+    <xs:complexType name="questOrderType" >
+        <xs:complexContent>
+            <xs:extension base="questOrderBaseType">
+                <xs:choice minOccurs="0" maxOccurs="unbounded" >
+                    <xs:element name="CheckPoint" >
+                        <xs:complexType>
+                            <xs:attribute name="Level" type="positiveFloatType" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        The level at which the toon should be, before starting this point in the QuestOrder. 
+                                        The Level attribute may be fractional (i.e., Level="32.75" is acceptable)
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+                <xs:attribute name="IgnoreCheckpoints" type="booleanType"  />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="turninObjectiveType">
+        <xs:annotation>
+            <xs:documentation>Specifies the quest turnin location</xs:documentation>
+        </xs:annotation>
+        <xs:attribute ref="Nav" />
+        <xs:attributeGroup ref="coord3dGroup_required" />
+    </xs:complexType>
+    
+    <xs:complexType name="vendorObjectiveType">
+        <xs:annotation>
+            <xs:documentation>Sets the turnin location for given quest</xs:documentation>
+        </xs:annotation>
+        <xs:attribute ref="Nav" />
+        <xs:attribute name="Name" type="xs:string" >
+            <xs:annotation>
+                <xs:documentation>The name of the quest turnin NPC</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Id" type="xs:positiveInteger" use="required" >
+            <xs:annotation>
+                <xs:documentation>The Id of the quest turnin NPC</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>   
+    
     <!--============== Definition of Attributes ==============-->   
 
     <!--============== Definition of Elements ==============-->
@@ -233,12 +279,15 @@
             <xs:documentation>Describes the steps needed to complete a quest</xs:documentation>
         </xs:annotation>
         <xs:complexType >
-            <xs:sequence>
-                <xs:element name="Objective" type="objectiveMetaType" minOccurs="1" maxOccurs="unbounded" />
-            </xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded" >
+                <xs:element name="Objective" type="objectiveMetaType" maxOccurs="1" />
+                <xs:element name="TurnIn" type="turninObjectiveType"  maxOccurs="1" />
+                <!-- alias for TurnIn that nobody uses and theres no reason to!. Commented out so nobody finds out about this tag via intelli-sense! 
+                <xs:element name="HandIn" type="turninObjectiveType"  maxOccurs="1" />-->
+            </xs:choice>
             <xs:attribute name="Id" type="xs:positiveInteger" use="required">
                 <xs:annotation>
-                    <xs:documentation>The quest Id</xs:documentation>
+                    <xs:documentation>(Required) The quest Id</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="Name" type="xs:string" >
