@@ -337,55 +337,41 @@
     <EnableBehavior Name="Pull,Combat" />
 
     <!-- Into the Realm of Shadows - http://www.wowhead.com/quest=12687 -->
-	<SetVendor>
-		<Vendors>
-			<!-- CJ: Empty list is intentional...
-				"Into the Realm of Shadows" places us into a 'phased state' where
-				vendors do not exist.  It seems many times the DKs want to do a buy food/sell/repair
-				run while in this state, and we cannot allow that to happen, since no vendors
-				exist while in this phased state.
-			 -->
-		</Vendors>
-	</SetVendor>
     <PickUp QuestName="Into the Realm of Shadows" QuestId="12687" GiverName="Salanar the Horseman" GiverId="28653" />
     <CustomBehavior File="UserSettings" LootMobs="false" />
+	<DisableBehavior Name="Rest" />
     <If Condition="IsQuestCompleted(12680) &amp;&amp; !IsQuestCompleted(12687)">
-        <CustomBehavior File="UserSettings" FoodAmount="20" />
+        
     </If>
     <While Condition= "HasQuest(12687) &amp;&amp; !IsQuestCompleted(12687)" >
         <If Condition="!Me.HasAura(52693)" >
             <!-- Realm of Shadows	52693 -->
+			
             <CustomBehavior File="InteractWith" MobId="28653" InteractByGossipOptions="1"
 					CollectionDistance="100" X="2336.86" Y="-5686.712" Z="153.9225" />
         </If>
-        <CustomBehavior File="InteractWith" MobId="28782"
-			ProactiveCombatStrategy="ClearAll" WaitTime="500" 
-			PreInteractMountStrategy="Dismount" X="2180.931" Y="-5726.148" Z="104.5497" />
+		
+				
+        <CustomBehavior File="InteractWith" QuestId="12687" TerminateWhen="Me.HasAura(52349)" MobId="28782" ProactiveCombatStrategy="ClearAll"
+				PreInteractMountStrategy="Dismount" X="2180.931" Y="-5726.148" Z="104.5497" />
         <CustomBehavior File="Vehicles\VehicleMover" QuestId="12687" VehicleId="28782"
 				IgnoreCombat="true" MovementBy="ClickToMoveOnly" SpellId="52362" Hop="True"
 				WaitForVehicle="false" X="2358.639" Y="-5708.643" Z="153.9229" />
         <CustomBehavior File="WaitTimer" WaitTime="13000" />
+		
+				
     </While>
     <TurnIn QuestName="Into the Realm of Shadows" QuestId="12687" TurnInName="Salanar the Horseman" TurnInId="28653" />
-	<!-- CJ: Restore normal profile vendor list -->
-	<ClearVendor />
-	
     <CustomBehavior File="UserSettings" LootMobs="true" />
+	<EnableBehavior Name="Rest" />
     <CustomBehavior File="EquipItem" ItemId="39208" Slot="RangedSlot" />
 
     <!--Turning Loot back on and setting pull distance to 25-->
-
     <CustomBehavior File="UserSettings" PullDistance="25" />
 
-    <!-- Try is behavior to finish If Chaos Drives quest. Hopefully fixes attach once then blacklist
-	  <CustomBehavior File="KillUntilComplete" QuestId="28576" MobId1="28577" MobId2="28609" MobId3="28608"
-					  MobId4="28557" MobId5="28841" MobId6="12678" MobId7="28611" X="2076.686" Y="-5849.792" Z="102.7662" />-->
-
-    <!-- CJ: We use a set of InteractWith's with limited CollectionDistance to keep us away
-			     from the elite "Stable Master Kirrik" mob.  Without it, Honorbuddy almost always
-				 gets us into the stables and a death loop ensures.
-			 -->
-
+    <!-- Buy some food if we can -->
+	<CustomBehavior File="UserSettings" FoodAmount="20" />
+			 
     <CustomBehavior File="UserSettings" PullDistance="28" />
     <CustomBehavior File="InteractWith" QuestId="12679" MobId="190691" InteractByLooting="true"
 				CollectionDistance="30" NumOfTimes="100" >
@@ -400,12 +386,14 @@
     </CustomBehavior>
 
     <!-- CJ: Don't go chasing fast-running Citizens -->
-    <CustomBehavior File="InteractWith" QuestId="12678" QuestObjectiveIndex="2" NotMoving="false" 
+    <CustomBehavior File="InteractWith" QuestId="12678" QuestObjectiveIndex="2" NotMoving="true" 
 				MobState="Alive" MobId="28576" MobId2="28577"
 				ProactiveCombatStrategy="ClearMobsTargetingUs" CollectionDistance="30" >
         <HuntingGrounds>
             <Hotspot Name="Mailbox Cottage" X="2086.439" Y="-5819.626" Z="103.1033" />
+			<Hotspot Name="Barricade" X="2175.091" Y="-5719.125" Z="102.826" />
             <Hotspot Name="Pumpkin field Wagon" X="2035.111" Y="-5850.688" Z="100.4053" />
+			<Hotspot Name="Lumber Mill" X="2106.124" Y="-5729.796" Z="100.3056" />
             <Hotspot Name="Cottages" X="2076.686" Y="-5849.792" Z="102.7662" />
             <Hotspot Name="Field corner" X="1971.422" Y="-5761.879" Z="100.419" />
             <Hotspot Name="Silo" X="2046.395" Y="-5747.47" Z="99.0606" />
@@ -543,7 +531,6 @@
 
     <!--We are out in the open, so making pull distance a little farther-->
     <CustomBehavior File="UserSettings" PullDistance="15" />
-
     <CustomBehavior File="UserSettings" LootMobs="true" />
 
     <CustomBehavior File="InteractWith" QuestId="12719" QuestObjectiveIndex="1" MobId="28945"
@@ -554,17 +541,6 @@
 
     <Objective QuestName="Lambs To The Slaughter" QuestId="12722" Type="KillMob" MobId="28984" KillCount="10" />
     <CustomBehavior File="KillUntilComplete" QuestId="12722" MobId1="28942" MobId2="28939" MobId3="28610" MobId4="28946" X="1620.13" Y="-5785.031" Z="116.1579" />
-
-    <!-- CJ: Switch to InteractWith here also.  Honorbuddy 'Objectives' seem really goobered for
-			these things.
-			<While Condition="((HasQuest(12716)) &amp;&amp; (!IsQuestCompleted(12716)))" >
-		<CustomBehavior File="InteractWith" QuestId="12716" QuestObjectiveIndex="1" MobId="190937"
-			IgnoreMobsInBlackspots="false" NonCompeteDistance="0" X="1784.615" Y="-5875.238" Z="109.4968" />
-		<CustomBehavior File="InteractWith" QuestId="12716" QuestObjectiveIndex="2" MobId="190938"
-			IgnoreMobsInBlackspots="false" NonCompeteDistance="0" X="1811.489" Y="-6002.574" Z="117.6457" />
-		<Objective QuestName="The Plaguebringer's Request" QuestId="12716" Type="CollectItem" ItemId="39328" CollectCount="10" />
-			</While>
-			 -->
 
     <!--Setting pull distance to 5-->
     <CustomBehavior File="UserSettings" PullDistance="5" />
