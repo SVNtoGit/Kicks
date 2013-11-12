@@ -337,6 +337,16 @@
     <EnableBehavior Name="Pull,Combat" />
 
     <!-- Into the Realm of Shadows - http://www.wowhead.com/quest=12687 -->
+	<SetVendor>
+		<Vendors>
+			<!-- CJ: Empty list is intentional...
+				"Into the Realm of Shadows" places us into a 'phased state' where
+				vendors do not exist.  It seems many times the DKs want to do a buy food/sell/repair
+				run while in this state, and we cannot allow that to happen, since no vendors
+				exist while in this phased state.
+			 -->
+		</Vendors>
+	</SetVendor>
     <PickUp QuestName="Into the Realm of Shadows" QuestId="12687" GiverName="Salanar the Horseman" GiverId="28653" />
     <CustomBehavior File="UserSettings" LootMobs="false" />
     <If Condition="IsQuestCompleted(12680) &amp;&amp; !IsQuestCompleted(12687)">
@@ -348,14 +358,18 @@
             <CustomBehavior File="InteractWith" MobId="28653" InteractByGossipOptions="1"
 					CollectionDistance="100" X="2336.86" Y="-5686.712" Z="153.9225" />
         </If>
-        <CustomBehavior File="InteractWith" WaitTime="500" MobId="28782" ProactiveCombatStrategy="ClearAll"
-				PreInteractMountStrategy="Dismount" X="2180.931" Y="-5726.148" Z="104.5497" />
+        <CustomBehavior File="InteractWith" MobId="28782"
+			ProactiveCombatStrategy="ClearAll" WaitTime="500" 
+			PreInteractMountStrategy="Dismount" X="2180.931" Y="-5726.148" Z="104.5497" />
         <CustomBehavior File="Vehicles\VehicleMover" QuestId="12687" VehicleId="28782"
 				IgnoreCombat="true" MovementBy="ClickToMoveOnly" SpellId="52362" Hop="True"
 				WaitForVehicle="false" X="2358.639" Y="-5708.643" Z="153.9229" />
         <CustomBehavior File="WaitTimer" WaitTime="13000" />
     </While>
     <TurnIn QuestName="Into the Realm of Shadows" QuestId="12687" TurnInName="Salanar the Horseman" TurnInId="28653" />
+	<!-- CJ: Restore normal profile vendor list -->
+	<ClearVendor />
+	
     <CustomBehavior File="UserSettings" LootMobs="true" />
     <CustomBehavior File="EquipItem" ItemId="39208" Slot="RangedSlot" />
 
