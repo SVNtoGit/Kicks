@@ -1075,7 +1075,7 @@
                         TurnInId="39627" />
                 <PickUp QuestName="Into the Maw!" QuestId="25618" GiverName="Spirit of Goldrinn" GiverId="39627" />
             </If>
-            <If Condition="!HasQuest(25618) &amp;&amp; !IsQuestCompleted(25618)">
+            <If Condition="!HasQuest(25618) &amp;&amp; !IsQuestCompleted(25618) &amp;&amp; !HasQuest(25623) &amp;&amp; !IsQuestCompleted(25623) &amp;&amp; Unit(39627) != null">
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52853)" WaitTime="1000" />
                 <CustomBehavior File="WaitTimer" WaitTime="3000" />
@@ -1097,6 +1097,20 @@
                 <RunTo X="5030.838" Y="-2034.758" Z="1370.652" />
                 <CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for port {TimeRemaining}" />
                 <TurnIn QuestName="Into the Maw!" QuestId="25618" TurnInName="Jordan Olafson" TurnInId="40834" />
+            </If>
+            <!-- N.B> if bot died before turning in above quest then it needs to pickup and turnin the following quest. -->
+            <If Condition="!IsQuestCompleted(25618)">
+                <If Condition="!HasQuest(25623) &amp;&amp; !IsQuestCompleted(25623)">
+                    <CustomBehavior File="FlyTo" DestName="Quest pickup" Land="true" X="5353.563" Y="-2127.177" Z="1280.52" />
+                    <PickUp QuestName="Into the Maw!" QuestId="25623" GiverName="Ian Duran" GiverId="39433" />
+                </If>
+                <If Condition="HasQuest(25623) &amp;&amp; IsQuestCompleted(25623)">
+                    <CustomBehavior File="FlyTo" DestName="Portal" Land="true" X="5039.895" Y="-2046.736" Z="1369.192" />
+                    <RunTo X="5041.604" Y="-2045.529" Z="1367.594" />
+                    <RunTo X="5030.838" Y="-2034.758" Z="1370.652" />
+                    <CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for port {TimeRemaining}" />
+                    <TurnIn QuestName="Into the Maw!" QuestId="25623" TurnInName="Jordan Olafson" TurnInId="40834" />
+                </If>
             </If>
         </If>
         <!-- /Ally -->
