@@ -1307,7 +1307,13 @@
         <PickUp QuestName="Sacred Waters" QuestId="29898" GiverName="Anduin Wrynn" GiverId="56434" X="-37.23264" Y="-3150.474" Z="86.16225" />
         <PickUp QuestName="Rest in Peace" QuestId="29899" GiverName="Ren Whitepaw" GiverId="56432" X="-37.73958" Y="-3155.663" Z="86.16234" />
         <PickUp QuestName="An Ancient Legend" QuestId="29900" GiverName="Lina Whitepaw" GiverId="56433" X="-42.57292" Y="-3155.851" Z="86.16283" />
-        <Objective QuestName="An Ancient Legend" QuestId="29900" Type="KillMob" MobId="56441" KillCount="1" />
+        <If Condition="HasQuest(29900) &amp;&amp; !IsObjectiveComplete(1,29900)" >
+            <MoveTo X="-125.4099" Y="-3237.491" Z="72.95513" />
+            <!-- Pulling mob from afar can cause it to evade  -->
+            <TargetingDistance Value="10" />
+            <Objective QuestName="An Ancient Legend" QuestId="29900" Type="KillMob" MobId="56441" KillCount="1" />
+            <TargetingDistance Value="null" />
+        </If>
         <While Condition="HasQuest(29900) &amp;&amp; !IsQuestCompleted(29900)">
             <CustomBehavior File="InteractWith" MobId="209582" ObjectType="GameObject" Range="15" X="-95.33253" Y="-3192.702" Z="81.19375" />
             <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
@@ -1839,7 +1845,7 @@
         <TurnIn QuestName="Pages of History" QuestId="30002" TurnInName="Lorewalker Stonestep" TurnInId="56786" X="839.3281" Y="-2476.998" Z="176.3033" />
         <TurnIn QuestName="Moth-Ridden" QuestId="30001" TurnInName="Lorewalker Stonestep" TurnInId="56786" X="839.3281" Y="-2476.998" Z="176.3033" />
         <PickUp QuestName="Everything In Its Place" QuestId="30004" GiverName="Lorewalker Stonestep" GiverId="56786" X="839.3281" Y="-2476.998" Z="176.3033" />
-        <While Condition="(HasQuest(29999)) &amp;&amp; (!IsObjectiveComplete(4, 29999))">
+        <While Condition="(HasQuest(29999)) &amp;&amp; !IsObjectiveComplete(4, 29999)">
             <CustomBehavior File="InteractWith" QuestId="29999" QuestObjectiveIndex="4" MobId="56850" Range="5" X="843.3549" Y="-2459.354" Z="179.2966" />
         </While>
         <If Condition="HasQuest(29997) &amp;&amp; !IsQuestCompleted(29997)">
