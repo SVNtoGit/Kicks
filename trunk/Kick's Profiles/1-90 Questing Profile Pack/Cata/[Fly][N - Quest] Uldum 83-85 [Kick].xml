@@ -1704,6 +1704,10 @@
             </If>
             <Objective QuestName="Schnottz So Fast" QuestId="28402" Type="KillMob" MobId="48668" KillCount="10" />
         </If>
+        <!-- CJ: We need to wait for the video to finish before the quest-giver will be available -->
+        <While Condition="Unit(48528) == null">
+            <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="3000" />
+        </While>
         <TurnIn QuestName="Schnottz So Fast" TurnInName="Harrison Jones" QuestId="28402" TurnInId="48528" />
         <PickUp QuestName="Bad Datas" GiverName="Harrison Jones" QuestId="28403" GiverId="48528" />
         <If Condition="HasQuest(28403) &amp;&amp; !IsQuestCompleted(28403)">
