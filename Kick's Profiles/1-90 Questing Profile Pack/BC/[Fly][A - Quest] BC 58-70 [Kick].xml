@@ -1947,48 +1947,25 @@
     </Quest>
 
     <QuestOrder IgnoreCheckPoints="False">
-
+        <!-- CHECKPOINT BLOCK START: This code needs to be replicated after every checkpoint.
+            If you modify something in this block, don't forget to update the copy of this
+            block after each checkpoint, and the at the start of the <QuestOrder>, also.
+            -->
         <If Condition="Me.IsHorde">
-            <CustomBehavior File="LoadProfile" ProfileName="[Fly][H - Quest] BC 58-70 [Kick]" />
+            <CustomBehavior File="LoadProfile" ProfileName="[Fly][H - Quest] BC 58-70 [Kick]" RememberProfile="true" />
         </If>
-
+        <CustomBehavior File="Misc\ProfileCompatibilityInfo"
+            AllowBrokenAddons="true" AllowBrokenPlugins="true" />
         <CustomBehavior File="UserSettings" UseFlightPaths="True" GroundMountFarmingMode="False"
                         KillBetweenHotspots="False" />
         <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
 
-        <SetGrindArea>
-            <GrindArea>
-                <Factions>14 954 1662</Factions>
-                <!-- [Bird, Pig (Demon), Grunt] -->
-                <TargetMinLevel>56</TargetMinLevel>
-                <TargetMaxLevel>63</TargetMaxLevel>
-                <Hotspots>
-                    <Hotspot X="-665.6741" Y="2193.124" Z="32.92203" />
-                    <Hotspot X="-672.286" Y="2064.453" Z="47.82843" />
-                    <Hotspot X="-730.1094" Y="2190.978" Z="17.55754" />
-                    <Hotspot X="-742.6524" Y="2255.179" Z="12.97359" />
-                    <Hotspot X="-835.8957" Y="2261.361" Z="3.124129" />
-                    <Hotspot X="-876.4026" Y="2387.903" Z="-2.741848" />
-                    <Hotspot X="-907.567" Y="2495.926" Z="6.390637" />
-                    <Hotspot X="-858.5093" Y="2515.686" Z="20.65628" />
-                    <Hotspot X="-783.5746" Y="2460.825" Z="33.88888" />
-                    <Hotspot X="-830.0991" Y="2383.475" Z="4.908151" />
-                    <Hotspot X="-739.7699" Y="2310.162" Z="15.48457" />
-                    <Hotspot X="-684.8182" Y="2157.674" Z="32.51173" />
-                </Hotspots>
-            </GrindArea>
-        </SetGrindArea>
-        <Grindto Level="58" />
-
         <If Condition="Me.MapId == 0">
-
-            <If Condition="!HasQuest(28708)">
-                <If Condition="!IsQuestCompleted(28708)">
-                    <If Condition="!IsQuestCompleted(10119)">
-                        <PickUp QuestName="Through the Dark Portal" QuestId="10119"
-                                GiverName="Watch Commander Relthorn Netherwane" GiverId="16841" X="-11814.47"
-                                Y="-3196.079" Z="-31.03" />
-                    </If>
+            <If Condition="!HasQuest(28708) &amp;&amp; !IsQuestCompleted(28708)">
+                <If Condition="!IsQuestCompleted(10119)">
+                    <PickUp QuestName="Through the Dark Portal" QuestId="10119"
+                            GiverName="Watch Commander Relthorn Netherwane" GiverId="16841" X="-11814.47"
+                            Y="-3196.079" Z="-31.03" />
                 </If>
             </If>
 
@@ -2007,8 +1984,7 @@
                 </If>
             </While>
         </If>
-        <CustomBehavior File="UserSettings" UseFlightPaths="False" GroundMountFarmingMode="False"
-                        KillBetweenHotspots="False" />
+
         <If Condition="Me.MapId == 530">
             <If Condition="HasQuest(10119)">
                 <TurnIn QuestName="Through the Dark Portal" QuestId="10119" TurnInName="Commander Duron"
@@ -2019,6 +1995,7 @@
                         X="-265.7064" Y="1028.849" Z="54.32343" />
             </If>
         </If>
+        <!-- CHECKPOINT BLOCK END --> 
 
         <!-- Hellfire Peninsula Quests -->
         <CustomBehavior File="Message" Text="Compiling Hellfire Peninsula Quests" LogColor="Green" />
@@ -3581,20 +3558,55 @@
         <GrindTo Level="62" />
         <!-- Zangarmarsh -->
         <Checkpoint Level="62" />
-        <!-- through the BC portal we go! -->
-        <While Condition="Me.MapId == 0">
-            <If Condition="Me.MapId == 0">
-                <RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+        <!-- CHECKPOINT BLOCK START: This code needs to be replicated after every checkpoint.
+            If you modify something in this block, don't forget to update the copy of this
+            block after each checkpoint, and the at the start of the <QuestOrder>, also.
+            -->
+        <If Condition="Me.IsHorde">
+            <CustomBehavior File="LoadProfile" ProfileName="[Fly][H - Quest] BC 58-70 [Kick]" RememberProfile="true" />
+        </If>
+        <CustomBehavior File="Misc\ProfileCompatibilityInfo"
+            AllowBrokenAddons="true" AllowBrokenPlugins="true" />
+        <CustomBehavior File="UserSettings" UseFlightPaths="True" GroundMountFarmingMode="False"
+                        KillBetweenHotspots="False" />
+        <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
+
+        <If Condition="Me.MapId == 0">
+            <If Condition="!HasQuest(28708) &amp;&amp; !IsQuestCompleted(28708)">
+                <If Condition="!IsQuestCompleted(10119)">
+                    <PickUp QuestName="Through the Dark Portal" QuestId="10119"
+                            GiverName="Watch Commander Relthorn Netherwane" GiverId="16841" X="-11814.47"
+                            Y="-3196.079" Z="-31.03" />
+                </If>
             </If>
-            <If Condition="Me.MapId == 0">
-                <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+
+            <!-- through the BC portal we go! -->
+            <While Condition="Me.MapId == 0">
+                <If Condition="Me.MapId == 0">
+                    <RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0">
+                    <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0">
+                    <CustomBehavior File="WaitTimer" WaitTime="15000" />
+                </If>
+            </While>
+        </If>
+
+        <If Condition="Me.MapId == 530">
+            <If Condition="HasQuest(10119)">
+                <TurnIn QuestName="Through the Dark Portal" QuestId="10119" TurnInName="Commander Duron"
+                        TurnInId="19229" X="-265.7064" Y="1028.849" Z="54.32343" />
             </If>
-            <If Condition="Me.MapId == 0">
-                <CustomBehavior File="WaitTimer" WaitTime="15000" />
+            <If Condition="HasQuest(28708)">
+                <TurnIn QuestName="Hero's Call: Outland!" QuestId="28708" TurnInName="Commander Duron" TurnInId="19229"
+                        X="-265.7064" Y="1028.849" Z="54.32343" />
             </If>
-        </While>
+        </If>
+        <!-- CHECKPOINT BLOCK END --> 
 
         <!-- Zangarmarsh Quests -->
         <CustomBehavior File="Message" Text="Compiling Zangarmarsh Quests" LogColor="Green" />
@@ -4504,20 +4516,55 @@
         <Grindto Level="64" />
         <!-- Terrokar Forest -->
         <Checkpoint Level="64" />
-        <!-- through the BC portal we go! -->
-        <While Condition="Me.MapId == 0">
-            <If Condition="Me.MapId == 0">
-                <RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+        <!-- CHECKPOINT BLOCK START: This code needs to be replicated after every checkpoint.
+            If you modify something in this block, don't forget to update the copy of this
+            block after each checkpoint, and the at the start of the <QuestOrder>, also.
+            -->
+        <If Condition="Me.IsHorde">
+            <CustomBehavior File="LoadProfile" ProfileName="[Fly][H - Quest] BC 58-70 [Kick]" RememberProfile="true" />
+        </If>
+        <CustomBehavior File="Misc\ProfileCompatibilityInfo"
+            AllowBrokenAddons="true" AllowBrokenPlugins="true" />
+        <CustomBehavior File="UserSettings" UseFlightPaths="True" GroundMountFarmingMode="False"
+                        KillBetweenHotspots="False" />
+        <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
+
+        <If Condition="Me.MapId == 0">
+            <If Condition="!HasQuest(28708) &amp;&amp; !IsQuestCompleted(28708)">
+                <If Condition="!IsQuestCompleted(10119)">
+                    <PickUp QuestName="Through the Dark Portal" QuestId="10119"
+                            GiverName="Watch Commander Relthorn Netherwane" GiverId="16841" X="-11814.47"
+                            Y="-3196.079" Z="-31.03" />
+                </If>
             </If>
-            <If Condition="Me.MapId == 0">
-                <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+
+            <!-- through the BC portal we go! -->
+            <While Condition="Me.MapId == 0">
+                <If Condition="Me.MapId == 0">
+                    <RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0">
+                    <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0">
+                    <CustomBehavior File="WaitTimer" WaitTime="15000" />
+                </If>
+            </While>
+        </If>
+
+        <If Condition="Me.MapId == 530">
+            <If Condition="HasQuest(10119)">
+                <TurnIn QuestName="Through the Dark Portal" QuestId="10119" TurnInName="Commander Duron"
+                        TurnInId="19229" X="-265.7064" Y="1028.849" Z="54.32343" />
             </If>
-            <If Condition="Me.MapId == 0">
-                <CustomBehavior File="WaitTimer" WaitTime="15000" />
+            <If Condition="HasQuest(28708)">
+                <TurnIn QuestName="Hero's Call: Outland!" QuestId="28708" TurnInName="Commander Duron" TurnInId="19229"
+                        X="-265.7064" Y="1028.849" Z="54.32343" />
             </If>
-        </While>
+        </If>
+        <!-- CHECKPOINT BLOCK END --> 
 
         <!-- Terrokar Forest Quests -->
         <CustomBehavior File="Message" Text="Compiling Terrokar Forest Quests" LogColor="Green" />
@@ -5251,24 +5298,57 @@
 
         <!-- Nagrand -->
         <Checkpoint Level="66" />
-        <!-- through the BC portal we go! -->
-        <While Condition="Me.MapId == 0">
-            <If Condition="Me.MapId == 0">
-                <RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" />
-            </If>
-            <If Condition="Me.MapId == 0">
-                <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" />
-            </If>
-            <If Condition="Me.MapId == 0">
-                <CustomBehavior File="WaitTimer" WaitTime="15000" />
-            </If>
-        </While>
+        <!-- CHECKPOINT BLOCK START: This code needs to be replicated after every checkpoint.
+            If you modify something in this block, don't forget to update the copy of this
+            block after each checkpoint, and the at the start of the <QuestOrder>, also.
+            -->
+        <If Condition="Me.IsHorde">
+            <CustomBehavior File="LoadProfile" ProfileName="[Fly][H - Quest] BC 58-70 [Kick]" RememberProfile="true" />
+        </If>
+        <CustomBehavior File="Misc\ProfileCompatibilityInfo"
+            AllowBrokenAddons="true" AllowBrokenPlugins="true" />
+        <CustomBehavior File="UserSettings" UseFlightPaths="True" GroundMountFarmingMode="False"
+                        KillBetweenHotspots="False" />
+        <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
 
+        <If Condition="Me.MapId == 0">
+            <If Condition="!HasQuest(28708) &amp;&amp; !IsQuestCompleted(28708)">
+                <If Condition="!IsQuestCompleted(10119)">
+                    <PickUp QuestName="Through the Dark Portal" QuestId="10119"
+                            GiverName="Watch Commander Relthorn Netherwane" GiverId="16841" X="-11814.47"
+                            Y="-3196.079" Z="-31.03" />
+                </If>
+            </If>
+
+            <!-- through the BC portal we go! -->
+            <While Condition="Me.MapId == 0">
+                <If Condition="Me.MapId == 0">
+                    <RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0">
+                    <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0">
+                    <CustomBehavior File="WaitTimer" WaitTime="15000" />
+                </If>
+            </While>
+        </If>
+
+        <If Condition="Me.MapId == 530">
+            <If Condition="HasQuest(10119)">
+                <TurnIn QuestName="Through the Dark Portal" QuestId="10119" TurnInName="Commander Duron"
+                        TurnInId="19229" X="-265.7064" Y="1028.849" Z="54.32343" />
+            </If>
+            <If Condition="HasQuest(28708)">
+                <TurnIn QuestName="Hero's Call: Outland!" QuestId="28708" TurnInName="Commander Duron" TurnInId="19229"
+                        X="-265.7064" Y="1028.849" Z="54.32343" />
+            </If>
+        </If>
+        <!-- CHECKPOINT BLOCK END --> 
 
         <!-- Training Flying -->
-
         <!-- add in zangarmarsh 'get to neutral' questline
 			add in these quests for kurenai rep from zangarmarsh from ?? to neutral
 			http://www.wowhead.com/quests=8.3521&filter=si=1%3bcr=1%3bcrs=978%3bcrv=
@@ -6478,20 +6558,55 @@
         <!-- Netherstorm -->
 
         <Checkpoint Level="69" />
-        <!-- through the BC portal we go! -->
-        <While Condition="Me.MapId == 0">
-            <If Condition="Me.MapId == 0">
-                <RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+        <!-- CHECKPOINT BLOCK START: This code needs to be replicated after every checkpoint.
+            If you modify something in this block, don't forget to update the copy of this
+            block after each checkpoint, and the at the start of the <QuestOrder>, also.
+            -->
+        <If Condition="Me.IsHorde">
+            <CustomBehavior File="LoadProfile" ProfileName="[Fly][H - Quest] BC 58-70 [Kick]" RememberProfile="true" />
+        </If>
+        <CustomBehavior File="Misc\ProfileCompatibilityInfo"
+            AllowBrokenAddons="true" AllowBrokenPlugins="true" />
+        <CustomBehavior File="UserSettings" UseFlightPaths="True" GroundMountFarmingMode="False"
+                        KillBetweenHotspots="False" />
+        <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
+
+        <If Condition="Me.MapId == 0">
+            <If Condition="!HasQuest(28708) &amp;&amp; !IsQuestCompleted(28708)">
+                <If Condition="!IsQuestCompleted(10119)">
+                    <PickUp QuestName="Through the Dark Portal" QuestId="10119"
+                            GiverName="Watch Commander Relthorn Netherwane" GiverId="16841" X="-11814.47"
+                            Y="-3196.079" Z="-31.03" />
+                </If>
             </If>
-            <If Condition="Me.MapId == 0">
-                <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+
+            <!-- through the BC portal we go! -->
+            <While Condition="Me.MapId == 0">
+                <If Condition="Me.MapId == 0">
+                    <RunTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0">
+                    <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0">
+                    <CustomBehavior File="WaitTimer" WaitTime="15000" />
+                </If>
+            </While>
+        </If>
+
+        <If Condition="Me.MapId == 530">
+            <If Condition="HasQuest(10119)">
+                <TurnIn QuestName="Through the Dark Portal" QuestId="10119" TurnInName="Commander Duron"
+                        TurnInId="19229" X="-265.7064" Y="1028.849" Z="54.32343" />
             </If>
-            <If Condition="Me.MapId == 0">
-                <CustomBehavior File="WaitTimer" WaitTime="15000" />
+            <If Condition="HasQuest(28708)">
+                <TurnIn QuestName="Hero's Call: Outland!" QuestId="28708" TurnInName="Commander Duron" TurnInId="19229"
+                        X="-265.7064" Y="1028.849" Z="54.32343" />
             </If>
-        </While>
+        </If>
+        <!-- CHECKPOINT BLOCK END --> 
 
         <!-- Netherstorm Quests -->
         <CustomBehavior File="Message" Text="Compiling Netherstorm Quests" LogColor="Green" />
