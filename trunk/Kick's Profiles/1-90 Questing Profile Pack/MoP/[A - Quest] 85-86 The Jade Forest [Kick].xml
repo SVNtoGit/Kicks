@@ -774,13 +774,11 @@
         </Objective>
     </Quest>
 
-
-
     <QuestOrder IgnoreCheckPoints="False">
-
-        <CustomBehavior File="UserSettings" GroundMountFarmingMode="False" KillBetweenHotspots="False" />
-        <CustomBehavior File="Message" Text="Compiling Jade Forest (Alliance) Quests" LogColor="Green" />
-
+        <!-- CHECKPOINT BLOCK START: This code needs to be replicated after every checkpoint.
+            If you modify something in this block, don't forget to update the copy of this
+            block after each checkpoint, and the at the start of the <QuestOrder>, also.
+            -->
         <While Condition="Me.IsHorde">
             <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be Alliance to run this profile!" />
         </While>
@@ -789,6 +787,11 @@
             <!-- SW Auto Pickup Quest -->
             <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Go to Stormwind then press start" />
         </If>
+
+        <CustomBehavior File="Misc\ProfileCompatibilityInfo"
+            AllowBrokenAddons="true" AllowBrokenPlugins="true" />
+        <CustomBehavior File="UserSettings" GroundMountFarmingMode="False" KillBetweenHotspots="False" />
+
         <If Condition="Me.MapId == 0">
             <If Condition="HasQuest(29547) &amp;&amp; !IsQuestCompleted(29547)">
                 <CustomBehavior File="FlyTo" X="-8446.922" Y="337.8389" Z="138.5415" />
@@ -810,6 +813,9 @@
                 <CustomBehavior File="WaitTimer" WaitTime="100000" />
             </If>
         </If>
+        <!-- CHECKPOINT BLOCK END --> 
+        
+        <CustomBehavior File="Message" Text="Compiling Jade Forest (Alliance) Quests" LogColor="Green" />
         <TurnIn QuestName="The Mission" QuestId="29548" TurnInName="Sky Admiral Rogers" TurnInId="66292" X="-664.6719" Y="-1483.295" Z="130.1999" />
         <PickUp QuestName="Unleash Hell" QuestId="31732" GiverName="Sky Admiral Rogers" GiverId="66292" X="-664.6719" Y="-1483.295" Z="130.1999" />
         <If Condition="HasQuest(31732) &amp;&amp; !IsQuestCompleted(31732)">
@@ -2087,9 +2093,6 @@
             <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
         </If>
 
-        <CustomBehavior File="LoadProfile" ProfileName="[N - Quest] 86-87 Valley of the Four Winds [Kick]" /> 
-
-
+        <CustomBehavior File="LoadProfile" ProfileName="[N - Quest] 86-87 Valley of the Four Winds [Kick]" RememberProfile="true" /> 
     </QuestOrder>
-
 </HBProfile>

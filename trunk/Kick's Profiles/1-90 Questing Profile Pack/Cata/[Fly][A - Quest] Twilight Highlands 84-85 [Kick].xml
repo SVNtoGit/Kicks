@@ -281,25 +281,27 @@
     -->
 
     <QuestOrder>
-
-        <CustomBehavior File="Message" Text="Compiling Twilight Highlands Quests" LogColor="Green" />
-
+        <!-- CHECKPOINT BLOCK START: This code needs to be replicated after every checkpoint.
+            If you modify something in this block, don't forget to update the copy of this
+            block after each checkpoint, and the at the start of the <QuestOrder>, also.
+            -->
         <If Condition="Me.IsHorde">
             <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1"
                             Text="You must be Alliance to run this profile" />
         </If>
-
+        
         <If Condition="(Me.MapId != 0)">
             <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1"
                             Text="You must be in Eastern Kingdoms to run this profile!" />
         </If>
+        
+        <CustomBehavior File="Misc\ProfileCompatibilityInfo"
+            AllowBrokenAddons="true" AllowBrokenPlugins="true" />
+        <!-- CHECKPOINT BLOCK END --> 
 
-        <!-- CJ: DELETE THIS WHEN OMISSION CONFIRMED HARMLESS...
-             <CustomBehavior File="UserSettings" UseFlightPaths="False" LootMobs="True" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
-        -->
+        <CustomBehavior File="Message" Text="Compiling Twilight Highlands Quests" LogColor="Green" />
 
-        <If
-            Condition="(!HasQuest(28716) &amp;&amp; !IsQuestCompleted(28716)) &amp;&amp; (!HasQuest(26960) &amp;&amp; !IsQuestCompleted(26960))">
+        <If Condition="(!HasQuest(28716) &amp;&amp; !IsQuestCompleted(28716)) &amp;&amp; (!HasQuest(26960) &amp;&amp; !IsQuestCompleted(26960))">
             <CustomBehavior File="FlyTo" DestName="Pickup &quot;Hero's Call: Twilight Highlands!&quot;"
                             Land="true" X="-8345.04" Y="639.2629" Z="95.79852" />
             <PickUp QuestName="Hero's Call: Twilight Highlands!" QuestId="28716" GiverName="Hero's Call Board"
@@ -551,9 +553,19 @@
         <PickUp QuestName="The Only Homes We Have" GiverName="Keegan Firebeard" QuestId="27804" GiverId="46804" />
         <PickUp QuestName="Small Comforts" GiverName="Cailin Longfellow" QuestId="27805" GiverId="46814" />
         <While Condition="HasQuest(27804) &amp;&amp; !IsQuestCompleted(27804)">
-            <CustomBehavior File="UseItemTargetLocation" QuestId="27804" ObjectId="46849" ItemId="62508"
-                            UseType="ToObject" Range="20" NumOfTimes="500" WaitTime="1000" CollectionDistance="200"
-                            X="-4154.287" Y="-5583.773" Z="31.49261" />
+            <!-- CJ: We must wait for the water bucket to arrive in our backpack, before
+                we can use it.  The nearby townsfolk keep supplying us with one, but sometimes
+                they can be slow.
+                -->
+            <If Condition="HasItem(62508)" >
+                <CustomBehavior File="UseItemTargetLocation" QuestId="27804" ObjectId="46849" ItemId="62508"
+                                UseType="ToObject" Range="20" NumOfTimes="500" WaitTime="1000" CollectionDistance="200"
+                                X="-4154.287" Y="-5583.773" Z="31.49261" />
+            <Else>
+                <CustomBehavior File="Message" Text="Waiting for Wildhammer Water Bucket to arrive in our backpack" />
+                <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="3000" />
+                </Else>
+            </If>
         </While>
         <If Condition="HasQuest(27805) &amp;&amp; !IsQuestCompleted(27805)">
             <DisableBehavior Name="Pull" />

@@ -295,11 +295,17 @@
 
 
     <QuestOrder IgnoreCheckpoints="True">
+        <!-- CHECKPOINT BLOCK START: This code needs to be replicated after every checkpoint.
+            If you modify something in this block, don't forget to update the copy of this
+            block after each checkpoint, and the at the start of the <QuestOrder>, also.
+            -->
+        <CustomBehavior File="Misc\ProfileCompatibilityInfo"
+            AllowBrokenAddons="true" AllowBrokenPlugins="true" />
+        <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
+        <!-- CHECKPOINT BLOCK END -->
 
         <!-- GoTo Uldum Quests -->
         <CustomBehavior File="Message" Text="Compiling GoTo Uldum Quests" LogColor="Green" />
-
-        <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
 
         <If Condition="!HasQuest(27003) &amp;&amp; !IsQuestCompleted(27003)">
             <!-- Ally -->
@@ -1861,7 +1867,7 @@
         <CustomBehavior File="Halt" />
 
         <If Condition="(Me.IsAlliance) &amp;&amp; (Me.MapId == 0)">
-            <CustomBehavior File="LoadProfile" ProfileName="[Fly][A - Quest] Twilight Highlands 84-85 [Kick]" />
+            <CustomBehavior File="LoadProfile" ProfileName="[Fly][A - Quest] Twilight Highlands 84-85 [Kick]" RememberProfile="true" />
         </If>
 
         <If Condition="Me.IsAlliance">
@@ -1874,7 +1880,7 @@
         <If Condition="Me.IsHorde">
             <CustomBehavior File="FlyTo" DestName="Ramhahen Flight Path" X="-9416.136" Y="-1043.792" Z="113.4146" />
             <CustomBehavior File="TaxiRide" MobId="48275" DestName="Orgrimmar" WaitTime="1000" />
-            <CustomBehavior File="LoadProfile" ProfileName="..\MoP\[H - Quest] 85-86 The Jade Forest [Kick]" />
+            <CustomBehavior File="LoadProfile" ProfileName="..\MoP\[H - Quest] 85-86 The Jade Forest [Kick]" RememberProfile="true" />
         </If>
 
         <CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="5"
