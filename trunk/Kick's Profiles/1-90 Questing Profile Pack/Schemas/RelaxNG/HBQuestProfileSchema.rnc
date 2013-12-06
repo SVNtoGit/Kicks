@@ -1,12 +1,19 @@
 default namespace = ""
 namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
+# Original contribution by chinajade
+
+# TODO:
+# * BehaviorFlags
+# * CollectFrom
+# * Break up Objective by type
+# * CustomBehaviors
+
 
 # ********** HONORBUDDY CORE GRAMMAR **********
 start =
   element HBProfile {
-    attribute xsi:noNamespaceSchemaLocation { text },
-    (text
-     | AvoidMobs
+    attribute xsi:noNamespaceSchemaLocation { text }?,
+    (AvoidMobs
      | Blacklist
      | Blackspots
      | Mailboxes
@@ -31,7 +38,7 @@ start =
      | TargetElites
      | TargetingDistance
      | Vendors
-     )+
+     )*
   }
 
 AvoidMobs =
@@ -45,19 +52,22 @@ Blacklist =
     | Object_Blacklist*
   }
 
+Blackspot =
+  element Blackspot {
+    attribute Height { xsd:decimal }?,
+    attribute Name { text }?,
+    attribute Radius { xsd:decimal { minExclusive="0.0" } }?,
+    LocationAttributes
+  }
+
 Blackspots =
   element Blackspots {
-    element Blackspot {
-      attribute Height { xsd:decimal }?,
-      attribute Name { text }?,
-      attribute Radius { xsd:decimal }?,
-      Location
-    }*
+    Blackspot*
   }
 
 Checkpoint =
   element Checkpoint {
-    attribute Level { xsd:decimal }
+    attribute Level { LevelValueDecimal }
   }
 
 ClearMailbox =
@@ -74,12 +84,12 @@ CollectFrom =
   element CollectFrom {
     (Mob
      | element GameObject {
-         attribute Id { xsd:integer }?,
+         attribute Id { MobIdValue }?,
          attribute Name { text }?
        })*,
     (Vendor
      | element Gameobject {
-         attribute Id { xsd:integer },
+         attribute Id { MobIdValue },
          attribute Name { text }
        }*
      | Object*)
@@ -88,6 +98,7 @@ CollectFrom =
 DisableBehavior =
   element DisableBehavior {
     attribute Name { text }
+#    attribute Name { BehaviorFlagNames }
   }
 
 DisableRepair =
@@ -98,6 +109,7 @@ DisableRepair =
 EnableBehavior =
   element EnableBehavior {
     attribute Name { text }
+#    attribute Name { BehaviorFlagNames }
   }
 
 EnableRepair =
@@ -107,28 +119,39 @@ EnableRepair =
 
 Factions =
   element Factions {
-    text
+    list { MobIdValue+ }
+  }
+
+GrindArea =
+  element GrindArea {
+    Blacklist?
+    & (Factions | MobIds)
+    & Name?
+    & TargetElites?
+    & TargetMaxLevel?
+    & TargetMinLevel?
+    & Hotspots
   }
 
 GrindTo =
   element GrindTo {
-    attribute Condition { text }?,
+    attribute Condition { ConditionExpression }?,
     attribute GoalText { text }?,
-    attribute Level { xsd:decimal }?,
-    attribute Nav { xsd:NCName }?
+    attribute Level { LevelValueDecimal }?,
+    attribute Nav { NavValue }?
   }
 
 Hotspot =
   element Hotspot {
-    Location
+    LocationAttributes
   }
 
 Hotspot_Waypoint =
   element Hotspot {
     attribute Name { text }?,
-    attribute StartPoint { xsd:boolean }?,
-    attribute StartingPoint { xsd:boolean }?,
-    Location
+#    attribute StartPoint { xsd:boolean }?,
+#    attribute StartingPoint { xsd:boolean }?,
+    LocationAttributes
   }
 
 Hotspots =
@@ -138,96 +161,101 @@ Hotspots =
 
 If =
   element If {
-    attribute Condition { text },
-    (text
-     | QuestOrder_Directives*
+    attribute Condition { ConditionExpression },
+    (QuestOrder_Directives*
      | element Else {
 	 QuestOrder_Directives*
        }
      | element ElseIf {
-         attribute Condition { text },
+         attribute Condition { ConditionExpression },
 	 QuestOrder_Directives*
        })+
   }
 
 LootMobs =
   element LootMobs {
-    attribute Value { xsd:NCName }
+    attribute Value { MetaBooleanValue }
   }
 
 Mailboxes =
   element Mailboxes {
     element Mailbox {
       attribute Name { text }?,
-      attribute Nav { xsd:NCName }?,
-      Location
+      attribute Nav { NavValue }?,
+      LocationAttributes
     }*
   }
 
 MailBlue =
-  element MailBlue { xsd:NCName }
+  element MailBlue { BooleanValue }
 
 MailGreen =
-  element MailGreen { xsd:NCName }
+  element MailGreen { BooleanValue }
 
 MailGrey =
-  element MailGrey { xsd:NCName }
+  element MailGrey { BooleanValue }
 
 MailPurple =
-  element MailPurple { xsd:NCName }
+  element MailPurple { BooleanValue }
 
 MailWhite =
-  element MailWhite { xsd:NCName }
+  element MailWhite { BooleanValue }
 
 MaxLevel =
-  element MaxLevel { xsd:integer }
+  element MaxLevel { LevelValueInteger }
 
 MinDurability =
-   element MinDurability { xsd:decimal }
+   element MinDurability { xsd:decimal { minInclusive="0.0" } }
 
 MinFreeBagSlots =
-  element MinFreeBagSlots { xsd:integer }
+  element MinFreeBagSlots { xsd:nonNegativeInteger }
 
 MinLevel =
-  element MinLevel { xsd:integer }
+  element MinLevel { LevelValueInteger }
 
 Mob =
   element Mob {
-    attribute Id { xsd:integer }?,
+    IdAttribute,
     attribute Name { text }?
   }
 
 Mob_Blacklist =
   element Mob {
     attribute Flags { text }?,
-    attribute Id { xsd:integer },
+#    attribute Flags { BehaviorFlagNames }
+    IdAttribute,
     attribute Name { text }?
+  }
+
+MobIds =
+  element MobIds {
+    list { MobIdValue+ }
   }
 
 MoveTo =
   element MoveTo {
     attribute DestName { text }?,
-    attribute Distance { xsd:integer }?,
-    attribute LocationName { text }?,
+#    attribute Distance { xsd:integer }?,
+#    attribute LocationName { text }?,
     attribute Name { xsd:NCName }?,
-    attribute Nav { xsd:NCName }?,
-    attribute QuestId { xsd:integer }?,
-    attribute WaitTime { xsd:integer }?,
-    Location
+    attribute Nav { NavValue }?,
+    attribute QuestId { QuestIdValue }?,
+#    attribute WaitTime { xsd:integer }?,
+    LocationAttributes
   }
 
 Name = element Name { text }
 
 Object =
   element Object {
-    attribute Id { xsd:integer }?,
+    IdAttribute,
     attribute Name { text }
   }
 
 Object_Blacklist =
   element Object {
     attribute Flags { text }?,
-    attribute Id { xsd:integer },
+    attribute Id { MobIdValue },
     attribute Name { text }?
   }
 
@@ -237,27 +265,25 @@ Objective =
     attribute CollectFrom { xsd:integer }?,
     attribute CollectionCount { xsd:integer }?,
     attribute GiverName { text }?,
-    attribute ItemId { xsd:integer }?,
+    attribute ItemId { ItemIdValue }?,
     attribute ItemName { text }?,
-    attribute KillCount { xsd:integer }?,
-    attribute MobId { text }?,
-    attribute MobId2 { xsd:integer }?,
+    attribute KillCount { xsd:positiveInteger }?,
+    attribute MobId { MobIdValue }?,
+    attribute MobId2 { MobIdValue }?,
     attribute MobName { text }?,
     attribute MobState { xsd:NCName }?,
     attribute Name { text }?,
-    attribute Nav { xsd:NCName }?,
-    attribute ObjectId { xsd:integer }?,
+    attribute Nav { NavValue }?,
+    attribute ObjectId { MobIdValue }?,
     attribute ObjectName { text }?,
-    attribute QuestId { xsd:integer }?,
+    attribute QuestId { QuestIdValue }?,
     attribute QuestName { text }?,
-    attribute Questid { xsd:integer }?,
-    attribute Questname { text }?,
-    attribute TargetId { xsd:integer }?,
+    attribute TargetId { MobIdValue }?,
     attribute TargetType { xsd:NCName }?,
     attribute Type { xsd:NCName },
-    attribute UseCount { xsd:integer }?,
-    attribute WaitForNpcs { xsd:NCName }?,
-    Location?,
+    attribute UseCount { xsd:positiveInteger }?,
+    attribute WaitForNpcs { BooleanValue }?,
+    LocationAttributes?,
     (TargetMinLevel, TargetMaxLevel)?,
     (CollectFrom
      | Hotspots
@@ -266,28 +292,27 @@ Objective =
 
 PickUp =
   element PickUp {
-    attribute GiverId { xsd:integer },
+    attribute GiverId { MobIdValue },
     attribute GiverName { text }?,
     attribute GiverType { xsd:NCName }?,
-    attribute Nav { xsd:NCName }?,
-    attribute QuestId { xsd:integer },
+    attribute Nav { NavValue }?,
+    attribute QuestId { QuestIdValue },
     attribute QuestName { text }?,
     attribute Type { xsd:NCName }?,
-    Location?
+    LocationAttributes?
   }
 
 ProtectedItems =
   element ProtectedItems {
     element Item {
-      attribute Entry { xsd:integer }?,
-      attribute Id { xsd:integer }?,
-      attribute Name { text }
+      IdAttribute,
+      attribute Name { text }?
     }+
   }
 
 Quest =
   element Quest {
-    attribute Id { xsd:integer },
+    attribute Id { QuestIdValue },
     attribute Name { text }?,
     TurnIn?,
     CollectFrom?,
@@ -296,13 +321,12 @@ Quest =
 
 QuestOrder =
   element QuestOrder {
-    attribute IgnoreCheckpoints { xsd:NCName }?,
+    attribute IgnoreCheckpoints { BooleanValue }?,
     QuestOrder_Directives*
    }
 
 QuestOrder_Directives =
-  (text
-   | Checkpoint
+  (Checkpoint
    | ClearMailbox
    | ClearVendor
    | CustomBehavior
@@ -327,94 +351,87 @@ QuestOrder_Directives =
   )+
 
 SellBlue =
-  element SellBlue { xsd:NCName }
+  element SellBlue { BooleanValue }
 
 SellGreen =
-  element SellGreen { xsd:NCName }
+  element SellGreen { BooleanValue }
 
 SellGrey =
-  element SellGrey { xsd:NCName }
+  element SellGrey { BooleanValue }
 
 SellPurple =
-  element SellPurple { xsd:NCName }
+  element SellPurple { BooleanValue }
 
 SellWhite =
-  element SellWhite { xsd:NCName }
+  element SellWhite { BooleanValue }
 
 SetGrindArea =
   element SetGrindArea {
-    element GrindArea {
-      Name?,
-      (Factions | TargetElites | TargetMaxLevel | TargetMinLevel)*,
-      (Blacklist
-       | element MobId { xsd:integer })?,
-      Hotspots
-    }
-    | element Grindarea {
-        (Factions | TargetMaxLevel | TargetMinLevel)+, Hotspots
-      }
+    GrindArea
   }
 
-SetMailbox = element SetMailbox { Mailboxes }
+SetMailbox =
+  element SetMailbox {
+    Mailboxes
+  }
 
-SetVendor = element SetVendor { Vendors }
+SetVendor =
+  element SetVendor {
+    Vendors
+  }
 
 TargetingDistance =
   element TargetingDistance {
-    attribute Value { xsd:NMTOKEN }?,
+    attribute Value { MetaNonNegativeDecimalValue }?,
     text
   }
 
-TargetElites = element TargetElites { xsd:NCName }
+TargetElites = element TargetElites { BooleanValue }
 
-TargetMinLevel = element TargetMinLevel { xsd:integer }
+TargetMinLevel = element TargetMinLevel { xsd:positiveInteger }
 
-TargetMaxLevel = element TargetMaxLevel { xsd:integer }
+TargetMaxLevel = element TargetMaxLevel { xsd:positiveInteger }
 
 TurnIn =
   element TurnIn {
-    attribute GiverName { text }?,
-    attribute Nav { xsd:NCName }?,
+    attribute Nav { NavValue }?,
     attribute NpcName { text }?,
-    attribute QuestId { xsd:integer }?,
+    attribute QuestId { xsd:integer },
     attribute QuestName { text }?,
-    attribute Questid { xsd:integer }?,
-    attribute TurnInId { xsd:integer }?,
+    attribute TurnInId { MobIdValue },
     attribute TurnInName { text }?,
     attribute TurnInType { xsd:NCName }?,
-    attribute TurnInid { xsd:integer }?,
-    Location?
+    LocationAttributes?
   }
 
 UseItem =
   element UseItem {
-    attribute ItemId { xsd:integer },
+    attribute ItemId { ItemIdValue },
     attribute ItemName { text }?,
     attribute Name { text }?,
-    attribute Nav { xsd:NCName }?,
-    attribute NumOfTimes { xsd:integer }?,
-    attribute QuestId { xsd:integer },
+    attribute Nav { NavValue }?,
+    attribute NumOfTimes { xsd:positiveInteger }?,
+    attribute QuestId { QuestIdValue },
     attribute QuestName { text }?,
-    attribute TargetId { xsd:integer }?,
+    attribute TargetId { MobIdValue }?,
     attribute TargetType { xsd:NCName }?,
-    attribute WaitTime { xsd:integer }?,
-    Location
+    attribute WaitTime { xsd:integer { minInclusive="1" } }?,
+    LocationAttributes
   }
 
 UseMount =
   element UseMount {
-    attribute Value { xsd:NCName }
+    attribute Value { MetaBooleanValue }
   }
 
 Vendor =
   element Vendor {
-    attribute Entry { xsd:integer }?,
-    attribute Id { xsd:integer }?,
+    IdAttribute,
     attribute Name { text },
-    attribute Nav { xsd:NCName }?,
-    attribute TrainClass { xsd:NCName }?,
-    attribute Type { xsd:NCName }?,
-    Location?
+    attribute Nav { NavValue }?,
+    attribute TrainClass { TrainClassValue }?,
+    attribute Type { VendorTypeValue }?,
+    LocationAttributes?
   }
 
 Vendors =
@@ -424,16 +441,85 @@ Vendors =
 
 While =
   element While {
-    attribute Condition { text },
+    attribute Condition { ConditionExpression },
     QuestOrder_Directives*
   }
 
 
 # ********** Synthetic nodes **********
-Location =
-      attribute X { xsd:decimal },
-      attribute Y { xsd:decimal },
-      attribute Z { xsd:decimal }
+
+BehaviorFlagName =
+  "Combat"
+  | "Loot"
+  | "Pull"
+
+#BehaviorFlagNames =
+#  | BehaviorFlagName ("," BehaviorFlagName )*
+
+BooleanValue =
+  "False"
+  | "True"
+
+ConditionExpression =
+  text
+
+IdAttribute =
+  attribute Entry { xsd:positiveInteger }
+  | attribute Id { MobIdValue }
+
+ItemIdValue =
+  xsd:positiveInteger
+
+LevelValueInteger =
+  xsd:positiveInteger
+
+LevelValueDecimal =
+  xsd:decimal { minInclusive="1.0" }
+
+LocationAttributes =
+  attribute X { xsd:decimal },
+  attribute Y { xsd:decimal },
+  attribute Z { xsd:decimal }
+
+MetaBooleanValue =
+  BooleanValue
+  | "null"
+
+MetaDecimalValue =
+  xsd:decimal
+  | "null"
+
+MetaNonNegativeDecimalValue =
+  xsd:decimal { minInclusive="0.0" }
+  | "null"
+
+MobIdValue =
+  xsd:positiveInteger
+
+NavValue =
+  "Fly"
+  | "Run"
+
+TrainClassValue =
+  "Deathknight"
+  | "Druid"
+  | "Hunter"
+  | "Mage"
+  | "Monk"
+  | "Paladin"
+  | "Priest"
+  | "Rogue"
+  | "Shaman"
+  | "Warlock"
+  | "Warrior"
+
+QuestIdValue =
+  xsd:positiveInteger
+
+VendorTypeValue =
+  "Food"
+  | "Repair"
+  | "Train"
 
 
 # ********** CUSTOM BEHAVIORS **********
