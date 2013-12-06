@@ -1,0 +1,757 @@
+default namespace = ""
+namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
+
+start =
+  element HBProfile {
+    attribute xsi:noNamespaceSchemaLocation { text },
+    (text
+     | element AvoidMobs {
+         element AvoidMob {
+           attribute Entry { xsd:integer },
+           attribute Name { text }
+         }
+         | Mob*
+       }
+     | Blacklist
+     | Blackspots
+     | Mailboxes
+     | Name
+     | TargetElites
+     | TargetingDistance
+     | Vendors
+     | element MailBlue { xsd:NCName }
+     | element MailGreen { xsd:NCName }
+     | element MailGrey { xsd:NCName }
+     | element MailPurple { xsd:NCName }
+     | element MailWhite { xsd:NCName }
+     | element MaxLevel { xsd:integer }
+     | element MinDurability { xsd:decimal }
+     | element MinFreeBagSlots { xsd:integer }
+     | element MinLevel { xsd:integer }
+     | element ProtectedItems {
+         element Item {
+           attribute Entry { xsd:integer }?,
+           attribute Id { xsd:integer }?,
+           attribute Name { text }
+         }+
+       }
+     | element Quest {
+         attribute Id { xsd:integer },
+         attribute NName { text }?,
+         attribute Name { text }?,
+         TurnIn?,
+         CollectFrom?,
+         Objective*
+       }
+     | element QuestOrder {
+         attribute IgnoreCheckPoints { xsd:NCName }?,
+         attribute IgnoreCheckpoints { xsd:NCName }?,
+         (text
+          | CheckPoint
+          | Checkpoint
+          | ClearMailbox
+          | ClearVendor
+          | CustomBehavior
+          | DisableBehavior
+          | DisableRepair
+          | EnableBehavior
+          | EnableRepair
+          | GrindTo
+          | If
+          | LootMobs
+          | MoveTo
+          | Objective
+          | PickUp
+          | Pickup
+          | RunTo
+          | SetGrindArea
+          | SetMailbox
+          | SetVendor
+          | TargetingDistance
+          | TurnIn
+          | UseItem
+          | UseMount
+          | While
+          | element Grindto {
+              attribute Level { xsd:integer }
+            })+
+       }
+     | element SellBlue { xsd:NCName }
+     | element SellGreen { xsd:NCName }
+     | element SellGrey { xsd:NCName }
+     | element SellPurple { xsd:NCName }
+     | element SellWhite { xsd:NCName })+
+  }
+ClearVendor = element ClearVendor { empty }
+UseItem =
+  element UseItem {
+    attribute ItemId { xsd:integer },
+    attribute ItemName { text }?,
+    attribute Name { text }?,
+    attribute Nav { xsd:NCName }?,
+    attribute NumOfTimes { xsd:integer }?,
+    attribute QuestId { xsd:integer },
+    attribute QuestName { text }?,
+    attribute TargetId { xsd:integer }?,
+    attribute TargetType { xsd:NCName }?,
+    attribute WaitTime { xsd:integer }?,
+    attribute X { xsd:decimal },
+    attribute Y { xsd:decimal },
+    attribute Z { xsd:decimal }
+  }
+SetGrindArea =
+  element SetGrindArea {
+    element GrindArea {
+      Name?,
+      (Factions | TargetElites | TargetMaxLevel | TargetMinLevel)*,
+      (Blacklist
+       | element MobID { xsd:integer }
+       | element MobId { xsd:integer })?,
+      Hotspots
+    }
+    | element Grindarea {
+        (Factions | TargetMaxLevel | TargetMinLevel)+, Hotspots
+      }
+  }
+PickUp =
+  element PickUp {
+    attribute GiverId { xsd:integer },
+    attribute GiverName { text }?,
+    attribute GiverType { xsd:NCName }?,
+    attribute GivermName { xsd:NCName }?,
+    attribute Nav { xsd:NCName }?,
+    attribute PickUpName { text }?,
+    attribute QuestId { xsd:integer },
+    attribute QuestName { text }?,
+    attribute Questname { text }?,
+    attribute Type { xsd:NCName }?,
+    attribute X { xsd:decimal }?,
+    attribute Y { xsd:decimal }?,
+    attribute Z { xsd:decimal }?
+  }
+SetVendor = element SetVendor { Vendors }
+TargetingDistance =
+  element TargetingDistance {
+    attribute Value { xsd:NMTOKEN }?,
+    text
+  }
+MoveTo =
+  element MoveTo {
+    attribute DestName { text }?,
+    attribute Distance { xsd:integer }?,
+    attribute LocationName { text }?,
+    attribute Name { xsd:NCName }?,
+    attribute Nav { xsd:NCName }?,
+    attribute QuestId { xsd:integer }?,
+    attribute WaitTime { xsd:integer }?,
+    attribute X { xsd:decimal },
+    attribute Y { xsd:decimal },
+    attribute Z { xsd:decimal }
+  }
+Pickup =
+  element Pickup {
+    attribute GiverId { xsd:integer },
+    attribute GiverName { text },
+    attribute GiverType { xsd:NCName }?,
+    attribute Nav { xsd:NCName }?,
+    attribute QuestId { xsd:integer },
+    attribute QuestName { text },
+    attribute X { xsd:decimal }?,
+    attribute Y { xsd:decimal }?,
+    attribute Z { xsd:decimal }?
+  }
+DisableBehavior =
+  element DisableBehavior {
+    attribute Name { text }
+  }
+ClearMailbox = element ClearMailbox { empty }
+Checkpoint =
+  element Checkpoint {
+    attribute Level { xsd:decimal }
+  }
+LootMobs =
+  element LootMobs {
+    attribute Value { xsd:NCName }
+  }
+UseMount =
+  element UseMount {
+    attribute Value { xsd:NCName }
+  }
+TurnIn =
+  element TurnIn {
+    attribute GiverName { text }?,
+    attribute Nav { xsd:NCName }?,
+    attribute NpcName { text }?,
+    attribute QuestId { xsd:integer }?,
+    attribute QuestName { text }?,
+    attribute Questid { xsd:integer }?,
+    attribute TurnInId { xsd:integer }?,
+    attribute TurnInName { text }?,
+    attribute TurnInType { xsd:NCName }?,
+    attribute TurnInid { xsd:integer }?,
+    attribute X { text }?,
+    attribute Y { xsd:decimal }?,
+    attribute Z { xsd:decimal }?
+  }
+EnableBehavior =
+  element EnableBehavior {
+    attribute Name { text }
+  }
+GrindTo =
+  element GrindTo {
+    attribute Condition { text }?,
+    attribute GoalText { text }?,
+    attribute Level { xsd:decimal }?,
+    attribute Nav { xsd:NCName }?
+  }
+While =
+  element While {
+    attribute Condition { text },
+    (text
+     | CustomBehavior
+     | DisableBehavior
+     | DisableRepair
+     | EnableBehavior
+     | EnableRepair
+     | GrindTo
+     | If
+     | LootMobs
+     | MoveTo
+     | Objective
+     | PickUp
+     | Run
+     | RunTo
+     | Runto
+     | SetGrindArea
+     | TargetingDistance
+     | TurnIn
+     | UseItem
+     | UseMount
+     | While)+
+  }
+EnableRepair = element EnableRepair { empty }
+RunTo =
+  element RunTo {
+    attribute DestName { text }?,
+    attribute Name { text }?,
+    attribute QuestId { xsd:integer }?,
+    attribute QuestName { text }?,
+    attribute X { xsd:decimal }?,
+    attribute Y { xsd:decimal }?,
+    attribute Z { xsd:decimal }?,
+    attribute x { xsd:decimal }?,
+    attribute y { xsd:decimal }?,
+    attribute z { xsd:decimal }?
+  }
+CustomBehavior =
+  element CustomBehavior {
+    attribute AllowBotStop { xsd:NCName }?,
+    attribute AllowBrokenAddOns { xsd:boolean }?,
+    attribute AllowBrokenPlugIns { xsd:boolean }?,
+    attribute AllowCombat { xsd:NCName }?,
+    attribute AttackButton { xsd:integer }?,
+    attribute AttackButton2 { xsd:integer }?,
+    attribute AttackButtonSecondary { xsd:integer }?,
+    attribute AttackSpellIndex { xsd:integer }?,
+    attribute AuraId { xsd:integer }?,
+    attribute AuraIdMissingFromMob { xsd:integer }?,
+    attribute AuraIdOnMob { xsd:integer }?,
+    attribute AuraId_ProxyVehicle { xsd:integer }?,
+    attribute AvoidDistance { xsd:integer }?,
+    attribute AvoidMobId { xsd:integer }?,
+    attribute Button1TargetAuraId { xsd:integer }?,
+    attribute Button2TargetAuraId { xsd:integer }?,
+    attribute Button3TargetAuraId { xsd:integer }?,
+    attribute Button4TargetAuraId { xsd:integer }?,
+    attribute Button5TargetAuraId { xsd:integer }?,
+    attribute Buttons { text }?,
+    attribute BuyItemCount { xsd:integer }?,
+    attribute BuyItemId { xsd:integer }?,
+    attribute CastOnItemId { xsd:integer }?,
+    attribute CastTime { xsd:integer }?,
+    attribute ClickToX { xsd:decimal }?,
+    attribute ClickToY { xsd:decimal }?,
+    attribute ClickToZ { xsd:decimal }?,
+    attribute CollectItemCount { xsd:integer }?,
+    attribute CollectItemId { xsd:integer }?,
+    attribute CollectUntil { xsd:NCName }?,
+    attribute CollectionDistance { xsd:integer }?,
+    attribute DestName { text }?,
+    attribute Distance { xsd:decimal }?,
+    attribute DoMail { xsd:NCName }?,
+    attribute DoRepair { xsd:NCName }?,
+    attribute DoSell { xsd:NCName }?,
+    attribute DoTrain { xsd:NCName }?,
+    attribute DropPassengerButton { xsd:integer }?,
+    attribute Eject { xsd:NMTOKEN }?,
+    attribute EndPath { text }?,
+    attribute EndPointX { xsd:decimal }?,
+    attribute EndPointY { xsd:decimal }?,
+    attribute EndPointZ { xsd:decimal }?,
+    attribute EscortCompleteWhen { xsd:NCName }?,
+    attribute EscortCompleteX { xsd:decimal }?,
+    attribute EscortCompleteY { xsd:decimal }?,
+    attribute EscortCompleteZ { xsd:decimal }?,
+    attribute EscortCountMax { xsd:integer }?,
+    attribute EscortDestX { xsd:decimal }?,
+    attribute EscortDestY { xsd:decimal }?,
+    attribute EscortDestZ { xsd:decimal }?,
+    attribute EscortMaxFightDistance { xsd:integer }?,
+    attribute EscortMaxFollowDistance { xsd:integer }?,
+    attribute EscortNpcId { xsd:integer }?,
+    attribute EscortNpcId1 { xsd:integer }?,
+    attribute EscortNpcId2 { xsd:integer }?,
+    attribute EscortNpcId3 { xsd:integer }?,
+    attribute EscortNpcId4 { xsd:integer }?,
+    attribute EscortNpcId5 { xsd:integer }?,
+    attribute EscortUntil { xsd:NCName }?,
+    attribute EventCompleteWhen { xsd:NCName }?,
+    attribute EventX { xsd:decimal }?,
+    attribute EventY { xsd:decimal }?,
+    attribute EventZ { xsd:decimal }?,
+    attribute ExitButton { xsd:integer }?,
+    attribute ExpiryAction { xsd:NCName }?,
+    attribute ExpiryTime { xsd:integer }?,
+    attribute FactionId { xsd:integer }?,
+    attribute File { text },
+    attribute FireHeight { xsd:integer }?,
+    attribute FireLocationX { xsd:decimal }?,
+    attribute FireLocationY { xsd:decimal }?,
+    attribute FireLocationZ { xsd:decimal }?,
+    attribute FoodAmount { xsd:integer }?,
+    attribute GetOffX { xsd:decimal }?,
+    attribute GetOffY { xsd:decimal }?,
+    attribute GetOffZ { xsd:decimal }?,
+    attribute GoHomeButton { xsd:integer }?,
+    attribute GoalText { text }?,
+    attribute GossipOptions { text }?,
+    attribute GroundMountFarmingMode { xsd:NCName }?,
+    attribute HarvestHerbs { xsd:NCName }?,
+    attribute HarvestMinerals { xsd:NCName }?,
+    attribute HasAuraId { xsd:integer }?,
+    attribute HealNpcId { xsd:integer }?,
+    attribute HealSpellIndex { xsd:integer }?,
+    attribute Hop { xsd:NCName }?,
+    attribute HuntingGroundRadius { xsd:integer }?,
+    attribute Ids { text }?,
+    attribute IgnoreCombat { xsd:NCName }?,
+    attribute IgnoreIndoors { xsd:NCName }?,
+    attribute IgnoreLoSToTarget { xsd:NCName }?,
+    attribute IgnoreMobsInBlackspots { xsd:NCName }?,
+    attribute InteractBlacklistTimeInSeconds { xsd:integer }?,
+    attribute InteractByBuyingItemId { xsd:integer }?,
+    attribute InteractByCastingSpellId { xsd:integer }?,
+    attribute InteractByGossipOptions { text }?,
+    attribute InteractByLooting { xsd:boolean }?,
+    attribute InteractByQuestFrameDisposition { xsd:NCName }?,
+    attribute InteractByUsingItemId { xsd:integer }?,
+    attribute IsMissingAuraId { xsd:integer }?,
+    attribute ItemAppliesAuraId { xsd:NMTOKEN }?,
+    attribute ItemId { xsd:integer }?,
+    attribute KeepTargetSelected { xsd:NCName }?,
+    attribute KillBetweenHotspots { xsd:NCName }?,
+    attribute KillNpcId { xsd:integer }?,
+    attribute Land { xsd:NCName }?,
+    attribute LearnFlightPaths { xsd:NCName }?,
+    attribute LogColor { xsd:NCName }?,
+    attribute LogoutForInactivity { xsd:NCName }?,
+    attribute Loot { xsd:NCName }?,
+    attribute LootMobs { xsd:NCName }?,
+    attribute Lua { text }?,
+    attribute Macro { text }?,
+    attribute MaxAngle { xsd:decimal }?,
+    attribute MaxRange { xsd:integer }?,
+    attribute MaxRangeToUseItem { xsd:integer }?,
+    attribute Message { text }?,
+    attribute MinAngle { xsd:decimal }?,
+    attribute MinRange { xsd:integer }?,
+    attribute MobHpPercentLeft { xsd:integer }?,
+    attribute MobId { text }?,
+    attribute MobId1 { xsd:integer }?,
+    attribute MobId10 { xsd:integer }?,
+    attribute MobId11 { xsd:integer }?,
+    attribute MobId12 { xsd:integer }?,
+    attribute MobId13 { xsd:integer }?,
+    attribute MobId14 { xsd:integer }?,
+    attribute MobId15 { xsd:integer }?,
+    attribute MobId16 { xsd:integer }?,
+    attribute MobId17 { xsd:integer }?,
+    attribute MobId18 { xsd:integer }?,
+    attribute MobId19 { xsd:integer }?,
+    attribute MobId2 { xsd:integer }?,
+    attribute MobId20 { xsd:integer }?,
+    attribute MobId3 { xsd:integer }?,
+    attribute MobId4 { xsd:integer }?,
+    attribute MobId5 { xsd:integer }?,
+    attribute MobId6 { xsd:integer }?,
+    attribute MobId7 { xsd:integer }?,
+    attribute MobId8 { xsd:integer }?,
+    attribute MobId9 { xsd:integer }?,
+    attribute MobIds { text }?,
+    attribute MobState { xsd:NCName }?,
+    attribute MobType { xsd:NCName }?,
+    attribute MountType { xsd:NCName }?,
+    attribute MountX { xsd:decimal }?,
+    attribute MountY { xsd:decimal }?,
+    attribute MountZ { xsd:decimal }?,
+    attribute MoveAwayFromMobCastingSpellId1 { xsd:integer }?,
+    attribute MoveAwayFromMobCastingSpellId2 { xsd:integer }?,
+    attribute MoveAwayFromMobCastingSpellId3 { xsd:integer }?,
+    attribute MoveAwayFromMobCastingSpellId4 { xsd:integer }?,
+    attribute MoveAwayFromMobWithAuraId1 { xsd:integer }?,
+    attribute MoveAwayFromMobWithAuraId2 { xsd:integer }?,
+    attribute MoveBehindMobCastingSpellId { xsd:integer }?,
+    attribute MoveBehindMobCastingSpellId1 { xsd:integer }?,
+    attribute MoveBehindMobCastingSpellId2 { xsd:integer }?,
+    attribute MoveBehindMobCastingSpellId3 { xsd:integer }?,
+    attribute MoveBehindMobCastingSpellId4 { xsd:integer }?,
+    attribute MoveOutOfGroundEffectAuraId1 { xsd:integer }?,
+    attribute MoveOutOfGroundEffectAuraId2 { xsd:integer }?,
+    attribute MoveWithinMaxRangeOfMob { xsd:integer }?,
+    attribute MovementBy { xsd:NCName }?,
+    attribute NCollectionDistance { xsd:integer }?,
+    attribute NMovementBy { xsd:NCName }?,
+    attribute Name { text }?,
+    attribute Names { text }?,
+    attribute Nav { xsd:NCName }?,
+    attribute NinjaSkin { xsd:NCName }?,
+    attribute NonCompeteDistance { xsd:integer }?,
+    attribute NotMoving { xsd:NCName }?,
+    attribute NpcID { xsd:integer }?,
+    attribute NpcList { text }?,
+    attribute NumOfTime { xsd:integer }?,
+    attribute NumOfTimes { xsd:integer }?,
+    attribute NumOfTimesToUseItem { xsd:integer }?,
+    attribute ObjectId { xsd:integer }?,
+    attribute ObjectId1 { xsd:integer }?,
+    attribute ObjectId2 { xsd:integer }?,
+    attribute ObjectType { xsd:NCName }?,
+    attribute OftenToUse { xsd:integer }?,
+    attribute Path { text }?,
+    attribute PickUpPassengerButton { xsd:integer }?,
+    attribute PreInteractMountStrategy { xsd:NCName }?,
+    attribute Precision { xsd:integer }?,
+    attribute PreferKillingMobId { xsd:integer }?,
+    attribute PreferKillingMobId1 { xsd:integer }?,
+    attribute Preset { xsd:NCName }?,
+    attribute PreviousFireLocationX { xsd:decimal }?,
+    attribute PreviousFireLocationY { xsd:decimal }?,
+    attribute PreviousFireLocationZ { xsd:decimal }?,
+    attribute PriorityTargetId { xsd:integer }?,
+    attribute ProactiveCombatStrategy { xsd:NCName }?,
+    attribute ProfileName { text }?,
+    attribute PullDistance { xsd:integer }?,
+    attribute QuestId { xsd:integer }?,
+    attribute QuestName { text }?,
+    attribute QuestObjectiveIndex { xsd:integer }?,
+    attribute RandomizeStartingHotspot { xsd:boolean }?,
+    attribute Range { xsd:decimal }?,
+    attribute RecallPetAtMobPercentHealth { xsd:integer }?,
+    attribute RememberProfile { xsd:boolean }?,
+    attribute SearchForNpcsRadius { xsd:integer }?,
+    attribute SkinMobs { xsd:NCName }?,
+    attribute Slot { xsd:NCName }?,
+    attribute SoundCue { xsd:NCName }?,
+    attribute SoundCueInterval { xsd:integer }?,
+    attribute SpeedButton { xsd:integer }?,
+    attribute SpellId { xsd:integer }?,
+    attribute SpellIndex { xsd:integer }?,
+    attribute StandOnX { xsd:decimal }?,
+    attribute StandOnY { xsd:decimal }?,
+    attribute StandOnZ { xsd:decimal }?,
+    attribute StartEscortGossipOptions { xsd:integer }?,
+    attribute StartNpcId { xsd:integer }?,
+    attribute StartObjectivePointX { xsd:decimal }?,
+    attribute StartObjectivePointY { xsd:decimal }?,
+    attribute StartObjectivePointZ { xsd:decimal }?,
+    attribute StartPath { text }?,
+    attribute StartPointX { xsd:decimal }?,
+    attribute StartPointY { xsd:decimal }?,
+    attribute StartPointZ { xsd:decimal }?,
+    attribute StopBot { xsd:NCName }?,
+    attribute StopOnContinue { xsd:NCName }?,
+    attribute TargetId { xsd:integer }?,
+    attribute TargetId1 { xsd:integer }?,
+    attribute TargetId2 { xsd:integer }?,
+    attribute TargetId3 { xsd:integer }?,
+    attribute TargetId4 { xsd:integer }?,
+    attribute TargetLocationX { xsd:decimal }?,
+    attribute TargetLocationY { xsd:decimal }?,
+    attribute TargetLocationZ { xsd:decimal }?,
+    attribute TargetNearest { xsd:boolean }?,
+    attribute TargetOnlyIfHealthPercentAbove { xsd:integer }?,
+    attribute TerminateWhen { text }?,
+    attribute Text { text }?,
+    attribute Title { text }?,
+    attribute TradeSkillId { xsd:integer }?,
+    attribute TradeSkillItemId { xsd:integer }?,
+    attribute TrainNewSkills { xsd:NCName }?,
+    attribute Transport { xsd:integer }?,
+    attribute TransportEndX { xsd:decimal }?,
+    attribute TransportEndY { xsd:decimal }?,
+    attribute TransportEndZ { xsd:decimal }?,
+    attribute TransportId { xsd:integer }?,
+    attribute TransportStartX { xsd:decimal }?,
+    attribute TransportStartY { xsd:decimal }?,
+    attribute TransportStartZ { xsd:decimal }?,
+    attribute Type { xsd:NCName }?,
+    attribute TypeId { xsd:integer }?,
+    attribute UpdateGoalText { xsd:boolean }?,
+    attribute UseCTM { xsd:boolean }?,
+    attribute UseFlightPaths { xsd:NCName }?,
+    attribute UseItemStrategy { xsd:NCName }?,
+    attribute UseMount { xsd:NCName }?,
+    attribute UseOnce { xsd:NCName }?,
+    attribute UseRelative { xsd:boolean }?,
+    attribute UseType { xsd:NCName }?,
+    attribute UseWhenMobCastingSpellId { xsd:integer }?,
+    attribute UseWhenMobHasHealthPercent { xsd:integer }?,
+    attribute VarianTime { xsd:integer }?,
+    attribute VariantTime { xsd:integer }?,
+    attribute VehicleID { xsd:integer }?,
+    attribute VehicleId { xsd:integer }?,
+    attribute VehicleId2 { xsd:integer }?,
+    attribute VehicleId3 { xsd:integer }?,
+    attribute VehicleMountId { xsd:integer }?,
+    attribute VehicleType { xsd:integer }?,
+    attribute Wait { xsd:integer }?,
+    attribute WaitAtX { xsd:decimal }?,
+    attribute WaitAtY { xsd:decimal }?,
+    attribute WaitAtZ { xsd:decimal }?,
+    attribute WaitForNpc { xsd:NCName }?,
+    attribute WaitForNpcs { xsd:NCName }?,
+    attribute WaitForVehicle { xsd:boolean }?,
+    attribute WaitTime { xsd:integer }?,
+    attribute WaitTimeAfterItemUse { xsd:integer }?,
+    attribute Waittime { xsd:integer }?,
+    attribute X { xsd:decimal }?,
+    attribute Y { xsd:decimal }?,
+    attribute Z { xsd:decimal }?,
+    attribute state { xsd:boolean }?,
+    element FollowPath {
+      attribute DismissPet { xsd:boolean },
+      attribute EgressDistance { xsd:integer },
+      attribute Strategy { xsd:NCName },
+      Hotspot+
+    }?,
+    (DisableBehavior | EnableBehavior | Hotspot | UseItem)*,
+    (CustomBehavior
+     | element Safespots { Hotspot+ })?,
+    element SearchPath { Hotspot+ }?,
+    element EscortPath { Hotspot+ }?,
+    element HuntingGrounds {
+      attribute WaypointVisitStrategy { xsd:NCName }?,
+      (text | Hotspot | Hotspots | UseMount)+
+    }?,
+    Blackspots?,
+    element Start {
+      attribute X { xsd:decimal },
+      attribute Y { xsd:decimal },
+      attribute Z { xsd:decimal }
+    }?,
+    ((element End {
+        attribute X { xsd:decimal },
+        attribute Y { xsd:decimal },
+        attribute Z { xsd:decimal }
+      },
+      element Hop {
+        attribute X { xsd:decimal },
+        attribute Y { xsd:decimal },
+        attribute Z { xsd:decimal }
+      }+)
+     | element Path {
+         attribute X { xsd:decimal },
+         attribute Y { xsd:decimal },
+         attribute Z { xsd:decimal }
+       }*)
+  }
+If =
+  element If {
+    attribute Condition { text },
+    (text
+     | CheckPoint
+     | Checkpoint
+     | ClearMailbox
+     | ClearVendor
+     | CustomBehavior
+     | DisableBehavior
+     | DisableRepair
+     | EnableBehavior
+     | EnableRepair
+     | GrindTo
+     | If
+     | LootMobs
+     | MoveTo
+     | Objective
+     | PickUp
+     | Pickup
+     | Run
+     | RunTo
+     | Runto
+     | SetGrindArea
+     | SetMailbox
+     | SetVendor
+     | TargetingDistance
+     | TurnIn
+     | UseItem
+     | UseMount
+     | While
+     | element Else {
+         attribute Condition { text }?,
+         (PickUp | If*),
+         CustomBehavior*,
+         While?,
+         RunTo?
+       }
+     | element ElseIf {
+         attribute Condition { text },
+         (text | CustomBehavior | If | PickUp | RunTo | TurnIn | While)+
+       }
+     | element Turnin {
+         attribute QuestId { xsd:integer },
+         attribute QuestName { text },
+         attribute TurnInId { xsd:integer },
+         attribute TurnInName { text }
+       })+
+  }
+DisableRepair = element DisableRepair { empty }
+Objective =
+  element Objective {
+    attribute CollectCount { xsd:integer }?,
+    attribute CollectFrom { xsd:integer }?,
+    attribute CollectionCount { xsd:integer }?,
+    attribute GiverName { text }?,
+    attribute ItemId { xsd:integer }?,
+    attribute ItemName { text }?,
+    attribute KillCount { xsd:integer }?,
+    attribute MobId { text }?,
+    attribute MobId2 { xsd:integer }?,
+    attribute MobName { text }?,
+    attribute MobState { xsd:NCName }?,
+    attribute Name { text }?,
+    attribute Nav { xsd:NCName }?,
+    attribute ObjectId { xsd:integer }?,
+    attribute ObjectName { text }?,
+    attribute QuestId { xsd:integer }?,
+    attribute QuestName { text }?,
+    attribute Questid { xsd:integer }?,
+    attribute Questname { text }?,
+    attribute TargetId { xsd:integer }?,
+    attribute TargetType { xsd:NCName }?,
+    attribute Type { xsd:NCName },
+    attribute UseCount { xsd:integer }?,
+    attribute WaitForNpcs { xsd:NCName }?,
+    attribute X { xsd:decimal }?,
+    attribute Y { xsd:decimal }?,
+    attribute Z { xsd:decimal }?,
+    (TargetMinLevel, TargetMaxLevel)?,
+    (CollectFrom
+     | Hotspots
+     | element MaximumHotspotTime { xsd:integer })*
+  }
+CheckPoint =
+  element CheckPoint {
+    attribute Level { xsd:integer }
+  }
+SetMailbox = element SetMailbox { Mailboxes }
+CollectFrom =
+  element CollectFrom {
+    (Mob
+     | element GameObject {
+         attribute ID { xsd:integer }?,
+         attribute Id { xsd:integer }?,
+         attribute Name { text }?
+       })*,
+    (Vendor
+     | element Gameobject {
+         attribute Id { xsd:integer },
+         attribute Name { text }
+       }*
+     | Object*)
+  }
+Blacklist = element Blacklist { Mob+, Object? }
+Mob =
+  element Mob {
+    attribute Entry { xsd:integer }?,
+    attribute Flags { text }?,
+    attribute Id { xsd:integer }?,
+    attribute Name { text }?
+  }
+Vendors = element Vendors { Vendor* }
+Blackspots =
+  element Blackspots {
+    element Blackspot {
+      attribute Height { xsd:decimal }?,
+      attribute Name { text }?,
+      attribute Radius { xsd:decimal }?,
+      attribute X { xsd:decimal },
+      attribute Y { xsd:decimal },
+      attribute Z { xsd:decimal }
+    }*
+  }
+Name = element Name { text }
+Mailboxes =
+  element Mailboxes {
+    element Mailbox {
+      attribute Name { text }?,
+      attribute Nav { xsd:NCName }?,
+      attribute X { xsd:decimal },
+      attribute Y { xsd:decimal },
+      attribute Z { xsd:decimal }
+    }*
+  }
+TargetElites = element TargetElites { xsd:NCName }
+TargetMinLevel = element TargetMinLevel { xsd:integer }
+TargetMaxLevel = element TargetMaxLevel { xsd:integer }
+Factions = element Factions { text }
+Hotspots =
+  element Hotspots {
+    attribute X { xsd:decimal }?,
+    attribute Y { xsd:decimal }?,
+    attribute Z { xsd:decimal }?,
+    Factions?,
+    Hotspot*
+  }
+Runto =
+  element Runto {
+    attribute DestName { text }?,
+    attribute QuestId { xsd:integer }?,
+    attribute X { xsd:decimal },
+    attribute Y { xsd:decimal },
+    attribute Z { xsd:decimal }
+  }
+Run =
+  element Run {
+    attribute X { xsd:decimal },
+    attribute Y { xsd:decimal },
+    attribute Z { xsd:decimal }
+  }
+Hotspot =
+  element Hotspot {
+    attribute Name { text }?,
+    attribute QuestId { xsd:integer }?,
+    attribute StartPoint { xsd:boolean }?,
+    attribute StartingPoint { xsd:boolean }?,
+    attribute X { xsd:decimal },
+    attribute Y { xsd:decimal },
+    attribute Z { xsd:decimal }
+  }
+Vendor =
+  element Vendor {
+    attribute Entry { xsd:integer }?,
+    attribute Id { xsd:integer }?,
+    attribute Name { text },
+    attribute Nav { xsd:NCName }?,
+    attribute TrainClass { xsd:NCName }?,
+    attribute Type { xsd:NCName }?,
+    attribute X { xsd:decimal }?,
+    attribute Y { xsd:decimal }?,
+    attribute Z { xsd:decimal }?
+  }
+Object =
+  element Object {
+    attribute Entry { xsd:integer }?,
+    attribute Flags { text }?,
+    attribute Id { xsd:integer }?,
+    attribute Name { text }
+  }
