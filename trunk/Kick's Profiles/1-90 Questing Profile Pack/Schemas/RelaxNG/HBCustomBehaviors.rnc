@@ -2,6 +2,69 @@ default namespace = ""
 namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
 # Original contribution by chinajade
 
+# CustomBehavior schema is implemented via co-occurrence constraints
+#
+# While co-occurrence constraints provide powerful capabilities, they
+# unfortunately don't survive conversion to DTDs or W3C XML
+# Schema. RELAX NG has fewer restrictions on the XML structures it can
+# describe than either of those, as you'll see this in Chapter
+# 16. RELAX NG's co-occurrence constraints can't be expressed with W3C
+# XML Schema, because this type of schema isn't "deterministic." Some
+# co-occurrence constraints can be expressed in W3C XML Schema using
+# either xsi:type when possible or xs:key as a tricky hack
+
+
+# ********** CUSTOMBEHAVIOR EXTENSIONS **********
+Attributes-QuestBehaviorBase =
+  attribute IgnoreMobsInBlackspots { HBType-Boolean }?,
+  attribute MovementBy { QBType-MovementBy }?,
+  attribute NonCompeteDistance { HBType-Distance }?,
+  attribute QuestId { HBType-Id }?,
+  attribute QuestCompleteRequirement { QBType-QuestCompleteRequirement }?,
+  attribute QuestInLogRequirement { QBType-QuestInLogRequirement }?,
+  attribute QuestObjectiveIndex { xsd:positiveInteger }?,
+  attribute TerminateWhen { HBType-Condition }?,
+  attribute TerminationChecksQuestProgress { HBType-Boolean }?
+
+QBSubElement-HuntingGrounds =
+  element HuntingGrounds {
+     QBSubElement-Waypoint+
+  }
+
+QBSubElement-Waypoint =
+  element Hotspot {
+    attribute Name { HBType-Name }?,
+#    attribute StartPoint { xsd:boolean }?,
+#    attribute StartingPoint { xsd:boolean }?,
+    Attributes-Location
+  }
+
+QBType-MovementBy =
+  "ClickToMoveOnly"
+  | "FlightorPreferred"
+  | "NavigatorOnly"
+  | "NavigatorPreferred"
+  | "None"
+
+QBType-QuestCompleteRequirement =
+  "Complete"
+  | "CompleteOrFailed"
+  | "DontCare"
+  | "Failed"
+  | "NotComplete"
+  | "NotCompleteOrFailed"
+  | "NotFailed"
+
+QBType-QuestInLogRequirement =
+  "DontCare"
+  | "InLog"
+  | "NotInLog"
+
+
+
+# ********** CUSTOMBEHAVIOR **********
+
+
 
 CustomBehavior =
   element CustomBehavior {
@@ -305,16 +368,17 @@ CustomBehavior =
     }?,
     Blackspots?,
     element Start {
-      LocationAttributes
+      Attributes-Location
     }?,
     ((element End {
-        LocationAttributes
+        Attributes-Location
       },
       element Hop {
-        LocationAttributes
+        Attributes-Location
       }+)
      | element Path {
-         LocationAttributes
-       }*)
+         Attributes-Location
+       }*),
+    QBSubElement-HuntingGrounds?
   }
 
