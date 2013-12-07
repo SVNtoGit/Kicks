@@ -3,19 +3,20 @@ namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
 # Original contribution by chinajade
 
 # TODO:
-# * BehaviorFlags
-# * CollectFrom
-# * Break up Objective by type
+# * Conditions
 # * CustomBehaviors
 
 
 # ********** HONORBUDDY CORE GRAMMAR **********
 start =
-  element HBProfile {
+  element HBProfile
+  {
     attribute xsi:noNamespaceSchemaLocation { text }?,
     (AvoidMobs
      | Blacklist
+     | BlacklistedQuestGivers
      | Blackspots
+     | ContinentId
      | Mailboxes
      | MailBlue
      | MailGreen
@@ -37,296 +38,478 @@ start =
      | SellWhite
      | TargetElites
      | TargetingDistance
+     | UseMount
      | Vendors
      )*
   }
 
+AbandonQuest =
+  element AbandonQuest
+  {
+    attribute QuestId { HBType-Id }
+  }
+
 AvoidMobs =
-  element AvoidMobs {
+  element AvoidMobs
+  {
     Mob*
   }
 
 Blacklist =
-  element Blacklist {
-    Mob_Blacklist*
-    | Object_Blacklist*
+  element Blacklist
+  {
+    (Blacklist_Mob
+     | Blacklist_Object)*
+  }
+
+Blacklist_Mob =
+  element Mob
+  {
+    attribute Flags { HBType-BehaviorFlags },
+    Attribute-Id,
+    attribute Name { HBType-Name }?
+  }
+
+Blacklist_Object =
+  element Object
+  {
+    attribute Flags { HBType-BehaviorFlags }?,
+    attribute Id { HBType-Id },
+    attribute Name { HBType-Name }?
+  }
+
+BlacklistedQuestGivers =
+  element BlacklistedQuestGivers
+  {
+    Attribute-Id,
+    attribute Name { HBType-Name }
   }
 
 Blackspot =
-  element Blackspot {
+  element Blackspot
+  {
     attribute Height { xsd:decimal }?,
-    attribute Name { text }?,
-    attribute Radius { xsd:decimal { minExclusive="0.0" } }?,
-    LocationAttributes
+    attribute Name { HBType-Name }?,
+    attribute Radius { HBType-DistancePositive }?,
+    Attributes-Location
+  }
+
+Blackspot_Aerial =
+  element AerialBlackspot
+  {
+    attribute Faction { HBType-Faction }?,
+    Attributes-Location,
+    attribute MapId { HBType-MapId }?,
+    attribute Name { HBType-Name }?
   }
 
 Blackspots =
-  element Blackspots {
-    Blackspot*
+  element Blackspots
+  {
+    (Blackspot
+     | Blackspot_Aerial)*
   }
 
 Checkpoint =
-  element Checkpoint {
-    attribute Level { LevelValueDecimal }
+  element Checkpoint
+  {
+    attribute Level { HBType-Level }
+  }
+
+ClearGrindArea =
+  element ClearGrindArea
+  {
+    empty
   }
 
 ClearMailbox =
-  element ClearMailbox {
+  element ClearMailbox
+  {
     empty
   }
 
 ClearVendor =
-  element ClearVendor {
+  element ClearVendor
+  {
     empty
   }
 
 CollectFrom =
-  element CollectFrom {
-    (Mob
-     | element GameObject {
-         attribute Id { MobIdValue }?,
-         attribute Name { text }?
-       })*,
-    (Vendor
-     | element Gameobject {
-         attribute Id { MobIdValue },
-         attribute Name { text }
-       }*
-     | Object*)
+  element CollectFrom
+  {
+    (element Mob
+     {
+       CollectFrom_Entry
+     }
+     | element Object
+       {
+         CollectFrom_Entry
+       }
+     | element Vendor
+       {
+         CollectFrom_Entry
+       }
+    )*
+  }
+
+CollectFrom_Entry =
+  attribute Id { HBType-Id },
+  attribute Name { HBType-Name }?,
+  attribute Type { HBType-CollectFromType }?
+
+ContinentId =
+  element ContinentId
+  {
+    HBType-MapId
   }
 
 DisableBehavior =
-  element DisableBehavior {
-    attribute Name { text }
-#    attribute Name { BehaviorFlagNames }
+  element DisableBehavior
+  {
+    attribute Name { HBType-BehaviorFlags }
   }
 
 DisableRepair =
-  element DisableRepair {
+  element DisableRepair
+  {
     empty
   }
 
 EnableBehavior =
-  element EnableBehavior {
-    attribute Name { text }
-#    attribute Name { BehaviorFlagNames }
+  element EnableBehavior
+  {
+    attribute Name { HBType-BehaviorFlags }
   }
 
 EnableRepair =
-  element EnableRepair {
+  element EnableRepair
+  {
     empty
   }
 
 Factions =
-  element Factions {
-    list { MobIdValue+ }
+  element Factions
+  {
+    list { HBType-Id+ }
+  }
+
+ForceMail =
+  element ForceMail
+  {
+    element Item {
+      Attribute-Id,
+      attribute Name { HBType-Name }?
+    }+
   }
 
 GrindArea =
-  element GrindArea {
+  element GrindArea
+  {
     Blacklist?
-    & (Factions | MobIds)
+    & (Factions
+       | MobIds
+       | (Factions, MobIds)
+       | (MobIds, Factions))
+    & LootMobs?
+    & LootRadius?
+    & MaximumHotspotTime?
+    & MaxDistance?
     & Name?
+    & RandomizeHotspots?
     & TargetElites?
+    & TargetingDistance?
     & TargetMaxLevel?
     & TargetMinLevel?
+    & UseMount?
     & Hotspots
   }
 
 GrindTo =
-  element GrindTo {
-    attribute Condition { ConditionExpression }?,
-    attribute GoalText { text }?,
-    attribute Level { LevelValueDecimal }?,
-    attribute Nav { NavValue }?
+  element GrindTo
+  {
+    (attribute Condition { HBType-Condition }
+     | attribute Level { HBType-Level }),
+    attribute GoalText { HBType-Name }?,
+    attribute Nav { HBType-Nav }?
   }
 
 Hotspot =
-  element Hotspot {
-    LocationAttributes
-  }
-
-Hotspot_Waypoint =
-  element Hotspot {
-    attribute Name { text }?,
-#    attribute StartPoint { xsd:boolean }?,
-#    attribute StartingPoint { xsd:boolean }?,
-    LocationAttributes
+  element Hotspot
+  {
+    Attributes-Location
   }
 
 Hotspots =
-  element Hotspots {
+  element Hotspots
+  {
     Hotspot*
   }
 
 If =
-  element If {
-    attribute Condition { ConditionExpression },
+  element If
+  {
+    attribute Condition { HBType-Condition },
     (QuestOrder_Directives*
-     | element Else {
+     | element Else
+       {
 	 QuestOrder_Directives*
        }
-     | element ElseIf {
-         attribute Condition { ConditionExpression },
+     | element ElseIf
+       {
+         attribute Condition { HBType-Condition },
 	 QuestOrder_Directives*
        })+
   }
 
 LootMobs =
-  element LootMobs {
-    attribute Value { MetaBooleanValue }
+  element LootMobs
+  {
+    attribute Value { HBType-MetaBoolean }
+  }
+
+LootRadius =
+  element LootRadius
+  {
+    attribute Value { HBType-MetaDecimalNonNegative }?
   }
 
 Mailboxes =
-  element Mailboxes {
-    element Mailbox {
-      attribute Name { text }?,
-      attribute Nav { NavValue }?,
-      LocationAttributes
+  element Mailboxes
+  {
+    element Mailbox
+    {
+      attribute Name { HBType-Name }?,
+      attribute Nav { HBType-Nav }?,
+      Attributes-Location
     }*
   }
 
 MailBlue =
-  element MailBlue { BooleanValue }
-
-MailGreen =
-  element MailGreen { BooleanValue }
-
-MailGrey =
-  element MailGrey { BooleanValue }
-
-MailPurple =
-  element MailPurple { BooleanValue }
-
-MailWhite =
-  element MailWhite { BooleanValue }
-
-MaxLevel =
-  element MaxLevel { LevelValueInteger }
-
-MinDurability =
-   element MinDurability { xsd:decimal { minInclusive="0.0" } }
-
-MinFreeBagSlots =
-  element MinFreeBagSlots { xsd:nonNegativeInteger }
-
-MinLevel =
-  element MinLevel { LevelValueInteger }
-
-Mob =
-  element Mob {
-    IdAttribute,
-    attribute Name { text }?
+  element MailBlue
+  {
+    HBType-Boolean
   }
 
-Mob_Blacklist =
-  element Mob {
-    attribute Flags { text }?,
-#    attribute Flags { BehaviorFlagNames }
-    IdAttribute,
-    attribute Name { text }?
+MailGreen =
+  element MailGreen
+  {
+    HBType-Boolean
+  }
+
+MailGrey =
+  element MailGrey
+  {
+    HBType-Boolean
+  }
+
+MailPurple =
+  element MailPurple
+  {
+    HBType-Boolean
+  }
+
+MailWhite =
+  element MailWhite
+  {
+    HBType-Boolean
+  }
+
+MaximumHotspotTime =
+  element MaximumHotspotTime
+  {
+    HBType-TimeDuration
+  }
+
+MaxDistance =
+  element MaxDistance
+  {
+    HBType-DistancePositive
+  }
+
+MaxLevel =
+  element MaxLevel
+  {
+    HBType-Count
+  }
+
+MinDurability =
+  element MinDurability
+  {
+    xsd:decimal { minInclusive="0.0" }
+  }
+
+MinFreeBagSlots =
+  element MinFreeBagSlots
+  {
+    xsd:nonNegativeInteger
+  }
+
+MinLevel =
+  element MinLevel
+  {
+    HBType-Count
+  }
+
+Mob =
+  element Mob
+  {
+    Attribute-Id,
+    attribute Name { HBType-Name }?
   }
 
 MobIds =
-  element MobIds {
-    list { MobIdValue+ }
+  element MobIds
+  {
+    list { HBType-Id+ }
   }
 
 MoveTo =
-  element MoveTo {
-    attribute DestName { text }?,
-#    attribute Distance { xsd:integer }?,
-#    attribute LocationName { text }?,
-    attribute Name { xsd:NCName }?,
-    attribute Nav { NavValue }?,
-    attribute QuestId { QuestIdValue }?,
-#    attribute WaitTime { xsd:integer }?,
-    LocationAttributes
+  element MoveTo
+  {
+    attribute DestName { HBType-Name }?,
+    attribute Nav { HBType-Nav }?,
+    attribute Precision { HBType-MetaDecimalNonNegative }?,
+    attribute QuestId { HBType-Id }?,
+    Attributes-Location
   }
 
-Name = element Name { text }
+Name =
+  element Name
+  {
+    HBType-Name
+  }
 
 Object =
-  element Object {
-    IdAttribute,
-    attribute Name { text }
-  }
-
-Object_Blacklist =
-  element Object {
-    attribute Flags { text }?,
-    attribute Id { MobIdValue },
-    attribute Name { text }?
+  element Object
+  {
+    Attribute-Id,
+    attribute Name { HBType-Name }?
   }
 
 Objective =
-  element Objective {
-    attribute CollectCount { xsd:integer }?,
-    attribute CollectFrom { xsd:integer }?,
-    attribute CollectionCount { xsd:integer }?,
-    attribute GiverName { text }?,
-    attribute ItemId { ItemIdValue }?,
-    attribute ItemName { text }?,
-    attribute KillCount { xsd:positiveInteger }?,
-    attribute MobId { MobIdValue }?,
-    attribute MobId2 { MobIdValue }?,
-    attribute MobName { text }?,
-    attribute MobState { xsd:NCName }?,
-    attribute Name { text }?,
-    attribute Nav { NavValue }?,
-    attribute ObjectId { MobIdValue }?,
-    attribute ObjectName { text }?,
-    attribute QuestId { QuestIdValue }?,
-    attribute QuestName { text }?,
-    attribute TargetId { MobIdValue }?,
-    attribute TargetType { xsd:NCName }?,
-    attribute Type { xsd:NCName },
-    attribute UseCount { xsd:positiveInteger }?,
-    attribute WaitForNpcs { BooleanValue }?,
-    LocationAttributes?,
-    (TargetMinLevel, TargetMaxLevel)?,
-    (CollectFrom
-     | Hotspots
-     | element MaximumHotspotTime { xsd:integer })*
+  Objective_CollectItem
+  | Objective_KillMob
+  | Objective_UseObject
+
+Objective_CollectItem =
+  element Objective
+  {
+    attribute Type { "CollectItem" },
+    Attributes-ObjectiveCore,
+    attribute CollectCount { HBType-Count },    
+    attribute ItemId { HBType-Id },
+    attribute ItemName { HBType-Name }?
   }
 
+Objective_KillMob =
+  element Objective
+  {
+    attribute Type { "KillMob" },
+    Attributes-ObjectiveCore,
+    attribute KillCount { HBType-Count },
+    attribute MobId { HBType-Id },
+    attribute MobName { HBType-Name }?
+  }
+
+Objective_UseObject =
+  element Objective
+  {
+    attribute Type { "UseObject" },
+    Attributes-ObjectiveCore,
+    attribute ObjectId { HBType-Id },
+    attribute ObjectName { HBType-Name }?,
+    attribute UseCount { HBType-Count }
+  }
+
+ObjectiveOverride =
+  ObjectiveOverride_CollectItem
+  | ObjectiveOverride_KillMob
+  | ObjectiveOverride_TurnIn
+  | ObjectiveOverride_UseObject
+
+ObjectiveOverride_CollectItem =
+  element Objective
+  {
+    attribute Type { "CollectItem" },
+    attribute CollectCount { HBType-Count },    
+    attribute ItemId { HBType-Id },
+    attribute ItemName { HBType-Name }?, # convenience--HB doesn't support this
+    CollectFrom?,
+    ObjectiveOverride_GrindArea
+  }
+
+ObjectiveOverride_KillMob =
+  element Objective
+  {
+    attribute Type { "KillMob" },
+    attribute KillCount { HBType-Count },
+    attribute MobId { HBType-Id },
+    attribute MobName { HBType-Name }?, # convenience--HB doesn't support this
+    ObjectiveOverride_GrindArea
+  }
+
+ObjectiveOverride_TurnIn =
+  element Objective
+  {
+    attribute Type { "TurnIn" }
+  }
+
+ObjectiveOverride_UseObject =
+  element Objective
+  {
+    attribute Type { "UseObject" },
+    attribute ObjectId { HBType-Id },
+    attribute ObjectName { HBType-Name }?,
+    attribute UseCount { HBType-Count },
+    ObjectiveOverride_GrindArea
+  }
+
+ObjectiveOverride_GrindArea =
+  (TargetMinLevel?
+   & TargetMaxLevel?),
+  Hotspots
+  
+
 PickUp =
-  element PickUp {
-    attribute GiverId { MobIdValue },
-    attribute GiverName { text }?,
-    attribute GiverType { xsd:NCName }?,
-    attribute Nav { NavValue }?,
-    attribute QuestId { QuestIdValue },
-    attribute QuestName { text }?,
-    attribute Type { xsd:NCName }?,
-    LocationAttributes?
+  element PickUp
+  {
+    attribute GiverId { HBType-Id },
+    attribute GiverName { HBType-Name }?,
+    attribute GiverType { HBType-QuestGiverType }?,
+    attribute Nav { HBType-Nav }?,
+    attribute QuestId { HBType-Id },
+    attribute QuestName { HBType-Name }?,
+    Attributes-Location?
   }
 
 ProtectedItems =
-  element ProtectedItems {
+  element ProtectedItems
+  {
     element Item {
-      IdAttribute,
-      attribute Name { text }?
+      Attribute-Id,
+      attribute Name { HBType-Name }?
     }+
   }
 
 Quest =
-  element Quest {
-    attribute Id { QuestIdValue },
-    attribute Name { text }?,
-    TurnIn?,
-    CollectFrom?,
-    Objective*
+  element Quest
+  {
+    attribute Id { HBType-Id },
+    attribute Name { HBType-Name }?,
+    ObjectiveOverride+
   }
 
 QuestOrder =
-  element QuestOrder {
-    attribute IgnoreCheckpoints { BooleanValue }?,
+  element QuestOrder
+  {
+    attribute IgnoreCheckpoints { HBType-Boolean }?,
     QuestOrder_Directives*
-   }
+  }
 
 QuestOrder_Directives =
-  (Checkpoint
+  (AbandonQuest
+   | Checkpoint
+   | ClearGrindArea
    | ClearMailbox
    | ClearVendor
    | CustomBehavior
@@ -337,6 +520,7 @@ QuestOrder_Directives =
    | GrindTo
    | If
    | LootMobs
+   | LootRadius
    | MoveTo
    | Objective
    | PickUp
@@ -350,157 +534,234 @@ QuestOrder_Directives =
    | While
   )+
 
+RandomizeHotspots =
+  element RandomizeHotspots
+  {
+    HBType-Boolean
+  }
+
 SellBlue =
-  element SellBlue { BooleanValue }
+  element SellBlue
+  {
+    HBType-Boolean
+  }
 
 SellGreen =
-  element SellGreen { BooleanValue }
+  element SellGreen
+  {
+    HBType-Boolean
+  }
 
 SellGrey =
-  element SellGrey { BooleanValue }
+  element SellGrey
+  {
+    HBType-Boolean
+  }
 
 SellPurple =
-  element SellPurple { BooleanValue }
+  element SellPurple
+  {
+    HBType-Boolean
+  }
 
 SellWhite =
-  element SellWhite { BooleanValue }
+  element SellWhite
+  {
+    HBType-Boolean
+  }
 
 SetGrindArea =
-  element SetGrindArea {
+  element SetGrindArea
+  {
     GrindArea
   }
 
 SetMailbox =
-  element SetMailbox {
+  element SetMailbox
+  {
     Mailboxes
   }
 
 SetVendor =
-  element SetVendor {
+  element SetVendor
+  {
     Vendors
   }
 
 TargetingDistance =
-  element TargetingDistance {
-    attribute Value { MetaNonNegativeDecimalValue }?,
-    text
+  element TargetingDistance
+  {
+    attribute Value { HBType-MetaDecimalNonNegative }?
   }
 
-TargetElites = element TargetElites { BooleanValue }
+TargetElites =
+  element TargetElites
+  {
+    HBType-Boolean
+  }
 
-TargetMinLevel = element TargetMinLevel { xsd:positiveInteger }
+TargetMinLevel =
+  element TargetMinLevel
+  {
+    HBType-Count
+  }
 
-TargetMaxLevel = element TargetMaxLevel { xsd:positiveInteger }
+TargetMaxLevel =
+  element TargetMaxLevel
+  {
+    HBType-Count
+  }
 
 TurnIn =
-  element TurnIn {
-    attribute Nav { NavValue }?,
-    attribute NpcName { text }?,
-    attribute QuestId { xsd:integer },
-    attribute QuestName { text }?,
-    attribute TurnInId { MobIdValue },
-    attribute TurnInName { text }?,
-    attribute TurnInType { xsd:NCName }?,
-    LocationAttributes?
+  element TurnIn
+  {
+    (attribute QuestId { HBType-Id },
+     attribute QuestName { HBType-Name }?
+    )
+    | (attribute Nav { HBType-Nav }?,
+       attribute QuestId { HBType-Id },
+       attribute QuestName { HBType-Name }?,
+       attribute TurnInId { HBType-Id },
+       attribute TurnInName { HBType-Name }?,
+       attribute TurnInType { HBType-QuestTurnInType }?,
+       Attributes-Location?)
   }
 
 UseItem =
-  element UseItem {
-    attribute ItemId { ItemIdValue },
-    attribute ItemName { text }?,
-    attribute Name { text }?,
-    attribute Nav { NavValue }?,
-    attribute NumOfTimes { xsd:positiveInteger }?,
-    attribute QuestId { QuestIdValue },
-    attribute QuestName { text }?,
-    attribute TargetId { MobIdValue }?,
-    attribute TargetType { xsd:NCName }?,
-    attribute WaitTime { xsd:integer { minInclusive="1" } }?,
-    LocationAttributes
+  element UseItem
+  {
+    attribute ItemId { HBType-Id },
+    attribute Nav { HBType-Nav }?,
+    attribute QuestId { HBType-Id },
+    attribute TargetId { HBType-Id }?,
+    attribute TargetType { HBType-UseItemType }?,
+    Attributes-Location
   }
 
 UseMount =
-  element UseMount {
-    attribute Value { MetaBooleanValue }
+  element UseMount
+  {
+    attribute Value { HBType-Boolean }
   }
 
 Vendor =
-  element Vendor {
-    IdAttribute,
-    attribute Name { text },
-    attribute Nav { NavValue }?,
-    attribute TrainClass { TrainClassValue }?,
-    attribute Type { VendorTypeValue }?,
-    LocationAttributes?
+  element Vendor
+  {
+    Attribute-Id,
+    attribute Name { HBType-Name },
+    attribute Nav { HBType-Nav }?,
+    attribute TrainClass { HBType-TrainClass }?,
+    attribute Type { HBType-VendorType }?,
+    Attributes-Location?
   }
 
 Vendors =
-  element Vendors {
+  element Vendors
+  {
     Vendor*
   }
 
 While =
-  element While {
-    attribute Condition { ConditionExpression },
+  element While
+  {
+    attribute Condition { HBType-Condition },
     QuestOrder_Directives*
   }
 
 
 # ********** Synthetic nodes **********
 
-BehaviorFlagName =
-  "Combat"
-  | "Loot"
-  | "Pull"
+Attribute-Id =
+  attribute Id { HBType-Id }
 
-#BehaviorFlagNames =
-#  | BehaviorFlagName ("," BehaviorFlagName )*
-
-BooleanValue =
-  "False"
-  | "True"
-
-ConditionExpression =
-  text
-
-IdAttribute =
-  attribute Entry { xsd:positiveInteger }
-  | attribute Id { MobIdValue }
-
-ItemIdValue =
-  xsd:positiveInteger
-
-LevelValueInteger =
-  xsd:positiveInteger
-
-LevelValueDecimal =
-  xsd:decimal { minInclusive="1.0" }
-
-LocationAttributes =
+Attributes-Location =
   attribute X { xsd:decimal },
   attribute Y { xsd:decimal },
   attribute Z { xsd:decimal }
 
-MetaBooleanValue =
-  BooleanValue
+Attributes-ObjectiveCore =
+  attribute Nav { HBType-Nav }?,
+  attribute QuestId { HBType-Id },
+  attribute QuestName { HBType-Name }?,
+  Attributes-Location?
+
+HBType-BehaviorFlags =
+   xsd:token { pattern="All|((Combat|Death|Loot|Pull|Rest|Roam|Vendor)(,\s*(Combat|Death|Loot|Pull|Rest|Roam|Vendor))*)" }
+
+HBType-Boolean =
+  "False"
+  | "True"
+
+HBType-CollectFromType =
+  "Mob"
+  | "Object"
+  | "Vendor"
+
+HBType-Count =
+  xsd:positiveInteger
+
+HBType-Distance =
+  xsd:decimal { minInclusive="0.0" }
+
+HBType-DistancePositive =
+  xsd:decimal { minExclusive="0.0" }
+
+HBType-Faction =
+  "Alliance"
+  | "Horde"
+  | "Neutral"
+
+HBType-Id =
+  xsd:positiveInteger
+
+HBType-Level =
+  xsd:decimal { minInclusive="1.0" }
+
+HBType-MapId =
+  xsd:nonNegativeInteger
+
+HBType-MetaBoolean =
+  HBType-Boolean
   | "null"
 
-MetaDecimalValue =
+HBType-MetaDecimal =
   xsd:decimal
   | "null"
 
-MetaNonNegativeDecimalValue =
+HBType-MetaDecimalNonNegative =
   xsd:decimal { minInclusive="0.0" }
   | "null"
 
-MobIdValue =
-  xsd:positiveInteger
+HBType-Name =
+  text
 
-NavValue =
+HBType-Nav =
   "Fly"
   | "Run"
 
-TrainClassValue =
+HBType-ObjectiveType =
+  "CollectItem"
+  | "KillMob"
+  | "UseObject"
+
+HBType-QuestGiverType =
+  "Item"
+  | "Npc"
+  | "Object"
+
+HBType-QuestTurnInType =
+  "Npc"
+  | "Object"
+
+HBType-UseItemType =
+  "GameObject"
+  | "None"
+  | "Npc"
+
+HBType-TimeDuration =
+  xsd:positiveInteger
+
+HBType-TrainClass =
   "Deathknight"
   | "Druid"
   | "Hunter"
@@ -513,13 +774,15 @@ TrainClassValue =
   | "Warlock"
   | "Warrior"
 
-QuestIdValue =
-  xsd:positiveInteger
-
-VendorTypeValue =
+HBType-VendorType =
   "Food"
   | "Repair"
+  | "Sell"
   | "Train"
+
+
+# ********** CONDITIONS **********
+include "HBConditions.rnc"
 
 
 # ********** CUSTOM BEHAVIORS **********
