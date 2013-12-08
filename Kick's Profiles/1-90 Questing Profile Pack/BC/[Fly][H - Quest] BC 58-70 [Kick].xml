@@ -2743,7 +2743,11 @@
                     <CustomBehavior File="ForcedDismount" />
                 </If>
 
-                <CustomBehavior File="InteractWith" MobId="184115" Range="6" GossipOptions="1" WaitTime="6000" TerminateWhen="HasItem(31955)" X="179.0589" Y="3497.629" Z="62.99714" />
+                <!-- CJ: The journal can be dropped by a nearby mob, and not just available from the knapsack...
+                    We want to avoid running the InteractWith if we already have either the journal or the knapsack
+                    that contains it.
+                 -->
+                <CustomBehavior File="InteractWith" QuestId="9374" MobId="184115" WaitTime="6000" PreInteractMountStrategy="Dismount" TerminateWhen="HasItem(31955)||HasItem(23339)" X="179.0589" Y="3497.629" Z="62.99714" />
 
                 <If Condition="HasItem(31955)">
                     <CustomBehavior File="Misc\RunLua" WaitTime="2000" NumOfTimes="1" Lua="UseItemByName(31955)" />
