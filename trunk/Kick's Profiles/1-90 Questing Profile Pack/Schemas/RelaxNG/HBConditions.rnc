@@ -2,139 +2,290 @@ default namespace = ""
 namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
 # Original contribution by chinajade
 
+# MAINTAINER'S NOTE:
+# Using RelaxNG to validate Condition/TerminateWhen/etc is pushing
+# beyond the limits of the schema definition capabilities.
+# However, we provide enough here to eliminate many of the common mistakes
+# This is not true EBNF.  Thus, it has limitations:
+# * It can't take into account all parenthesis possibilities
+# * Parentheses must be separated from encompasing terms by a space
+# * The type checking is not as strict as we like.
+#   For instance "Me.Class != HasAura(123)" will not be detected
+#   as the failure it should be.
+#
+# On the up side, it does check for a *lot* of common profile mistakes
+# * Term misspellings
+#   E.g., IsQuestComplete instead of IsQuestCompleted
+# * Appropriate number of arguments for helper methods
+#   It also checks for appropriate argument types in most situations.
+# * Proper capitalization and spelling of Terms (methods, arguments, etc)
+# * etc
 
-BinaryOperator_Equalities =
-  "=="
-  | "!="
 
-BinaryOperator_Conjunction =
-  "||"
-  | "&&"
+BinaryOperator-Equality =
+  xsd:token { pattern="(==)|(!=)" }
+
+BinaryOperator-Conjunction =
+  xsd:token { pattern="(\|\|)|(&&)" }
 
 BinaryOperator =
-  BinaryOperator_Equalities
-  | BinaryOperator_Conjunction
-  | "<"
-  | "<="
-  | ">"  
-  | ">="
+  BinaryOperator-Equality
+  | BinaryOperator-Conjunction
+  | xsd:token { pattern="(<)|(<=)|(>)|(>=)" }
 
-Term-Classes =
-  xsd:token { pattern="WoWClass\.(DeathKnight|Druid|Hunter|Mage|Monk|Paladin|Priest|Rogue|Shaman|Warlock|Warrior)" }
-BinaryExpression |=
-  list
-  {
-    "Me.Class",
-    BinaryOperator_Equalities,
-    Term-Classes
-  }
 
-Term-Faction =
-  xsd:token { pattern="Me\.(IsAlliance|IsHorde)" }
-Term |= Term-Faction
+# CanFly
+Term |= xsd:token { pattern="!?CanFly\(\)" }
 
-Term-HasAura =
-  xsd:token { pattern="!?(Me\.)?HasAura\([0-9]+\)" }
-Term |= Term-HasAura
+# Chance
+Term |= xsd:token { pattern="!?Chance\((100\|[1-9][0-9]\|[1-9]\|0)\.?[0-9]*\)" }
 
-Term-HasItem =
-  xsd:token { pattern="!?HasItem\([0-9]+\)" }
-Term |= Term-HasItem
-
-Term-HasQuest =
-  xsd:token { pattern="!?HasQuest\([0-9]+\)" }
-Term |= Term-HasQuest
-
-Term-HasSpell =
-  xsd:token { pattern="!?HasSpell\([0-9]+\)" }
-Term |= Term-HasSpell
-
-Term-HasQuestAvailable =
-  xsd:token { pattern="!?HasQuestAvailable\([0-9]+\)" }
-Term |= Term-HasQuestAvailable
-
-Term-IsObjectiveComplete =
-  xsd:token { pattern="!?IsObjectiveComplete\([0-9], [0-9]+\)" }
-Term |= Term-IsObjectiveComplete
-
-Term-IsQuestCompleted =
-  xsd:token { pattern="!?IsQuestCompleted\([0-9]+\)" }
-Term |= Term-IsQuestCompleted
-
-Term-Race =
-  xsd:token { pattern="WoWRace\.(Draenei|Dwarf|Gnome|Human|NightElf|Pandaren|Worgen|BloodElf|Goblin|Orc|Tauren|Troll|Undead|Broken|FelOrc|ForestTroll|IceTroll|Naga|NorthrendSekeleton|Skeleton|Taunka|Tuskarr|Vrykul)" }
-BinaryExpression |=
-  list
-  {
-    "Me.Race",
-    BinaryOperator_Equalities,
-    Term-Race
-  }
+# Class
+Term |= xsd:token { pattern="Me\.Class" }
+Term |= xsd:token { pattern="WoWClass\.DeathKnight" }
+Term |= xsd:token { pattern="WoWClass\.Druid" }
+Term |= xsd:token { pattern="WoWClass\.Hunter" }
+Term |= xsd:token { pattern="WoWClass\.Mage" }
+Term |= xsd:token { pattern="WoWClass\.Monk" }
+Term |= xsd:token { pattern="WoWClass\.Paladin" }
+Term |= xsd:token { pattern="WoWClass\.Priest" }
+Term |= xsd:token { pattern="WoWClass\.Rogue" }
+Term |= xsd:token { pattern="WoWClass\.Shaman" }
+Term |= xsd:token { pattern="WoWClass\.Warlock" }
+Term |= xsd:token { pattern="WoWClass\.Warrior" }
 
 # Coin
-BinaryExpression |=
-  list
-  {
-    xsd:token { pattern="Me\.(Copper|Gold|Silver)" },
-    BinaryOperator,
-    xsd:nonNegativeInteger
-  }
+Term |= xsd:token { pattern="Me\.(Copper|Gold|Silver)" }
+Term |= xsd:token { pattern="GetCurrencyAmount\([0-9]+\)" }
+
+# Distance
+Term |= xsd:token { pattern="DistanceToUnit\([0-9]+\.?[0-9]*\)" }
+
+# Faction
+Term |= xsd:token { pattern="!?Me\.(IsAlliance|IsHorde)" }
+Term |= xsd:token { pattern="GetFactionReputation\([0-9]+\)" }
+
+# Items
+Term |= xsd:token { pattern="GetItemCount\([0-9]+\)" }
+
+# Has*
+Term |= xsd:token { pattern="!?Me\.HasAura\([0-9]+\)" }
+Term |= xsd:token { pattern="""!?Me\.HasAura\("[^"]+"\)""" }
+Term |= xsd:token { pattern="!?HasFaction\([0-9]+\)" }
+Term |= xsd:token { pattern="!?HasItem\([0-9]+\)" }
+Term |= xsd:token { pattern="!?HasMinion\([0-9]+\)" }
+Term |= xsd:token { pattern="!?HasQuest\([0-9]+\)" }
+Term |= xsd:token { pattern="!?HasQuestAvailable\([0-9]+\)" }
+Term |= xsd:token { pattern="!?HasSpell\([0-9]+\)" }
+Term |= xsd:token { pattern="""!?HasSpell\("[^"]+"\)""" }
+
+# Hearthstone
+Term |= xsd:token { pattern="Me\.HearthstoneAreaId" }
+Term |= xsd:token { pattern="Me\.MapId" }
+Term |= xsd:token { pattern="Me\.ZoneId" }
+
+# Is*
+Term |= xsd:token { pattern="!?IsAchievementComplete\([0-9]+\)" }
+## Unfortunately, we cannot allow spaces between the IsObjectiveComplete
+## arguments due to the lexical tokenization of 'list'.
+Term |= xsd:token { pattern="!?IsAchievementComplete\([0-9]+,[0-9]+\)" }
+Term |= xsd:token { pattern="!?Me\.IsOnTransport" }
+Term |= xsd:token { pattern="!?IsQuestCompleted\([0-9]+\)" }
+## Unfortunately, we cannot allow spaces between the IsObjectiveComplete
+## arguments due to the lexical tokenization of 'list'.
+Term |= xsd:string { pattern="!?IsObjectiveComplete\([1-9],[0-9]+\)" }
 
 # Level
-BinaryExpression |=
-  list
-  {
-    xsd:token { pattern="Me\.Level" },
-    BinaryOperator,
-    HBType-Level
-  }
+Term |= xsd:token { pattern="Me\.Level" }
 
-# Positional
-BinaryExpression |=
-  list
-  {
-    xsd:token { pattern="Me\.HearthstoneAreaId" },
-    BinaryOperator,
-    HBType-MapId
-  }
-BinaryExpression |=
-  list
-  {
-    xsd:token { pattern="Me\.MapId" },
-    BinaryOperator,
-    HBType-MapId
-  }
-BinaryExpression |=
-  list
-  {
-    xsd:token { pattern="Me\.[XYZ]" },
-    BinaryOperator,
-    xsd:decimal
-  }
-BinaryExpression |=
-  list
-  {
-    xsd:token { pattern="Me\.ZoneId" },
-    BinaryOperator,
-    HBType-MapId
-  }
+# Location
+Term |= xsd:token { pattern="Me\.[XYZ]" }
 
+# Navigation
+Term |= xsd:token { pattern="Navigator\.CanNavigateFully\(Me\.Location,\s*new WoWPoint\((\s*[+\-]?[0-9]+\.?[0-9]*),(\s*[+\-]?[0-9]+\.?[0-9]*),(\s*[+\-]?[0-9]+\.?[0-9]*)\)\)" }
+Term |= xsd:token { pattern="OnTransport" }
+
+# Race
+Term |= xsd:token { pattern="Me\.Race" }
+Term |= xsd:token { pattern="WoWRace\.Draenei" }
+Term |= xsd:token { pattern="WoWRace\.Dwarf" }
+Term |= xsd:token { pattern="WoWRace\.Gnome" }
+Term |= xsd:token { pattern="WoWRace\.Human" }
+Term |= xsd:token { pattern="WoWRace\.NightElf" }
+Term |= xsd:token { pattern="WoWRace\.Pandaren" }
+Term |= xsd:token { pattern="WoWRace\.Worgen" }
+
+Term |= xsd:token { pattern="WoWRace\.BloodElf" }
+Term |= xsd:token { pattern="WoWRace\.Goblin" }
+Term |= xsd:token { pattern="WoWRace\.Orc" }
+Term |= xsd:token { pattern="WoWRace\.Tauren" }
+Term |= xsd:token { pattern="WoWRace\.Troll" }
+Term |= xsd:token { pattern="WoWRace\.Undead" }
+
+Term |= xsd:token { pattern="WoWRace\.Broken" }
+Term |= xsd:token { pattern="WoWRace\.FelOrc" }
+Term |= xsd:token { pattern="WoWRace\.ForestTroll" }
+Term |= xsd:token { pattern="WoWRace\.IceTroll" }
+Term |= xsd:token { pattern="WoWRace\.Naga" }
+Term |= xsd:token { pattern="WoWRace\.NorthrendSkeleton" }
+Term |= xsd:token { pattern="WoWRace\.Skeleton" }
+Term |= xsd:token { pattern="WoWRace\.Taunka" }
+Term |= xsd:token { pattern="WoWRace\.Tuskarr" }
+Term |= xsd:token { pattern="WoWRace\.Vrykul" }
+
+# Reputation
+Term |= xsd:token { pattern="Me\.GetReputationLevelWith\([0-9]+\)" }
+Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Exalted" }
+Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Friendly" }
+Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Hated" }
+Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Honored" }
+Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Hostile" }
+Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Neutral" }
+Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Revered" }
+Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Unfriendly" }
+
+# Selection
+#Term |= xsd:token { pattern="Object\([0-9]+)" }
+## Unfortunately, we cannot allow spaces between the IsObjectiveComplete
+## arguments due to the lexical tokenization of 'list'.
+#Term |= xsd:token { pattern="Object\([0-9]+,.*\)" }
+#Term |= xsd:token { pattern="Unit\([0-9]+\)" }
+## Unfortunately, we cannot allow spaces between the IsObjectiveComplete
+## arguments due to the lexical tokenization of 'list'.
+#Term |= xsd:token { pattern="Unit\([0-9]+,.*\)" }
+
+# Skill
+Term |= xsd:token { pattern="Me\.GetSkill\(Styx\.SkillLine\.Riding\)(\.CurrentValue)?" }
+Term |= xsd:token { pattern="HerbalismSkill" }
+Term |= xsd:token { pattern="MiningSkill" }
+Term |= xsd:token { pattern="SkinningSkill" }
+
+# Constant Numerics
+Term |= HBType-MapId
+Term |= xsd:decimal
+Term |= xsd:token { pattern="null" }
+
+# ********** Expressions **********
+
+Expression =
+  Expression1
+  | Expression2
+  | Expression3
+  | Expression4
+  | Expression5
+  | Expression6
+
+Expression1 =
+  Term
+  | list { LParen, Term, RParen }
+
+Expression2 =
+  list { Term, BinaryOperator, Term }
+  | list { LParen, Term, BinaryOperator, Term, RParen }
+
+Expression3 =
+  # a || b || c
+  list { Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term }
+  # a < b || c
+  | list { Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term }
+  # ( a < b ) || c
+  | list { LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term }
+  # a || b < c
+  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term }
+  # a || ( b < c )
+  | list { Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen }
+
+Expression4 =
+  # a || b || c || d
+  list { Term, BinaryOperator-Conjunction, Term, RParen, BinaryOperator-Conjunction, LParen, Term, BinaryOperator-Conjunction, Term }
+  # a < b || c < d
+  | list { Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term }
+  # a < b || ( c < d )
+  | list { Term, BinaryOperator, Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen }
+  # ( a < b ) || c < d
+  | list { LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term, BinaryOperator, Term }
+  # ( a < b ) || ( c < d )
+  | list { LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen }
+
+Expression5 =
+  # a || b || c || d || e
+  list { Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term }
+  # a < b || c || d || e
+  | list { Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term }
+  # ( a < b ) || c || d || e
+  | list { LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term }
+  # a || b < c || d || e
+  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term }
+  # a || ( b < c ) || d || e
+  | list { Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term }
+  # a || b || c < d || e
+  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term }
+  # a || b || ( c < d ) || e
+  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term }
+  # a || b || c || d < e
+  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term }
+  # a || b || c || ( d < e )
+  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen }
+  # a < b || c < d || e
+  | list { Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term }
+  # ( a < b ) || c < d || e
+  | list { LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term }
+  # a < b || ( c < d ) || e
+  | list { Term, BinaryOperator, Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term }
+  # ( a < b ) || ( c < d ) || e
+  | list { LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term }
+  # a || b < c || d < e
+  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term }
+  # a || ( b < c ) || d < e
+  | list { Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term, BinaryOperator, Term }
+  # a || b < c || ( d < e )
+  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen }
+  # a || ( b < c ) || ( d < e )
+  | list { Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen }
+
+Expression6 =
+  empty
+  # a || b || c || d || e || f
+
+  # a < b || c || d || e || f
+  # ( a < b ) || c || d || e || f
+  # a || b < c || d || e || f
+  # a || ( b < c ) || d || e || f
+  # a || b || c < d || e || f
+  # a || b || ( c < d || e || f
+  # a || b || c || d < e || f
+  # a || b || c || ( d < e ) || f
+  # a || b || c || d || e < f
+  # a || b || c || d || ( e < f )
+
+  # a < b || c < d || e || f
+  # ( a < b ) || c < d || e || f
+  # a < b || ( c < d ) || e || f
+  # ( a < b ) || ( c < d ) || e || f
+
+  # a < b || c || d || e < f
+  # ( a < b ) || c || d || e < f
+  # a < b || c || d || ( e < f )
+  # ( a < b ) || c || d || ( e < f )
+
+  # a || b || c < d || e < f
+  # a || b || ( c < d ) || e < f
+  # a || b || c < d || ( e < f )
+  # a || b || ( c < d ) || ( e < f )
+
+  # a < b || c < d || e < f
+  # ( a < b ) || c < d || e < f
+  # a < b || ( c < d ) || e < f
+  # a < b || c < d || ( e < f )
+  # ( a < b ) || ( c < d ) || e < f
+  # ( a < b ) || c < d || ( e < f )
+  # a < b || ( c < d ) || ( e < f )
+  # ( a < b ) || ( c < d ) || ( e < f )
 
 # ********** HB **********
-
-HBType-BinaryExpression =
-  BinaryExpression
-  | list { Term, BinaryOperator, Term }
-
-HBType-Expression =
-  Term
-  | list { "(", Term, ")" }
-  | HBType-BinaryExpression
-  | list { "(", HBType-BinaryExpression, ")" }
-  | list { HBType-BinaryExpression, BinaryOperator, HBType-BinaryExpression }
-#  | list { Term, BinaryOperator, HBType-BinaryExpression }
-#  | list { HBType-BinaryExpression, BinaryOperator, Term }
+LParen = xsd:token { pattern="\(" }
+RParen = xsd:token { pattern="\)" }
 
 HBType-Condition =
-  HBType-Expression
+  Expression
   
