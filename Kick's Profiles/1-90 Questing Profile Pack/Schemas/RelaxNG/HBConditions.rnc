@@ -4,7 +4,7 @@ namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
 
 # MAINTAINER'S NOTE:
 # Using RelaxNG to validate Condition/TerminateWhen/etc is pushing
-# beyond the limits of the schema definition capabilities.
+# the very limits of the schema definition capabilities.
 # However, we provide enough here to eliminate many of the common mistakes
 # This is not true EBNF.  Thus, it has limitations:
 # * It can't take into account all parenthesis possibilities
@@ -22,17 +22,21 @@ namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
 # * etc
 
 
-BinaryOperator-Equality =
-  xsd:token { pattern="(==)|(!=)" }
+# ----------
+BinaryEquality = xsd:token { pattern="(==)|(!=)" }
+BinaryConjunction = xsd:token { pattern="(\|\|)|(&&)" }
+BinaryCompare = xsd:token { pattern="(<)|(<=)|(>)|(>=)" }
 
-BinaryOperator-Conjunction =
-  xsd:token { pattern="(\|\|)|(&&)" }
+BinaryOp =
+  BinaryEquality
+  | BinaryConjunction
+  | BinaryCompare
 
-BinaryOperator =
-  BinaryOperator-Equality
-  | BinaryOperator-Conjunction
-  | xsd:token { pattern="(<)|(<=)|(>)|(>=)" }
+LParen = xsd:token { pattern="\(" }
+RParen = xsd:token { pattern="\)" }
 
+
+# ----------
 
 # CanFly
 Term |= xsd:token { pattern="!?CanFly\(\)" }
@@ -102,6 +106,10 @@ Term |= xsd:token { pattern="Me\.Level" }
 Term |= xsd:token { pattern="Me\.[XYZ]" }
 
 # Navigation
+# CanNavigateFully will work as a stand-alone Term, but will be flagged
+# in as an error when used in a Binary expression or greater.  This is because
+# the mandatory space between "new WoWPoint" will throw off the schema lexer
+# when trying to process a 'list'.
 Term |= xsd:token { pattern="Navigator\.CanNavigateFully\(Me\.Location,\s*new WoWPoint\((\s*[+\-]?[0-9]+\.?[0-9]*),(\s*[+\-]?[0-9]+\.?[0-9]*),(\s*[+\-]?[0-9]+\.?[0-9]*)\)\)" }
 Term |= xsd:token { pattern="OnTransport" }
 
@@ -145,14 +153,14 @@ Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Revered" }
 Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Unfriendly" }
 
 # Selection
-#Term |= xsd:token { pattern="Object\([0-9]+)" }
+Term |= xsd:token { pattern="Object\([0-9]+\)" }
 ## Unfortunately, we cannot allow spaces between the IsObjectiveComplete
 ## arguments due to the lexical tokenization of 'list'.
-#Term |= xsd:token { pattern="Object\([0-9]+,.*\)" }
-#Term |= xsd:token { pattern="Unit\([0-9]+\)" }
+Term |= xsd:token { pattern="Object\([0-9]+,.*\)" }
+Term |= xsd:token { pattern="Unit\([0-9]+\)" }
 ## Unfortunately, we cannot allow spaces between the IsObjectiveComplete
 ## arguments due to the lexical tokenization of 'list'.
-#Term |= xsd:token { pattern="Unit\([0-9]+,.*\)" }
+Term |= xsd:token { pattern="Unit\([0-9]+,.*\)" }
 
 # Skill
 Term |= xsd:token { pattern="Me\.GetSkill\(Styx\.SkillLine\.Riding\)(\.CurrentValue)?" }
@@ -166,126 +174,201 @@ Term |= xsd:decimal
 Term |= xsd:token { pattern="null" }
 
 # ********** Expressions **********
+# We could reduce all these expressions down to BinaryOp, and
+# leave BinaryConjunction out.  However, that would fail to catch
+# many common profile writer mistakes.  So, we go the extra mile here.
+#
+# Each Expression type starts with the general all-conjunction expression.
+# Then, the first block contains permutations of one BinaryOp expression.
+# The next block permutations of two BinaryOp expressions.  Etc.
+#
+# We stop the general Expression expansion at 6 Terms.  Anything larger than that
+# will be handled as special cases.  It would be soooo nice if this were
+# true EBNF, so we could really do the job well.  However, we're
+# incredibly happy that RelaxNG has even this much built-in power already.
 
 Expression =
-  Expression1
-  | Expression2
-  | Expression3
-  | Expression4
-  | Expression5
-  | Expression6
+  Expression1Term
+  | Expression2Terms
+  | Expression3Terms
+  | Expression4Terms
+  | Expression5Terms
+  | Expression6Terms
+  | ExpressionSpecialCaseTerms
 
-Expression1 =
+Expression1Term =
   Term
   | list { LParen, Term, RParen }
 
-Expression2 =
-  list { Term, BinaryOperator, Term }
-  | list { LParen, Term, BinaryOperator, Term, RParen }
+Expression2Terms =
+  # a < b
+  list { Term, BinaryOp, Term }
+  # ( a < b )
+  | list { LParen, Term, BinaryOp, Term, RParen }
 
-Expression3 =
+Expression3Terms =
+  # General case...
   # a || b || c
-  list { Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term }
+  list { Term, BinaryConjunction, Term, BinaryConjunction, Term }
+
+  # Permutations with one BinaryOp sub-expression...
   # a < b || c
-  | list { Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term }
+  | list { Term, BinaryOp, Term, BinaryConjunction, Term }
   # ( a < b ) || c
-  | list { LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term }
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term }
   # a || b < c
-  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term }
+  | list { Term, BinaryConjunction, Term, BinaryOp, Term }
   # a || ( b < c )
-  | list { Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen }
+  | list { Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
 
-Expression4 =
+Expression4Terms =
+  # General case...
   # a || b || c || d
-  list { Term, BinaryOperator-Conjunction, Term, RParen, BinaryOperator-Conjunction, LParen, Term, BinaryOperator-Conjunction, Term }
+  list { Term, BinaryConjunction, Term, RParen, BinaryConjunction, LParen, Term, BinaryConjunction, Term }
+
+  # Permutations with one BinaryOp sub-expression...
+  # a < b || c || d
+  | list { Term, BinaryOp, Term, BinaryConjunction, Term, BinaryConjunction, Term }
+  # ( a < b ) || c || d
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryConjunction, Term }
+  # a || b < c || d
+  | list { Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, Term }
+  # a || ( b < c ) || d
+  | list { Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term }
+  # a || b || c < d
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryOp, Term }
+  # a || b || ( c < d )
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
+  
+  # Permutations with two BinaryOp sub-expressions...
   # a < b || c < d
-  | list { Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term }
+  | list { Term, BinaryOp, Term, BinaryConjunction, Term, BinaryOp, Term }
   # a < b || ( c < d )
-  | list { Term, BinaryOperator, Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen }
+  | list { Term, BinaryOp, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
   # ( a < b ) || c < d
-  | list { LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term, BinaryOperator, Term }
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryOp, Term }
   # ( a < b ) || ( c < d )
-  | list { LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen }
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
 
-Expression5 =
+Expression5Terms =
+  # General case...
   # a || b || c || d || e
-  list { Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term }
+  list { Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term }
+
+  # Permutations with one BinaryOp expression...
   # a < b || c || d || e
-  | list { Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term }
+  | list { Term, BinaryOp, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term }
   # ( a < b ) || c || d || e
-  | list { LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term }
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term }
   # a || b < c || d || e
-  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term }
+  | list { Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, Term, BinaryConjunction, Term }
   # a || ( b < c ) || d || e
-  | list { Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term }
+  | list { Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryConjunction, Term }
   # a || b || c < d || e
-  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term }
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, Term }
   # a || b || ( c < d ) || e
-  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term }
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term }
   # a || b || c || d < e
-  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term }
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryOp, Term }
   # a || b || c || ( d < e )
-  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen }
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
+
+  # Permutations with two BinaryOp expressions...
   # a < b || c < d || e
-  | list { Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term }
+  | list { Term, BinaryOp, Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, Term }
   # ( a < b ) || c < d || e
-  | list { LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term }
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, Term }
   # a < b || ( c < d ) || e
-  | list { Term, BinaryOperator, Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term }
+  | list { Term, BinaryOp, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term }
   # ( a < b ) || ( c < d ) || e
-  | list { LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term }
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term }
   # a || b < c || d < e
-  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term }
+  | list { Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, Term, BinaryOp, Term }
   # a || ( b < c ) || d < e
-  | list { Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, Term, BinaryOperator, Term }
+  | list { Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryOp, Term }
   # a || b < c || ( d < e )
-  | list { Term, BinaryOperator-Conjunction, Term, BinaryOperator, Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen }
+  | list { Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
   # a || ( b < c ) || ( d < e )
-  | list { Term, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen, BinaryOperator-Conjunction, LParen, Term, BinaryOperator, Term, RParen }
+  | list { Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
 
-Expression6 =
-  empty
+Expression6Terms =
+  # General case...
   # a || b || c || d || e || f
+  list { Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term }
 
+  # Permutations with one BinaryOp expression...
   # a < b || c || d || e || f
+  | list { Term, BinaryOp, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term }
   # ( a < b ) || c || d || e || f
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term }
   # a || b < c || d || e || f
+  | list { Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term }
   # a || ( b < c ) || d || e || f
+  | list { Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term }
   # a || b || c < d || e || f
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, Term, BinaryConjunction, Term }
   # a || b || ( c < d || e || f
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryConjunction, Term }
   # a || b || c || d < e || f
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, Term }
   # a || b || c || ( d < e ) || f
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term }
   # a || b || c || d || e < f
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryOp, Term }
   # a || b || c || d || ( e < f )
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
 
+  # Permutations with two BinaryOp expressions...
   # a < b || c < d || e || f
+  | list { Term, BinaryOp, Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, Term, BinaryConjunction, Term }
   # ( a < b ) || c < d || e || f
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, Term, BinaryConjunction, Term }
   # a < b || ( c < d ) || e || f
+  | list { Term, BinaryOp, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryConjunction, Term }
   # ( a < b ) || ( c < d ) || e || f
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryConjunction, Term }
 
   # a < b || c || d || e < f
+  | list { Term, BinaryOp, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryOp, Term }
   # ( a < b ) || c || d || e < f
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryOp, Term }
   # a < b || c || d || ( e < f )
+  | list { Term, BinaryOp, Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
   # ( a < b ) || c || d || ( e < f )
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryConjunction, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
 
   # a || b || c < d || e < f
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, Term, BinaryOp, Term }
   # a || b || ( c < d ) || e < f
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryOp, Term }
   # a || b || c < d || ( e < f )
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
   # a || b || ( c < d ) || ( e < f )
+  | list { Term, BinaryConjunction, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
 
+  # Permutations with three BinaryOp expressions...
   # a < b || c < d || e < f
+  | list { Term, BinaryOp, Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, Term, BinaryOp, Term }
   # ( a < b ) || c < d || e < f
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, Term, BinaryOp, Term }
   # a < b || ( c < d ) || e < f
+  | list { Term, BinaryOp, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryOp, Term }
   # a < b || c < d || ( e < f )
+  | list { Term, BinaryOp, Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
   # ( a < b ) || ( c < d ) || e < f
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, Term, BinaryOp, Term }
   # ( a < b ) || c < d || ( e < f )
+  | list { LParen, Term, BinaryOp, RParen, Term, BinaryConjunction, Term, BinaryOp, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
   # a < b || ( c < d ) || ( e < f )
+  | list { Term, BinaryOp, Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
   # ( a < b ) || ( c < d ) || ( e < f )
+  | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
+
+ExpressionSpecialCaseTerms =
+  empty
+
 
 # ********** HB **********
-LParen = xsd:token { pattern="\(" }
-RParen = xsd:token { pattern="\)" }
-
 HBType-Condition =
   Expression
   
