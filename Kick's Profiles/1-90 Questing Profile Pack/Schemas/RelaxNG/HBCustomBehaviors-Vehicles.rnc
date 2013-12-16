@@ -1,0 +1,159 @@
+default namespace = ""
+namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
+
+# Original contribution by chinajade
+
+
+# CustomBehavior |=
+#  element CustomBehavior
+#  {
+#    attribute File { "Vehicles\BasicVehicleBehaviour" },
+#  
+#    # DEPRECATED
+#  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "Vehicles\CannonControl" },
+
+    Attributes-QuestSpecifier,
+    attribute Buttons { QBType-HotbarButtons },
+    attribute ExitButton { QBType-HotbarButton },
+    attribute MaxAngle { QBType-Angle },
+    attribute MinAngle { QBType-Angle },
+    attribute VehicleId { HBType-Id }
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "Vehicles\FlyingVehicle" },
+
+    Attributes-QuestSpecifier,
+    attribute Buttons { QBType-HotbarButtons },
+    attribute DropPassengerButton { QBType-HotbarButton }?,
+    attribute EndPath { QBType-WoWPoints },
+    attribute HealButton { QBType-HotbarButton }?,
+    attribute HealPercent { HBType-Percent }?,
+    attribute ItemId { HBType-Id }?,
+    attribute NpcList { QBType-MobIds },
+    attribute NpcScanRange { HBType-Distance }?,
+    attribute Path { QBType-WoWPoints },
+    attribute PickUpPassengerButton { QBType-HotbarButton }?,
+    attribute Precision { HBType-Distance }?,
+    attribute SpeedButton { QBType-HotbarButton }?,
+    attribute StartPath { QBType-WoWPoints },
+    attribute VehicleId { HBType-Id }
+  }
+
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "Vehicles\MountVehOnly" },
+
+    Attributes-QuestSpecifier,
+    Attributes-XYZ?,
+    attribute VehicleMountId { HBType-Id }
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "Vehicles\NoControlVehicle" },
+
+    attribute AttackButton { QBType-HotbarButton },
+    attribute AttackButtonSecondary { QBType-HotbarButton }?,
+    attribute GoHomeButton { QBType-HotbarButton }?,
+    attribute MaxRange { HBType-Distance }?,
+    attribute NumOfTimes { HBType-Count }?,
+    attribute OftenToUse { HBType-TimeDuration }?,
+    attribute QuestId { HBType-Id }?,
+    attribute TargetId { HBType-Id }?,
+    attribute TargetIdSecondary { HBType-Id }?,
+    attribute TypeId { HBType-Id }?,
+    attribute VehicleId { HBType-Id }?,
+    attribute VehicleMountId { HBType-Id }?,
+    attribute WaitTime { HBType-TimeDuration }?
+  }
+
+
+# BEGIN: VehicleBehavior
+Attributes-VehicleBehavior-EndPointXYZ =
+  attribute EndPointX { xsd:decimal },
+  attribute EndPointY { xsd:decimal },
+  attribute EndPointZ { xsd:decimal }
+
+Attributes-VehicleBehavior-FireLocationXYZ =
+  attribute FireLocationX { xsd:decimal },
+  attribute FireLocationY { xsd:decimal },
+  attribute FireLocationZ { xsd:decimal }
+
+Attributes-VehicleBehavior-PreviousFireLocationXYZ =
+  attribute PreviousFireLocationX { xsd:decimal },
+  attribute PreviousFireLocationY { xsd:decimal },
+  attribute PreviousFireLocationZ { xsd:decimal }
+
+Attributes-VehicleBehavior-StartObjectivePointXYZ =
+  attribute StartObjectivePointX { xsd:decimal },
+  attribute StartObjectivePointY { xsd:decimal },
+  attribute StartObjectivePointZ { xsd:decimal }
+
+Attributes-VehicleBehavior-StartPointXYZ =
+  attribute StartPointX { xsd:decimal },
+  attribute StartPointY { xsd:decimal },
+  attribute StartPointZ { xsd:decimal }
+
+Attributes-VehicleBehavior-TargetLocationXYZ =
+  attribute TargetLocationX { xsd:decimal },
+  attribute TargetLocationY { xsd:decimal },
+  attribute TargetLocationZ { xsd:decimal }
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "Vehicles\VehicleBehavior" },
+
+    Attributes-QuestSpecifier,
+    Attributes-VehicleBehavior-EndPointXYZ?,
+    Attributes-VehicleBehavior-FireLocationXYZ?,
+    Attributes-VehicleBehavior-PreviousFireLocationXYZ?,
+    Attributes-VehicleBehavior-StartObjectivePointXYZ?,
+    Attributes-VehicleBehavior-StartPointXYZ?,
+    Attributes-VehicleBehavior-TargetLocationXYZ?,
+    attribute AttackButton { QBType-HotbarButton },
+    attribute FireHeight { xsd:integer { minInclusive="1" maxExclusive="1000" } }?,
+    attribute FireUntilFinished { HBType-Boolean }?,
+    attribute MobId { QBType-MobIds }?,
+    attribute VehicleId { HBType-Id },
+    attribute VehicleMountId { HBType-Id },
+    attribute VehicleType { xsd:integer { minInclusive="0" maxInclusive="4" } }?
+  }
+# END: VehicleBehavior
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "Vehicles\VehicleMover" },
+
+    Attributes-MobIdN-Mandatory1,
+    Attributes-QuestBehaviorBase,
+    Attributes-VehicleIdN-Mandatory1,
+    Attributes-XYZ,
+    attribute AuraId_ProxyVehicle { HBType-Id }?,
+    attribute CastNum { HBType-Count }?,
+    attribute CastTime { HBType-TimeDuration }?,
+    attribute Hop { HBType-Boolean }?,
+    attribute IgnoreCombat { HBType-Boolean }?,
+    attribute Precision { HBType-Distance }?,
+    attribute SpellId { HBType-Id }?,
+    attribute WaitForVehicle { HBType-Boolean }?
+  }
+
+
