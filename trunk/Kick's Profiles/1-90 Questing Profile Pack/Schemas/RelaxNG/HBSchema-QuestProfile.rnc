@@ -121,14 +121,14 @@ Blackspot =
     attribute Height { xsd:decimal }?,
     attribute Name { HBType-Name }?,
     attribute Radius { HBType-DistancePositive }?,
-    Attributes-Location
+    Attributes-XYZ
   }
 
 Blackspot_Aerial =
   element AerialBlackspot
   {
     attribute Faction { HBType-Faction }?,
-    Attributes-Location,
+    Attributes-XYZ,
     attribute MapId { HBType-MapId }?,
     attribute Name { HBType-Name }?
   }
@@ -167,18 +167,9 @@ ClearVendor =
 CollectFrom =
   element CollectFrom
   {
-    (element Mob
-     {
-       CollectFrom_Entry
-     }
-     | element Object
-       {
-         CollectFrom_Entry
-       }
-     | element Vendor
-       {
-         CollectFrom_Entry
-       }
+    (element Mob { CollectFrom_Entry }
+     | element Object { CollectFrom_Entry }
+     | element Vendor { CollectFrom_Entry }
     )*
   }
 
@@ -266,7 +257,7 @@ GrindTo =
 Hotspot =
   element Hotspot
   {
-    Attributes-Location
+    Attributes-XYZ
   }
 
 Hotspots =
@@ -310,7 +301,7 @@ Mailboxes =
     {
       attribute Name { HBType-Name }?,
       attribute Nav { HBType-Nav }?,
-      Attributes-Location
+      Attributes-XYZ
     }*
   }
 
@@ -400,7 +391,7 @@ MoveTo =
     attribute Nav { HBType-Nav }?,
     attribute Precision { HBType-MetaDecimalNonNegative }?,
     attribute QuestId { HBType-Id }?,
-    Attributes-Location
+    Attributes-XYZ
   }
 
 Name =
@@ -464,6 +455,7 @@ ObjectiveOverride |=
     attribute KillCount { HBType-Count },
     attribute MobId { HBType-Id },
     attribute MobName { HBType-Name }?, # convenience--HB doesn't support this
+    CollectFrom?,
     ObjectiveOverride_GrindArea
   }
 
@@ -498,7 +490,7 @@ PickUp =
     attribute Nav { HBType-Nav }?,
     attribute QuestId { HBType-Id },
     attribute QuestName { HBType-Name }?,
-    Attributes-Location?
+    Attributes-XYZ?
   }
 
 ProtectedItems =
@@ -643,7 +635,7 @@ TurnIn =
        attribute TurnInId { HBType-Id },
        attribute TurnInName { HBType-Name }?,
        attribute TurnInType { HBType-QuestTurnInType }?,
-       Attributes-Location?)
+       Attributes-XYZ?)
   }
 
 UseItem =
@@ -654,7 +646,7 @@ UseItem =
     attribute QuestId { HBType-Id },
     attribute TargetId { HBType-Id }?,
     attribute TargetType { HBType-UseItemType }?,
-    Attributes-Location
+    Attributes-XYZ
   }
 
 UseMount =
@@ -671,7 +663,7 @@ Vendor =
     attribute Nav { HBType-Nav }?,
     attribute TrainClass { HBType-TrainClass }?,
     attribute Type { HBType-VendorType }?,
-    Attributes-Location?
+    Attributes-XYZ?
   }
 
 Vendors =
@@ -693,7 +685,7 @@ While =
 Attribute-Id =
   attribute Id { HBType-Id }
 
-Attributes-Location =
+Attributes-XYZ =
   attribute X { xsd:decimal },
   attribute Y { xsd:decimal },
   attribute Z { xsd:decimal }
@@ -702,7 +694,7 @@ Attributes-ObjectiveCore =
   attribute Nav { HBType-Nav }?,
   attribute QuestId { HBType-Id },
   attribute QuestName { HBType-Name }?,
-  Attributes-Location?
+  Attributes-XYZ?
 
 HBType-BehaviorFlags =
    xsd:token { pattern="All|((Combat|Death|Loot|Pull|Rest|Roam|Vendor)(,\s*(Combat|Death|Loot|Pull|Rest|Roam|Vendor))*)" }
@@ -763,6 +755,9 @@ HBType-ObjectiveType =
   | "KillMob"
   | "UseObject"
 
+HBType-Percent =
+  xsd:decimal { minInclusive="0.0" maxInclusive="100.0" }
+
 HBType-QuestGiverType =
   "Item"
   | "Npc"
@@ -808,3 +803,6 @@ include "HBCustomBehaviors.rnc"
 include "HBCustomBehaviors-ArgentTournament.rnc"
 include "HBCustomBehaviors-ButtonPress.rnc"
 include "HBCustomBehaviors-General.rnc"
+include "HBCustomBehaviors-Misc.rnc"
+include "HBCustomBehaviors-SpecificQuests.rnc"
+include "HBCustomBehaviors-Vehicles.rnc"

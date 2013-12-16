@@ -7,7 +7,558 @@ namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
 CustomBehavior |=
   element CustomBehavior
   {
+    attribute File { "AscendInWater" }
+  }
+
+
+# BEGIN: CollectThings
+QBType-CollectThings-CollectUntil =
+  "NoTargetsInArea"
+  | "RequiredCountReached"
+  | "QuestComplete"
+
+QBType-CollectThings-MobState =
+  "Alive"
+  | "Dead"
+  | "DontCare"
+
+QBSubElement-CollectThings-Hotspot =
+  element Hotspot {
+    attribute Name { HBType-Name }?,
+    attribute StartPoint { xsd:boolean }?,
+    Attributes-XYZ
+  }
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "CollectThings" },
+
+    (Attributes-MobIdN-Mandatory1
+     | Attributes-ObjectIdN-Mandatory1),
+    Attributes-QuestSpecifier,
+    Attributes-XYZ?,
+    attribute CollectItemCount { HBType-Count }?,
+    attribute CollectItemId { HBType-Id },
+    attribute CollectUntil { QBType-CollectThings-CollectUntil }?,
+    attribute HuntingGroundRadius { HBType-Distance }?,
+    attribute IgnoreMobsInBlackspots { HBType-Boolean }?,
+    attribute MobState { QBType-CollectThings-MobState }?,
+    attribute NonCompeteDistance { HBType-Distance }?,
+    attribute PostInteractDelay { HBType-TimeDuration }?,
+    attribute RandomizeStartingHotspot { HBType-Boolean }?,
+
+    QBSubElement-CollectThings-Hotspot*
+  }
+# END: CollectThings
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "CombatUseItemOn" },
+
+    Attributes-MobIdN-Mandatory1,
+    Attributes-QuestSpecifier,
+    Attributes-XYZ,
+    attribute BlacklistMob { HBType-Boolean }?,
+    attribute CastingSpellId { HBType-Id }?,
+    attribute HasAuraId { HBType-Id }?,
+    attribute ItemId { HBType-Id },
+    attribute MaxRange { HBType-Distance }?,
+    attribute MobHasAuraId { HBType-Id }?,
+    attribute MobHpPercentLeft { HBType-Percent }?,
+    attribute NumOfTimes { HBType-Count }?,
+    attribute UseOnce { HBType-Boolean }?,
+    attribute WaitTime { HBType-TimeDuration }?
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "DisablePlugin" },
+    attribute Names { string }
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "EjectVeh" },
+
+    Attributes-QuestSpecifier
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
     attribute File { "EnablePlugin" },
     attribute Names { string }
   }
+
+
+# BEGIN: Escort
+Attributes-Escort-EscortDestXYZ =
+  attribute EscortDestX { xsd:decimal },
+  attribute EscortDestY { xsd:decimal },
+  attribute EscortDestZ { xsd:decimal }
+
+QBType-Escort-DefendUnit =
+  "ItemStartTimer"
+  | "Unit"
+
+QBType-Escort-EscortUntil =
+  "DestinationReached"
+  | "QuestComplete"
+
+QBType-Escort-ObjectType =
+  "GameObject"
+  | "Npc"
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "Escort" },
+
+    Attributes-Escort-EscortDestXYZ?,
+    Attributes-MobIdN-Mandatory1,
+    Attributes-QuestSpecifier,
+    Attributes-XYZ?,
+    attribute DefendType { QBType-Escort-DefendUnit }?,
+    attribute EscortUntil { QBType-Escort-EscortUntil }?,
+    attribute ItemId { HBType-Id }?,
+    attribute MobType { QBType-Escort-ObjectType }?,
+    attribute Range { HBType-Distance }?
+  }
+# END: Escort
+
+
+# BEGIN: EscortGroup
+Attributes-EscortGroup-EscortCompleteXYZ =
+  attribute EscortCompleteX { xsd:decimal },
+  attribute EscortCompleteY { xsd:decimal },
+  attribute EscortCompleteZ { xsd:decimal }
+
+Attributes-EscortGroup-EscortNpcIdN =
+  attribute EscortNpcId { HBType-Id },
+  attribute EscortNpcId2 { HBType-Id }?,
+  attribute EscortNpcId3 { HBType-Id }?,
+  attribute EscortNpcId4 { HBType-Id }?,
+  attribute EscortNpcId5 { HBType-Id }?,
+  attribute EscortNpcId6 { HBType-Id }?,
+  attribute EscortNpcId7 { HBType-Id }?,
+  attribute EscortNpcId8 { HBType-Id }?,
+  attribute EscortNpcId9 { HBType-Id }?
+
+Attributes-EscortGroup-PriorityTargetIdN =
+  attribute PriorityTargetId { HBType-Id }?,
+  attribute PriorityTargetId2 { HBType-Id }?,
+  attribute PriorityTargetId3 { HBType-Id }?,
+  attribute PriorityTargetId4 { HBType-Id }?,
+  attribute PriorityTargetId5 { HBType-Id }?,
+  attribute PriorityTargetId6 { HBType-Id }?,
+  attribute PriorityTargetId7 { HBType-Id }?,
+  attribute PriorityTargetId8 { HBType-Id }?,
+  attribute PriorityTargetId9 { HBType-Id }?
+
+Attributes-EscortGroup-StartNpcIdN =
+  attribute StartNpcId { HBType-Id }?,
+  attribute StartNpcId2 { HBType-Id }?,
+  attribute StartNpcId3 { HBType-Id }?,
+  attribute StartNpcId4 { HBType-Id }?,
+  attribute StartNpcId5 { HBType-Id }?,
+  attribute StartNpcId6 { HBType-Id }?,
+  attribute StartNpcId7 { HBType-Id }?,
+  attribute StartNpcId8 { HBType-Id }?,
+  attribute StartNpcId9 { HBType-Id }?
+
+QBType-EscortGroup-EscortCompleteWhen =
+  "DestinationReached"
+  | "QuestComplete"
+  | "QuestCompleteOrFails"
+  | "QuestObjectiveComplete"
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "EscortGroup" },
+
+    Attributes-EscortGroup-EscortCompleteXYZ?,
+    Attributes-EscortGroup-EscortNpcIdN,
+    Attributes-EscortGroup-PriorityTargetIdN,
+    Attributes-EscortGroup-StartNpcIdN,
+    Attributes-QuestSpecifier,
+    attribute CombatMaxEngagementRangeDistance { HBType-Distance }?,
+    attribute DebugReportUnitsOutOfRange { HBType-Boolean }?,
+    attribute EscortCompleteMaxRange { HBType-Distance }?,
+    attribute EscortCompleteWhen { QBType-EscortGroup-EscortCompleteWhen }?,
+    attribute EscortCountMax { HBType-Count }?,
+    attribute EscortMaxFightDistance { HBType-Distance }?,
+    attribute EscortMaxFollowDistance { HBType-Distance }?,
+    attribute NonCompeteDistance { HBType-Distance }?,
+    attribute QuestObjectiveIndex { xsd:positiveInteger }?,
+    attribute SearchForNpcsRadius { HBType-Distance }?,
+    attribute StartEscortGossipOptions { QBType-GossipOptions }?
+ }
+# END: EscortGroup
+
+
+# BEGIN: EquipItem
+QBType-EquipItem-Slot =
+  "AmmoSlot"
+  | "BackSlot"
+  | "Bag0Slot"
+  | "Bag1Slot"
+  | "Bag2Slot"
+  | "Bag3Slot"
+  | "ChestSlot"
+  | "FeetSlot"
+  | "Finger0Slot"
+  | "Finger1Slot"
+  | "HandsSlot"
+  | "HeadSlot"
+  | "LegsSlot"
+  | "MainHandSlot"
+  | "NeckSlot"
+  | "None"
+  | "RangedSlot"
+  | "SecondaryHandSlot"
+  | "ShirtSlot"
+  | "ShoulerSlot"
+  | "TabardSlot"
+  | "Trinket0Slot"
+  | "Trinker1Slot"
+  | "WaistSlot"
+  | "WristSlot"
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "EquipItem" },
+
+    Attributes-QuestSpecifier,
+    attribute ItemId { HBType-Id },
+    attribute Slot { QBType-EquipItem-Slot }?
+  }
+# END: EquipItem
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "ForceSetVendor" },
+
+    Attributes-QuestSpecifier,
+    attribute DoMail { HBType-Boolean }?,
+    attribute DoRepair { HBType-Boolean }?,
+    attribute DoSell { HBType-Boolean }?,
+    attribute DoTrain { HBType-Boolean }?
+  }
+
+
+# BEGIN: InteractWith
+Attributes-Base-InteractWith =
+  Attributes-AuraIdMissingFromMobN,
+  Attributes-AuraIdN,
+  Attributes-FactionIdN,
+  Attributes-XYZ?,
+  attribute CollectionDistance { HBType-Distance }?,
+  attribute IgnoreCombat { HBType-Boolean }?,
+  attribute IgnoreLoSToTarget { HBType-Boolean }?,
+  attribute InteractBlacklistTimeInSeconds { xsd:nonNegativeInteger }?,
+  attribute KeepTargetSelected { HBType-Boolean }?,
+  attribute MinRange { HBType-DistancePositive }?,
+  attribute MobHpPercentLeft { HBType-Percent }?,
+  attribute MobIdIncludesSelf { HBType-Boolean }?,
+  attribute MobIds { QBType-MobIds }?,
+  attribute MobState { QBType-MobState }?,
+  attribute NotMoving { HBType-Boolean }?,
+  attribute NumOfTimes { HBType-Count }?,
+  attribute PreInteractMountStrategy { QBCoreType-MountStrategy }?,
+  attribute ProactiveCombatStrategy { QBCoreType-ProactiveCombatStrategy }?,
+  attribute Range { HBType-DistancePositive }?,
+  attribute WaitForNpcs { HBType-Boolean }?,
+  attribute WaitTime { HBType-TimeDuration }?
+
+QBType-InteractWith-QuestFrameDisposition =
+  "Accept"
+  | "Complete"
+  | "Continue"
+  | "Ignore"
+  | "TerminateBehavior"
+  | "TerminateProfile" 
+
+# Simple interact...
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "InteractWith" },
+    Attributes-QuestBehaviorBase,
+    Attributes-Base-InteractWith,
+
+    Attributes-MobIdN-Mandatory1,
+    attribute InteractByQuestFrameDisposition { QBType-InteractWith-QuestFrameDisposition }?,
+
+    QBCoreSubElement-HuntingGrounds?
+  }
+
+# InteractByBuyingItemId...
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "InteractWith" },
+    Attributes-QuestBehaviorBase,
+    Attributes-Base-InteractWith,
+
+    attribute InteractByBuyingItemId { HBType-Id },
+    attribute BuyItemCount { HBType-Count }?,
+    Attributes-MobIdN-Mandatory1,
+    attribute InteractByQuestFrameDisposition { QBType-InteractWith-QuestFrameDisposition }?,
+
+    QBCoreSubElement-HuntingGrounds?
+  }
+
+# InteractByCastingSpellId...
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "InteractWith" },
+    Attributes-QuestBehaviorBase,
+    Attributes-Base-InteractWith,
+
+    attribute InteractByCastingSpellId { HBType-Id },
+    Attributes-MobIdN-Mandatory1,
+    attribute InteractByQuestFrameDisposition { QBType-InteractWith-QuestFrameDisposition }?,
+
+    QBCoreSubElement-HuntingGrounds?
+  }
+
+# InteractByGossipOptions...
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "InteractWith" },
+    Attributes-QuestBehaviorBase,
+    Attributes-Base-InteractWith,
+
+    attribute InteractByGossipOptions { QBType-GossipOptions },
+    Attributes-MobIdN-Mandatory1,
+    attribute InteractByQuestFrameDisposition { QBType-InteractWith-QuestFrameDisposition }?,
+
+    QBCoreSubElement-HuntingGrounds?
+  }
+
+# InteractByLooting...
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "InteractWith" },
+    Attributes-QuestBehaviorBase,
+    Attributes-Base-InteractWith,
+
+    attribute InteractByLooting { HBType-Boolean },
+    Attributes-MobIdN-Mandatory1,
+    attribute InteractByQuestFrameDisposition { QBType-InteractWith-QuestFrameDisposition }?,
+
+    QBCoreSubElement-HuntingGrounds?
+  }
+
+# InteractByUsingItemId...
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "InteractWith" },
+    Attributes-QuestBehaviorBase,
+    Attributes-Base-InteractWith,
+
+    attribute InteractByUsingItemId { HBType-Id },
+    Attributes-MobIdN-Mandatory1,
+    attribute InteractByQuestFrameDisposition { QBType-InteractWith-QuestFrameDisposition }?,
+
+    QBCoreSubElement-HuntingGrounds?
+  }
+# END: InteractWith
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "ItemWhileMoving" },
+
+    Attributes-QuestSpecifier,
+    Attributes-XYZ,
+    attribute ItemId { HBType-Id }
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "LoadProfile" },
+
+    attribute ProfileName { string },
+    attribute RememberProfile { HBType-Boolean }?
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "Message" },
+
+    Attributes-QuestSpecifier,
+    attribute LogColor { string }?,
+    attribute Text { string },
+    attribute UpdateGoalText { HBType-Boolean }?
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "MyCTM" },
+
+    attribute DestName { string }?,
+    Attributes-XYZ,
+    attribute UseRelative { HBType-Boolean }?
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "NoCombatMoveTo" },
+
+    Attributes-QuestSpecifier,
+    attribute DestName { string }?,
+    Attributes-XYZ
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "RunMacro" },
+
+    Attributes-QuestSpecifier,
+    attribute GoalText { string }?,
+    attribute Macro { string },
+    attribute NumOfTimes { HBType-Count }?,
+    attribute WaitTime { HBType-TimeDuration }?
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "UseItem" },
+
+    Attributes-XYZ?,
+    attribute ItemId { HBType-Id },
+    attribute NumOfTimes { HBType-Count }?,
+    attribute TargetNearest { HBType-Boolean }?,
+    attribute WaitTime { HBType-TimeDuration }?
+  }
+
+
+# BEGIN: UserDialog
+QBType-UserDialog-ExpiryAction =
+  "InputDisabled_BotStop"
+  | "InputDisabled_Continue"
+  | "InputDisabled_EnableInput"
+  | "InputEnabled_BotStop"
+  | "HandleInputEnabled_Continue"
+
+QBType-UserDialog-SoundCue =
+  "Asterisk"
+  | "Beep"
+  | "Exclamation"
+  | "Hand"
+  | "Question"
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "UserDialog" },
+
+    Attributes-QuestSpecifier,
+    attribute AllowBotStop { HBType-Boolean }?,
+    attribute StopOnContinue { HBType-Boolean }?,
+    attribute Text { string },
+    attribute Title { string }?,
+    attribute ExpiryAction { QBType-UserDialog-ExpiryAction }?,
+    attribute ExpiryTime { HBType-TimeDuration }?,
+    attribute SoundCue { QBType-UserDialog-SoundCue }?,
+    attribute SoundCueInterval { HBType-TimeDuration }?
+  }
+# END: UserDialog
+
+
+# BEGIN: UseTransport
+Attributes-XYZ-GetOff =
+  attribute GetOffX { xsd:decimal },
+  attribute GetOffY { xsd:decimal },
+  attribute GetOffZ { xsd:decimal }
+
+Attributes-XYZ-StandOn =
+  attribute StandOnX { xsd:decimal },
+  attribute StandOnY { xsd:decimal },
+  attribute StandOnZ { xsd:decimal }
+
+Attributes-XYZ-TransportStart =
+  attribute TransportStartX { xsd:decimal },
+  attribute TransportStartY { xsd:decimal },
+  attribute TransportStartZ { xsd:decimal }
+
+Attributes-XYZ-TransportEnd =
+  attribute TransportEndX { xsd:decimal },
+  attribute TransportEndY { xsd:decimal },
+  attribute TransportEndZ { xsd:decimal }
+
+Attributes-XYZ-WaitAt =
+  attribute WaitAtX { xsd:decimal },
+  attribute WaitAtY { xsd:decimal },
+  attribute WaitAtZ { xsd:decimal }
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "UseTransport" },
+
+    Attributes-XYZ-GetOff?,
+    Attributes-XYZ-StandOn?,
+    Attributes-XYZ-TransportStart?,
+    Attributes-XYZ-TransportEnd?,
+    Attributes-XYZ-WaitAt?,
+    attribute DestName { string }?,
+    attribute TransportId { HBType-Id }
+  }
+# END: UseTransport
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "WaitForPatrol" },
+
+    Attributes-XYZ,
+    attribute AvoidDistance { HBType-Distance },
+    attribute AvoidMobId { HBType-Id },
+    attribute MoveToMobId { HBType-Id }?
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "WaitTimer" },
+    Attributes-QuestSpecifier,
+
+    attribute GoalText { string }?,
+    attribute WaitTime { HBType-TimeDuration },
+    attribute VariantTime { HBType-TimeDuration }?
+  }
+
 
