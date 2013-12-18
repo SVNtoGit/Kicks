@@ -4,13 +4,24 @@ namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
 # Original contribution by chinajade
 
 
-# CustomBehavior |=
-#  element CustomBehavior
-#  {
-#    attribute File { "Vehicles\BasicVehicleBehaviour" },
-#  
-#    # DEPRECATED
-#  }
+# BEGIN: BasicVehicleBehaviour
+Attributes-BasicVehicleBehaviour-MountXYZ =
+  attribute MountX { xsd:decimal },
+  attribute MountY { xsd:decimal },
+  attribute MountZ { xsd:decimal }
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "Vehicles\BasicVehicleBehaviour" },
+  
+    Attributes-BasicVehicleBehaviour-MountXYZ,
+    Attributes-QuestSpecifier,
+    Attributes-XYZ,
+    attribute SpellId { HBType-Id }?,
+    attribute VehicleId { HBType-Id }
+  }
+# END: BasicVehicleBehaviour
 
 
 CustomBehavior |=
@@ -39,7 +50,7 @@ CustomBehavior |=
     attribute HealButton { QBType-HotbarButton }?,
     attribute HealPercent { HBType-Percent }?,
     attribute ItemId { HBType-Id }?,
-    attribute NpcList { QBType-MobIds },
+    attribute NpcList { QBType-IdsList },
     attribute NpcScanRange { HBType-Distance }?,
     attribute Path { QBType-WoWPoints },
     attribute PickUpPassengerButton { QBType-HotbarButton }?,
@@ -62,11 +73,36 @@ CustomBehavior |=
   }
 
 
+# BEGIN: NoControlVehicle
+Attributes-NoControlVehicle-TargetIdN-Mandatory1 =
+  attribute TargetId { HBType-Id },
+  attribute TargetId2 { HBType-Id }?,
+  attribute TargetId3 { HBType-Id }?,
+  attribute TargetId4 { HBType-Id }?,
+  attribute TargetId5 { HBType-Id }?,
+  attribute TargetId6 { HBType-Id }?,
+  attribute TargetId7 { HBType-Id }?,
+  attribute TargetId8 { HBType-Id }?,
+  attribute TargetId9 { HBType-Id }?
+
+Attributes-NoControlVehicle-TargetIdSecondaryN =
+  attribute TargetIdSecondary { HBType-Id }?,
+  attribute TargetIdSecondary2 { HBType-Id }?,
+  attribute TargetIdSecondary3 { HBType-Id }?,
+  attribute TargetIdSecondary4 { HBType-Id }?,
+  attribute TargetIdSecondary5 { HBType-Id }?,
+  attribute TargetIdSecondary6 { HBType-Id }?,
+  attribute TargetIdSecondary7 { HBType-Id }?,
+  attribute TargetIdSecondary8 { HBType-Id }?,
+  attribute TargetIdSecondary9 { HBType-Id }?
+
 CustomBehavior |=
   element CustomBehavior
   {
     attribute File { "Vehicles\NoControlVehicle" },
 
+    Attributes-NoControlVehicle-TargetIdN-Mandatory1,
+    Attributes-NoControlVehicle-TargetIdSecondaryN,
     attribute AttackButton { QBType-HotbarButton },
     attribute AttackButtonSecondary { QBType-HotbarButton }?,
     attribute GoHomeButton { QBType-HotbarButton }?,
@@ -74,13 +110,12 @@ CustomBehavior |=
     attribute NumOfTimes { HBType-Count }?,
     attribute OftenToUse { HBType-TimeDuration }?,
     attribute QuestId { HBType-Id }?,
-    attribute TargetId { HBType-Id }?,
-    attribute TargetIdSecondary { HBType-Id }?,
     attribute TypeId { HBType-Id }?,
     attribute VehicleId { HBType-Id }?,
     attribute VehicleMountId { HBType-Id }?,
     attribute WaitTime { HBType-TimeDuration }?
   }
+# END: NoControlVehicle
 
 
 # BEGIN: VehicleBehavior
@@ -129,7 +164,7 @@ CustomBehavior |=
     attribute AttackButton { QBType-HotbarButton },
     attribute FireHeight { xsd:integer { minInclusive="1" maxExclusive="1000" } }?,
     attribute FireUntilFinished { HBType-Boolean }?,
-    attribute MobId { QBType-MobIds }?,
+    attribute MobId { QBType-IdsList }?,
     attribute VehicleId { HBType-Id },
     attribute VehicleMountId { HBType-Id },
     attribute VehicleType { xsd:integer { minInclusive="0" maxInclusive="4" } }?
