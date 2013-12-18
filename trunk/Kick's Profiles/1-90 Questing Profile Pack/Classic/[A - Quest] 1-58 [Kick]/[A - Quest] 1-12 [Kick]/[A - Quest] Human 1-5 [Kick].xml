@@ -47,33 +47,6 @@
 
 
     <!-- BEGIN: Quest Overrides -->
-
-    <!-- CJ: DELETE THIS WHEN CONFIMRED UNNEEDED -->
-    <!-- <Quest Id="26389" Name="Blackrock Invasion"> -->
-    <!-- <Objective Type="CollectItem" ItemId="58361" ItemName="Blackrock Orc Weapon" CollectCount="8" > -->
-    <!-- <Hotspots> -->
-    <!-- <Hotspot X="-8880.634" Y="-364.8899" Z="73.10102" /> -->
-    <!-- <Hotspot X="-8958.043" Y="-365.8654" Z="73.175" /> -->
-    <!-- <Hotspot X="-8956.242" Y="-418.8904" Z="72.25417" /> -->
-    <!-- <Hotspot X="-9006.854" Y="-403.2159" Z="74.31793" /> -->
-    <!-- <Hotspot X="-9000.881" Y="-340.1051" Z="74.62366" /> -->
-    <!-- <Hotspot X="-9044.726" Y="-441.3511" Z="71.41048" /> -->
-    <!-- <Hotspot X="-9121.871" Y="-394.1718" Z="73.75862" /> -->
-    <!-- <Hotspot X="-9149.743" Y="-333.594" Z="72.99525" /> -->
-    <!-- <Hotspot X="-9099.561" Y="-232.1622" Z="74.88316" /> -->
-    <!-- </Hotspots> -->
-    <!-- </Objective> -->
-    <!-- </Quest> -->
-
-    <!-- CJ: DELETE THIS WHEN CONFIMRED UNNEEDED -->
-    <!-- <Quest Id="26390" Name="Ending the Invasion!"> -->
-    <!-- <Objective Type="KillMob" MobId="42938" MobName="Kurtok the Slayer" KillCount="1"> -->
-    <!-- <Hotspots> -->
-    <!-- <Hotspot X="-8883.111" Y="-442.0399" Z="68.05991" /> -->
-    <!-- </Hotspots> -->
-    <!-- </Objective> -->
-    <!-- </Quest> -->
-
     <!-- END: Quest Overrides -->
 
 
@@ -155,14 +128,9 @@
                 <PickUp QuestName="Charging into Battle" QuestId="26913" GiverName="Llane Beshere" GiverId="911"
                         X="-8918.364" Y="-208.4109" Z="82.12605" />
                 <CustomBehavior File="ForceSetVendor" QuestId="26913" DoSell="True" />
-                <While Condition="HasQuest(26913) &amp;&amp; !IsQuestCompleted(26913)">
-                    <MoveTo X="-8963.851" Y="-145.0901" Z="81.67974" />
-                    <CustomBehavior File="InteractWith" QuestId="26913" MobId="44548" WaitTime="8000"
-                                    X="-8963.851" Y="-145.0901" Z="81.67974" />
-                    <MoveTo X="-8953.739" Y="-146.4005" Z="81.65711" />
-                    <CustomBehavior File="InteractWith" InteractByCastingSpellId="100" MobId="44548"
-                                    X="-8965.57" Y="-146.288" Z="81.50985" />
-                </While>
+                <CustomBehavior File="InteractWith" QuestId="26913" InteractByCastingSpellId="100" MobId="44548"
+                                Range="20" MinRange="15"
+                                X="-8965.807" Y="-111.999" Z="84.03532" />
                 <TurnIn QuestName="Charging into Battle" QuestId="26913" TurnInName="Llane Beshere" TurnInId="911"
                         X="-8918.364" Y="-208.4109" Z="82.12605" />
                 <PickUp QuestName="Join the Battle!" QuestId="28789" GiverName="Llane Beshere" GiverId="911"
@@ -494,7 +462,8 @@
         <PickUp QuestName="Extinguishing Hope" QuestId="26391" GiverName="Milly Osworth" GiverId="9296"
                 X="-8923.88" Y="-135.8889" Z="81.02888" />
         <CustomBehavior File="InteractWith" QuestId="26391" MobId="42940" InteractByUsingItemId="58362"
-                        NumOfTimes="500" CollectionDistance="500" Range="10" X="-9063.322" Y="-277.0595" Z="73.64384" />
+                        NumOfTimes="500" CollectionDistance="500" ProactiveCombatStrategy="ClearMobsTargetingUs"
+                        Range="10" X="-9063.322" Y="-277.0595" Z="73.64384" />
         <Objective QuestName="Blackrock Invasion" QuestId="26389" Type="CollectItem" ItemId="58361" CollectCount="8" />
         <!-- CJ: Need to disable pulling to return; otherwise, we get stuck with endless repops -->
         <DisableBehavior Name="Pull" />
