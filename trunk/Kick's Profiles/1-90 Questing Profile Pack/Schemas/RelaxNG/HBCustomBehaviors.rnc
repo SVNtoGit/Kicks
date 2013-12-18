@@ -49,6 +49,17 @@ Attributes-FactionIdN =
   attribute FactionId8 { HBType-Id }?,
   attribute FactionId9 { HBType-Id }?
 
+Attributes-FactionIdN-Mandatory1 =
+  attribute FactionId { HBType-Id },
+  attribute FactionId2 { HBType-Id }?,
+  attribute FactionId3 { HBType-Id }?,
+  attribute FactionId4 { HBType-Id }?,
+  attribute FactionId5 { HBType-Id }?,
+  attribute FactionId6 { HBType-Id }?,
+  attribute FactionId7 { HBType-Id }?,
+  attribute FactionId8 { HBType-Id }?,
+  attribute FactionId9 { HBType-Id }?
+
 Attributes-MobIdN =
   attribute MobId { HBType-Id }?,
   attribute MobId2 { HBType-Id }?,
@@ -135,15 +146,22 @@ Attributes-VehicleIdN-Mandatory1 =
   attribute VehicleId9 { HBType-Id }?
 
 QBCoreSubElement-HuntingGrounds =
-  element HuntingGrounds {
-     QBCoreSubElement-Waypoint+
+  element HuntingGrounds
+  {
+    attribute WaypointVisitStrategy { "InOrder" | "PickOneAtRandom" | "Random" }?,
+    QBCoreSubElement-Waypoint+
   }
 
 QBCoreSubElement-Waypoint =
   element Hotspot {
+    Attributes-XYZ,
     attribute Name { HBType-Name }?,
-    Attributes-XYZ
+    attribute Radius { HBType-Distance }?
   }
+
+QBCoreType-SafePathType-Strategy =
+  "StalkMobAtAvoidDistance"
+  | "WaitForAvoidDistance"
 
 QBCoreType-MovementBy =
   "ClickToMoveOnly"
@@ -177,15 +195,15 @@ QBType-HotbarButton =
 QBType-HotbarButtons =
   xsd:token { pattern="(1|2|3|4|5|6|7|8|9|10|11|12)((,|\s*)(1|2|3|4|5|6|7|8|9|10|11|12))*" }
 
+QBType-IdsList =
+  xsd:token { pattern="[0-9]+((,\s*|\s+)[0-9]+)*" }
+
 QBType-MobState =
   "Alive"
   | "AliveNotInCombat"
   | "BelowHp"
   | "Dead"
   | "DontCare"
-
-QBType-MobIds =
-  xsd:token { pattern="[0-9]+((,\s*|\s+)[0-9]+)*" }
 
 QBType-QuestCompleteRequirement =
   "Complete"

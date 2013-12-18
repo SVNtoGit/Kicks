@@ -4,6 +4,24 @@ namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
 # Original contribution by chinajade
 
 
+# BEGIN: AbandonQuest
+QBType-AbandonQuest-AbandonType =
+  "All"
+  | "Failed"
+  | "Incomplete"
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "AbandonQuest" },
+
+    attribute QuestId { HBType-Id },
+    attribute Type { QBType-AbandonQuest-AbandonType }?,
+    attribute WaitTime { HBType-TimeDuration }?
+  }
+# END: AbandonQuest
+
+
 CustomBehavior |=
   element CustomBehavior
   {
@@ -33,6 +51,7 @@ CustomBehavior |=
   element CustomBehavior
   {
     attribute File { "CollectThings" },
+    attribute CollectUntil { "NoTargetsInArea" },
 
     (Attributes-MobIdN-Mandatory1
      | Attributes-ObjectIdN-Mandatory1),
@@ -40,7 +59,50 @@ CustomBehavior |=
     Attributes-XYZ?,
     attribute CollectItemCount { HBType-Count }?,
     attribute CollectItemId { HBType-Id },
-    attribute CollectUntil { QBType-CollectThings-CollectUntil }?,
+    attribute HuntingGroundRadius { HBType-Distance }?,
+    attribute IgnoreMobsInBlackspots { HBType-Boolean }?,
+    attribute MobState { QBType-CollectThings-MobState }?,
+    attribute NonCompeteDistance { HBType-Distance }?,
+    attribute PostInteractDelay { HBType-TimeDuration }?,
+    attribute RandomizeStartingHotspot { HBType-Boolean }?,
+
+    QBSubElement-CollectThings-Hotspot*
+  }
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "CollectThings" },
+    attribute CollectUntil { "QuestComplete" },
+
+    (Attributes-MobIdN-Mandatory1
+     | Attributes-ObjectIdN-Mandatory1),
+    Attributes-QuestSpecifier,
+    Attributes-XYZ?,
+    attribute CollectItemCount { HBType-Count }?,
+    attribute CollectItemId { HBType-Id }?,
+    attribute HuntingGroundRadius { HBType-Distance }?,
+    attribute IgnoreMobsInBlackspots { HBType-Boolean }?,
+    attribute MobState { QBType-CollectThings-MobState }?,
+    attribute NonCompeteDistance { HBType-Distance }?,
+    attribute PostInteractDelay { HBType-TimeDuration }?,
+    attribute RandomizeStartingHotspot { HBType-Boolean }?,
+
+    QBSubElement-CollectThings-Hotspot*
+  }
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "CollectThings" },
+    attribute CollectUntil { "RequiredCountReached" }?,
+
+    (Attributes-MobIdN-Mandatory1
+     | Attributes-ObjectIdN-Mandatory1),
+    Attributes-QuestSpecifier,
+    Attributes-XYZ?,
+    attribute CollectItemCount { HBType-Count },
+    attribute CollectItemId { HBType-Id },
     attribute HuntingGroundRadius { HBType-Distance }?,
     attribute IgnoreMobsInBlackspots { HBType-Boolean }?,
     attribute MobState { QBType-CollectThings-MobState }?,
@@ -71,6 +133,50 @@ CustomBehavior |=
     attribute NumOfTimes { HBType-Count }?,
     attribute UseOnce { HBType-Boolean }?,
     attribute WaitTime { HBType-TimeDuration }?
+  }
+
+
+# BEGIN: CombatUseItemOnV2
+QBType-CombatUseItemOnV2-UseItemStrategy =
+  "UseItemOncePerTarget"
+  | "UseItemOncePerTargetDontDefend"
+  | "UseItemContinuouslyOnTarget"
+  | "UseItemContinuouslyOnTargetDontDefend"
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "CombatUseItemOnV2" },
+    Attributes-QuestBehaviorBase,
+
+    Attributes-MobIdN-Mandatory1,
+    Attributes-XYZ?,			 # Hunting Ground Center
+    attribute CollectionDistance { HBType-Distance }?,
+    attribute InteractBlacklistTimeInSeconds { HBType-TimeDuration }?,
+    (attribute ItemAppliesAuraId { HBType-Id }
+     | attribute ItemAppliesAuraId { "AssumeItemuseAlwaysSucceeds" })?,
+    attribute ItemId { HBType-Id },
+    attribute MaxRangeToUseItem { HBType-Distance }?,
+    attribute NumOfTimesToUseItem { HBType-Count }?,
+    attribute RecallPetAtMobPercentHealth { HBType-Percent }?,
+    attribute UseWhenMeHasAuraId { HBType-Id }?,
+    attribute UseWhenMeMissingAuraId { HBType-Id }?,
+    attribute UseWhenMobCastingSpellId { HBType-Id }?,
+    attribute UseWhenMobHasAuraId { HBType-Id }?,
+    attribute UseWhenMobHasHealthPercent { HBType-Percent }?,
+    attribute UseWhenMobMissingAuraId { HBType-Id }?,
+
+    QBCoreSubElement-HuntingGrounds?
+  }
+# END: CombatUseItemOnV2
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "DeleteItems" },
+
+    attribute Ids { QBType-IdsList }
   }
 
 
@@ -248,6 +354,13 @@ CustomBehavior |=
 CustomBehavior |=
   element CustomBehavior
   {
+    attribute File { "ForcedDismount" }
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
     attribute File { "ForceSetVendor" },
 
     Attributes-QuestSpecifier,
@@ -258,11 +371,33 @@ CustomBehavior |=
   }
 
 
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "ForceTrainRiding" },
+
+    Attributes-QuestSpecifier,
+    attribute MobId { HBType-Id }
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "GoThruPortal" },
+
+    Attributes-QuestSpecifier,
+    Attributes-XYZ,
+    attribute TimeOut { HBType-TimeDuration }?
+  }
+
+
 # BEGIN: InteractWith
 Attributes-Base-InteractWith =
   Attributes-AuraIdMissingFromMobN,
   Attributes-AuraIdN,
-  Attributes-FactionIdN,
+  (Attributes-FactionIdN-Mandatory1
+   | Attributes-MobIdN-Mandatory1),
   Attributes-XYZ?,
   attribute CollectionDistance { HBType-Distance }?,
   attribute IgnoreCombat { HBType-Boolean }?,
@@ -272,7 +407,7 @@ Attributes-Base-InteractWith =
   attribute MinRange { HBType-DistancePositive }?,
   attribute MobHpPercentLeft { HBType-Percent }?,
   attribute MobIdIncludesSelf { HBType-Boolean }?,
-  attribute MobIds { QBType-MobIds }?,
+  attribute MobIds { QBType-IdsList }?,
   attribute MobState { QBType-MobState }?,
   attribute NotMoving { HBType-Boolean }?,
   attribute NumOfTimes { HBType-Count }?,
@@ -298,7 +433,6 @@ CustomBehavior |=
     Attributes-QuestBehaviorBase,
     Attributes-Base-InteractWith,
 
-    Attributes-MobIdN-Mandatory1,
     attribute InteractByQuestFrameDisposition { QBType-InteractWith-QuestFrameDisposition }?,
 
     QBCoreSubElement-HuntingGrounds?
@@ -312,9 +446,8 @@ CustomBehavior |=
     Attributes-QuestBehaviorBase,
     Attributes-Base-InteractWith,
 
-    attribute InteractByBuyingItemId { HBType-Id },
     attribute BuyItemCount { HBType-Count }?,
-    Attributes-MobIdN-Mandatory1,
+    attribute InteractByBuyingItemId { HBType-Id },
     attribute InteractByQuestFrameDisposition { QBType-InteractWith-QuestFrameDisposition }?,
 
     QBCoreSubElement-HuntingGrounds?
@@ -329,7 +462,6 @@ CustomBehavior |=
     Attributes-Base-InteractWith,
 
     attribute InteractByCastingSpellId { HBType-Id },
-    Attributes-MobIdN-Mandatory1,
     attribute InteractByQuestFrameDisposition { QBType-InteractWith-QuestFrameDisposition }?,
 
     QBCoreSubElement-HuntingGrounds?
@@ -344,7 +476,6 @@ CustomBehavior |=
     Attributes-Base-InteractWith,
 
     attribute InteractByGossipOptions { QBType-GossipOptions },
-    Attributes-MobIdN-Mandatory1,
     attribute InteractByQuestFrameDisposition { QBType-InteractWith-QuestFrameDisposition }?,
 
     QBCoreSubElement-HuntingGrounds?
@@ -359,7 +490,6 @@ CustomBehavior |=
     Attributes-Base-InteractWith,
 
     attribute InteractByLooting { HBType-Boolean },
-    Attributes-MobIdN-Mandatory1,
     attribute InteractByQuestFrameDisposition { QBType-InteractWith-QuestFrameDisposition }?,
 
     QBCoreSubElement-HuntingGrounds?
@@ -373,9 +503,8 @@ CustomBehavior |=
     Attributes-QuestBehaviorBase,
     Attributes-Base-InteractWith,
 
-    attribute InteractByUsingItemId { HBType-Id },
-    Attributes-MobIdN-Mandatory1,
     attribute InteractByQuestFrameDisposition { QBType-InteractWith-QuestFrameDisposition }?,
+    attribute InteractByUsingItemId { HBType-Id },
 
     QBCoreSubElement-HuntingGrounds?
   }
@@ -449,6 +578,40 @@ CustomBehavior |=
     attribute WaitTime { HBType-TimeDuration }?
   }
 
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "SockemBoppers" },
+
+    attribute QuestId { HBType-Id },
+    attribute MobIds { QBType-IdsList }
+  }
+
+# BEGIN: TaxiRide
+QBType-TaxiRide-MobCommand =
+  "Target"
+
+QBType-TaxiRide-MobState =
+  "Alive"
+  | "Dead"
+  | "DontCare"
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "TaxiRide" },
+
+    Attributes-MobIdN-Mandatory1,
+    Attributes-QuestSpecifier,
+    attribute CollectionDistance { HBType-Distance }?,
+    attribute DestName { string }?,
+    attribute MobCommand { QBType-TaxiRide-MobCommand }?,
+    attribute MobHpPercentLeft { HBType-Percent }?,
+    attribute TaxiNumber { string }?,
+    attribute WaitForNpcs { HBType-Boolean }?,
+    attribute WaitTime { HBType-TimeDuration }?
+  }
+# END: TaxiRide
 
 CustomBehavior |=
   element CustomBehavior
@@ -463,13 +626,97 @@ CustomBehavior |=
   }
 
 
+# BEGIN: UseItemTargetLocation
+Attributes-UseItemTargetLocation-ClickToXYZ =
+  attribute ClickToX { xsd:decimal },
+  attribute ClickToY { xsd:decimal },
+  attribute ClickToZ { xsd:decimal }
+
+QBType-UseItemTargetLocation-UseType =
+  "PointToPoint"
+  | "PointToObject"
+  | "ToObject"
+
+QBType-UseItemTargetLocation-MobType =
+  "Npc"
+  | "GameObject"
+
+QBType-UseItemTargetLocation-MobState =
+  "Alive"
+  | "BelowHp"
+  | "Dead"
+  | "DontCare"
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "UseItemTargetLocation" },
+
+    Attributes-MobIdN,
+    Attributes-QuestSpecifier,
+    Attributes-UseItemTargetLocation-ClickToXYZ?,
+    Attributes-XYZ?,
+    attribute CollectionDistance { HBType-Distance }?,
+    attribute ItemId { HBType-Id }?,
+    attribute MinRange { HBType-Distance }?,
+    attribute MobHpPercentLeft { HBType-Percent }?,
+    attribute MobState { QBType-UseItemTargetLocation-MobState }?,
+    attribute NumOfTimes { HBType-Count }?,
+    attribute ObjectType { QBType-UseItemTargetLocation-MobType }?,
+    attribute Range { HBType-Distance }?,
+    attribute UseType { QBType-UseItemTargetLocation-UseType }?,
+    attribute WaitTime { HBType-TimeDuration }?
+  }
+# END: UseItemTargetLocation
+
+
+# BEGIN: UsePetAbility
+Attributes-UsePetAbility-ClickToXYZ =
+  attribute ClicktToX { xsd:decimal },
+  attribute ClicktToY { xsd:decimal },
+  attribute ClicktToZ { xsd:decimal }
+
+QBType-UsePetAbility-MobState =
+  "Alive"
+  | "BelowHp"
+  | "Dead"
+  | "DontCare"
+
+QBType-UsePetAbility-UseType =
+  "Current"
+  | "Location"
+  | "ToObject"
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "UsePetAbility" },
+
+    Attributes-MobIdN,
+    Attributes-QuestSpecifier,
+    Attributes-UsePetAbility-ClickToXYZ?,
+    Attributes-XYZ?,
+    attribute AttackButton { QBType-HotbarButton },
+    attribute CollectionDistance { HBType-Distance }?,
+    attribute IgnoreCombat { HBType-Boolean }?,
+    attribute MinRnage { HBType-Distance }?,
+    attribute MobHpPercentLeft { HBType-Percent }?,
+    attribute MobState { QBType-UsePetAbility-MobState }?,
+    attribute NumOfTimes { HBType-Count }?,
+    attribute Range { HBType-Distance }?,
+    attribute UseType { QBType-UsePetAbility-UseType }?,
+    attribute WaitTime { HBType-TimeDuration }?
+  }
+# END: UsePetAbility
+
+
 # BEGIN: UserDialog
 QBType-UserDialog-ExpiryAction =
   "InputDisabled_BotStop"
   | "InputDisabled_Continue"
   | "InputDisabled_EnableInput"
   | "InputEnabled_BotStop"
-  | "HandleInputEnabled_Continue"
+  | "InputEnabled_Continue"
 
 QBType-UserDialog-SoundCue =
   "Asterisk"
@@ -538,6 +785,17 @@ CustomBehavior |=
 # END: UseTransport
 
 
+# BEGIN: WaitForPatrol
+QBSubElement-WaitForPatrol-FollowPath =
+  element FollowPath
+  {
+    attribute DismissPet { HBType-Boolean }?,
+    attribute EgressDistance { HBType-Distance }?,
+    attribute Strategy { QBCoreType-SafePathType-Strategy },
+
+    QBCoreSubElement-Waypoint*
+  }
+
 CustomBehavior |=
   element CustomBehavior
   {
@@ -546,8 +804,11 @@ CustomBehavior |=
     Attributes-XYZ,
     attribute AvoidDistance { HBType-Distance },
     attribute AvoidMobId { HBType-Id },
-    attribute MoveToMobId { HBType-Id }?
+    attribute MoveToMobId { HBType-Id }?,
+
+    QBSubElement-WaitForPatrol-FollowPath?
   }
+# END: WaitForPatrol
 
 
 CustomBehavior |=
