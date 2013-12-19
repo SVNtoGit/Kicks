@@ -154,17 +154,19 @@ CustomBehavior |=
     attribute CollectionDistance { HBType-Distance }?,
     attribute InteractBlacklistTimeInSeconds { HBType-TimeDuration }?,
     (attribute ItemAppliesAuraId { HBType-Id }
-     | attribute ItemAppliesAuraId { "AssumeItemuseAlwaysSucceeds" })?,
+     | attribute ItemAppliesAuraId { "AssumeItemUseAlwaysSucceeds" })?,
     attribute ItemId { HBType-Id },
     attribute MaxRangeToUseItem { HBType-Distance }?,
     attribute NumOfTimesToUseItem { HBType-Count }?,
     attribute RecallPetAtMobPercentHealth { HBType-Percent }?,
+    attribute UseItemStrategy { QBType-CombatUseItemOnV2-UseItemStrategy }?,
     attribute UseWhenMeHasAuraId { HBType-Id }?,
     attribute UseWhenMeMissingAuraId { HBType-Id }?,
     attribute UseWhenMobCastingSpellId { HBType-Id }?,
     attribute UseWhenMobHasAuraId { HBType-Id }?,
     attribute UseWhenMobHasHealthPercent { HBType-Percent }?,
     attribute UseWhenMobMissingAuraId { HBType-Id }?,
+    attribute WaitTimeAfterItemUse { HBType-TimeDuration }?,
 
     QBCoreSubElement-HuntingGrounds?
   }
@@ -354,7 +356,23 @@ CustomBehavior |=
 CustomBehavior |=
   element CustomBehavior
   {
-    attribute File { "ForcedDismount" }
+    attribute File { "FlyTo" },
+
+    Attributes-QuestBehaviorBase,
+    Attributes-XYZ,
+    attribute DestName { string }?,
+    attribute Distance { HBType-Distance }?,
+    attribute IgnoreIndoors { HBType-Boolean }?,
+    attribute Land { HBType-Boolean }?
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "ForcedDismount" },
+
+    Attributes-QuestBehaviorBase
   }
 
 
@@ -395,7 +413,7 @@ CustomBehavior |=
 # BEGIN: InteractWith
 Attributes-Base-InteractWith =
   Attributes-AuraIdMissingFromMobN,
-  Attributes-AuraIdN,
+  Attributes-AuraIdOnMobN,
   (Attributes-FactionIdN-Mandatory1
    | Attributes-MobIdN-Mandatory1),
   Attributes-XYZ?,
@@ -519,6 +537,17 @@ CustomBehavior |=
     Attributes-QuestSpecifier,
     Attributes-XYZ,
     attribute ItemId { HBType-Id }
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "KillUntilComplete" },
+
+    Attributes-MobIdN-Mandatory1,
+    Attributes-QuestSpecifier,
+    Attributes-XYZ
   }
 
 
