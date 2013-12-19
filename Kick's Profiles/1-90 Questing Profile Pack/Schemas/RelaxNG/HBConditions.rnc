@@ -92,8 +92,7 @@ Term |= xsd:token { pattern="Me\.ZoneId" }
 Term |= xsd:token { pattern="!?IsAchievementComplete\([0-9]+\)" }
 ## Unfortunately, we cannot allow spaces between the IsObjectiveComplete
 ## arguments due to the lexical tokenization of 'list'.
-Term |= xsd:token { pattern="!?IsAchievementComplete\([0-9]+,[0-9]+\)" }
-Term |= xsd:token { pattern="!?Me\.IsOnTransport" }
+Term |= xsd:token { pattern="!?IsAchievementComplete\([0-9]+,[0-9]\)" }
 Term |= xsd:token { pattern="!?IsQuestCompleted\([0-9]+\)" }
 ## Unfortunately, we cannot allow spaces between the IsObjectiveComplete
 ## arguments due to the lexical tokenization of 'list'.
@@ -105,13 +104,21 @@ Term |= xsd:token { pattern="Me\.Level" }
 # Location
 Term |= xsd:token { pattern="Me\.[XYZ]" }
 
+# Me
+Term |= xsd:token { pattern="!?Me\.IsIndoors" }
+Term |= xsd:token { pattern="!?OnTransport" }
+Term |= xsd:token { pattern="!?Me\.IsOnTransport" }
+Term |= xsd:token { pattern="!?Me\.IsOutdoors" }
+
+# Minions
+Term |= xsd:token { pattern="Me\.Minions\.Count" }
+
 # Navigation
 # CanNavigateFully will work as a stand-alone Term, but will be flagged
 # in as an error when used in a Binary expression or greater.  This is because
 # the mandatory space between "new WoWPoint" will throw off the schema lexer
 # when trying to process a 'list'.
 Term |= xsd:token { pattern="Navigator\.CanNavigateFully\(Me\.Location,\s*new WoWPoint\((\s*[+\-]?[0-9]+\.?[0-9]*),(\s*[+\-]?[0-9]+\.?[0-9]*),(\s*[+\-]?[0-9]+\.?[0-9]*)\)\)" }
-Term |= xsd:token { pattern="OnTransport" }
 
 # Race
 Term |= xsd:token { pattern="Me\.Race" }
@@ -143,14 +150,14 @@ Term |= xsd:token { pattern="WoWRace\.Vrykul" }
 
 # Reputation
 Term |= xsd:token { pattern="Me\.GetReputationLevelWith\([0-9]+\)" }
-Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Exalted" }
-Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Friendly" }
-Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Hated" }
-Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Honored" }
-Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Hostile" }
-Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Neutral" }
-Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Revered" }
-Term |= xsd:token { pattern="Styx\.WoWUnitReaction\.Unfriendly" }
+Term |= xsd:token { pattern="WoWUnitReaction\.Exalted" }
+Term |= xsd:token { pattern="WoWUnitReaction\.Friendly" }
+Term |= xsd:token { pattern="WoWUnitReaction\.Hated" }
+Term |= xsd:token { pattern="WoWUnitReaction\.Honored" }
+Term |= xsd:token { pattern="WoWUnitReaction\.Hostile" }
+Term |= xsd:token { pattern="WoWUnitReaction\.Neutral" }
+Term |= xsd:token { pattern="WoWUnitReaction\.Revered" }
+Term |= xsd:token { pattern="WoWUnitReaction\.Unfriendly" }
 
 # Selection
 Term |= xsd:token { pattern="Object\([0-9]+\)" }
