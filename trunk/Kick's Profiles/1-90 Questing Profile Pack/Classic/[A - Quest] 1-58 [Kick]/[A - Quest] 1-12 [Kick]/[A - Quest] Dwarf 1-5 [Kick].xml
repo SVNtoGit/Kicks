@@ -73,30 +73,30 @@
     <!-- BEGIN: Quest Overrides -->
 
     <Quest Id="24474" Name="First Things First: We're Gonna Need Some Beer">
-	    <Objective Type="CollectItem" ItemId="49744" CollectCount="1">
-		    <CollectFrom>
+        <Objective Type="CollectItem" ItemId="49744" CollectCount="1">
+            <CollectFrom>
                 <Mob Name="Keg of Stormhammer Stout" Id="201610" />
-		    </CollectFrom>
-		    <Hotspots>
+            </CollectFrom>
+            <Hotspots>
                 <Hotspot X="-6141.679" Y="432.0451" Z="399.599" />
-		    </Hotspots>
-	    </Objective>
-	    <Objective Type="CollectItem" ItemId="49745" CollectCount="1">
-		    <CollectFrom>
+            </Hotspots>
+        </Objective>
+        <Objective Type="CollectItem" ItemId="49745" CollectCount="1">
+            <CollectFrom>
                 <Mob Name="Keg of Theramore Pale Ale" Id="201609" />
-		    </CollectFrom>
-		    <Hotspots>
+            </CollectFrom>
+            <Hotspots>
                 <Hotspot X="-6149.365" Y="596.3177" Z="386.1913" />
-		    </Hotspots>
-	    </Objective>
-	    <Objective Type="CollectItem" ItemId="49746" CollectCount="1">
-		    <CollectFrom>
+            </Hotspots>
+        </Objective>
+        <Objective Type="CollectItem" ItemId="49746" CollectCount="1">
+            <CollectFrom>
                 <Mob Name="Keg of Keg of Gnomerbrau" Id="201611" />
-		    </CollectFrom>
-		    <Hotspots>
+            </CollectFrom>
+            <Hotspots>
                 <Hotspot X="-6141.967" Y="321.3142" Z="399.2259" />
-		    </Hotspots>
-	    </Objective>
+            </Hotspots>
+        </Objective>
     </Quest>
 
     <Quest Id="24492" Name="Pack Your Bags">
@@ -193,12 +193,12 @@
             <TurnIn QuestName="Consecrated Rune" QuestId="3107" TurnInName="Bromos Grummner" TurnInId="926" />
             <PickUp QuestName="The Power of the Light" QuestId="24528" GiverName="Bromos Grummner" GiverId="926" />
             <While Condition="HasQuest(24528) &amp;&amp; !IsQuestCompleted(24528)" >
-                <!-- Seal of Command -->
-                <CustomBehavior File="InteractWith" QuestId="24528" InteractByCastingSpellId="105361" MobId="44389"
-                                X="-6120.679" Y="382.0895" Z="395.5429" />
-                <!-- Judgment -->
-                <CustomBehavior File="InteractWith" QuestId="24528" InteractByCastingSpellId="20271" MobId="44389"
-                                X="-6150.75" Y="378.814" Z="395.5428"/>
+                <!-- Place "Seal of Command" on self -->
+                <If Condition="!Me.HasAura(105361)">
+                    <CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(105361)" />
+                </If>
+                <!-- Hit training dummy -->
+                <CustomBehavior File="InteractWith" MobId="44389" X="-6120.679" Y="382.0895" Z="395.5429" />
             </While>
             <TurnIn QuestName="The Power of the Light" QuestId="24528" TurnInName="Bromos Grummner" TurnInId="926" />
         </If>
