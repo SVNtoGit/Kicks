@@ -934,37 +934,31 @@
         <PickUp QuestName="Three Little Pygmies" QuestId="24945" GiverName="Foreman Dampwick" GiverId="36471" />
         <If Condition="((!HasQuest(24946)) &amp;&amp; (!IsQuestCompleted(24946)))" >
             <PickUp QuestName="Rockin' Powder" QuestId="24946" GiverName="Assistant Greely" GiverId="38124" />
-            <RunTo X="1470.38" Y="2043.042" Z="227.7328" />
-            <CustomBehavior File="Message" Text="Waiting for agro to clear for 1 minute" LogColor="Orange" />
-            <CustomBehavior File="WaitTimer" WaitTime="60000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        </If>
-        <!-- These 3 quests need ... some help, but have been tweaked -->
-        <If Condition="(HasQuest(24946)) || (HasQuest(24945)) || (HasQuest(24942))" >
-            <CustomBehavior File="Message" Text="You may get stuck here - if so, do it manually; this is a bot issue - not a profile issue!" LogColor="Orange" />
         </If>
         <If Condition="((HasQuest(24946)) &amp;&amp; (!IsQuestCompleted(24946)))" >
+			<RunTo X="1473.674" Y="1978.564" Z="237.9529" />
             <If Condition="!Me.HasAura(&quot;Super Booster Rocket Boots&quot;) &amp;&amp; (Me.Z &lt; 288)">
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
             </If>
-            <DisableBehavior Name="Pull" />
+            <DisableBehavior Name="Combat" />
             <MoveTo X="1729.901" Y="1745.276" Z="307.8958" />
-            <EnableBehavior Name="Pull" />
             <If Condition="Me.HasAura(&quot;Super Booster Rocket Boots&quot;)">
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
             </If>
+            <EnableBehavior  Name="Combat" />
             <Objective QuestName="Rockin' Powder" QuestId="24946" Type="CollectItem" ItemId="52024" CollectCount="5" />
         </If>
         <If Condition="((HasQuest(24945)) &amp;&amp; (!IsQuestCompleted(24945)))" >
+			<If Condition="!Me.HasAura(&quot;Super Booster Rocket Boots&quot;) &amp;&amp; (Me.Z &lt; 288)">
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
+			</If>
+			<DisableBehavior Name="Combat" />
             <While Condition="((HasQuest(24945)) &amp;&amp; (!IsObjectiveComplete(1, 24945)))">
-                <If Condition="!Me.HasAura(&quot;Super Booster Rocket Boots&quot;) &amp;&amp; (Me.Z &lt; 288)">
-                    <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
-                </If>
-                <DisableBehavior Name="Pull" />
                 <MoveTo X="1670.009" Y="1744.841" Z="290.8352" />
-                <EnableBehavior Name="Pull" />
                 <If Condition="Me.HasAura(&quot;Super Booster Rocket Boots&quot;)">
                     <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
                 </If>
+                <EnableBehavior Name="Combat" />
                 <Objective QuestName="Three Little Pygmies" QuestId="24945" Type="KillMob" MobId="38808" KillCount="1" />
             </While>
 
@@ -972,12 +966,12 @@
                 <If Condition="!Me.HasAura(&quot;Super Booster Rocket Boots&quot;)">
                     <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
                 </If>
-                <DisableBehavior Name="Pull" />
+                <DisableBehavior Name="Combat" />
                 <MoveTo X="1491.854" Y="1729.329" Z="285.0056" />
-                <EnableBehavior Name="Pull" />
                 <If Condition="Me.HasAura(&quot;Super Booster Rocket Boots&quot;)">
                     <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
                 </If>
+                <EnableBehavior Name="Combat" />
                 <Objective QuestName="Three Little Pygmies" QuestId="24945" Type="KillMob" MobId="38809" KillCount="1" />
             </While>
 
@@ -985,74 +979,45 @@
                 <If Condition="!Me.HasAura(&quot;Super Booster Rocket Boots&quot;)">
                     <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
                 </If>
-                <DisableBehavior Name="Pull" />
+                <DisableBehavior Name="Combat" />
                 <MoveTo X="1352.411" Y="1465.041" Z="297.6707" />
-                <EnableBehavior Name="Pull" />
                 <If Condition="Me.HasAura(&quot;Super Booster Rocket Boots&quot;)">
                     <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
                 </If>
+                <EnableBehavior Name="Combat" />
                 <RunTo X="1334.886" Y="1482.623" Z="307.7249" />
                 <CustomBehavior File="MyCTM" X="1311.398" Y="1482.979" Z="318.7859" />
                 <Objective QuestName="Three Little Pygmies" QuestId="24945" Type="KillMob" MobId="38810" KillCount="1" />
             </While>
-            <If Condition="!Me.HasAura(&quot;Super Booster Rocket Boots&quot;)">
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
-            </If>
         </If>
         <If Condition="((HasQuest(24942)) &amp;&amp; (!IsQuestCompleted(24942)))" >
-            <DisableBehavior Name="Pull"/>
             <If Condition="!Me.HasAura(&quot;Super Booster Rocket Boots&quot;)">
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
             </If>
-            <RunTo X="1478.139" Y="2028.923" Z="231.9276" />
-            <EnableBehavior Name="Pull"/>
-            <!-- this is acting fucking stupid atm
-				<CustomBehavior File="RunLikeHell" QuestId="24942" NumOfTimes="1" AllowCombat="False" >
-					<Hotspot X="1476.906" Y="2025.116" Z="232.1545" />
-					<Hotspot X="1522.835" Y="1796.629" Z="268.709" />
-					<Hotspot X="1505.76" Y="1747.596" Z="281.6613" />
-					<Hotspot X="1542.306" Y="1764.221" Z="271.8004" />
-					<Hotspot X="1584.673" Y="1757.097" Z="272.6762" />
-					<Hotspot X="1554.773" Y="1792.142" Z="265.3022" />
-					<Hotspot X="1547.481" Y="1849.257" Z="256.9195" />
-					<Hotspot X="1532.688" Y="1881.297" Z="251.5076" />
-					<Hotspot X="1487.699" Y="1934.076" Z="241.4472" />
-					<Hotspot X="1476.792" Y="1975.642" Z="238.1429" />
-					<Hotspot X="1477.436" Y="2025.487" Z="232.1463" />
-				</CustomBehavior>
-				-->
+            <DisableBehavior Name="Combat"/>
             <While Condition="((HasQuest(24942)) &amp;&amp; (!IsQuestCompleted(24942)))" >
-                <DisableBehavior Name="Pull" />
-                <MoveTo X="1476.906" Y="2025.116" Z="232.1545" />
-                <MoveTo X="1522.835" Y="1796.629" Z="268.709" />
-                <MoveTo X="1505.76" Y="1747.596" Z="281.6613" />
-                <MoveTo X="1542.306" Y="1764.221" Z="271.8004" />
-                <MoveTo X="1584.673" Y="1757.097" Z="272.6762" />
-                <MoveTo X="1554.773" Y="1792.142" Z="265.3022" />
-                <MoveTo X="1547.481" Y="1849.257" Z="256.9195" />
-                <MoveTo X="1532.688" Y="1881.297" Z="251.5076" />
-                <MoveTo X="1487.699" Y="1934.076" Z="241.4472" />
-                <MoveTo X="1476.792" Y="1975.642" Z="238.1429" />
-                <MoveTo X="1477.436" Y="2025.487" Z="232.1463" />
-                <EnableBehavior Name="Pull" />
+				<MoveTo X="1512.478" Y="1929.019" Z="245.0815" />
+				<MoveTo X="1553.647" Y="1906.484" Z="255.4261" />
+				<MoveTo X="1599.905" Y="1839.761" Z="268.9041" />
+				<MoveTo X="1623.957" Y="1857.841" Z="288.5268" />
+				<MoveTo X="1650.501" Y="1773.394" Z="287.7187" />
+				<MoveTo X="1544.961" Y="1711.141" Z="277.593" />
+				<MoveTo X="1480.842" Y="1656.143" Z="279.4572" />
+				<MoveTo X="1402.767" Y="1665.234" Z="293.991" />
+				<MoveTo X="1319.439" Y="1648.1" Z="312.4896" />
+				<MoveTo X="1414.093" Y="1831.095" Z="311.2588" />
+				<MoveTo X="1486.349" Y="1837.98" Z="268.5609" />
             </While>
-            <DisableBehavior Name="Pull" />
-            <MoveTo X="1465.105" Y="2045.135" Z="225.992" />
-            <EnableBehavior Name="Pull" />
-            <If Condition="Me.HasAura(&quot;Super Booster Rocket Boots&quot;)">
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
-            </If>
         </If>
         <If Condition="((HasQuest(24942)) &amp;&amp; (IsQuestCompleted(24942)))" >
             <If Condition="!Me.HasAura(&quot;Super Booster Rocket Boots&quot;)">
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
             </If>
-            <DisableBehavior Name="Combat" />
-            <MoveTo Nav="Fly" X="1470.083" Y="2058.785" Z="221.0213" />
-            <EnableBehavior Name="Combat" />
+			<RunTo X="1473.674" Y="1978.564" Z="237.9529" />
             <If Condition="Me.HasAura(&quot;Super Booster Rocket Boots&quot;)">
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52013)" />
             </If>
+            <EnableBehavior Name="Combat" />
         </If>
         <TurnIn QuestName="Zombies vs. Super Booster Rocket Boots" QuestId="24942" TurnInName="Coach Crosscheck" TurnInId="38738" />
         <TurnIn QuestName="Three Little Pygmies" QuestId="24945" TurnInName="Foreman Dampwick" TurnInId="36471" />
