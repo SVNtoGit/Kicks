@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <HBProfile xsi:noNamespaceSchemaLocation="../Schemas/QuestProfileSchema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <!-- Developed by Kickazz006 -->
@@ -216,6 +216,24 @@
                 <Hotspot X="-9409.759" Y="-1491.268" Z="66.1034" />
                 <Hotspot X="-9347.1" Y="-1542.453" Z="65.45338" />
                 <Hotspot X="-9160.337" Y="-1519.91" Z="68.64893" />
+            </Hotspots>
+        </Objective>
+    </Quest>
+
+    <Quest Id="28195" Name="Sending a Message">
+        <Objective Type="KillMob" MobId="47981" KillCount="1">
+            <Hotspots>
+                <Hotspot X="-10819.5" Y="1059.74" Z="17.47356" />
+            </Hotspots>
+        </Objective>
+        <Objective Type="KillMob" MobId="47980" KillCount="1">
+            <Hotspots>
+                <Hotspot X="-10877.22" Y="900.5729" Z="18.14097" />
+            </Hotspots>
+        </Objective>
+        <Objective Type="KillMob" MobId="47978" KillCount="1">
+            <Hotspots>
+                <Hotspot X="-10863.17" Y="826.0938" Z="18.51556" />
             </Hotspots>
         </Objective>
     </Quest>
@@ -1519,31 +1537,37 @@
                 X="-10672.72" Y="1088.257" Z="25.18715" />
         <TurnIn QuestName="Lockdown!" TurnInName="Commander Schnottz" QuestId="28193" TurnInId="47972" />
         <PickUp QuestName="Sending a Message" QuestId="28195" GiverName="Commander Schnottz" GiverId="47972" />
-        <!-- FlyTo has issues with water atm -->
+	<!-- FlyTo has issues with water atm -->
         <If Condition="HasQuest(28195) &amp;&amp; !IsQuestCompleted(28195)">
+            <If Condition="!IsObjectiveComplete(1, 28195)">
+              <DisableBehavior Name="Pull" />
+              <CustomBehavior File="FlyTo" X="-10825.15" Y="1079.476" Z="44.99184" />
+              <CustomBehavior File="FlyTo" X="-10821.01" Y="1068.198" Z="19.01011" />
+              <CustomBehavior File="ForcedDismount" />
+              <Objective QuestName="Sending a Message" QuestId="28195" Type="KillMob" MobId="47981" KillCount="1" />
+              <EnableBehavior Name="Pull" />
+              <RunTo X="-10816.84" Y="1023.615" Z="12.22744" />
+            </If>
 
-            <DisableBehavior Name="Pull" />
-            <RunTo X="-10697.09" Y="1065.892" Z="23.9866" />
-            <CustomBehavior File="FlyTo" X="-10833.71" Y="1095.251" Z="65.66586" />
-            <CustomBehavior File="FlyTo" X="-10817.5" Y="1054.501" Z="16.77542" />
-            <Objective QuestName="Sending a Message" QuestId="28195" Type="KillMob" MobId="47981" KillCount="1" />
-            <EnableBehavior Name="Pull" />
-            <RunTo X="-10816.84" Y="1023.615" Z="12.22744" />
+            <If Condition="!IsObjectiveComplete(2, 28195)">
+              <DisableBehavior Name="Pull" />
+              <CustomBehavior File="FlyTo" X="-10898.37" Y="903.5525" Z="44.59199" />
+              <CustomBehavior File="FlyTo" X="-10884.94" Y="902.5274" Z="19.59525" />
+              <CustomBehavior File="ForcedDismount" />
+              <Objective QuestName="Sending a Message" QuestId="28195" Type="KillMob" MobId="47980" KillCount="1" />
+              <EnableBehavior Name="Pull" />
+              <RunTo X="-10844.24" Y="889.3004" Z="12.56562" />
+            </If>
 
-            <DisableBehavior Name="Pull" />
-            <CustomBehavior File="FlyTo" X="-10903.81" Y="906.3516" Z="82.67412" />
-            <CustomBehavior File="FlyTo" X="-10869.86" Y="900.0716" Z="17.03042" />
-            <Objective QuestName="Sending a Message" QuestId="28195" Type="KillMob" MobId="47980" KillCount="1" />
-            <EnableBehavior Name="Pull" />
-            <RunTo X="-10844.24" Y="889.3004" Z="12.56562" />
-
-            <DisableBehavior Name="Pull" />
-            <CustomBehavior File="FlyTo" X="-10885.72" Y="826.6318" Z="64.76858" />
-            <CustomBehavior File="FlyTo" X="-10855.78" Y="825.2109" Z="17.58379" />
-            <Objective QuestName="Sending a Message" QuestId="28195" Type="KillMob" MobId="47978" KillCount="1" />
-            <EnableBehavior Name="Pull" />
-            <RunTo X="-10827.45" Y="818.8309" Z="13.26033" />
-
+            <If Condition="!IsObjectiveComplete(3, 28195)">
+              <DisableBehavior Name="Pull" />
+              <CustomBehavior File="FlyTo" X="-10884.55" Y="828.3129" Z="61.07264" />
+              <CustomBehavior File="FlyTo" X="-10870.92" Y="826.6111" Z="19.93607" />
+              <CustomBehavior File="ForcedDismount" />
+              <Objective QuestName="Sending a Message" QuestId="28195" Type="KillMob" MobId="47978" KillCount="1" />
+              <EnableBehavior Name="Pull" />
+              <RunTo X="-10827.45" Y="818.8309" Z="13.26033" />
+            </If>
         </If>
         <If Condition="HasQuest(28194) &amp;&amp; !IsQuestCompleted(28194)">
             <CustomBehavior File="FlyTo" Land="true" X="-10864.9" Y="891.2397" Z="12.84101" />
