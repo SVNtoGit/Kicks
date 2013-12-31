@@ -268,6 +268,20 @@
             </Hotspots>
         </Objective>
     </Quest>
+	<Quest Id="27072" Name="The Old Barracks" >
+        <Objective QuestName="The Old Barracks" QuestId="27072" Type="KillMob" KillCount="6" MobId="44814" >
+            <Hotspots>
+                <Hotspot X="-8808.691" Y="946.8082" Z="98.26474" />
+				<Hotspot X="-8770.722" Y="933.2221" Z="95.15711" />
+				<Hotspot X="-8743.424" Y="912.1983" Z="100.0246" />
+				<Hotspot X="-8699.329" Y="955.7145" Z="101.5484" />
+				<Hotspot X="-8681.104" Y="961.1763" Z="101.2033" />
+				<Hotspot X="-8669.813" Y="964.7089" Z="101.2028" />
+				<Hotspot X="-8641.248" Y="988.4119" Z="99.50447" />
+				<Hotspot X="-8677.754" Y="1050.401" Z="99.506" />
+            </Hotspots>
+        </Objective>
+	</Quest>
 
     <!--
         <Quest Id="28104" Name="Precious Goods">
@@ -397,16 +411,33 @@
         </If>
         <TurnIn QuestName="Expert Opinion" TurnInName="Master Mathias Shaw" QuestId="28807" TurnInId="332" />
         <PickUp QuestName="The Old Barracks" GiverName="Master Mathias Shaw" QuestId="27072" GiverId="332" />
-        <If Condition="HasQuest(27072) &amp;&amp; !IsQuestCompleted(27072)">
+		
+	    <If Condition="HasQuest(27072) &amp;&amp; !IsQuestCompleted(27072)">
             <DisableBehavior Name="Pull" />
             <MoveTo X="-8726.662" Y="336.3237" Z="100.1682" />
-            <CustomBehavior File="FlyTo" Land="True" X="-8668.381" Y="1068.269" Z="114.6001" />
             <EnableBehavior Name="Pull" />
+			<!-- We fly to the small island where there are almost always two Crazed Cultists to kill -->
+			<CustomBehavior File="FlyTo" X="-8719.553" Y="995.1499" Z="86.0937" Land="True"  />
+			<CustomBehavior File="WaitTimer" WaitTime="3000" />
+			<CustomBehavior File="RunMacro" Macro="/dismount" NumOfTimes="1" WaitTime="1000" />
+			<!-- We fly to The beginning of the new area to kill Crazed Cultists -->
+			<CustomBehavior File="FlyTo" X="-8819.88" Y="961.5156" Z="104.3575"  Land="True"  />
+			<CustomBehavior File="RunMacro" Macro="/dismount" NumOfTimes="1" WaitTime="1000" />			
         </If>
-        <!-- this place has MAJOR nav issues -->
+		
+        <!-- this place has MAJOR nav issues 
+			 Instead of trying to find cultists in this castle to kill, we will find them all
+			 outside so we do not run into any nav issues in this horrid place.
+			 quest override was added above with the new hotspots.-->
         <Objective QuestName="The Old Barracks" QuestId="27072" Type="KillMob" KillCount="6" MobId="44814" />
+		
+		<If Condition="IsQuestCompleted(27072)">
+		<CustomBehavior File="FlyTo" X="-8688.446" Y="1064.052" Z="158.3894" />
+		<CustomBehavior File="FlyTo" X="-8658.983" Y="1093.776" Z="126.6917" />
+		<CustomBehavior File="RunMacro" Macro="/dismount" NumOfTimes="1" WaitTime="1000" />
         <TurnIn QuestName="The Old Barracks" TurnInName="Jack Bauden" QuestId="27072" TurnInId="50049"
                 X="-8647.146" Y="1076.708" Z="105.6031" />
+		</If>
         <If Condition="!HasQuest(27092) &amp;&amp; !IsQuestCompleted(27092)">
             <PickUp QuestName="Cataclysm in the Catacombs" QuestId="27092" GiverName="Jack Bauden" GiverId="50049" />
             <MoveTo X="-8668.643" Y="1067.231" Z="114.584" />
