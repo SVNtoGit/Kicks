@@ -1148,8 +1148,8 @@
         <TurnIn QuestName="Doesn't Hold Water" QuestId="30049" TurnInName="Mudmug" TurnInId="56474" X="82.19444" Y="548.6736" Z="153.3879" />
         <PickUp QuestName="The Great Water Hunt" QuestId="30051" GiverName="Mudmug" GiverId="56474" X="82.19444" Y="548.6736" Z="153.3879" />
         <While Condition="HasQuest(30051) &amp;&amp; !IsQuestCompleted(30051)">
-            <!-- CJ: Druids can't interact for gossip if shape-shifted, so include a 'dismount' attribute
-                 to prevent the problem.
+            <!-- CJ: Druids can't interact for gossip with "Mudmug" if shape-shifted,
+                 so include a 'dismount' attribute to prevent the problem.
             -->
             <CustomBehavior File="InteractWith" MobId="56474" WaitForNpcs="False" InteractByGossipOptions="1"
                             PreInteractMountStrategy="CancelShapeshift" X="82.19444" Y="548.6736" Z="153.3879" />
@@ -1172,7 +1172,11 @@
         <If Condition="HasQuest(30172) &amp;&amp; !IsQuestCompleted(30172)">
             <RunTo X="-198.554" Y="482.8267" Z="187.1889" />
             <While Condition="!IsQuestCompleted(30172)">
-                <CustomBehavior File="InteractWith" MobId="56474" GossipOptions="1" X="82.19444" Y="548.6736" Z="153.3863" />
+                <!-- CJ: Druids can't interact for gossip with "Mudmug" if shape-shifted,
+                     so include a 'dismount' attribute to prevent the problem.
+                -->
+                <CustomBehavior File="InteractWith" MobId="56474" InteractByGossipOptions="1"
+                                PreInteractMountStrategy="CancelShapeshift" X="82.19444" Y="548.6736" Z="153.3863" />
                 <RunTo X="54.82958" Y="546.7314" Z="153.4535" />
                 <CustomBehavior File="WaitTimer" WaitTime="6000" />
                 <RunTo X="-198.554" Y="482.8267" Z="187.1889" />
