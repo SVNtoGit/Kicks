@@ -4443,39 +4443,24 @@
             <UseMount Value="True" />
 
             <!-- Start Coldarra Quests -->
-            <If Condition="!HasQuest(11918) &amp;&amp; !IsQuestCompleted(11918)">
-                <CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
-                <CustomBehavior File="ForcedDismount" />
-                <PickUp QuestName="Basic Training" QuestId="11918" GiverName="Raelorasz" GiverId="26117" Nav="Fly" />
-                <PickUp QuestName="Nuts for Berries" QuestId="11912" GiverName="Librarian Serrah"
-                        GiverId="26110" Nav="Fly" />
-                <PickUp QuestName="Reading the Meters" QuestId="11900" GiverName="Archmage Berinand"
-                        GiverId="25314" Nav="Fly" />
-                <PickUp QuestName="Secrets of the Ancients" QuestId="11910" GiverName="Archmage Berinand"
-                        GiverId="25314" Nav="Fly" />
-                <MoveTo X="3589.448" Y="6662.334" Z="195.4018" />
-            </If>
-            <If Condition="!HasQuest(11912) &amp;&amp; !IsQuestCompleted(11912)">
-                <CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
-                <CustomBehavior File="ForcedDismount" />
-                <PickUp QuestName="Nuts for Berries" QuestId="11912" GiverName="Librarian Serrah"
-                        GiverId="26110" Nav="Fly" />
-                <MoveTo X="3589.448" Y="6662.334" Z="195.4018" />
-            </If>
-            <If Condition="!HasQuest(11900) &amp;&amp; !IsQuestCompleted(11900)">
-                <CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+            <PickUp QuestName="Basic Training" QuestId="11918" GiverName="Raelorasz" GiverId="26117" Nav="Fly" />
+            <PickUp QuestName="Nuts for Berries" QuestId="11912" GiverName="Librarian Serrah"
+                    GiverId="26110" Nav="Fly" />
+            <If Condition="( !HasQuest(11900) &amp;&amp; !IsQuestCompleted(11900) ) || ( !HasQuest(11910) &amp;&amp; !IsQuestCompleted(11910) )">
+                <CustomBehavior File="FlyTo" DestName="Pickup Quests from Archmage Berinand" X="3578.918" Y="6655.438" Z="195.3858" />
+                <UseMount Value="False" />
                 <CustomBehavior File="ForcedDismount" />
                 <PickUp QuestName="Reading the Meters" QuestId="11900" GiverName="Archmage Berinand"
-                        GiverId="25314" Nav="Fly" />
-                <MoveTo X="3589.448" Y="6662.334" Z="195.4018" />
-            </If>
-            <If Condition="!HasQuest(11910) &amp;&amp; !IsQuestCompleted(11910)">
-                <CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
-                <CustomBehavior File="ForcedDismount" />
+                        GiverId="25314" />
                 <PickUp QuestName="Secrets of the Ancients" QuestId="11910" GiverName="Archmage Berinand"
-                        GiverId="25314" Nav="Fly" />
-                <MoveTo X="3589.448" Y="6662.334" Z="195.4018" />
+                        GiverId="25314" />
+                <!-- CJ: After the PickUp from Archmage Berinand, we move out of the house
+                     to prevent mounting inside the house and getting stuck.
+                -->
+                <MoveTo X="3589.448" Y="6662.334" Z="195.4018" Nav="Run" />
+                <UseMount Value="True" />
             </If>
+
             <If Condition="HasItem(35671)">
                 <!-- For those noobs that like to restart and not use ball -->
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
@@ -4542,48 +4527,28 @@
                 <CustomBehavior File="WaitTimer" WaitTime="5000"
                                 GoalText="Waiting for quest to complete {TimeRemaining}" />
             </If>
-            <If Condition="HasQuest(11918) &amp;&amp; IsQuestCompleted(11918)">
-                <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
-                <CustomBehavior File="ForcedDismount" />
-                <TurnIn QuestName="Basic Training" QuestId="11918" TurnInName="Raelorasz" TurnInId="26117" Nav="Fly" />
-                <PickUp QuestName="Hatching a Plan" QuestId="11936" GiverName="Raelorasz" GiverId="26117" Nav="Fly" />
-                <MoveTo X="3576.688" Y="6653.484" Z="195.2788" />
-            </If>
-            <If Condition="!HasQuest(11936) &amp;&amp; !IsQuestCompleted(11936)">
-                <CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
-                <CustomBehavior File="ForcedDismount" />
-                <PickUp QuestName="Hatching a Plan" QuestId="11936" GiverName="Raelorasz" GiverId="26117" Nav="Fly" />
-                <MoveTo X="3576.688" Y="6653.484" Z="195.2788" />
-            </If>
-            <If Condition="HasQuest(11912) &amp;&amp; IsQuestCompleted(11912)">
-                <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
-                <CustomBehavior File="ForcedDismount" />
-                <TurnIn QuestName="Nuts for Berries" QuestId="11912" TurnInName="Librarian Serrah"
-                        TurnInId="26110" Nav="Fly" />
-                <PickUp QuestName="Keep the Secret Safe" QuestId="11914" GiverName="Librarian Serrah"
-                        GiverId="26110" Nav="Fly" />
-            </If>
-            <If Condition="!HasQuest(11914) &amp;&amp; !IsQuestCompleted(11914)">
-                <CustomBehavior File="FlyTo" DestName="Pickup Quest" X="3578.918" Y="6655.438" Z="195.3858" />
-                <CustomBehavior File="ForcedDismount" />
-                <PickUp QuestName="Keep the Secret Safe" QuestId="11914" GiverName="Librarian Serrah"
-                        GiverId="26110" Nav="Fly" />
-            </If>
-            <If Condition="HasQuest(11900) &amp;&amp; IsQuestCompleted(11900)">
-                <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
+
+            <TurnIn QuestName="Nuts for Berries" QuestId="11912" TurnInName="Librarian Serrah"
+                    TurnInId="26110" Nav="Fly" />
+            <PickUp QuestName="Keep the Secret Safe" QuestId="11914" GiverName="Librarian Serrah"
+                    GiverId="26110" Nav="Fly" />
+            <TurnIn QuestName="Basic Training" QuestId="11918" TurnInName="Raelorasz" TurnInId="26117" Nav="Fly" />
+            <PickUp QuestName="Hatching a Plan" QuestId="11936" GiverName="Raelorasz" GiverId="26117" Nav="Fly" />
+
+            <If Condition="( HasQuest(11900) &amp;&amp; IsQuestCompleted(11900) ) || ( HasQuest(11910) &amp;&amp; IsQuestCompleted(11910) )">
+                <CustomBehavior File="FlyTo" DestName="Turnin Quests to Archmage Berinand"
+                                X="3578.918" Y="6655.438" Z="195.3858" />
+                <UseMount Value="False" />
                 <CustomBehavior File="ForcedDismount" />
                 <TurnIn QuestName="Reading the Meters" QuestId="11900" TurnInName="Archmage Berinand"
-                        TurnInId="25314" Nav="Fly" />
-                <If Condition="HasQuest(11910) &amp;&amp; IsQuestCompleted(11910)">
-                    <TurnIn QuestName="Secrets of the Ancients" QuestId="11910"
-                            TurnInName="Archmage Berinand" TurnInId="25314" Nav="Fly" />
-                </If>
-            </If>
-            <If Condition="HasQuest(11910) &amp;&amp; IsQuestCompleted(11910)">
-                <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3578.918" Y="6655.438" Z="195.3858" />
-                <CustomBehavior File="ForcedDismount" />
-                <TurnIn QuestName="Secrets of the Ancients" QuestId="11910" TurnInName="Archmage Berinand"
-                        TurnInId="25314" Nav="Fly" />
+                        TurnInId="25314" />
+                <TurnIn QuestName="Secrets of the Ancients" QuestId="11910"
+                        TurnInName="Archmage Berinand" TurnInId="25314" />
+                <!-- CJ: After the TurnIn to Archmage Berinand, we move out of the house
+                     to prevent mounting inside the house and getting stuck.
+                -->
+                <MoveTo X="3584.978" Y="6663.208" Z="195.2701" />
+                <UseMount Value="True" />
             </If>
 
             <!-- Nexus Quests -->
