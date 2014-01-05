@@ -2481,7 +2481,7 @@
                     TurnInId="16827" X="-597.1862" Y="2912.035" Z="59.21376" />
             <MoveTo X="-585.5592" Y="2875.534" Z="54.97284" />
         </If>
-        <!-- 
+        <!--
 
             <If Condition="!IsQuestCompleted(9373)" >
             <SetGrindArea>
@@ -4075,8 +4075,15 @@
             </If>
         </If>
 
-        <Pickup QuestName="Fertile Spores" QuestId="9806" GiverName="Gshaff" GiverId="17925" X="280.2096" Y="8512.685"
-                Z="24.21214" />
+        <If Condition="!HasQuest(9806) &amp;&amp; !IsQuestCompleted(9806)">
+            <!-- CJ: PickUp NPC is in a house, we fly and land outside, since Flightor
+                 has issues, if left unassisted.
+            -->
+            <CustomBehavior File="FlyTo" DestName="Workaraound for Quest PickUp: Fertile Spores"
+                            Land="True" X="238.1418" Y="8508.891" Z="23.04393" />
+            <PickUp QuestName="Fertile Spores" QuestId="9806" GiverName="Gshaff" GiverId="17925"
+                    X="280.2096" Y="8512.685" Z="24.21214" Nav="Run" />
+        </If>
 
         <If Condition="HasQuest(9808)">
             <Objective QuestName="Glowcap Mushrooms" QuestId="9808" Type="CollectItem" ItemId="24245" CollectCount="10" />
@@ -4090,12 +4097,18 @@
         </If>
 
         <If Condition="HasQuest(9806) &amp;&amp; IsQuestCompleted(9806)">
+            <!-- CJ: TurnIn NPC is in a house, we fly and land outside, since Flightor
+                 has issues, if left unassisted.
+            -->
+            <CustomBehavior File="FlyTo" DestName="Workaraound for Quest TurnIn: Fertile Spores"
+                            Land="True" X="238.1418" Y="8508.891" Z="23.04393" />
+            <TurnIn QuestName="Fertile Spores" QuestId="9806" TurnInName="Gshaff" TurnInId="17925"
+                    X="280.2096" Y="8512.685" Z="24.21214" Nav="Run" />
+        </If>
+        <If Condition="HasQuest(9806) &amp;&amp; IsQuestCompleted(9806)">
             <CustomBehavior File="FlyTo" DestName="Turnin: Fertile Spores" X="198.6307" Y="8527.988" Z="23.87339" />
             <CustomBehavior File="ForcedDismount" />
-            <TurnIn QuestName="Fertile Spores" QuestId="9806" TurnInName="Gshaff" TurnInId="17925" X="280.2096"
-                    Y="8512.685" Z="24.21214" />
         </If>
-
 
         <If Condition="!HasQuest(9901) &amp;&amp; !IsQuestCompleted(9901)">
             <CustomBehavior File="FlyTo" X="463.2242" Y="8130.824" Z="113.6077" />
@@ -4568,7 +4581,7 @@
         <CustomBehavior File="Message" Text="Compiling Terrokar Forest Quests" LogColor="Green" />
         <CustomBehavior File="UserSettings" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
 
-        <!-- 
+        <!--
             <If Condition="!HasQuest(9957) &amp;&amp; !IsQuestCompleted(9957) &amp;&amp; !HasQuest(9961) &amp;&amp; !IsQuestCompleted(9961)" >
             <CustomBehavior File="FlyTo" DestName="Pickup: What's Wrong at Cenarion Thicket?" X="-220.1487" Y="5435.804" Z="21.73699" />
             <PickUp QuestName="What's Wrong at Cenarion Thicket?" QuestId="9957" GiverName="Lethyn Moonfire" GiverId="17834" X="-181.3797" Y="5527.087" Z="29.40768" />
@@ -4689,7 +4702,7 @@
                 X="-1947.203" Y="4689.501" Z="-2.189576" />
         <TurnIn QuestName="Strange Energy" QuestId="9968" TurnInName="Earthbinder Tavgren" TurnInId="18446"
                 X="-1947.203" Y="4689.501" Z="-2.189576" />
-        <!-- 
+        <!--
             <PickUp QuestName="By Any Means Necessary" QuestId="9978" GiverName="Earthbinder Tavgren" GiverId="18446" />
             <While Condition="HasQuest(9978)" >
             <CustomBehavior File="Message" Text="Waiting for Empoor to pass by - don't interfere!\n\nIt could be 30s to 5min!" LogColor="Orange" />
@@ -4769,7 +4782,7 @@
                 X="-3010.061" Y="3994.337" Z="4.465378" />
 
 
-        <!-- 
+        <!--
             <If Condition="!IsQuestCompleted(10908)" >
             <PickUp QuestName="Secrets of the Arakkoa" QuestId="10863" GiverName="Lady Dena Kennedy" GiverId="15991" />
             </If>
@@ -4801,7 +4814,7 @@
             <Pickup QuestName="The Eyes of Skettis" QuestId="10847" GiverName="Rilak the Redeemed" GiverId="22292"
                     X="-1656.826" Y="5444.883" Z="-40.40486" />
         </If>
-        <!-- 
+        <!--
             <Pickup QuestName="The Outcast's Plight" QuestId="10917" GiverName="Vekax" GiverId="22429" />
  -->
         <If Condition="HasQuest(10038)">
@@ -4854,7 +4867,7 @@
                            KillCount="1" />
             </If>
         </If>
-        <!-- 
+        <!--
             <Objective QuestName="The Outcast's Plight" QuestId="10917" Type="CollectItem" ItemId="25719" CollectCount="30" />
  -->
         <Objective QuestName="Olemba Seeds" QuestId="9992" Type="CollectItem" CollectCount="30" Name="Olemba Seed"
@@ -4969,7 +4982,7 @@
             <CustomBehavior File="FlyTo" DestName="Rilak the Redeemed" X="-1649.608" Y="5441.728" Z="-40.40532" />
             <CustomBehavior File="ForcedDismount" />
         </If>
-        <!-- 
+        <!--
             <TurnIn QuestName="The Outcast's Plight" QuestId="10917" TurnInName="Vekax" TurnInId="22429" />
  -->
         <TurnIn QuestName="The Eyes of Skettis" QuestId="10847" TurnInName="Rilak the Redeemed" TurnInId="22292" />
@@ -5825,7 +5838,7 @@
                  </If>
                  <TurnIn QuestName="Shattering the Veil" TurnInName="Gordawg" QuestId="9849" TurnInId="18099" />
  -->
-            <!-- 
+            <!--
                 <TurnIn QuestName="The Spirit Polluted" QuestId="9810" TurnInName="Elementalist Lo'ap" TurnInId="18073" />
  -->
             <If Condition="HasQuest(9874) &amp;&amp; !IsQuestCompleted(9874)">
@@ -5871,7 +5884,7 @@
             </If>
             <TurnIn QuestName="He Called Himself Altruis..." QuestId="9982" TurnInName="Altruis the Sufferer"
                     TurnInId="18417" />
-            <!-- 
+            <!--
                 <PickUp QuestName="Survey the Land" GiverName="Altruis the Sufferer" QuestId="9991" GiverId="18417" />
                 <CustomBehavior File="WaitTimer" WaitTime="4000"/>
                 </If>
@@ -6015,7 +6028,7 @@
                 <Objective QuestName="The Ravaged Caravan" QuestId="9956" Type="CollectItem" CollectCount="10"
                            Name="Telaar Supply Crate" ItemId="25647" />
             </If>
-            <!-- 
+            <!--
                 <If Condition="HasQuest(9954)" >
                 <CustomBehavior File="FlyTo" X="-798.4609" Y="8829.744" Z="182.7874" />
                 <CustomBehavior File="ForcedDismount" />
@@ -6048,7 +6061,7 @@
                 <CustomBehavior File="ForcedDismount" />
                 <TurnIn QuestName="Message to Telaar" TurnInName="Arechron" QuestId="9933" TurnInId="18183" />
             </If>
-            <!-- 
+            <!--
                 <If Condition="(Me.Level &gt;= 67)" >
                 <PickUp QuestName="Visions of Destruction" GiverName="Seer Jovar" QuestId="11044" GiverId="23268" />
                 </If>
@@ -6414,7 +6427,7 @@
              <CustomBehavior File="WaitTimer" WaitTime="15000"/>
              <Objective QuestName="Planting the Banner" QuestId="10518" Type="Collect" CollectCount="1" ItemId="30417" />
  -->
-        <!-- 
+        <!--
             <If Condition="HasQuest(10512) &amp;&amp; !IsQuestCompleted(10512)" >
             <MoveTo QuestId="10512" X="2500.089" Y="6498.79" Z="-5.339254" />
             <UseItem QuestName="Getting the Bladespire Tanked" QuestId="10512" ItemId="30353" X="2500.552" Y="6527.668" Z="-2.567441" />
@@ -6451,7 +6464,7 @@
              <PickUp QuestName="Follow the Breadcrumbs" GiverName="R-3D0" QuestId="10581" GiverId="21690" />
              <TurnIn QuestName="Follow the Breadcrumbs" TurnInName="Toshley" QuestId="10581" TurnInId="21691" />
  -->
-        <!-- 
+        <!--
             <PickUp QuestName="Test Flight: The Zephyrium Capacitorium" QuestId="10557" GiverName="Tally Zapnabber" GiverId="21460" />
             <While Condition="HasQuest(10557) &amp;&amp; !IsQuestCompleted(10557)" >
             <MoveTo X="1923.364" Y="5581.691" Z="263.894" />
@@ -6497,7 +6510,7 @@
              <MoveTo QuestId="10594" X="1735.406" Y="5612.961" Z="265.3809" />
              <TurnIn QuestName="Gauging the Resonant Frequency" QuestId="10594" TurnInName="Nickwinkle the Metro-Gnome" TurnInId="21755" />
  -->
-        <!-- 
+        <!--
             <PickUp QuestName="Test Flight: The Singing Ridge" QuestId="10710" GiverName="Tally Zapnabber" GiverId="21460" />
             <If Condition="HasQuest(10710) &amp;&amp; !IsQuestCompleted(10710)" >
             <UseItem QuestName="Test Flight: The Singing Ridge" QuestId="10710" ItemId="30540" X="1935.081" Y="5577.448" Z="263.7433" />
@@ -6527,7 +6540,7 @@
              Damaged Mask - 31384 starts http://www.wowhead.com/quest=10810 and kills http://www.wowhead.com/npc=21300 for quest=10753
  -->
 
-        <!-- 
+        <!--
             <SetGrindArea>
             <GrindArea>
             <Factions>16 1780 1782</Factions>
@@ -6890,7 +6903,7 @@
                     TurnInId="19489" />
             <PickUp QuestName="Potential Energy Source" GiverName="Lieutenant-Sorcerer Morran" QuestId="10239"
                     GiverId="19489" />
-            <!-- 
+            <!--
                 <PickUp QuestName="Torching Sunfury Hold" GiverName="Lieutenant-Sorcerer Morran" QuestId="10233" GiverId="19489" />
  -->
             <TurnIn QuestName="Indispensable Tools" TurnInName="Apprentice Andrethan" QuestId="10331" TurnInId="20463" />
@@ -6985,7 +6998,7 @@
             </If>
             <TurnIn QuestName="Building a Perimeter" TurnInName="Lieutenant-Sorcerer Morran" QuestId="10240"
                     TurnInId="19489" />
-            <!-- 
+            <!--
                 <If Condition="HasQuest(10233) &amp;&amp; !IsQuestCompleted(10233)" >
                 <CustomBehavior File="FlyTo" X="2451.452" Y="2409.457" Z="141.08" />
                 <CustomBehavior File="ForcedDismount" />
@@ -7064,7 +7077,7 @@
                         TurnInId="19644" />
                 <TurnIn QuestName="Krasus's Compendium" TurnInName="Image of Archmage Vargoth" QuestId="10192"
                         TurnInId="19644" />
-                <!-- 
+                <!--
                     <PickUp QuestName="Summoner Kanthin's Prize" GiverName="Image of Archmage Vargoth" QuestId="10209" GiverId="19644" />
  -->
             </If>
@@ -7076,11 +7089,11 @@
                 <CustomBehavior File="WaitTimer" WaitTime="2000" />
                 <TurnIn QuestName="Krasus's Compendium" TurnInName="Image of Archmage Vargoth" QuestId="10192"
                         TurnInId="19644" />
-                <!-- 
+                <!--
                     <PickUp QuestName="Summoner Kanthin's Prize" GiverName="Image of Archmage Vargoth" QuestId="10209" GiverId="19644" />
  -->
             </If>
-            <!-- 
+            <!--
                 <If Condition="!HasQuest(10209) &amp;&amp; !IsQuestCompleted(10209)" >
                 <CustomBehavior File="FlyTo" X="2400.195" Y="2225.911" Z="111.0966" />
                 <CustomBehavior File="ForcedDismount" />
@@ -7100,7 +7113,7 @@
                 <CustomBehavior File="ForcedDismount" />
             </If>
             <TurnIn QuestName="The Sunfury Garrison" TurnInName="Custodian Dieworth" QuestId="10222" TurnInId="19488" />
-            <!-- 
+            <!--
                 <PickUp QuestName="Down With Daellis" GiverName="Custodian Dieworth" QuestId="10223" GiverId="19488" />
                 <If Condition="HasQuest(10223) &amp;&amp; !IsQuestCompleted(10223)" >
                 <CustomBehavior File="FlyTo" X="2961.835" Y="2308.687" Z="161.5842" />
@@ -7557,7 +7570,7 @@
                 <CustomBehavior File="ForcedDismount" />
             </If>
             <PickUp QuestName="A Not-So-Modest Proposal" GiverName="Wind Trader Marid" QuestId="10270" GiverId="20071" />
-            <!-- 
+            <!--
                 <PickUp QuestName="Electro-Shock Goodness!" GiverName="Researcher Navuud" QuestId="10411" GiverId="20449" />
  -->
             <If Condition="Me.Level &gt;= 70">
@@ -7655,7 +7668,7 @@
                 <MoveTo X="3907.292" Y="2503.786" Z="106.0081" />
                 <CustomBehavior File="WaitTimer" WaitTime="3000" />
             </While>
-            <!-- 
+            <!--
                 <If Condition="HasQuest(10411) &amp;&amp; !IsQuestCompleted(10411)" >
                 <CustomBehavior File="FlyTo" X="4168.458" Y="1988.64" Z="207.2185" />
                 <CustomBehavior File="ForcedDismount" />
@@ -7664,7 +7677,7 @@
  -->
             <Objective QuestName="Recipe for Destruction" QuestId="10437" Type="Collect" CollectCount="8"
                        ItemId="29822" />
-            <!-- 
+            <!--
                 <Objective QuestName="Electro-Shock Goodness!" QuestId="10411" Type="KillMob" KillCount="30" MobId="20806" />
                 <If Condition="HasQuest(10411) &amp;&amp; !IsQuestCompleted(10411)" >
                 <CustomBehavior File="FlyTo" X="3817.87" Y="2428.348" Z="110.5376" />
@@ -7742,7 +7755,7 @@
     <CustomBehavior File="ForcedDismount" />
     <TurnIn QuestName="Arconus the Insatiable" TurnInName="Commander Ameer" QuestId="10353" TurnInId="20448" />
 </If>
-<!-- 
+<!--
     <TurnIn QuestName="Electro-Shock Goodness!" TurnInName="Researcher Navuud" QuestId="10411" TurnInId="20449" />
  -->
 <If Condition="HasQuest(10422) &amp;&amp; IsQuestCompleted(10422)">
