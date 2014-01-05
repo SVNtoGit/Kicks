@@ -3544,8 +3544,15 @@
                 </If>
             </If>
 
-            <PickUp Nav="Fly" QuestName="Fertile Spores" QuestId="9806" GiverName="Gshaff" GiverId="17925"
-                    X="280.2096" Y="8512.685" Z="24.21214" />
+            <If Condition="!HasQuest(9806) &amp;&amp; !IsQuestCompleted(9806)">
+                <!-- CJ: PickUp NPC is in a house, we fly and land outside, since Flightor
+                     has issues, if left unassisted.
+                -->
+                <CustomBehavior File="FlyTo" DestName="Workaraound for Quest PickUp: Fertile Spores"
+                                Land="True" X="238.1418" Y="8508.891" Z="23.04393" />
+                <PickUp QuestName="Fertile Spores" QuestId="9806" GiverName="Gshaff" GiverId="17925"
+                        X="280.2096" Y="8512.685" Z="24.21214" Nav="Run" />
+            </If>
 
             <If Condition="HasQuest(9808)">
                 <Objective Nav="Fly" QuestName="Glowcap Mushrooms" QuestId="9808" Type="CollectItem"
@@ -3561,8 +3568,15 @@
                         X="189.901" Y="8485.713" Z="26.94084" />
             </If>
 
-            <TurnIn Nav="Fly" QuestName="Fertile Spores" QuestId="9806" TurnInName="Gshaff" TurnInId="17925"
-                    X="280.2096" Y="8512.685" Z="24.21214" />
+            <If Condition="HasQuest(9806) &amp;&amp; IsQuestCompleted(9806)">
+                <!-- CJ: TurnIn NPC is in a house, we fly and land outside, since Flightor
+                     has issues, if left unassisted.
+                -->
+                <CustomBehavior File="FlyTo" DestName="Workaraound for Quest TurnIn: Fertile Spores"
+                                Land="True" X="238.1418" Y="8508.891" Z="23.04393" />
+                <TurnIn QuestName="Fertile Spores" QuestId="9806" TurnInName="Gshaff" TurnInId="17925"
+                        X="280.2096" Y="8512.685" Z="24.21214" Nav="Run" />
+            </If>
             <If Condition="HasQuest(10103) &amp;&amp; IsQuestCompleted(10103)" >
                 <TurnIn Nav="Fly" QuestName="Report to Zurai" QuestId="10103" TurnInName="Zurai" TurnInId="18011"
                         X="106.0771" Y="5204.103" Z="21.48164" />
@@ -4368,7 +4382,7 @@
             </If>
 
             <While Condition="HasQuest(10874) &amp;&amp; !IsQuestCompleted(10874)">
-				<CustomBehavior File="FlyTo" DestName="Veil Shalas" X="-3548.743" Y="4055.634" Z="67.88444" />
+                <CustomBehavior File="FlyTo" DestName="Veil Shalas" X="-3548.743" Y="4055.634" Z="67.88444" />
                 <CustomBehavior File="ForcedDismount" />
                 <UseMount Value="False" />
                 <If Condition="HasQuest(10874) &amp;&amp; !IsObjectiveComplete(1,10874)">
