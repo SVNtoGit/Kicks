@@ -10021,16 +10021,20 @@
                 <!-- Rallying the Troops - use item on the elite guys, kill the noobs the pop up.  meh -->
             </If>
             <If Condition="HasQuest(11986) &amp;&amp; !IsQuestCompleted(11986)">
-                <CustomBehavior File="FlyTo" DestName="Objective" X="4742.214" Y="-4528.36" Z="202.2522" />
-                <CustomBehavior File="ForcedDismount" />
-                <Objective QuestName="The Damaged Journal" QuestId="11986" Type="CollectItem" ItemId="35737"
-                           CollectCount="8" />
-
-                <RunTo X="4823.791" Y="-4485.659" Z="198.8233" />
-                <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-                <UseItem QuestName="The Damaged Journal" QuestId="11986" ItemId="35739" X="4823.791" Y="-4485.659"
-                         Z="198.8233" />
-                <CustomBehavior File="WaitTimer" WaitTime="10000" />
+                <If Condition="GetItemCount(35737) &lt; 8">
+                    <CustomBehavior File="FlyTo" DestName="Objective" X="4742.214" Y="-4528.36" Z="202.2522" />
+                    <CustomBehavior File="ForcedDismount" />
+                    <Objective QuestName="The Damaged Journal" QuestId="11986" Type="CollectItem" ItemId="35737"
+                               CollectCount="8" />
+                </If>
+                <If Condition="GetItemCount(35737) &gt;= 8">
+                    <CustomBehavior File="FlyTo" X="4823.791" Y="-4485.659" Z="198.8233" />
+                    <CustomBehavior File="ForcedDismount" />
+                </If>
+                <While Condition="( GetItemCount(35737) &gt;= 8 ) &amp;&amp; !IsQuestCompleted(12026)">
+                    <UseItem QuestId="11986" ItemId="35739" X="4823.791" Y="-4485.659" Z="198.8233" />
+                    <CustomBehavior File="WaitTimer" QuestId="11986" WaitTime="10000" />
+                </While>
             </If>
             <If Condition="HasQuest(12002) &amp;&amp; !IsQuestCompleted(12002)">
                 <CustomBehavior File="FlyTo" DestName="Objective" X="4742.214" Y="-4528.36" Z="202.2522" />
