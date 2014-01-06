@@ -53,6 +53,9 @@
 
     <Quest Id="27176" Name="Just the Tip">
         <Objective Type="CollectItem" ItemId="60865" CollectCount="1">
+            <CollectFrom>
+                <Mob Name="Sultan Oogah" Id="45205" />
+            </CollectFrom>
             <Hotspots>
                 <Hotspot X="-9300.257" Y="-1779.043" Z="69.69764" />
                 <Hotspot X="-9346.56" Y="-1782.159" Z="70.30051" />
@@ -747,8 +750,12 @@
                 X="-9213.23" Y="-1561.29" Z="65.45189" />
         <Pickup QuestName="Just the Tip" QuestId="27176" GiverName="Elaborate Disc" GiverId="205266" GiverType="Object"
                 X="-9250.307" Y="-1575.147" Z="67.75125" />
-        <Objective Nav="Fly" QuestName="Just the Tip" QuestId="27176" Type="CollectItem" ItemId="60865"
-                   CollectCount="1" />
+        <If Condition="HasQuest(27176) &amp;&amp; !IsQuestCompleted(27176)">
+            <CustomBehavior File="FlyTo" X="-9277.324" Y="-1760.133" Z="67.87192" />
+            <CustomBehavior File="ForcedDismount" />
+            <Objective QuestName="Just the Tip" QuestId="27176" Type="CollectItem" ItemId="60865"
+                       CollectCount="1" />
+        </If>
         <Objective Nav="Fly" QuestName="Field Work" QuestId="27179" Type="Collect" CollectCount="10" ItemId="60860" />
         <If Condition="HasQuest(27187) &amp;&amp; !IsQuestCompleted(27187)">
             <Objective Nav="Fly" QuestName="Do the World a Favor" QuestId="27187" Type="KillMob" MobId="45202"
@@ -965,10 +972,10 @@
                 X="-10325.05" Y="-875.1732" Z="116.9631" />
         <If Condition="HasQuest(28276)">
             <CustomBehavior File="FlyTo" X="-10606.35" Y="-1085.841" Z="192.5202" />
-			<CustomBehavior File="FlyTo" X="-10605.51" Y="-1086.789" Z="161.3191" />
-			<CustomBehavior File="RunMacro" Macro="/dismount" NumOfTimes="1" WaitTime="1000" />
+            <CustomBehavior File="FlyTo" X="-10605.51" Y="-1086.789" Z="161.3191" />
+            <CustomBehavior File="RunMacro" Macro="/dismount" NumOfTimes="1" WaitTime="1000" />
         </If>
-		
+
         <TurnIn QuestName="Salhet's Secret" TurnInName="Salhet" QuestId="28276" TurnInId="48237" />
         <PickUp QuestName="Salhet the Tactician" GiverName="Salhet" QuestId="28277" GiverId="48237" />
         <If Condition="HasQuest(28277) &amp;&amp; !IsQuestCompleted(28277)">
