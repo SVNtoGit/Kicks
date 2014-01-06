@@ -8482,16 +8482,19 @@
             <TurnIn QuestName="Deciphering the Journal" QuestId="12054" TurnInName="Sage Paluna" TurnInId="26584" />
             <PickUp QuestName="The Runic Prophecies" QuestId="12058" GiverName="Sage Paluna" GiverId="26584" />
             <PickUp QuestName="Pounding the Iron" QuestId="12073" GiverName="Scout Vor'takh" GiverId="26666" />
-            <If Condition="HasQuest(12058) &amp;&amp; !IsQuestCompleted(12058)">
-                <CustomBehavior File="FlyTo" X="4976.957" Y="-4709.781" Z="313.7059" />
-                <CustomBehavior File="FlyTo" X="4977.834" Y="-4744.346" Z="219.5058" />
-                <Objective QuestName="The Runic Prophecies" QuestId="12058" Type="UseObject"
-                           ObjectId="188289" UseCount="1" Nav="Fly" />
-                <Objective QuestName="The Runic Prophecies" QuestId="12058" Type="UseObject"
-                           ObjectId="188264" UseCount="1" Nav="Fly" />
-                <Objective QuestName="The Runic Prophecies" QuestId="12058" Type="UseObject"
-                           ObjectId="188288" UseCount="1" Nav="Fly" />
-            </If>
+            <While Condition="HasQuest(12058) &amp;&amp; !IsQuestCompleted(12058)">
+                <CustomBehavior File="InteractWith" QuestId="12058" QuestObjectiveIndex="3"
+                                MobId="188289" CollectionDistance="10"
+                                X="4952.656" Y="-4705.741" Z="219.8488" />
+                <CustomBehavior File="InteractWith" QuestId="12058" QuestObjectiveIndex="1"
+                                MobId="188264" CollectionDistance="10"
+                                X="5007.675" Y="-4734.232" Z="219.4391" />
+                <CustomBehavior File="InteractWith" QuestId="12058" QuestObjectiveIndex="2"
+                                MobId="188288" CollectionDistance="10"
+                                X="5006.924" Y="-4790.667" Z="219.4593" />
+                <CustomBehavior File="WaitTimer" QuestId="12058" WaitTime="10000"
+                                GoalText="Waiting for quest to complete {TimeRemaining}" />
+            </While>
             <Objective QuestName="Pounding the Iron" QuestId="12073" Type="KillMob" MobId="26270" KillCount="10" />
             <If Condition="HasQuest(12073) &amp;&amp; IsQuestCompleted(12073)">
                 <CustomBehavior File="FlyTo" X="3863.796" Y="-4526.803" Z="209.8488" />
