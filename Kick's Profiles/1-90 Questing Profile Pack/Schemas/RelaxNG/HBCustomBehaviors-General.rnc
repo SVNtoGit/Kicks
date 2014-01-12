@@ -37,6 +37,7 @@ QBType-CollectThings-CollectUntil =
 
 QBType-CollectThings-MobState =
   "Alive"
+  | "BelowHp"
   | "Dead"
   | "DontCare"
 
@@ -427,6 +428,117 @@ CustomBehavior |=
   }
 
 
+# BEGIN: GetOutOfGroundEffectsAndAuras
+Attributes-GOOGEAA-EventXYZ =
+  attribute EventX { xsd:decimal },
+  attribute EventY { xsd:decimal },
+  attribute EventZ { xsd:decimal }
+
+Attributes-GOOGEAA-MoveAwayFromMobWithAuraIdN =
+  attribute MoveAwayFromMobWithAuraId { HBType-Id }?,
+  attribute MoveAwayFromMobWithAuraId2 { HBType-Id }?,
+  attribute MoveAwayFromMobWithAuraId3 { HBType-Id }?,
+  attribute MoveAwayFromMobWithAuraId4 { HBType-Id }?,
+  attribute MoveAwayFromMobWithAuraId5 { HBType-Id }?,
+  attribute MoveAwayFromMobWithAuraId6 { HBType-Id }?,
+  attribute MoveAwayFromMobWithAuraId7 { HBType-Id }?,
+  attribute MoveAwayFromMobWithAuraId8 { HBType-Id }?,
+  attribute MoveAwayFromMobWithAuraId9 { HBType-Id }?
+
+Attributes-GOOGEAA-MoveAwayFromMobCastingSpellIdN =
+  attribute MoveAwayFromMobCastingSpellId { HBType-Id }?,
+  attribute MoveAwayFromMobCastingSpellId2 { HBType-Id }?,
+  attribute MoveAwayFromMobCastingSpellId3 { HBType-Id }?,
+  attribute MoveAwayFromMobCastingSpellId4 { HBType-Id }?,
+  attribute MoveAwayFromMobCastingSpellId5 { HBType-Id }?,
+  attribute MoveAwayFromMobCastingSpellId6 { HBType-Id }?,
+  attribute MoveAwayFromMobCastingSpellId7 { HBType-Id }?,
+  attribute MoveAwayFromMobCastingSpellId8 { HBType-Id }?,
+  attribute MoveAwayFromMobCastingSpellId9 { HBType-Id }?
+
+Attributes-GOOGEAA-MoveBehindMobCastingSpellIdN =
+  attribute MoveBehindMobCastingSpellId { HBType-Id }?,
+  attribute MoveBehindMobCastingSpellId2 { HBType-Id }?,
+  attribute MoveBehindMobCastingSpellId3 { HBType-Id }?,
+  attribute MoveBehindMobCastingSpellId4 { HBType-Id }?,
+  attribute MoveBehindMobCastingSpellId5 { HBType-Id }?,
+  attribute MoveBehindMobCastingSpellId6 { HBType-Id }?,
+  attribute MoveBehindMobCastingSpellId7 { HBType-Id }?,
+  attribute MoveBehindMobCastingSpellId8 { HBType-Id }?,
+  attribute MoveBehindMobCastingSpellId9 { HBType-Id }?
+
+Attributes-GOOGEAA-MoveOutOfGroundEffectAuraIdN =
+  attribute MoveOutOfGroundEffectAuraId { HBType-Id }?,
+  attribute MoveOutOfGroundEffectAuraId2 { HBType-Id }?,
+  attribute MoveOutOfGroundEffectAuraId3 { HBType-Id }?,
+  attribute MoveOutOfGroundEffectAuraId4 { HBType-Id }?,
+  attribute MoveOutOfGroundEffectAuraId5 { HBType-Id }?,
+  attribute MoveOutOfGroundEffectAuraId6 { HBType-Id }?,
+  attribute MoveOutOfGroundEffectAuraId7 { HBType-Id }?,
+  attribute MoveOutOfGroundEffectAuraId8 { HBType-Id }?,
+  attribute MoveOutOfGroundEffectAuraId9 { HBType-Id }?
+
+Attributes-GOOGEAA-PreferKillingMobIdN =
+  attribute PreferKillingMobId { HBType-Id }?,
+  attribute PreferKillingMobId2 { HBType-Id }?,
+  attribute PreferKillingMobId3 { HBType-Id }?,
+  attribute PreferKillingMobId4 { HBType-Id }?,
+  attribute PreferKillingMobId5 { HBType-Id }?,
+  attribute PreferKillingMobId6 { HBType-Id }?,
+  attribute PreferKillingMobId7 { HBType-Id }?,
+  attribute PreferKillingMobId8 { HBType-Id }?,
+  attribute PreferKillingMobId9 { HBType-Id }?
+
+Attributes-GOOGEAA-EventCompleteDeadMobIdN =
+  attribute EventCompleteDeadMobId { HBType-Id }?,
+  attribute EventCompleteDeadMobId2 { HBType-Id }?,
+  attribute EventCompleteDeadMobId3 { HBType-Id }?,
+  attribute EventCompleteDeadMobId4 { HBType-Id }?,
+  attribute EventCompleteDeadMobId5 { HBType-Id }?,
+  attribute EventCompleteDeadMobId6 { HBType-Id }?,
+  attribute EventCompleteDeadMobId7 { HBType-Id }?,
+  attribute EventCompleteDeadMobId8 { HBType-Id }?,
+  attribute EventCompleteDeadMobId9 { HBType-Id }?
+
+Element-GOOGEAA-Hotspot =
+  element Hotspot
+  {
+    attribute X { xsd:decimal },
+    attribute Y { xsd:decimal },
+    attribute Z { xsd:decimal }
+  }
+
+Element-GOOGEAA-Safespots =
+  element Safespots
+  {
+    Element-GOOGEAA-Hotspot+
+  }
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "GetOutOfGroundEffectAndAuras" },
+
+    Attributes-QuestSpecifier,
+    Attributes-GOOGEAA-EventXYZ?,
+    Attributes-GOOGEAA-MoveAwayFromMobWithAuraIdN?,
+    Attributes-GOOGEAA-MoveAwayFromMobCastingSpellIdN ?,
+    Attributes-GOOGEAA-MoveBehindMobCastingSpellIdN?,
+    Attributes-GOOGEAA-MoveOutOfGroundEffectAuraIdN?,
+    Attributes-GOOGEAA-PreferKillingMobIdN?,
+    Attributes-GOOGEAA-EventCompleteDeadMobIdN?,
+    attribute QuestObjectiveIndex { xsd:positiveInteger }?,
+    attribute StartEventGossipOptions { QBType-GossipOptions }?,
+    attribute StartNpcId { HBType-Id }?,
+    attribute EventCompleteWhen { HBType-Condition }?,
+    attribute AvoidMobMinRange { xsd:decimal { minInclusive="5.0" maxInclusive="100.0" } }?,
+    attribute MovementBy { QBCoreType-MovementBy }?,
+
+    Element-GOOGEAA-Safespots?
+  }
+# END: GetOutOfGroundEffectsAndAuras
+
+
 CustomBehavior |=
   element CustomBehavior
   {
@@ -623,6 +735,31 @@ CustomBehavior |=
   }
 
 
+# BEGIN: NPCAssistance
+QBType-NPCAssistance-MobCommand =
+  "Target"
+
+QBType-NPCAssistance-MobState =
+  "Alive"
+  | "Dead"
+  | "DontCare"
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "NPCAssistance" },
+
+    Attributes-QuestSpecifier,
+    Attributes-MobIdN-Mandatory1,
+    attribute MobState { QBType-NPCAssistance-MobState }?,
+    attribute MobCommand { QBType-NPCAssistance-MobCommand }?,
+    attribute WaitTime { HBType-TimeDuration }?,
+    attribute WaitForNpcs { HBType-Boolean }?,
+    attribute MobHpPercentLeft { HBType-Percent }?,
+    attribute CollectionDistance { HBType-Distance }?
+  }
+# END: NPCAssistance
+
 CustomBehavior |=
   element CustomBehavior
   {
@@ -801,27 +938,27 @@ CustomBehavior |=
 
 
 # BEGIN: UseTransport
-Attributes-XYZ-GetOff =
+Attributes-UseTransport-GetOffXYZ =
   attribute GetOffX { xsd:decimal },
   attribute GetOffY { xsd:decimal },
   attribute GetOffZ { xsd:decimal }
 
-Attributes-XYZ-StandOn =
+Attributes-UseTransport-StandOnXYZ =
   attribute StandOnX { xsd:decimal },
   attribute StandOnY { xsd:decimal },
   attribute StandOnZ { xsd:decimal }
 
-Attributes-XYZ-TransportStart =
+Attributes-UseTransport-TransportStartXYZ =
   attribute TransportStartX { xsd:decimal },
   attribute TransportStartY { xsd:decimal },
   attribute TransportStartZ { xsd:decimal }
 
-Attributes-XYZ-TransportEnd =
+Attributes-UseTransport-TransportEndXYZ =
   attribute TransportEndX { xsd:decimal },
   attribute TransportEndY { xsd:decimal },
   attribute TransportEndZ { xsd:decimal }
 
-Attributes-XYZ-WaitAt =
+Attributes-UseTransport-WaitAtXYZ =
   attribute WaitAtX { xsd:decimal },
   attribute WaitAtY { xsd:decimal },
   attribute WaitAtZ { xsd:decimal }
@@ -831,11 +968,11 @@ CustomBehavior |=
   {
     attribute File { "UseTransport" },
 
-    Attributes-XYZ-GetOff?,
-    Attributes-XYZ-StandOn?,
-    Attributes-XYZ-TransportStart?,
-    Attributes-XYZ-TransportEnd?,
-    Attributes-XYZ-WaitAt?,
+    Attributes-UseTransport-GetOffXYZ?,
+    Attributes-UseTransport-StandOnXYZ?,
+    Attributes-UseTransport-TransportStartXYZ?,
+    Attributes-UseTransport-TransportEndXYZ?,
+    Attributes-UseTransport-WaitAtXYZ?,
     attribute DestName { string }?,
     attribute TransportId { HBType-Id }
   }
