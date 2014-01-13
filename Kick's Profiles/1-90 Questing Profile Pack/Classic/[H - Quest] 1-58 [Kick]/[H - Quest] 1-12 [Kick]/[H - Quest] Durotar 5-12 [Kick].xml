@@ -30,9 +30,11 @@
 
 
     <Blackspots>
-        <Blackspot X="-796.1955" Y="-4905.333" Z="19.5411" Radius="5" />
         <Blackspot X="845.4785" Y="-4768.02" Z="37.84758" Radius="5" />
-        <Blackspot X="-188.4103" Y="-5103.829" Z="21.32771" Radius="40" />
+<!--
+        <Blackspot Name="Durotar Northwatch Keep: Burned out ruins"
+                   X="-188.4103" Y="-5103.829" Z="21.32771" Radius="40" />
+ -->
         <Blackspot X="1600.477" Y="-4369.628" Z="21.04583" Radius="7.354329" />
         <Blackspot X="1284.119" Y="-4595.935" Z="21.71741" Radius="24.57922" />
         <Blackspot X="380.4524" Y="-4822.192" Z="13.53342" Radius="5.172547" />
@@ -41,26 +43,22 @@
         <Blackspot Name="Orgrimmar behind mailbox south gate"
                    X="1375.742" Y="-4353.486" Z="27.41977" Radius="3.750432" />
 
-        <Blackspot Name="Durotar: Fallen tree and stuff near Sen'Jin Village"
+        <Blackspot Name="Durotar: Fallen tree WSW of Sen'Jin Village"
                    X="-875.3654" Y="-4810.698" Z="16.05026" Radius="16.59042" />
-        <Blackspot Name="Durotar" X="-802.0122" Y="-4979.135" Z="17.74392" Radius="4.573921" />
-        <Blackspot Name="Durotar" X="-801.71" Y="-5023.281" Z="13.36308" Radius="4.609337" />
+        <Blackspot Name="Sen'jin Village E exit: Tree cluster1"
+                   X="-802.0122" Y="-4979.135" Z="17.74392" Radius="4.573921" />
+        <Blackspot Name="Sen'jin Villag E exit: Tree cluster2"
+                   X="-801.71" Y="-5023.281" Z="13.36308" Radius="4.609337" />
         <Blackspot Name="Durotar: Valley of Trials Middle Fire"
                    X="-602.3636" Y="-4250.66" Z="38.95682" Radius="3.759537"/>
-        <Blackspot Name="Durotar: Sen'jin Village Fence"
-                   X="-768.1917" Y="-4881.526" Z="20.29184" Radius="7.254548"/>
-        <Blackspot Name="Durotar" X="-767.4973" Y="-4880.469" Z="20.56847" Radius="4.278707"/>
-
+        
         <Blackspot Name="Durotar: Troll Starting Area" X="-1135.981" Y="-5414.498" Z="13.00538" Radius="2.300135" />
         <Blackspot Name="Durotar: Troll Starting Area" X="-1150.384" Y="-5519.188" Z="11.58836" Radius="2.494276" />
         <Blackspot Name="Durotar: Troll Starting Area" X="-1168.537" Y="-5269.622" Z="0.8604383" Radius="3.024951" />
         <Blackspot Name="Durotar: Harpy Nest" X="-2639.21" Y="-1405.313" Z="32.07373" Radius="3.31264"/>
         <Blackspot Name="Durotar: Cold Hearth Manor Sign" X="2188.518" Y="661.0852" Z="33.29134" Radius="4.017753"/>
 
-        <Blackspot X="-997.5801" Y="-4806.947" Z="12.77734" Radius="13.84446" />
-        <Blackspot Name="Durotar: brazier in the Gateway" X="1402.118" Y="-4866.199" Z="14.57446" Radius="5" />
-        <Blackspot Name="Durotar: Flag1 in Sen'jin Village"
-                   X="-802.4252" Y="-4884.38" Z="19.02748" Radius="3" />
+        <Blackspot Name="Durotar: Brazier in the Gateway" X="1402.118" Y="-4866.199" Z="14.57446" Radius="5" />
         <Blackspot Name="Durotar: Flag2 in Sen'jin Village"
                    X="1163.556" Y="-4273.083" Z="21.43867" Radius="1" />
     </Blackspots>
@@ -370,17 +368,31 @@
         <PickUp QuestName="Storming the Beaches" QuestId="25177" GiverName="Gar'Thok" GiverId="3139" />
         <TurnIn QuestName="Exploiting the Situation" QuestId="25176" TurnInName="Gail Nozzywig" TurnInId="39423" />
         <PickUp QuestName="Shipwreck Searching" QuestId="25178" GiverName="Gail Nozzywig" GiverId="39423" />
-        <PickUp QuestName="Loss Reduction" QuestId="25179" GiverName="Razor Hill Grunt" GiverId="39270"
-                X="307.9023" Y="-5050.374" Z="7.201921" />
-        <CustomBehavior File="InteractWith" QuestId="25179" NumOfTimes="100" MobId="39270"
-                        CollectionDistance="1000" X="309.3386" Y="-5059.447" Z="6.191809" />
+        <!-- CJ: The quest "Loss Reduction" (http://wowhead.com/quest=25179) is unusual...
+             We can't pick it up with a normal PickUp.  Instead, we have to first interact with
+             the Injured Razor Hill Grunt.  The first grunt with which we interact will give us the
+             quest.  We then must interact with four more grunts to complete the quest.
+             We can do all this with a single InteractWith, but we can't QuestId-qualify this
+             InteractWith as we'd normally do, because we don't have the quest before the first
+             interaction.
+             On another note, the Grunts with which we must interact have no truly distinguishing
+             aura (they all have the "Low Health" aura).  Thus, we just have to keep trying until we
+             get four that will complete the quest.  This may cause InteractWith to issues a "max retries"
+             warning on occasion.
+        -->
+        <If Condition="!IsQuestCompleted(25179)">
+            <CustomBehavior File="InteractWith" NumOfTimes="100" MobId="39270" AuraIdOnMob="76143"
+                            InteractByQuestFrameDisposition="Accept" CollectionDistance="1000"
+                            TerminateWhen="IsQuestCompleted(25179)"
+                            X="309.3386" Y="-5059.447" Z="6.191809" />
+        </If>
         <Objective QuestName="Shipwreck Searching" QuestId="25178" Type="CollectItem" ItemId="4863" CollectCount="4" />
         <Objective QuestName="Storming the Beaches" QuestId="25177" Type="KillMob" MobId="39272" KillCount="11" />
         <TurnIn QuestName="Shipwreck Searching" QuestId="25178" TurnInName="Gail Nozzywig" TurnInId="39423" />
         <PickUp QuestName="Thonk" QuestId="25227" GiverName="Gail Nozzywig" GiverId="39423" />
         <TurnIn QuestName="Storming the Beaches" QuestId="25177" TurnInName="Gar'Thok" TurnInId="3139" />
         <TurnIn QuestName="Loss Reduction" QuestId="25179" TurnInName="Gar'Thok" TurnInId="3139" />
-        <If Condition="Me.Race == WoWRace.Orc || Me.Race == WoWRace.Troll">
+        <If Condition="( Me.Race == WoWRace.Orc ) || ( Me.Race == WoWRace.Troll )">
             <PickUp QuestName="Ride to Orgrimmar" QuestId="6384" GiverName="Burok" GiverId="41140" />
             <TurnIn QuestName="Ride to Orgrimmar" QuestId="6384" TurnInName="Innkeeper Gryshka" TurnInId="6929" />
             <PickUp QuestName="Doras the Wind Rider Master" QuestId="6385"
