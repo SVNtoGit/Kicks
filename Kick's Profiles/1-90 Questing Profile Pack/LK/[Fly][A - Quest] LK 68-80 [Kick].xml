@@ -3818,28 +3818,17 @@
 
             <!-- Fizzcrank to Winterfin Quests -->
             <If Condition="HasQuest(11707) &amp;&amp; IsQuestCompleted(11707)">
-                <CustomBehavior File="FlyTo" DestName="Fizzcrack Doorway" X="4159.061" Y="5281.848" Z="26.10235" />
+                <CustomBehavior File="FlyTo" DestName="Fizzcrank Doorway" X="4159.061" Y="5281.848" Z="26.10235" />
                 <CustomBehavior File="ForcedDismount" />
 
-                <!--Start: Fizzcrack Elevator - going up sequence-->
-                <If Condition="Me.X &lt; 4180 &amp;&amp; Me.Z &lt; 45">
-                    <RunTo DestName="Fizzcrack Elevator - Ground Floor Access Spot" X="4178.487" Y="5281.086" Z="26.7" />
-                    <CustomBehavior File="Message" Text="Fizzcrack Elevator - going up" LogColor="Yellow" />
-                    <RunTo X="4183.769" Y="5281.553" Z="28" />
-                    <While Condition="Me.X &gt; 4180 &amp;&amp; Me.Z &lt; 45">
-                        <If
-                            Condition="Object(152614) != null &amp;&amp; Object(152614).Z &lt; 33 &amp;&amp; Me.Z &lt; 33">
-                            <RunTo X="4183.769" Y="5281.553" Z="29" />
-                            <CustomBehavior File="AscendInWater" />
-                        </If>
-                        <If Condition="Me.Z &gt; 38">
-                            <RunTo X="4177.162" Y="5281.801" Z="39.60916" />
-                            <CustomBehavior File="WaitTimer" WaitTime="3000"
-                                            GoalText="Top Floor Access Spot: {TimeRemaining}" />
-                        </If>
-                    </While>
-                </If>
-                <!--End: Fizzcrack Elevator - going up sequence-->
+                <!--Begin: Fizzcrank Elevator - going up sequence-->
+                <CustomBehavior File="UseTransport" TransportId="152614" 
+                                WaitAtX="4181.276" WaitAtY="5281.217" WaitAtZ="26.69316"
+                                TransportStartX="4183.814" TransportStartY="5281.082" TransportStartZ="26.6574" 
+                                StandOnX="4183.749" StandOnY="5281.205" StandOnZ="28.23267"
+                                TransportEndX="4184.285" TransportEndY="5281.594" TransportEndZ="39.48473"
+                                GetOffX="4181.267" GetOffY="5281.699" GetOffZ="39.60874" />
+                <!--End: Fizzcrank Elevator - going up sequence-->
                 <TurnIn QuestName="Distress Call" QuestId="11707" TurnInName="Fizzcrank Fullthrottle" TurnInId="25590" />
                 <PickUp QuestName="The Mechagnomes" QuestId="11708" GiverName="Fizzcrank Fullthrottle" GiverId="25590" />
                 <While Condition="!IsQuestCompleted(11708)">
@@ -3849,25 +3838,14 @@
                     <CustomBehavior File="WaitTimer" WaitTime="5000"
                                     GoalText="Completing 'he Mechagnomes': {TimeRemaining}" />
                 </While>
-                <!--Start: Fizzcrack Elevator - going down sequence-->
-                <While Condition="Me.Z &gt; 35">
-                    <CustomBehavior File="Message" Text="Fizzcrank Lift - going down" LogColor="CornflowerBlue" />
-                    <CustomBehavior File="MyCTM" X="4184.799" Y="5281.495" Z="39.6" />
-                    <CustomBehavior File="WaitTimer" WaitTime="1250"
-                                    GoalText="Clicked to Top Floor on Lift: {TimeRemaining}" />
-
-                    <While Condition="Object(152614) != null &amp;&amp; Object(152614).Z &gt; 35">
-                        <CustomBehavior File="MyCTM" DestName="Top Floor On Lift" X="4184.799" Y="5281.495" Z="39.6" />
-                        <CustomBehavior File="WaitTimer" WaitTime="2500" GoalText="Top Floor On Lift: {TimeRemaining}" />
-                    </While>
-
-                    <While Condition="Object(152614) != null &amp;&amp; Object(152614).Z &lt; 30">
-                        <CustomBehavior File="MyCTM" DestName="Exit" X="4159.061" Y="5281.848" Z="26.10235" />
-                        <CustomBehavior File="WaitTimer" WaitTime="1000"
-                                        GoalText="Exit from Fizzcrank Hut: {TimeRemaining}" />
-                    </While>
-                </While>
-                <!--End: Fizzcrack Elevator - going down sequence-->
+                <!--Begin: Fizzcrank Elevator - going down sequence-->
+                <CustomBehavior File="UseTransport" TransportId="152614" 
+                                WaitAtX="4181.267" WaitAtY="5281.699" WaitAtZ="39.60874"
+                                TransportStartX="4184.285" TransportStartY="5281.594" TransportStartZ="39.48473" 
+                                StandOnX="4184.098" StandOnY="5281.923" StandOnZ="36.81886"
+                                TransportEndX="4183.814" TransportEndY="5281.082" TransportEndZ="26.6574"
+                                GetOffX="4181.276" GetOffY="5281.217" GetOffZ="26.69316" />
+                <!--End: Fizzcrank Elevator - going down sequence-->
                 <TurnIn QuestName="The Mechagnomes" QuestId="11708" TurnInName="Jinky Wingnut" TurnInId="25747" />
             </If>
 
@@ -3875,53 +3853,28 @@
             <If Condition="!HasQuest(11708) &amp;&amp; !IsQuestCompleted(11708) &amp;&amp; Me.Z &lt; 30">
                 <CustomBehavior File="FlyTo" DestName="Fizzcrank Exit" X="4159.061" Y="5281.848" Z="26.10235" />
                 <CustomBehavior File="ForcedDismount" />
-                <!--Start: Fizzcrack Elevator - going up sequence-->
-                <If Condition="Me.X &lt; 4180 &amp;&amp; Me.Z &lt; 45">
-                    <RunTo DestName="Fizzcrack Elevator - Ground Floor Access Spot" X="4178.487" Y="5281.086" Z="26.7" />
-                    <CustomBehavior File="Message" Text="Fizzcrack Elevator - going up" LogColor="Yellow" />
-                    <CustomBehavior File="MyCTM" X="4183.769" Y="5281.553" Z="28" />
-                    <While Condition="Me.X &gt; 4180 &amp;&amp; Me.Z &lt; 45">
-                        <If
-                            Condition="Object(152614) != null &amp;&amp; Object(152614).Z &lt; 33 &amp;&amp; Me.Z &lt; 33">
-                            <CustomBehavior File="MyCTM" X="4183.769" Y="5281.553" Z="29" />
-                            <CustomBehavior File="AscendInWater" />
-                        </If>
-                        <If Condition="Me.Z &gt; 38">
-                            <CustomBehavior File="MyCTM" X="4177.162" Y="5281.801" Z="39.60916" />
-                            <CustomBehavior File="WaitTimer" WaitTime="3000"
-                                            GoalText="Top Floor Access Spot: {TimeRemaining}" />
-                        </If>
-                    </While>
-                </If>
-                <!--End: Fizzcrack Elevator - going up sequence-->
+                <!--Begin: Fizzcrank Elevator - going up sequence-->
+                <CustomBehavior File="UseTransport" TransportId="152614" 
+                                WaitAtX="4181.276" WaitAtY="5281.217" WaitAtZ="26.69316"
+                                TransportStartX="4183.814" TransportStartY="5281.082" TransportStartZ="26.6574" 
+                                StandOnX="4183.749" StandOnY="5281.205" StandOnZ="28.23267"
+                                TransportEndX="4184.285" TransportEndY="5281.594" TransportEndZ="39.48473"
+                                GetOffX="4181.267" GetOffY="5281.699" GetOffZ="39.60874" />
+                <!--End: Fizzcrank Elevator - going up sequence-->
                 <PickUp QuestName="The Mechagnomes" QuestId="11708" GiverName="Fizzcrank Fullthrottle" GiverId="25590" />
                 <CustomBehavior File="InteractWith" QuestId="11708" MobId="25590" NonCompeteDistance="0"
                                 GossipOptions="1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1" X="4179.822" Y="5284.188" Z="39.60852" />
                 <!-- Leave if the quest completed-->
                 <If Condition="HasQuest(11708) &amp;&amp; IsQuestCompleted(11708)">
-                    <!--Start: Fizzcrack Elevator - going down sequence-->
-                    <While Condition="Me.Z &gt; 35">
-                        <CustomBehavior File="Message" Text="Fizzcrank Lift - going down" LogColor="CornflowerBlue" />
-                        <CustomBehavior File="MyCTM" X="4184.799" Y="5281.495" Z="39.6" />
-                        <CustomBehavior File="WaitTimer" WaitTime="1250"
-                                        GoalText="Clicked to Top Floor on Lift: {TimeRemaining}" />
-
-                        <While Condition="Object(152614) != null &amp;&amp; Object(152614).Z &gt; 35">
-                            <CustomBehavior File="MyCTM" DestName="Top Floor On Lift" X="4184.799" Y="5281.495"
-                                            Z="39.6" />
-                            <CustomBehavior File="WaitTimer" WaitTime="2500"
-                                            GoalText="Top Floor On Lift: {TimeRemaining}" />
-                        </While>
-
-                        <While Condition="Object(152614) != null &amp;&amp; Object(152614).Z &lt; 30">
-                            <CustomBehavior File="MyCTM" DestName="Exit" X="4159.061" Y="5281.848" Z="26.10235" />
-                            <CustomBehavior File="WaitTimer" WaitTime="1000"
-                                            GoalText="Exit from Fizzcrank Hut: {TimeRemaining}" />
-                        </While>
-                    </While>
-                    <!--End: Fizzcrack Elevator - going down sequence-->
+                    <!--Begin: Fizzcrank Elevator - going down sequence-->
+                    <CustomBehavior File="UseTransport" TransportId="152614" 
+                                    WaitAtX="4181.267" WaitAtY="5281.699" WaitAtZ="39.60874"
+                                    TransportStartX="4184.285" TransportStartY="5281.594" TransportStartZ="39.48473" 
+                                    StandOnX="4184.098" StandOnY="5281.923" StandOnZ="36.81886"
+                                    TransportEndX="4183.814" TransportEndY="5281.082" TransportEndZ="26.6574"
+                                    GetOffX="4181.276" GetOffY="5281.217" GetOffZ="26.69316" />
+                    <!--End: Fizzcrank Elevator - going down sequence-->
                 </If>
-
             </If>
 
 
@@ -4395,41 +4348,25 @@
             <If Condition="HasQuest(11798) &amp;&amp; IsQuestCompleted(11798)">
                 <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4159.061" Y="5281.848" Z="26.10235" />
                 <CustomBehavior File="ForcedDismount" />
-                <!--Start: Fizzcrack Elevator - going up sequence-->
-                <If Condition="Me.X &lt; 4180 &amp;&amp; Me.Z &lt; 45">
-                    <RunTo DestName="Fizzcrack Elevator - Ground Floor Access Spot" X="4178.487" Y="5281.086" Z="26.7" />
-                    <CustomBehavior File="Message" Text="Fizzcrack Elevator - going up" LogColor="Yellow" />
-                    <CustomBehavior File="MyCTM" X="4183.769" Y="5281.553" Z="28" />
-                    <While Condition="Me.X &gt; 4180 &amp;&amp; Me.Z &lt; 45">
-                        <If
-                            Condition="Object(152614) != null &amp;&amp; Object(152614).Z &lt; 33 &amp;&amp; Me.Z &lt; 33">
-                            <CustomBehavior File="MyCTM" X="4183.769" Y="5281.553" Z="29" />
-                            <CustomBehavior File="AscendInWater" />
-                        </If>
-                        <If Condition="Me.Z &gt; 38">
-                            <CustomBehavior File="MyCTM" X="4177.162" Y="5281.801" Z="39.60916" />
-                            <CustomBehavior File="WaitTimer" WaitTime="3000"
-                                            GoalText="Top Floor Access Spot: {TimeRemaining}" />
-                        </If>
-                    </While>
-                </If>
-                <!--End: Fizzcrack Elevator - going up sequence-->
+                <!--Begin: Fizzcrank Elevator - going up sequence-->
+                <CustomBehavior File="UseTransport" TransportId="152614" 
+                                WaitAtX="4181.276" WaitAtY="5281.217" WaitAtZ="26.69316"
+                                TransportStartX="4183.814" TransportStartY="5281.082" TransportStartZ="26.6574" 
+                                StandOnX="4183.749" StandOnY="5281.205" StandOnZ="28.23267"
+                                TransportEndX="4184.285" TransportEndY="5281.594" TransportEndZ="39.48473"
+                                GetOffX="4181.267" GetOffY="5281.699" GetOffZ="39.60874" />
+                <!--End: Fizzcrank Elevator - going up sequence-->
                 <TurnIn QuestName="The Gearmaster" QuestId="11798" TurnInName="Fizzcrank Fullthrottle" TurnInId="25590" />
                 <PickUp QuestName="Finding Pilot Tailspin" QuestId="11725" GiverName="Fizzcrank Fullthrottle"
                         GiverId="25590" />
-                <!--Start: Fizzcrack Elevator - going down sequence-->
-                <While Condition="Me.Z &gt; 30">
-                    <RunTo DestName="Fizzcrank Elevator top waiting spot" X="4179.443" Y="5282.166" Z="39.60871" />
-                    <CustomBehavior File="UseTransport" WaitAtX="4181.382" WaitAtY="5281.989" WaitAtZ="39.60874"
-                                    StandOnX="4184.047" StandOnY="5281.427" StandOnZ="34.42769" GetOffX="4180.536"
-                                    GetOffY="5280.977" GetOffZ="26.49352" TransportStartX="4184.285"
-                                    TransportStartY="5281.594" TransportStartZ="39.48473" TransportEndX="4184.285"
-                                    TransportEndY="5281.594" TransportEndZ="26.7" TransportId="152614" />
-                </While>
-                <If Condition="Me.Z &lt; 30">
-                    <RunTo DestName="Fizzcrank Exit" X="4159.061" Y="5281.848" Z="26.10235" />
-                </If>
-                <!--End: Fizzcrack Elevator - going down sequence-->
+                <!--Begin: Fizzcrank Elevator - going down sequence-->
+                <CustomBehavior File="UseTransport" TransportId="152614" 
+                                WaitAtX="4181.267" WaitAtY="5281.699" WaitAtZ="39.60874"
+                                TransportStartX="4184.285" TransportStartY="5281.594" TransportStartZ="39.48473" 
+                                StandOnX="4184.098" StandOnY="5281.923" StandOnZ="36.81886"
+                                TransportEndX="4183.814" TransportEndY="5281.082" TransportEndZ="26.6574"
+                                GetOffX="4181.276" GetOffY="5281.217" GetOffZ="26.69316" />
+                <!--End: Fizzcrank Elevator - going down sequence-->
             </If>
 
             <If Condition="!HasQuest(11725) &amp;&amp; !IsQuestCompleted(11725)">
@@ -4453,34 +4390,34 @@
                 -->
                 <PickUp QuestName="Finding Pilot Tailspin" QuestId="11725" GiverName="Fizzcrank Fullthrottle"
                         GiverId="25590" />
-                <!--Start: Fizzcrack Elevator - going down sequence-->
                 <While Condition="Me.Z &gt; 30">
-                    <RunTo DestName="Fizzcrank Elevator top waiting spot" X="4179.443" Y="5282.166" Z="39.60871" />
-                    <CustomBehavior File="UseTransport" WaitAtX="4181.382" WaitAtY="5281.989" WaitAtZ="39.60874"
-                                    StandOnX="4184.047" StandOnY="5281.427" StandOnZ="34.42769" GetOffX="4180.536"
-                                    GetOffY="5280.977" GetOffZ="26.49352" TransportStartX="4184.285"
-                                    TransportStartY="5281.594" TransportStartZ="39.48473" TransportEndX="4184.285"
-                                    TransportEndY="5281.594" TransportEndZ="26.7" TransportId="152614" />
+                    <!--Begin: Fizzcrank Elevator - going down sequence-->
+                    <CustomBehavior File="UseTransport" TransportId="152614" 
+                                    WaitAtX="4181.267" WaitAtY="5281.699" WaitAtZ="39.60874"
+                                    TransportStartX="4184.285" TransportStartY="5281.594" TransportStartZ="39.48473" 
+                                    StandOnX="4184.098" StandOnY="5281.923" StandOnZ="36.81886"
+                                    TransportEndX="4183.814" TransportEndY="5281.082" TransportEndZ="26.6574"
+                                    GetOffX="4181.276" GetOffY="5281.217" GetOffZ="26.69316" />
+                    <!--End: Fizzcrank Elevator - going down sequence-->
                 </While>
                 <If Condition="Me.Z &lt; 30">
                     <RunTo DestName="Fizzcrank Exit" X="4159.061" Y="5281.848" Z="26.10235" />
                 </If>
-                <!--End: Fizzcrack Elevator - going down sequence-->
             </If>
             <If Condition="HasQuest(11725)">
-                <!--Start: Fizzcrack Elevator - going down sequence-->
                 <While Condition="Me.Z &gt; 30">
-                    <RunTo DestName="Fizzcrank Elevator top waiting spot" X="4179.443" Y="5282.166" Z="39.60871" />
-                    <CustomBehavior File="UseTransport" WaitAtX="4181.382" WaitAtY="5281.989" WaitAtZ="39.60874"
-                                    StandOnX="4184.047" StandOnY="5281.427" StandOnZ="34.42769" GetOffX="4180.536"
-                                    GetOffY="5280.977" GetOffZ="26.49352" TransportStartX="4184.285"
-                                    TransportStartY="5281.594" TransportStartZ="39.48473" TransportEndX="4184.285"
-                                    TransportEndY="5281.594" TransportEndZ="26.7" TransportId="152614" />
+                    <!--Begin: Fizzcrank Elevator - going down sequence-->
+                    <CustomBehavior File="UseTransport" TransportId="152614" 
+                                    WaitAtX="4181.267" WaitAtY="5281.699" WaitAtZ="39.60874"
+                                    TransportStartX="4184.285" TransportStartY="5281.594" TransportStartZ="39.48473" 
+                                    StandOnX="4184.098" StandOnY="5281.923" StandOnZ="36.81886"
+                                    TransportEndX="4183.814" TransportEndY="5281.082" TransportEndZ="26.6574"
+                                    GetOffX="4181.276" GetOffY="5281.217" GetOffZ="26.69316" />
+                    <!--End: Fizzcrank Elevator - going down sequence-->
                 </While>
                 <If Condition="Me.Z &lt; 30">
                     <RunTo DestName="Fizzcrank Exit" X="4159.061" Y="5281.848" Z="26.10235" />
                 </If>
-                <!--End: Fizzcrack Elevator - going down sequence-->
                 <CustomBehavior File="FlyTo" DestName="Turnin: Finding Pilot Tailspin" X="3521.406" Y="5019.011"
                                 Z="-0.6546206" />
                 <CustomBehavior File="ForcedDismount" />
@@ -4640,43 +4577,29 @@
                 <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4159.061" Y="5281.848" Z="26.10235" />
                 <CustomBehavior File="ForcedDismount" />
                 <RunTo X="4177.329" Y="5280.924" Z="26.69335" />
-
-                <!--Start: Fizzcrack Elevator - going up sequence-->
-                <If Condition="Me.X &lt; 4180 &amp;&amp; Me.Z &lt; 45">
-                    <RunTo DestName="Fizzcrack Elevator - Ground Floor Access Spot" X="4178.487" Y="5281.086" Z="26.7" />
-                    <CustomBehavior File="Message" Text="Fizzcrack Elevator - going up" LogColor="Yellow" />
-                    <CustomBehavior File="MyCTM" X="4183.769" Y="5281.553" Z="28" />
-                    <While Condition="Me.X &gt; 4180 &amp;&amp; Me.Z &lt; 45">
-                        <If
-                            Condition="Object(152614) != null &amp;&amp; Object(152614).Z &lt; 33 &amp;&amp; Me.Z &lt; 33">
-                            <CustomBehavior File="MyCTM" X="4183.769" Y="5281.553" Z="29" />
-                            <CustomBehavior File="AscendInWater" />
-                        </If>
-                        <If Condition="Me.Z &gt; 38">
-                            <CustomBehavior File="MyCTM" X="4177.162" Y="5281.801" Z="39.60916" />
-                            <CustomBehavior File="WaitTimer" WaitTime="3000"
-                                            GoalText="Top Floor Access Spot: {TimeRemaining}" />
-                        </If>
-                    </While>
-                </If>
-                <!--End: Fizzcrack Elevator - going up sequence-->
-
+                <!--Begin: Fizzcrank Elevator - going up sequence-->
+                <CustomBehavior File="UseTransport" TransportId="152614" 
+                                WaitAtX="4181.276" WaitAtY="5281.217" WaitAtZ="26.69316"
+                                TransportStartX="4183.814" TransportStartY="5281.082" TransportStartZ="26.6574" 
+                                StandOnX="4183.749" StandOnY="5281.205" StandOnZ="28.23267"
+                                TransportEndX="4184.285" TransportEndY="5281.594" TransportEndZ="39.48473"
+                                GetOffX="4181.267" GetOffY="5281.699" GetOffZ="39.60874" />
+                <!--End: Fizzcrank Elevator - going up sequence-->
                 <TurnIn QuestName="Give Fizzcrank the News" QuestId="11873" TurnInName="Fizzcrank Fullthrottle"
                         TurnInId="25590" />
-
-                <!--Start: Fizzcrack Elevator - going down sequence new ussetransport-->
                 <While Condition="Me.Z &gt; 30">
-                    <RunTo DestName="Fizzcrank Elevator top waiting spot" X="4179.443" Y="5282.166" Z="39.60871" />
-                    <CustomBehavior File="UseTransport" WaitAtX="4181.382" WaitAtY="5281.989" WaitAtZ="39.60874"
-                                    StandOnX="4184.047" StandOnY="5281.427" StandOnZ="34.42769" GetOffX="4180.536"
-                                    GetOffY="5280.977" GetOffZ="26.49352" TransportStartX="4184.285"
-                                    TransportStartY="5281.594" TransportStartZ="39.48473" TransportEndX="4184.285"
-                                    TransportEndY="5281.594" TransportEndZ="26.7" TransportId="152614" />
+                    <!--Begin: Fizzcrank Elevator - going down sequence-->
+                    <CustomBehavior File="UseTransport" TransportId="152614" 
+                                    WaitAtX="4181.267" WaitAtY="5281.699" WaitAtZ="39.60874"
+                                    TransportStartX="4184.285" TransportStartY="5281.594" TransportStartZ="39.48473" 
+                                    StandOnX="4184.098" StandOnY="5281.923" StandOnZ="36.81886"
+                                    TransportEndX="4183.814" TransportEndY="5281.082" TransportEndZ="26.6574"
+                                    GetOffX="4181.276" GetOffY="5281.217" GetOffZ="26.69316" />
+                    <!--End: Fizzcrank Elevator - going down sequence-->
                 </While>
                 <If Condition="Me.Z &lt; 30">
                     <RunTo DestName="Fizzcrank Exit" X="4159.061" Y="5281.848" Z="26.10235" />
                 </If>
-                <!--End: Fizzcrack Elevator - going down sequence-->
             </If>
             <If Condition="!HasQuest(11713) &amp;&amp; !IsQuestCompleted(11713)">
                 <CustomBehavior File="FlyTo" DestName="Pickup: Scouting the Sinkholes" X="4125.973" Y="5278.436"
@@ -4968,42 +4891,29 @@
                 <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4159.061" Y="5281.848" Z="26.10235" />
                 <CustomBehavior File="ForcedDismount" />
                 <RunTo X="4177.329" Y="5280.924" Z="26.69335" />
-
-                <!--Start: Fizzcrack Elevator - going up sequence-->
-                <If Condition="Me.X &lt; 4180 &amp;&amp; Me.Z &lt; 45">
-                    <RunTo DestName="Fizzcrack Elevator - Ground Floor Access Spot" X="4178.487" Y="5281.086" Z="26.7" />
-                    <CustomBehavior File="Message" Text="Fizzcrack Elevator - going up" LogColor="Yellow" />
-                    <CustomBehavior File="MyCTM" X="4183.769" Y="5281.553" Z="28" />
-                    <While Condition="Me.X &gt; 4180 &amp;&amp; Me.Z &lt; 45">
-                        <If
-                            Condition="Object(152614) != null &amp;&amp; Object(152614).Z &lt; 33 &amp;&amp; Me.Z &lt; 33">
-                            <CustomBehavior File="MyCTM" X="4183.769" Y="5281.553" Z="29" />
-                            <CustomBehavior File="AscendInWater" />
-                        </If>
-                        <If Condition="Me.Z &gt; 38">
-                            <CustomBehavior File="MyCTM" X="4177.162" Y="5281.801" Z="39.60916" />
-                            <CustomBehavior File="WaitTimer" WaitTime="3000"
-                                            GoalText="Top Floor Access Spot: {TimeRemaining}" />
-                        </If>
-                    </While>
-                </If>
-                <!--End: Fizzcrack Elevator - going up sequence-->
+                <!--Begin: Fizzcrank Elevator - going up sequence-->
+                <CustomBehavior File="UseTransport" TransportId="152614" 
+                                WaitAtX="4181.276" WaitAtY="5281.217" WaitAtZ="26.69316"
+                                TransportStartX="4183.814" TransportStartY="5281.082" TransportStartZ="26.6574" 
+                                StandOnX="4183.749" StandOnY="5281.205" StandOnZ="28.23267"
+                                TransportEndX="4184.285" TransportEndY="5281.594" TransportEndZ="39.48473"
+                                GetOffX="4181.267" GetOffY="5281.699" GetOffZ="39.60874" />
+                <!--End: Fizzcrank Elevator - going up sequence-->
                 <TurnIn QuestName="Back to the Airstrip" QuestId="11701" TurnInName="Fizzcrank Fullthrottle"
                         TurnInId="25590" />
-                <!--Start: Fizzcrack Elevator - going down sequence-->
                 <While Condition="Me.Z &gt; 30">
-                    <RunTo DestName="Fizzcrank Elevator top waiting spot" X="4179.443" Y="5282.166" Z="39.60871" />
-                    <CustomBehavior File="UseTransport" WaitAtX="4181.382" WaitAtY="5281.989" WaitAtZ="39.60874"
-                                    StandOnX="4184.047" StandOnY="5281.427" StandOnZ="34.42769" GetOffX="4180.536"
-                                    GetOffY="5280.977" GetOffZ="26.49352" TransportStartX="4184.285"
-                                    TransportStartY="5281.594" TransportStartZ="39.48473" TransportEndX="4184.285"
-                                    TransportEndY="5281.594" TransportEndZ="26.7" TransportId="152614" />
+                    <!--Begin: Fizzcrank Elevator - going down sequence-->
+                    <CustomBehavior File="UseTransport" TransportId="152614" 
+                                    WaitAtX="4181.267" WaitAtY="5281.699" WaitAtZ="39.60874"
+                                    TransportStartX="4184.285" TransportStartY="5281.594" TransportStartZ="39.48473" 
+                                    StandOnX="4184.098" StandOnY="5281.923" StandOnZ="36.81886"
+                                    TransportEndX="4183.814" TransportEndY="5281.082" TransportEndZ="26.6574"
+                                    GetOffX="4181.276" GetOffY="5281.217" GetOffZ="26.69316" />
+                    <!--End: Fizzcrank Elevator - going down sequence-->
                 </While>
                 <If Condition="Me.Z &lt; 30">
                     <RunTo DestName="Fizzcrank Exit" X="4159.061" Y="5281.848" Z="26.10235" />
                 </If>
-                <!--End: Fizzcrack Elevator - going down sequence-->
-
             </If>
             <!-- End Fizzcrank Airstrip Quests -->
 
