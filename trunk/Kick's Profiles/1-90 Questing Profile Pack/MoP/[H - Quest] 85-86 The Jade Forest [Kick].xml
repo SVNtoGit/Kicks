@@ -2020,7 +2020,7 @@
                     <Hotspot X="858.798" Y="-2489.446" Z="176.3032" />
                     <Hotspot X="870.4317" Y="-2441.141" Z="176.3033" />
                 </HuntingGrounds>
-            </CustomBehavior>		
+            </CustomBehavior>
             <CustomBehavior File="InteractWith" QuestId="30002" MobId="57237" CollectionDistance="1000"
                             MobState="Alive" NonCompeteDistance="10" InteractBlacklistTimeInSeconds="1"
                             IgnoreMobsInBlackspots="True" IgnoreLoSToTarget="True" WaitForNpcs="False"
@@ -2029,7 +2029,15 @@
         <Objective QuestName="Moth-Ridden" QuestId="30001" Type="KillMob" MobId="57232" KillCount="8" />
         <TurnIn QuestName="Pages of History" QuestId="30002" TurnInName="Lorewalker Stonestep" TurnInId="56786" X="839.3281" Y="-2476.998" Z="176.3033" />
         <TurnIn QuestName="Moth-Ridden" QuestId="30001" TurnInName="Lorewalker Stonestep" TurnInId="56786" X="839.3281" Y="-2476.998" Z="176.3033" />
-        <PickUp QuestName="Everything In Its Place" QuestId="30004" GiverName="Lorewalker Stonestep" GiverId="56786" X="839.3281" Y="-2476.998" Z="176.3033" />
+        <PickUp QuestName="Everything In Its Place" QuestId="30004" GiverName="Lorewalker Stonestep"
+                GiverId="56786" X="839.3281" Y="-2476.998" Z="176.3033" />
+        <If Condition="!HasQuest(30004) &amp;&amp; !IsQuestCompleted(30004)">
+            <!-- CJ: Navigation in this room is borked...
+                 These CtM commands will get us out of the room and back into sanity.
+            -->
+            <CustomBehavior File="MyCTM" X="838.3664" Y="-2480.586" Z="176.6582" />
+            <CustomBehavior File="MyCTM" X="812.8027" Y="-2559.374" Z="186.4825" />
+        </If>
         <While Condition="(HasQuest(29999)) &amp;&amp; (!IsObjectiveComplete(4, 29999))">
             <CustomBehavior File="InteractWith" QuestId="29999" QuestObjectiveIndex="4" MobId="56850" Range="5" X="843.3549" Y="-2459.354" Z="179.2966" />
         </While>
