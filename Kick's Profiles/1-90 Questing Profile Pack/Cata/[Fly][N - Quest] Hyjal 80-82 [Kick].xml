@@ -2,7 +2,7 @@
 
 <HBProfile xsi:noNamespaceSchemaLocation="../Schemas/QuestProfileSchema.xsd"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    
+
     <!-- Developed by Kickazz006 -->
     <Name>[Fly][N - Quest] Hyjal 80-82 [Kick]($Rev: 2166 $)</Name>
 
@@ -2729,6 +2729,15 @@
                                 Macro="/cancelaura cat form\n/cancelaura bear form\n/cancelaura travel form\n/cancelaura ghost wolf" />
                 <Runto QuestId="25308" X="4833.147" Y="-4218.988" Z="894.0121" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
+                <!-- CJ: Disable the Combat Routine between costume application, and ready to pick fight...
+                     Otherwise, Druids have a problem with this quest.  Many Combat Routines will put a
+                     druid into Cat form when moving.  If a Druid shapeshifts, he will lose the Orc costume
+                     buff that we need to complete this quest.  Hopefully, disabling the combat routine,
+                     and moving into final position before picking the fight will work around this issue.
+                     Otherwise, we're screwed, since profiles have no direct control over toon abilities
+                     used by the Combat Routine.
+                 -->
+                <DisableBehavior Name="Combat" />
                 <UseItem QuestName="Seeds of Discord" QuestId="25308" ItemId="55137" X="4833.147" Y="-4218.988"
                          Z="894.0121" />
 
@@ -2738,6 +2747,7 @@
                                 CollectionDistance="200" X="4807.945" Y="-4182.254" Z="897.5319" />
                 <CustomBehavior File="WaitTimer" WaitTime="8000"
                                 GoalText="Waiting for Karr'gonn to leave {TimeRemaining}" />
+                <EnableBehavior Name="Combat" />
                 <!--High Cultist Azennios-->
                 <Objective QuestName="Seeds of Discord" QuestId="25308" Type="KillMob" MobId="40491" KillCount="1" />
             </While>
