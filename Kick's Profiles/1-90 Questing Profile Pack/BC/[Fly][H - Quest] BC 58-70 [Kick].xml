@@ -1,6 +1,6 @@
 <HBProfile xsi:noNamespaceSchemaLocation="../Schemas/QuestProfileSchema.xsd"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    
+
     <!-- Developed by Kickazz006 -->
     <Name>[Fly][H - Quest] BC 58-70 [Kick]($Rev$)</Name>
     <MinLevel>58</MinLevel>
@@ -2568,6 +2568,14 @@
                     <MoveTo DestName="Foreman Razelcraz" X="431.1503" Y="2889.698" Z="52.17432" />
                     <CustomBehavior File="Misc\RunLua" WaitTime="1000" NumOfTimes="1" Lua="UseItemByName(30803)" />
                 </If>
+                <!-- If we've lost ze poochie-poochie, go get a new one... -->
+                <!-- CJ: Need to further refine this test by looking for an "aura" or a "created by me" id.
+                -->
+                <If Condition="HasItem(30803) &amp;&amp; ( Unit(21847, u =&gt; u.FactionId == 6) == null )">
+                    <MoveTo DestName="Foreman Razelcraz" X="431.1503" Y="2889.698" Z="52.17432" />
+                    <CustomBehavior File="Misc\RunLua" WaitTime="1000" NumOfTimes="1" Lua="UseItemByName(30803)" />
+                </If>
+                
                 <!-- Deal with poo (ewwww!) -->
                 <CustomBehavior File="InteractWith" QuestId="10629" MobId="184980" WaitForNpcs="False"
                                 NumOfTimes="10" PreInteractMountStrategy="Dismount" CollectionDistance="1000" />
