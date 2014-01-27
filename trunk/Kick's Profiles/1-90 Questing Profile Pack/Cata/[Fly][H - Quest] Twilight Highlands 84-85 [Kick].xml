@@ -574,17 +574,24 @@
             <CustomBehavior File="MyCTM" X="-3899.009" Y="-6474.226" Z="15.38203" />
             <CustomBehavior File="MyCTM" X="-3951.527" Y="-6474.693" Z="13.51369" />
         </If>
-        <If Condition="HasQuest(26549) &amp;&amp; !IsQuestCompleted(26549)">
-            <CustomBehavior File="FlyTo" Land="true" X="-4058.622" Y="-6392.85" Z="37.90906" />
+        <While Condition="HasQuest(26549) &amp;&amp; !IsQuestCompleted(26549)">
+            <CustomBehavior File="FlyTo" Land="True" X="-4058.622" Y="-6392.85" Z="37.90906" />
+            <CustomBehavior File="MyCTM" X="-4089.12" Y="-6405.353" Z="38.91688" />
+            <CustomBehavior File="MyCTM" X="-4101.166" Y="-6392.615" Z="38.64572" />
+            <CustomBehavior File="MyCTM" X="-4107.851" Y="-6396.431" Z="38.64777" />
 
-            <While Condition="HasQuest(26549) &amp;&amp; !IsQuestCompleted(26549)">
-                <CustomBehavior File="MyCTM" X="-4089.12" Y="-6405.353" Z="38.91688" />
-                <CustomBehavior File="MyCTM" X="-4101.166" Y="-6392.615" Z="38.64572" />
-                <CustomBehavior File="MyCTM" X="-4107.851" Y="-6396.431" Z="38.64777" />
-
-                <CustomBehavior File="WaitTimer" WaitTime="80000" GoalText="Waiting for speech {TimeRemaining}" />
-            </While>
-        </If>
+            <CustomBehavior File="WaitTimer" QuestId="26549" WaitTime="100000"
+                            GoalText="Waiting for speech {TimeRemaining}" />
+            <!-- CJ: This quest is buggy...
+                 If the quest is not complete after our 'wait', then abandon it, and try again.
+            -->
+            <If Condition="!IsQuestCompleted(26549)" >
+                <CustomBehavior File="Message" LogColor="Orange"
+                                Text="The &quot;Madness&quot; quest (http://wowhead.com/quest=26549) is frequently bugged.\nIt looks like you are an unforunate soul for whom it failed.  We're abandoning the quest to try again." />
+                <CustomBehavior File="AbandonQuest" QuestId="26549" />
+                <PickUp QuestName="Madness" QuestId="26549" GiverName="Ornak" GiverId="43187" Nav="Fly" />
+            </If>
+        </While>
         <TurnIn QuestName="Madness" QuestId="26549" TurnInName="Zaela" TurnInId="43190" />
         <If Condition="!HasQuest(26608) &amp;&amp; !IsQuestCompleted(26608)">
             <Pickup QuestName="Negotiations Terminated" QuestId="26608" GiverName="Zaela" GiverId="43190" />
