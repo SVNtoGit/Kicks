@@ -534,8 +534,11 @@
         <If Condition="HasQuest(25316)">
             <If Condition="Me.ZoneId == 493">
                 <CustomBehavior File="ForcedDismount" />
+                <!-- CJ: Disable Combat Routine so it doesn't try to summon pet et all while in vehicle... -->
+                <DisableBehavior Name="Combat" />
                 <CustomBehavior File="MountVehOnly" VehicleMountId="39140" X="7791.06" Y="-2445.54" Z="489.5634" />
                 <CustomBehavior File="WaitTimer" WaitTime="130000" GoalText="Waiting for ride {TimeRemaining}" />
+                <EnableBehavior Name="Combat" />
             </If>
         </If>
 
@@ -2949,12 +2952,16 @@
         <While Condition="HasQuest(25608) &amp;&amp; !IsQuestCompleted(25608)">
             <If Condition="!Me.IsOnTransport">
                 <CustomBehavior File="FlyTo" DestName="Vehicle" Land="true" X="4073.321" Y="-4009.627" Z="971.1174" />
+                <!-- CJ: Disable Combat Routine so it doesn't try to summon pet et all while in vehicle... -->
+                <DisableBehavior Name="Combat" />
                 <CustomBehavior File="MountVehOnly" VehicleMountId="40934" X="4074.596" Y="-4009.47" Z="971.1025" />
             </If>
             <While Condition="!IsObjectiveComplete(1, 25608)">
                 <If Condition="!Me.IsOnTransport">
                     <CustomBehavior File="FlyTo" DestName="get the drake again." Land="true"
                                     X="4073.321" Y="-4009.627" Z="971.1174" />
+                    <!-- CJ: Disable Combat Routine so it doesn't try to summon pet et all while in vehicle... -->
+                    <DisableBehavior Name="Combat" />
                     <CustomBehavior File="MountVehOnly" VehicleMountId="40934" X="4074.596" Y="-4009.47" Z="971.1025" />
                 </If>
                 <If Condition="Me.IsOnTransport">
@@ -2968,6 +2975,8 @@
             <While Condition="!IsObjectiveComplete(2, 25608)">
                 <If Condition="!Me.IsOnTransport">
                     <CustomBehavior File="FlyTo" DestName="Vehicle" Land="true" X="4073.321" Y="-4009.627" Z="971.1174" />
+                    <!-- CJ: Disable Combat Routine so it doesn't try to summon pet et all while in vehicle... -->
+                    <DisableBehavior Name="Combat" />
                     <CustomBehavior File="MountVehOnly" VehicleMountId="40934" X="4074.596" Y="-4009.47" Z="971.1025" />
                 </If>
                 <If Condition="Me.IsOnTransport">
@@ -2994,11 +3003,13 @@
         </While>
         <If Condition="HasQuest(25608) &amp;&amp; IsQuestCompleted(25608)">
             <CustomBehavior File="EjectVeh" Eject="True" />
+            <EnableBehavior Name="Combat" />
             <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4082.432" Y="-3995.996" Z="971.5511" />
             <TurnIn Nav="Fly" QuestName="Slash and Burn" QuestId="25608" TurnInName="Commander Jarod Shadowsong"
                     TurnInId="40772" />
             <CustomBehavior File="WaitTimer" WaitTime="90000" GoalText="Waiting for video {TimeRemaining}" />
         </If>
+        <EnableBehavior Name="Combat" />
         <!-- We're now unphased -->
         <If Condition="!HasQuest(25548) &amp;&amp; !IsQuestCompleted(25548)">
             <CustomBehavior File="FlyTo" DestName="Pickup Quest" X="4100.111" Y="-3986.205" Z="970.4727" />
