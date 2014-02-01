@@ -445,17 +445,6 @@
         </Objective>
     </Quest>
 
-    <Quest Id="11893" Name="The Power of the Elements">
-        <Objective Type="KillMob" MobId="25987" KillCount="10">
-            <Hotspots>
-                <Hotspot X="3745.759" Y="4465.616" Z="-2.169765" />
-                <Hotspot X="3868.417" Y="4570.091" Z="-2.389507" />
-                <Hotspot X="3966.51" Y="4598.905" Z="-2.518664" />
-                <Hotspot X="3914.44" Y="4417.972" Z="12.52999" />
-            </Hotspots>
-        </Objective>
-    </Quest>
-
     <Quest Id="11910" Name="Secrets of the Ancients">
         <Objective Type="CollectItem" ItemId="35483" CollectCount="3">
             <CollectFrom>
@@ -8883,20 +8872,31 @@
             <If Condition="HasQuest(12198) &amp;&amp; !IsQuestCompleted(12198)">
                 <CustomBehavior File="FlyTo" X="3744.688" Y="-5007.142" Z="123.4988" />
                 <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="Misc\RunLua" WaitTime="1000" Lua="UseItemByName(36936)" />
+                <UseMount Value="False" />
 
                 <While Condition="HasQuest(12198) &amp;&amp; !IsQuestCompleted(12198)">
+                    <!-- If we've lost our war golem, get a new one...
+                         CJ: We may need to further qualify that the "Depleted War Golem"
+                         is ours (vs a nearby player's).  We'll need to check this out
+                         next time we're through the area.  Maybe:
+                             Object(27017, o => o.CreatedByUnitGuid == Me.Guid)
+                         But, we need the testbed to verify this is a valid qualifier.
+                     -->
+                    <If Condition="Object(27017) == null">
+                        <CustomBehavior File="Misc\RunLua" WaitTime="1000" NumOfTimes="1" Lua="UseItemByName(36936)" />
+                    </If>
+                    <!-- Kill Lightning Sentry! -->                    
                     <CustomBehavior File="InteractWith" QuestId="12198" MobId="26407" MobState="Alive"
-                                    InteractByUsingItemId="36936" NumOfTimes="500"
-                                    PreInteractMountStrategy="Dismount">
-                        <HuntingGrounds>
-                            <Hotspot Name="NE Area" X="3682.641" Y="-5177.896" Z="134.6338" />
-                            <Hotspot Name="SE Area" X="3516.144" Y="-5306.923" Z="160.4388" />
-                            <Hotspot Name="NW Area" X="3693.621" Y="-4960.965" Z="147.8018" />
-                            <Hotspot Name="W Area" X="3527.857" Y="-4956.553" Z="213.2242" />
-                        </HuntingGrounds>
-                    </CustomBehavior>
-                </While>
+                                PreInteractMountStrategy="Dismount" CollectionDistance="1000" >
+                         <HuntingGrounds>
+                             <Hotspot Name="NE Area" X="3682.641" Y="-5177.896" Z="134.6338" />
+                             <Hotspot Name="SE Area" X="3516.144" Y="-5306.923" Z="160.4388" />
+                             <Hotspot Name="NW Area" X="3693.621" Y="-4960.965" Z="147.8018" />
+                             <Hotspot Name="W Area" X="3527.857" Y="-4956.553" Z="213.2242" />
+                         </HuntingGrounds>
+                     </CustomBehavior>
+                 </While>
+                <UseMount Value="True" />
             </If>
             <If Condition="HasQuest(12203) &amp;&amp; !IsQuestCompleted(12203)">
                 <CustomBehavior File="FlyTo" X="3425.868" Y="-5343.767" Z="262.8449" />
