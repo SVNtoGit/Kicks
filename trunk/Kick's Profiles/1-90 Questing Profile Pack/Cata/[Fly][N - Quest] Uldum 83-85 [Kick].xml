@@ -1847,7 +1847,12 @@
         <PickUp QuestName="Fortune and Glory" QuestId="27748" GiverName="Harrison Jones" GiverId="47158" />
         <While Condition="HasQuest(27748) &amp;&amp; !IsQuestCompleted(27748)">
             <CustomBehavior File="FlyTo" X="-8680.61" Y="203.859" Z="338.8123" />
-            <CustomBehavior File="InteractWith" QuestId="27748" MobId="47158" GossipOptions="1"
+            <!-- CJ: We need to guard against another player talking to Harrison Jones...
+                 If Harrison Jones can no longer gossip, we must assume that another player
+                 has triggered the event.  The TerminateWhen clause accommodates this.
+            -->
+            <CustomBehavior File="InteractWith" QuestId="27748" MobId="47158" InteractByGossipOptions="1"
+                            TerminateWhen="Unit(27748, u =&gt; u.IsValid &amp;&amp; !u.CanGossip) != null"
                             X="-8680.61" Y="203.859" Z="338.8123" />
 
             <CustomBehavior File="FlyTo" X="-8766.942" Y="294.6902" Z="332.4811" />
