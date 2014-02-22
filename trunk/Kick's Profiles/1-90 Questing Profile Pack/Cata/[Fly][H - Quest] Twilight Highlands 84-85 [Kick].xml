@@ -634,12 +634,20 @@
             <CustomBehavior File="MyCTM" X="-3940.799" Y="-6475.167" Z="13.90728" />
         </If>
         <If Condition="HasQuest(26621) &amp;&amp; !IsQuestCompleted(26621)">
-            <CustomBehavior File="Message" LogColor="Orange"
-                            Text="If you're stuck on this quest - copy over the behaviors from my svn to your quest behaviors folder and restart HB!" />
-            <CustomBehavior File="InteractWith" QuestId="26621" QuestObjectiveIndex="1" MobId1="43577" MobId2="43578"
-                            GossipOptions="1, 2" MobState="Alive" KeepTargetSelected="true"
-                            CollectionDistance="1000" NumOfTimes="100"
-                            X="-3950.997" Y="-6465.396" Z="14.11842" />
+            <!-- CJ: It appears that the Dragonmaw Civilians offer two sets of gossip options...
+                 One set is fulfilled by a single gossip option (1).  The other set requires
+                 two gossip options (1,2).  For the former, InteractWith will prematurely terminate
+                 when it is not offered the second gossip option.
+                 So, we wrap the whole thing in a While loop until the job gets done.  Clumsy,
+                 but should be effective.
+            -->
+            <While Condition="IsObjectiveComplete(1,26621)">
+                <CustomBehavior File="InteractWith" QuestId="26621" QuestObjectiveIndex="1"
+                                MobId="43577" MobId2="43578"
+                                InteractByGossipOptions="1,2" MobState="Alive" KeepTargetSelected="true"
+                                CollectionDistance="1000" NumOfTimes="100"
+                                X="-3950.997" Y="-6465.396" Z="14.11842" />
+            </While>
             <Objective QuestId="26621" QuestName="Insurrection" Type="KillMob" MobId="43575" KillCount="10" />
             <Objective QuestId="26621" QuestName="Insurrection" Type="KillMob" MobId="43394" KillCount="4" />
         </If>
