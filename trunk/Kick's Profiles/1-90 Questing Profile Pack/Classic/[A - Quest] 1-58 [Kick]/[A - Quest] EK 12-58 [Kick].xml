@@ -4452,28 +4452,20 @@
             <PickUp QuestName="Saving Foreman Oslow" QuestId="26520" GiverName="Ettin Control Orb" GiverId="204351" X="-8831.982"
                     Y="-1939.935" Z="133.0036" />
             <While Condition="HasQuest(26520) &amp;&amp; !IsQuestCompleted(26520)">
-                <MoveTo X="-9002.048" Y="-2133.902" Z="143.1395" />
-                <If Condition="!Me.HasAura(82558)">
-                    <!-- Canyon Ettin Spawn Spell -->
-                    <CustomBehavior File="InteractWith" MobId="43094" MobState="Alive" QuestId="26520"
-                                    ProactiveCombatStrategy="ClearMobsTargetingUs" InteractByUsingItemId="58895">
-                        <HuntingGrounds>
-                            <Hotspot X="-9002.048" Y="-2133.902" Z="143.1395" />
-                            <Hotspot X="-9274.12" Y="-2288.6" Z="68.15446" />
-                        </HuntingGrounds>
-                    </CustomBehavior>
-                </If>
-                <If Condition="Me.HasAura(82558)">
-                    <!-- Canyon Ettin Spawn Spell -->
-                    <CustomBehavior File="InteractWith" QuestId="26520" MobId="43196"
-                                    ProactiveCombatStrategy="ClearMobsTargetingUs" InteractByUsingItemId="58895"
-                                    Range="15" WaitTime="37000" NonCompeteDistance="0">
-                        <HuntingGrounds>
-                            <Hotspot X="-9002.048" Y="-2133.902" Z="143.1395" />
-                            <Hotspot X="-9274.12" Y="-2288.6" Z="68.15446" />
-                        </HuntingGrounds>
-                    </CustomBehavior>
-                </If>
+                <!-- Aura 82558: Canyon Ettin Spawn Spell -->
+                <CustomBehavior File="InteractWith" MobId="43094" MobState="Alive"
+                                ProactiveCombatStrategy="ClearMobsTargetingUs" InteractByUsingItemId="58895"
+                                TerminateWhen="Me.HasAura(82558)" >
+                    <HuntingGrounds>
+                        <Hotspot X="-9002.048" Y="-2133.902" Z="143.1395" />
+                        <Hotspot X="-9274.12" Y="-2288.6" Z="68.15446" />
+                    </HuntingGrounds>
+                </CustomBehavior>
+                <CustomBehavior File="InteractWith" QuestId="26520" MobId="43196"
+                                ProactiveCombatStrategy="ClearMobsTargetingUs" InteractByUsingItemId="58895"
+                                Range="15" WaitTime="40000" NonCompeteDistance="0"
+                                TerminateWhen="!Me.HasAura(82558)"
+                                X="-9274.12" Y="-2288.6" Z="68.15446" />
             </While>
             <TurnIn QuestName="Saving Foreman Oslow" QuestId="26520" TurnInName="Magistrate Solomon" TurnInId="344" />
             <TurnIn QuestName="Yowler Must Die!" QuestId="26545" TurnInName="Magistrate Solomon" TurnInId="344"
