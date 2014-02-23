@@ -3995,10 +3995,10 @@
             <PickUp QuestName="Feast or Famine" QuestId="26230" GiverName="Mama Celeste" GiverId="42497" />
             <While Condition="HasQuest(26228) &amp;&amp; !IsQuestCompleted(26228)">
                 <MoveTo X="-9851.079" Y="1390.783" Z="38.74532" />
-				<DisableBehavior Name="Combat" />
+                <DisableBehavior Name="Combat" />
                 <UseItem QuestId="26228" ItemId="57761" X="-9851.079" Y="1390.783" Z="38.74532" />
                 <CustomBehavior File="WaitTimer" WaitTime="90000" QuestId="26228" />
-				<EnableBehavior Name="Combat" />
+                <EnableBehavior Name="Combat" />
             </While>
             <Objective QuestName="&quot;I TAKE Candle!&quot;" QuestId="26229" Type="KillMob" MobId="1236" KillCount="12" />
             <Objective QuestName="Feast or Famine" QuestId="26230" Type="CollectItem" ItemId="57789" CollectCount="5" />
@@ -4173,15 +4173,18 @@
                     <!-- Deadmines -->
                     <MoveTo X="-11207.8" Y="1674.6" Z="24.62998" />
                 <!-- CJ: We don't want the bot trotting off to mine here, as it will
-             throw off the portal traversal positioning.  So, we disable Looting
-             while traversing the portal.
-            -->
+                     throw off the portal traversal positioning.  So, we disable Looting
+                     while traversing the portal.
+                -->
                 <DisableBehavior Name="Loot" />
-                    <MoveTo X="-11207.8" Y="1674.6" Z="24.62998" />
-                    <CustomBehavior File="GoThruPortal" X="-11207.9" Y="1677.421" Z="24.49709" />
-                    <CustomBehavior File="WaitTimer" WaitTime="5000" />
-                    <CustomBehavior File="Misc\RunLua" QuestId="26320" Lua="UseItemByName(58147)" WaitTime="1000" />
-                    <CustomBehavior File="WaitTimer" WaitTime="215000" />
+                <MoveTo X="-11207.8" Y="1674.6" Z="24.62998" />
+                <CustomBehavior File="GoThruPortal" X="-11207.9" Y="1677.421" Z="24.49709" />
+                <CustomBehavior File="WaitTimer" WaitTime="5000" />
+                <!-- CJ: Turn off Combat Routine to prevent pet summoning during vision... -->
+                <DisableBehavior Name="Combat" />
+                <CustomBehavior File="Misc\RunLua" QuestId="26320" Lua="UseItemByName(58147)" WaitTime="1000" />
+                <CustomBehavior File="WaitTimer" WaitTime="215000" QuestId="26320" />
+                <EnableBehavior Name="Combat" />
                 <EnableBehavior Name="Loot" />
                 </If>
                 <If Condition="Me.ZoneId == 1581">
@@ -5287,7 +5290,7 @@
                 <UseItem QuestId="26674" ItemId="59363" X="-10368.61" Y="-1255.158" Z="35.90972" />
                 <CustomBehavior File="WaitTimer" WaitTime="8000" />
                 <CustomBehavior File="EscortGroup" QuestId="26674" EscortNpcId="43453"
-			                    EscortMaxFightDistance="10" EscortMaxFollowDistance="10" />
+                                EscortMaxFightDistance="10" EscortMaxFollowDistance="10" />
             </While>
 
             <TurnIn QuestName="Mistmantle's Revenge" QuestId="26674" TurnInName="Tobias Mistmantle" TurnInId="43453"
@@ -6100,11 +6103,11 @@
                 <PickUp QuestName="Too Big For His Britches" QuestId="26823"
                         GiverName="Dask &quot;The Flask&quot; Gobfizzle" GiverId="44099" X="-13619.7" Y="-74.0313" Z="35.23998" />
             </If>
-			
-			<If Condition="HasQuest(26823) &amp;&amp; !IsQuestCompleted(26823)">
-				<Objective QuestName="Too Big For His Britches" QuestId="26823" Type="CollectItem" ItemId="60380" CollectCount="1" />
-			</If>
-			
+
+            <If Condition="HasQuest(26823) &amp;&amp; !IsQuestCompleted(26823)">
+                <Objective QuestName="Too Big For His Britches" QuestId="26823" Type="CollectItem" ItemId="60380" CollectCount="1" />
+            </If>
+
             <Objective QuestName="Good-Fer-Nothin' Slither-Dogs" QuestId="26822" Type="KillMob" MobId="44127" KillCount="12" />
             <TurnIn QuestName="Good-Fer-Nothin' Slither-Dogs" QuestId="26822" TurnInName="Goris" TurnInId="44100"
                     X="-13617.6" Y="-63.2622" Z="35.23936" />
