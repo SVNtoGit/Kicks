@@ -1834,15 +1834,34 @@
                 X="-4494.646" Y="-4347.238" Z="322.4197" />
         <PickUp GiverId="45675" QuestId="27703" GiverName="Garona Halforcen" QuestName="Coup de Grace"
                 X="-4494.646" Y="-4347.238" Z="322.4197" />
-        <DisableBehavior Name="Loot" />
+        <DisableBehavior Name="Loot,Pull" />
         <If Condition="HasQuest(27703) &amp;&amp; !IsQuestCompleted(27703)">
             <CustomBehavior File="FlyTo" Land="true" X="-4584.019" Y="-4352.706" Z="316.3566" />
+            <UseMount Value="false" />
+            <CustomBehavior File="ForcedDismount" />
+            <!-- CJ: Replaced 27702-27703-TwilightHighlands-CoupDeGrace with InteractWith...
+                 1. These mobs need one 'white attack' to kill.  So a simple 'interaction' should do it.
+                 If not, we're in combat, and we'll finish them off normally.
+                 2. If a pet get the killing blow, then toon gets no credit. IW should minimize this problem.
+                 3. We want to be dismounted the whole time we're doing this quest.  Mobs are frequently
+                 underwater, and Honorbuddy is not good about dismounting above water, and it won't submerge
+                 if mounted on a flying mount while doing this quest.
+            -->
+            <CustomBehavior File="InteractWith" QuestId="27703" MobId="46416"
+                            NumOfTimes="100" CollectionDistance="1000">
+                <HuntingGrounds>
+                    <Hotspot X="-2739.832" Y="-5000.674" Z="-127.1305" />
+                </HuntingGrounds>
+            </CustomBehavior>
+            <!-- CJ: DELETE THIS WHEN InteractWith confirmed to work
             <CustomBehavior File="SpecificQuests\27702-27703-TwilightHighlands-CoupDeGrace" QuestId="27703" />
+            -->
+            <UseMount Value="true" />
         </If>
         <If Condition="HasQuest(27703) &amp;&amp; IsQuestCompleted(27703)">
             <CustomBehavior File="FlyTo" Land="true" X="-4494.646" Y="-4347.238" Z="322.4197" />
         </If>
-        <EnableBehavior Name="Loot" />
+        <EnableBehavior Name="Loot,Pull" />
         <TurnIn QuestId="27703" QuestName="Coup de Grace" TurnInId="45675" TurnInName="Garona Halforcen"
                 X="-4494.646" Y="-4347.238" Z="322.4197" />
         <If Condition="HasQuest(27658) &amp;&amp; IsQuestCompleted(27658)">
