@@ -1090,23 +1090,44 @@
                             WaitForNpcs="false" WaitTime="2000" Range="60" CollectionDistance="1000"
                             X="-3553.525" Y="-5212.168" Z="31.75073" />
         </While>
-        <If Condition="HasQuest(27747) &amp;&amp; !IsQuestCompleted(27747)">
-            <CustomBehavior File="FlyTo" Land="true" X="-3489.951" Y="-4911.638" Z="77.40863" />
-            <CustomBehavior File="InteractWith" QuestId="27747" MobId1="206195" MobId2="206289"
-                            MobId3="206290" MobId4="206291" Range="6" NumOfTimes="20" CollectionDistance="1000">
-                <HuntingGrounds>
-                    <Hotspot X="-3660.377" Y="-4820.334" Z="80.95454" />
-                    <Hotspot X="-3469.288" Y="-4863.676" Z="89.07843" />
-                    <Hotspot X="-3592.727" Y="-4843.314" Z="86.77916" />
-                    <Hotspot X="-3317.562" Y="-4878.662" Z="110.6216" />
-                    <Hotspot X="-3464.168" Y="-5017.807" Z="66.72375" />
-                </HuntingGrounds>
-            </CustomBehavior>
-            <!-- 89 90 91 are food -->
-        </If>
-        <If Condition="HasQuest(27750) &amp;&amp; !IsQuestCompleted(27750)">
-            <Objective QuestName="War Forage" QuestId="27750" Type="CollectItem" ItemId="62324" CollectCount="10" />
-        </If>
+        <!-- CJ: Parallel objectives...
+             Collect both drink (Total War: 27747) and food (War Forage: 27750).
+             Done, when either quest finishes. To do this, we omit the QuestId, and use
+             a TerminateWhen attribute.
+        -->
+        <CustomBehavior File="InteractWith" MobId="206195" MobId2="206289"
+                        MobId3="206290" MobId4="206291" NumOfTimes="1000" CollectionDistance="1000"
+                        TerminateWhen="IsQuestCompleted(27747) || IsQuestCompleted(27750)">
+            <HuntingGrounds>
+                <Hotspot X="-3660.377" Y="-4820.334" Z="80.95454" />
+                <Hotspot X="-3469.288" Y="-4863.676" Z="89.07843" />
+                <Hotspot X="-3592.727" Y="-4843.314" Z="86.77916" />
+                <Hotspot X="-3317.562" Y="-4878.662" Z="110.6216" />
+                <Hotspot X="-3464.168" Y="-5017.807" Z="66.72375" />
+            </HuntingGrounds>
+        </CustomBehavior>
+        <!-- Finish up Total War... -->
+        <CustomBehavior File="InteractWith" QuestId="27747" MobId="206195"
+                        NumOfTimes="1000" CollectionDistance="1000" >
+            <HuntingGrounds>
+                <Hotspot X="-3660.377" Y="-4820.334" Z="80.95454" />
+                <Hotspot X="-3469.288" Y="-4863.676" Z="89.07843" />
+                <Hotspot X="-3592.727" Y="-4843.314" Z="86.77916" />
+                <Hotspot X="-3317.562" Y="-4878.662" Z="110.6216" />
+                <Hotspot X="-3464.168" Y="-5017.807" Z="66.72375" />
+            </HuntingGrounds>
+        </CustomBehavior>
+        <!-- Finish up War Forage... -->
+        <CustomBehavior File="InteractWith" QuestId="27750" MobId="206289" MobId2="206290" MobId3="206291"
+                        NumOfTimes="1000" CollectionDistance="1000">
+            <HuntingGrounds>
+                <Hotspot X="-3660.377" Y="-4820.334" Z="80.95454" />
+                <Hotspot X="-3469.288" Y="-4863.676" Z="89.07843" />
+                <Hotspot X="-3592.727" Y="-4843.314" Z="86.77916" />
+                <Hotspot X="-3317.562" Y="-4878.662" Z="110.6216" />
+                <Hotspot X="-3464.168" Y="-5017.807" Z="66.72375" />
+            </HuntingGrounds>
+        </CustomBehavior>
         <If Condition="HasQuest(27751) &amp;&amp; !IsQuestCompleted(27751)">
             <Objective QuestName="Crushing the Wildhammer" QuestId="27751" Type="CollectItem" ItemId="62325"
                        CollectCount="8" />
