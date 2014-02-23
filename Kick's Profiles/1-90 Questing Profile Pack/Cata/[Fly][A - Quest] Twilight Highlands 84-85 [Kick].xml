@@ -1300,11 +1300,18 @@
         <PickUp GiverId="47905" QuestId="28247" GiverName="Baleflame" QuestName="Last of Her Kind" />
         <CustomBehavior File="WaitTimer" WaitTime="25000" />
     </If>
+    <!-- CJ: We want the Combat Routine to engage Obsidia...
+         So, we disable pulling and directly interact with her in an attempt to get her attention.
+         Otherwise, Honorbuddy will want to trot off and engage some Obsidian Hatchlings while
+         we're waiting.
+    -->
+    <DisableBehavior Name="Pull" />
     <While Condition="HasQuest(28247) &amp;&amp; !IsQuestCompleted(28247)">
         <CustomBehavior File="InteractWith" QuestId="28247" MobId="47929" X="-5356.411" Y="-4807.879" Z="37.82688" />
         <CustomBehavior File="WaitTimer" WaitTime="25000" />
         <MoveTo X="-5106.006" Y="-5390.282" Z="21.37931" />
     </While>
+    <EnableBehavior Name="Pull" />
     <CustomBehavior File="UserDialog" QuestId="28247" AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="1"
                     Text="I need a behavior that gtfo's of the fire pools for weak classes" />
     <If Condition="HasQuest(28247) &amp;&amp; IsQuestCompleted(28247)">
