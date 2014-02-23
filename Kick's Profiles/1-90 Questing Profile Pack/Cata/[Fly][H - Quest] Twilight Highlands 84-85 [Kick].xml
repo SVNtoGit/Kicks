@@ -758,6 +758,14 @@
             <MoveTo X="1592.319" Y="-4384.146" Z="18.9199" />
         </If>
         <If Condition="HasQuest(26840) &amp;&amp; IsQuestCompleted(26840)">
+            <!-- CJ: Turn of Vendor behavior until we've safely changed zones...
+                 Once we go through the portal, there will be a wingstop nearby that Honorbuddy
+                 will attempt to go learn.  The attempt to learn the wingstop will screw up
+                 proper execution of the MyCTM directives.  So, we need to disable the
+                 learning of the wingstop until the MyCTM directives are complete.  We do this
+                 by turning off the Vendor behavior.
+            -->
+            <DisableBehavior Name="Vendor" />
             <If Condition="Me.ZoneId == 1637">
                 <CustomBehavior File="FlyTo" Land="true" X="2037.235" Y="-4378.749" Z="99.05851" />
 
@@ -768,6 +776,7 @@
                 <CustomBehavior File="MyCTM" X="-4033.834" Y="-6318.643" Z="38.69545" />
                 <CustomBehavior File="MyCTM" X="-4032.814" Y="-6344.526" Z="37.48838" />
             </If>
+            <EnableBehavior Name="Vendor" />
         </If>
         <TurnIn QuestId="26840" QuestName="Return to the Highlands" TurnInId="44169" TurnInName="Zaela" />
         <PickUp GiverId="44169" QuestId="27583" GiverName="Zaela" QuestName="The Northern Flank" />
