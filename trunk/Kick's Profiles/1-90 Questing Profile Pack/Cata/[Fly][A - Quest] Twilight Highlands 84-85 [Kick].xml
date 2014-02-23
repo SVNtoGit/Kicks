@@ -1592,7 +1592,26 @@
     <DisableBehavior Name="Loot,Pull" />
     <If Condition="HasQuest(27702) &amp;&amp; !IsQuestCompleted(27702)">
         <CustomBehavior File="FlyTo" Land="true" X="-4584.019" Y="-4352.706" Z="316.3566" />
-        <CustomBehavior File="SpecificQuests\27702-27703-TwilightHighlands-CoupDeGrace" QuestId="27702" />
+        <UseMount Value="false" />
+        <CustomBehavior File="ForcedDismount" />
+        <!-- CJ: Replaced 27702-27703-TwilightHighlands-CoupDeGrace with InteractWith...
+             1. These mobs need one 'white attack' to kill.  So a simple 'interaction' should do it.
+             If not, we're in combat, and we'll finish them off normally.
+             2. If a pet get the killing blow, then toon gets no credit. IW should minimize this problem.
+             3. We want to be dismounted the whole time we're doing this quest.  Mobs are frequently
+             underwater, and Honorbuddy is not good about dismounting above water, and it won't submerge
+             if mounted on a flying mount while doing this quest.
+        -->
+        <CustomBehavior File="InteractWith" QuestId="27703" MobId="46416"
+                        NumOfTimes="100" CollectionDistance="1000">
+            <HuntingGrounds>
+                <Hotspot X="-2739.832" Y="-5000.674" Z="-127.1305" />
+            </HuntingGrounds>
+        </CustomBehavior>
+        <!-- CJ: DELETE THIS WHEN InteractWith confirmed to work
+             <CustomBehavior File="SpecificQuests\27702-27703-TwilightHighlands-CoupDeGrace" QuestId="27702" />
+        -->
+        <UseMount Value="true" />
     </If>
     <If Condition="HasQuest(27702) &amp;&amp; IsQuestCompleted(27702)">
         <CustomBehavior File="FlyTo" Land="true" X="-4493.28" Y="-4349.083" Z="322.4608" />
