@@ -86,6 +86,14 @@ and discusses the simple process:
 * http://www.thebuddyforum.com/honorbuddy-forum/honorbuddy-guides/108771-help-desk.html#post1067458
 
 
+Bugs in the profile pack
+------------------------
+Bugs should be reported to the Honorbuddy Profile thread here:
+* http://www.thebuddyforum.com/honorbuddy-forum/honorbuddy-profiles/131188-kicks-1-90-mega-profile-pack.html#post1259714
+* Don't forget to attach your full log with any problem you report
+   Ref: http://www.thebuddyforum.com/honorbuddy-forum/honorbuddy-guides/35945-guide-how-attach-your-log.html
+
+
 Finale
 ------
 Although this is the *official* profile pack provided by BosslandGmbH, there is

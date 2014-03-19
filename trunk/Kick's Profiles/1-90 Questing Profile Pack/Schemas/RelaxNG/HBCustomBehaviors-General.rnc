@@ -138,7 +138,7 @@ CustomBehavior |=
     attribute MaxRange { HBType-Distance }?,
     attribute MobHasAuraId { HBType-Id }?,
     attribute MobHpPercentLeft { HBType-Percent }?,
-    attribute NumOfTimes { HBType-Count }?,
+    attribute NumOfTimes { QBCoreType-NumOfTimes }?,
     attribute UseOnce { HBType-Boolean }?,
     attribute WaitTime { HBType-TimeDuration }?
   }
@@ -165,7 +165,7 @@ CustomBehavior |=
      | attribute ItemAppliesAuraId { "AssumeItemUseAlwaysSucceeds" })?,
     attribute ItemId { HBType-Id },
     attribute MaxRangeToUseItem { HBType-Distance }?,
-    attribute NumOfTimesToUseItem { HBType-Count }?,
+    attribute NumOfTimesToUseItem { QBCoreType-NumOfTimes }?,
     attribute RecallPetAtMobPercentHealth { HBType-Percent }?,
     attribute UseItemStrategy { QBType-CombatUseItemOnV2-UseItemStrategy }?,
     attribute UseWhenMeHasAuraId { HBType-Id }?,
@@ -316,8 +316,10 @@ CustomBehavior |=
     attribute NonCompeteDistance { HBType-Distance }?,
     attribute QuestObjectiveIndex { xsd:positiveInteger }?,
     attribute SearchForNpcsRadius { HBType-Distance }?,
-    attribute StartEscortGossipOptions { QBType-GossipOptions }?
- }
+    attribute StartEscortGossipOptions { QBType-GossipOptions }?,
+
+    element SearchPath { Hotspot* }?
+    }
 # END: EscortGroup
 
 
@@ -500,7 +502,13 @@ CustomBehavior |=
     attribute QuestObjectiveIndex { xsd:positiveInteger }?,
     attribute StartEventGossipOptions { QBType-GossipOptions }?,
     attribute StartNpcId { HBType-Id }?,
-    attribute EventCompleteWhen { HBType-Condition }?,
+    attribute EventCompleteWhen
+      {
+        "QuestComplete"
+	| "QuestCompleteOrFails"
+	| "QuestObjectiveComplete"
+	| "SpecificMobsDead"
+      }?,
     attribute AvoidMobMinRange { xsd:decimal { minInclusive="5.0" maxInclusive="100.0" } }?,
     attribute MovementBy { QBCoreType-MovementBy }?,
 
@@ -539,7 +547,7 @@ Attributes-Base-InteractWith =
   attribute MobIds { QBType-IdsList }?,
   attribute MobState { QBType-MobState }?,
   attribute NotMoving { HBType-Boolean }?,
-  attribute NumOfTimes { HBType-Count }?,
+  attribute NumOfTimes { QBCoreType-NumOfTimes }?,
   attribute PreInteractMountStrategy { QBCoreType-MountStrategy }?,
   attribute ProactiveCombatStrategy { QBCoreType-ProactiveCombatStrategy }?,
   attribute Range { HBType-DistancePositive }?,
@@ -733,7 +741,7 @@ CustomBehavior |=
     Attributes-QuestSpecifier,
 
     attribute CastOnItemId { HBType-Id }?,
-    attribute NumOfTimes { HBType-Count }?,
+    attribute NumOfTimes { QBCoreType-NumOfTimes }?,
     attribute TradeSkillId { HBType-Id },
     attribute TradeSkillItemId { HBType-Id }
   }
@@ -748,7 +756,7 @@ CustomBehavior |=
 
     attribute AllowCombat { HBType-Boolean }?,
     attribute MobId { HBType-Id }?,
-    attribute NumOfTimes { HBType-Count }?,
+    attribute NumOfTimes { QBCoreType-NumOfTimes }?,
     attribute Range { HBType-Distance }?,
     attribute UseCTM { HBType-Boolean }?,
     attribute WaitTime { HBType-TimeDuration }?,
@@ -765,7 +773,7 @@ CustomBehavior |=
     Attributes-QuestSpecifier,
     attribute GoalText { string }?,
     attribute Macro { string },
-    attribute NumOfTimes { HBType-Count }?,
+    attribute NumOfTimes { QBCoreType-NumOfTimes }?,
     attribute WaitTime { HBType-TimeDuration }?
   }
 
@@ -808,10 +816,11 @@ CustomBehavior |=
   element CustomBehavior
   {
     attribute File { "UseItem" },
+    QuestBehaviorBase,
 
     Attributes-XYZ?,
     attribute ItemId { HBType-Id },
-    attribute NumOfTimes { HBType-Count }?,
+    attribute NumOfTimes { QBCoreType-NumOfTimes }?,
     attribute TargetNearest { HBType-Boolean }?,
     attribute WaitTime { HBType-TimeDuration }?
   }
@@ -852,7 +861,7 @@ CustomBehavior |=
     attribute MinRange { HBType-Distance }?,
     attribute MobHpPercentLeft { HBType-Percent }?,
     attribute MobState { QBType-UseItemTargetLocation-MobState }?,
-    attribute NumOfTimes { HBType-Count }?,
+    attribute NumOfTimes { QBCoreType-NumOfTimes }?,
     attribute ObjectType { QBType-UseItemTargetLocation-MobType }?,
     attribute Range { HBType-Distance }?,
     attribute UseType { QBType-UseItemTargetLocation-UseType }?,
@@ -893,7 +902,7 @@ CustomBehavior |=
     attribute MinRnage { HBType-Distance }?,
     attribute MobHpPercentLeft { HBType-Percent }?,
     attribute MobState { QBType-UsePetAbility-MobState }?,
-    attribute NumOfTimes { HBType-Count }?,
+    attribute NumOfTimes { QBCoreType-NumOfTimes }?,
     attribute Range { HBType-Distance }?,
     attribute UseType { QBType-UsePetAbility-UseType }?,
     attribute WaitTime { HBType-TimeDuration }?
