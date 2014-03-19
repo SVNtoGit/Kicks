@@ -1,7 +1,17 @@
 default namespace = ""
 namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
 
+# =====
 # Original contribution by chinajade
+#   $Rev$
+#   $Date$
+#
+# WARNING: DO NOT EDIT .xsd files--they are not authoritative
+#   and will be overwritten!
+#   Instead, regenerate the .xsd files from the .rnc 'sources'.
+#   Its a one-line command to do this. Please see README.txt
+#   for more information.
+# =====
 
 
 # BEGIN: AbandonQuest
@@ -9,7 +19,7 @@ QBType-AbandonQuest-AbandonType =
   "All"
   | "Failed"
   | "Incomplete"
-
+  
 CustomBehavior |=
   element CustomBehavior
   {
@@ -187,7 +197,7 @@ CustomBehavior |=
   element CustomBehavior
   {
     attribute File { "DisablePlugin" },
-    attribute Names { string }
+    attribute Names { HBType-RecognizedPluginNames }
   }
 
 
@@ -204,7 +214,7 @@ CustomBehavior |=
   element CustomBehavior
   {
     attribute File { "EnablePlugin" },
-    attribute Names { string }
+    attribute Names { HBType-RecognizedPluginNames }
   }
 
 
@@ -314,34 +324,6 @@ CustomBehavior |=
 # END: EscortGroup
 
 
-# BEGIN: EquipItem
-QBType-EquipItem-Slot =
-  "AmmoSlot"
-  | "BackSlot"
-  | "Bag0Slot"
-  | "Bag1Slot"
-  | "Bag2Slot"
-  | "Bag3Slot"
-  | "ChestSlot"
-  | "FeetSlot"
-  | "Finger0Slot"
-  | "Finger1Slot"
-  | "HandsSlot"
-  | "HeadSlot"
-  | "LegsSlot"
-  | "MainHandSlot"
-  | "NeckSlot"
-  | "None"
-  | "RangedSlot"
-  | "SecondaryHandSlot"
-  | "ShirtSlot"
-  | "ShoulerSlot"
-  | "TabardSlot"
-  | "Trinket0Slot"
-  | "Trinker1Slot"
-  | "WaistSlot"
-  | "WristSlot"
-
 CustomBehavior |=
   element CustomBehavior
   {
@@ -349,9 +331,8 @@ CustomBehavior |=
 
     Attributes-QuestSpecifier,
     attribute ItemId { HBType-Id },
-    attribute Slot { QBType-EquipItem-Slot }?
+    attribute Slot { HBType-InventorySlot }?
   }
-# END: EquipItem
 
 
 CustomBehavior |=
@@ -500,18 +481,10 @@ Attributes-GOOGEAA-EventCompleteDeadMobIdN =
   attribute EventCompleteDeadMobId8 { HBType-Id }?,
   attribute EventCompleteDeadMobId9 { HBType-Id }?
 
-Element-GOOGEAA-Hotspot =
-  element Hotspot
-  {
-    attribute X { xsd:decimal },
-    attribute Y { xsd:decimal },
-    attribute Z { xsd:decimal }
-  }
-
 Element-GOOGEAA-Safespots =
   element Safespots
   {
-    Element-GOOGEAA-Hotspot+
+    Hotspot+
   }
 
 CustomBehavior |=
@@ -758,6 +731,38 @@ CustomBehavior |=
 CustomBehavior |=
   element CustomBehavior
   {
+    attribute File { "PerformTradeskillOn" },
+
+    Attributes-QuestSpecifier,
+
+    attribute CastOnItemId { HBType-Id }?,
+    attribute NumOfTimes { HBType-Count }?,
+    attribute TradeSkillId { HBType-Id },
+    attribute TradeSkillItemId { HBType-Id }
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "RunLikeHell" },
+
+    Attributes-QuestSpecifier,
+
+    attribute AllowCombat { HBType-Boolean }?,
+    attribute MobId { HBType-Id }?,
+    attribute NumOfTimes { HBType-Count }?,
+    attribute Range { HBType-Distance }?,
+    attribute UseCTM { HBType-Boolean }?,
+    attribute WaitTime { HBType-TimeDuration }?,
+
+    Hotspot*
+  }
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
     attribute File { "RunMacro" },
 
     Attributes-QuestSpecifier,
@@ -930,6 +935,73 @@ CustomBehavior |=
     attribute SoundCueInterval { HBType-TimeDuration }?
   }
 # END: UserDialog
+
+
+CustomBehavior |=
+  element CustomBehavior
+  {
+    attribute File { "UserSettings" },
+
+    Attributes-QuestSpecifier,
+    attribute DebugShowChangesApplied { HBType-Boolean }?,
+    attribute DebugShowDetails  { HBType-Boolean }?,
+    attribute DebugShowDiff { HBType-Boolean }?,
+    attribute Preset
+      {
+        "Grind"
+    	| "HarvestsOff"
+	| "HarvestsOn"
+	| "NoDistractions"
+	| "NoTrain"
+	| "NormalQuesting"
+	| "UserOriginal"
+      }?,
+    attribute StopBot { HBType-Boolean }?,
+
+    attribute AutoEquip { HBType-Boolean }?,
+    attribute AutoEquipArmor { HBType-Boolean }?,
+    attribute AutoEquipBags { HBType-Boolean }?,
+    attribute AutoEquipBoEEpics { HBType-Boolean }?,
+    attribute AutoEquipWeapons { HBType-Boolean }?,
+    attribute DrinkAmount
+      { xsd:decimal { minInclusive="0.0" maxInclusive="100.0" } }?,
+    attribute DrinkName { string }?,
+    attribute FindMountAutomatically { HBType-Boolean }?,
+    attribute FlyingMountName { string }?,
+    attribute FoodAmount
+      { xsd:decimal { minInclusive="0.0" maxInclusive="100.0" } }?,
+    attribute FoodName { string }?,
+    attribute GroundMountFarmingMode { HBType-Boolean }?,
+    attribute HarvestHerbs { HBType-Boolean }?,
+    attribute HarvestMinerals { HBType-Boolean }?,
+    attribute KillBetweenHotspots { HBType-Boolean }?,
+    attribute LogLevel { HBType-LogLevel }?,
+    attribute LogoutForInactivity { HBType-Boolean }?,
+    attribute LogoutInactivityTimer { xsd:decimal
+    	      		    { minInclusive="1.0" }
+			  }?,
+    attribute LogoutInactivityUseForceQuit { HBType-Boolean }?,
+    attribute LootChests { HBType-Boolean }?,
+    attribute LootMobs { HBType-Boolean }?,
+    attribute LootRadius
+      { xsd:decimal { minInclusive="0.0" maxInclusive="100.0" } }?,
+    attribute MaxBoEDisenchantQuality { HBType-WoWItemQuality }?,
+    attribute MountDistance
+      { xsd:decimal { minInclusive="30.0" maxInclusive="200.0" } }?,
+    attribute MountName { string }?,
+    attribute NinjaSkin { HBType-Boolean }?,
+    attribute PullDistance
+      { xsd:decimal { minInclusive="0.0" maxInclusive="500.0" } }?,
+    attribute RessAtSpiritHealers { HBType-Boolean }?,
+    attribute RollDisenchantWhenGreed { HBType-Boolean }?,
+    attribute RollOnItems { HBType-Boolean }?,
+    attribute SelectTalents { HBType-Boolean }?,
+    attribute SkinMobs { HBType-Boolean }?,
+    attribute UseFlightPaths { HBType-Boolean }?,
+    attribute UseMount { HBType-Boolean }?,
+    attribute UseRandomMount { HBType-Boolean }?,
+    attribute WeaponStyle { HBType-WeaponStyle }?
+  }
 
 
 # BEGIN: UseTransport

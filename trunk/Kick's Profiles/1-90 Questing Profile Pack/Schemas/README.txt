@@ -1,4 +1,6 @@
 README.txt by chinajade
+  $Rev$
+  $Date$
 
 ======================================================================
 WHAT IS THIS?
@@ -20,7 +22,7 @@ GENERATING XSD SCHEMA FILE FROM RELAX NG SCHEMA
 Trang is an open-source tool that converts between different schema
 languages for XML.  It supports the following languages:
 * RELAX NG (XML syntax)
-* RELAX NG compatct syntax
+* RELAX NG compact syntax
 * XML 1.0 DTDs
 * W3C XML Schema
 
@@ -32,8 +34,22 @@ We also use Trang to translate from the rnc format into W3C XML Schema
 (xsd), since xsd is more widely supported in editors at the moment due
 to its age.
 
+To convert this grammar to XSD:
+* Grab Trang from http://www.thaiopensource.com/relaxng/trang.html
+* Run the following command:
+  java.exe -jar trang.jar HBSchema-QuestProfile.rnc HBSchema-QuestProfile.xsd
+* Enjoy your new XSD schema.
+  PLEASE DO NOT CONVERT FROM XSD TO RNC--much information will be lost
+  since RelaxNG is slightly more expressive than XSD.
+   >>> The RelaxNG schema is considered the 'authoritative' schema source <<<
 
-
+To facilitate the "to XSD" conversion process, we've included a
+"rnc2xsd.bat" file.  Just double click on it to make it do the
+conversion.  For the batch file to succeed, you need to be running a
+machine with M$oft's PowerShell, and have Java installed in the
+standard location.
+   
+   
 ======================================================================
 REFERENCES
 ----------

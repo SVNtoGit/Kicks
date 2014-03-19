@@ -1,6 +1,17 @@
 default namespace = ""
 namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
+
+# =====
 # Original contribution by chinajade
+#   $Rev$
+#   $Date$
+#
+# WARNING: DO NOT EDIT .xsd files--they are not authoritative
+#   and will be overwritten!
+#   Instead, regenerate the .xsd files from the .rnc 'sources'.
+#   Its a one-line command to do this. Please see README.txt
+#   for more information.
+# =====
 
 # MAINTAINER'S NOTE:
 # Using RelaxNG to validate Condition/TerminateWhen/etc is pushing
@@ -42,11 +53,35 @@ RParen = xsd:token { pattern="\)" }
 Term |= xsd:token { pattern="false" }
 Term |= xsd:token { pattern="true" }
 
+
 # CanFly
 Term |= xsd:token { pattern="!?CanFly\(\)" }
 
+
 # Chance
 Term |= xsd:token { pattern="!?Chance\((100\|[1-9][0-9]\|[1-9]\|0)\.?[0-9]*\)" }
+
+
+# CharacterSettings
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.AutoEquip" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.AutoEquipArmor" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.AutoEquipBags" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.AutoEquipBoEEpics" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.AutoEquipWeapons" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.FindMountAutomatically" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.HarvestHerbs" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.HarvestMinerals" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.LootChests" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.LootMobs" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.NinjaSkin" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.RessAtSpiritHealers" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.RollDisenchantWhenGreed" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.RollOnItems" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.SkinMobs" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.UseFlightPaths" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.UseMount" }
+Term |= xsd:token { pattern="CharacterSettings\.Instance\.UseRandomMount" }
+
 
 # Class
 Term |= xsd:token { pattern="Me\.Class" }
@@ -62,16 +97,20 @@ Term |= xsd:token { pattern="WoWClass\.Shaman" }
 Term |= xsd:token { pattern="WoWClass\.Warlock" }
 Term |= xsd:token { pattern="WoWClass\.Warrior" }
 
+
 # Coin
 Term |= xsd:token { pattern="Me\.(Copper|Gold|Silver)" }
 Term |= xsd:token { pattern="GetCurrencyAmount\([0-9]+\)" }
 
+
 # Distance
 Term |= xsd:token { pattern="DistanceToUnit\([0-9]+\.?[0-9]*\)" }
+
 
 # Faction
 Term |= xsd:token { pattern="!?Me\.(IsAlliance|IsHorde)" }
 Term |= xsd:token { pattern="GetFactionReputation\([0-9]+\)" }
+
 
 # Gender
 Term |= xsd:token { pattern="Me\.Gender" }
@@ -79,8 +118,10 @@ Term |= xsd:token { pattern="WoWGender\.Female" }
 Term |= xsd:token { pattern="WoWGender\.Male" }
 Term |= xsd:token { pattern="WoWGender\.Unknown" }
 
+
 # Items
 Term |= xsd:token { pattern="GetItemCount\([0-9]+\)" }
+
 
 # Has*
 Term |= xsd:token { pattern="!?Me\.HasAura\([0-9]+\)" }
@@ -93,10 +134,12 @@ Term |= xsd:token { pattern="!?HasQuestAvailable\([0-9]+\)" }
 Term |= xsd:token { pattern="!?HasSpell\([0-9]+\)" }
 Term |= xsd:token { pattern="""!?HasSpell\("[^"]+"\)""" }
 
+
 # Hearthstone
 Term |= xsd:token { pattern="Me\.HearthstoneAreaId" }
 Term |= xsd:token { pattern="Me\.MapId" }
 Term |= xsd:token { pattern="Me\.ZoneId" }
+
 
 # Is*
 Term |= xsd:token { pattern="!?IsAchievementComplete\([0-9]+\)" }
@@ -108,11 +151,14 @@ Term |= xsd:token { pattern="!?IsQuestCompleted\([0-9]+\)" }
 ## arguments due to the lexical tokenization of 'list'.
 Term |= xsd:string { pattern="!?IsObjectiveComplete\([1-9],[0-9]+\)" }
 
+
 # Level
 Term |= xsd:token { pattern="Me\.Level" }
 
+
 # Location
 Term |= xsd:token { pattern="Me\.[XYZ]" }
+
 
 # Me
 Term |= xsd:token { pattern="!?Me\.IsIndoors" }
@@ -121,8 +167,10 @@ Term |= xsd:token { pattern="!?Me\.IsOnTransport" }
 Term |= xsd:token { pattern="!?Me\.IsOutdoors" }
 Term |= xsd:token { pattern="!?Me\.Mounted" }
 
+
 # Minions
 Term |= xsd:token { pattern="Me\.Minions\.Count" }
+
 
 # Navigation
 # CanNavigateFully will work as a stand-alone Term, but will be flagged
@@ -130,6 +178,7 @@ Term |= xsd:token { pattern="Me\.Minions\.Count" }
 # the mandatory space between "new WoWPoint" will throw off the schema lexer
 # when trying to process a 'list'.
 Term |= xsd:token { pattern="Navigator\.CanNavigateFully\(Me\.Location,\s*new WoWPoint\((\s*[+\-]?[0-9]+\.?[0-9]*),(\s*[+\-]?[0-9]+\.?[0-9]*),(\s*[+\-]?[0-9]+\.?[0-9]*)\)\)" }
+
 
 # Race
 Term |= xsd:token { pattern="Me\.Race" }
@@ -159,6 +208,7 @@ Term |= xsd:token { pattern="WoWRace\.Taunka" }
 Term |= xsd:token { pattern="WoWRace\.Tuskarr" }
 Term |= xsd:token { pattern="WoWRace\.Vrykul" }
 
+
 # Reputation
 Term |= xsd:token { pattern="Me\.GetReputationLevelWith\([0-9]+\)" }
 Term |= xsd:token { pattern="WoWUnitReaction\.Exalted" }
@@ -170,6 +220,7 @@ Term |= xsd:token { pattern="WoWUnitReaction\.Neutral" }
 Term |= xsd:token { pattern="WoWUnitReaction\.Revered" }
 Term |= xsd:token { pattern="WoWUnitReaction\.Unfriendly" }
 
+
 # Selection
 Term |= xsd:token { pattern="Object\([0-9]+\)" }
 ## Unfortunately, we cannot allow spaces between the IsObjectiveComplete
@@ -180,16 +231,19 @@ Term |= xsd:token { pattern="Unit\([0-9]+\)" }
 ## arguments due to the lexical tokenization of 'list'.
 Term |= xsd:token { pattern="Unit\([0-9]+,.*\)" }
 
+
 # Skill
 Term |= xsd:token { pattern="Me\.GetSkill\(Styx\.SkillLine\.Riding\)(\.CurrentValue)?" }
 Term |= xsd:token { pattern="HerbalismSkill" }
 Term |= xsd:token { pattern="MiningSkill" }
 Term |= xsd:token { pattern="SkinningSkill" }
 
+
 # Constant Numerics
 Term |= HBType-MapId
 Term |= xsd:decimal
 Term |= xsd:token { pattern="null" }
+
 
 # ********** Expressions **********
 # We could reduce all these expressions down to BinaryOp, and
@@ -214,16 +268,19 @@ Expression =
   | Expression6Terms
   | ExpressionSpecialCaseTerms
 
+
 Expression1Term =
   Term
   | list { LParen, Term, RParen }
 
+  
 Expression2Terms =
   # a < b
   list { Term, BinaryOp, Term }
   # ( a < b )
   | list { LParen, Term, BinaryOp, Term, RParen }
 
+  
 Expression3Terms =
   # General case...
   # a || b || c
@@ -238,6 +295,7 @@ Expression3Terms =
   | list { Term, BinaryConjunction, Term, BinaryOp, Term }
   # a || ( b < c )
   | list { Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
+
 
 Expression4Terms =
   # General case...
@@ -268,6 +326,7 @@ Expression4Terms =
   # ( a < b ) || ( c < d )
   | list { LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
 
+  
 Expression5Terms =
   # General case...
   # a || b || c || d || e
@@ -309,6 +368,7 @@ Expression5Terms =
   # a || ( b < c ) || ( d < e )
   | list { Term, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen, BinaryConjunction, LParen, Term, BinaryOp, Term, RParen }
 
+  
 Expression6Terms =
   # General case...
   # a || b || c || d || e || f
