@@ -7,24 +7,24 @@
     <MinFreeBagSlots>3</MinFreeBagSlots>
 
     <!-- NB: Honorbuddy sells before mailing -->
-    <SellGrey>True</SellGrey>
-    <SellWhite>True</SellWhite>
-    <SellGreen>True</SellGreen>
-    <SellBlue>False</SellBlue>
-    <SellPurple>False</SellPurple>
+    <SellGrey>true</SellGrey>
+    <SellWhite>true</SellWhite>
+    <SellGreen>true</SellGreen>
+    <SellBlue>false</SellBlue>
+    <SellPurple>false</SellPurple>
 
-    <MailGrey>False</MailGrey>
-    <MailWhite>True</MailWhite>
-    <MailGreen>True</MailGreen>
-    <MailBlue>True</MailBlue>
-    <MailPurple>True</MailPurple>
+    <MailGrey>false</MailGrey>
+    <MailWhite>true</MailWhite>
+    <MailGreen>true</MailGreen>
+    <MailBlue>true</MailBlue>
+    <MailPurple>true</MailPurple>
 
 
     <Blackspots>
         <!-- Fire on Splithoof Heights when running to Tanaris from Dustwallow Marsh-->
         <Blackspot X="-5512.707" Y="-4398.647" Z="84.86179" Height="1" Radius="5" />
         <!--Trees and stuff in Un'Goro -->
-        <Blackspot X="-7291.939" Y="-1964.401" Z="-273.5006" Height="1" Radius="5" />		
+        <Blackspot X="-7291.939" Y="-1964.401" Z="-273.5006" Height="1" Radius="5" />
         <Blackspot X="-7859.072" Y="-2026.279" Z="-271.563" Height="1" Radius="15"/>
         <Blackspot X="-7287.887" Y="-2038.332" Z="-272.4879" Height="1" Radius="15"/>
         <Blackspot X="-5548.286" Y="-4373.554" Z="86.54609" Height="1" Radius="15"/>
@@ -88,11 +88,11 @@
     </Blackspots>
 
     <Vendors>
-        <Vendor Name="Krinkle Goodsteel" Entry="5411" Type="Repair" X="-7232.01" Y="-3751.71" Z="9.093862" />
-        <Vendor Name="Gibbert" Entry="3000" Type="Repair" X="-7491.394" Y="-1501.245" Z="-266.0465" />
-        <Vendor Name="Dramm Riverhorn" Entry="38561" Type="Repair" X="-6992.45" Y="-1074.266" Z="-270.2546" />
-        <!-- Horde Only - Alliance is set in the profile -->				
-        <Vendor Name="Chase Everseek" Entry="43980" Type="Repair" X="-9478.8" Y="-2473.88" Z="17.00157" />
+        <Vendor Name="Krinkle Goodsteel" Id="5411" Type="Repair" X="-7232.01" Y="-3751.71" Z="9.093862" />
+        <Vendor Name="Gibbert" Id="3000" Type="Repair" X="-7491.394" Y="-1501.245" Z="-266.0465" />
+        <Vendor Name="Dramm Riverhorn" Id="38561" Type="Repair" X="-6992.45" Y="-1074.266" Z="-270.2546" />
+        <!-- Horde Only - Alliance is set in the profile -->
+        <Vendor Name="Chase Everseek" Id="43980" Type="Repair" X="-9478.8" Y="-2473.88" Z="17.00157" />
     </Vendors>
 
     <Mailboxes>
@@ -103,68 +103,68 @@
     <QuestOrder>
         <CustomBehavior File="Misc\ProfileCompatibilityInfo"
             AllowBrokenAddOns="true" AllowBrokenPlugIns="true" />
-            
-        <CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" UseFlightPaths="True" PullDistance="35" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
+
+        <CustomBehavior File="UserSettings" UseMount="true" LootMobs="true" UseFlightPaths="true" PullDistance="35" GroundMountFarmingMode="false" KillBetweenHotspots="true" />
 
         <!-- For toons that are on Eastern Kingdoms -->
-        <If Condition="Me.MapId == 0" >	
-            <If Condition="(CanFly())" >
+        <If Condition="Me.MapId == 0" >
+            <If Condition="CanFly()" >
                 <CustomBehavior File="FlyTo" X="-14288.29" Y="549.3284" Z="8.689642" />
             </If>
-            <RunTo X="-14288.29" Y="549.3284" Z="8.689642" />
+            <MoveTo X="-14288.29" Y="549.3284" Z="8.689642" />
             <CustomBehavior File="ForcedDismount" />
             <!-- BB dock to Ratchet -->
             <CustomBehavior File="UseTransport" TransportId="20808"
-										WaitAtX="-14280.88" WaitAtY="566.6268" WaitAtZ="6.979454" 
-										TransportStartX="-14277.75" TransportStartY="582.8661" TransportStartZ="0.01553879"
-										StandOnX="-14270.46" StandOnY="579.9881" StandOnZ="6.088587"
-										TransportEndX="-1005.613" TransportEndY="-3841.648" TransportEndZ="0.03330701"
-										GetOffX="-996.8669" GetOffY="-3826.07" GetOffZ="5.536246" />
-        </If>	
+                                        WaitAtX="-14280.88" WaitAtY="566.6268" WaitAtZ="6.979454"
+                                        TransportStartX="-14277.75" TransportStartY="582.8661" TransportStartZ="0.01553879"
+                                        StandOnX="-14270.46" StandOnY="579.9881" StandOnZ="6.088587"
+                                        TransportEndX="-1005.613" TransportEndY="-3841.648" TransportEndZ="0.03330701"
+                                        GetOffX="-996.8669" GetOffY="-3826.07" GetOffZ="5.536246" />
+        </If>
 
-        <If Condition="Me.IsHorde" >		
+        <If Condition="Me.IsHorde" >
             <ClearVendor />
             <SetVendor>
                 <Vendors>
-                    <Vendor Name="Krinkle Goodsteel" Entry="5411" Type="Repair" X="-7232.01" Y="-3751.71" Z="9.093862" />
-                    <Vendor Name="Gibbert" Entry="3000" Type="Repair" X="-7491.394" Y="-1501.245" Z="-266.0465" />
-                    <Vendor Name="Dramm Riverhorn" Entry="38561" Type="Repair" X="-6992.45" Y="-1074.266" Z="-270.2546" />
-                    <!-- Horde Only -->				
-                    <Vendor Name="Chase Everseek" Entry="43980" Type="Repair" X="-9478.8" Y="-2473.88" Z="17.00157" />
-                </Vendors>  
+                    <Vendor Name="Krinkle Goodsteel" Id="5411" Type="Repair" X="-7232.01" Y="-3751.71" Z="9.093862" />
+                    <Vendor Name="Gibbert" Id="3000" Type="Repair" X="-7491.394" Y="-1501.245" Z="-266.0465" />
+                    <Vendor Name="Dramm Riverhorn" Id="38561" Type="Repair" X="-6992.45" Y="-1074.266" Z="-270.2546" />
+                    <!-- Horde Only -->
+                    <Vendor Name="Chase Everseek" Id="43980" Type="Repair" X="-9478.8" Y="-2473.88" Z="17.00157" />
+                </Vendors>
             </SetVendor>
 
-            <!-- "Fragments of Language" QuestId="25020" -->	
-            <If Condition="!HasQuest(25020) &amp;&amp; !IsQuestCompleted(25020)" >	
+            <!-- "Fragments of Language" QuestId="25020" -->
+            <If Condition="!HasQuest(25020) &amp;&amp; !IsQuestCompleted(25020)" >
                 <!--PickUp QuestName="Bloodfen Feathers" GiverName="Brogg" QuestId="27407" GiverId="23579" -->
                 <If Condition="!HasQuest(27407) &amp;&amp; !IsQuestCompleted(27407)" >
-                    <RunTo DestName="Ratchet" X="-898.2459" Y="-3769.652" Z="11.71004" />
+                    <MoveTo DestName="Ratchet" X="-898.2459" Y="-3769.652" Z="11.71004" />
                     <CustomBehavior File="InteractWith" Range="5" MobId="16227" X="-898.2459" Y="-3769.652" Z="11.71004" />
-                    <RunTo DestName="Mudsprocket" X="-4568.401" Y="-3223.187" Z="34.9063" />
+                    <MoveTo DestName="Mudsprocket" X="-4568.401" Y="-3223.187" Z="34.9063" />
                     <CustomBehavior File="InteractWith" Range="5" MobId="40358" X="-4568.401" Y="-3223.187" Z="34.9063" />
                 </If>
 
-                <!-- PickUp QuestName="Puddle Stomping" QuestId="24907" GiverName="Megs Dreadshredder" GiverId="38534" -->		
-                <If Condition="!HasQuest(24907) &amp;&amp; !IsQuestCompleted(24907)" >				
-                    <RunTo DestName="Gadgetzan" X="-7098.417" Y="-3816.016" Z="9.489635" />
+                <!-- PickUp QuestName="Puddle Stomping" QuestId="24907" GiverName="Megs Dreadshredder" GiverId="38534" -->
+                <If Condition="!HasQuest(24907) &amp;&amp; !IsQuestCompleted(24907)" >
+                    <MoveTo DestName="Gadgetzan" X="-7098.417" Y="-3816.016" Z="9.489635" />
                     <!-- Get Gadgetzan flight path-->
                     <CustomBehavior File="InteractWith" MobId="7823" X="-7188.603" Y="-3766.392" Z="9.166555" />
                 </If>
 
                 <!-- PickUp QuestName="Bootlegger Outpost" QuestId="25103" GiverName="Megs Dreadshredder" GiverId="38703" -->
-                <If Condition="!HasQuest(25103) &amp;&amp; !IsQuestCompleted(25103)" >			
+                <If Condition="!HasQuest(25103) &amp;&amp; !IsQuestCompleted(25103)" >
                     <MoveTo DestName="Bootlegger Outpost" X="-8684.64" Y="-4093.03" Z="40.45159" />
                     <!-- Make sure to get Bootlegger Outpost Flight paths off Slick Dropdip -->
                     <CustomBehavior File="InteractWith" MobId="41214" Range="5" X="-8684.64" Y="-4093.03" Z="40.45159" />
-                </If>			
+                </If>
 
-                <RunTo DestName="Dawnrise Expedition"  X="-9490.44" Y="-2464.22" Z="17.00235" />
+                <MoveTo DestName="Dawnrise Expedition"  X="-9490.44" Y="-2464.22" Z="17.00235" />
             </If>
 
             <CustomBehavior File="Message" Text="Compiling Dawnrise Expedition Quests" LogColor="Green" />
 
             <PickUp QuestName="Tropical Paradise Beckons" QuestId="24911" GiverName="Sherm" GiverId="44374" X="-9468.31" Y="-2457.65" Z="18.00538" />
-            <PickUp QuestName="Fragments of Language" QuestId="25020" GiverName="Examiner Andoren Dawnrise" GiverId="38922" X="-9474.21" Y="-2461.978" Z="17.00109" />	
+            <PickUp QuestName="Fragments of Language" QuestId="25020" GiverName="Examiner Andoren Dawnrise" GiverId="38922" X="-9474.21" Y="-2461.978" Z="17.00109" />
             <PickUp QuestName="Laying Claim" QuestId="25019" GiverName="Examiner Andoren Dawnrise" GiverId="38922" X="-9474.21" Y="-2461.978" Z="17.00109" />
             <Objective QuestName="Laying Claim" QuestId="25019" Type="KillMob" MobId="38998" KillCount="10" />
             <Objective QuestName="Fragments of Language" QuestId="25020" Type="CollectItem" ItemId="52061" CollectCount="5" />
@@ -190,7 +190,7 @@
 
             <TurnIn QuestName="The Crumbling Past" QuestId="25068" TurnInName="Examiner Andoren Dawnrise" TurnInId="38922" />
 
-            <!-- We might have OOX-17/TN Distress Beacon -->	
+            <!-- We might have OOX-17/TN Distress Beacon -->
             <If Condition="HasItem(8623)" >
                 <PickUp QuestName="Find OOX-17/TN!" QuestId="351" GiverName="Find OOX-17/TN!" GiverId="8623" GiverType="Item" />
             </If>
@@ -198,38 +198,38 @@
                 <CustomBehavior File="Message" Text="Moving to turn in 'Find OOX-22/FE!'" LogColor="Green" />
                 <MoveTo X="-8851.954" Y="-4374.998" Z="44.57589" />
                 <TurnIn QuestName="Find OOX-17/TN!" QuestId="351" TurnInName="Homing Robot OOX-17/TN" TurnInId="7784" X="-8851.954" Y="-4374.998" Z="44.57589" />
-            </If>	
+            </If>
 
             <!-- Turn this in first to get the flight path -->
             <TurnIn QuestName="Tropical Paradise Beckons" QuestId="24911" TurnInName="Williden Marshal" TurnInId="9270" X="-7501.733" Y="-1504.569" Z="-266.2437" />
         </If>
 
-        <If Condition="Me.IsAlliance" >		
+        <If Condition="Me.IsAlliance" >
             <ClearVendor />
             <SetVendor>
                 <Vendors>
-                    <Vendor Name="Razbo Rustgear" Entry="23571" Type="Repair" X="-4603.661" Y="-3210.939" Z="34.9258" />
-                    <Vendor Name="Krinkle Goodsteel" Entry="5411" Type="Repair" X="-7232.01" Y="-3751.71" Z="9.093862" />
-                    <Vendor Name="Gibbert" Entry="3000" Type="Repair" X="-7491.394" Y="-1501.245" Z="-266.0465" />
-                    <Vendor Name="Dramm Riverhorn" Entry="38561" Type="Repair" X="-6992.45" Y="-1074.266" Z="-270.2546" />
+                    <Vendor Name="Razbo Rustgear" Id="23571" Type="Repair" X="-4603.661" Y="-3210.939" Z="34.9258" />
+                    <Vendor Name="Krinkle Goodsteel" Id="5411" Type="Repair" X="-7232.01" Y="-3751.71" Z="9.093862" />
+                    <Vendor Name="Gibbert" Id="3000" Type="Repair" X="-7491.394" Y="-1501.245" Z="-266.0465" />
+                    <Vendor Name="Dramm Riverhorn" Id="38561" Type="Repair" X="-6992.45" Y="-1074.266" Z="-270.2546" />
                     <!-- Alliance Only -->
-                    <Vendor Name="Brod Anvilbeard" Entry="40826" Type="Food" X="-9478.37" Y="-2968.17" Z="12.55388" />
+                    <Vendor Name="Brod Anvilbeard" Id="40826" Type="Food" X="-9478.37" Y="-2968.17" Z="12.55388" />
                 </Vendors>
             </SetVendor>
 
 
             <If Condition="!HasQuest(25420) &amp;&amp; !IsQuestCompleted(25420)" >
-                <RunTo DestName="Ratchet" X="-898.2459" Y="-3769.652" Z="11.71047" />
+                <MoveTo DestName="Ratchet" X="-898.2459" Y="-3769.652" Z="11.71047" />
                 <CustomBehavior File="InteractWith" Range="5" MobId="16227" X="-898.2459" Y="-3769.652" Z="11.71047" />
-                <RunTo DestName="Theramore" X="-3828.88" Y="-4517.507" Z="10.66104" />
+                <MoveTo DestName="Theramore" X="-3828.88" Y="-4517.507" Z="10.66104" />
                 <CustomBehavior File="InteractWith" Range="5" MobId="4321" X="-3828.88" Y="-4517.507" Z="10.66104" />
-                <RunTo DestName="Mudsprocket" X="-4568.401" Y="-3223.187" Z="34.9063" />
+                <MoveTo DestName="Mudsprocket" X="-4568.401" Y="-3223.187" Z="34.9063" />
                 <CustomBehavior File="InteractWith" Range="5" MobId="40358" X="-4568.401" Y="-3223.187" Z="34.9063" />
-                <RunTo DestName="Gadgetzan" X="-7098.417" Y="-3816.016" Z="9.489635" />
+                <MoveTo DestName="Gadgetzan" X="-7098.417" Y="-3816.016" Z="9.489635" />
                 <CustomBehavior File="InteractWith" Range="5" MobId="7823" X="-7188.603" Y="-3766.392" Z="9.165956" />
                 <MoveTo DestName="Bootlegger Outpost" X="-8684.64" Y="-4093.03" Z="40.45159" />
                 <CustomBehavior File="InteractWith" MobId="41214" Range="5" X="-8684.64" Y="-4093.03" Z="40.45159" />
-                <RunTo DestName="Gunstan's Dig"  X="-9499.326" Y="-2950.922" Z="12.85121" />
+                <MoveTo DestName="Gunstan's Dig"  X="-9499.326" Y="-2950.922" Z="12.85121" />
                 <CustomBehavior File="InteractWith" MobId="40827" X="-9499.326" Y="-2950.922" Z="12.85121" />
             </If>
 
@@ -258,7 +258,7 @@
             <PickUp QuestName="The Grand Tablet" QuestId="25421" GiverName="Antediluvean Chest" GiverType="Object" GiverId="202474" X="-9813.355" Y="-2789.423" Z="10.38926" />
             <TurnIn QuestName="The Grand Tablet" QuestId="25421" TurnInName="Prospector Gunstan" TurnInId="40109" />
 
-            <!-- We might have OOX-17/TN Distress Beacon -->	
+            <!-- We might have OOX-17/TN Distress Beacon -->
             <If Condition="HasItem(8623)" >
                 <PickUp QuestName="Find OOX-17/TN!" QuestId="351" GiverName="Find OOX-17/TN!" GiverId="8623" GiverType="Item" />
             </If>
@@ -266,17 +266,17 @@
                 <CustomBehavior File="Message" Text="Moving to turn in 'Find OOX-22/FE!'" LogColor="Green" />
                 <MoveTo X="-8851.954" Y="-4374.998" Z="44.57589" />
                 <TurnIn QuestName="Find OOX-17/TN!" QuestId="351" TurnInName="Homing Robot OOX-17/TN" TurnInId="7784" X="-8851.954" Y="-4374.998" Z="44.57589" />
-            </If>	
+            </If>
 
             <TurnIn QuestName="Tropical Paradise Beckons" QuestId="24911" TurnInName="Williden Marshal" TurnInId="9270" />
         </If>
 
-        <CustomBehavior File="Message" Text="Compiling Un'Goro Marshlands Quests" LogColor="Green" />					
+        <CustomBehavior File="Message" Text="Compiling Un'Goro Marshlands Quests" LogColor="Green" />
 
         <PickUp QuestName="The Fare of Lar'korwi" QuestId="24731" GiverName="Torwa Pathfinder" GiverId="9619" X="-7855.455" Y="-2102.509" Z="-267.0055" />
-        <RunTo QuestId="24731" X="-7816.187" Y="-1872.776" Z="-273.6982" />
-        <CustomBehavior File="InteractWith" QuestId="24731" MobId="166863" GossipOptions="1" WaitTime="10000" NumOfTimes="4" IgnoreLoSToTarget="true" PreInteractMountStrategy="Dismount" 
-			NonCompeteDistance="0" Range="10" X="-7815.72" Y="-1862.199" Z="-272.4502" />
+        <MoveTo QuestId="24731" X="-7816.187" Y="-1872.776" Z="-273.6982" />
+        <CustomBehavior File="InteractWith" QuestId="24731" MobId="166863" InteractByGossipOptions="1" WaitTime="10000" NumOfTimes="4" IgnoreLoSToTarget="true" PreInteractMountStrategy="Dismount"
+            NonCompeteDistance="0" Range="10" X="-7815.72" Y="-1862.199" Z="-272.4502" />
         <Objective QuestName="The Fare of Lar'korwi" QuestId="24731" Type="CollectItem" ItemId="11504" CollectCount="1" />
         <TurnIn QuestName="The Fare of Lar'korwi" QuestId="24731" TurnInName="Torwa Pathfinder" TurnInId="9619" />
         <PickUp QuestName="The Scent of Lar'korwi" QuestId="24732" GiverName="Torwa Pathfinder" GiverId="9619" />
@@ -319,11 +319,11 @@
         <PickUp QuestName="Carried on the Waves" QuestId="24686" GiverName="Garl Stormclaw" GiverId="38274" />
 
         <While Condition="!IsQuestCompleted(24686)">
-            <CustomBehavior File="InteractWith" QuestId="24686" InteractByUsingItemId="50441" MobId="38202" NumOfTimes="1" Range="5" 
-				WaitTime="6000" PreInteractMountStrategy="Dismount" X="-7507.254" Y="-2165.009" Z="-274.7085" />
+            <CustomBehavior File="InteractWith" QuestId="24686" InteractByUsingItemId="50441" MobId="38202" NumOfTimes="1" Range="5"
+                WaitTime="6000" PreInteractMountStrategy="Dismount" X="-7507.254" Y="-2165.009" Z="-274.7085" />
         </While>
 
-        <Objective QuestName="Carried on the Waves" QuestId="24686" Type="CollectItem" ItemId="50253" CollectCount="4" />		
+        <Objective QuestName="Carried on the Waves" QuestId="24686" Type="CollectItem" ItemId="50253" CollectCount="4" />
         <TurnIn QuestName="Carried on the Waves" QuestId="24686" TurnInName="Garl Stormclaw" TurnInId="38274" />
         <PickUp QuestName="Flowing to the North" QuestId="24689" GiverName="Garl Stormclaw" GiverId="38274" />
         <TurnIn QuestName="Flowing to the North" QuestId="24689" TurnInName="Ithis Moonwarden" TurnInId="38263" X="-7159.061" Y="-2294.832" Z="-268.1789" />
@@ -342,11 +342,11 @@
         </If>
         <PickUp QuestName="The Eastern Pylon" QuestId="24721" GiverName="Ithis Moonwarden" GiverId="38263" />
         <CustomBehavior File="InteractWith" QuestId="24721" MobId="38263" InteractByGossipOptions="1" Range="5" PreInteractMountStrategy="Dismount" NonCompeteDistance="0"
-				X="-7159.061" Y="-2294.832" Z="-268.1789" />
+                X="-7159.061" Y="-2294.832" Z="-268.1789" />
         <If Condition="HasQuest(24721) &amp;&amp; !IsQuestCompleted(24721)" >
             <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for teleport: {TimeRemaining}" />
         </If>
-        <CustomBehavior File="InteractWith" QuestId="24721" MobId="164957" InteractByGossipOptions="1" Range="5" X="-7201.274" Y="-2325.97" Z="-227.9079" />	
+        <CustomBehavior File="InteractWith" QuestId="24721" MobId="164957" InteractByGossipOptions="1" Range="5" X="-7201.274" Y="-2325.97" Z="-227.9079" />
 
         <PickUp QuestName="Is This Stuff Still Good?" QuestId="24865" GiverType="Object" GiverName="Crate of Foodstuffs" GiverId="161526" X="-6868.753" Y="-2000.474" Z="-272.0377" />
 
@@ -354,7 +354,7 @@
 
         <TurnIn QuestName="The Eastern Pylon" QuestId="24721" TurnInName="J.D. Collie" TurnInId="9117" />
 
-        <CustomBehavior File="Message" Text="Compiling Un'Goro Marshal's Stand Quests" LogColor="Green" />		
+        <CustomBehavior File="Message" Text="Compiling Un'Goro Marshal's Stand Quests" LogColor="Green" />
 
         <PickUp QuestName="Volcanic Activity" QuestId="24740" GiverName="Williden Marshal" GiverId="9270" />
         <!-- Make sure to get Flight paths off Gryfe -->
@@ -365,10 +365,10 @@
         <PickUp QuestName="Finding the Source" QuestId="24742" GiverName="Krakle" GiverId="10302" />
 
         <If Condition="HasQuest(24742) &amp;&amp; !IsQuestCompleted(24742)" >
-            <RunTo QuestId="24742" LocationName="The hottest pillar." X="-7029.406" Y="-1257.39" Z="-270.5621" />
+            <MoveTo QuestId="24742" DestName="The hottest pillar." X="-7029.406" Y="-1257.39" Z="-270.5621" />
         </If>
-        <CustomBehavior File="InteractWith" QuestId="24742" InteractByUsingItemId="12472" MobId="148503" NumOfTimes="1" Range="5" WaitTime="6000" PreInteractMountStrategy="Dismount" 
-			NonCompeteDistance="0" IgnoreLoSToTarget="True" X="-7029.406" Y="-1257.39" Z="-270.5621" />
+        <CustomBehavior File="InteractWith" QuestId="24742" InteractByUsingItemId="12472" MobId="148503" NumOfTimes="1" Range="5" WaitTime="6000" PreInteractMountStrategy="Dismount"
+            NonCompeteDistance="0" IgnoreLoSToTarget="true" X="-7029.406" Y="-1257.39" Z="-270.5621" />
 
         <Objective QuestName="Finding the Source" QuestId="24742" Type="KillMob" MobId="10541" KillCount="1" />
         <Objective QuestName="Finding the Source" QuestId="24742" Type="CollectItem" ItemId="12472" CollectCount="1" />
@@ -413,8 +413,8 @@
         <!-- Turn this in first to get the flight path -->
         <CustomBehavior File="InteractWith" QuestId="24700"  MobId="39175" X="-6960.243" Y="-1098.884" Z="-272.6487" />
 
-        <CustomBehavior File="InteractWith" QuestId="24737" InteractByUsingItemId="50742" MobState="Dead" MobId1="6517" MobId2="6527" Range="5" WaitTime="3000" NumOfTimes="150" 
-			PreInteractMountStrategy="Dismount" CollectionDistance="300" >
+        <CustomBehavior File="InteractWith" QuestId="24737" InteractByUsingItemId="50742" MobState="Dead" MobId="6517" MobId2="6527" Range="5" WaitTime="3000" NumOfTimes="150"
+            PreInteractMountStrategy="Dismount" CollectionDistance="300" >
             <HuntingGrounds>
                 <Hotspot X="-6757" Y="-1638.748" Z="-272.2241" />
                 <Hotspot X="-6800.883" Y="-1696.593" Z="-272.519" />
@@ -423,7 +423,7 @@
                 <Hotspot X="-6533.347" Y="-1792.479" Z="-271.794" />
                 <Hotspot X="-6538.733" Y="-1883.712" Z="-272.0732" />
             </HuntingGrounds>
-        </CustomBehavior>		
+        </CustomBehavior>
 
         <TurnIn QuestName="Super Sticky" QuestId="24737" TurnInName="Tara" TurnInId="38276" />
 
@@ -431,9 +431,9 @@
 
         <Objective QuestName="Hard to Harvest" QuestId="24700" Type="CollectItem" ItemId="50258" CollectCount="4" />
 
-        <While Condition="((HasQuest(24699)) &amp;&amp; (!IsQuestCompleted(24699)))" >
-            <CustomBehavior File="InteractWith" QuestId="24699" InteractByUsingItemId="50746" MobState="Dead" MobId1="38307" Range="5" WaitTime="3000" NumOfTimes="150" 
-			PreInteractMountStrategy="Dismount" CollectionDistance="300" X="-6726.729" Y="-1657.355" Z="-280.7948" />
+        <While Condition="HasQuest(24699) &amp;&amp; !IsQuestCompleted(24699)" >
+            <CustomBehavior File="InteractWith" QuestId="24699" InteractByUsingItemId="50746" MobState="Dead" MobId="38307" Range="5" WaitTime="3000" NumOfTimes="150"
+            PreInteractMountStrategy="Dismount" CollectionDistance="300" X="-6726.729" Y="-1657.355" Z="-280.7948" />
         </While>
 
         <TurnIn QuestName="Gormashh the Glutinous" QuestId="24699" TurnInName="Tara" TurnInId="38276" />
@@ -466,11 +466,11 @@
 
         <PickUp QuestName="Repairing A-Me 01" QuestId="24715" GiverName="A-Me 01" GiverId="9623" />
 
-        <If Condition="((HasQuest(24715)) &amp;&amp; (!IsQuestCompleted(24715)))" >
+        <If Condition="HasQuest(24715) &amp;&amp; !IsQuestCompleted(24715)" >
             <Objective QuestName="Repairing A-Me 01" QuestId="24715" Type="CollectItem" ItemId="50237" CollectCount="1" />
             <If Condition="HasItem(50237)" >
-                <CustomBehavior File="InteractWith" QuestId="24715" InteractByUsingItemId="50237" MobId="201978" NumOfTimes="1" Range="5" WaitTime="6000" IgnoreLoSToTarget="True" 
-					PreInteractMountStrategy="Dismount" X="-6461.14" Y="-1837.821" Z="-271.4542" />
+                <CustomBehavior File="InteractWith" QuestId="24715" InteractByUsingItemId="50237" MobId="201978" NumOfTimes="1" Range="5" WaitTime="6000" IgnoreLoSToTarget="true"
+                    PreInteractMountStrategy="Dismount" X="-6461.14" Y="-1837.821" Z="-271.4542" />
                 <CustomBehavior File="WaitTimer" WaitTime="5000"/>
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(50237)" WaitTime="5000" />
                 <MoveTo QuestId="24715" X="-6453.729" Y="-1828.092" Z="-270.8344" />
@@ -492,13 +492,13 @@
 
 
         <PickUp QuestName="The Northern Pylon" QuestId="24722" GiverName="Gremix" GiverId="38275" />
-        <CustomBehavior File="InteractWith" QuestId="24722" MobId="164955" InteractByGossipOptions="1" Range="5" PreInteractMountStrategy="Dismount" 
-			NonCompeteDistance="0" X="-6273.905" Y="-1552.985" Z="-230.4688" />
+        <CustomBehavior File="InteractWith" QuestId="24722" MobId="164955" InteractByGossipOptions="1" Range="5" PreInteractMountStrategy="Dismount"
+            NonCompeteDistance="0" X="-6273.905" Y="-1552.985" Z="-230.4688" />
         <TurnIn QuestName="The Northern Pylon" QuestId="24722" TurnInName="J.D. Collie" TurnInId="9117" />
 
         <If Condition="!IsQuestCompleted(24730)" >
             <PickUp QuestName="Adventures in Archaeology" QuestId="24698" GiverName="Nolen Tacker" GiverId="38270" />
-        </If>	
+        </If>
 
         <PickUp QuestName="An Important Lesson" QuestId="24703" GiverName="Maximillian of Northshire" GiverId="38237" X="-7228.146" Y="-599.6198" Z="-271.2461" />
         <CustomBehavior File="InteractWith" QuestId="24703" MobId="38237" InteractByGossipOptions="1,1,1,1,1,1" Range="5" X="-7228.146" Y="-599.6198" Z="-271.2461" />
@@ -508,59 +508,59 @@
         <If Condition="Me.HasAura(71498)">
             <!-- Pickup quest from stationary Maximillian -->
             <PickUp QuestName="Damsels Were Made to be Saved" QuestId="24705"
-				GiverName="Maximillian of Northshire" GiverId="38237"
-				X="-7228.146" Y="-599.6198" Z="-271.2461" />
+                GiverName="Maximillian of Northshire" GiverId="38237"
+                X="-7228.146" Y="-599.6198" Z="-271.2461" />
             <Else>
                 <!-- Pickup quest from 'traveling' Maximillian companion -->
                 <PickUp QuestName="Damsels Were Made to be Saved" QuestId="24705"
-				GiverName="Maximillian of Northshire" GiverId="38255"
-				X="-7228.146" Y="-599.6198" Z="-271.2461" />
+                GiverName="Maximillian of Northshire" GiverId="38255"
+                X="-7228.146" Y="-599.6198" Z="-271.2461" />
             </Else>
         </If>
 
-        <While Condition="HasQuest(24705) &amp;&amp; !IsObjectiveComplete(1, 24705)">
-            <RunTo QuestId="24705" LocationName="The damsel who lost her purse." X="-7431.207" Y="-817.8577" Z="-272.8686" />
+        <While Condition="HasQuest(24705) &amp;&amp; !IsObjectiveComplete(1,24705)">
+            <MoveTo QuestId="24705" DestName="The damsel who lost her purse." X="-7431.207" Y="-817.8577" Z="-272.8686" />
             <CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for Max to comfort 'her': {TimeRemaining}" />
             <If Condition="Me.HasAura(71498)">
                 <!-- Lost the 'traveling' Maximillian companion -->
                 <CustomBehavior File="InteractWith" QuestId="24705" MobId="38237" InteractByGossipOptions="1" X="-7228.146" Y="-599.6198" Z="-271.2461" />
             </If>
             <If Condition="!HasItem(50288)">
-                <RunTo QuestId="24705" LocationName="The damsel." X="-7431.207" Y="-817.8577" Z="-272.8686" />
+                <MoveTo QuestId="24705" DestName="The damsel." X="-7431.207" Y="-817.8577" Z="-272.8686" />
                 <!-- Talk to the Belf Damsel -->
                 <CustomBehavior File="InteractWith" QuestId="24705" MobId="38238" WaitTime="5000" X="-7431.207" Y="-817.8577" Z="-272.8682" />
                 <!-- Pick up the gear -->
                 <CustomBehavior File="InteractWith" QuestId="24705" MobId="202065" NonCompeteDistance="0" X="-7425.752" Y="-813.772" Z="-278.141" />
                 <!-- This is because it gets stuck in the water -->
-                <RunTo QuestId="24705" LocationName="A safe spot out of the water." X="-7421.692" Y="-828.6119" Z="-273.8026" />
-                <RunTo QuestId="24705" LocationName="The damsel." X="-7431.207" Y="-817.8577" Z="-272.8682" />
+                <MoveTo QuestId="24705" DestName="A safe spot out of the water." X="-7421.692" Y="-828.6119" Z="-273.8026" />
+                <MoveTo QuestId="24705" DestName="The damsel." X="-7431.207" Y="-817.8577" Z="-272.8682" />
             </If>
             <CustomBehavior File="InteractWith" QuestId="24705" MobId="38238" WaitTime="15000" X="-7431.207" Y="-817.8577" Z="-272.8682" />
             <CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for Max to comfort 'her': {TimeRemaining}" />
         </While>
 
-        <While Condition="HasQuest(24705) &amp;&amp; !IsObjectiveComplete(2, 24705)" >
+        <While Condition="HasQuest(24705) &amp;&amp; !IsObjectiveComplete(2,24705)" >
             <If Condition="Me.HasAura(71498)">
                 <!-- Lost the 'traveling' Maximillian companion -->
                 <CustomBehavior File="InteractWith" QuestId="24705" MobId="38237"
-						InteractByGossipOptions="1" X="-7228.146" Y="-599.6198" Z="-271.2461" />
+                        InteractByGossipOptions="1" X="-7228.146" Y="-599.6198" Z="-271.2461" />
             </If>
-            <RunTo QuestId="24705" LocationName="The damsel on the cliff." X="-7196.12" Y="-324.7349" Z="-231.7722" />
+            <MoveTo QuestId="24705" DestName="The damsel on the cliff." X="-7196.12" Y="-324.7349" Z="-231.7722" />
             <CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for Max to rescue her: {TimeRemaining}" />
-            <RunTo QuestId="24705" LocationName="The damsel thrown from the cliff." X="-7245.691" Y="-379.3088" Z="-268.1758" />
+            <MoveTo QuestId="24705" DestName="The damsel thrown from the cliff." X="-7245.691" Y="-379.3088" Z="-268.1758" />
             <CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for Max to take credit for rescuing her: {TimeRemaining}" />
         </While>
 
-        <While Condition="HasQuest(24705) &amp;&amp; !IsObjectiveComplete(3, 24705)" >
+        <While Condition="HasQuest(24705) &amp;&amp; !IsObjectiveComplete(3,24705)" >
             <If Condition="Me.HasAura(71498)">
                 <!-- Lost the 'traveling' Maximillian companion -->
                 <CustomBehavior File="InteractWith" QuestId="24705" MobId="38237"
-						InteractByGossipOptions="1" X="-7228.146" Y="-599.6198" Z="-271.2461" />
+                        InteractByGossipOptions="1" X="-7228.146" Y="-599.6198" Z="-271.2461" />
             </If>
-            <RunTo QuestId="24705" LocationName="The damsel pursude by a phoenix." X="-6507.694" Y="-535.7313" Z="-256.6376" />
+            <MoveTo QuestId="24705" DestName="The damsel pursude by a phoenix." X="-6507.694" Y="-535.7313" Z="-256.6376" />
             <CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for Max to 'kill the phoenix': {TimeRemaining}" />
         </While>
-        <If Condition="((HasQuest(24705)) &amp;&amp; (IsQuestCompleted(24705)))" >
+        <If Condition="HasQuest(24705) &amp;&amp; IsQuestCompleted(24705)" >
             <TurnIn QuestId="24705" />
         </If>
 
@@ -577,7 +577,7 @@
 
         <Objective QuestName="The Evil Dragons of Un'Goro Crater" QuestId="24704" Type="KillMob" MobId="38252" KillCount="15" />
 
-        <If Condition="((HasQuest(24704)) &amp;&amp; (IsQuestCompleted(24704)))" >
+        <If Condition="HasQuest(24704) &amp;&amp; IsQuestCompleted(24704)" >
             <TurnIn QuestId="24704" />
         </If>
 
@@ -592,7 +592,7 @@
 
 
         <!-- We keep Max with us as he is so jolly helpful :-0 -->
-        <RunTo DestName="The Spirits of Golakka Hot Springs" QuestId="24706" X="-7228.146" Y="-599.6198" Z="-271.2461" />
+        <MoveTo DestName="The Spirits of Golakka Hot Springs" QuestId="24706" X="-7228.146" Y="-599.6198" Z="-271.2461" />
 
         <If Condition="HasQuest(24706)" >
             <DisableBehavior Name="All" />
@@ -603,16 +603,16 @@
         </If>
         <EnableBehavior Name="All" />
 
-        <If Condition="((HasQuest(24706)) &amp;&amp; (IsQuestCompleted(24706)))" >
+        <If Condition="HasQuest(24706) &amp;&amp; IsQuestCompleted(24706)" >
             <TurnIn QuestId="24706" />
         </If>
 
         <PickUp QuestName="The Ballad of Maximillian" QuestId="24707" GiverName="Maximillian of Northshire" GiverId="38237" X="-7228.146" Y="-599.6198" Z="-271.2461" />
 
-        <While Condition="((HasQuest(24707)) &amp;&amp; (!IsQuestCompleted(24707)))" >
+        <While Condition="HasQuest(24707) &amp;&amp; !IsQuestCompleted(24707)" >
             <DisableBehavior Name="Combat" />
             <CustomBehavior File="SpecificQuests\24707-ungoro-theballadofmaximillian"/>
-            <If Condition="((HasQuest(24707)) &amp;&amp; (IsQuestCompleted(24707)))" >
+            <If Condition="HasQuest(24707) &amp;&amp; IsQuestCompleted(24707)" >
                 <TurnIn QuestId="24707" />
             </If>
             <EnableBehavior Name="Combat" />
@@ -622,7 +622,7 @@
             <TurnIn QuestName="The Ballad of Maximillian" QuestId="24707" TurnInName="Maximillian of Northshire" TurnInId="38237" />
         </If>
 
-        <If Condition="HasQuest(24698)" >	
+        <If Condition="HasQuest(24698)" >
             <TurnIn QuestName="Adventures in Archaeology" QuestId="24698" TurnInName="Spark Nilminer" TurnInId="9272" />
         </If>
 
@@ -635,7 +635,7 @@
         <PickUp QuestName="The Fossil-Finder 3000" QuestId="24708" GiverName="Spark Nilminer" GiverId="9272" />
 
         <While Condition="HasQuest(24708) &amp;&amp; !IsQuestCompleted(24708)">
-            <RunTo X="-7804.543" Y="-682.4178" Z="-259.0978" />
+            <MoveTo X="-7804.543" Y="-682.4178" Z="-259.0978" />
             <CustomBehavior File="WaitTimer"  GoalText="Waiting for any random attackers that might interfere. {TimeRemaining}"  WaitTime="10000" />
             <CustomBehavior File="UseItemTargetLocation" ItemId="50405" X="-7804.543" Y="-682.4178" Z="-259.0978" />
             <CustomBehavior File="WaitTimer" WaitTime="12000" />
@@ -651,12 +651,12 @@
         <PickUp QuestName="The Western Pylon" QuestId="24723" GiverName="Spark Nilminer" GiverId="9272" />
         <CustomBehavior File="InteractWith" QuestId="24723" MobId="164956" InteractByGossipOptions="1" Range="5" NonCompeteDistance="0" X="-7199.983" Y="-334.9223" Z="-226.1769" />
         <TurnIn QuestName="The Western Pylon" QuestId="24723" TurnInName="J.D. Collie" TurnInId="9117" />
-        <PickUp QuestName="The Dunes of Silithus" QuestId="28859" GiverName="Zen'Aliri" GiverId="38269" X="-7461.412" Y="-1528.385" Z="-268.8134" />	
+        <PickUp QuestName="The Dunes of Silithus" QuestId="28859" GiverName="Zen'Aliri" GiverId="38269" X="-7461.412" Y="-1528.385" Z="-268.8134" />
 
 
 
         <If Condition="Me.Level &lt; 56" >
-            <CustomBehavior File="Message" Text="We are grinding to level 56 in Un'Goro" LogColor="Orange" />	
+            <CustomBehavior File="Message" Text="We are grinding to level 56 in Un'Goro" LogColor="Orange" />
         </If>
 
         <SetGrindArea>
@@ -676,15 +676,15 @@
 
         <GrindTo Level="56"/>
 
-        <CustomBehavior File="Message" Text="Move to Silithus" LogColor="Green" />		
+        <CustomBehavior File="Message" Text="Move to Silithus" LogColor="Green" />
 
         <!-- Make sure to get Flight paths off Runk Windtamer -->
-        <If Condition="(HasQuest(28859) &amp;&amp; Me.IsHorde)" >
-            <RunTo X="-6810.202" Y="841.7036" Z="49.66537" />
+        <If Condition="HasQuest(28859) &amp;&amp; Me.IsHorde" >
+            <MoveTo X="-6810.202" Y="841.7036" Z="49.66537" />
             <CustomBehavior File="InteractWith" MobId="15178" Range="5" X="-6810.202" Y="841.7036" Z="49.66537" />
         </If>
-        <If Condition="(HasQuest(28859) &amp;&amp; Me.IsAlliance)" >
-            <RunTo X="-6758.546" Y="775.5939" Z="89.02175" />
+        <If Condition="HasQuest(28859) &amp;&amp; Me.IsAlliance" >
+            <MoveTo X="-6758.546" Y="775.5939" Z="89.02175" />
             <CustomBehavior File="InteractWith" MobId="15177" Range="5" X="-6758.546" Y="775.5939" Z="89.02175" />
         </If>
 
@@ -705,11 +705,11 @@
         <CustomBehavior File="Message" Text="All done in Un'Goro." LogColor="Yellow" />
 
 
-    </QuestOrder>  
+    </QuestOrder>
 
-    <!--Quest Overrides for the Un'Goro profile section--> 
+    <!--Quest Overrides for the Un'Goro profile section-->
     <Quest Id="25019" Name="Laying Claim">
-        <Objective Type="KillMob" MobId="38998" Name="Explorer's League Digger" KillCount="10">
+        <Objective Type="KillMob" MobId="38998" MobName="Explorer's League Digger" KillCount="10">
             <Hotspots>
                 <Hotspot X="-9275.805" Y="-2870.891" Z="11.89363" />
                 <Hotspot X="-9288.227" Y="-3098.466" Z="10.32242" />
@@ -729,7 +729,7 @@
     </Quest>
 
     <Quest Id="25559" Name="Laying Claim">
-        <Objective Type="KillMob" MobId="38997" Name="Reliquary Digger" KillCount="10">
+        <Objective Type="KillMob" MobId="38997" MobName="Reliquary Digger" KillCount="10">
             <Hotspots>
                 <Hotspot X="-9275.805" Y="-2870.891" Z="11.89363" />
                 <Hotspot X="-9288.227" Y="-3098.466" Z="10.32242" />
@@ -789,7 +789,7 @@
     </Quest>
 
     <Quest Id="25017" Name="Ancient Obstacles" >
-        <Objective Type="KillMob" MobId="38914" Name="Sandstone Golem" KillCount="6">
+        <Objective Type="KillMob" MobId="38914" MobName="Sandstone Golem" KillCount="6">
             <Hotspots>
                 <Hotspot X="-9275.805" Y="-2870.891" Z="11.89363" />
                 <Hotspot X="-9429.19" Y="-2524.358" Z="12.17614" />
@@ -798,7 +798,7 @@
     </Quest>
 
     <Quest Id="25420" Name="Ancient Obstacles" >
-        <Objective Type="KillMob" MobId="38914" Name="Sandstone Golem" KillCount="6">
+        <Objective Type="KillMob" MobId="38914" MobName="Sandstone Golem" KillCount="6">
             <Hotspots>
                 <Hotspot X="-9275.805" Y="-2870.891" Z="11.89363" />
                 <Hotspot X="-9429.19" Y="-2524.358" Z="12.17614" />
@@ -807,7 +807,7 @@
     </Quest>
 
     <Quest Id="25068" Name="The Crumbling Past" >
-        <Objective Type="CollectItem" ItemId="52284" Name="Earthen Jewel" CollectCount="5">
+        <Objective Type="CollectItem" ItemId="52284" ItemName="Earthen Jewel" CollectCount="5">
             <CollectFrom>
                 <Mob Id="38916" Name="Sandstone Earthen" />
             </CollectFrom>
@@ -822,9 +822,9 @@
     </Quest>
 
     <Quest Id="24731" Name="The Fare of Lar'korwi">
-        <Objective Type="CollectItem" ItemId="11504" Name="Piece of Threshadon Carcass" CollectCount="1">
+        <Objective Type="CollectItem" ItemId="11504" ItemName="Piece of Threshadon Carcass" CollectCount="1">
             <CollectFrom>
-                <GameObject Name="Fresh Threshadon Carcass" ID="166863" />
+                <Object Name="Fresh Threshadon Carcass" Id="166863" />
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="-7816.753" Y="-1861.927" Z="-272.3283" />
@@ -833,7 +833,7 @@
     </Quest>
 
     <Quest Id="24719" Name="Claws of White" >
-        <Objective Type="CollectItem" ItemId="11477" Name="Earthen Jewel" CollectCount="5">
+        <Objective Type="CollectItem" ItemId="11477" ItemName="Earthen Jewel" CollectCount="5">
             <CollectFrom>
                 <Mob Name="Ravasaur Runner" Id="6506" />
                 <Mob Name="Ravasaur" Id="6505" />
@@ -849,7 +849,7 @@
     </Quest>
 
     <Quest Id="13850" Name="Toxic Tolerance" >
-        <Objective Type="KillMob" MobId="6508" Name="Venomhide Ravasaur" KillCount="20">
+        <Objective Type="KillMob" MobId="6508" MobName="Venomhide Ravasaur" KillCount="20">
             <Hotspots>
                 <Hotspot X="-7073.251" Y="-1979.207" Z="-270.5781" />
                 <Hotspot X="-7257.858" Y="-1804.756" Z="-272.7746" />
@@ -866,7 +866,7 @@
     <Quest Id="13887" Name="Venomhide Eggs">
         <Objective Type="CollectItem" ItemId="46364" CollectCount="4">
             <CollectFrom>
-                <GameObject Name="Venomhide Egg" Id="195022"/>
+                <Object Name="Venomhide Egg" Id="195022"/>
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="-7073.251" Y="-1979.207" Z="-270.5781" />
@@ -901,7 +901,7 @@
     </Quest>
 
     <Quest Id="24687" Name="Bouquets of Death" >
-        <Objective Type="KillMob" MobId="38213" Name="Juvenile Bloodpetals " KillCount="200">
+        <Objective Type="KillMob" MobId="38213" MobName="Juvenile Bloodpetals " KillCount="200">
             <Hotspots>
                 <Hotspot X="-7082.654" Y="-2300.511" Z="-269.0124" />
                 <Hotspot X="-7034.417" Y="-2269.858" Z="-270.3724" />
@@ -919,7 +919,7 @@
     </Quest>
 
     <Quest Name="Aberrant Flora" Id="24855" >
-        <Objective Type="KillMob" MobId="38358" Name="Bloodpetals " KillCount="200">
+        <Objective Type="KillMob" MobId="38358" MobName="Bloodpetals " KillCount="200">
             <Hotspots>
                 <Hotspot X="-7082.654" Y="-2300.511" Z="-269.0124" />
                 <Hotspot X="-7034.417" Y="-2269.858" Z="-270.3724" />
@@ -938,9 +938,9 @@
 
 
     <Quest Name="Volcanic Activity" Id="24740" >
-        <Objective Type="CollectItem" ItemId="11829" Name="Volcanic Ash" CollectCount="9">
+        <Objective Type="CollectItem" ItemId="11829" ItemName="Volcanic Ash" CollectCount="9">
             <CollectFrom>
-                <Mob Name="Living Blaze" Id="6521"  />		
+                <Mob Name="Living Blaze" Id="6521"  />
                 <Mob Name="Scorching Elemental" Id="6520" />
             </CollectFrom>
             <Hotspots>
@@ -958,7 +958,7 @@
     </Quest>
 
     <Quest Name="Blazerunner" Id="24690" >
-        <Objective Type="KillMob" MobId="9376" Name="Blazerunner " KillCount="1">
+        <Objective Type="KillMob" MobId="9376" MobName="Blazerunner " KillCount="1">
             <Hotspots>
                 <Hotspot X="-7183.407" Y="-1294.808" Z="-183.1967" />
             </Hotspots>
@@ -966,9 +966,9 @@
     </Quest>
 
     <Quest Name="Peculiar Delicacies" Id="24691" >
-        <Objective Type="CollectItem" ItemId="50371" Name="Silithid Leg" CollectCount="96">
+        <Objective Type="CollectItem" ItemId="50371" ItemName="Silithid Leg" CollectCount="96">
             <CollectFrom>
-                <Mob Name="Gorishi Wasp" Id="6551" />	
+                <Mob Name="Gorishi Wasp" Id="6551" />
                 <Mob Name="Gorishi Worker" Id="6552"  />
                 <Mob Name="Gorishi Reaver" Id="6553"  />
             </CollectFrom>
@@ -980,7 +980,7 @@
     </Quest>
 
     <Quest Name="The Fledgling Colossus" Id="24692" >
-        <Objective Type="KillMob" MobId="38305" Name="Gorishi Fledgling Colossus " KillCount="1">
+        <Objective Type="KillMob" MobId="38305" MobName="Gorishi Fledgling Colossus " KillCount="1">
             <Hotspots>
                 <Hotspot X="-8107.361" Y="-1228.399" Z="-338.1162" />
             </Hotspots>
@@ -988,10 +988,10 @@
     </Quest>
 
     <Quest Name="Crystals of Power" Id="24720" >
-        <Objective QuestName="Crystals of Power" QuestId="24720" Type="CollectItem" ItemId="11186" CollectCount="7" >
+        <Objective Type="CollectItem" ItemId="11186" CollectCount="7" >
             <CollectFrom>
-                <GameObject Name="Red Power Crystal" Id="164660"/>
-                <GameObject Name="Red Power Crystal" Id="164780"/>
+                <Object Name="Red Power Crystal" Id="164660"/>
+                <Object Name="Red Power Crystal" Id="164780"/>
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="-7477.984" Y="-1191.443" Z="-265.308" />
@@ -1006,10 +1006,10 @@
                 <Hotspot X="-7450.186" Y="-379.0977" Z="-257.8883" />
             </Hotspots>
         </Objective>
-        <Objective QuestName="Crystals of Power" QuestId="24720" Type="CollectItem" ItemId="11188" CollectCount="7" >
+        <Objective Type="CollectItem" ItemId="11188" CollectCount="7" >
             <CollectFrom>
-                <GameObject Name="Yellow Power Crystal" Id="164661"/>
-                <GameObject Name="Yellow Power Crystal" Id="164781"/>
+                <Object Name="Yellow Power Crystal" Id="164661"/>
+                <Object Name="Yellow Power Crystal" Id="164781"/>
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="-6485.755" Y="-582.3945" Z="-269.151" />
@@ -1023,10 +1023,10 @@
                 <Hotspot X="-6694.374" Y="-684.7958" Z="-272.0091" />
             </Hotspots>
         </Objective>
-        <Objective QuestName="Crystals of Power" QuestId="24720" Type="CollectItem" ItemId="11185" CollectCount="7" >
+        <Objective Type="CollectItem" ItemId="11185" CollectCount="7" >
             <CollectFrom>
-                <GameObject Name="Green Power Crystal" Id="164659"/>
-                <GameObject Name="Green Power Crystal" Id="164779"/>
+                <Object Name="Green Power Crystal" Id="164659"/>
+                <Object Name="Green Power Crystal" Id="164779"/>
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="-6298.79" Y="-1375.444" Z="-267.1346" />
@@ -1041,10 +1041,10 @@
                 <Hotspot X="-6963.002" Y="-2272.133" Z="-269.6707" />
             </Hotspots>
         </Objective>
-        <Objective QuestName="Crystals of Power" QuestId="24720" Type="CollectItem" ItemId="11184" CollectCount="7" >
+        <Objective Type="CollectItem" ItemId="11184" CollectCount="7" >
             <CollectFrom>
-                <GameObject Name="Blue Power Crystal" Id="164778"/>
-                <GameObject Name="Blue Power Crystal" Id="164658"/>
+                <Object Name="Blue Power Crystal" Id="164778"/>
+                <Object Name="Blue Power Crystal" Id="164658"/>
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="-7360.485" Y="-2231.522" Z="-271.3014" />
@@ -1059,9 +1059,9 @@
     </Quest>
 
     <Quest Id="24701" Name="Marshal's Refuse" >
-        <Objective Type="CollectItem" ItemId="50443" Name="Discarded Supplies" CollectCount="10">
+        <Objective Type="CollectItem" ItemId="50443" ItemName="Discarded Supplies" CollectCount="10">
             <CollectFrom>
-                <GameObject Name="Discarded Supplies" ID="202158" />
+                <Object Name="Discarded Supplies" Id="202158" />
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="-6165.252" Y="-1139.762" Z="-218.3116" />
@@ -1075,8 +1075,8 @@
     </Quest>
 
     <Quest Id="24736" Name="Shizzle's Flyer" >
-        <Objective Type="CollectItem" ItemId="11831" Name="Webbed Pterrordax Scale" CollectCount="35">
-            <CollectFrom>				
+        <Objective Type="CollectItem" ItemId="11831" ItemName="Webbed Pterrordax Scale" CollectCount="35">
+            <CollectFrom>
                 <Mob Name="Fledgling Pterrordax" Id="9165" />
                 <Mob Name="Pterrordax" Id="9166" />
                 <Mob Name="Frenzied Pterrordax" Id="9167" />
@@ -1089,12 +1089,12 @@
                 <Hotspot X="-6668.343" Y="-797.4258" Z="-271.7615" />
             </Hotspots>
         </Objective>
-    </Quest>	
+    </Quest>
 
     <Quest Name="Repairing A-Me 01" Id="24715" >
-        <Objective Type="CollectItem" ItemId="50237" Name="High Viscosity Coconut Milk" CollectCount="1">
+        <Objective Type="CollectItem" ItemId="50237" ItemName="High Viscosity Coconut Milk" CollectCount="1">
             <CollectFrom>
-                <GameObject Name="Un'Goro Coconut" ID="201979" />
+                <Object Name="Un'Goro Coconut" Id="201979" />
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="-6500.108" Y="-1818.613" Z="-272.7137" />
@@ -1109,7 +1109,7 @@
     </Quest>
 
     <Quest Name="The Apes of Un'Goro" Id="24717"  >
-        <Objective Type="CollectItem" ItemId="11478" Name="Un'Goro Gorilla Pelt" CollectCount="2">
+        <Objective Type="CollectItem" ItemId="11478" ItemName="Un'Goro Gorilla Pelt" CollectCount="2">
             <Hotspots>
                 <Hotspot X="-6523.851" Y="-1805.045" Z="-271.6353" />
                 <Hotspot X="-6383.625" Y="-1537.45" Z="-269.9088" />
@@ -1117,7 +1117,7 @@
                 <Hotspot X="-6384.701" Y="-2005.114" Z="-270.0612" />
             </Hotspots>
         </Objective>
-        <Objective Type="CollectItem" ItemId="11479" Name="Un'Goro Stomper Pelt" CollectCount="2">
+        <Objective Type="CollectItem" ItemId="11479" ItemName="Un'Goro Stomper Pelt" CollectCount="2">
             <Hotspots>
                 <Hotspot X="-6523.851" Y="-1805.045" Z="-271.6353" />
                 <Hotspot X="-6383.625" Y="-1537.45" Z="-269.9088" />
@@ -1125,7 +1125,7 @@
                 <Hotspot X="-6384.701" Y="-2005.114" Z="-270.0612" />
             </Hotspots>
         </Objective>
-        <Objective Type="CollectItem" ItemId="11480" Name="Un'Goro Thunderer Pelt" CollectCount="2">
+        <Objective Type="CollectItem" ItemId="11480" ItemName="Un'Goro Thunderer Pelt" CollectCount="2">
             <Hotspots>
                 <Hotspot X="-6523.851" Y="-1805.045" Z="-271.6353" />
                 <Hotspot X="-6383.625" Y="-1537.45" Z="-269.9088" />
@@ -1136,8 +1136,8 @@
     </Quest>
 
     <Quest Name="The Mighty U'cha" Id="24718" >
-        <Objective Type="CollectItem" ItemId="11476" Name="U'cha's Pelt" CollectCount="1">
-            <CollectFrom>				
+        <Objective Type="CollectItem" ItemId="11476" ItemName="U'cha's Pelt" CollectCount="1">
+            <CollectFrom>
                 <Mob Name="U'cha" Id="9622" />
             </CollectFrom>
             <Hotspots>
@@ -1147,7 +1147,7 @@
     </Quest>
 
     <Quest Id="24704" Name="The Evil Dragons of Un'Goro Crater" >
-        <Objective Type="KillMob" MobId="9162" Name="Young Diemetradon" KillCount="20">
+        <Objective Type="KillMob" MobId="9162" MobName="Young Diemetradon" KillCount="20">
             <Hotspots>
                 <Hotspot X="-7230.831" Y="-928.4429" Z="-271.5955" />
                 <Hotspot X="-7474.767" Y="-1054.638" Z="-271.608" />
@@ -1155,7 +1155,7 @@
                 <Hotspot X="-7778.707" Y="-1154.173" Z="-265.6053" />
             </Hotspots>
         </Objective>
-        <Objective Type="KillMob" MobId="9163"  Name="Diemetradons" KillCount="20">
+        <Objective Type="KillMob" MobId="9163"  MobName="Diemetradons" KillCount="20">
             <Hotspots>
                 <Hotspot X="-7230.831" Y="-928.4429" Z="-271.5955" />
                 <Hotspot X="-7474.767" Y="-1054.638" Z="-271.608" />
@@ -1163,7 +1163,7 @@
                 <Hotspot X="-7778.707" Y="-1154.173" Z="-265.6053" />
             </Hotspots>
         </Objective>
-        <Objective Type="KillMob" MobId="9164" Name="Elder Diemetradons" KillCount="20">
+        <Objective Type="KillMob" MobId="9164" MobName="Elder Diemetradons" KillCount="20">
             <Hotspots>
                 <Hotspot X="-7230.831" Y="-928.4429" Z="-271.5955" />
                 <Hotspot X="-7474.767" Y="-1054.638" Z="-271.608" />
@@ -1171,12 +1171,12 @@
                 <Hotspot X="-7778.707" Y="-1154.173" Z="-265.6053" />
             </Hotspots>
         </Objective>
-    </Quest>		
+    </Quest>
 
     <Quest Name="Roll the Bones" Id="24730" >
-        <Objective Type="CollectItem" ItemId="11114" Name="Dinosaur Bones" CollectCount="8">
-            <CollectFrom>			
-                <Mob Name="Young Diemetradon" Id="9162" />			
+        <Objective Type="CollectItem" ItemId="11114" ItemName="Dinosaur Bones" CollectCount="8">
+            <CollectFrom>
+                <Mob Name="Young Diemetradon" Id="9162" />
                 <Mob Name="Diemetradon" Id="9163" />
                 <Mob Name="Elder Diemetradon" Id="9164" />
             </CollectFrom>
@@ -1187,12 +1187,12 @@
                 <Hotspot X="-7778.707" Y="-1154.173" Z="-265.6053" />
             </Hotspots>
         </Objective>
-    </Quest>	
+    </Quest>
 
     <Quest Name="The Fossil-Finder 3000" Id="24708" >
-        <Objective Type="CollectItem" ItemId="50408" Name="Piece of Bone" CollectCount="1">
+        <Objective Type="CollectItem" ItemId="50408" ItemName="Piece of Bone" CollectCount="1">
             <CollectFrom>
-                <GameObject Name="Suspicious Mound of Dirt" ID="202165" />
+                <Object Name="Suspicious Mound of Dirt" Id="202165" />
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="-7808.971" Y="-701.1502" Z="-261.327" />
@@ -1202,7 +1202,7 @@
     </Quest>
 
     <Quest Name="A Tale of Two Shovels" Id="24709" >
-        <Objective Type="CollectItem" ItemId="50410" Name="Durrin's Archaeological Findings" CollectCount="1">
+        <Objective Type="CollectItem" ItemId="50410" ItemName="Durrin's Archaeological Findings" CollectCount="1">
             <CollectFrom>
                 <Mob Name="Durrin Direshovel"  Id="38329" />
             </CollectFrom>
