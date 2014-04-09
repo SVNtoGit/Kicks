@@ -924,9 +924,10 @@
         <PickUp QuestName="Pillaging Peons" QuestId="31738" GiverName="Sunke Khang" GiverId="65910" X="-291.1892" Y="-1778.066" Z="61.67279" />
         <PickUp QuestName="Priorities!" QuestId="31739" GiverName="Teng Applebloom" GiverId="64596" X="-289.29" Y="-1775.58" Z="61.8724" />
         <PickUp QuestName="Critical Condition" QuestId="29552" GiverName="Mishka" GiverId="54614" X="-283.9236" Y="-1769.379" Z="61.63127" />
-		<CustomBehavior File="Halt" />
+
         <While Condition="HasQuest(31739) &amp;&amp; !IsQuestCompleted(31739)">
-            <!--<If Condition="(!Me.HasAura(130229))">  Summon Teng Thundermalt -->
+			<CustomBehavior File="UserSettings" UseMount="false" />
+            <!--<If Condition="(!Me.HasAura(130229))">  Summon Teng Thundermalt DESPAWNS IF YOU MOUNT UP -->
             <If Condition="!(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 66209 &amp;&amp; u.Distance &lt;= 20))">
                 <CustomBehavior File="InteractWith" MobId="64596" GossipOptions="2" X="-289.2899" Y="-1775.578" Z="61.87213" />
             </If>
@@ -941,6 +942,9 @@
                 </HuntingGrounds>
             </CustomBehavior>
         </While>
+		
+		<CustomBehavior File="UserSettings" UseMount="true" />
+		
         <CustomBehavior File="InteractWith" QuestId="29552" MobId="61492"
             NumOfTimes="100" CollectionDistance="1000" >
             <HuntingGrounds >
