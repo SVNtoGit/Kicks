@@ -4183,13 +4183,13 @@
             <PickUp QuestName="A Vision of the Past" QuestId="26320" GiverName="Thoralius the Wise" GiverId="42651" />
             <While Condition="HasQuest(26320) &amp;&amp; !IsQuestCompleted(26320)">
                 <If Condition="Me.X &lt; -100">
-                    <!-- Deadmines -->
-                    <MoveTo X="-11207.8" Y="1674.6" Z="24.62998" />
                 <!-- CJ: We don't want the bot trotting off to mine here, as it will
                      throw off the portal traversal positioning.  So, we disable Looting
                      while traversing the portal.
                 -->
-                <DisableBehavior Name="Loot" />
+                <DisableBehavior Name="Loot,Pull" />
+				<!-- Deadmines -->
+                <MoveTo X="-11207.8" Y="1674.6" Z="24.62998" />
                 <MoveTo X="-11207.8" Y="1674.6" Z="24.62998" />
                 <CustomBehavior File="GoThruPortal" X="-11207.9" Y="1677.421" Z="24.49709" />
                 <CustomBehavior File="WaitTimer" WaitTime="5000" />
@@ -4198,7 +4198,7 @@
                 <CustomBehavior File="Misc\RunLua" QuestId="26320" Lua="UseItemByName(58147)" WaitTime="1000" />
                 <CustomBehavior File="WaitTimer" WaitTime="215000" QuestId="26320" />
                 <EnableBehavior Name="Combat" />
-                <EnableBehavior Name="Loot" />
+                <EnableBehavior Name="Loot,Pull" />
                 </If>
                 <If Condition="Me.ZoneId == 1581">
                     <!-- Deadmines -->
