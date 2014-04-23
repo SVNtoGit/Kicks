@@ -133,7 +133,11 @@ CollectFrom =
   {
     (element Mob { CollectFrom_Entry }
      | element Object { CollectFrom_Entry }
-     | element Vendor { CollectFrom_Entry }
+     | element Vendor
+       {
+         attribute Nav { HBType-Nav }?,
+         CollectFrom_Entry
+       }
     )*
   }
 
@@ -387,6 +391,7 @@ MoveTo =
     attribute Nav { HBType-Nav }?,
     attribute Precision { HBType-MetaDecimalNonNegative }?,
     attribute QuestId { HBType-Id }?,
+    attribute QuestName { string }?,
     Attributes-XYZ
   }
 
@@ -464,9 +469,9 @@ ObjectiveOverride |=
 
 
 ObjectiveOverride |=
-  element Objective
+  element TurnIn
   {
-    attribute Type { "TurnIn" }
+    Attributes-XYZ
   }
 
 
@@ -668,6 +673,7 @@ UseItem =
   element UseItem
   {
     attribute ItemId { HBType-Id },
+    attribute ItemName { string }?,
     attribute Nav { HBType-Nav }?,
     attribute QuestId { HBType-Id },
     attribute QuestName { HBType-Name }?,
