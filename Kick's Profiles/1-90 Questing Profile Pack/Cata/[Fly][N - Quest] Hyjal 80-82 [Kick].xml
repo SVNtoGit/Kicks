@@ -2727,15 +2727,16 @@
                     GiverId="39413" />
             <MoveTo X="4526.271" Y="-4722.742" Z="886.7787" />
         </If>
+
         <If Condition="HasQuest(25308) &amp;&amp; !IsQuestCompleted(25308)">
             <CustomBehavior File="FlyTo" DestName="kill High Cultist Azennios." Land="true"
                             X="4831.854" Y="-4231.888" Z="895.1534" />
             <While Condition="HasQuest(25308) &amp;&amp; !IsQuestCompleted(25308)">
+                <UseMount Value="false" />
                 <MoveTo QuestId="25308" X="4833.147" Y="-4218.988" Z="894.0121" />
                 <CustomBehavior QuestId="25308" File="RunMacro"
                                 Macro="/cancelaura cat form\n/cancelaura bear form\n/cancelaura travel form\n/cancelaura ghost wolf" />
-                <MoveTo QuestId="25308" X="4833.147" Y="-4218.988" Z="894.0121" />
-                <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
+                <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for {TimeRemaining}" />
                 <!-- CJ: Disable the Combat Routine between costume application, and ready to pick fight...
                      Otherwise, Druids have a problem with this quest.  Many Combat Routines will put a
                      druid into Cat form when moving.  If a Druid shapeshifts, he will lose the Orc costume
@@ -2760,7 +2761,9 @@
             </While>
 
             <CustomBehavior File="Misc\RunLua" Lua="CancelUnitBuff('player',GetSpellInfo(75724))" WaitTime="1000" />
+            <UseMount Value="true" />
         </If>
+
         <If Condition="HasQuest(25494) &amp;&amp; !IsQuestCompleted(25494)">
             <CustomBehavior File="FlyTo" DestName="get Hide" Land="true" X="4874.304" Y="-4533.669" Z="867.7405" />
             <Objective QuestName="A Champion's Collar" QuestId="25494" Type="CollectItem" CollectCount="1"
