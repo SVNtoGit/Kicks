@@ -1221,11 +1221,29 @@
 		<MoveTo X="-8326.116" Y="284.257" Z="156.832" />
 		<CustomBehavior File="WaitTimer" QuestId="30988" WaitTime="105000"
                             GoalText="Waiting for &quot;The Alliance Way&quot; to complete" />
+			<If Condition="((HasQuest(30988)) &amp;&amp; (IsQuestCompleted(30988)))" >
 		<TurnIn QuestName="The Alliance Way" QuestId="30988" TurnInName="King Varian Wrynn" TurnInId="61796" />
 		<PickUp QuestName="An Old Pit Fighter" QuestId="30989" GiverName="King Varian Wrynn" GiverId="61796" />
-		<CustomBehavior File="InteractWith" QuestId="30989" NonCompeteDistance="0" MobId="61796"
-                            IgnoreLoSToTarget="true" X="-8326.116" Y="284.257" Z="156.832" />
-		<Objective QuestName="An Old Pit Fighter" QuestId="30989" Type="KillMob" MobId="61824" KillCount="1" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting... {TimeRemaining}" />
+			</If>
+			<If Condition="((!HasQuest(30989)) &amp;&amp; (!IsQuestCompleted(30989)))" >
+		<PickUp QuestName="An Old Pit Fighter" QuestId="30989" GiverName="King Varian Wrynn" GiverId="29611" X="-8363.06" Y="232.2361" Z="156.9904" />
+			</If>
+			<While Condition="HasQuest(30989) &amp;&amp; !IsQuestCompleted(30989)" >
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting... {TimeRemaining}" />
+			 <If Condition="!(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 61796 &amp;&amp; u.Distance &lt;= 40))" >
+					<CustomBehavior File="AbandonQuest" QuestId="30989" Type="All" />
+					<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for Quest to Reset in Log {TimeRemaining}" />
+				<PickUp QuestName="An Old Pit Fighter" QuestId="30989" GiverName="King Varian Wrynn" GiverId="29611" X="-8363.06" Y="232.2361" Z="156.9904" />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for Quest to Reset in Log {TimeRemaining}" />
+			 </If>
+				<CustomBehavior File="InteractWith" QuestId="30989" NonCompeteDistance="0" GossipOptions="1" MobId="61796"
+										   IgnoreLoSToTarget="true" WaitForNpcs="False" X="-8326.116" Y="284.257" Z="156.832" />
+				<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for Spawn Time {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="30989" NonCompeteDistance="0" MobId="61796"
+										   IgnoreLoSToTarget="true" WaitForNpcs="False" NumOfTimes="100" X="-8326.116" Y="284.257" Z="156.832" />
+				<!--<Objective QuestName="An Old Pit Fighter" QuestId="30989" Type="KillMob" MobId="61824" KillCount="1" />-->
+			</While>
 		<TurnIn QuestName="An Old Pit Fighter" QuestId="30989" TurnInName="King Varian Wrynn" TurnInId="29611" />
 		<CustomBehavior File="Message" Text="Congratulations you're finished!" LogColor="CornflowerBlue" />
 
