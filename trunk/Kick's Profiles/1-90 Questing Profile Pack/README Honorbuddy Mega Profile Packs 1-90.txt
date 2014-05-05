@@ -1,5 +1,5 @@
-Welcome to Kick's Mega Profile Packs 1-90 (Questing, Grinding, Gathering)
--------------------------------------------------------------------------
+Welcome to the Honorbuddy Mega Profile Packs 1-90 (Questing, Grinding, Gathering)
+---------------------------------------------------------------------------------
 These profiles are the *official* profile pack provided by BosslandGmbH
 when you purchase Honorbuddy.
 
@@ -29,8 +29,8 @@ Of particular interest to newcomers will be this information:
 	http://www.thebuddyforum.com/honorbuddy-forum/honorbuddy-guides/32615-quick-hb-guide-presentation-fast-setup.html
 	
 * CodenameG's "[VIDEO] How to Setup HonorBuddy. (narrated)"
-	From Honorbuddy forum: http://www.thebuddyforum.com/honorbuddy-forum/honorbuddy-guides/108193-video-how-setup-honorbuddy-narrated.html
-	Direct Youtube link: https://www.youtube.com/watch?feature=player_embedded&v=DOoUsfeyYsw
+	From Honorbuddy forum: http://www.thebuddyforum.com/honorbuddy-forum/honorbuddy-guides/108193-video-how-setup-honorbuddy-spring-2014-edition-narrated.html#post1056327
+	Direct Youtube link: https://www.youtube.com/watch?v=yhubA1DFp14
 	
 * Support forum
 	http://www.thebuddyforum.com/honorbuddy-forum/honorbuddy-support/
@@ -71,14 +71,6 @@ On a daily basis, before launching Honorbuddy, you should make certain that your
 of Kick's repository is up-to-date.  Using Windoze file explorer:
 	-> "right click" on the "Kick's Profiles" directory
 	-> SVN update
-	
-After the process completes, copy any files you find in
-	.../Kick's Profiles/1-90 Questing Profile Pack/Quest Behaviors/
-into your Honorbuddy quest behavior directory:
-	.../Honorbuddy/Quest Behaviors/
-	
-You can read more about why this is important, here:
-* http://www.thebuddyforum.com/honorbuddy-forum/honorbuddy-guides/108771-help-desk-2.html#post1096341
 
 Before you start Honorbuddy or the WoWclient, now is a good time to clear
 caches.  This article provides an explanation as to the problems this eliminates,
@@ -96,7 +88,7 @@ Bugs should be reported to the Honorbuddy Profile thread here:
 
 Finale
 ------
-Although this is the *official* profile pack provided by BosslandGmbH, there is
+Although this is the *official* profile pack provided by Bossland GmbH, there is
 a treasure trove of alternate offerings provided by the Buddy Community.
 
 If you have a specific need not addressed by this profile pack, please have
