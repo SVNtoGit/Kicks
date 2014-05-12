@@ -418,7 +418,7 @@ Objective |=
     Attributes-ObjectiveCore,
     attribute CollectCount { HBType-Count },    
     attribute ItemId { HBType-Id },
-    attribute ItemName { HBType-Name }?
+    attribute Name { HBType-Name }?
   }
 
 
@@ -429,7 +429,7 @@ Objective |=
     Attributes-ObjectiveCore,
     attribute KillCount { HBType-Count },
     attribute MobId { HBType-Id },
-    attribute MobName { HBType-Name }?
+    attribute Name { HBType-Name }? # convenience, as HB doesn't support this
   }
 
 
@@ -439,7 +439,7 @@ Objective |=
     attribute Type { "UseObject" },
     Attributes-ObjectiveCore,
     attribute ObjectId { HBType-Id },
-    attribute ObjectName { HBType-Name }?,
+    attribute Name { HBType-Name }?,
     attribute UseCount { HBType-Count }
   }
 
@@ -450,19 +450,7 @@ ObjectiveOverride |=
     attribute Type { "CollectItem" },
     attribute CollectCount { HBType-Count },    
     attribute ItemId { HBType-Id },
-    attribute ItemName { HBType-Name }?, # convenience, as HB doesn't support this
-    CollectFrom?,
-    ObjectiveOverride_GrindArea
-  }
-
-
-ObjectiveOverride |=
-  element Objective
-  {
-    attribute Type { "KillMob" },
-    attribute KillCount { HBType-Count },
-    attribute MobId { HBType-Id },
-    attribute MobName { HBType-Name }?, # convenience, as HB doesn't support this
+    attribute Name { HBType-Name }?, # convenience, as HB doesn't support this
     CollectFrom?,
     ObjectiveOverride_GrindArea
   }
@@ -478,9 +466,21 @@ ObjectiveOverride |=
 ObjectiveOverride |=
   element Objective
   {
+    attribute Type { "KillMob" },
+    attribute KillCount { HBType-Count },
+    attribute MobId { HBType-Id },
+    attribute Name { HBType-Name }?, # convenience, as HB doesn't support this
+    CollectFrom?,
+    ObjectiveOverride_GrindArea
+  }
+
+
+ObjectiveOverride |=
+  element Objective
+  {
     attribute Type { "UseObject" },
     attribute ObjectId { HBType-Id },
-    attribute ObjectName { HBType-Name }?,
+    attribute Name { HBType-Name }?,
     attribute UseCount { HBType-Count },
     ObjectiveOverride_GrindArea
   }
