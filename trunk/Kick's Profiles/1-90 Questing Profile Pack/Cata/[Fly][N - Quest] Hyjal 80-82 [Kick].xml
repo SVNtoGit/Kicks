@@ -1900,6 +1900,7 @@
             <!-- Gay huntards may have issues with this quest due to jumping out of the nest -->
         </While>
         <If Condition="HasQuest(25656) &amp;&amp; !IsQuestCompleted(25656)">
+			<!-- objective sometimes makes us fall down and we can't get back up. maybe a flyto collectitem behavior or something -->
             <CustomBehavior File="FlyTo" DestName="collect 8 Eggs" Land="true" X="4963.306" Y="-2628.423" Z="1425.786" />
             <Objective QuestName="Scrambling for Eggs" QuestId="25656" Type="CollectItem" ItemId="55189"
                        CollectCount="8" />
@@ -1943,8 +1944,8 @@
                 <CustomBehavior File="WaitTimer" WaitTime="25000"
                                 GoalText="Waiting for Smoked Out to clear {TimeRemaining}" />
             </If>
-
-            <CustomBehavior File="InteractWith" QuestId="25731" MobId="203187" Range="10"
+			
+            <CustomBehavior File="InteractWith" QuestId="25731" MobId="203187" Range="10" PreInteractMountStrategy="DismountOrCancelShapeshift" 
                             X="4929.944" Y="-2482.635" Z="1440.452" />
             <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
             <CustomBehavior File="InteractWith" QuestId="25731" MobId="41112" Range="5"
@@ -2444,7 +2445,8 @@
         <CustomBehavior File="Message" Text="Compiling Darkwhisper Pass Quests" LogColor="CornflowerBlue" />
 
         <If Condition="HasQuest(25928) &amp;&amp; IsQuestCompleted(25928)">
-            <MoveTo X="4676.442" Y="-3682.449" Z="697.7275" />
+            <!--<MoveTo X="4676.442" Y="-3682.449" Z="697.7275" />-->
+			<MoveTo X="4677.347" Y="-3681.875" Z="697.7654" />
             <CustomBehavior File="WaitTimer" WaitTime="2000" />
             <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="4477.372" Y="-2718.52" Z="1101.165" />
             <TurnIn QuestName="Tortolla's Triumph" QuestId="25928" TurnInName="Tortolla" TurnInId="41504" />
@@ -2525,8 +2527,13 @@
             <CustomBehavior File="FlyTo" DestName="save Supplicants" Land="true" X="4387.771" Y="-4261.372"
                             Z="909.0836" />
             <While Condition="HasQuest(25330) &amp;&amp; !IsQuestCompleted(25330)">
+<<<<<<< .mine
+                <CustomBehavior File="InteractWith" QuestId="25330" MobId="39453" MobState="Alive" 
+                                InteractByUsingItemId="52819" NumOfTimes="30" PreInteractMountStrategy="DismountOrCancelShapeshift"
+=======
                 <CustomBehavior File="InteractWith" QuestId="25330" MobId="39453" MobState="Alive"
                                 InteractByUsingItemId="52819" NumOfTimes="30" PreInteractMountStrategy="Dismount"
+>>>>>>> .r3236
                                 WaitTime="2000" Range="10" CollectionDistance="500"
                                 X="4401.595" Y="-4354.701" Z="900.8432" />
             </While>
@@ -3263,13 +3270,13 @@
             <PickUp QuestName="The Battle Is Won, The War Goes On" QuestId="27398"
                     GiverName="Commander Jarod Shadowsong"
                     GiverId="40772" />
-            <If Condition="HasQuest(27398) &amp;&amp; ( Me.ZoneId == 616 )">
+            <If Condition="HasQuest(27398) &amp;&amp; (Me.ZoneId == 616)">
                 <CustomBehavior File="FlyTo" DestName="Nordrassil" X="5538.748" Y="-3852.912" Z="1678.895" />
                 <CustomBehavior File="FlyTo" DestName="Portal" Land="true" X="5535.613" Y="-3625.653" Z="1566.905" />
                 <CustomBehavior File="InteractWith" MobId="209080" Range="5" PreInteractMountStrategy="DismountOrCancelShapeshift" X="5541.917" Y="-3589.18" Z="1567.99" />
             </If>
-            <If Condition="HasQuest(27398) &amp;&amp; ( Me.ZoneId == 1519 )">
-                <CustomBehavior File="FlyTo" Land="true" X="-8214.752" Y="428.5352" Z="118.0506" />
+            <If Condition="HasQuest(27398) &amp;&amp; (Me.ZoneId == 1519)">
+                <CustomBehavior File="FlyTo" Land="True" X="-8214.752" Y="428.5352" Z="118.0506" />
                 <TurnIn QuestName="The Battle Is Won, The War Goes On" QuestId="27398"
                         TurnInName="Naraat the Earthspeaker"
                         TurnInId="45226" />
@@ -3293,6 +3300,7 @@
                         TurnInId="45244" />
             </If>
         </If>
+		
         <CustomBehavior File="LoadProfile" ProfileName="[Fly][N - Quest] Deepholm 82-84 [Kick]" RememberProfile="true" />
     </QuestOrder>
 </HBProfile>
