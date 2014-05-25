@@ -2796,29 +2796,23 @@
             <!-- Shizz Work (10629): Pickup, and Complete -->
             <While Condition="!IsQuestCompleted(10629)">
                 <!-- If we've lost the whistle, abandon quest and re-fetch -->
-                <If Condition="!HasQuest(10629) || !HasItem(30803)">
-                    <If Condition="HasQuest(10629)">
-                        <CustomBehavior File="AbandonQuest" QuestId="10629" Type="All" />
-                    </If>
+                <If Condition="HasQuest(10629) &amp;&amp; !HasItem(30803)">
+                    <CustomBehavior File="AbandonQuest" QuestId="10629" Type="All" />
+                </If>
+                <If Condition="!HasQuest(10629)">
                     <PickUp QuestName="Shizz Work" QuestId="10629" GiverName="Foreman Razelcraz" GiverId="16915"
                             X="430.101" Y="2886.575" Z="52.23165" />
                 </If>
+
                 <!-- If we've lost ze poochie-poochie, go get a new one... -->
-                <If Condition="HasItem(30803) &amp;&amp; ( Me.Minions.Count &lt; 1 )">
-                    <MoveTo DestName="Foreman Razelcraz" X="431.1503" Y="2889.698" Z="52.17432" />
-                    <CustomBehavior File="Misc\RunLua" WaitTime="1000" Lua="UseItemByName(30803)" />
-                </If>
-                <!-- If we've lost ze poochie-poochie, go get a new one... -->
-                <!-- CJ: Need to further refine this test by looking for an "aura" or a "created by me" id.
-                -->
-                <If Condition="HasItem(30803) &amp;&amp; ( Unit(21847, u =&gt; u.FactionId == 6) == null )">
+                <If Condition="HasItem(30803) &amp;&amp; ( Unit(21847, u =&gt; u.FactionId == 2204) == null )">
                     <MoveTo DestName="Foreman Razelcraz" X="431.1503" Y="2889.698" Z="52.17432" />
                     <CustomBehavior File="Misc\RunLua" WaitTime="1000" Lua="UseItemByName(30803)" />
                 </If>
 
                 <!-- Deal with poo (ewwww!) -->
                 <CustomBehavior File="InteractWith" QuestId="10629" MobId="184980" WaitForNpcs="false"
-                                NumOfTimes="10" PreInteractMountStrategy="Dismount" CollectionDistance="1000" />
+                                NumOfTimes="1" PreInteractMountStrategy="Dismount" CollectionDistance="1000" />
                 <!-- Kill ze Hellboar! -->
                 <CustomBehavior File="InteractWith" QuestId="10629" MobId="16863" MobState="Alive"
                                 Range="8" PreInteractMountStrategy="Dismount" CollectionDistance="1000" >
