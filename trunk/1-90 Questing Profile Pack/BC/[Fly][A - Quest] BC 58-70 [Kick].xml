@@ -6041,23 +6041,28 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                     X="-2099.588" Y="8595.171" Z="19.53758" />
             <PickUp QuestName="Matters of Security" QuestId="9925" GiverName="Zerid" GiverId="18276"
                     X="-2099.588" Y="8595.171" Z="19.53758" />
+
             <!-- <PickUp QuestName="A Head Full of Ivory" QuestId="9914" GiverName="Shadrek" Giverid="18333"
                  X="-2049.906" Y="8540.494" Z="24.20397" />
                  <Objective QuestName="A Head Full of Ivory" QuestId="9914" Type="CollectItem" CollectCount="3"
                  Name="Pair of Ivory Tusks" ItemId="25463" />
                  <TurnIn QuestName="A Head Full of Ivory" QuestId="9914" TurnInName="Shadrek" TurnInId="18333"
                  X="-2049.906" Y="8540.494" Z="24.20397" /> -->
-            <If Condition="HasQuest(9882) &amp;&amp; !IsQuestCompleted(9882)">
-                <CustomBehavior File="FlyTo" X="-2735.892" Y="8566.932" Z="-39.06896" />
-                <CustomBehavior File="ForcedDismount" />
-                <While Condition="HasQuest(9882) &amp;&amp; !IsQuestCompleted(9882)">
-                    <CustomBehavior File="InteractWith" QuestId="9882" MobId="182258"
-                                    NumOfTimes="50" CollectionDistance="1000"
-                                    X="-2735.892" Y="8566.932" Z="-39.06896" />
-                </While>
-                <Objective QuestName="Stealing from Thieves" QuestId="9882" Type="CollectItem" CollectCount="10"
-                           Name="Oshu'gun Crystal Fragment" ItemId="25416" />
-            </If>
+
+            <While Condition="HasQuest(9882) &amp;&amp; !IsQuestCompleted(9882)">
+                <CustomBehavior File="InteractWith" QuestId="9882" MobId="182258" NumOfTimes="10"
+                                PreInteractMountStrategy="Dismount" CollectionDistance="1000">
+                    <HuntingGrounds>
+                        <Hotspot Name="Southwest stone" X="-2735.892" Y="8566.932" Z="-39.06896" />
+                        <Hotspot Name="North stone" X="-2309.762" Y="8388.142" Z="-36.50525" />
+                        <Hotspot Name="North against Oshugun" X="-2421.065" Y="8253.372" Z="-38.68544" />
+                        <Hotspot Name="East stone" X="-2543.85" Y="8052.009" Z="-47.26492"  />
+                        <Hotspot Name="East against Oshugun" X="-2583.458" Y="8142.261" Z="-42.31817" />
+                        <Hotspot Name="South against Oshugun" X="-2762.995" Y="8357.417" Z="-38.7462" />
+                    </HuntingGrounds>
+                </CustomBehavior>
+            </While>
+
             <Objective QuestName="Matters of Security" QuestId="9925" Type="KillMob" KillCount="8" Name="Voidspawn"
                        MobId="17981" />
             <CustomBehavior File="FlyTo" DestName="Gava'xi" QuestId="9900" X="-2359.303" Y="7850.584" Z="-4.383435" />
