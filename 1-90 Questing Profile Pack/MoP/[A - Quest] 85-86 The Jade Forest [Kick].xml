@@ -918,11 +918,13 @@
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(89624)" WaitTime="1000" />
                 <CustomBehavior File="WaitTimer" WaitTime="3000" />
             </While>
-            <!-- HMm, not sure why this is here.. don't think it's needed. will remove on next run. -->
-            <CustomBehavior File="InteractWith" QuestId="31735" MobId="66396"
-                            X="-833.0087" Y="-1797.382" Z="4.735891" />
-            <CustomBehavior File="WaitTimer" WaitTime="15000" />
-            <MoveTo X="-829.8229" Y="-1793.191" Z="5.146749" />
+            <!-- Interact and Kill NPC Ga'trul -->
+            <While Condition="!IsObjectiveComplete(3,31735)">
+                <CustomBehavior File="InteractWith" QuestId="31735" MobId="66396"
+                                X="-833.0087" Y="-1797.382" Z="4.735891" />
+                <CustomBehavior File="WaitTimer" WaitTime="15000"
+                                GoalText="Waiting for TurnIn NPC to Spawn {TimeRemaining}" />
+            </While>
         </If>
         <If Condition="HasQuest(31735) &amp;&amp; IsQuestCompleted(31735)">
             <MoveTo X="-829.8229" Y="-1793.191" Z="5.146749" />
