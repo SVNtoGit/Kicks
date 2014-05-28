@@ -10,9 +10,10 @@
 
 		<CustomBehavior File="Message" Text="Compiling Hawker's 'Timbermaw Rep' Profile" LogColor="CornflowerBlue" />
 
-		<CustomBehavior File="FlyTo" DestName="Emerald Sanctuary" X="3981.64" Y="-1308.838" Z="244.6019" />
-
-		<MoveTo DestName="Emerald Sanctuary" X="3981.64" Y="-1308.838" Z="244.6019" />
+		<If Condition="Me.GetReputationLevelWith(576) &lt; Styx.WoWUnitReaction.Exalted" >
+			<CustomBehavior File="FlyTo" DestName="Emerald Sanctuary" X="3981.64" Y="-1308.838" Z="244.6019" />
+			<MoveTo DestName="Emerald Sanctuary" X="3981.64" Y="-1308.838" Z="244.6019" />
+		</If>
 
 		<PickUp QuestName="A Talking Totem" QuestId="28100" GiverName="Grazle" GiverId="11554" X="3986.96" Y="-1318.72" Z="245.7646" />
 		<TurnIn QuestName="A Talking Totem" QuestId="28100" TurnInName="Totem of Ruumbo" TurnInId="206585" />
@@ -68,11 +69,19 @@
 
 		<If Condition="Me.Level &gt;= 60 &amp;&amp; Me.GetReputationLevelWith(576) &gt; Styx.WoWUnitReaction.Revered">
 			<CustomBehavior File="Message" Text="Getting the epic Timbermaw Hold Trinket" LogColor="CornflowerBlue" />
-			<MoveTo GoalText="Getting the epic Timbermaw Hold Trinket" X="7027.099" Y="-2107.883" Z="587.3772" />
-			<PickUp QuestName="The Root of All Evil" QuestId="8481" GiverName="Gorn One Eye" GiverId="11555" />
-			<UseItem ItemId="21144" QuestName="The Root of All Evil" QuestId="8481" X="6718.59" Y="-5236.029" Z="778.032" />
-			<CustomBehavior File="WaitTimer" WaitTime="30000" QuestId="8481" GoalText="Waiting for Xandivious to attack {TimeRemaining}" />
-			<CustomBehavior File="InteractWith" MobId="180671" Range="4" QuestId="8481" WaitTime="3000" />
+			<If Condition="!HasQuest(8481)" >
+				<MoveTo GoalText="Getting the epic Timbermaw Hold Trinket" X="7027.099" Y="-2107.883" Z="587.3772" />
+				<PickUp QuestName="The Root of All Evil" QuestId="8481" GiverName="Gorn One Eye" GiverId="11555" />
+			</If>
+			<While Condition="HasQuest(8481) &amp;&amp; !IsQuestCompleted(8481)" >
+				<UseItem ItemId="21144" QuestName="The Root of All Evil" QuestId="8481" X="6718.59" Y="-5236.029" Z="778.032" />
+				<CustomBehavior File="InteractWith" MobId="180671" Range="4" QuestId="8481" WaitTime="3000">
+					<HuntingGrounds> 
+						<Hotspot X="6744.989" Y="-5144.779" Z="730.2386" />
+						<Hotspot X="6718.59" Y="-5236.029" Z="778.032" />
+					</HuntingGrounds>
+				</CustomBehavior>
+			</While>
 			<TurnIn QuestName="The Root of All Evil" QuestId="8481" TurnInName="Gorn One Eye" TurnInId="11555" />
 		</If>
 
