@@ -74,17 +74,6 @@
         </Objective>
     </Quest>
 
-    <Quest Id="25355" Name="Lightning in a Bottle">
-        <Objective Type="CollectItem" ItemId="52834" CollectCount="1">
-            <CollectFrom>
-                <Object Name="Lightning Channel" Id="202731" />
-            </CollectFrom>
-            <Hotspots>
-                <Hotspot X="5064.553" Y="-2116.217" Z="1373.668" />
-            </Hotspots>
-        </Objective>
-    </Quest>
-
     <Quest Id="25910" Name="The Time for Mercy has Passed">
         <Objective Type="KillMob" MobId="41563" KillCount="4">
             <Hotspots>
@@ -1061,19 +1050,23 @@
                            CollectCount="1" />
             </If>
             <If Condition="HasQuest(25353) &amp;&amp; IsQuestCompleted(25353)">
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5346.324" Y="-2135.31" Z="1280.52" />			
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52853)" WaitTime="1000" />
                 <CustomBehavior File="WaitTimer" WaitTime="3000" />
                 <TurnIn QuestName="Lightning in a Bottle" QuestId="25353" TurnInName="Spirit of Goldrinn"
                         TurnInId="39627" />
                 <PickUp QuestName="Into the Maw!" QuestId="25618" GiverName="Spirit of Goldrinn" GiverId="39627" />
-            </If>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+           </If>
             <If Condition="!HasQuest(25618) &amp;&amp; !IsQuestCompleted(25618) &amp;&amp; !HasQuest(25623) &amp;&amp; !IsQuestCompleted(25623) &amp;&amp; Unit(39627) != null">
-                <CustomBehavior File="ForcedDismount" />
+ 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5346.324" Y="-2135.31" Z="1280.52" />			
+				<CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52853)" WaitTime="1000" />
                 <CustomBehavior File="WaitTimer" WaitTime="3000" />
                 <PickUp QuestName="Into the Maw!" QuestId="25618" GiverName="Spirit of Goldrinn" GiverId="39627" />
-            </If>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" />
+           </If>
             <If Condition="HasQuest(25352) &amp;&amp; !IsQuestCompleted(25352)">
                 <CustomBehavior File="FlyTo" DestName="kill Twilights" Land="true" X="5064.553" Y="-2116.217"
                                 Z="1373.668" />
@@ -2943,7 +2936,13 @@
                 <DisableBehavior Name="Combat" />
                 <CustomBehavior File="Vehicles\MountVehOnly" VehicleMountId="40934"
                                 X="4074.596" Y="-4009.47" Z="971.1025" />
-            </If>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for mount {TimeRemaining}" />
+						<!--
+                 <If Condition="Me.IsOnTransport">
+					<CustomBehavior File="MyCTM" X="4287.142" Y="-4083.053" Z="1126.46" />
+                 </If>
+						-->
+           </If>
             <While Condition="!IsObjectiveComplete(1,25608)">
                 <If Condition="!Me.IsOnTransport">
                     <CustomBehavior File="FlyTo" DestName="get the drake again." Land="true"
@@ -2952,13 +2951,19 @@
                     <DisableBehavior Name="Combat" />
                     <CustomBehavior File="Vehicles\MountVehOnly" VehicleMountId="40934"
                                     X="4074.596" Y="-4009.47" Z="971.1025" />
+					<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for mount {TimeRemaining}" />
+						<!--
+                 <If Condition="Me.IsOnTransport">
+					<CustomBehavior File="MyCTM" X="4287.142" Y="-4083.053" Z="1126.46" />
+                 </If>
+						-->
                 </If>
                 <If Condition="Me.IsOnTransport">
                     <CustomBehavior File="Vehicles\VehicleBehavior" AttackButton="2"
                                     VehicleId="40025" VehicleMountId="40934" MobId="40573"
                                     StartObjectivePointX="4391.007" StartObjectivePointY="-4399.501"
                                     StartObjectivePointZ="939.4135"
-                                    StartPointX="4084.388" StartPointY="-3996.015" StartPointZ="971.3682"
+                                    StartPointX="4067.276" StartPointY="-4010.511" StartPointZ="983.9045"
                                     VehicleType="1" />
                 </If>
                 <EnableBehavior Name="Combat" />
@@ -2970,6 +2975,12 @@
                     <DisableBehavior Name="Combat" />
                     <CustomBehavior File="Vehicles\MountVehOnly" VehicleMountId="40934"
                                     X="4074.596" Y="-4009.47" Z="971.1025" />
+					<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for mount {TimeRemaining}" />
+						<!--
+                 <If Condition="Me.IsOnTransport">
+					<CustomBehavior File="MyCTM" X="4287.142" Y="-4083.053" Z="1126.46" />
+                 </If>
+						-->
                 </If>
                 <If Condition="Me.IsOnTransport">
                     <CustomBehavior File="Vehicles\VehicleBehavior" QuestId="25608" AttackButton="1" VehicleId="40025"
