@@ -19,15 +19,22 @@
 	<SellBlue>False</SellBlue>
 	<SellPurple>False</SellPurple>
 	
-		<Mailboxes>
-		</Mailboxes>
-		<Vendors>
-		</Vendors>
+	<Mailboxes>
+	</Mailboxes>
+	<Vendors>
+	</Vendors>
+	<AvoidMobs>
+	</AvoidMobs>
 
-		
-		<AvoidMobs>
-		</AvoidMobs>
-		
+
+		<Quest Id="31015" Name="Your Private Collection">
+			<Objective Type="UseObject" ObjectId="212526" UseCount="1">
+				<Hotspots>
+					<Hotspot X="1450.736" Y="389.5714" Z="548.0795" />
+				</Hotspots>
+			</Objective>
+		</Quest>		
+			
 		<QuestOrder>
 
 		<CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" PullDistance="25" />
@@ -168,17 +175,27 @@
             <CustomBehavior File="WaitTimer" WaitTime="2000" />
 		</If>
 		
-		
 		<!-- I am on *any* of the quests -->
 		<If Condition="HasQuest(31804) || HasQuest(31802) || HasQuest(31800) || HasQuest(31798) || HasQuest(31796) || HasQuest(31803) || HasQuest(31801) || HasQuest(31799) || HasQuest(31797) || HasQuest(31795) || 
 							  HasQuest(31805) || HasQuest(31793) || HasQuest(31791) || HasQuest(31789) || HasQuest(31787) || HasQuest(31794) || HasQuest(31792) || HasQuest(31790) || HasQuest(31788) || HasQuest(31786) ||
-							  HasQuest(32693) || HasQuest(32691) || HasQuest(32689) || HasQuest(32687) || HasQuest(32692) || HasQuest(32690) || HasQuest(32688) || HasQuest(32686)">
+							  HasQuest(32693) || HasQuest(32691) || HasQuest(32689) || HasQuest(32687) || HasQuest(32692) || HasQuest(32690) || HasQuest(32688) || HasQuest(32686) || (!HasQuest(31015) &amp;&amp; !IsQuestCompleted(31015))">
 			<CustomBehavior File="FlyTo" DestName="Mogu'shan Palace - Fly to Point" X="1258.379" Y="592.1415" Z="628.2097" />
 			<CustomBehavior File="FlyTo" DestName="Dismount at Mogu'shan Palace" X="1398.729" Y="428.9624" Z="548.287" />
 			<CustomBehavior File="ForcedDismount" />
 			<MoveTo X="1435.699" Y="389.2595" Z="548.0796" />
 		</If>
-
+		
+		<!-- Starter quest for stuffs -->
+		<If Condition="!HasQuest(31015) &amp;&amp; !IsQuestCompleted(31015)">
+			<PickUp QuestName="Your Private Collection" QuestId="31015" GiverName="Lorewalker Cho" GiverId="61962" X="1447.177" Y="371.4531" Z="550.285" />
+		</If>
+		<If Condition="HasQuest(31015) &amp;&amp; !IsQuestCompleted(31015)">
+			<Objective QuestName="Your Private Collection" QuestId="31015" Type="UseObject" ObjectId="212526" UseCount="1" />
+		</If>
+		<If Condition="HasQuest(31015) &amp;&amp; IsQuestCompleted(31015)">
+			<TurnIn QuestName="Your Private Collection" QuestId="31015" TurnInName="Lorewalker Cho" TurnInId="61962" X="1447.177" Y="371.4531" Z="550.285" />
+		</If>
+		
 		<!-- Mogu -->
 		<If Condition="HasQuest(31786)"> <!-- Pristine Manacles of Rebellion -->
 	<TurnIn QuestName="Pristine Manacles of Rebellion" QuestId="31786" TurnInName="Clutter" TurnInId="214205" />
@@ -273,7 +290,7 @@
 
 		<CustomBehavior File="FlyTo" DestName="Dismount at Mogu'shan Palace" X="1398.729" Y="428.9624" Z="548.287" />
 		<CustomBehavior File="UserDialog" StopOnContinue="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Done with turn-ins. Please load another profile or bot base." />
-	
+		
 
 	</QuestOrder>
 
