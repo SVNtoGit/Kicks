@@ -63,17 +63,6 @@
         <Mob Name="Baron Geddon" Id="40147" />
     </AvoidMobs>
 
-    <Quest Id="25353" Name="Lightning in a Bottle">
-        <Objective Type="CollectItem" ItemId="52834" CollectCount="1">
-            <CollectFrom>
-                <Object Name="Lightning Channel" Id="202731" />
-            </CollectFrom>
-            <Hotspots>
-                <Hotspot X="5064.553" Y="-2116.217" Z="1373.668" />
-            </Hotspots>
-        </Objective>
-    </Quest>
-
     <Quest Id="25910" Name="The Time for Mercy has Passed">
         <Objective Type="KillMob" MobId="41563" KillCount="4">
             <Hotspots>
@@ -1046,11 +1035,19 @@
             <If Condition="HasQuest(25353) &amp;&amp; !IsQuestCompleted(25353)">
                 <CustomBehavior File="FlyTo" DestName="get Lightning" Land="true" X="5064.553" Y="-2116.217"
                                 Z="1373.668" />
-                <Objective QuestName="Lightning in a Bottle" QuestId="25353" Type="CollectItem" ItemId="52834"
-                           CollectCount="1" />
+                <While Condition="!HasItem(52834)">
+                    <CustomBehavior File="InteractWith" QuestId="25353" MobId="202731" PreInteractMountStrategy="Dismount">
+                        <HuntingGrounds>
+                            <Hotspot X="5126.147" Y="-2049.125" Z="1366.189" />
+                            <Hotspot X="5040.643" Y="-2163.276" Z="1386.981" />
+                            <Hotspot X="5073.01" Y="-2069.997" Z="1368.554" />
+                            <Hotspot X="5067.632" Y="-2125.583" Z="1375.27" />
+                        </HuntingGrounds>
+                    </CustomBehavior>
+                </While>
             </If>
             <If Condition="HasQuest(25353) &amp;&amp; IsQuestCompleted(25353)">
-				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5346.324" Y="-2135.31" Z="1280.52" />			
+		<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5094.732" Y="-2148.26" Z="1376.859" />			
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52853)" WaitTime="1000" />
                 <CustomBehavior File="WaitTimer" WaitTime="3000" />
@@ -1060,8 +1057,8 @@
 				<CustomBehavior File="WaitTimer" WaitTime="3000" />
            </If>
             <If Condition="!HasQuest(25618) &amp;&amp; !IsQuestCompleted(25618) &amp;&amp; !HasQuest(25623) &amp;&amp; !IsQuestCompleted(25623) &amp;&amp; Unit(39627) != null">
- 				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5346.324" Y="-2135.31" Z="1280.52" />			
-				<CustomBehavior File="ForcedDismount" />
+ 		<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5346.324" Y="-2135.31" Z="1280.52" />			
+		<CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52853)" WaitTime="1000" />
                 <CustomBehavior File="WaitTimer" WaitTime="3000" />
                 <PickUp QuestName="Into the Maw!" QuestId="25618" GiverName="Spirit of Goldrinn" GiverId="39627" />
@@ -1308,9 +1305,24 @@
             <If Condition="HasQuest(25355) &amp;&amp; !IsQuestCompleted(25355)">
                 <CustomBehavior File="FlyTo" Land="true" X="5064.553" Y="-2116.217" Z="1373.668" />
             </If>
-            <Objective QuestName="Lightning in a Bottle" QuestId="25355" Type="CollectItem" ItemId="52834"
-                       CollectCount="1" />
-            <While Condition="HasQuest(25355) &amp;&amp; IsQuestCompleted(25355)">
+
+            <If Condition="HasQuest(25355) &amp;&amp; !IsQuestCompleted(25355)">
+                <CustomBehavior File="FlyTo" DestName="get Lightning" Land="true" X="5064.553" Y="-2116.217"
+                                Z="1373.668" />
+                <While Condition="!HasItem(52834)">
+                    <CustomBehavior File="InteractWith" QuestId="25355" MobId="202731" PreInteractMountStrategy="Dismount">
+                        <HuntingGrounds>
+                            <Hotspot X="5126.147" Y="-2049.125" Z="1366.189" />
+                            <Hotspot X="5040.643" Y="-2163.276" Z="1386.981" />
+                            <Hotspot X="5073.01" Y="-2069.997" Z="1368.554" />
+                            <Hotspot X="5067.632" Y="-2125.583" Z="1375.27" />
+                        </HuntingGrounds>
+                    </CustomBehavior>
+                </While>
+            </If>
+            <If Condition="HasQuest(25355) &amp;&amp; IsQuestCompleted(25355)">
+		<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5094.732" Y="-2148.26" Z="1376.859" />			
+                <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(52854)" WaitTime="1000" />
                 <CustomBehavior File="WaitTimer" WaitTime="3000" />
                 <TurnIn QuestName="Lightning in a Bottle" TurnInName="Spirit of Lo'Gosh" QuestId="25355"
@@ -1318,7 +1330,9 @@
                 <If Condition="!HasQuest(25355)">
                     <PickUp QuestName="Into the Maw!" GiverName="Spirit of Lo'Gosh" QuestId="25617" GiverId="39622" />
                 </If>
-            </While>
+		<CustomBehavior File="WaitTimer" WaitTime="3000" />
+           </If>
+
             <Objective QuestName="Sweeping the Shelf" QuestId="25354" Type="KillMob" MobId="39844" KillCount="5" />
             <Objective QuestName="Sweeping the Shelf" QuestId="25354" Type="KillMob" MobId="39843" KillCount="8" />
             <If Condition="HasQuest(25354) &amp;&amp; IsQuestCompleted(25354)">
