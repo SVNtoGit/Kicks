@@ -473,7 +473,7 @@
 
     <LootMobs Value="false" />
     <DisableBehavior Name="Pull" />
-    <If Condition="!IsQuestCompleted(12716)">
+    <If Condition="HasQuest(12716) &amp;&amp; !IsObjectiveComplete(1,12716)">
 		<!-- we need a objective completed condition for the first 2 objectives ... in case of stop / start -->
         <!--Manually pickup Cauldron and Chain -->
         <CustomBehavior File="RunLikeHell" AllowCombat="true" UseCTM="false">
@@ -493,8 +493,10 @@
         </CustomBehavior>
         <!--CAULDERON INTERACT HERE-->
         <CustomBehavior File="CollectThings" QuestId="12716" MobId="190937" CollectItemCount="1" CollectItemId="39324" X="1783.84" Y="-5877.652" Z="109.4958" />
- 		<!-- we need a objective completed condition for the first 2 objectives ... -->
-       <CustomBehavior File="RunLikeHell" AllowCombat="true" UseCTM="false">
+	</If>
+	<If Condition="HasQuest(12716) &amp;&amp; !IsObjectiveComplete(2,12716)">
+ 	    <!-- we need a objective completed condition for the first 2 objectives ... -->
+        <CustomBehavior File="RunLikeHell" AllowCombat="true" UseCTM="false">
             <Hotspot X="1713.019" Y="-5877.708" Z="116.3441" />
             <Hotspot X="1734.622" Y="-5906.618" Z="116.125" />
             <Hotspot X="1807.523" Y="-5944.469" Z="115.9017" />
@@ -502,24 +504,24 @@
             <Hotspot X="1815.966" Y="-6008.466" Z="117.6571" />
         </CustomBehavior>
         <!--CHAIN INTERACT HERE-->
-        <CustomBehavior File="CollectThings" QuestId="12716" MobId="190938" CollectItemCount="1" CollectItemId="39326" X="1817.737" Y="-6010.346" Z="119.7486" />
-		<Objective QuestName="The Plaguebringer's Request" QuestId="12716" Type="CollectItem" ItemId="39328" CollectCount="10" /> 
-		<!-- No override given, but bot knows where to go 
-			<Quest Id="12716" Name="The Plaguebringer's Request">
-				<Objective Type="CollectItem" ItemId="39328" CollectCount="10">
-					<CollectFrom>
-					</CollectFrom>
-					<Hotspots>
-					</Hotspots>
-				</Objective>
-			</Quest>
-		-->
+        <CustomBehavior File="CollectThings" QuestId="12716" MobId="190938" CollectItemCount="1" CollectItemId="39326" X="1817.737" Y="-6010.346" Z="119.7486" /> 
     </If>
-
     <!-- We are out in the open, so allow pulling again... -->
     <EnableBehavior Name="Pull" />
     <LootMobs Value="true" />
-
+	
+	<Objective QuestName="The Plaguebringer's Request" QuestId="12716" Type="CollectItem" ItemId="39328" CollectCount="10" />
+	<!-- No override given, but bot knows where to go 
+		<Quest Id="12716" Name="The Plaguebringer's Request">
+			<Objective Type="CollectItem" ItemId="39328" CollectCount="10">
+				<CollectFrom>
+				</CollectFrom>
+				<Hotspots>
+				</Hotspots>
+			</Objective>
+		</Quest>
+	-->
+		
     <CustomBehavior File="InteractWith" QuestId="12719" QuestObjectiveIndex="1" NonCompeteDistance="0" MobId="28945"
       X="1580.829" Y="-5702.371" Z="121.6818" />
     <!-- Mayor Quimby -->
