@@ -69,17 +69,43 @@
 		-->
 
         <CustomBehavior File="Message" Text="Compiling SW Quests" LogColor="CornflowerBlue" />
-		<!-- no quest given, but maybe ... if !hasquest(newquestid) ... and i'm in sw, then interact with Archmage Khadgar in the middle of the walkway in trade district  -- gossip 1-->
+		<!-- no quest given, but maybe ... if !hasquest(newquestid) ... and i'm in sw, then interact with Archmage Khadgar in the middle of the walkway in trade district  - gossip 1-->
 		
 		<!-- first quest - Azeroth's Last Stand from Archmage Khadgar - http://www.wowhead.com/quest=35933/azeroths-last-stand -->
 		<PickUp QuestName="Azeroth's Last Stand" QuestId="35933" GiverName="Archmage Khadgar" GiverId="" />
+		<!-- go kill any mob down below and loot something, this will be a collectitem quest objective -->
 		<!-- CLQ turnin: 35933, pickup: 34392 -->
 		<!-- Onslaught's End - http://www.wowhead.com/quest=34392  -->
+		<!-- As of this date in Beta, the spires are deactivated by going inside them and clicking on the "Stasis Relic" object to free the NPCs. -->
+			<If Condition="((HasQuest(34392)) &amp;&amp; (!IsQuestCompleted(34392)))" >
+			 <While Condition="(!IsObjectiveComplete(1, 34392))">
+				<CustomBehavior File="InteractWith" QuestId="34392" MobId="" ObjectType="GameObject" Range="8" NumOfTimes="1" CollectionDistance="1000" WaitTime="3000" />
+			 </While>
+			 <While Condition="(!IsObjectiveComplete(2, 34392))">
+				<CustomBehavior File="InteractWith" QuestId="34392" MobId="" ObjectType="GameObject" Range="8" NumOfTimes="1" CollectionDistance="1000" WaitTime="3000" />
+			 </While>
+			</If>
         <TurnIn QuestName="Onslaught's End" QuestId="34392" TurnInName="Archmage Khadgar" TurnInId="" />
-		
-		
-		
-		
+		<PickUp QuestName="The Portal's Power" QuestId="34393" GiverName="Archmage Khadgar" GiverId="" />
+		<!-- go beneath him, wait 10 secs for cutscene, then we have 3 objects that we have to click, then one last object, then turnin. idk how to 'see' these new weird type of objectives? -->
+        <TurnIn QuestName="The Portal's Power" QuestId="34393" TurnInName="Archmage Khadgar" TurnInId="" />
+		<PickUp QuestName="The Cost of War" QuestId="34420" GiverName="Archmage Khadgar" GiverId="" />
+		<!-- move to other side of portal, turnin to 'new' npc... may need a 10s waittimer, will need new xyz and possible npcid -->
+        <TurnIn QuestName="The Cost of War" QuestId="34420" TurnInName="Archmage Khadgar" TurnInId="" />
+		<PickUp QuestName="Blaze of Glory" QuestId="34422" GiverName="Archmage Khadgar" GiverId="" />
+		<!-- 2 other quests avail right outside -->
+		<PickUp QuestName="Vengeance for the Fallen" QuestId="35241" GiverName="Rephuura" GiverId="81763" /> <!-- this can be 35241 or 35242, it lists both. will verify with bot -->
+		<PickUp QuestName="Bled Dry" QuestId="35240" GiverName="Taag" GiverId="81762" /> <!-- ally - 35240, horde - 34421 - same objective -->
+			<!-- free karabor slaves, free frostwolf slaves - for bled dry - interact with 2 cages -->
+			<!-- burn 8 huts for blaze of glory - move to a hut location ... useitem, no need to target - there is a popup icon for using the item, but you can use it from your quest box or inv -->
+			<!-- kill 8 orcs for Vengeance for the Fallen - killmob quest -->
+			
+			<!-- npcs are at a new camp, use new xyz -->
+		<TurnIn QuestName="Vengeance for the Fallen" QuestId="35241" TurnInName="Vindicator Maraad" TurnInId="" /> 
+		<TurnIn QuestName="Bled Dry" QuestId="35240" TurnInName="Archmage Khadgar" TurnInId="" /> 
+		<TurnIn QuestName="Blaze of Glory" QuestId="34422" TurnInName="Archmage Khadgar" TurnInId="" />
+		<PickUp QuestName="Altar Altercation" QuestId="34423" GiverName="Archmage Khadgar" GiverId="" />
+
 		
 		
 		
