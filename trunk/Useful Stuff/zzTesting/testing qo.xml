@@ -26,38 +26,23 @@
 
 
 		
- 
+		<!-- jp - http://www.wowhead.com/currency=395 -->
+		<!-- honor points - http://www.wowhead.com/currency=392 -->
+		
 
-            <If Condition="!HasQuest(13045) &amp;&amp; !IsQuestCompleted(13045)">
-                <CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6129.342" Y="-12.45778" Z="383.5179" />
-                <CustomBehavior File="ForcedDismount" />
-                <PickUp QuestName="Into The Wild Green Yonder" QuestId="13045" GiverName="Penumbrius" GiverId="30227"
-                        X="6129.342" Y="-12.45778" Z="383.5179" />
-            </If>
-            <If Condition="HasQuest(13045) &amp;&amp; !IsQuestCompleted(13045)">
-                <CustomBehavior File="FlyTo" DestName="mount Skytalon" X="6123.961" Y="-21.31614" Z="383.5108" />
-                <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="Vehicles\MountVehOnly" VehicleMountId="30500" X="6121.719" Y="-20.34945" Z="383.512" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for  {TimeRemaining}" />
-
-				<While Condition="HasQuest(13045) &amp;&amp; !IsQuestCompleted(13045)">
-
-                    <CustomBehavior File="Vehicles\FlyingVehicle" QuestId="13045" VehicleId="30228" NpcList="30407"
-                                    PickUpPassengerButton="1" DropPassengerButton="2" SpeedButton="3"
-                                    StartPath="6545.917,348.2747,580.2816|6619.757,488.2379,408.1627"
-                                    Path="6608.668,443.7926,436.0548|6713.227,484.2516,446.7397|6598.934,582.8495,437.1812"
-                                    EndPath="6545.917, 348.2747, 580.2816 | 6216.801, 4.160139, 416.227" />
-
-                </While>
-                <CustomBehavior File="EjectVeh" />
-
-				
-            </If>
+			<!-- <If Condition="(GetCurrencyAmount(395) &gt;= 500)" > -->
+			<While Condition="Lua.GetReturnVal&lt;int&gt;(&quot;return GetCurrencyInfo(395)&quot;, 1) &gt;= 500" >
+				<CustomBehavior File="InteractWith" MobId="52028" KeepTargetSelected="true" X="-8814.497" Y="354.9618" Z="107.0492" />
+				<CustomBehavior File="Misc\RunLua" Lua="BuyMerchantItem(9,250)" WaitTime="1000" />
+			</While>
+				<CustomBehavior File="Message" Text="didn't work" LogColor="red" />
 
 
-
-
-
+<!-- InteractByBuyingItemId="392" BuyItemCount="1" />	-->
+				<!--				
+				<CustomBehavior File="InteractWith" MobId="52028" KeepTargetSelected="true" X="-8814.497" Y="354.9618" Z="107.0492" />
+				<CustomBehavior File="Misc\RunLua" Lua="BuyMerchantItem(9,250)" WaitTime="1000" />
+-->
 
 
 
