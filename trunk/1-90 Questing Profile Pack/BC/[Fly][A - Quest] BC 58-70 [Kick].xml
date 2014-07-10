@@ -2172,8 +2172,9 @@
         <If Condition="!HasQuest(10483) &amp;&amp; !IsQuestCompleted(10483)">
             <PickUp QuestName="III Omens" QuestId="10483" GiverName="Lieutenant Amadi" GiverId="16820"
                     X="-591.543" Y="2910.224" Z="59.21245" />
+			<CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
             <MoveTo X="-587.4644" Y="2879.733" Z="56.18918" />
-        </If>
+       </If>
         <If Condition="HasQuest(10143) &amp;&amp; IsQuestCompleted(10143)">
             <If Condition="CanFly()">
                 <CustomBehavior File="FlyTo" DestName="Turnin: Expedition Point"
@@ -2231,22 +2232,27 @@
         <TurnIn QuestName="Mission: The Murketh and Shaadraz Gateways" QuestId="10146"
                 TurnInName="Forward Commander Kingston" TurnInId="19310" />
 
+ 			<If Condition="HasQuest(10340)" >
+				<CustomBehavior File="AbandonQuest" QuestId="10340" Type="All" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest log {TimeRemaining}" />
+			</If>
+			<If Condition="!HasQuest(10340) &amp;&amp; !IsQuestCompleted(10340)" >
+            <CustomBehavior File="Misc\RunLua" Lua="CloseTaxiMap()" />
         <PickUp QuestName="Shatter Point" QuestId="10340" GiverName="Forward Commander Kingston" GiverId="19310" />
-
-        <If Condition="HasQuest(10340) &amp;&amp; Unit(20234) == null"> 
             <!-- Wing Commander Dabir'ee will fly us to Shatter Point -->
             <MoveTo X="-670.4001" Y="1852.102" Z="66.90979" />
             <!-- NB: ForcedDismount cancels shapeshift, also -->
             <CustomBehavior File="ForcedDismount" />
             <CustomBehavior File="InteractWith" MobId="19409" InteractByGossipOptions="1"
                             X="-670.4001" Y="1852.102" Z="66.90979" />
-        </If>
+			</If>
         
         <If Condition="HasQuest(10340)">
             <CustomBehavior File="Misc\RunLua" Lua="CloseTaxiMap()" />
             <TurnIn QuestName="Shatter Point" QuestId="10340" TurnInName="Runetog Wildhammer" TurnInId="20234" />
         </If>
 
+        <TurnIn QuestName="Shatter Point" QuestId="10340" TurnInName="Runetog Wildhammer" TurnInId="20234" />
         <PickUp QuestName="Mission: The Abyssal Shelf" QuestId="10163" GiverName="Wing Commander Gryphongar"
                 GiverId="20232" />
 
@@ -2255,16 +2261,20 @@
         <TurnIn QuestName="Mission: The Abyssal Shelf" QuestId="10163" TurnInName="Wing Commander Gryphongar"
                 TurnInId="20232" />
 
-        <PickUp QuestName="Go to the Front" QuestId="10382" GiverName="Wing Commander Gryphongar" GiverId="20232" />
-
-        <If Condition="HasQuest(10382) &amp;&amp; Unit(20234) != null">
+ 			<If Condition="HasQuest(10382)" >
+				<CustomBehavior File="AbandonQuest" QuestId="10382" Type="All" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest log {TimeRemaining}" />
+			</If>
+ 			<If Condition="!HasQuest(10382) &amp;&amp; !IsQuestCompleted(10382)" >
+            <CustomBehavior File="Misc\RunLua" Lua="CloseTaxiMap()" />
+       <PickUp QuestName="Go to the Front" QuestId="10382" GiverName="Wing Commander Gryphongar" GiverId="20232" />
             <!-- Gryphoneer Windbellow will fly us to Honor Point -->
             <MoveTo X="297.7564" Y="1498.373" Z="-14.18208" />
             <!-- NB: ForcedDismount cancels shapeshift, also -->
             <CustomBehavior File="ForcedDismount" />
             <CustomBehavior File="InteractWith" MobId="20235" InteractByGossipOptions="1"
                             X="294.6884" Y="1498.062" Z="-14.59734" />
-        </If>
+			</If>
 
         <TurnIn QuestName="Go to the Front" QuestId="10382" TurnInName="Field Marshal Brock" TurnInId="20793" />
 
