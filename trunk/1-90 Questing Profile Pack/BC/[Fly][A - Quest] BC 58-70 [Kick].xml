@@ -2259,13 +2259,19 @@
 
         <PickUp QuestName="Go to the Front" QuestId="10382" GiverName="Wing Commander Gryphongar" GiverId="20232" />
 
-        <If Condition="HasQuest(10382) &amp;&amp; Unit(20234) != null">
-            <!-- Gryphoneer Windbellow will fly us to Honor Point -->
+        <If Condition="HasQuest(10382) &amp;&amp; Unit(20793) == null">
+			<If Condition="Unit(20235) == null">
+				<MoveTo X="297.7564" Y="1498.373" Z="-14.18208" />
+			</If>
+
+			<If Condition="Unit(20235) != null">
+			<!-- Gryphoneer Windbellow will fly us to Honor Point -->
             <MoveTo X="297.7564" Y="1498.373" Z="-14.18208" />
             <!-- NB: ForcedDismount cancels shapeshift, also -->
             <CustomBehavior File="ForcedDismount" />
             <CustomBehavior File="InteractWith" MobId="20235" InteractByGossipOptions="1"
                             X="294.6884" Y="1498.062" Z="-14.59734" />
+			</If>
         </If>
 
         <TurnIn QuestName="Go to the Front" QuestId="10382" TurnInName="Field Marshal Brock" TurnInId="20793" />
