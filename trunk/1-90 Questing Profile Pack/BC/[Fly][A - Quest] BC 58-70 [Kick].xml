@@ -2257,6 +2257,19 @@
         <TurnIn QuestName="Mission: The Abyssal Shelf" QuestId="10163" TurnInName="Wing Commander Gryphongar"
                 TurnInId="20232" />
 
+        <PickUp QuestName="Go to the Front" QuestId="10382" GiverName="Wing Commander Gryphongar" GiverId="20232" />
+
+        <If Condition="HasQuest(10382) &amp;&amp; Unit(20234) != null">
+            <!-- Gryphoneer Windbellow will fly us to Honor Point -->
+            <MoveTo X="297.7564" Y="1498.373" Z="-14.18208" />
+            <!-- NB: ForcedDismount cancels shapeshift, also -->
+            <CustomBehavior File="ForcedDismount" />
+            <CustomBehavior File="InteractWith" MobId="20235" InteractByGossipOptions="1"
+                            X="294.6884" Y="1498.062" Z="-14.59734" />
+        </If>
+
+        <TurnIn QuestName="Go to the Front" QuestId="10382" TurnInName="Field Marshal Brock" TurnInId="20793" />
+
         <If Condition="!CanFly() &amp;&amp; !HasQuest(10058) &amp;&amp; !IsQuestCompleted(10058)">
             <MoveTo DestName="Safe way to Honor Hold avoiding Thrallmar" X="-260.1749" Y="2035.922" Z="103.6779" />
         </If>
@@ -2928,38 +2941,6 @@
         </If>
         <TurnIn QuestName="The Path of Glory" QuestId="10047" TurnInName="Warp-Scryer Kryv" TurnInId="16839"
                 X="-809.4045" Y="2611.591" Z="124.3894" />
-	
-			<If Condition="!HasQuest(10382) &amp;&amp; !IsQuestCompleted(10382)" >
-            <If Condition="CanFly()">
-                <CustomBehavior File="FlyTo" DestName="Shatter Point"
-                                X="297.7564" Y="1498.373" Z="-14.18208" />
-            </If>
-		<PickUp QuestName="Go to the Front" QuestId="10382" GiverName="Wing Commander Gryphongar" GiverId="20232" />
-			</If>
-
-        <If Condition="HasQuest(10382) &amp;&amp; Unit(20793) == null &amp;&amp; !CanFly()">
-			<If Condition="Unit(20235) == null">
-				<MoveTo X="297.7564" Y="1498.373" Z="-14.18208" />
-			</If>
-
-			<If Condition="Unit(20235) != null">
-			<!-- Gryphoneer Windbellow will fly us to Honor Point -->
-            <MoveTo X="297.7564" Y="1498.373" Z="-14.18208" />
-            <!-- NB: ForcedDismount cancels shapeshift, also -->
-            <CustomBehavior File="ForcedDismount" />
-            <CustomBehavior File="InteractWith" MobId="20235" InteractByGossipOptions="1"
-                            X="294.6884" Y="1498.062" Z="-14.59734" />
-			</If>
-        </If>
-
-         <If Condition="HasQuest(10382)">
-            <If Condition="CanFly()">
-                <CustomBehavior File="FlyTo" DestName="Disruption - Forge Camp: Mageddon"
-                                X="-754.0045" Y="2651.249" Z="105.0315" />
-            </If>
-      <TurnIn QuestName="Go to the Front" QuestId="10382" TurnInName="Field Marshal Brock" TurnInId="20793" />
-			<!-- add in -> interactwith nearby fp guy, gossip, fly to shatter point. wait for flight. moveto honor hold (auto take fp back), or more this 'go to front' until later, we run around a lot, it's bs -->
-        </If>
 				
 	<If Condition="!HasQuest(10394) &amp;&amp; !IsQuestCompleted(10394)" >
             <If Condition="CanFly()">
