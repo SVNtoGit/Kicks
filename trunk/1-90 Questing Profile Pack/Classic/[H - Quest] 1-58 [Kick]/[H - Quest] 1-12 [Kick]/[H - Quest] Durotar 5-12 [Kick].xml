@@ -423,8 +423,11 @@
                 <CustomBehavior File="AbandonQuest" QuestId="25189" Type="All" />
             </If>
             <!-- Not this NPC won't have quest if someone else started the escort event -->
-            <PickUp QuestName="Spirits Be Praised" QuestId="25189" GiverName="Grandmatron Tekla"
-                    GiverId="39325" X="562.0121" Y="-4103.38" Z="16.7572" />
+            <MoveTo X="562.0121" Y="-4103.38" Z="16.7572" />
+            <If Condition="Unit(39325, u =&gt; u.FactionId == 29) != null">
+                <PickUp QuestName="Spirits Be Praised" QuestId="25189" GiverName="Grandmatron Tekla"
+                        GiverId="39325" X="562.0121" Y="-4103.38" Z="16.7572" />
+            </If>
             <CustomBehavior File="EscortGroup" QuestId="25189" EscortNpcId="39325"
                             EscortCountMax="1" EscortCompleteWhen="QuestCompleteOrFails" />
         </While>
