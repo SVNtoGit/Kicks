@@ -6885,12 +6885,20 @@
            <Objective Nav="Fly" QuestName="Pick Your Part" QuestId="10206"
                       Type="CollectItem" CollectCount="10" Name="Ethereal Technology" ItemId="28457" />
        </If>
-       <Objective Nav="Fly" QuestName="A Heap of Ethereals" QuestId="10262"
-                  Type="CollectItem" CollectCount="10" Name="Zaxxis Insignia" ItemId="29209" />
+
+       <If Condition="HasQuest(10262) &amp;&amp; !IsQuestCompleted(10262)">
+           <CustomBehavior File="FlyTo" DestName="The Heap" Land="true" X="2667.2" Y="3764.787" Z="142.8766" />
+           <UseMount Value="false"/>
+           <Objective QuestName="A Heap of Ethereals" QuestId="10262"
+                      Type="CollectItem" CollectCount="10" Name="Zaxxis Insignia" ItemId="29209" />
+           <UseMount Value="true"/>
+       </If>
+
        <If Condition="HasQuest(10262) &amp;&amp; IsQuestCompleted(10262)" >
            <CustomBehavior File="FlyTo" X="3044.707" Y="3685.767" Z="142.55" />
            <CustomBehavior File="ForcedDismount" />
        </If>
+
        <TurnIn Nav="Fly" QuestName="Pick Your Part" QuestId="10206"
                TurnInName="Papa Wheeler" TurnInId="19645" X="3053.075" Y="3644.414" Z="143.1805" />
        <PickUp Nav="Fly" QuestName="In A Scrap With The Legion" QuestId="10232"
