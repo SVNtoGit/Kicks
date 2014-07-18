@@ -3207,17 +3207,14 @@
         </If>
         <!---->
         <If Condition="HasQuest(25551) &amp;&amp; !IsQuestCompleted(25551)">
+            <!-- Solution from r3385 -->
             <While Condition="!Me.IsIndoors">
                 <CustomBehavior File="FlyTo" DestName="kill Ragnaros in The Inner Spire" Land="true"
                                 X="4314.234" Y="-3276.53" Z="1035.458" />
-                <!-- Point before the Portal -->
-                <MoveTo X="4316.154" Y="-3281.732" Z="1035.53" />
-                <!-- Point after the Portal, to Enter it -->
-                <CustomBehavior File="InteractWith" MobId1="40803" MobId2="41631" NumOfTimes="1"
-                                WaitForNpcs="false" X="4325.344" Y="-3291.792" Z="1036.028" />
-                <!-- Loading Screen WaitTimer --> 
+                <MoveTo X="4314.163" Y="-3279.957" Z="1035.534" />
+                <MoveTo X="4317.458" Y="-3283.54" Z="1035.534" />
+                <If Condition="new Func&lt;bool&gt;(() => { WoWMovement.Move(WoWMovement.MovementDirection.Forward, TimeSpan.FromMilliseconds(1500)); return true; })()" />
                 <CustomBehavior File="WaitTimer" WaitTime="5000" />
-                <!-- If we fail, avoid the Portal and try it again -->
                 <If Condition="!Me.IsIndoors">
                     <CustomBehavior File="MyCTM" X="4328.412" Y="-3301.903" Z="1035.855" />
                     <MoveTo X="4312.871" Y="-3299.386" Z="1035.536" />
@@ -3229,11 +3226,6 @@
                 <MoveTo X="3950.404" Y="-2827.787" Z="618.747" />
             </If>
 
-            <!--
-                <CustomBehavior File="InteractWith" QuestId="25551" MobId1="40803" MobId2="41631"
-                GossipOptions="1" CollectionDistance="200" X="3954.5" Y="-2825.82" Z="618.7477" />
-                <CustomBehavior File="WaitTimer" WaitTime="65000" />
-            -->
             <CustomBehavior File="SpecificQuests\25551-Hyjal-TheFirelord" X="4014.056" Y="-3008.969" Z="575.3901" />
 
             <If Condition="HasQuest(25551) &amp;&amp; !IsQuestCompleted(25551)">
