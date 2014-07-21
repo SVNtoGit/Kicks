@@ -19,7 +19,17 @@
 	<Mailboxes>
 	</Mailboxes>
 	
-	<!-- Starting out with Java - From control structures through objects 5th Edition (Gaddis) 
+	<!-- Query objective done or not in console
+var questId = 34393;
+var objectiveId = 1;
+var questIndex = Lua.GetReturnVal<int>("return GetQuestLogIndexByID(" + questId + ")", 0);
+   var result = Lua.GetReturnVal<bool>(
+    "return GetQuestLogLeaderBoard(" + objectiveId + "," + questIndex + ")", 2);
+
+Log("Is Complete: {0}", result);
+-->
+	
+	<!-- 
 		<CustomBehavior File="UserSettings" LootMobs="True" UseFlightPaths="True" PullDistance="25" GroundMountFarmingMode="False" KillBetweenHotspots="True" />
 			<If Condition="Unit(20234) != null">
 	
@@ -41,7 +51,7 @@
 				
 		 	 <If Condition="(CanFly())" >
 			 </If>
-			<If Condition="((HasQuest()) &amp;&amp; (!IsObjectiveComplete(1, )))">
+			<If Condition="HasQuest() &amp;&amp; !IsObjectiveComplete(1, )">
 			</If>
 			 <If Condition="((HasQuest()) &amp;&amp; (!IsObjectiveComplete(1, )))">
 			 </If>
@@ -55,7 +65,7 @@
 				<CustomBehavior File="ForcedDismount" />
 			 </If>
 			</If>
-			 <While Condition="((HasQuest()) &amp;&amp; (!IsObjectiveComplete(1, )))">
+			 <While Condition="HasQuest() &amp;&amp; !IsObjectiveComplete(1, )">
 			 </While>
 			 <While Condition="(!IsQuestCompleted())">
 			 </While>
@@ -68,7 +78,7 @@
 				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 			<If Condition="((!HasQuest()) &amp;&amp; (!IsQuestCompleted()))" >
 			</If>
-			<While Condition="((HasQuest()) &amp;&amp; (!IsQuestCompleted()))" >
+			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
 			</While>
 			<If Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
 			</If>
@@ -388,6 +398,14 @@
 
 
 	</QuestOrder>
+	
+	<!-- CompleteLogQuest / CLQ -->
+            <While Condition="HasQuest(26571) &amp;&amp; IsQuestCompleted(26571)">
+                <TurnIn QuestId="26571" />
+                <!-- Get 26573 -->
+                <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
+            </While>
+
 	
 	<!-- 
 	<Boss isFinal="false" entry="" name="" killOrder="1" optional="true" 

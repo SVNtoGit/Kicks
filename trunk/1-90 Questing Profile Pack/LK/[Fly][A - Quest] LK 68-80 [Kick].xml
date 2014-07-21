@@ -6101,13 +6101,18 @@
                 <PickUp QuestName="To Westguard Keep!" QuestId="11291" GiverName="Vice Admiral Keller" GiverId="23546" />
             </If>
             <If Condition="HasQuest(11276) &amp;&amp; IsQuestCompleted(11276)">
-                <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="1050.652" Y="-4817.771" Z="24.16815" />
-                <CustomBehavior File="ForcedDismount" />
+				<If Condition="!Me.IsIndoors">
+					<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="1050.652" Y="-4817.771" Z="24.16815" />
+					<CustomBehavior File="ForcedDismount" />
 
-                <MoveTo X="949.243" Y="-4838.147" Z="-72.44145" />
-                <CustomBehavior File="InteractWith" MobId="24150" X="949.243" Y="-4838.147" Z="-72.44145" />
+					<MoveTo X="949.243" Y="-4838.147" Z="-72.44145" />
+				</If>
+				<MoveTo X="949.243" Y="-4838.147" Z="-72.44145" />
+				<CustomBehavior File="InteractWith" MobId="24150" Nav="CTM" Range="4" X="949.243" Y="-4838.147" Z="-72.44145" />
                 <TurnIn QuestId="11276" />
-            </If>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
+           </If>
             <If Condition="!HasQuest(11277) &amp;&amp; !IsQuestCompleted(11277)">
                 <MoveTo X="949.243" Y="-4838.147" Z="-72.44145" />
                 <CustomBehavior File="InteractWith" MobId="24150" Range="10" CollectionDistance="200"
@@ -6137,6 +6142,7 @@
                 <MoveTo X="949.243" Y="-4838.147" Z="-72.44145" />
                 <CustomBehavior File="InteractWith" MobId="24150" Range="10" CollectionDistance="200"
                                 WaitTime="1000" X="949.243" Y="-4838.147" Z="-72.44145" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
                 <CustomBehavior File="RunMacro" Macro="/click QuestFrameAcceptButton" />
                 <!--
         <PickUp QuestName="The Ring of Judgement" QuestId="11299" GiverName="Glorenfeld" GiverId="24150" />
