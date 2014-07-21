@@ -44,14 +44,11 @@
         <!-- Stoneplow -->
         <Vendor Name="Nan the Mason Mug" Id="62878" Type="Food" X="-365.9896" Y="1905.672" Z="142.8074" />
         <!-- Stoneplow -->
-
     </Vendors>
-
 
     <Mailboxes>
         <Mailbox X="-211.4288" Y="497.3694" Z="187.2228" />
     </Mailboxes>
-
 
     <Blackspots>
         <Blackspot X="-1181.436" Y="1762.693" Z="17.94537" Radius="61.28667" />
@@ -61,10 +58,7 @@
         <!-- add a waterspot onto the mesh here -->
     </Blackspots>
 
-    <Blacklist>
-        <!-- ToDo: blacklist "Tylen Moonfeather" temporarily until the quest that removes the dome he's under is completed when HB supports creating tempory blacklist -->
-        <Mob Name="Tylen Moonfeather" Id="59049"  Flags="Interact" />
-    </Blacklist>
+    <Blacklist />
 
     <AvoidMobs>
         <Mob Name="Source of Despair" Id="65873" />
@@ -1113,32 +1107,28 @@
         <Objective QuestName="Crane Mastery" QuestId="30352" Type="KillMob" MobId="58116" KillCount="12" />
         <Objective QuestName="Profit Mastery" QuestId="30353" Type="CollectItem" ItemId="78914" CollectCount="12" />
 
-        <!-- CJ: We turn off "Vendoring" for this TurnIn. Otherwise, toons will
-             get side-tracked trying to learn flightpath under the purple dome.
-             Or perhaps, use the other vendors under the dome.
-         -->
-        <DisableBehavior Name="Vendor" />
-        <MoveTo X="-914.507" Y="-222.3872" Z="39.9127" />
-        <EnableBehavior Name="Vendor" /> 
-        <TurnIn QuestName="Crane Mastery" QuestId="30352" TurnInName="Daggle Bombstrider" TurnInId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
+        <If Condition="Me.IsAlliance &amp;&amp; !IsQuestCompleted(30274)">
+            <!-- CJ: We turn off "Vendoring" here (if were Alliance). Otherwise, toons will
+                 get side-tracked trying to learn flightpath under the purple dome.
+                 Or perhaps, use the other vendors under the dome.
+             -->
+            <!-- MaxMuster: Use HB-1005 ("Need <DisableBehavior Name="FlightMaster" /> and collateral refinements") instead of Vendor Behavior -->
 
+            <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
+            <DisableBehavior Name="Vendor" />
+        </If>
+
+        <TurnIn QuestName="Crane Mastery" QuestId="30352" TurnInName="Daggle Bombstrider" TurnInId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
         <PickUp QuestName="Crane Mastery: Needlebeak" QuestId="31262" GiverName="Daggle Bombstrider" GiverId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
         <TurnIn QuestName="Profit Mastery" QuestId="30353" TurnInName="Daggle Bombstrider" TurnInId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
         <PickUp QuestName="Profit Mastery: Chasheen" QuestId="31260" GiverName="Daggle Bombstrider" GiverId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
         <Objective QuestName="Crane Mastery: Needlebeak" QuestId="31262" Type="CollectItem" ItemId="85854" CollectCount="1" />
         <TurnIn QuestName="Crane Mastery: Needlebeak" QuestId="31262" TurnInName="Daggle Bombstrider" TurnInId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
-        <!-- N.B this needs more testing -->
-        <If Condition="HasQuest(31260) &amp;&amp; !IsQuestCompleted(31260)">
-            <MoveTo X="-1057.277" Y="-151.2747" Z="31.91986" />
-            <MoveTo X="-1183.615" Y="-88.74673" Z="6.396254" />
-            <MoveTo X="-1209.063" Y="125.6964" Z="12.45009" />
-            <Objective QuestName="Profit Mastery: Chasheen" QuestId="31260" Type="CollectItem" ItemId="85774" CollectCount="1" />
-        </If>
-        <If Condition="HasQuest(31260) &amp;&amp; IsQuestCompleted(31260)">
-            <MoveTo X="-1209.063" Y="125.6964" Z="12.45009" />
-            <MoveTo X="-1183.615" Y="-88.74673" Z="6.396254" />
-            <MoveTo X="-1057.277" Y="-151.2747" Z="31.91986" />
-            <TurnIn QuestName="Profit Mastery: Chasheen" QuestId="31260" TurnInName="Daggle Bombstrider" TurnInId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
+        <Objective QuestName="Profit Mastery: Chasheen" QuestId="31260" Type="CollectItem" ItemId="85774" CollectCount="1" />
+        <TurnIn QuestName="Profit Mastery: Chasheen" QuestId="31260" TurnInName="Daggle Bombstrider" TurnInId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
+
+        <If Condition="Me.IsAlliance">
+            <EnableBehavior Name="Vendor" />
         </If>
 
         <!-- Ally and Horde specific areas -->
@@ -1146,19 +1136,14 @@
             <!-- CJ: We turn off "Vendoring" here. Otherwise, toons will
                  get side-tracked trying to learn flightpath under the purple dome.
                  Or perhaps, use the other vendors under the dome.
-             -->
-
-            <If Condition="HasQuest(29874) &amp;&amp; IsQuestCompleted(29874)">
-                <DisableBehavior Name="Vendor" />
-                <MoveTo X="-1171.009" Y="-127.2748" Z="16.19555" />
-                <MoveTo X="-1127.144" Y="-164.941" Z="27.00897" />
-                <EnableBehavior Name="Vendor" />
-                <TurnIn QuestName="Kang Bramblestaff" QuestId="29874" TurnInName="Kang Bramblestaff" TurnInId="56114" X="-1127.144" Y="-164.941" Z="27.0089" />
-            </If>
+            -->
+            <!-- MaxMuster: Use HB-1005 ("Need <DisableBehavior Name="FlightMaster" /> and collateral refinements") instead of Vendor Behavior -->
 
             <DisableBehavior Name="Vendor" />
-            <If Condition="HasQuest(30274) &amp;&amp; !IsQuestCompleted(30274)">
 
+            <TurnIn QuestName="Kang Bramblestaff" QuestId="29874" TurnInName="Kang Bramblestaff" TurnInId="56114" X="-1127.144" Y="-164.941" Z="27.0089" />
+
+            <If Condition="HasQuest(30274) &amp;&amp; !IsQuestCompleted(30274)">
                 <!-- Arcanic Oubliette Id: 210516, Radius: 44 -->
                 <While Condition="!IsObjectiveComplete(3,30274)">
                     <MoveTo X="-1155.034" Y="-159.9985" Z="24.99694" />
@@ -1182,6 +1167,7 @@
                 </While>
  		<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for hb to catch up {TimeRemaining}" />
             </If>
+
             <EnableBehavior Name="Vendor" />
 
             <If Condition="HasQuest(30274) &amp;&amp; IsQuestCompleted(30274)">
