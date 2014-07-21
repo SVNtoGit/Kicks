@@ -1090,6 +1090,18 @@
         </If>
         <PickUp QuestName="Crane Mastery" QuestId="30352" GiverName="Daggle Bombstrider" GiverId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
         <PickUp QuestName="Profit Mastery" QuestId="30353" GiverName="Daggle Bombstrider" GiverId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
+
+        <If Condition="Me.IsAlliance &amp;&amp; !IsQuestCompleted(30274)">
+            <!-- CJ: We turn off "Vendoring" here (if were Alliance). Otherwise, toons will
+                 get side-tracked trying to learn flightpath under the purple dome.
+                 Or perhaps, use the other vendors under the dome.
+             -->
+            <!-- MaxMuster: Use HB-1005 ("Need <DisableBehavior Name="FlightMaster" /> and collateral refinements") instead of Vendor Behavior -->
+
+            <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
+            <DisableBehavior Name="Vendor" />
+        </If>
+
         <If Condition="HasQuest(30179) &amp;&amp; !IsQuestCompleted(30179)">
             <!-- H -->
             <Objective QuestName="Poisoned!" QuestId="30179" Type="CollectItem" ItemId="79252" CollectCount="5" />
@@ -1104,19 +1116,9 @@
             <CustomBehavior File="InteractWith" QuestId="30178" MobId="59151" InteractByGossipOptions="1"
                             X="-1076.521" Y="-158.7361" Z="30.52257" />
         </While>
+
         <Objective QuestName="Crane Mastery" QuestId="30352" Type="KillMob" MobId="58116" KillCount="12" />
         <Objective QuestName="Profit Mastery" QuestId="30353" Type="CollectItem" ItemId="78914" CollectCount="12" />
-
-        <If Condition="Me.IsAlliance &amp;&amp; !IsQuestCompleted(30274)">
-            <!-- CJ: We turn off "Vendoring" here (if were Alliance). Otherwise, toons will
-                 get side-tracked trying to learn flightpath under the purple dome.
-                 Or perhaps, use the other vendors under the dome.
-             -->
-            <!-- MaxMuster: Use HB-1005 ("Need <DisableBehavior Name="FlightMaster" /> and collateral refinements") instead of Vendor Behavior -->
-
-            <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
-            <DisableBehavior Name="Vendor" />
-        </If>
 
         <TurnIn QuestName="Crane Mastery" QuestId="30352" TurnInName="Daggle Bombstrider" TurnInId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
         <PickUp QuestName="Crane Mastery: Needlebeak" QuestId="31262" GiverName="Daggle Bombstrider" GiverId="58779" X="-914.507" Y="-222.3872" Z="39.9127" />
