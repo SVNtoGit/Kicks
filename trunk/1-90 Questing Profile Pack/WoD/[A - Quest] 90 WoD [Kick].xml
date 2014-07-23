@@ -229,7 +229,70 @@
 		</Hotspots>
 	</Objective>
 </Quest>
-
+<Quest Id="35166" Name="Ship Salvage">
+	<Objective Type="CollectItem" ItemId="112696" CollectCount="15">
+		<CollectFrom>
+			<Object Name="Drudgeboat Salvage" Id="231826" />
+			<Mob Name="Pale Devourer" Id="79205" />
+		</CollectFrom>
+		<Hotspots>
+			<Hotspot X="2196.969" Y="440.1442" Z="16.68046" />
+			<Hotspot X="2308.567" Y="469.7579" Z="7.669837" />
+			<Hotspot X="2349.301" Y="458.4007" Z="-1.327956" />
+			<Hotspot X="2403.746" Y="461.6697" Z="-1.480103" />
+			<Hotspot X="2427.319" Y="408.2561" Z="1.80868" />
+			<Hotspot X="2526.468" Y="445.291" Z="2.302774" />
+		</Hotspots>
+	</Objective>
+</Quest>
+<Quest Id="35174" Name="Pale Moonlight">
+	<Objective Type="KillMob" MobId="81670" KillCount="1"> <!-- Gnaw Bloodseeker -->
+		<Hotspots>
+			<Hotspot X="2405.47" Y="546.1799" Z="4.815781" />
+		</Hotspots>
+	</Objective>
+	<Objective Type="KillMob" MobId="79205" KillCount="8">
+		<Hotspots>
+			<Hotspot X="2196.969" Y="440.1442" Z="16.68046" />
+			<Hotspot X="2308.567" Y="469.7579" Z="7.669837" />
+			<Hotspot X="2349.301" Y="458.4007" Z="-1.327956" />
+			<Hotspot X="2403.746" Y="461.6697" Z="-1.480103" />
+			<Hotspot X="2427.319" Y="408.2561" Z="1.80868" />
+			<Hotspot X="2526.468" Y="445.291" Z="2.302774" />
+		</Hotspots>
+	</Objective>
+</Quest>
+<Quest Id="33765" Name="Dark Enemies">
+	<Objective Type="KillMob" MobId="80162" KillCount="8">
+		<Hotspots>
+			<Hotspot X="1270.639" Y="-992.4656" Z="-75.17731" />
+			<Hotspot X="1163.675" Y="-979.2686" Z="-79.76395" />
+			<Hotspot X="1111.325" Y="-890.8063" Z="-70.36084" />
+			<Hotspot X="1169.026" Y="-863.3851" Z="-70.23785" />
+			<Hotspot X="1128.514" Y="-795.1426" Z="-62.59146" />
+			<Hotspot X="1181.345" Y="-1066.432" Z="-76.50684" />
+			<Hotspot X="1149.419" Y="-1159.177" Z="-65.24557" />
+			<Hotspot X="1090.74" Y="-1203.046" Z="-44.21118" />
+			<Hotspot X="1074.893" Y="-1274.232" Z="-28.28437" />
+			<Hotspot X="918.912" Y="-1183.208" Z="-17.4095" />
+			<Hotspot X="921.2395" Y="-1133.093" Z="-9.216908" />			
+		</Hotspots>
+	</Objective>
+</Quest>
+<Quest Id="33905" Name="Closing the Door">
+	<Objective Type="KillMob" MobId="80198" KillCount="3">
+		<Hotspots>
+			<Hotspot X="1128.205" Y="-917.9604" Z="-77.96919" />
+			<Hotspot X="1213.542" Y="-933.0298" Z="-72.51781" />
+			<Hotspot X="1101.259" Y="-792.1445" Z="-60.28044" />
+			<Hotspot X="1128.988" Y="-770.5161" Z="-63.40012" />
+			<Hotspot X="1152.79" Y="-771.7679" Z="-63.65951" />
+			<Hotspot X="1149.419" Y="-1159.177" Z="-65.24557" />
+			<Hotspot X="1045.06" Y="-1272.447" Z="-25.5513" />
+			<Hotspot X="984.0708" Y="-1213.484" Z="-23.2955" />			
+		</Hotspots>
+	</Objective>
+</Quest>
 
 
 
@@ -498,55 +561,151 @@
 		<TurnIn QuestName="Establish Your Garrison" QuestId="34586" TurnInName="Baros Alexston" TurnInId="77209" X="1866.262" Y="263.6458" Z="77.17226" /> <!-- New NPC Id -->
 		<!-- End Lunarfall main -->
 		
-		<!-- Our Character's Outpost -->
+		<!-- Our Character's Outpost / Garrison -->
 		<PickUp QuestName="Ship Salvage" QuestId="35166" GiverName="Baros Alexston" GiverId="77209" X="1866.262" Y="263.6458" Z="77.17226" />
 		<PickUp QuestName="Keeping it Together" QuestId="35176" GiverName="Baros Alexston" GiverId="77209" X="1866.262" Y="263.6458" Z="77.17226" />
+		<PickUp QuestName="Pale Moonlight" QuestId="35174" GiverName="Vindicator Maraad" GiverId="79457" X="1848.149" Y="244.5642" Z="76.80275" />
 			<!-- Ignoring Quest Pickup from board 3+ quest -->
-
-
-
+			<If Condition="HasQuest(35176) &amp;&amp; !IsQuestCompleted(35176)" > <!-- Keeping it Together -->
+			 <While Condition="!IsObjectiveComplete(1, 35176)"> <!-- Asst Brightstone -->
+				<CustomBehavior File="InteractWith" QuestId="35176" MobId="84455" GossipOptions="1" Range="5" X="1847.38" Y="239.7118" Z="76.6667" />
+			 </While>
+			 <While Condition="!IsObjectiveComplete(2, 35176)"> <!-- Shelly's Supplies -->
+				<CustomBehavior File="InteractWith" QuestId="35176" MobId="81441" GossipOptions="1" Range="5" X="1934.74" Y="323.7326" Z="88.98896" />
+			 </While>
+			 <While Condition="!IsObjectiveComplete(3, 35176)"> <!-- Baros' Blueprints -->
+				<CustomBehavior File="InteractWith" QuestId="35176" MobId="231855" ObjectType="GameObject" WaitTime="5000" Range="3" X="1906.99" Y="235.7743" Z="77.62298" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(111956)" WaitTime="1000" /> <!-- Garrison Blueprint: Barracks, Level 1 -->
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for cast {TimeRemaining}" />
+			 </While>
+			</If>
+		<TurnIn QuestName="Keeping it Together" QuestId="35176" TurnInName="Baros Alexston" TurnInId="77209" X="1866.262" Y="263.6458" Z="77.17226" />
+			<Objective QuestName="Pale Moonlight" QuestId="35174" Type="KillMob" MobId="81670" KillCount="1" /> <!-- Gnaw Bloodseeker -->
+			<Objective QuestName="Ship Salvage" QuestId="35166" Type="CollectItem" ItemId="112696" CollectCount="15" />
+			<Objective QuestName="Pale Moonlight" QuestId="35174" Type="KillMob" MobId="79205" KillCount="8" />
+		<TurnIn QuestName="Pale Moonlight" QuestId="35174" TurnInName="Vindicator Maraad" TurnInId="79457" X="1848.149" Y="244.5642" Z="76.80275" />
+		<TurnIn QuestName="Ship Salvage" QuestId="35166" TurnInName="Baros Alexston" TurnInId="77209" X="1866.262" Y="263.6458" Z="77.17226" />
+		<PickUp QuestName="Build Your Barracks" QuestId="34587" GiverName="Baros Alexston" GiverId="77209" X="1866.262" Y="263.6458" Z="77.17226" />
+			<If Condition="HasQuest(34587) &amp;&amp; !IsQuestCompleted(34587)" > <!-- Keeping it Together -->
+			 <While Condition="!IsObjectiveComplete(1, 34587)"> <!-- Architect Table / Build Your Barracks -->
+				<CustomBehavior File="InteractWith" QuestId="34587" MobId="81369" GossipOptions="1" Range="5" X="1868.715" Y="265.151" Z="77.25529" />
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Build your barracks" />
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for cast {TimeRemaining}" />
+			 </While>
+			 <While Condition="!IsObjectiveComplete(2, 34587)"> <!-- Finalize Garrison Plot -->
+				<CustomBehavior File="InteractWith" QuestId="34587" MobId="232651" ObjectType="GameObject" WaitTime="12000" Range="3" X="1892.78" Y="240.9705" Z="76.37019" />
+			 </While>
+			</If>
+		<TurnIn QuestName="Build Your Barracks" QuestId="34587" TurnInName="Vindicator Maraad" TurnInId="79457" X="1848.149" Y="244.5642" Z="76.80275" />
+		<PickUp QuestName="Qiana Moonshadow" QuestId="34646" GiverName="Vindicator Maraad" GiverId="79457" X="1848.149" Y="244.5642" Z="76.80275" />
+			<If Condition="HasQuest(34646) &amp;&amp; !IsQuestCompleted(34646)" >
+				<CustomBehavior File="InteractWith" QuestId="34646" MobId="79446" Range="5" X="1355.95" Y="263.276" Z="54.93665" />
+			</If>
+		<TurnIn QuestName="Qiana Moonshadow" QuestId="34646" TurnInName="Qiana Moonshadow" TurnInId="81948" X="1845.29" Y="268.9618" Z="78.31454" />
+		<PickUp QuestName="Delegating on Draenor" QuestId="34692" GiverName="Lieutenant Thorn" GiverId="79953" X="1847.073" Y="270.6632" Z="78.39755" />
+			<If Condition="HasQuest(34692) &amp;&amp; !IsQuestCompleted(34692)" >
+				<CustomBehavior File="InteractWith" QuestId="34692" MobId="81546" Range="5" X="1847.561" Y="269.5938" Z="78.31422" />
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
+											Text="Click the checkbox and drag qiana to battle, then click start mission" />
+			</If>
+		<TurnIn QuestName="Delegating on Draenor" QuestId="34692" TurnInName="Lieutenant Thorn" TurnInId="79953" X="1847.073" Y="270.6632" Z="78.39755" />
+		<PickUp QuestName="Migrant Workers" QuestId="34778" GiverName="Vindicator Maraad" GiverId="79457" X="1848.149" Y="244.5642" Z="76.80275" />
+		<PickUp QuestName="A Hero's Welcome" QuestId="33075" GiverName="Yrel" GiverId="76054" X="1862.233" Y="226.4978" Z="76.61818" />
+			<If Condition="HasQuest(34778) &amp;&amp; !IsQuestCompleted(34778)" >
+				<CustomBehavior File="InteractWith" QuestId="34778" MobId="81912" Range="5" GossipOptions="1" X="1858.806" Y="243.0087" Z="76.99307" />
+			</If>
+			<If Condition="HasQuest(33075) &amp;&amp; !IsQuestCompleted(33075)" >
+				<MoveTo X="922.9953" Y="-815.6843" Z="-28.82178" />
+			</If>
+		<TurnIn QuestName="A Hero's Welcome" QuestId="33075" TurnInName="Samaara" TurnInId="75005" X="922.1233" Y="-816.309" Z="-28.80807" />
+		<!-- End of Our Character's Outpost / Garrison -->
 		
+		<!-- Embaari Village -->
+		<!-- Ignoring 2x Wanted Poster quests (3+) -->
+		<PickUp QuestName="Dark Enemies" QuestId="33765" GiverName="Samaara" GiverId="75005" X="922.1233" Y="-816.309" Z="-28.80807" />
+		<PickUp QuestName="Think of the Children!" QuestId="33070" GiverName="Efee" GiverId="80196" X="974.1285" Y="-856.2049" Z="-30.41945" />
+		<PickUp QuestName="Closing the Door" QuestId="33905" GiverName="Vindicator Tenuum" GiverId="74343" X="994.1024" Y="-856.5972" Z="-34.01478" />
+		<PickUp QuestName="In Need of a Hero" QuestId="33813" GiverName="Arianna" GiverId="71502" X="1201.639" Y="-1217.285" Z="-47.55474" />
+			<While Condition="HasQuest(33813) &amp;&amp; !IsQuestCompleted(33813)" >
+			 <If Condition="!HasItem(111908) &amp;&amp; !IsQuestCompleted(33813)" >
+				<CustomBehavior File="InteractWith" QuestId="33813" MobId="230883" ObjectType="GameObject" WaitTime="2000" Range="3" X="1207.785" Y="-1204.707" Z="-47.55516" />
+			 </If>
+			 <MoveTo X="1190.588" Y="-1219.145" Z="-47.55511" />
+			 <If Condition="!IsObjectiveComplete(, 33813) &amp;&amp; HasItem(111908)"> 
+				<CustomBehavior File="UseItemTargetLocation" ItemId="111908" UseType="PointToPoint" WaitTime="4000"  
+											X="1190.588" Y="-1219.145" Z="-47.55511" 
+											ClickToX="1193.093" ClickToY="-1221.047" ClickToZ="-47.55488" /> <!-- Bookshelf -->
+			 </If>
+			 <If Condition="!IsObjectiveComplete(, 33813) &amp;&amp; HasItem(111908)"> 
+				<CustomBehavior File="UseItemTargetLocation" ItemId="111908" UseType="PointToPoint" WaitTime="4000" 
+											X="1190.588" Y="-1219.145" Z="-47.55511" 
+											ClickToX="1192.579" ClickToY="-1218.437" ClickToZ="-47.55488" /> <!-- Floor -->
+			 </If>
+			 <If Condition="!IsObjectiveComplete(, 33813) &amp;&amp; HasItem(111908)"> 
+				<CustomBehavior File="UseItemTargetLocation" ItemId="111908" UseType="PointToPoint" WaitTime="4000" 
+											X="1190.588" Y="-1219.145" Z="-47.55511" 
+											ClickToX="1189.29" ClickToY="-1217.401" ClickToZ="-46.34229" /> <!-- Table -->
+			 </If>
+			</While>
+		<TurnIn QuestName="In Need of a Hero" QuestId="33813" TurnInName="Arianna" TurnInId="71502" X="1201.639" Y="-1217.285" Z="-47.55474" />
+			<If Condition="HasQuest(33070) &amp;&amp; !IsQuestCompleted(33070)" >
+			 <While Condition="!IsObjectiveComplete(3, 33070)"> <!-- Arianna, she offers a quest to 'save' her -->
+				<!--<CustomBehavior File="InteractWith" QuestId="33070" MobId="71502" Range="5" X="1201.639" Y="-1217.285" Z="-47.55474" /> -->
+			 </While>
+			 <While Condition="!IsObjectiveComplete(2, 33070)"> <!-- Rastaak -->
+				<CustomBehavior File="InteractWith" QuestId="33070" MobId="64224" Range="5" X="1052.969" Y="-1211.469" Z="-43.89405" />
+			 </While>
+			 <While Condition="!IsObjectiveComplete(1, 33070)"> <!-- Hakaam -->
+				<CustomBehavior File="InteractWith" QuestId="33070" MobId="62769" Range="5" X="1280.321" Y="-1012.964" Z="-75.17734" />
+			 </While>
+			</If>
+			<Objective QuestName="Closing the Door" QuestId="33905" Type="KillMob" MobId="80198" KillCount="3" />
+			<Objective QuestName="Dark Enemies" QuestId="33765" Type="KillMob" MobId="80162" KillCount="8" />
+		<TurnIn QuestName="Dark Enemies" QuestId="33765" TurnInName="Prophet Velen" TurnInId="74043" X="940.3281" Y="-1022.436" Z="-0.8042811" />
+		<TurnIn QuestName="Think of the Children!" QuestId="33070" TurnInName="Prophet Velen" TurnInId="74043" X="940.3281" Y="-1022.436" Z="-0.8042811" />
+		<TurnIn QuestName="Closing the Door" QuestId="33905" TurnInName="Prophet Velen" TurnInId="74043" X="940.3281" Y="-1022.436" Z="-0.8042811" />
+		<PickUp QuestName="Shadows Awaken" QuestId="34019" GiverName="Prophet Velen" GiverId="74043" X="940.3281" Y="-1022.436" Z="-0.8042811" />
 		
+
+
+
+
+
+<!--
+		
+			<If Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
+			</If>
+			<If Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
+			</If>
+
+
+		<TurnIn QuestName="Shadows Awaken" QuestId="34019" TurnInName="Prophet Velen" TurnInId="74043" X="940.3281" Y="-1022.436" Z="-0.8042811" />
+-->l
+
+			
+			
+			
+			
+
 		<!--
-				<Objective QuestName="Ship Salvage" QuestId="35166" Type="CollectItem" ItemId="112696" CollectCount="15" />
-		<TurnIn QuestName="Ship Salvage" QuestId="35166" TurnInName="" TurnInId="" />
-
-			<Objective QuestName="Keeping it Together" QuestId="35176" Type="KillMob" MobId="84455" KillCount="1" />
-			<Objective QuestName="Keeping it Together" QuestId="35176" Type="CollectItem" ItemId="112730" CollectCount="1" />
-		<TurnIn QuestName="Keeping it Together" QuestId="35176" TurnInName="" TurnInId="" />
+		<TurnIn QuestName="Migrant Workers" QuestId="34778" TurnInName="Foreman Zipfizzle" TurnInId="81912" X="1203.875" Y="-1482.67" Z="-6.358276" />
+		<PickUp QuestName="Circle the Wagon" QuestId="34779" GiverName="Foreman Zipfizzle" GiverId="81912" X="1203.875" Y="-1482.67" Z="-6.358276" />
+			// escort quest
+		<TurnIn QuestName="Circle the Wagon" QuestId="34779" TurnInName="Exarch Akama" TurnInId="80078" X="1193.517" Y="-1480.778" Z="-6.483398" />
 		-->
 
+		
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
+
 		
     </QuestOrder>
 
