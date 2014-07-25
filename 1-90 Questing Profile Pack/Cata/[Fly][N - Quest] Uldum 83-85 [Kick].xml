@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <HBProfile xsi:noNamespaceSchemaLocation="../Schemas/QuestProfileSchema.xsd"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <!-- Originally contributed by Kickazz006 -->
     <Name>[Fly][N - Quest] Uldum 83-85 [Kick] ($Rev$)</Name>
 
     <MinLevel>83</MinLevel>
@@ -22,10 +20,10 @@
     <MailBlue>true</MailBlue>
     <MailPurple>true</MailPurple>
 
+
     <Vendors>
         <Vendor Nav="Fly" Name="Kazemde" Id="48886" Type="Food" X="-9389.101" Y="-944.342" Z="113.7649" />
-        <Vendor Nav="Fly" Name="&quot;Chesty&quot; Jake" Id="49409" Type="Repair" X="-8353.455" Y="759.2292"
-                Z="151.4582" />
+        <Vendor Nav="Fly" Name="&quot;Chesty&quot; Jake" Id="49409" Type="Repair" X="-8353.455" Y="759.2292" Z="151.4582" />
         <Vendor Nav="Fly" Name="Blacksmith Abasi" Id="48617" Type="Repair" X="-9404.68" Y="-906.438" Z="112.5407" />
     </Vendors>
 
@@ -34,7 +32,6 @@
         <Mailbox Nav="Fly" X="-9429.111" Y="-967.3807" Z="111.0115" />
     </Mailboxes>
 
-
     <AvoidMobs>
         <Mob Name="Uldum Watcher [PH]" Id="44842" />
         <Mob Name="Myzerian" Id="48374" />
@@ -42,6 +39,7 @@
         <Mob Name="Myzerian" Id="48444" />
         <Mob Name="Burly Sea Trooper" Id="46980" />
     </AvoidMobs>
+
 
     <Quest Id="28105" Name="Kavem the Callous">
         <Objective Type="CollectItem" ItemId="62817" CollectCount="1">
@@ -323,9 +321,11 @@
             If you modify something in this block, don't forget to update the copy of this
             block after each checkpoint, and the at the start of the <QuestOrder>, also.
             -->
+
         <CustomBehavior File="Misc\ProfileCompatibilityInfo"
             AllowBrokenAddOns="true" AllowBrokenPlugIns="true" />
         <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
+
         <!-- CHECKPOINT BLOCK END -->
 
         <!-- GoTo Uldum Quests -->
@@ -1892,8 +1892,10 @@
         </If>
         <!-- not picking up The Heart of the Matter - instance quest -->
 
-        <CustomBehavior File="FlyTo" DestName="Grind to Level 85 on Eternal Protectors"
-                        X="-10566.63" Y="252.8112" Z="29.46898" />
+        <If Condition="Me.Level &lt; 85">
+            <CustomBehavior File="FlyTo" DestName="Grind to Level 85 on Eternal Protectors"
+                            X="-10566.63" Y="252.8112" Z="29.46898" />
+        </If>
         <SetGrindArea>
             <GrindArea>
                 <Factions>14</Factions>
@@ -1914,27 +1916,32 @@
             </GrindArea>
         </SetGrindArea>
         <GrindTo Level="85" />
-        <CustomBehavior File="Halt" />
 
-        <If Condition="Me.IsAlliance &amp;&amp; ( Me.MapId == 0 )">
-            <CustomBehavior File="LoadProfile" ProfileName="[Fly][A - Quest] Twilight Highlands 84-85 [Kick]" RememberProfile="true" />
-        </If>
-
+        <!-- Alliance -->
         <If Condition="Me.IsAlliance">
-            <CustomBehavior File="UserDialog" Title="title" AllowBotStop="true" SoundCue="Asterisk"
-                            SoundCueInterval="5"
-                            Text="Go to SW and load the TH profile" />
+            <If Condition="Me.MapId == 1">
+                <CustomBehavior File="FlyTo" DestName="Ratchet" Land="true" X="-994.8082" Y="-3823.235" Z="5.594241" />
+                <CustomBehavior File="UseTransport" TransportId="20808"
+                                WaitAtX="-996.8669" WaitAtY="-3826.07" WaitAtZ="5.536246"
+                                TransportStartX="-1005.613" TransportStartY="-3841.648" TransportStartZ="0.03330701"
+                                StandOnX="-998.4902" StandOnY="-3843.29" StandOnZ="6.0914"
+                                TransportEndX="-14277.75" TransportEndY="582.8661" TransportEndZ="0.01553879"
+                                GetOffX="-14280.88" GetOffY="566.6268" GetOffZ="6.979454" />
+            </If>
+            <If Condition="Me.MapId == 0">
+                <CustomBehavior File="FlyTo" DestName="Stormwind" Land="true" X="-8832.983" Y="622.6318" Z="93.92791" />
+                <CustomBehavior File="LoadProfile" ProfileName="..\MoP\[A - Quest] 85-86 The Jade Forest [Kick]" RememberProfile="true" />
+            </If>
         </If>
 
         <!-- Horde -->
-        <If Condition="Me.IsHorde">
-            <CustomBehavior File="FlyTo" DestName="Ramhahen Flight Path" X="-9416.136" Y="-1043.792" Z="113.4146" />
-            <CustomBehavior File="TaxiRide" MobId="48275" DestName="Orgrimmar" WaitTime="1000" />
+        <If Condition="Me.IsHorde &amp;&amp; (Me.MapId == 1)">
+            <!-- Evtl. direkt nach Orgrimmar Fliegen -->
+            <CustomBehavior File="FlyTo" DestName="Orgrimmar" Land="true" X="1596.113" Y="-4415.456" Z="14.5409" />
             <CustomBehavior File="LoadProfile" ProfileName="..\MoP\[H - Quest] 85-86 The Jade Forest [Kick]" RememberProfile="true" />
         </If>
 
         <CustomBehavior File="UserDialog" Title="title" AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="5"
-                        Text="Something went wrong and we couldn't load TH profile!" />
+                        Text="Something went wrong and we couldn't load The Jade Forest profile!" />
     </QuestOrder>
-
-	</HBProfile>
+</HBProfile>
