@@ -4764,19 +4764,22 @@
             <If Condition="HasQuest(11951) &amp;&amp; IsQuestCompleted(11951)">
                 <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3614.556" Y="6970.033" Z="170.109" />
                 <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
-                <CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for Keristrsza {TimeRemaining}" />
+                <While Condition="Unit(26206) == null">
+                    <UseItem QuestId="11951" ItemId="35671" WaitTime="4000" X="3614.556" Y="6970.033" Z="170.109" />
+                </While>
                 <TurnIn QuestName="Bait and Switch" QuestId="11951" TurnInName="Keristrasza" TurnInId="26206"
-                        X="3614.556" Y="6970.033" Z="170.109" Nav="Fly" />
-                <PickUp QuestName="Saragosa's End" QuestId="11957" GiverName="Keristrasza" GiverId="26206"
-                        X="3614.556" Y="6970.033" Z="170.109" Nav="Fly" />
+                        X="3614.556" Y="6970.033" Z="170.109" />
+                <PickUp QuestName="Saragosa's End" QuestId="11957" GiverName="Keristrasza" GiverId="26206" X="3614.556"
+                        Y="6970.033" Z="170.109" />
             </If>
             <If Condition="!HasQuest(11957) &amp;&amp; !IsQuestCompleted(11957)">
+                <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3614.556" Y="6970.033" Z="170.109" />
                 <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(35671)" WaitTime="1000" />
-                <CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for Keristrsza {TimeRemaining}" />
-                <PickUp QuestName="Saragosa's End" QuestId="11957" GiverName="Keristrasza" GiverId="26206"
-                        X="3614.556" Y="6970.033" Z="170.109" Nav="Fly" />
+                <While Condition="Unit(26206) == null">
+                    <UseItem QuestId="11951" ItemId="35671" WaitTime="4000" X="3614.556" Y="6970.033" Z="170.109" />
+                </While>
+                <PickUp QuestName="Saragosa's End" QuestId="11957" GiverName="Keristrasza" GiverId="26206" X="3614.556"
+                        Y="6970.033" Z="170.109" />
             </If>
             <While Condition="HasQuest(11957) &amp;&amp; !IsQuestCompleted(11957)">
                 <CustomBehavior File="ForcedDismount" />
@@ -7667,6 +7670,7 @@
             <PickUp QuestName="Bombard the Ballistae" QuestId="12232" GiverName="Deathguard Molder" GiverId="27320" />
             <PickUp QuestName="A Means to an End" QuestId="12240" GiverName="Apothecary Vicky Levine" GiverId="27248" />
             <PickUp QuestName="Need to Know" QuestId="12234" GiverName="Spy Mistress Repine" GiverId="27337" />
+
             <If Condition="HasQuest(12240) &amp;&amp; !IsQuestCompleted(12240)">
                 <CustomBehavior File="FlyTo" DestName="lumbermill" X="2751.594" Y="-224.4054" Z="138.778" />
                 <CustomBehavior File="ForcedDismount" />
@@ -7686,6 +7690,7 @@
                                     GoalText="Waiting for quest to complete {TimeRemaining}" />
                 </While>
             </If>
+
             <If Condition="HasQuest(12232) &amp;&amp; !IsQuestCompleted(12232)">
                 <CustomBehavior File="FlyTo" DestName="bomb 5 ballista's" X="2751.594" Y="-224.4054" Z="138.778" />
                 <CustomBehavior File="ForcedDismount" />
@@ -10789,55 +10794,34 @@
                                 GoalText="Waiting for InteractWith to clear puppy for next quest {TimeRemaining}" />
             </While>
 
+
+            <If Condition="HasQuest(12570)">
+                <CustomBehavior File="AbandonQuest" QuestId="12570" Type="All" />
+            </If>
             <If Condition="!HasQuest(12570) &amp;&amp; !IsQuestCompleted(12570)">
                 <CustomBehavior File="FlyTo" DestName="Explore Sholazar Basin!" X="5576.258" Y="4319.175" Z="1" />
                 <CustomBehavior File="FlyTo" DestName="injured Rainspeaker" X="5472.924" Y="4381.387" Z="-139.6365" />
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="Message" Text="Gossip with the injured Rainspeaker" LogColor="Yellow" />
-                <CustomBehavior File="InteractWith" MobId="28217" InteractByGossipOptions="1"
-                                PreInteractMountStrategy="Dismount" AuraIdOnMob="51329" X="5474.152" Y="4461.753"
-                                Z="-137.9803" />
-                <CustomBehavior File="WaitTimer" WaitTime="30000"
-                                GoalText="Waiting for InteractWith to clear puppy for next quest {TimeRemaining}" />
-                <CustomBehavior File="InteractWith" MobId="28217" PreInteractMountStrategy="Dismount"
-                                AuraIdMissingFromMob="51329" InteractByQuestFrameDisposition="Accept" WaitTime="2000" />
+
+                <!-- Death Rainspeaker -->
+                <CustomBehavior File="InteractWith" MobId="28217" AuraIdOnMob="51329" InteractByGossipOptions="1"
+                                PreInteractMountStrategy="Dismount" X="5474.152" Y="4461.753" Z="-137.9803" />
+                <CustomBehavior File="WaitTimer" WaitTime="5000" />
+                <!-- Accept Quest -->
+                <CustomBehavior File="InteractWith" MobId="28217" AuraIdMissingFromMob="51329" InteractByQuestFrameDisposition="Accept" 
+                                WaitForNpcs="false" PreInteractMountStrategy="Dismount" WaitTime="2000" />
+                <!-- Start Escort -->
                 <CustomBehavior File="EscortGroup" QuestId="12570" StartNpcId="28217" StartEscortGossipOptions="1"
                                 EscortNpcId="28217" EscortCountMax="1" EscortCompleteWhen="QuestCompleteOrFails" />
+
+                <!-- Notes from MaxMuster:
+                ...Because this Quest never Fails, maybe use EscortCompleteWhen=DestinationReached
+                ...this Quest needs more Testings
+                -->
             </If>
-            <While Condition="!IsQuestCompleted(12570)">
-                <!-- Start in known-state of 'no quest'... -->
-                <If Condition="HasQuest(12570)">
-                    <CustomBehavior File="AbandonQuest" QuestId="12570" Type="All" />
-                </If>
-                <!-- Fetch quest -->
-                <If Condition="!HasQuest(12570)">
-                    <!-- CJ: We must gossip with the injured Rainspeaker before he offers quest.
-                         We want to gossip with one with the 'feign death' aura. -->
-                    <CustomBehavior File="InteractWith" MobId="28217" InteractByGossipOptions="1"
-                                    PreInteractMountStrategy="Dismount" AuraIdOnMob="51329" WaitTime="3000"
-                                    X="5402.302" Y="4507.198" Z="-130.883" />
-                    <!-- CJ: Non-traditional quest pickup...
-                         NB: We must do it this way, otherwise HBcore will run off to another NPC
-                         that doesn't match the aura criteria, or with which we've already interacted
-                         in order to do the quest PickUp. (The quest-giving NPCs are not unique,
-                         and HBcore doesn't deal with this.) -->
-                    <CustomBehavior File="InteractWith" MobId="28217" PreInteractMountStrategy="Dismount"
-                                    AuraIdMissingFromMob="51329" InteractByQuestFrameDisposition="Accept"
-                                    WaitTime="2000" />
-                </If>
-                <!-- CJ: We *must* abandon the quest, and re-take it to work around a bug in the
-                     WoWclient.  If we don't, the Rainspeaker will offer us a gossip dialog with
-                     no gossip options on it. -->
-                <If Condition="HasQuest(12570)">
-                    <CustomBehavior File="AbandonQuest" QuestId="12570" Type="All" />
-                    <!-- CJ: Non-traditional quest pickup... -->
-                    <CustomBehavior File="InteractWith" MobId="28217" PreInteractMountStrategy="Dismount"
-                                    AuraIdMissingFromMob="51329" InteractByQuestFrameDisposition="Accept"
-                                    WaitTime="2000" />
-                </If>
-                <CustomBehavior File="EscortGroup" QuestId="12570" StartNpcId="28217" StartEscortGossipOptions="1"
-                                EscortNpcId="28217" EscortCountMax="1" EscortCompleteWhen="QuestCompleteOrFails" />
-            </While>
+            
+
             <If Condition="HasQuest(12570) &amp;&amp; IsQuestCompleted(12570)">
                 <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5651.868" Y="4560.372" Z="-134.7812" />
                 <CustomBehavior File="ForcedDismount" />
