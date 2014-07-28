@@ -8240,12 +8240,16 @@
                 <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
             </While>
             <While Condition="HasQuest(27793) &amp;&amp; !IsQuestCompleted(27793)">
-                <CustomBehavior File="InteractWith" QuestId="27793" MobId="46768" InteractByGossipOptions="1"
-                                MobState="Alive" X="-6920.016" Y="-3446.434" Z="197.6488" />
-                <CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-                <CustomBehavior File="InteractWith" QuestId="27793" MobId="46769" InteractByGossipOptions="1"
-                                MobState="Alive" X="-6920.016" Y="-3446.434" Z="197.6488" />
-                <CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+                <If Condition="!IsObjectiveComplete(1,27793)">
+                    <CustomBehavior File="InteractWith" QuestId="27793" MobId="46768" InteractByGossipOptions="1"
+                                    MobState="AliveNotInCombat" NonCompeteDistance="0" X="-6937.302" Y="-3446.866" Z="197.6483" />
+                    <CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+                </If>
+                <If Condition="!IsObjectiveComplete(2,27793)">
+                    <CustomBehavior File="InteractWith" QuestId="27793" MobId="46769" InteractByGossipOptions="1"
+                                    MobState="AliveNotInCombat" NonCompeteDistance="0" X="-6902.954" Y="-3447.174" Z="200.2006" />
+                    <CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for agro to clear {TimeRemaining}" />
+                </If>
             </While>
             <While Condition="HasQuest(27793) &amp;&amp; IsQuestCompleted(27793)">
                 <TurnIn QuestId="27793" />
