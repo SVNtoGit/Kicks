@@ -1,6 +1,6 @@
 <HBProfile xsi:noNamespaceSchemaLocation="../../../Schemas/QuestProfileSchema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <!-- Original contribution by Kickazz006 -->
-    <Name>[A - Quest] 90 WoD [Kick] ($Rev: 3405 $)</Name>
+    <Name>[A - Quest] 90-92 SMV [Kick] ($Rev: 3405 $)</Name>
 
     <MinLevel>90</MinLevel>
     <MaxLevel>1001</MaxLevel>
@@ -561,7 +561,7 @@
         <CustomBehavior File="Misc\ProfileCompatibilityInfo" AllowBrokenAddOns="true" AllowBrokenPlugIns="true" />
 
         <LootMobs Value="true" />
-        <TargetingDistance Value="null" />    <!-- Use LevelBot default -->
+        <TargetingDistance Value="17" /> <!-- Use LevelBot default -->
         <UseMount Value="true" />
         <!-- END: Checkpoint Block -->
 
@@ -574,11 +574,11 @@
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
 			</If>
 		
+		<!-- Dark Portal -->
 		<PickUp QuestName="Azeroth's Last Stand" QuestId="35933" GiverName="Archmage Khadgar" GiverId="78558" X="4066.427" Y="-2372.571" Z="94.59667" />
 			<Objective QuestName="Azeroth's Last Stand" QuestId="35933" Type="CollectItem" ItemId="113579" CollectCount="1" />
             <While Condition="HasQuest(35933) &amp;&amp; IsQuestCompleted(35933)"> <!-- Turnin Azeroth's Last Stand, Pickup Onslaught's End -->
-                <TurnIn QuestId="35933" />
-                <!-- Get 34392 -->
+                <TurnIn QuestId="35933" /> <!-- Get 34392 -->
                 <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
             </While>
 			<If Condition="HasQuest(34392) &amp;&amp; !IsQuestCompleted(34392)" > <!-- Onslaught's End -->
@@ -636,7 +636,7 @@
 				<UseItem QuestId="34422" ItemId="113191" X="4043.685" Y="-2584.739" Z="52.08712" />
 			</While>
 			<Objective QuestName="Vengeance for the Fallen" QuestId="35242" Type="KillMob" MobId="78507" KillCount="6" />
-		<TurnIn QuestName="Vengeance for the Fallen" QuestId="35241" TurnInName="Vindicator Maraad" TurnInId="78554" X="3834.887" Y="-2775.641" Z="93.97356" /> 
+		<TurnIn QuestName="Vengeance for the Fallen" QuestId="35242" TurnInName="Vindicator Maraad" TurnInId="78554" X="3834.887" Y="-2775.641" Z="93.97356" /> 
 		<TurnIn QuestName="Bled Dry" QuestId="35240" TurnInName="Archmage Khadgar" TurnInId="78559" X="3839.859" Y="-2777.118" Z="93.84189" /> 
 		<TurnIn QuestName="Blaze of Glory" QuestId="34422" TurnInName="Archmage Khadgar" TurnInId="78559" X="3839.859" Y="-2777.118" Z="93.84189" />
 		<PickUp QuestName="Altar Altercation" QuestId="34423" GiverName="Archmage Khadgar" GiverId="78559" X="3839.859" Y="-2777.118" Z="93.84189" />
@@ -651,7 +651,7 @@
 				<CustomBehavior File="InteractWith" QuestId="34423" MobId="83670" Range="8" WaitTime="3000" X="3975.969" Y="-2896.4" Z="61.32322" />
 				<CustomBehavior File="InteractWith" QuestId="34423" MobId="83670" Range="8" WaitTime="3000" X="3985.049" Y="-2933.867" Z="62.71131" />
 				<CustomBehavior File="InteractWith" QuestId="34423" MobId="83670" Range="8" WaitTime="3000" X="3985.527" Y="-2950.739" Z="91.71924" />
-				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for cinematic {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for cinematic {TimeRemaining}" />
 			 </While>
 			 <While Condition="!IsObjectiveComplete(4, 34423)"> <!-- Find Khadgar on Tar'thog Bridge -->
 				<MoveTo X="4191.499" Y="-2786.998" Z="26.74773" /> <!-- Npc Id 78560 -->
@@ -675,38 +675,27 @@
 			<If Condition="HasQuest(34429) &amp;&amp; !IsQuestCompleted(34429)" > <!-- Altar Altercation -->
 			 <While Condition="!IsObjectiveComplete(1, 34429)"> <!-- Enter the Arena -->
 				<MoveTo X="4388.781" Y="-2828.687" Z="4.838441" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for cutscene {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for cutscene {TimeRemaining}" />
 			 </While>
 			 <While Condition="!IsObjectiveComplete(2, 34429)"> <!-- Kill 99 / 100 mobs -->
 				<!--<Objective QuestName="Kill Your Hundred" QuestId="34429" Type="KillMob" MobId="82066" KillCount="100" />--> <!-- we can just /afk here and the npcs will handle it -->
 				<!--<Objective QuestName="Kill Your Hundred" QuestId="34429" Type="KillMob" MobId="82142" KillCount="99" />-->
-				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for cutscene {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for objective to auto complete {TimeRemaining}" />
 			 </While>
 			 <While Condition="!IsObjectiveComplete(3, 34429)"> <!-- Escape Arena -->
 				<MoveTo X="4510.224" Y="-2634.387" Z="1.843593" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for cutscene {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="25000" GoalText="Waiting for cutscene {TimeRemaining}" />
 			 </While>
 			</If>
 		<TurnIn QuestName="Kill Your Hundred" QuestId="34429" TurnInName="Archmage Khadgar" TurnInId="78561" X="4510.708" Y="-2635.453" Z="1.748904" /> <!-- New NPC Id -->
 		<PickUp QuestName="The Shadowmoon Clan" QuestId="34432" GiverName="Vindicator Maraad" GiverId="78554" X="4505.308" Y="-2633.774" Z="1.709742" />
 		<PickUp QuestName="Masters of Shadow" QuestId="34431" GiverName="Luuka" GiverId="79661" X="4497.979" Y="-2628.984" Z="1.990316" />
 			<Objective QuestName="Masters of Shadow" QuestId="34431" Type="KillMob" MobId="79593" KillCount="1" /> <!-- Ankova the Fallen --> 
-			<!-- escort quest is here as well, with Ankova, stick it in here (pickup and turnin are below) -->
-			
-			<Objective QuestName="Masters of Shadow" QuestId="34431" Type="KillMob" MobId="79585" KillCount="1" /> <!-- Taskmaster Gurran -->
-			<Objective QuestName="Masters of Shadow" QuestId="34431" Type="KillMob" MobId="79583" KillCount="1" /> <!-- Ungra -->
-			<Objective QuestName="The Shadowmoon Clan" QuestId="34432" Type="KillMob" MobId="79589" KillCount="12" />
-		<TurnIn QuestName="Masters of Shadow" QuestId="34431" TurnInName="Exarch Maladaar" TurnInId="79537" X="4516.99" Y="-2494.201" Z="25.80956" />
-		<TurnIn QuestName="The Shadowmoon Clan" QuestId="34432" TurnInName="Qiana Moonshadow" TurnInId="79316" X="4513.478" Y="-2497.103" Z="25.72749" />
-			<!-- Yrel escort MUST be completed to continue... -->
-			<If Condition="!HasQuest(34431) &amp;&amp; !IsQuestCompleted(34431)" > <!-- Yrel - Escort Quest -->
-				<!-- delete this condition when escort quest logic is completed -->
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Code Escort. Press continue to auto moveto escort lady" />
-				<MoveTo X="4614.925" Y="-2470.79" Z="13.76395" />
-			</If>
-		<PickUp QuestName="Yrel" QuestId="34431" GiverName="Yrel" GiverId="78994" X="4614.925" Y="-2470.79" Z="13.76395" />
-			<If Condition="HasQuest(34431) &amp;&amp; !IsQuestCompleted(34431)" > <!-- Yrel - Escort Quest -->
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Do Escort" />
+		<PickUp QuestName="Yrel" QuestId="34434" GiverName="Yrel" GiverId="78994" X="4614.925" Y="-2470.79" Z="13.76395" />
+			<If Condition="HasQuest(34434) &amp;&amp; !IsQuestCompleted(34434)" > <!-- Yrel - 'Escort' Quest -->
+				<RunTo X="4540.177" Y="-2503.882" Z="19.88293" />
+				<CustomBehavior File="WaitTimer" QuestId="34434" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="UserDialog" QuestId="34434" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Do Escort, we failed" />
 				<!-- Escort quest logic - 
 				<Vendor Name="Yrel" Entry="78994" Type="Repair" X="4614.925" Y="-2470.79" Z="13.76395" />
 				escort to 
@@ -714,7 +703,12 @@
 				and that's it
 				-->
 			</If>
-		<TurnIn QuestName="Yrel" QuestId="34431" TurnInName="Yrel" TurnInId="78994" X="4516.582" Y="-2495.618" Z="25.7887" />
+			<Objective QuestName="Masters of Shadow" QuestId="34431" Type="KillMob" MobId="79585" KillCount="1" /> <!-- Taskmaster Gurran -->
+			<Objective QuestName="Masters of Shadow" QuestId="34431" Type="KillMob" MobId="79583" KillCount="1" /> <!-- Ungra -->
+			<Objective QuestName="The Shadowmoon Clan" QuestId="34432" Type="KillMob" MobId="79589" KillCount="12" />
+		<TurnIn QuestName="Masters of Shadow" QuestId="34431" TurnInName="Exarch Maladaar" TurnInId="79537" X="4516.99" Y="-2494.201" Z="25.80956" />
+		<TurnIn QuestName="The Shadowmoon Clan" QuestId="34432" TurnInName="Qiana Moonshadow" TurnInId="79316" X="4513.478" Y="-2497.103" Z="25.72749" />
+		<TurnIn QuestName="Yrel" QuestId="34434" TurnInName="Yrel" TurnInId="78994" X="4516.582" Y="-2495.618" Z="25.7887" />
 		<PickUp QuestName="Keli'dan the Breaker" QuestId="34436" GiverName="Exarch Maladaar" GiverId="79537" X="4516.99" Y="-2494.201" Z="25.80956" />
 			<If Condition="HasQuest(34436) &amp;&amp; !IsQuestCompleted(34436)" > <!-- Keli'dan the Breaker -->
 				<Objective QuestName="Keli'dan the Breaker" QuestId="34436" Type="KillMob" MobId="79702" KillCount="1" />
@@ -729,14 +723,19 @@
 			<Objective QuestName="Prepare for Battle" QuestId="35019" Type="CollectItem" ItemId="112337" CollectCount="30" />
 		<TurnIn QuestName="Prepare for Battle" QuestId="35019" TurnInName="Vindicator Maraad" TurnInId="78554" X="4613.97" Y="-2223.531" Z="9.555444" />
 		<PickUp QuestName="The Battle of the Forge" QuestId="34439" GiverName="Cordana Felsong" GiverId="78430" X="4613.3" Y="-2246.304" Z="15.1033" />
+			<!-- 15-20s cutscene -->
 			<Objective QuestName="The Battle of the Forge" QuestId="34439" Type="KillMob" MobId="80775" KillCount="3" />
 			<Objective QuestName="The Battle of the Forge" QuestId="34439" Type="KillMob" MobId="80786" KillCount="15" />
 		<TurnIn QuestName="Farseer Drek'Thar" QuestId="34439" TurnInName="Cordana Felsong" TurnInId="78996" X="4417.996" Y="-2090.691" Z="2.777354" /> <!-- cutscene -->
+			<!-- 25-30s cutscene -->
 		<PickUp QuestName="Ga'nar of the Frostwolf" QuestId="34442" GiverName="Cordana Felsong" GiverId="78996" X="4417.996" Y="-2090.691" Z="2.777354" />
 		<PickUp QuestName="The Gunpowder Plot" QuestId="34987" GiverName="Hansel Heavyhands" GiverId="78569" X="4366.801" Y="-2116.076" Z="2.378612" />
 		<PickUp QuestName="The Shadow of the Worldbreaker" QuestId="34958" GiverName="Thaelin Darkanvil" GiverId="78568" X="4364.854" Y="-2115.491" Z="2.372308" />
 			<If Condition="HasQuest(34987) &amp;&amp; !IsQuestCompleted(34987)" > <!-- The Gunpowder Plot -->
-				<Objective QuestName="The Gunpowder Plot" QuestId="34987" Type="CollectItem" ItemId="112323" CollectCount="1" />
+			 <While Condition="!IsObjectiveComplete(1, 34987)"> <!-- Click Gunpowder -->
+				<RunTo X="4325.336" Y="-2185.328" Z="6.931957" />
+				<CustomBehavior File="InteractWith" QuestId="34987" MobId="231119" ObjectType="GameObject" Range="4" X="4325.336" Y="-2185.328" Z="6.931957" />
+			 </While>
 			 <While Condition="!IsObjectiveComplete(2, 34987)"> <!-- Click Plunger -->
 				<MoveTo X="4366.746" Y="-2112.854" Z="2.479628" />
 				<CustomBehavior File="InteractWith" QuestId="34987" MobId="231066" ObjectType="GameObject" Range="4" X="4366.746" Y="-2112.854" Z="2.479628" />
@@ -753,25 +752,35 @@
 		<TurnIn QuestName="The Prodigal Frostwolf" QuestId="34437" TurnInName="Farseer Drek'Thar" TurnInId="78996" X="4417.996" Y="-2090.691" Z="2.777332" />
 		<PickUp QuestName="Taking a Trip to the Top of the Tank" QuestId="35747" GiverName="Archmage Khadgar" GiverId="78563" X="4380.106" Y="-2093.049" Z="4.028507" /> <!-- New NPC Id -->
 			<If Condition="HasQuest(35747) &amp;&amp; !IsQuestCompleted(35747)" > <!-- Taking a Trip to the Top of the Tank - Escort -->
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Do Escort. (combine the next 2 steps)" />
+				<CustomBehavior File="UserDialog" QuestId="35747" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Do Escort. (combine the next 3 steps)" />
 			 <While Condition="!IsObjectiveComplete(1, 35747)"> <!-- Thaelin Darkanvil -->
 				<CustomBehavior File="InteractWith" MobId="78568" GossipOptions="1" X="4364.854" Y="-2115.491" Z="2.372287" /> <!-- Thaelin Darkanvil -->
 			 </While>
-			 <While Condition="!IsObjectiveComplete(2, 35747)"> <!-- Climb the rear chains -->
+			 <While Condition="!IsObjectiveComplete(2, 35747)"> <!-- Kill Gogluk -->
+				<MoveTo X="4065.759" Y="-1955.649" Z="27.83311" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Kill Gogluk npc 86039 {TimeRemaining}" />
+			 </While>
+			 <While Condition="!IsObjectiveComplete(3, 35747)"> <!-- Climb the rear chains -->
 				<MoveTo X="4064.357" Y="-2021.231" Z="74.99429" />
 			 </While>
 			</If>
 		<TurnIn QuestName="Taking a Trip to the Top of the Tank" QuestId="35747" TurnInName="Thaelin Darkanvil" TurnInId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
 		<PickUp QuestName="A Taste of Iron" QuestId="34445" GiverName="Thaelin Darkanvil" GiverId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
-			<If Condition="HasQuest(35747) &amp;&amp; !IsQuestCompleted(35747)" > <!-- A Taste of Iron - Vehicle Quest -->
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Do Vehicle Quest" />
+			<If Condition="HasQuest(34445) &amp;&amp; !IsQuestCompleted(34445)" > <!-- A Taste of Iron - Vehicle Quest -->
+				<CustomBehavior File="UserDialog" QuestId="34445" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Do Vehicle Quest" />
+				<!-- <GameObject Name="Worldbreaker Side Turret" Entry="231261" X="4051.398" Y="-2021.76" Z="73.3409" /> -->
+			 <While Condition="!IsObjectiveComplete(3, 34445)"> <!-- Click Trigger -->
+				<RunTo X="4065.838" Y="-2022.482" Z="75.43866" />
+				<CustomBehavior File="InteractWith" QuestId="34445" MobId="232538" ObjectType="GameObject" Range="6" X="4065.838" Y="-2022.482" Z="75.43866" />
+			 </While>
 			</If>
 		<TurnIn QuestName="A Taste of Iron" QuestId="34445" TurnInName="Thaelin Darkanvil" TurnInId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
 		<PickUp QuestName="The Home Stretch" QuestId="35884" GiverName="Thaelin Darkanvil" GiverId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
 			<If Condition="HasQuest(35884) &amp;&amp; !IsQuestCompleted(35884)" > <!-- The Home Stretch -->
 				<MoveTo X="3527.663" Y="-2125.812" Z="17.23087" />
 			</If>
-		<TurnIn QuestName="The Home Stretch" QuestId="35884" TurnInName="Archmage Khadgar" TurnInId="78563" X="3545.687" Y="-2123.458" Z="17.23104" /> <!-- Cutscene -->
+		<TurnIn QuestName="The Home Stretch" QuestId="35884" TurnInName="Archmage Khadgar" TurnInId="78563" X="3545.687" Y="-2123.458" Z="17.23104" />
+		<!-- Cutscene -->
 		<!-- End of Blackrock Quarry -->
 
 		<!-- Eventide Landing -->
@@ -782,7 +791,7 @@
 		<PickUp QuestName="For the Alliance!" QuestId="34583" GiverName="Vindicator Maraad" GiverId="79470" X="1935.315" Y="339.6169" Z="88.966" />
 			<If Condition="HasQuest(34583) &amp;&amp; !IsQuestCompleted(34583)" > <!-- For the Alliance! -->
 				<CustomBehavior File="InteractWith" QuestId="34583" MobId="230280" ObjectType="GameObject" Range="5" X="1939.835" Y="322.2344" Z="88.96616" />	
-				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for camp to setup {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Waiting for camp to setup {TimeRemaining}" />
 			</If>
 		<TurnIn QuestName="For the Alliance!" QuestId="34583" TurnInName="Baros Alexston" TurnInId="79243" X="1936.286" Y="322.4192" Z="88.9762" />
 		<!-- End of Eventide Landing -->
@@ -790,13 +799,30 @@
 		<!-- Lunarfall -->
 		<PickUp QuestName="Ravenous Ravens" QuestId="34616" GiverName="Baros Alexston" GiverId="79243" X="1936.286" Y="322.4192" Z="88.9762" />
 		<PickUp QuestName="Looking for Lumber" QuestId="34584" GiverName="Baros Alexston" GiverId="79243" X="1936.286" Y="322.4192" Z="88.9762" />
-		<PickUp QuestName="Quakefist" QuestId="34585" GiverName="Yrel" GiverId="79567" X="1928.167" Y="331.4112" Z="89.11049" />
-			<Objective QuestName="Quakefist" QuestId="34585" Type="KillMob" MobId="81360" KillCount="1" />
-			<Objective QuestName="Looking for Lumber" QuestId="34584" Type="UseObject" ObjectId="230335" UseCount="8" />
+			<If Condition="HasQuest(34584) &amp;&amp; !IsQuestCompleted(34584)" >
+				<!--<Objective QuestName="Looking for Lumber" QuestId="34584" Type="UseObject" ObjectId="230335" UseCount="8" />-->
+				<CustomBehavior File="InteractWith" QuestId="34584" MobId="230335" ObjectType="GameObject" NumOfTimes="20" WaitTime="2000" Range="5" CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+				  <HuntingGrounds WaypointVisitStrategy="Random" >
+					<Hotspot X="1816.383" Y="269.2926" Z="77.70304" />
+					<Hotspot X="1792.218" Y="230.5631" Z="68.94949" />
+					<Hotspot X="1842.243" Y="158.345" Z="78.10649" />
+					<Hotspot X="1924.868" Y="112.2326" Z="83.62354" />
+					<Hotspot X="1894.729" Y="191.2422" Z="79.14102" />
+					<Hotspot X="1916.391" Y="248.2901" Z="76.67727" />
+					<Hotspot X="1870.727" Y="272.074" Z="77.6671" />
+					<Hotspot X="1868.849" Y="272.4229" Z="77.64923" />
+					<Hotspot X="1791.371" Y="216.9632" Z="69.48943" />
+					<Hotspot X="1803.3" Y="312.9654" Z="77.25166" />
+					<Hotspot X="1860.938" Y="311.0056" Z="82.84046" />
+				  </HuntingGrounds>
+				</CustomBehavior>
+			</If>
 			<Objective QuestName="Ravenous Ravens" QuestId="34616" Type="KillMob" MobId="82037" KillCount="6" />
-		<TurnIn QuestName="Quakefist" QuestId="34585" TurnInName="Yrel" TurnInId="79567" X="1928.167" Y="331.4112" Z="89.11049" />
 		<TurnIn QuestName="Looking for Lumber" QuestId="34584" TurnInName="Baros Alexston" TurnInId="79243" X="1936.286" Y="322.4192" Z="88.9762" />
 		<TurnIn QuestName="Ravenous Ravens" QuestId="34616" TurnInName="Baros Alexston" TurnInId="79243" X="1936.286" Y="322.4192" Z="88.9762" />
+		<PickUp QuestName="Quakefist" QuestId="34585" GiverName="Yrel" GiverId="79567" X="1928.167" Y="331.4112" Z="89.11049" /> 
+			<Objective QuestName="Quakefist" QuestId="34585" Type="KillMob" MobId="81360" KillCount="1" />
+		<TurnIn QuestName="Quakefist" QuestId="34585" TurnInName="Yrel" TurnInId="79567" X="1928.167" Y="331.4112" Z="89.11049" />
 		<PickUp QuestName="Establish Your Garrison" QuestId="34586" GiverName="Baros Alexston" GiverId="79243" X="1936.286" Y="322.4192" Z="88.9762" />
 			<If Condition="HasQuest(34586) &amp;&amp; !IsQuestCompleted(34586)" > <!-- For the Alliance! -->
 				<CustomBehavior File="InteractWith" QuestId="34586" MobId="79243" GossipOptions="1" Range="5" X="1936.269" Y="322.3976" Z="88.97637" />
@@ -824,7 +850,7 @@
 			 </While>
 			</If>
 		<TurnIn QuestName="Keeping it Together" QuestId="35176" TurnInName="Baros Alexston" TurnInId="77209" X="1866.262" Y="263.6458" Z="77.17226" />
-			<Objective QuestName="Pale Moonlight" QuestId="35174" Type="KillMob" MobId="81670" KillCount="1" /> <!-- Gnaw Bloodseeker -->
+			<Objective QuestName="Pale Moonlight" QuestId="35174" Type="KillMob" MobId="81670" KillCount="1" /> <!-- Gnaw Bloodseeker - might have an issue attacking with singular -->
 			<Objective QuestName="Ship Salvage" QuestId="35166" Type="CollectItem" ItemId="112696" CollectCount="15" />
 			<Objective QuestName="Pale Moonlight" QuestId="35174" Type="KillMob" MobId="79205" KillCount="8" />
 		<TurnIn QuestName="Pale Moonlight" QuestId="35174" TurnInName="Vindicator Maraad" TurnInId="79457" X="1848.149" Y="244.5642" Z="76.80275" />
@@ -832,9 +858,9 @@
 		<PickUp QuestName="Build Your Barracks" QuestId="34587" GiverName="Baros Alexston" GiverId="77209" X="1866.262" Y="263.6458" Z="77.17226" />
 			<If Condition="HasQuest(34587) &amp;&amp; !IsQuestCompleted(34587)" > <!-- Keeping it Together -->
 			 <While Condition="!IsObjectiveComplete(1, 34587)"> <!-- Architect Table / Build Your Barracks -->
-				<CustomBehavior File="InteractWith" QuestId="34587" MobId="81369" GossipOptions="1" Range="5" X="1868.715" Y="265.151" Z="77.25529" />
+				<CustomBehavior File="InteractWith" QuestId="34587" MobId="81369" Range="5" X="1868.715" Y="265.151" Z="77.25529" />
 				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Build your barracks" />
-				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for cast {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="25000" GoalText="Waiting for cast {TimeRemaining}" />
 			 </While>
 			 <While Condition="!IsObjectiveComplete(2, 34587)"> <!-- Finalize Garrison Plot -->
 				<CustomBehavior File="InteractWith" QuestId="34587" MobId="232651" ObjectType="GameObject" WaitTime="12000" Range="3" X="1892.78" Y="240.9705" Z="76.37019" />
@@ -842,60 +868,78 @@
 			</If>
 		<TurnIn QuestName="Build Your Barracks" QuestId="34587" TurnInName="Vindicator Maraad" TurnInId="79457" X="1848.149" Y="244.5642" Z="76.80275" />
 		<PickUp QuestName="Qiana Moonshadow" QuestId="34646" GiverName="Vindicator Maraad" GiverId="79457" X="1848.149" Y="244.5642" Z="76.80275" />
-			<If Condition="HasQuest(34646) &amp;&amp; !IsQuestCompleted(34646)" >
+			<If Condition="HasQuest(34646) &amp;&amp; !IsQuestCompleted(34646)" > <!-- Qiana Moonshadow -->
 				<CustomBehavior File="InteractWith" QuestId="34646" MobId="79446" Range="5" X="1355.95" Y="263.276" Z="54.93665" />
 			</If>
 		<TurnIn QuestName="Qiana Moonshadow" QuestId="34646" TurnInName="Qiana Moonshadow" TurnInId="81948" X="1845.29" Y="268.9618" Z="78.31454" />
 		<PickUp QuestName="Delegating on Draenor" QuestId="34692" GiverName="Lieutenant Thorn" GiverId="79953" X="1847.073" Y="270.6632" Z="78.39755" />
-			<If Condition="HasQuest(34692) &amp;&amp; !IsQuestCompleted(34692)" >
+			<If Condition="HasQuest(34692) &amp;&amp; !IsQuestCompleted(34692)" > <!-- Delegating on Draenor -->
 				<CustomBehavior File="InteractWith" QuestId="34692" MobId="81546" Range="5" X="1847.561" Y="269.5938" Z="78.31422" />
 				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
 											Text="Click the checkbox and drag qiana to battle, then click start mission" />
 			</If>
 		<TurnIn QuestName="Delegating on Draenor" QuestId="34692" TurnInName="Lieutenant Thorn" TurnInId="79953" X="1847.073" Y="270.6632" Z="78.39755" />
 		<PickUp QuestName="Migrant Workers" QuestId="34778" GiverName="Vindicator Maraad" GiverId="79457" X="1848.149" Y="244.5642" Z="76.80275" />
-		<PickUp QuestName="A Hero's Welcome" QuestId="33075" GiverName="Yrel" GiverId="76054" X="1862.233" Y="226.4978" Z="76.61818" />
-			<If Condition="HasQuest(34778) &amp;&amp; !IsQuestCompleted(34778)" >
+		<PickUp QuestName="A Hero's Welcome" QuestId="33075" GiverName="Yrel" GiverId="80568" X="1859.137" Y="224.5174" Z="76.63639" />
+			<If Condition="HasQuest(34778) &amp;&amp; !IsQuestCompleted(34778)" > <!-- Migrant Workers -->
 				<CustomBehavior File="InteractWith" QuestId="34778" MobId="81912" Range="5" GossipOptions="1" X="1858.806" Y="243.0087" Z="76.99307" />
 			</If>
-			<If Condition="HasQuest(33075) &amp;&amp; !IsQuestCompleted(33075)" >
+		<PickUp QuestName="Ashran Appearance" QuestId="36624" GiverName="Lieutenant Thorn" GiverId="79953" X="1847.073" Y="270.6632" Z="78.39755" /> <!-- PVP quest? -->
+		<!-- random quest from lost packmule near plains of serenity (w/nw) otw to a hero's welcome. too lazy to code
+		<Vendor Name="Lost Packmule" Entry="79966" Type="Repair" X="1316.679" Y="-427.1111" Z="2.344282" />
+		<PickUp QuestName="Gloomshade Grove" QuestId="33263" GiverName="" GiverId="" />
+			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="KillMob" MobId="73875" KillCount="1" />
+			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74667" CollectCount="1" />
+			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="UseObject" ObjectId="224229" UseCount="1" />
+			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74681" CollectCount="1" />
+			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="UseObject" ObjectId="223720" UseCount="1" />
+			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74686" CollectCount="1" />
+			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74193" CollectCount="1" />
+			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74687" CollectCount="1" />
+			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="KillMob" MobId="74256" KillCount="1" />
+			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="KillMob" MobId="74244" KillCount="1" />
+		<TurnIn QuestName="Gloomshade Grove" QuestId="33263" TurnInName="" TurnInId="" />
+		-->
+			<If Condition="HasQuest(33075) &amp;&amp; !IsQuestCompleted(33075)" > <!-- A Hero's Welcome -->
 				<MoveTo X="922.9953" Y="-815.6843" Z="-28.82178" />
 			</If>
 		<TurnIn QuestName="A Hero's Welcome" QuestId="33075" TurnInName="Samaara" TurnInId="75005" X="922.1233" Y="-816.309" Z="-28.80807" />
 		<!-- End of Our Character's Outpost / Garrison -->
-		
+
 		<!-- Embaari Village -->
 		<!-- Ignoring 2x Wanted Poster quests (3+) -->
 		<PickUp QuestName="Dark Enemies" QuestId="33765" GiverName="Samaara" GiverId="75005" X="922.1233" Y="-816.309" Z="-28.80807" />
 		<PickUp QuestName="Think of the Children!" QuestId="33070" GiverName="Efee" GiverId="80196" X="974.1285" Y="-856.2049" Z="-30.41945" />
 		<PickUp QuestName="Closing the Door" QuestId="33905" GiverName="Vindicator Tenuum" GiverId="74343" X="994.1024" Y="-856.5972" Z="-34.01478" />
 		<PickUp QuestName="In Need of a Hero" QuestId="33813" GiverName="Arianna" GiverId="71502" X="1201.639" Y="-1217.285" Z="-47.55474" />
-			<While Condition="HasQuest(33813) &amp;&amp; !IsQuestCompleted(33813)" >
+			<While Condition="HasQuest(33813) &amp;&amp; !IsQuestCompleted(33813)" > <!-- In Need of a Hero -->
 			 <If Condition="!HasItem(111908) &amp;&amp; !IsQuestCompleted(33813)" >
 				<CustomBehavior File="InteractWith" QuestId="33813" MobId="230883" ObjectType="GameObject" WaitTime="2000" Range="3" X="1207.785" Y="-1204.707" Z="-47.55516" />
 			 </If>
 			 <MoveTo X="1190.588" Y="-1219.145" Z="-47.55511" />
-			 <If Condition="!IsObjectiveComplete(, 33813) &amp;&amp; HasItem(111908)"> 
+			 <If Condition="!IsObjectiveComplete(1, 33813) &amp;&amp; HasItem(111908)"> 
 				<CustomBehavior File="UseItemTargetLocation" ItemId="111908" UseType="PointToPoint" WaitTime="4000"  
 											X="1190.588" Y="-1219.145" Z="-47.55511" 
 											ClickToX="1193.093" ClickToY="-1221.047" ClickToZ="-47.55488" /> <!-- Bookshelf -->
 			 </If>
-			 <If Condition="!IsObjectiveComplete(, 33813) &amp;&amp; HasItem(111908)"> 
+			 <If Condition="!IsObjectiveComplete(2, 33813) &amp;&amp; HasItem(111908)"> 
 				<CustomBehavior File="UseItemTargetLocation" ItemId="111908" UseType="PointToPoint" WaitTime="4000" 
 											X="1190.588" Y="-1219.145" Z="-47.55511" 
 											ClickToX="1192.579" ClickToY="-1218.437" ClickToZ="-47.55488" /> <!-- Floor -->
 			 </If>
-			 <If Condition="!IsObjectiveComplete(, 33813) &amp;&amp; HasItem(111908)"> 
+			 <If Condition="!IsObjectiveComplete(3, 33813) &amp;&amp; HasItem(111908)"> 
 				<CustomBehavior File="UseItemTargetLocation" ItemId="111908" UseType="PointToPoint" WaitTime="4000" 
 											X="1190.588" Y="-1219.145" Z="-47.55511" 
 											ClickToX="1189.29" ClickToY="-1217.401" ClickToZ="-46.34229" /> <!-- Table -->
 			 </If>
 			</While>
 		<TurnIn QuestName="In Need of a Hero" QuestId="33813" TurnInName="Arianna" TurnInId="71502" X="1201.639" Y="-1217.285" Z="-47.55474" />
-			<If Condition="HasQuest(33070) &amp;&amp; !IsQuestCompleted(33070)" >
-			 <While Condition="!IsObjectiveComplete(3, 33070)"> <!-- Arianna, she offers a quest to 'save' her -->
-				<!--<CustomBehavior File="InteractWith" QuestId="33070" MobId="71502" Range="5" X="1201.639" Y="-1217.285" Z="-47.55474" /> -->
+			<If Condition="HasQuest(33070) &amp;&amp; !IsQuestCompleted(33070)" > <!-- Think of the Children! -->
+			 <!--
+			 <While Condition="!IsObjectiveComplete(3, 33070)"> // Arianna, she offers a quest to 'save' her 
+				<CustomBehavior File="InteractWith" QuestId="33070" MobId="71502" Range="5" X="1201.639" Y="-1217.285" Z="-47.55474" /> 
 			 </While>
+			 -->
 			 <While Condition="!IsObjectiveComplete(2, 33070)"> <!-- Rastaak -->
 				<CustomBehavior File="InteractWith" QuestId="33070" MobId="64224" Range="5" X="1052.969" Y="-1211.469" Z="-43.89405" />
 			 </While>
@@ -909,7 +953,7 @@
 		<TurnIn QuestName="Think of the Children!" QuestId="33070" TurnInName="Prophet Velen" TurnInId="74043" X="940.3281" Y="-1022.436" Z="-0.8042811" />
 		<TurnIn QuestName="Closing the Door" QuestId="33905" TurnInName="Prophet Velen" TurnInId="74043" X="940.3281" Y="-1022.436" Z="-0.8042811" />
 		<PickUp QuestName="Shadows Awaken" QuestId="34019" GiverName="Prophet Velen" GiverId="74043" X="940.3281" Y="-1022.436" Z="-0.8042811" />
-			<While Condition="HasQuest(34019) &amp;&amp; !IsQuestCompleted(34019)" >
+			<While Condition="HasQuest(34019) &amp;&amp; !IsQuestCompleted(34019)" > <!-- Shadows Awaken -->
 			 <If Condition="!IsObjectiveComplete(1, 34019)"> <!-- Confront -->
 				<MoveTo X="989.5382" Y="-1037.033" Z="6.398543" /> <!-- Yrel --> 
 			 </If>
@@ -917,46 +961,49 @@
 				<CustomBehavior File="InteractWith" QuestId="34019" MobId="75043" Range="5" X="1014.802" Y="-1043.021" Z="7.891774" />
 			 </While>
 			</While>
-			<If Condition="HasQuest(34019) &amp;&amp; IsQuestCompleted(34019)" >
+			<If Condition="HasQuest(34019) &amp;&amp; IsQuestCompleted(34019)" > <!-- Turnin Shadows Awaken -->
 		<TurnIn QuestName="Shadows Awaken" QuestId="34019" TurnInName="Prophet Velen" TurnInId="74043" X="989.5816" Y="-1034.179" Z="6.398266" />	
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(113259)" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting to loot {TimeRemaining}" /> <!-- Receive quest item pickup -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(113259)" WaitTime="1000" /> <!-- Receive quest item pickup -->
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting to loot {TimeRemaining}" /> 
 		<PickUp QuestName="The Mysterious Flask" QuestId="35342" GiverType="Item" GiverName="Mysterious Flask" GiverId="113103" />
 			</If>
 		<PickUp QuestName="Into Twilight" QuestId="33072" GiverName="Prophet Velen" GiverId="74043" X="989.5816" Y="-1034.179" Z="6.398266" />
-			<!-- get npcid and farmer name before accepting the quest from Farmer whatever his name is -->
-			<If Condition="!HasQuest(35444) &amp;&amp; !IsQuestCompleted(35444)" >
-				<CustomBehavior File="UserDialog" QuestId="" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" 
-				Text="get npcid and farmer name before accepting the quest from Farmer whatever his name is and give to kick" />
-			</If>
-		<PickUp QuestName="The Southern Wilds" QuestId="35444" GiverName="Farmer Somethingoranother" GiverId="00000" X="937.1104" Y="-1016.244" Z="-1.017013" />
+		<PickUp QuestName="The Southern Wilds" QuestId="35444" GiverName="Farmer Gehaar" GiverId="82256" X="935.0868" Y="-1016.727" Z="-1.02208" />
 		<TurnIn QuestName="Migrant Workers" QuestId="34778" TurnInName="Foreman Zipfizzle" TurnInId="81912" X="1203.875" Y="-1482.67" Z="-6.358276" />
 		<PickUp QuestName="Circle the Wagon" QuestId="34779" GiverName="Foreman Zipfizzle" GiverId="81912" X="1203.875" Y="-1482.67" Z="-6.358276" />
-			<If Condition="HasQuest(34779) &amp;&amp; !IsQuestCompleted(34779)" >
+			<If Condition="HasQuest(34779) &amp;&amp; !IsQuestCompleted(34779)" > <!-- Circle the Wagon -->
 			 <If Condition="!IsObjectiveComplete(1, 34779)"> 
 				<MoveTo X="1390.312" Y="-1171.933" Z="-12.86604" />
 			 </If>
 			 <While Condition="!IsObjectiveComplete(2, 34779)"> 
 				<!-- defend the camp logic here -->
-				<CustomBehavior File="UserDialog" QuestId="" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="defend the camp logic" />
+				<CustomBehavior File="UserDialog" QuestId="34779" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="defend the camp logic" />
+			 </While>
+			 <While Condition="!IsObjectiveComplete(3, 34779)"> 
+				<!-- escort -->
+				<CustomBehavior File="UserDialog" QuestId="34779" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="escort logic" />
 			 </While>
 			</If>
 		<TurnIn QuestName="Circle the Wagon" QuestId="34779" TurnInName="Exarch Akama" TurnInId="80078" X="1193.517" Y="-1480.778" Z="-6.483038" />
-		<PickUp QuestName="Invisible Ramparts" QuestId="34780" GiverName="Exarch Hataaru" GiverId="80108" X="1127.94" Y="-1524.495" Z="-5.731825" />
+		<PickUp QuestName="Invisible Ramparts" QuestId="34780" GiverName="Exarch Hataaru" GiverId="80075" X="1203.736" Y="-1499.483" Z="-5.152102" />
 			<While Condition="HasQuest(34780) &amp;&amp; !IsQuestCompleted(34780)" >
-			 <If Condition="!IsQuestCompleted(34780) &amp;&amp; !Me.HasAura(161694)" > <!-- Carrying a Crystal -->
+			 <!--<If Condition="!IsQuestCompleted(34780) &amp;&amp; !Me.HasAura(####)" >  Carrying a Crystal 
 				<CustomBehavior File="InteractWith" QuestId="34780" MobId="230856" ObjectType="GameObject" WaitTime="2000" Range="3" X="1128.132" Y="-1536.884" Z="-4.332456" />
-			 </If>
+			 </If>-->
 			 <If Condition="!IsObjectiveComplete(1, 34780)"> <!-- First -->
+				<CustomBehavior File="InteractWith" QuestId="34780" MobId="230856" ObjectType="GameObject" WaitTime="2000" Range="3" X="1128.132" Y="-1536.884" Z="-4.332456" />
 				<MoveTo X="1196.606" Y="-1499.322" Z="-5.42832" />
 			 </If>
 			 <If Condition="!IsObjectiveComplete(2, 34780)"> <!-- Second -->
+				<CustomBehavior File="InteractWith" QuestId="34780" MobId="230856" ObjectType="GameObject" WaitTime="2000" Range="3" X="1128.132" Y="-1536.884" Z="-4.332456" />
 				<MoveTo X="1179.494" Y="-1522.722" Z="-5.428779" />
 			 </If>
 			 <If Condition="!IsObjectiveComplete(3, 34780)"> <!-- Tertiary -->
+				<CustomBehavior File="InteractWith" QuestId="34780" MobId="230856" ObjectType="GameObject" WaitTime="2000" Range="3" X="1128.132" Y="-1536.884" Z="-4.332456" />
 				<MoveTo X="1167.719" Y="-1496.011" Z="-5.428708" />
 			 </If>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</While>
 		<TurnIn QuestName="Invisible Ramparts" QuestId="34780" TurnInName="Defense Pylon Central Control Console" TurnInType="Object" TurnInId="230933" X="1106.655" Y="-1541.372" Z="-5.098411" />
 		<PickUp QuestName="Defenstrations" QuestId="34781" GiverName="Defense Pylon Central Control Console" GiverId="230933" GiverType="Object" X="1106.655" Y="-1541.372" Z="-5.098411" />
@@ -998,7 +1045,7 @@
 		<PickUp QuestName="Exarch Maladaar" QuestId="34787" GiverName="Exarch Akama" GiverId="80078" X="1606.686" Y="-1517.252" Z="1.778397" />
 		<TurnIn QuestName="Exarch Maladaar" QuestId="34787" TurnInName="Exarch Maladaar" TurnInId="80073" X="1303.726" Y="-1718.915" Z="45.07868" />
 		<PickUp QuestName="Trust No One" QuestId="35552" GiverName="Exarch Maladaar" GiverId="80073" X="1303.726" Y="-1718.915" Z="45.07868" />
-			<If Condition="HasQuest(35552) &amp;&amp; !IsQuestCompleted(35552)" >
+			<If Condition="HasQuest(35552) &amp;&amp; !IsQuestCompleted(35552)" > <!-- Trust No On -->
 				<MoveTo X="1557.545" Y="-1840.951" Z="52.28745" />
 			</If>
 		<TurnIn QuestName="Trust No One" QuestId="35552" TurnInName="Shadow Council Tome of Curses" TurnInId="233229" TurnInType="Object" X="1569.16" Y="-1816.174" Z="49.1266" />
@@ -1054,7 +1101,7 @@
 		<TurnIn QuestName="The Missing Father" QuestId="35344" TurnInName="Telos" TurnInId="82496" X="616.6805" Y="-1350.472" Z="-23.93264" />
 		<PickUp QuestName="Shocking Assistance" QuestId="35345" GiverName="Telos" GiverId="82496" X="616.6805" Y="-1350.472" Z="-23.93264" />
 			<Objective QuestName="Shocking Assistance" QuestId="35345" Type="CollectItem" ItemId="113248" CollectCount="100" />
-			<If Condition="HasQuest(35345) &amp;&amp; IsQuestCompleted(35345)" >
+			<If Condition="HasQuest(35345) &amp;&amp; IsQuestCompleted(35345)" > <!-- Shocking Assistance -->
 		<TurnIn QuestName="Shocking Assistance" QuestId="35345" TurnInName="Abatha" TurnInId="82497" X="827.5555" Y="-1474.939" Z="3.712434" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(111812)" WaitTime="6000" />
 			</If>
@@ -1081,7 +1128,7 @@
 		<TurnIn QuestName="Swamplighter Queen" QuestId="33808" TurnInName="Fiona" TurnInId="76204" X="101.8281" Y="-1322.726" Z="-4.050506" />
 		<TurnIn QuestName="Fiona's Solution" QuestId="33787" TurnInName="Fiona" TurnInId="76204" X="101.8281" Y="-1322.726" Z="-4.050506" />
 		<PickUp QuestName="Cooking With Unstable Herbs" QuestId="33788" GiverName="Fiona" GiverId="76204" X="101.8281" Y="-1322.726" Z="-4.050506" />
-			<If Condition="HasQuest(33788) &amp;&amp; !IsQuestCompleted(33788)" >
+			<If Condition="HasQuest(33788) &amp;&amp; !IsQuestCompleted(33788)" > <!-- Cooking With Unstable Herbs -->
 			 <While Condition="!IsObjectiveComplete(1, 33788)"> 
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="this quest is like the LK brew quest in sholazar" />
 				<CustomBehavior File="InteractWith" QuestId="33788" MobId="76204" Range="5" GossipOptions="1" WaitTime="4000" X="101.8281" Y="-1322.726" Z="-4.050506" />
@@ -1145,7 +1192,7 @@
 		<TurnIn QuestName="Poison Paralysis" QuestId="35006" TurnInName="Fiona" TurnInId="76204" X="101.8281" Y="-1322.726" Z="-4.050506" /> <!-- Don't move this down -->
 		<TurnIn QuestName="Forever Young" QuestId="34994" TurnInName="Beezil Linkspanner" TurnInId="80761" X="100.2622" Y="-1312.13" Z="-3.583952" />
 		<TurnIn QuestName="Punishing the Primals" QuestId="34995" TurnInName="Tarenar Sunstrike" TurnInId="80865" X="103.1128" Y="-1326.731" Z="-4.200006" />
-			<If Condition="!HasQuest(35617) &amp;&amp; !IsQuestCompleted(35617)" >
+			<If Condition="!HasQuest(35617) &amp;&amp; !IsQuestCompleted(35617)" > <!-- Fiona / Follower -->
 				<MoveTo X="101.8281" Y="-1322.726" Z="-4.050506" />
 				<CustomBehavior File="InteractWith" MobId="76204" X="101.8281" Y="-1322.726" Z="-4.050506" />
                 <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
@@ -1178,23 +1225,6 @@
 
 		
 		
-		<!-- random quest from lost packmule near plains of serenity (w/nw) 
-		<Vendor Name="Lost Packmule" Entry="79966" Type="Repair" X="1316.679" Y="-427.1111" Z="2.344282" />
-		<PickUp QuestName="Gloomshade Grove" QuestId="33263" GiverName="" GiverId="" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="KillMob" MobId="73875" KillCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74667" CollectCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="UseObject" ObjectId="224229" UseCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74681" CollectCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="UseObject" ObjectId="223720" UseCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74686" CollectCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74193" CollectCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74687" CollectCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="KillMob" MobId="74256" KillCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="KillMob" MobId="74244" KillCount="1" />
-		<TurnIn QuestName="Gloomshade Grove" QuestId="33263" TurnInName="" TurnInId="" />
-
-
-		-->
 		
 		
 		
@@ -1243,6 +1273,7 @@
 		
 		<!--
 		<TurnIn QuestName="Into Twilight" QuestId="33072" TurnInName="" TurnInId="" />
+		<TurnIn QuestName="Ashran Appearance" QuestId="36624" TurnInName="" TurnInId="" />
 		-->
 
 
