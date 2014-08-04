@@ -81,8 +81,6 @@
         <Mob Name="Bamboo Python" Id="59769" />
         <Mob Name="Thunder Hold Cannon" Id="66394" />
         <Mob Name="Monkey" Id="59560" />
-        <!-- MaxMuster: There is a SetAvoidMobs at Line 1301.
-                        Changes are made ??here, should be done at Line 1301 too. -->
     </AvoidMobs>
 
     <!-- Quest Overrides -->
@@ -1245,16 +1243,13 @@
             </If>
         </While>
 
-        <!-- MaxMuster: If Quest "Choppertunity" is finished, temporary avoid NPC "Strongarm Gyrocopter" -->
-        <If Condition="IsQuestCompleted(31777)">
-            <ClearAvoidMobs />
-            <SetAvoidMobs>
-                <AvoidMobs>
-                    <Mob Name="Strongarm Gyrocopter" Id="65843" />
-                </AvoidMobs>
-            </SetAvoidMobs>
-        </If>
-
+        <ClearBlacklist />
+        <SetBlacklist>
+            <Blacklist>
+                <Mob Name="Strongarm Gyrocopter" Id="65843" Flags="Pull, Combat" />
+            </Blacklist>
+        </SetBlacklist>
+ 
         <While Condition="HasQuest(31778) &amp;&amp; !IsQuestCompleted(31778)">
             <CustomBehavior File="InteractWith" QuestId="31778" MobId="67090" MobId2="65974"
                             InteractByGossipOptions="1" CollectionDistance="1000" NumOfTimes="20" >
@@ -1300,19 +1295,8 @@
         <TurnIn QuestName="The Darkness Within" QuestId="31779" TurnInName="Flagpole" TurnInId="215844"
                 TurnInType="Object" X="2522.924" Y="-474.7571" Z="341.124" />
 
-        <!-- MaxMuster: Go back to the Original AvoidMobs List -->
-        <If Condition="IsQuestCompleted(31779)">
-            <ClearAvoidMobs />
-            <SetAvoidMobs>
-                <AvoidMobs>
-                    <Mob Name="Jack Arrow" Id="63809" />
-                    <Mob Name="Sha Tendrils" Id="66688" />
-                    <Mob Name="Bamboo Python" Id="59769" />
-                    <Mob Name="Thunder Hold Cannon" Id="66394" />
-                    <Mob Name="Monkey" Id="59560" />
-                </AvoidMobs>
-            </SetAvoidMobs>
-        </If>
+        <ClearBlacklist />
+        <!-- From Line 1247 -->
 
         <PickUp QuestName="Nazgrim's Command" QuestId="31999" GiverName="Flagpole" GiverId="215844"
                 GiverType="Object" X="2522.924" Y="-474.7571" Z="341.124" />
