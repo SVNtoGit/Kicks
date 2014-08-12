@@ -1714,8 +1714,8 @@
         <LootMobs Value="true" />
         <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
 
-        <If Condition="Me.MapId == 1" >
-            <If Condition="CanFly()" >
+        <If Condition="Me.MapId == 1">
+            <If Condition="CanFly()">
                 <CustomBehavior File="FlyTo" DestName="Valley of Strength entrace to Cleft of Shadows"
                                 X="1707.794" Y="-4323.348" Z="31.33346" />
             </If>
@@ -1726,26 +1726,39 @@
                             GoalText="Waiting to port to Blasted Lands {TimeRemaining}" />
         </If>
 
-        <If Condition="Me.MapId == 0 &amp;&amp; !IsQuestCompleted(10120) &amp;&amp; !HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
-            <!-- Warchief's Command: Outland! -->
-            <MoveTo DestName="Warlord Dar'toon" X="-11817.19" Y="-3184.226" Z="-30.43544" />
-            <PickUp QuestName="Through the Dark Portal" QuestId="9407" GiverName="Warlord Dar'toon" GiverId="19254"
-                    X="-11817.3" Y="-3187.891" Z="-30.67894" />
+        <If Condition="Me.MapId == 0">
+            <If Condition="!HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
+                <If Condition="!IsQuestCompleted(10120) &amp;&amp; Me.Class != WoWClass.DeathKnight">
+                    <PickUp QuestName="Through the Dark Portal" QuestId="9407"
+                            GiverName="Warlord Dar'toon" GiverId="19254"
+                            X="-11817.3" Y="-3187.891" Z="-30.67894" />
+                </If>
+            </If>
+            <While Condition="Me.MapId == 0" >
+                <If Condition="Me.MapId == 0" >
+                    <MoveTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0" >
+                    <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0" >
+                    <CustomBehavior File="WaitTimer" WaitTime="15000" />
+                </If>
+            </While>
         </If>
 
-        <While Condition="Me.MapId == 0" >
-            <If Condition="Me.MapId == 0" >
-                <MoveTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+        <If Condition="Me.MapId == 530">
+            <If Condition="HasQuest(9407)">
+                <TurnIn QuestName="Through the Dark Portal" QuestId="9407" TurnInName="Lieutenant General Orion"
+                        TurnInId="19253" X="-231.7747" Y="1027.199" Z="54.32653" />
             </If>
-            <If Condition="Me.MapId == 0" >
-                <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+            <If Condition="HasQuest(28705)">
+                <TurnIn QuestName="Hero's Call: Outland!" QuestId="28705" TurnInName="Lieutenant General Orion"
+                        TurnInId="19253" X="-231.7747" Y="1027.199" Z="54.32653" />
             </If>
-            <If Condition="Me.MapId == 0" >
-                <CustomBehavior File="WaitTimer" WaitTime="15000" />
-            </If>
-        </While>
+        </If>
         <!-- CHECKPOINT BLOCK END -->
 
         <!-- Hellfire -->
@@ -1753,16 +1766,8 @@
 
             <CustomBehavior File="Message" Text="Compiling Hellfire Peninsula Quests" LogColor="Green" />
 
-
-            <If Condition="HasQuest(9407)">
-                <CustomBehavior File="NoCombatMoveTo" X="-231.7747" Y="1027.199" Z="54.32653" />
-                <TurnIn QuestName="Through the Dark Portal" QuestId="9407" TurnInName="Lieutenant General Orion"
-                        TurnInId="19253" />
-            </If>
-
             <PickUp QuestName="Arrival in Outland" QuestId="10120" GiverName="Lieutenant General Orion"
                     GiverId="19253" />
-
 
             <If Condition="HasQuest(10120)" >
                 <CustomBehavior File="ForcedDismount" />
@@ -3681,39 +3686,51 @@
         <LootMobs Value="true" />
         <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
 
-        <If Condition="Me.MapId == 1" >
-            <If Condition="CanFly()" >
+        <If Condition="Me.MapId == 1">
+            <If Condition="CanFly()">
                 <CustomBehavior File="FlyTo" DestName="Valley of Strength entrace to Cleft of Shadows"
                                 X="1707.794" Y="-4323.348" Z="31.33346" />
             </If>
             <MoveTo DestName="Portal to Blasted Lands from Cleft of Shadows"
                     X="1771.351" Y="-4327.187" Z="-8.267691" />
-            <CustomBehavior File="InteractWith" MobId="195142" Range="5"
-                            X="1767.845" Y="-4325.489" Z="-8.386265" />
+            <CustomBehavior File="InteractWith" MobId="195142" Range="5" X="1767.845" Y="-4325.489" Z="-8.386265" />
             <CustomBehavior File="WaitTimer" WaitTime="10000"
                             GoalText="Waiting to port to Blasted Lands {TimeRemaining}" />
         </If>
 
-        <If Condition="Me.MapId == 0 &amp;&amp; !IsQuestCompleted(10120) &amp;&amp; !HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
-            <!-- Warchief's Command: Outland! -->
-            <MoveTo DestName="Warlord Dar'toon" X="-11817.19" Y="-3184.226" Z="-30.43544" />
-            <PickUp QuestName="Through the Dark Portal" QuestId="9407" GiverName="Warlord Dar'toon"
-                    GiverId="19254" X="-11817.3" Y="-3187.891" Z="-30.67894" />
+        <If Condition="Me.MapId == 0">
+            <If Condition="!HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
+                <If Condition="!IsQuestCompleted(10120) &amp;&amp; Me.Class != WoWClass.DeathKnight">
+                    <PickUp QuestName="Through the Dark Portal" QuestId="9407"
+                            GiverName="Warlord Dar'toon" GiverId="19254"
+                            X="-11817.3" Y="-3187.891" Z="-30.67894" />
+                </If>
+            </If>
+            <While Condition="Me.MapId == 0" >
+                <If Condition="Me.MapId == 0" >
+                    <MoveTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0" >
+                    <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0" >
+                    <CustomBehavior File="WaitTimer" WaitTime="15000" />
+                </If>
+            </While>
         </If>
 
-        <While Condition="Me.MapId == 0" >
-            <If Condition="Me.MapId == 0" >
-                <MoveTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+        <If Condition="Me.MapId == 530">
+            <If Condition="HasQuest(9407)">
+                <TurnIn QuestName="Through the Dark Portal" QuestId="9407" TurnInName="Lieutenant General Orion"
+                        TurnInId="19253" X="-231.7747" Y="1027.199" Z="54.32653" />
             </If>
-            <If Condition="Me.MapId == 0" >
-                <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+            <If Condition="HasQuest(28705)">
+                <TurnIn QuestName="Hero's Call: Outland!" QuestId="28705" TurnInName="Lieutenant General Orion"
+                        TurnInId="19253" X="-231.7747" Y="1027.199" Z="54.32653" />
             </If>
-            <If Condition="Me.MapId == 0" >
-                <CustomBehavior File="WaitTimer" WaitTime="15000" />
-            </If>
-        </While>
+        </If>
         <!-- CHECKPOINT BLOCK END -->
 
         <If Condition="!IsQuestCompleted(9817)" >
@@ -4521,39 +4538,51 @@
         <LootMobs Value="true" />
         <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
 
-        <If Condition="Me.MapId == 1" >
-            <If Condition="CanFly()" >
+        <If Condition="Me.MapId == 1">
+            <If Condition="CanFly()">
                 <CustomBehavior File="FlyTo" DestName="Valley of Strength entrace to Cleft of Shadows"
                                 X="1707.794" Y="-4323.348" Z="31.33346" />
             </If>
             <MoveTo DestName="Portal to Blasted Lands from Cleft of Shadows"
                     X="1771.351" Y="-4327.187" Z="-8.267691" />
-            <CustomBehavior File="InteractWith" MobId="195142" Range="5"
-                            X="1767.845" Y="-4325.489" Z="-8.386265" />
+            <CustomBehavior File="InteractWith" MobId="195142" Range="5" X="1767.845" Y="-4325.489" Z="-8.386265" />
             <CustomBehavior File="WaitTimer" WaitTime="10000"
                             GoalText="Waiting to port to Blasted Lands {TimeRemaining}" />
         </If>
 
-        <If Condition="Me.MapId == 0 &amp;&amp; !IsQuestCompleted(10120) &amp;&amp; !HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
-            <!-- Warchief's Command: Outland! -->
-            <MoveTo DestName="Warlord Dar'toon" X="-11817.19" Y="-3184.226" Z="-30.43544" />
-            <PickUp QuestName="Through the Dark Portal" QuestId="9407"
-                    GiverName="Warlord Dar'toon" GiverId="19254" X="-11817.3" Y="-3187.891" Z="-30.67894" />
+        <If Condition="Me.MapId == 0">
+            <If Condition="!HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
+                <If Condition="!IsQuestCompleted(10120) &amp;&amp; Me.Class != WoWClass.DeathKnight">
+                    <PickUp QuestName="Through the Dark Portal" QuestId="9407"
+                            GiverName="Warlord Dar'toon" GiverId="19254"
+                            X="-11817.3" Y="-3187.891" Z="-30.67894" />
+                </If>
+            </If>
+            <While Condition="Me.MapId == 0" >
+                <If Condition="Me.MapId == 0" >
+                    <MoveTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0" >
+                    <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0" >
+                    <CustomBehavior File="WaitTimer" WaitTime="15000" />
+                </If>
+            </While>
         </If>
 
-        <While Condition="Me.MapId == 0" >
-            <If Condition="Me.MapId == 0" >
-                <MoveTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+        <If Condition="Me.MapId == 530">
+            <If Condition="HasQuest(9407)">
+                <TurnIn QuestName="Through the Dark Portal" QuestId="9407" TurnInName="Lieutenant General Orion"
+                        TurnInId="19253" X="-231.7747" Y="1027.199" Z="54.32653" />
             </If>
-            <If Condition="Me.MapId == 0" >
-                <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
-                <CustomBehavior File="WaitTimer" WaitTime="1000" />
+            <If Condition="HasQuest(28705)">
+                <TurnIn QuestName="Hero's Call: Outland!" QuestId="28705" TurnInName="Lieutenant General Orion"
+                        TurnInId="19253" X="-231.7747" Y="1027.199" Z="54.32653" />
             </If>
-            <If Condition="Me.MapId == 0" >
-                <CustomBehavior File="WaitTimer" WaitTime="15000" />
-            </If>
-        </While>
+        </If>
         <!-- CHECKPOINT BLOCK END -->
 
         <If Condition="!IsQuestCompleted(9797)" >
@@ -5422,26 +5451,26 @@
             <LootMobs Value="true" />
             <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
 
-            <If Condition="Me.MapId == 1" >
-                <If Condition="CanFly()" >
-                    <CustomBehavior File="FlyTo" DestName="Valley of Strength entrace to Cleft of Shadows"
-                                    X="1707.794" Y="-4323.348" Z="31.33346" />
+        <If Condition="Me.MapId == 1">
+            <If Condition="CanFly()">
+                <CustomBehavior File="FlyTo" DestName="Valley of Strength entrace to Cleft of Shadows"
+                                X="1707.794" Y="-4323.348" Z="31.33346" />
+            </If>
+            <MoveTo DestName="Portal to Blasted Lands from Cleft of Shadows"
+                    X="1771.351" Y="-4327.187" Z="-8.267691" />
+            <CustomBehavior File="InteractWith" MobId="195142" Range="5" X="1767.845" Y="-4325.489" Z="-8.386265" />
+            <CustomBehavior File="WaitTimer" WaitTime="10000"
+                            GoalText="Waiting to port to Blasted Lands {TimeRemaining}" />
+        </If>
+
+        <If Condition="Me.MapId == 0">
+            <If Condition="!HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
+                <If Condition="!IsQuestCompleted(10120) &amp;&amp; Me.Class != WoWClass.DeathKnight">
+                    <PickUp QuestName="Through the Dark Portal" QuestId="9407"
+                            GiverName="Warlord Dar'toon" GiverId="19254"
+                            X="-11817.3" Y="-3187.891" Z="-30.67894" />
                 </If>
-                <MoveTo DestName="Portal to Blasted Lands from Cleft of Shadows"
-                        X="1771.351" Y="-4327.187" Z="-8.267691" />
-                <CustomBehavior File="InteractWith" MobId="195142" Range="5"
-                                X="1767.845" Y="-4325.489" Z="-8.386265" />
-                <CustomBehavior File="WaitTimer" WaitTime="10000"
-                                GoalText="Waiting to port to Blasted Lands {TimeRemaining}" />
             </If>
-
-            <If Condition="Me.MapId == 0 &amp;&amp; !IsQuestCompleted(10120) &amp;&amp; !HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
-                <!-- Warchief's Command: Outland! -->
-                <MoveTo DestName="Warlord Dar'toon" X="-11817.19" Y="-3184.226" Z="-30.43544" />
-                <PickUp QuestName="Through the Dark Portal" QuestId="9407"
-                        GiverName="Warlord Dar'toon" GiverId="19254" X="-11817.3" Y="-3187.891" Z="-30.67894" />
-            </If>
-
             <While Condition="Me.MapId == 0" >
                 <If Condition="Me.MapId == 0" >
                     <MoveTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
@@ -5455,6 +5484,18 @@
                     <CustomBehavior File="WaitTimer" WaitTime="15000" />
                 </If>
             </While>
+        </If>
+
+        <If Condition="Me.MapId == 530">
+            <If Condition="HasQuest(9407)">
+                <TurnIn QuestName="Through the Dark Portal" QuestId="9407" TurnInName="Lieutenant General Orion"
+                        TurnInId="19253" X="-231.7747" Y="1027.199" Z="54.32653" />
+            </If>
+            <If Condition="HasQuest(28705)">
+                <TurnIn QuestName="Hero's Call: Outland!" QuestId="28705" TurnInName="Lieutenant General Orion"
+                        TurnInId="19253" X="-231.7747" Y="1027.199" Z="54.32653" />
+            </If>
+        </If>
             <!-- CHECKPOINT BLOCK END -->
 
             <!-- Nagrand -->
@@ -6666,39 +6707,51 @@
        <LootMobs Value="true" />
        <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
 
-       <If Condition="Me.MapId == 1" >
-           <If Condition="CanFly()" >
-               <CustomBehavior File="FlyTo" DestName="Valley of Strength entrace to Cleft of Shadows"
-                               X="1707.794" Y="-4323.348" Z="31.33346" />
-           </If>
-           <MoveTo DestName="Portal to Blasted Lands from Cleft of Shadows"
-                   X="1771.351" Y="-4327.187" Z="-8.267691" />
-           <CustomBehavior File="InteractWith" MobId="195142" Range="5"
-                           X="1767.845" Y="-4325.489" Z="-8.386265" />
-           <CustomBehavior File="WaitTimer" WaitTime="10000"
-                           GoalText="Waiting to port to Blasted Lands {TimeRemaining}" />
-       </If>
+        <If Condition="Me.MapId == 1">
+            <If Condition="CanFly()">
+                <CustomBehavior File="FlyTo" DestName="Valley of Strength entrace to Cleft of Shadows"
+                                X="1707.794" Y="-4323.348" Z="31.33346" />
+            </If>
+            <MoveTo DestName="Portal to Blasted Lands from Cleft of Shadows"
+                    X="1771.351" Y="-4327.187" Z="-8.267691" />
+            <CustomBehavior File="InteractWith" MobId="195142" Range="5" X="1767.845" Y="-4325.489" Z="-8.386265" />
+            <CustomBehavior File="WaitTimer" WaitTime="10000"
+                            GoalText="Waiting to port to Blasted Lands {TimeRemaining}" />
+        </If>
 
-       <If Condition="Me.MapId == 0 &amp;&amp; !IsQuestCompleted(10120) &amp;&amp; !HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
-           <!-- Warchief's Command: Outland! -->
-           <MoveTo DestName="Warlord Dar'toon" X="-11817.19" Y="-3184.226" Z="-30.43544" />
-           <PickUp QuestName="Through the Dark Portal" QuestId="9407"
-                   GiverName="Warlord Dar'toon" GiverId="19254" X="-11817.3" Y="-3187.891" Z="-30.67894" />
-       </If>
+        <If Condition="Me.MapId == 0">
+            <If Condition="!HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
+                <If Condition="!IsQuestCompleted(10120) &amp;&amp; Me.Class != WoWClass.DeathKnight">
+                    <PickUp QuestName="Through the Dark Portal" QuestId="9407"
+                            GiverName="Warlord Dar'toon" GiverId="19254"
+                            X="-11817.3" Y="-3187.891" Z="-30.67894" />
+                </If>
+            </If>
+            <While Condition="Me.MapId == 0" >
+                <If Condition="Me.MapId == 0" >
+                    <MoveTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0" >
+                    <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0" >
+                    <CustomBehavior File="WaitTimer" WaitTime="15000" />
+                </If>
+            </While>
+        </If>
 
-       <While Condition="Me.MapId == 0" >
-           <If Condition="Me.MapId == 0" >
-               <MoveTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
-               <CustomBehavior File="WaitTimer" WaitTime="1000" />
-           </If>
-           <If Condition="Me.MapId == 0" >
-               <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
-               <CustomBehavior File="WaitTimer" WaitTime="1000" />
-           </If>
-           <If Condition="Me.MapId == 0" >
-               <CustomBehavior File="WaitTimer" WaitTime="15000" />
-           </If>
-       </While>
+        <If Condition="Me.MapId == 530">
+            <If Condition="HasQuest(9407)">
+                <TurnIn QuestName="Through the Dark Portal" QuestId="9407" TurnInName="Lieutenant General Orion"
+                        TurnInId="19253" X="-231.7747" Y="1027.199" Z="54.32653" />
+            </If>
+            <If Condition="HasQuest(28705)">
+                <TurnIn QuestName="Hero's Call: Outland!" QuestId="28705" TurnInName="Lieutenant General Orion"
+                        TurnInId="19253" X="-231.7747" Y="1027.199" Z="54.32653" />
+            </If>
+        </If>
        <!-- CHECKPOINT BLOCK END -->
 
        <!-- Netherstorm -->
@@ -8059,39 +8112,51 @@
        <LootMobs Value="true" />
        <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
 
-       <If Condition="Me.MapId == 1" >
-           <If Condition="CanFly()" >
-               <CustomBehavior File="FlyTo" DestName="Valley of Strength entrace to Cleft of Shadows"
-                               X="1707.794" Y="-4323.348" Z="31.33346" />
-           </If>
-           <MoveTo DestName="Portal to Blasted Lands from Cleft of Shadows"
-                   X="1771.351" Y="-4327.187" Z="-8.267691" />
-           <CustomBehavior File="InteractWith" MobId="195142" Range="5"
-                           X="1767.845" Y="-4325.489" Z="-8.386265" />
-           <CustomBehavior File="WaitTimer" WaitTime="10000"
-                           GoalText="Waiting to port to Blasted Lands {TimeRemaining}" />
-       </If>
+        <If Condition="Me.MapId == 1">
+            <If Condition="CanFly()">
+                <CustomBehavior File="FlyTo" DestName="Valley of Strength entrace to Cleft of Shadows"
+                                X="1707.794" Y="-4323.348" Z="31.33346" />
+            </If>
+            <MoveTo DestName="Portal to Blasted Lands from Cleft of Shadows"
+                    X="1771.351" Y="-4327.187" Z="-8.267691" />
+            <CustomBehavior File="InteractWith" MobId="195142" Range="5" X="1767.845" Y="-4325.489" Z="-8.386265" />
+            <CustomBehavior File="WaitTimer" WaitTime="10000"
+                            GoalText="Waiting to port to Blasted Lands {TimeRemaining}" />
+        </If>
 
-       <If Condition="Me.MapId == 0 &amp;&amp; !IsQuestCompleted(10120) &amp;&amp; !HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
-           <!-- Warchief's Command: Outland! -->
-           <MoveTo DestName="Warlord Dar'toon" X="-11817.19" Y="-3184.226" Z="-30.43544" />
-           <PickUp QuestName="Through the Dark Portal" QuestId="9407" GiverName="Warlord Dar'toon"
-                   GiverId="19254" X="-11817.3" Y="-3187.891" Z="-30.67894" />
-       </If>
+        <If Condition="Me.MapId == 0">
+            <If Condition="!HasQuest(28705) &amp;&amp; !IsQuestCompleted(28705)">
+                <If Condition="!IsQuestCompleted(10120) &amp;&amp; Me.Class != WoWClass.DeathKnight">
+                    <PickUp QuestName="Through the Dark Portal" QuestId="9407"
+                            GiverName="Warlord Dar'toon" GiverId="19254"
+                            X="-11817.3" Y="-3187.891" Z="-30.67894" />
+                </If>
+            </If>
+            <While Condition="Me.MapId == 0" >
+                <If Condition="Me.MapId == 0" >
+                    <MoveTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0" >
+                    <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1000" />
+                </If>
+                <If Condition="Me.MapId == 0" >
+                    <CustomBehavior File="WaitTimer" WaitTime="15000" />
+                </If>
+            </While>
+        </If>
 
-       <While Condition="Me.MapId == 0" >
-           <If Condition="Me.MapId == 0" >
-               <MoveTo X="-11895.44" Y="-3206.936" Z="-14.64132" />
-               <CustomBehavior File="WaitTimer" WaitTime="1000" />
-           </If>
-           <If Condition="Me.MapId == 0" >
-               <CustomBehavior File="MyCTM" X="-11908.09" Y="-3208.854" Z="-14.83002" />
-               <CustomBehavior File="WaitTimer" WaitTime="1000" />
-           </If>
-           <If Condition="Me.MapId == 0" >
-               <CustomBehavior File="WaitTimer" WaitTime="15000" />
-           </If>
-       </While>
+        <If Condition="Me.MapId == 530">
+            <If Condition="HasQuest(9407)">
+                <TurnIn QuestName="Through the Dark Portal" QuestId="9407" TurnInName="Lieutenant General Orion"
+                        TurnInId="19253" X="-231.7747" Y="1027.199" Z="54.32653" />
+            </If>
+            <If Condition="HasQuest(28705)">
+                <TurnIn QuestName="Hero's Call: Outland!" QuestId="28705" TurnInName="Lieutenant General Orion"
+                        TurnInId="19253" X="-231.7747" Y="1027.199" Z="54.32653" />
+            </If>
+        </If>
        <!-- CHECKPOINT BLOCK END -->
 
        <CustomBehavior File="DeleteItems" Ids="23270,23248,25433,26042,26043,29443,30858,24421,25539,29209,24475,29161" />
