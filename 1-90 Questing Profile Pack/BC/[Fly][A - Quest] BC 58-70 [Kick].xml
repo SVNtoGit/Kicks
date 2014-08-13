@@ -3556,9 +3556,8 @@
                 TurnInId="19294" />
 
         <While Condition="!IsQuestCompleted(9383)">
-
             <!-- If missing quest or missing item, go (re)fetch quest... -->
-            <If Condition="!HasQuest(9383) || !HasItem(23417)">
+            <If Condition="!HasQuest(9383) || HasQuest(9383) &amp;&amp; !HasItem(23417)">
                 <CustomBehavior File="FlyTo" DestName="Elsaana" X="189.1281" Y="4334.367" Z="116.3699" />
                 <!-- If missing item; abandon quest, so we get a new item... -->
                 <If Condition="HasQuest(9383)">
@@ -3586,10 +3585,10 @@
             <CustomBehavior File="InteractWith" QuestId="9383" MobId="181574" InteractByLooting="true"
                             WaitForNpcs="false" PreInteractMountStrategy="Dismount"
                             ProactiveCombatStrategy="ClearMobsTargetingUs" />
+            <CustomBehavior File="WaitTimer" WaitTime="5000" />
         </While>
 
-
-        <TurnIn QuestName="An Ambitious Plan" QuestId="9383" TurnInName="Elsaana" TurnInId="17006" />
+        <TurnIn Nav="Fly" QuestName="An Ambitious Plan" QuestId="9383" TurnInName="Elsaana" TurnInId="17006" />
 
         <PickUp QuestName="The Cenarion Expedition" QuestId="9912" GiverName="Amythiel Mistwalker" GiverId="16885"
                 X="-314.8192" Y="4711.438" Z="18.33707" />
