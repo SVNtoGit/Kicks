@@ -3705,15 +3705,24 @@
             <CustomBehavior File="RunMacro"
                             Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
         </If>
-        <If
-            Condition="!HasQuest(9778) &amp;&amp; !IsQuestCompleted(9778) &amp;&amp; !HasQuest(9728) &amp;&amp; !IsQuestCompleted(9728)">
+        <If Condition="!HasQuest(9778) &amp;&amp; !IsQuestCompleted(9778) &amp;&amp; !HasQuest(9728) &amp;&amp; !IsQuestCompleted(9728)">
             <PickUp QuestName="Warden Hamoot" QuestId="9778" GiverName="Ysiel Windsinger" GiverId="17841"
                     X="-143.4519" Y="5533.816" Z="31.06601" />
-            <TurnIn QuestName="Warden Hamoot" QuestId="9778" TurnInName="Warden Hamoot" TurnInId="17858"
-                    X="-252.3594" Y="5499.21" Z="66.59926" />
         </If>
-        <PickUp QuestName="A Warm Welcome" QuestId="9728" GiverName="Warden Hamoot" GiverId="17858"
-                X="-252.3594" Y="5499.21" Z="66.59926" />
+        <If Condition="HasQuest(9778)" >
+            <CustomBehavior File="FlyTo" DestName="TurnIn A Warm Welcome" Land="true" X="-241.081" Y="5482.297" Z="23.31522" />
+            <TurnIn Nav="Fly" QuestName="Warden Hamoot" QuestId="9778" TurnInName="Warden Hamoot"
+                    TurnInId="17858" X="-252.3594" Y="5499.21" Z="66.59926" />
+            <PickUp Nav="Fly" QuestName="A Warm Welcome" QuestId="9728" GiverName="Warden Hamoot"
+                    GiverId="17858" X="-252.3594" Y="5499.21" Z="66.59926" />
+        </If>
+
+        <If Condition="!HasQuest(9728) &amp;&amp; !IsQuestCompleted(9728)" >
+            <CustomBehavior File="FlyTo" DestName="TurnIn A Warm Welcome" Land="true" X="-241.081" Y="5482.297" Z="23.31522" />
+            <PickUp Nav="Fly" QuestName="A Warm Welcome" QuestId="9728" GiverName="Warden Hamoot"
+                    GiverId="17858" X="-252.3594" Y="5499.21" Z="66.59926" />
+        </If>
+
         <PickUp QuestName="Plants of Zangarmarsh" QuestId="9802" GiverName="Lauranna Thar'well" GiverId="17909"
                 X="-215.5434" Y="5437.267" Z="21.4277" />
         <PickUp QuestName="Leader of the Darkcrest" QuestId="9730" GiverName="Wanted Poster" GiverType="Object"
@@ -3894,15 +3903,11 @@
                 X="-215.1667" Y="5433.431" Z="21.9556" />
         <TurnIn QuestName="Saving the Sporeloks" QuestId="10096" TurnInName="Lauranna Thar'well" TurnInId="17909"
                 X="-215.5434" Y="5437.267" Z="21.4277" />
-        <While Condition="HasQuest(9728) &amp;&amp; IsQuestCompleted(9728)">
-            <MoveTo DestName="Cenarion Refuge Landing Spot" X="-216.1101" Y="5498.881" Z="21.79396" />
-            <CustomBehavior File="ForcedDismount" />
-            <UseMount Value="false" />
-            <TurnIn QuestName="A Warm Welcome" QuestId="9728" TurnInName="Warden Hamoot" TurnInId="17858"
-                    X="-252.3594" Y="5499.21" Z="66.59926" />
-            <MoveTo DestName="Cenarion Refuge" X="-216.1101" Y="5498.881" Z="21.79396" />
-        </While>
-        <UseMount Value="true" />
+
+        <If Condition="HasQuest(9728) &amp;&amp; IsQuestCompleted(9728)" >
+            <CustomBehavior File="FlyTo" DestName="TurnIn A Warm Welcome" Land="true" X="-241.081" Y="5482.297" Z="23.31522" />
+            <TurnIn QuestName="A Warm Welcome" QuestId="9728" TurnInName="Warden Hamoot" TurnInId="17858" X="-252.3594" Y="5499.21" Z="66.59926" />
+        </If>
 
         <If Condition="HasQuest(9802) &amp;&amp; IsQuestCompleted(9802)">
             <TurnIn QuestName="Plants of Zangarmarsh" QuestId="9802" TurnInName="Lauranna Thar'well" TurnInId="17909"
