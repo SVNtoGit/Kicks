@@ -960,6 +960,19 @@
                             TransportStartX="8162.587" TransportStartY="1005.365" TransportStartZ="0.005638145"
                             TransportEndX="-8650.719" TransportEndY="1346.051" TransportEndZ="-0.0382334" />
         </If>
+		
+		<!-- CJ: Set Hearthstone for Worgens...
+			When Worgens exit the starting area, they are 17+.  This can cause them to miss
+			the "hearth setting" code in the 12-58 profile due to checkpointing.  So, we
+			explicitly set the hearthstone here, before transferring control to the next profile.
+		-->
+		<If Condition="Me.HearthstoneAreaId != 5148">
+			<CustomBehavior File="Message" Text="Moving to set hearth to SW Innkeeper" LogColor="Red" />
+			<CustomBehavior File="InteractWith" MobId="6740" InteractByGossipOptions="1"
+							X="-8867.786" Y="673.6729" Z="97.90324" />
+			<CustomBehavior File="RunMacro"
+							Macro="/run for i=1,GetNumQuestLogEntries() do SelectQuestLogEntry(i); SetAbandonQuest(); AbandonQuest(); end" />
+        </If>
 
         <CustomBehavior File="LoadProfile" ProfileName="..\[A - Quest] EK 12-58 [Kick]" RememberProfile="true" />
 
