@@ -84,12 +84,14 @@
        <CustomBehavior File="UserSettings" Preset="NoDistractions" />
 
 
-       <!-- Quest: Now ths is Racing... Almost! -->
+       <!-- Quest: Now this is Racing... Almost! -->
        <!-- Need to do this before we get drunk, otherwise it can fail -->
-       <If Condition="!IsQuestCompleted(11409)">
+       <If Condition="new uint[]{11409,11412}.Any(questId =&gt; HasQuest(questId) || !IsQuestCompleted(questId))">
            <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
            <CustomBehavior File="FlyTo" DestName="Ram racing area" Land="true"
-                           X="1182.07" Y="-4202.742" Z="21.80357" AllowedVariance="7" />
+                           X="1187.951" Y="-4208.585" Z="22.05835" AllowedVariance="4" />
+           <CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="5000"
+                           GoalText="Loitering for {TimeRemaining}" />
 
            <PickUp QuestName="Now this is Racing... Almost!" QuestId="11409"
                    GiverName="Ram Master Ray" GiverId="24497"
@@ -138,18 +140,16 @@
            </CustomBehavior>
 
            <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
-           <CustomBehavior File="FlyTo" DestName="Ram racing area" Land="true"
-                           X="1182.07" Y="-4202.742" Z="21.80357" AllowedVariance="7" />
+           <CustomBehavior File="FlyTo" QuestId="11409" DestName="Ram racing area" Land="true"
+                           X="1187.951" Y="-4208.585" Z="22.05835" AllowedVariance="4" />
+           <CustomBehavior File="WaitTimer" QuestId="11409" WaitTime="3000" VariantTime="5000"
+                           GoalText="Loitering for {TimeRemaining}" />
 
            <TurnIn QuestName="Now this is Racing... Almost!" QuestId="11409"
                    TurnInName="Ram Master Ray" TurnInId="24497"
                    Nav="Fly" X="1179.486" Y="-4216.002" Z="23.81173" />
-       </If>
 
-
-       <!-- Quest: There and Back again -->
-       <If Condition="!IsQuestCompleted(11412)">
-
+           <!-- Quest: There and Back again -->
            <PickUp QuestName="There And Back Again" QuestId="11412"
                    GiverName="Ram Master Ray" GiverId="24497"
                    Nav="Fly" X="1179.486" Y="-4216.002" Z="23.81173" />
@@ -201,6 +201,23 @@
                    Nav="Fly" X="1179.486" Y="-4216.002" Z="23.81173" />
        </If>
 
+       <!-- A New Supplier of Souvenirs -->
+       <If Condition="HasQuest(29396) || !IsQuestCompleted(29396)">
+           <PickUp QuestName="A New Supplier of Souvenirs" QuestId="29396"
+                   GiverName="Driz Tumblequick" GiverId="24510"
+                   Nav="Fly" X="1183.783" Y="-4219.568" Z="24.13986" />
+
+           <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
+           <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center" Land="true"
+                           X="1195.047" Y="-4116.562" Z="22.06504" AllowedVariance="15" />
+           <CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="5000"
+                           GoalText="Loitering for {TimeRemaining}" />
+
+           <TurnIn QuestName="A New Supplier of Souvenirs" QuestId="29396"
+                   TurnInName="Blix Fixwidget" TurnInId="24495"
+                   Nav="Fly" X="1177.757" Y="-4094.491" Z="18.19143" />
+       </If>
+
        <!--
            ========== Achievements & non-Daily quests ==========
            NB: We wrap each sub-achievement in a <While>, since we can get interrupted
@@ -211,11 +228,14 @@
             The bug has been reported as HB-1219.
             The same problem does not exist for the IsAchievementCompleted(id, index) form.
        -->
+       <!-- Achievements: Strange Brew & The Brewfest Diet -->
        <If Condition="Me.ZoneId == 14" >
            <If Condition="!IsAchievementCompleted(1185,7)">
                <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
                <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center near entrance" Land="true"
                                X="1182.818" Y="-4135.731" Z="21.58656" AllowedVariance="7" />
+               <CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="5000"
+                               GoalText="Loitering for {TimeRemaining}" />
 
                <!-- Achievement: The Brewfest Diet - The Essential Brewfest Pretzel -->
                <While Condition="!IsAchievementCompleted(1185,7)" >
@@ -285,7 +305,7 @@
                    <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
                </While>
            </If>
-           
+
            <If Condition="new int[]{1,2,3,5,6,9}.Any(i =&gt; !IsAchievementCompleted(1203,i))" >
                <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
                <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center" Land="true"
@@ -329,6 +349,12 @@
                    <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
                </While>
 
+               <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
+               <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center" Land="true"
+                               X="1195.047" Y="-4116.562" Z="22.06504" AllowedVariance="15" />
+               <CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="5000"
+                               GoalText="Loitering for {TimeRemaining}" />
+
                <!-- Achievement: Strange Brew(Gordok Brew) - Gordok Grog -->
                <While Condition="!IsAchievementCompleted(1203,2)" >
                    <If Condition="!HasItem(33034)" >
@@ -365,7 +391,7 @@
                    <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
                </While>
            </If>
-           
+
            <If Condition="new int[]{1,2,3,5,6,8}.Any(i =&gt; !IsAchievementCompleted(1185,i))">
                <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
                <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center" Land="true"
@@ -447,7 +473,7 @@
                </While>
            </If>
        </If>
-           
+
 
        <!--
            Pick up whatever quests are not complete
@@ -474,13 +500,13 @@
        </If>
 
        <!-- Quest: Catch the Wild Wolpertinger -->
-       <If Condition="!IsQuestCompleted(11431)" >
+       <If Condition="HasQuest(11431) || !IsQuestCompleted(11431)" >
            <PickUp QuestName="Catch the Wild Wolpertinger" QuestId="11431"
                    GiverName="Glodrak Huntsniper" GiverId="24657"
                    Nav="Fly" X="1155.069" Y="-4142.635" Z="21.22891" />
 
-           <CustomBehavior File="FlyTo" DestName="Wolpertinger hunting grounds"
-                           Land="true" X="1186.987" Y="-4308.195" Z="21.27914" />
+           <CustomBehavior File="FlyTo" DestName="Wolpertinger hunting grounds" Land="true"
+                           X="1186.987" Y="-4308.195" Z="21.27914" AllowedVariance="5" />
 
            <CustomBehavior File="UserSettings" AutoEquip="false" />
            <CustomBehavior File="EquipItem" ItemId="46735" />
@@ -510,7 +536,11 @@
            <CustomBehavior File="Message" UpdateGoalText="true" LogColor="CornflowerBlue"
                            Text="Working the &quot;Almost Blind Luck&quot; achievement." />
 
-           <CustomBehavior File="FlyTo" X="1167.306" Y="-4483.252" Z="88" />
+           <!-- Interim waypoint to work around FlyTo bug -->
+           <CustomBehavior File="FlyTo" DestName="area for &quot;Almost Blind Luck&quot; achievement"
+                           X="1172.664" Y="-4424.732" Z="84.05257" />
+           <CustomBehavior File="FlyTo" DestName="&quot;Almost Blind Luck&quot; achievement"
+                           X="1167.306" Y="-4483.252" Z="88" />
            <CustomBehavior File="UserSettings" AutoEquip="false" />
            <CustomBehavior File="EquipItem" ItemId="46735" />
 
@@ -529,28 +559,8 @@
            <CustomBehavior File="UserSettings" AutoEquip="original" />
        </If>
 
-       <!-- A New Supplier of Souvenirs -->
-       <If Condition="!IsQuestCompleted(29396)">
-           <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
-           <CustomBehavior File="FlyTo" DestName="Ram racing area" Land="true"
-                           X="1182.07" Y="-4202.742" Z="21.80357" AllowedVariance="7" />
-
-           <PickUp QuestName="A New Supplier of Souvenirs" QuestId="29396"
-                   GiverName="Driz Tumblequick" GiverId="24510"
-                   Nav="Fly" X="1183.783" Y="-4219.568" Z="24.13986" />
-
-           <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
-           <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center"
-                           X="1195.047" Y="-4116.562" Z="22.06504" AllowedVariance="15" />
-
-           <TurnIn QuestName="A New Supplier of Souvenirs" QuestId="29396"
-                   TurnInName="Blix Fixwidget" TurnInId="24495"
-                   Nav="Fly" X="1177.757" Y="-4094.491" Z="18.19143" />
-       </If>
-
-
        <!-- Quest: Chug and Chuck! -->
-       <If Condition="!IsQuestCompleted(12191)" >
+       <If Condition="HasQuest(12191) || !IsQuestCompleted(12191)" >
            <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
            <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center near entrance" Land="true"
                            X="1182.818" Y="-4135.731" Z="21.58656" AllowedVariance="7" />
@@ -621,8 +631,8 @@
                    <CustomBehavior File="UseItem" ItemId="37816" />
                </ElseIf>
                <ElseIf Condition="GetItemCount(37829) &gt;= 2"> <!-- Brewfest Prize Tokens -->
-                   <CustomBehavior File="FlyTo" DestName="Blix Fixwidget"
-                                   Land="true" X="1177.757" Y="-4094.491" Z="18.19143" />
+                   <CustomBehavior File="FlyTo" DestName="Blix Fixwidget" Land="true"
+                                   X="1177.757" Y="-4094.491" Z="18.19143" />
                    <!-- Due to an HBcore bug, we have to buy the hard way...
                         This may happen because the questgiver has gossip dialogs also.
                    -->
@@ -652,7 +662,7 @@
                        GiverName="Glodrak Huntsniper" GiverId="24657"
                        Nav="Fly" X="1155.069" Y="-4142.635" Z="21.22891" />
            </If>
-               
+
            <!-- If Mulgore Elekks are needed... -->
            <If Condition="!IsObjectiveComplete(2,11120)">
                <CustomBehavior File="Message" UpdateGoalText="true" LogColor="CornflowerBlue"
@@ -667,7 +677,7 @@
                            <Hotspot Name="North road down from lift" X="-1240.97" Y="223.3204" Z="47.90081" AllowedVariance="7" />
                        </DestinationChoices>
                    </CustomBehavior>
-                                   
+
                    <Else>
                        <CustomBehavior File="UserDialog" StopOnContinue="true"
                                        Text="Whoops, you're not where we left you.\n\nPlease move to Kalimdor and start the profile again." />
@@ -730,11 +740,12 @@
            <If Condition="!IsObjectiveComplete(1,11120)">
 
                <!-- If in Ruins of Lordaeron, use Silvermoon Orb of Translocation... -->
-               <If Condition="Me.ZoneId == 1497">
+               <!-- NB: Some WoWservers are buggy, and use of the Orb frequently fails... -->
+               <While Condition="Me.ZoneId == 1497">
                    <CustomBehavior File="InteractWith" MobId="184503"
                                    X="1805.848" Y="348.8648" Z="70.87273"
                                    WaitTime="7000" />
-               </If>
+               </While>
 
                <!-- If in Silvermoon City, move outside... -->
                <If Condition="!( ( Me.ZoneId == 3487 ) || ( Me.ZoneId == 3430 ) )" >
@@ -773,7 +784,7 @@
            </If>
 
            <!-- If in Silvermoon City, use Orb of Translocation... -->
-           <!-- NB: Some servers are buggy, and use of the Orb frequently fails... -->
+           <!-- NB: Some WoWservers are buggy, and use of the Orb frequently fails... -->
            <While Condition="Me.ZoneId == 3487" >
                <!-- Silvermoon City -->
                <MoveTo DestName="Orb of Translocation" X="10042.92" Y="-7001.271" Z="61.98705" />
@@ -825,7 +836,7 @@
        <If Condition="!IsQuestCompleted(29393)">
            <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
            <CustomBehavior File="FlyTo" DestName="Ram racing area" Land="true"
-                           X="1182.07" Y="-4202.742" Z="21.80357" AllowedVariance="7" />
+                           X="1187.951" Y="-4208.585" Z="22.05835" AllowedVariance="4" />
 
            <PickUp QuestName="Brew For Brewfest" QuestId="29393"
                    GiverName="Ram Master Ray" GiverId="24497"
@@ -877,7 +888,7 @@
        <!-- Daily Quest: Bark for the XXXXX!
             You can only do one "Bark" quest per day, of the two offered. We pick a random one.
        -->
-       <If Condition="!( IsQuestCompleted(11407) || IsQuestCompleted(11408) )">
+       <If Condition="new uint[]{11407,11408}.Any(questId => HasQuest(questId) || !IsQuestCompleted(questId))">
            <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center" Land="true"
                            X="1195.047" Y="-4116.562" Z="22.06504" AllowedVariance="15" />
 
@@ -953,7 +964,7 @@
        <!--
            ========== All we can automate ==========
        -->
-       <CustomBehavior File="UserDialog" StopOnContinue="true"
+       <CustomBehavior File="UserDialog" StopOnContinue="true" ExpiryTime="30"
                        Text="END of the line.  Here is what's left:\n\n* Quest: &quot;This One Time, When I Was Drunk...&quot;\nEvery 30mins the Dark Iron Dwarves will invade Brewfest.\nIf the players are successful in repelling them, there will be a part remaining on the ground that starts a quest.   Take it and simply turn it in.  If you already had this quest in your log, we've turned it on for you.\n\n* DAILY Quest: &quot;Direbrew's Dire Brew&quot; quest\nYou must do Coren Direbrew dungeon by some other means.* When you get 200 Brewfest Prize Tokens, purchase a &quot;Brew of the Month&quot; membership." />
 
    </QuestOrder>

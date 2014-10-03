@@ -78,262 +78,300 @@
        </If>
 
        <!-- WARN USER of HB bugs -->
-       <If Condition="false" >      <!-- change to 'Condition="false"' to turn off warning -->
+       <If Condition="true" >      <!-- change to 'Condition="false"' to turn off warning -->
            <CustomBehavior File="UserDialog" AllowBotStop="true"
                            Text="Do NOT AFK this profile!\n\n* You should turn off any plugins or Combat Routine features that use Slowfall abilities. Otherwise, the &quot;Almost Blind Luck&quot; achievement will be acquired after you run out of Slowfall reagents (we keep trying until we get the achievement).\n\n* It goes into areas with many, many people around. You should keep an eye on profile progression.\n\n* Honorbuddy navigation _loves_ to get stuck.\nThe Brewfest scenery decorations provide a wealth of opportunities for this.\n\n* Moving around while drunk causes you to fall a lot (and sometimes die), since Honorbuddy loves to path on the bloody edge of a dropoff. Honorbuddy navigation leaves no room for the error induced by drunkeness.\n\n* Honorbuddy occasionally has problems with Intercontinental travel, which is needed for one of the quests.\n\n* Honorbuddy occasionally gets confused about 'quest state'.\nIt will think something is incomplete when its done.  We've made the profile very stop/start friendly to work around this.\n\n* To turn this warning message off, edit the profile.  Look for a comment with the words &quot;WARN USER&quot; and change the 'true' to 'false'." />
        </If>
 
        <CustomBehavior File="UserSettings" Preset="NoDistractions" />
 
-       <!-- Quest: Now ths is Racing... Almost! -->
+       <!-- Quest: Now this is Racing... Almost! -->
        <!-- Need to do this before we get drunk, otherwise it can fail -->
-       <PickUp QuestName="Now this is Racing... Almost!" QuestId="11318"
-               GiverName="Neill Ramstein" GiverId="23558"
-               Nav="Fly" X="-5200.16" Y="-491.55" Z="388.48" />
+       <If Condition="new uint[]{11318,11122}.Any(questId =&gt; HasQuest(questId) || !IsQuestCompleted(questId))">
+           <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
+           <CustomBehavior File="FlyTo" DestName="Ram racing area" Land="true"
+                           X="-5208.785" Y="-494.4889" Z="388.4344" AllowedVariance="7" />
+           <CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="5000"
+                           GoalText="Loitering for {TimeRemaining}" />
 
-       <CustomBehavior File="SpecificQuests\Holiday\Brewfest-RamRidingQuests" QuestId="11318" >
-           <RidingPath>
-               <!-- We micro-manage the path to work around some navigator quirks... -->
-               <Hotspot Name="Torch avoidance" X="-5211.265" Y="-483.2207" Z="389.1165" AllowedVariance="2" />
-               <Hotspot Name="Banner to road" X="-5229.856" Y="-478.0888" Z="386.3706" AllowedVariance="3" />
-               <Hotspot Name="Riverbed 1" X="-5309.548" Y="-522.5736" Z="388.3328" AllowedVariance="7" />
-               <Hotspot Name="Apple Bucket 1" X="-5357.132" Y="-536.7656" Z="391.7714" AllowedVariance="3" />
-               <Hotspot Name="Apple Bucket 1 (top of fence)" X="-5359.22" Y="-536.167" Z="392.7879" />
-               <Hotspot Name="Apple Bucket 1 (other side of fence)" X="-5363.143" Y="-535.0867" Z="392.7849" AllowedVariance="2" />
-               <Hotspot Name="Beside tree near Apple Bucket2" X="-5460.032" Y="-540.7568" Z="398.394" AllowedVariance="3" />
-               <Hotspot Name="Apple Bucket 2" X="-5492.018" Y="-534.7864" Z="398.1151" AllowedVariance="3" />
-               <Hotspot Name="Tents by Inn" X="-5547.676" Y="-506.3896" Z="402.0213" AllowedVariance="3" />
-               <Hotspot Name="Kegs by Flynn Firebrew" X="-5599.494" Y="-469.1557" Z="398.0992" AllowedVariance="4" />
-               <Hotspot Name="Turning around for return" X="-5592.111" Y="-470.8087" Z="398.4724" AllowedVariance="3" />
+           <PickUp QuestName="Now this is Racing... Almost!" QuestId="11318"
+                   GiverName="Neill Ramstein" GiverId="23558"
+                   Nav="Fly" X="-5200.16" Y="-491.55" Z="388.48" />
 
-               <Hotspot Name="Road by tents" X="-5528.97" Y="-486.5582" Z="397.5043" AllowedVariance="5" />
-               <Hotspot Name="Apple Bucket 2" X="-5492.018" Y="-534.7864" Z="398.1151" AllowedVariance="3" />
-               <Hotspot Name="Beside tree near Apple Bucket2" X="-5460.032" Y="-540.7568" Z="398.394" AllowedVariance="3" />
-               <Hotspot Name="Apple Bucket 1 (other side of fence)" X="-5363.143" Y="-535.0867" Z="392.7849" AllowedVariance="2" />
-               <Hotspot Name="Apple Bucket 1 (top of fence)" X="-5359.22" Y="-536.167" Z="392.7879" />
-               <Hotspot Name="Apple Bucket 1" X="-5357.132" Y="-536.7656" Z="391.7714" AllowedVariance="3" />
-               <Hotspot Name="Riverbed 1" X="-5309.548" Y="-522.5736" Z="388.3328" AllowedVariance="7" />
-               <Hotspot Name="Brew drop-off location" X="-5203.017" Y="-496.6536" Z="388.3303" AllowedVariance="3" />
-           </RidingPath>
-       </CustomBehavior>
+           <CustomBehavior File="SpecificQuests\Holiday\Brewfest-RamRidingQuests" QuestId="11318" >
+               <RidingPath>
+                   <!-- We micro-manage the path to work around some navigator quirks... -->
+                   <Hotspot Name="Torch avoidance" X="-5211.265" Y="-483.2207" Z="389.1165" />
+                   <Hotspot Name="Banner to road" X="-5229.856" Y="-478.0888" Z="386.3706" />
+                   <Hotspot Name="Riverbed 1" X="-5309.548" Y="-522.5736" Z="388.3328" />
+                   <Hotspot Name="Apple Bucket 1" X="-5357.132" Y="-536.7656" Z="391.7714" />
+                   <Hotspot Name="Apple Bucket 1 (top of fence)" X="-5359.22" Y="-536.167" Z="392.7879" />
+                   <Hotspot Name="Apple Bucket 1 (other side of fence)" X="-5363.143" Y="-535.0867" Z="392.7849" />
+                   <Hotspot Name="Beside tree near Apple Bucket2" X="-5460.032" Y="-540.7568" Z="398.394" />
+                   <Hotspot Name="Apple Bucket 2" X="-5492.018" Y="-534.7864" Z="398.1151" />
+                   <Hotspot Name="Tents by Inn" X="-5547.676" Y="-506.3896" Z="402.0213" />
+                   <Hotspot Name="Kegs by Flynn Firebrew" X="-5599.494" Y="-469.1557" Z="398.0992" />
+                   <Hotspot Name="Turning around for return" X="-5592.111" Y="-470.8087" Z="398.4724" />
 
-       <TurnIn QuestName="Now this is Racing... Almost!" QuestId="11318"
-               TurnInName="Neill Ramstein" TurnInId="23558"
-               Nav="Fly" X="-5200.16" Y="-491.55" Z="388.48" />
+                   <Hotspot Name="Road by tents" X="-5528.97" Y="-486.5582" Z="397.5043" />
+                   <Hotspot Name="Apple Bucket 2" X="-5492.018" Y="-534.7864" Z="398.1151" />
+                   <Hotspot Name="Beside tree near Apple Bucket2" X="-5460.032" Y="-540.7568" Z="398.394" />
+                   <Hotspot Name="Apple Bucket 1 (other side of fence)" X="-5363.143" Y="-535.0867" Z="392.7849" />
+                   <Hotspot Name="Apple Bucket 1 (top of fence)" X="-5359.22" Y="-536.167" Z="392.7879" />
+                   <Hotspot Name="Apple Bucket 1" X="-5357.132" Y="-536.7656" Z="391.7714" />
+                   <Hotspot Name="Riverbed 1" X="-5309.548" Y="-522.5736" Z="388.3328" />
+                   <Hotspot Name="Brew drop-off location" X="-5203.017" Y="-496.6536" Z="388.3303" />
+               </RidingPath>
+           </CustomBehavior>
 
-       <!-- Quest: There and Back again -->
-       <PickUp QuestName="There And Back Again" QuestId="11122"
-               GiverName="Neill Ramstein" GiverId="23558"
-               Nav="Fly" X="-5200.16" Y="-491.55" Z="388.48" />
+           <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
+           <CustomBehavior File="FlyTo" QuestId="11318" DestName="Ram racing area" Land="true"
+                           X="-5208.785" Y="-494.4889" Z="388.4344" AllowedVariance="7" />
+           <CustomBehavior File="WaitTimer" QuestId="11318" WaitTime="3000" VariantTime="5000"
+                           GoalText="Loitering for {TimeRemaining}" />
 
-       <CustomBehavior File="SpecificQuests\Holiday\Brewfest-RamRidingQuests" QuestId="11122" >
-           <RidingPath>
-               <!-- We micro-manage the path to work around some navigator quirks... -->
-               <Hotspot Name="Torch avoidance" X="-5211.265" Y="-483.2207" Z="389.1165" AllowedVariance="2" />
-               <Hotspot Name="Banner to road" X="-5229.856" Y="-478.0888" Z="386.3706" AllowedVariance="3" />
-               <Hotspot Name="Riverbed 1" X="-5309.548" Y="-522.5736" Z="388.3328" AllowedVariance="7" />
-               <Hotspot Name="Apple Bucket 1" X="-5357.132" Y="-536.7656" Z="391.7714" AllowedVariance="3" />
-               <Hotspot Name="Apple Bucket 1 (top of fence)" X="-5359.22" Y="-536.167" Z="392.7879" />
-               <Hotspot Name="Apple Bucket 1 (other side of fence)" X="-5363.143" Y="-535.0867" Z="392.7849" AllowedVariance="2" />
-               <Hotspot Name="Beside tree near Apple Bucket2" X="-5460.032" Y="-540.7568" Z="398.394" AllowedVariance="3" />
-               <Hotspot Name="Apple Bucket 2" X="-5492.018" Y="-534.7864" Z="398.1151" AllowedVariance="3" />
-               <Hotspot Name="Tents by Inn" X="-5547.676" Y="-506.3896" Z="402.0213" AllowedVariance="3" />
-               <Hotspot Name="Kegs by Flynn Firebrew" X="-5599.494" Y="-469.1557" Z="398.0992" AllowedVariance="4" />
-               <Hotspot Name="Turning around for return" X="-5592.111" Y="-470.8087" Z="398.4724" AllowedVariance="3" />
+           <TurnIn QuestName="Now this is Racing... Almost!" QuestId="11318"
+                   TurnInName="Neill Ramstein" TurnInId="23558"
+                   Nav="Fly" X="-5200.16" Y="-491.55" Z="388.48" />
 
-               <Hotspot Name="Road by tents" X="-5528.97" Y="-486.5582" Z="397.5043" AllowedVariance="5" />
-               <Hotspot Name="Apple Bucket 2" X="-5492.018" Y="-534.7864" Z="398.1151" AllowedVariance="3" />
-               <Hotspot Name="Beside tree near Apple Bucket2" X="-5460.032" Y="-540.7568" Z="398.394" AllowedVariance="3" />
-               <Hotspot Name="Apple Bucket 1 (other side of fence)" X="-5363.143" Y="-535.0867" Z="392.7849" AllowedVariance="2" />
-               <Hotspot Name="Apple Bucket 1 (top of fence)" X="-5359.22" Y="-536.167" Z="392.7879" />
-               <Hotspot Name="Apple Bucket 1" X="-5357.132" Y="-536.7656" Z="391.7714" AllowedVariance="3" />
-               <Hotspot Name="Riverbed 1" X="-5309.548" Y="-522.5736" Z="388.3328" AllowedVariance="7" />
-               <Hotspot Name="Brew drop-off location" X="-5203.017" Y="-496.6536" Z="388.3303" AllowedVariance="3" />
-           </RidingPath>
-       </CustomBehavior>
+           <!-- Quest: There and Back again -->
+           <PickUp QuestName="There And Back Again" QuestId="11122"
+                   GiverName="Neill Ramstein" GiverId="23558"
+                   Nav="Fly" X="-5200.16" Y="-491.55" Z="388.48" />
 
-       <TurnIn QuestName="There and Back Again" QuestId="11122"
-               TurnInName="Neill Ramstein" TurnInId="23558"
-               Nav="Fly" X="-5200.16" Y="-491.55" Z="388.48" />
+           <CustomBehavior File="SpecificQuests\Holiday\Brewfest-RamRidingQuests" QuestId="11122" >
+               <RidingPath>
+                   <!-- We micro-manage the path to work around some navigator quirks... -->
+                   <Hotspot Name="Torch avoidance" X="-5211.265" Y="-483.2207" Z="389.1165" />
+                   <Hotspot Name="Banner to road" X="-5229.856" Y="-478.0888" Z="386.3706" />
+                   <Hotspot Name="Riverbed 1" X="-5309.548" Y="-522.5736" Z="388.3328" />
+                   <Hotspot Name="Apple Bucket 1" X="-5357.132" Y="-536.7656" Z="391.7714" />
+                   <Hotspot Name="Apple Bucket 1 (top of fence)" X="-5359.22" Y="-536.167" Z="392.7879" />
+                   <Hotspot Name="Apple Bucket 1 (other side of fence)" X="-5363.143" Y="-535.0867" Z="392.7849" />
+                   <Hotspot Name="Beside tree near Apple Bucket2" X="-5460.032" Y="-540.7568" Z="398.394" />
+                   <Hotspot Name="Apple Bucket 2" X="-5492.018" Y="-534.7864" Z="398.1151" />
+                   <Hotspot Name="Tents by Inn" X="-5547.676" Y="-506.3896" Z="402.0213" />
+                   <Hotspot Name="Kegs by Flynn Firebrew" X="-5599.494" Y="-469.1557" Z="398.0992" />
+                   <Hotspot Name="Turning around for return" X="-5592.111" Y="-470.8087" Z="398.4724" />
+
+                   <Hotspot Name="Road by tents" X="-5528.97" Y="-486.5582" Z="397.5043" />
+                   <Hotspot Name="Apple Bucket 2" X="-5492.018" Y="-534.7864" Z="398.1151" />
+                   <Hotspot Name="Beside tree near Apple Bucket2" X="-5460.032" Y="-540.7568" Z="398.394" />
+                   <Hotspot Name="Apple Bucket 1 (other side of fence)" X="-5363.143" Y="-535.0867" Z="392.7849" />
+                   <Hotspot Name="Apple Bucket 1 (top of fence)" X="-5359.22" Y="-536.167" Z="392.7879" />
+                   <Hotspot Name="Apple Bucket 1" X="-5357.132" Y="-536.7656" Z="391.7714" />
+                   <Hotspot Name="Riverbed 1" X="-5309.548" Y="-522.5736" Z="388.3328" />
+                   <Hotspot Name="Brew drop-off location" X="-5203.017" Y="-496.6536" Z="388.3303" />
+               </RidingPath>
+           </CustomBehavior>
+
+           <TurnIn QuestName="There and Back Again" QuestId="11122"
+                   TurnInName="Neill Ramstein" TurnInId="23558"
+                   Nav="Fly" X="-5200.16" Y="-491.55" Z="388.48" />
+       </If>
+
+
+       <!-- A New Supplier of Souvenirs -->
+       <If Condition="HasQuest(29397) || !IsQuestCompleted(29397)">
+           <PickUp QuestName="A New Supplier of Souvenirs" QuestId="29397"
+                   GiverName="Pol Amberstill" GiverId="24468"
+                   Nav="Fly" X="-5200.87" Y="-484.70" Z="388.80" />
+
+           <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
+           <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center" Land="true"
+                           X="-5157.048" Y="-600.1396" Z="398.1775" AllowedVariance="15" />
+           <CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="5000"
+                           GoalText="Loitering for {TimeRemaining}" />
+
+           <TurnIn QuestName="A New Supplier of Souvenirs" QuestId="29397"
+                   TurnInName="Belbi Quikswitch" TurnInId="23710"
+                   Nav="Fly" X="-5176.91" Y="-624.37" Z="397.86" />
+       </If>
 
 
        <!--
            ========== Achievements & non-Daily quests ==========
+           NB: We wrap each sub-achievement in a <While>, since we can get interrupted
+           during the Dark Iron Invasion event
+       -->
+       <!-- NB: IsAchievementCompleted(id) is broken if another toon on the account has already
+            acquired the achievement.  We use this LUA hack to get the correct information.
+            The bug has been reported as HB-1219.
+            The same problem does not exist for the IsAchievementCompleted(id, index) form.
        -->
 
        <!-- Achievements: Strange Brew & The Brewfest Diet -->
-       <While Condition="!IsAchievementCompleted(1184) || !IsAchievementCompleted(1185)" >
-           <If Condition="!IsAchievementCompleted(1184) &amp;&amp; !IsAchievementCompleted(1185)" >
-               <CustomBehavior File="Message" UpdateGoalText="true" LogColor="CornflowerBlue"
-                               Text="Working &quot;The Brewfest Diet&quot; and the &quot;Strange Brew&quot; achievements." />
-               <ElseIf Condition="!IsAchievementCompleted(1184)" >
-                   <CustomBehavior File="Message" UpdateGoalText="true" LogColor="CornflowerBlue"
-                                   Text="Working the &quot;Strange Brew&quot; achievement." />
-               </ElseIf>
-               <ElseIf Condition="!IsAchievementCompleted(1185)" >
-                   <CustomBehavior File="Message" UpdateGoalText="true" LogColor="CornflowerBlue"
-                                   Text="Working &quot;The Brewfest Diet&quot; achievement." />
-               </ElseIf>
+       <If Condition="Me.ZoneId == 1" >
+
+           <If Condition="new int[]{4,5,6}.Any(i =&gt; !IsAchievementCompleted(1184,i)) || new int[]{1,2,3,5,6,8}.Any(i =&gt; !IsAchievementCompleted(1185,1))">
+               <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
+               <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center" Land="true"
+                               X="-5157.048" Y="-600.1396" Z="398.1775" AllowedVariance="15" />
+               <CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="5000"
+                               GoalText="Loitering for {TimeRemaining}" />
+
+               <!-- Achievement: Strange Brew(Gordok) - Gordok Grog -->
+               <While Condition="!IsAchievementCompleted(1184,4)" >
+                   <If Condition="!HasItem(33034)" >
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Gordok Brew Apprentice" X="-5141.064" Y="-582.6545" Z="397.1776" />
+                       <CustomBehavior File="InteractWith" MobId="23511" InteractByBuyingItemId="33034" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="33034" />
+                   <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
+               </While>
+
+               <!-- Achievement: Strange Brew(Gordok) - Mudder's Milk -->
+               <While Condition="!IsAchievementCompleted(1184,5)" >
+                   <If Condition="!HasItem(33036)" >
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Gordok Brew Apprentice" X="-5141.064" Y="-582.6545" Z="397.1776" />
+                       <CustomBehavior File="InteractWith" MobId="23511" InteractByBuyingItemId="33036" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="33036" />
+                   <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
+               </While>
+
+               <!-- Achievement: Strange Brew(Gordok) - Ogre Mead -->
+               <While Condition="!IsAchievementCompleted(1184,6)" >
+                   <If Condition="!HasItem(33035)" >
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Gordok Brew Apprentice" X="-5141.064" Y="-582.6545" Z="397.1776" />
+                       <CustomBehavior File="InteractWith" MobId="23511" InteractByBuyingItemId="33035" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="33035" />
+                   <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
+               </While>
+
+               <!-- Achievement: The Brewfest Diet - Dried Sausage -->
+               <While Condition="!IsAchievementCompleted(1185,1)" >
+                   <If Condition="!HasItem(34063)">
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Keiran Donoghue" X="-5133.269" Y="-605.2112" Z="397.4294" />
+                       <CustomBehavior File="InteractWith" MobId="23481" InteractByBuyingItemId="34063"
+                                       X="-5133.409" Y="-605.9552" Z="397.4519" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="34063" />
+                   <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
+               </While>
+
+               <!-- Achievement: The Brewfest Diet - Pickled Sausage -->
+               <While Condition="!IsAchievementCompleted(1185,2)" >
+                   <If Condition="!HasItem(33024)">
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Keiran Donoghue" X="-5133.269" Y="-605.2112" Z="397.4294" />
+                       <CustomBehavior File="InteractWith" MobId="23481" InteractByBuyingItemId="33024" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="33024" />
+                   <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
+               </While>
+
+               <!-- Achievement: The Brewfest Diet - Savory Sausage -->
+               <While Condition="!IsAchievementCompleted(1185,3)" >
+                   <If Condition="!HasItem(33023)">
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Keiran Donoghue" X="-5133.269" Y="-605.2112" Z="397.4294" />
+                       <CustomBehavior File="InteractWith" MobId="23481" InteractByBuyingItemId="33023" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="33023" />
+                   <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
+               </While>
+
+               <!-- Achievement: The Brewfest Diet - Spicy Smoked Sausage -->
+               <While Condition="!IsAchievementCompleted(1185,5)" >
+                   <If Condition="!HasItem(33025)">
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Keiran Donoghue" X="-5133.269" Y="-605.2112" Z="397.4294" />
+                       <CustomBehavior File="InteractWith" MobId="23481" InteractByBuyingItemId="33025" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="33025" />
+                   <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
+               </While>
+
+               <!-- Achievement: The Brewfest Diet - Succulent Sausage -->
+               <While Condition="!IsAchievementCompleted(1185,6)" >
+                   <If Condition="!HasItem(34064)">
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Keiran Donoghue" X="-5133.269" Y="-605.2112" Z="397.4294" />
+                       <CustomBehavior File="InteractWith" MobId="23481" InteractByBuyingItemId="34064" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="34064" />
+                   <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
+               </While>
+
+               <!-- Achievement: The Brewfest Diet - The Golden Link -->
+               <While Condition="!IsAchievementCompleted(1185,8)" >
+                   <If Condition="!HasItem(33026)">
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Keiran Donoghue" X="-5133.269" Y="-605.2112" Z="397.4294" />
+                       <CustomBehavior File="InteractWith" MobId="23481" InteractByBuyingItemId="33026" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="33026" />
+                   <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
+               </While>
            </If>
 
-           <CustomBehavior File="FlyTo" Land="true" X="-5157.261" Y="-595.4305" Z="397.909" AllowedVariance="8" />
-           <CustomBehavior File="ForcedDismount" />
+           <If Condition="new int[]{7,8,9}.Any(i =&gt; !IsAchievementCompleted(1184,i))">
+               <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
+               <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center" Land="true"
+                               X="-5157.048" Y="-600.1396" Z="398.1775" AllowedVariance="15" />
+               <CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="5000"
+                               GoalText="Loitering for {TimeRemaining}" />
 
-           <CustomBehavior File="Hooks\DoWhen" ActivityName="StopEatingOrDrinking"
-                           UseWhen="Me.HasAura(&quot;Food&quot;) || Me.HasAura(&quot;Drink&quot;)" >
-               <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
-               <CustomBehavior File="Misc\RunLua" Lua="WoWMovement.ClickToMove(Me.Location)" />
-               <CustomBehavior File="WaitTimer" WaitTime="3000"
-                               TerminateWhen="!( Me.HasAura(&quot;Food&quot;) || Me.HasAura(&quot;Drink&quot;) )" />
-           </CustomBehavior>
+               <!-- Achievement: Strange Brew(Thunderbrew) - Thunder 45 -->
+               <While Condition="!IsAchievementCompleted(1184,7)" >
+                   <If Condition="!HasItem(33031)" >
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Thunderbrew Apprentice" X="-5149.848" Y="-630.2669" Z="397.2568" />                                   <CustomBehavior File="InteractWith" MobId="23510" InteractByBuyingItemId="33031" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="33031" />
+                   <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
+               </While>
 
-           <!-- Achievement: Strange Brew(Gordok) - Gordok Grog -->
-           <If Condition="!IsAchievementCompleted(1184,4)" >
-               <If Condition="!HasItem(33034)" >
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Gordok Brew Apprentice" X="-5141.064" Y="-582.6545" Z="397.1776" />
-                   <CustomBehavior File="InteractWith" MobId="23511" InteractByBuyingItemId="33034" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="33034" />
-               <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
-           </If>
+               <!-- Achievement: Strange Brew(Thunderbrew) - Thunderbrew Ale -->
+               <While Condition="!IsAchievementCompleted(1184,8)" >
+                   <If Condition="!HasItem(33032)" >
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Thunderbrew Apprentice" X="-5149.848" Y="-630.2669" Z="397.2568" />                                   <CustomBehavior File="InteractWith" MobId="23510" InteractByBuyingItemId="33031" />
+                       <CustomBehavior File="InteractWith" MobId="23510" InteractByBuyingItemId="33032" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="33032" />
+                   <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
+               </While>
 
-           <!-- Achievement: Strange Brew(Gordok) - Mudder's Milk -->
-           <If Condition="!IsAchievementCompleted(1184,5)" >
-               <If Condition="!HasItem(33036)" >
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Gordok Brew Apprentice" X="-5141.064" Y="-582.6545" Z="397.1776" />
-                   <CustomBehavior File="InteractWith" MobId="23511" InteractByBuyingItemId="33036" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="33036" />
-               <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
-           </If>
-
-           <!-- Achievement: Strange Brew(Gordok) - Ogre Mead -->
-           <If Condition="!IsAchievementCompleted(1184,6)" >
-               <If Condition="!HasItem(33035)" >
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Gordok Brew Apprentice" X="-5141.064" Y="-582.6545" Z="397.1776" />
-                   <CustomBehavior File="InteractWith" MobId="23511" InteractByBuyingItemId="33035" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="33035" />
-               <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
-           </If>
-
-           <!-- Achievement: The Brewfest Diet - Dried Sausage -->
-           <If Condition="!IsAchievementCompleted(1185,1)" >
-               <If Condition="!HasItem(34063)">
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Keiran Donoghue" X="-5133.269" Y="-605.2112" Z="397.4294" />
-                   <CustomBehavior File="InteractWith" MobId="23481" InteractByBuyingItemId="34063"
-                                   X="-5133.409" Y="-605.9552" Z="397.4519" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="34063" />
-               <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
-           </If>
-
-           <!-- Achievement: The Brewfest Diet - Pickled Sausage -->
-           <If Condition="!IsAchievementCompleted(1185,2)" >
-               <If Condition="!HasItem(33024)">
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Keiran Donoghue" X="-5133.269" Y="-605.2112" Z="397.4294" />
-                   <CustomBehavior File="InteractWith" MobId="23481" InteractByBuyingItemId="33024" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="33024" />
-               <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
-           </If>
-
-           <!-- Achievement: The Brewfest Diet - Savory Sausage -->
-           <If Condition="!IsAchievementCompleted(1185,3)" >
-               <If Condition="!HasItem(33023)">
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Keiran Donoghue" X="-5133.269" Y="-605.2112" Z="397.4294" />
-                   <CustomBehavior File="InteractWith" MobId="23481" InteractByBuyingItemId="33023" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="33023" />
-               <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
-           </If>
-
-           <!-- Achievement: The Brewfest Diet - Spicy Smoked Sausage -->
-           <If Condition="!IsAchievementCompleted(1185,5)" >
-               <If Condition="!HasItem(33025)">
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Keiran Donoghue" X="-5133.269" Y="-605.2112" Z="397.4294" />
-                   <CustomBehavior File="InteractWith" MobId="23481" InteractByBuyingItemId="33025" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="33025" />
-               <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
-           </If>
-
-           <!-- Achievement: The Brewfest Diet - Succulent Sausage -->
-           <If Condition="!IsAchievementCompleted(1185,6)" >
-               <If Condition="!HasItem(34064)">
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Keiran Donoghue" X="-5133.269" Y="-605.2112" Z="397.4294" />
-                   <CustomBehavior File="InteractWith" MobId="23481" InteractByBuyingItemId="34064" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="34064" />
-               <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
-           </If>
-
-           <!-- Achievement: The Brewfest Diet - The Golden Link -->
-           <If Condition="!IsAchievementCompleted(1185,8)" >
-               <If Condition="!HasItem(33026)">
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Keiran Donoghue" X="-5133.269" Y="-605.2112" Z="397.4294" />
-                   <CustomBehavior File="InteractWith" MobId="23481" InteractByBuyingItemId="33026" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="33026" />
-               <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
-           </If>
-
-           <!-- Achievement: Strange Brew(Thunderbrew) - Thunder 45 -->
-           <If Condition="!IsAchievementCompleted(1184,7)" >
-               <If Condition="!HasItem(33031)" >
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Thunderbrew Apprentice" X="-5149.848" Y="-630.2669" Z="397.2568" />                                   <CustomBehavior File="InteractWith" MobId="23510" InteractByBuyingItemId="33031" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="33031" />
-               <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="700" />
-           </If>
-
-           <!-- Achievement: Strange Brew(Thunderbrew) - Thunderbrew Ale -->
-           <If Condition="!IsAchievementCompleted(1184,8)" >
-               <If Condition="!HasItem(33032)" >
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Thunderbrew Apprentice" X="-5149.848" Y="-630.2669" Z="397.2568" />                                   <CustomBehavior File="InteractWith" MobId="23510" InteractByBuyingItemId="33031" />
-                   <CustomBehavior File="InteractWith" MobId="23510" InteractByBuyingItemId="33032" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="33032" />
-               <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
-           </If>
-
-           <!-- Achievement: Strange Brew(Thunderbrew) - Thunderbrew Stout -->
-           <If Condition="!IsAchievementCompleted(1184,9)" >
-               <If Condition="!HasItem(33033)" >
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Thunderbrew Apprentice" X="-5149.848" Y="-630.2669" Z="397.2568" />                                   <CustomBehavior File="InteractWith" MobId="23510" InteractByBuyingItemId="33031" />
-                   <CustomBehavior File="InteractWith" MobId="23510" InteractByBuyingItemId="33033" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="33033" />
-               <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
+               <!-- Achievement: Strange Brew(Thunderbrew) - Thunderbrew Stout -->
+               <While Condition="!IsAchievementCompleted(1184,9)" >
+                   <If Condition="!HasItem(33033)" >
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Thunderbrew Apprentice" X="-5149.848" Y="-630.2669" Z="397.2568" />                                   <CustomBehavior File="InteractWith" MobId="23510" InteractByBuyingItemId="33031" />
+                       <CustomBehavior File="InteractWith" MobId="23510" InteractByBuyingItemId="33033" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="33033" />
+                   <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
+               </While>
            </If>
 
            <!-- Achievement: The Brewfest Diet - Spiced Onion Cheese -->
-           <If Condition="!IsAchievementCompleted(1185,4)" >
-               <If Condition="!HasItem(34065)">
+           <While Condition="!IsAchievementCompleted(1185,4)" >
+               <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
+               <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center" Land="true"
+                               X="-5157.048" Y="-600.1396" Z="398.1775" AllowedVariance="15" />
+               <CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="5000"
+                               GoalText="Loitering for {TimeRemaining}" />
+
+b               <If Condition="!HasItem(34065)">
                    <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
                    <MoveTo DestName="Anne Summers" X="-5170.659" Y="-625.4578" Z="397.1766" />
                    <CustomBehavior File="InteractWith" MobId="23521" InteractByBuyingItemId="34065" />
@@ -341,47 +379,60 @@
                </If>
                <CustomBehavior File="UseItem" ItemId="34065" />
                <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
-           </If>
+           </While>
 
-           <!-- Achievement: Strange Brew(Barleybrew) - Barleybrew Clear -->
-           <If Condition="!IsAchievementCompleted(1184,1)" >
-               <If Condition="!HasItem(33030)" >
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Barleybrew Apprentice" X="-5181.421" Y="-607.0918" Z="397.1771" />
-                   <CustomBehavior File="InteractWith" MobId="23482" InteractByBuyingItemId="33030" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="33030" />
-               <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
+           <If Condition="new int[]{1,2,3}.Any(i =&gt; !IsAchievementCompleted(1184,i))">
+               <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
+               <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center" Land="true"
+                               X="-5157.048" Y="-600.1396" Z="398.1775" AllowedVariance="15" />
+               <CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="5000"
+                               GoalText="Loitering for {TimeRemaining}" />
+               <!-- Achievement: Strange Brew(Barleybrew) - Barleybrew Clear -->
+               <While Condition="!IsAchievementCompleted(1184,1)" >
+                   <If Condition="!HasItem(33030)" >
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Barleybrew Apprentice" X="-5181.421" Y="-607.0918" Z="397.1771" />
+                       <CustomBehavior File="InteractWith" MobId="23482" InteractByBuyingItemId="33030" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="33030" />
+                   <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
 
-           </If>
+               </While>
 
-           <!-- Achievement: Strange Brew(Barleybrew) - Barleybrew Dark -->
-           <If Condition="!IsAchievementCompleted(1184,2)" >
-               <If Condition="!HasItem(33029)" >
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Barleybrew Apprentice" X="-5181.421" Y="-607.0918" Z="397.1771" />
-                   <CustomBehavior File="InteractWith" MobId="23482" InteractByBuyingItemId="33029" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="33029" />
-               <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
-           </If>
+               <!-- Achievement: Strange Brew(Barleybrew) - Barleybrew Dark -->
+               <While Condition="!IsAchievementCompleted(1184,2)" >
+                   <If Condition="!HasItem(33029)" >
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Barleybrew Apprentice" X="-5181.421" Y="-607.0918" Z="397.1771" />
+                       <CustomBehavior File="InteractWith" MobId="23482" InteractByBuyingItemId="33029" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="33029" />
+                   <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
+               </While>
 
-           <!-- Achievement: Strange Brew(Barleybrew) - Barleybrew Light -->
-           <If Condition="!IsAchievementCompleted(1184,3)" >
-               <If Condition="!HasItem(33028)" >
-                   <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
-                   <MoveTo DestName="Barleybrew Apprentice" X="-5181.421" Y="-607.0918" Z="397.1771" />
-                   <CustomBehavior File="InteractWith" MobId="23482" InteractByBuyingItemId="33028" />
-                   <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               </If>
-               <CustomBehavior File="UseItem" ItemId="33028" />
-               <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
+               <!-- Achievement: Strange Brew(Barleybrew) - Barleybrew Light -->
+               <While Condition="!IsAchievementCompleted(1184,3)" >
+                   <If Condition="!HasItem(33028)" >
+                       <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+                       <MoveTo DestName="Barleybrew Apprentice" X="-5181.421" Y="-607.0918" Z="397.1771" />
+                       <CustomBehavior File="InteractWith" MobId="23482" InteractByBuyingItemId="33028" />
+                       <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
+                   </If>
+                   <CustomBehavior File="UseItem" ItemId="33028" />
+                   <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
+               </While>
            </If>
 
            <!-- Achievement: The Brewfest Diet - The Essential Brewfest Pretzel -->
-           <If Condition="!IsAchievementCompleted(1185,7)" >
+           <While Condition="!IsAchievementCompleted(1185,7)" >
+               <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
+               <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center" Land="true"
+                               X="-5157.048" Y="-600.1396" Z="398.1775" AllowedVariance="15" />
+               <CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="5000"
+                               GoalText="Loitering for {TimeRemaining}" />
+
                <If Condition="!HasItem(33043)">
                    <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
                    <MoveTo DestName="Arlen Lochlen" X="-5182.268" Y="-584.1409" Z="397.6835" />
@@ -390,21 +441,33 @@
                </If>
                <CustomBehavior File="UseItem" ItemId="33043" />
                <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
-           </If>
-
-           <CustomBehavior File="Hooks\DoWhen" Command="Remove" ActivityName="StopEatingOrDrinking" />
-       </While>
+           </While>
+       </If>
 
 
        <!--
            Pick up whatever quests are not complete
        -->
-
-       <If Condition="!IsQuestCompleted(11442)" >  <!-- Welcome to Brewfest! -->
+       
+       <!-- Welcome to Brewfest! -->
+       <If Condition="!IsQuestCompleted(11442)" >
+           <!-- Non-standard quest... it completes when we pick it up.
+                As such, we have to do things manually rather than use the normal <PickUp>
+           -->
            <CustomBehavior File="InteractWith" MobId="24710" X="-5184.68" Y="-562.37" Z="397.18" />
            <CustomBehavior File="Misc\RunLua" Lua="SelectGossipAvailableQuest(1)" />
            <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="900" />
            <CustomBehavior File="Misc\RunLua" Lua="GetQuestReward(1)" />
+       </If>
+
+       <!-- Get Synthebrew Goggles from Goldark Sniphunter, and equip them... -->
+       <If Condition="!HasItem(46735)">
+           <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+           <CustomBehavior File="FlyTo" DestName="Goldark Snipehunter" Land="true"
+                           X="-5173.357" Y="-575.2989" Z="397.2881" AllowedVariance="3" />
+
+           <CustomBehavior File="InteractWith" MobId="23486" InteractByGossipOptions="1,1"
+                           TerminateWhen="HasItem(46735)" />
        </If>
 
        <!-- Quest: Catch the Wild Wolpertinger -->
@@ -413,30 +476,22 @@
                    GiverName="Goldark Snipehunter" GiverId="23486"
                    Nav="Fly" X="-5172.92" Y="-562.57" Z="397.18" />
 
-           <If Condition="GetItemCount(33034) &lt; 10" >
-               <CustomBehavior File="Message" UpdateGoalText="true" LogColor="CornflowerBlue"
-                               Text="Getting alcohol for &quot;Catch the Wild Wolpertinger&quot;" />
-               <CustomBehavior File="FlyTo" Land="true" X="-5145.721" Y="-584.1698" Z="397.1794" />
-               <CustomBehavior File="InteractWith" MobId="23511" InteractByBuyingItemId="33034" BuyItemCount="10" />
-               <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="1200" />
-               <MoveTo X="-5145.721" Y="-584.1698" Z="397.1794" />
-           </If>
-
            <CustomBehavior File="FlyTo" DestName="Wolpertinger hunting grounds"
                            X="-5246.598" Y="-466.2682" Z="388.1418"
                            AllowedVariance="25" />
 
-           <While Condition="GetItemCount(33034) &gt; 0" >
-               <CustomBehavior File="UseItem" ItemId="33034" />
-               <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
-           </While>
-
+           <CustomBehavior File="UserSettings" AutoEquip="false" />
+           <CustomBehavior File="EquipItem" ItemId="46735" />
            <CustomBehavior File="InteractWith" InteractByUsingItemId="32907" MobId="23487" Range="15"
-                           X="-5184.68" Y="-562.37" Z="397.18" NumOfTimes="100"
+                           MovementBy="NavigatorPreferred" NumOfTimes="100"
+                           X="-5184.68" Y="-562.37" Z="397.18"
                            TerminateWhen="GetItemCount(32906) &gt;= 5"/>
-       </If>
+           <CustomBehavior File="UserSettings" AutoEquip="original" />
 
-       <If Condition="HasQuest(11117)" >
+           <!-- We micro-manage the movment, since Honorbuddy has such trouble with seasonal doodads -->
+           <CustomBehavior File="FlyTo" DestName="Goldark Snipehunter" Land="true"
+                           X="-5173.357" Y="-575.2989" Z="397.2881" AllowedVariance="3" />
+
            <TurnIn QuestName="Catch the Wild Wolpertinger" QuestId="11117"
                    TurnInName="Goldark Snipehunter" TurnInId="23486"
                    Nav="Fly" X="-5172.92" Y="-562.57" Z="397.18" />
@@ -446,29 +501,29 @@
        </If>
 
        <!-- Achievement: Almost Blind Luck -->
-       <If Condition="!IsAchievementCompleted(1260) || !IsAchievementCompleted(964)">
+       <!-- NB: IsAchievementCompleted(id) is broken if another toon on the account has already
+            acquired the achievement.  We use this LUA hack to get the correct information.
+            The bug has been reported as HB-1219.
+            The same problem does not exist for the IsAchievementCompleted(id, index) form.
+       -->
+       <If Condition="( Me.ZoneId == 1 ) &amp;&amp; !Lua.GetReturnVal&lt;bool&gt;(&quot;return GetAchievementInfo(1260)&quot;, 12)">
            <CustomBehavior File="Message" UpdateGoalText="true" LogColor="CornflowerBlue"
                            Text="Working the &quot;Almost Blind Luck&quot; achievement." />
 
+           <CustomBehavior File="FlyTo" DestName="area for &quot;Almost Blind Luck&quot; achievement"
+                           X="-5161.173" Y="-871.1495" Z="575" AllowedVariance="5" />
            <CustomBehavior File="UserSettings" AutoEquip="false" />
-           <!-- Get Synthebrew Goggles from Goldark Snipehunter -->
-           <CustomBehavior File="InteractWith" MobId="23486" InteractByGossipOptions="1,1"
-                           TerminateWhen="HasItem(46735)" />
-           <CustomBehavior File="FlyTo" Land="true" X="-5161.173" Y="-871.1495" Z="507.2433" AllowedVariance="5" />
+           <CustomBehavior File="EquipItem" ItemId="46735" />
+           
            <CustomBehavior File="UserDialog" ExpiryTime="30"
                            Text="You must TURN OFF any plugins that use SLOWFALL abilities...\n\nOtherwise, the achievement will be deferred until you run out of appropriate slowfall reagents.\n\n(This message will self-dismiss in a few seconds.)" />
-           <CustomBehavior File="EquipItem" ItemId="46735" />
-           <!-- Give goggles a few moments to work -->
-           <CustomBehavior File="WaitTimer" WaitTime="2000" VariantTime="3000" />
-           <CustomBehavior File="FlyTo" X="-5161.173" Y="-871.1495" Z="575" />
-           <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="2000" />
            <!-- Can't used "ForcedDismount" because we don't want automatic descent -->
            <CustomBehavior File="Misc\RunLua" Lua="Dismount()" />
            <!-- In case we're Druid... -->
            <CustomBehavior File="Misc\RunLua" Lua="CancelShapeshiftForm()" />
 
            <CustomBehavior File="WaitTimer" WaitTime="5000" VariantTime="2000" />
-           <If Condition="!IsAchievementCompleted(1260)" >
+           <If Condition="!Lua.GetReturnVal&lt;bool&gt;(&quot;return GetAchievementInfo(1260)&quot;, 12)">
                <CustomBehavior File="UserDialog" ExpiryTime="30"
                                Text="We were FAILED TO GET the &quot;Almost Blind Luck&quot; ACHIEVEMENT.\n\nThis can happen for numerous reasons.  Your options are:\n* Stop the profile, and do the achievement manually, or\n* Let the profile automatically try again in a few seconds" />
            </If>
@@ -476,16 +531,16 @@
        </If>
 
        <!-- Quest: Chug and Chuck! -->
-       <If Condition="!IsQuestCompleted(12022)" >
-           <CustomBehavior File="Message" UpdateGoalText="true" LogColor="CornflowerBlue"
-                           Text="Working the &quot;Chug and Chuck!&quot; quest." />
+       <If Condition="HasQuest(12022) || !IsQuestCompleted(12022)" >
+           <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
+           <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center near entrance" Land="true"
+                           X="-5193.379" Y="-547.4433" Z="397.1737" AllowedVariance="5" />
 
            <PickUp QuestName="Chug and Chuck!" QuestId="12022"
                    GiverName="Boxey Boltspinner" GiverId="27215"
                    Nav="Fly" X="-5185.34" Y="-540.17" Z="397.12" />
 
            <CustomBehavior File="ForcedDismount" />
-           <MoveTo X="-5187.798" Y="-544.275" Z="397.1726" />
 
            <While Condition="!IsQuestCompleted(12022)" >
                <MoveTo X="-5180.94" Y="-543.478" Z="397.1476" />
@@ -504,44 +559,28 @@
        </If>
 
 
-       <!-- A New Supplier of Souvenirs -->
-       <If Condition="!IsQuestCompleted(29397)">
-           <If Condition="!HasQuest(29397)" >
-               <CustomBehavior File="Message" UpdateGoalText="true" LogColor="CornflowerBlue"
-                               Text="Working the &quot;A New Supplier of Souvenirs!&quot; quest." />
-
-               <!-- Due to an HBcore bug, we have to pick up the quest the hard way...
-                    The toon gets the quest, but HBcore keeps interacting with the questgiver.
-                    This may happen because the questgiver has gossip dialogs also.
-               -->
-               <!-- <PickUp QuestName="A New Supplier of Souvenirs" QuestId="29397"
-                    GiverName="Pol Amberstill" GiverId="24468"
-                    Nav="Fly" X="-5200.87" Y="-484.70" Z="388.80" /> -->
-               <CustomBehavior File="FlyTo" DestName="Pol Amberstill"
-                               X="-5200.87" Y="-484.70" Z="388.80" />
-               <CustomBehavior File="ForcedDismount" />
-               <CustomBehavior File="InteractWith" MobId="24468" />
-               <CustomBehavior File="Misc\RunLua" Lua="SelectGossipAvailableQuest(1)" />
-               <CustomBehavior File="WaitTimer" WaitTime="300" VariantTime="900" />
-               <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" />
-           </If>
-       </If>
-
-       <If Condition="HasQuest(29397)">
-           <CustomBehavior File="FlyTo" DestName="Belbi Quikswitch"
-                           X="-5172.527" Y="-620.5163" Z="397.1838" />
-           <CustomBehavior File="ForcedDismount" />
-           <TurnIn QuestName="A New Supplier of Souvenirs" QuestId="29397"
-                   TurnInName="Belbi Quikswitch" TurnInId="23710"
-                   Nav="Fly" X="-5176.91" Y="-624.37" Z="397.86" />
+       <!-- Quest: This One Time, When I Was Drunk... -->
+       <!-- We can't pick this one up, because it requires a large team effort
+            to do.  But, if the user has done this successfully, go turn it in
+            for them.
+       -->
+       <If Condition="HasQuest(12020)" >
+           <TurnIn QuestName="This One Time, When I Was Drunk..." QuestId="12020"
+                   TurnInName="Boxey Boltspinner" TurnInId="27215"
+                   Nav="Fly" X="-5185.34" Y="-540.17" Z="397.12" />
        </If>
 
 
        <!-- Achievement: Have Keg, Will Travel -->
-       <If Condition="!IsAchievementCompleted(303)" >
-           <CustomBehavior File="Message" UpdateGoalText="true" LogColor="CornflowerBlue"
-                           Text="Working the &quot;Have Keg, Will Travel&quot; achievement." />
-
+       <!-- NB: IsAchievementCompleted(id) is broken if another toon on the account has already
+            acquired the achievement.  We use this LUA hack to get the correct information.
+            The bug has been reported as HB-1219.
+            The same problem does not exist for the IsAchievementCompleted(id, index) form.
+       -->
+       <If Condition="!Lua.GetReturnVal&lt;bool&gt;(&quot;return GetAchievementInfo(303)&quot;, 12)" >
+           <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
+           <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center" Land="true"
+                           X="-5157.048" Y="-600.1396" Z="398.1775" AllowedVariance="15" />
 
            <If Condition="HasItem(39476)" >    <!-- Fresh Goblin Brewfest Hops -->
                <CustomBehavior File="ForcedDismount" />
@@ -563,7 +602,7 @@
                    <CustomBehavior File="UseItem" ItemId="37816" />
                </ElseIf>
                <ElseIf Condition="GetItemCount(37829) &gt;= 2"> <!-- Brewfest Prize Tokens -->
-                   <CustomBehavior File="FlyTo" DestName="Belbi Quikswitch"
+                   <CustomBehavior File="FlyTo" DestName="Belbi Quikswitch" Land="true"
                                    X="-5174.243" Y="-622.463" Z="397.1766" />
                    <CustomBehavior File="ForcedDismount" />
                    <!-- Due to an HBcore bug, we have to buy the hard way...
@@ -586,13 +625,11 @@
 
        <!-- Quest: Pink Elekks on Parade -->
        <If Condition="!IsQuestCompleted(11118)" >
-           <CustomBehavior File="Message" UpdateGoalText="true" LogColor="CornflowerBlue"
-                           Text="Working the &quot;Pink Elekks on Parade&quot; quest." />
-
            <If Condition="!HasQuest(11118)" >
-               <CustomBehavior File="FlyTo" DestName="Goldark Snipehunter"
-                               X="-5172.92" Y="-562.57" Z="397.18" />
-               <CustomBehavior File="ForcedDismount" />
+               <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
+               <CustomBehavior File="FlyTo" DestName="Goldark Snipehunter" Land="true"
+                               X="-5173.357" Y="-575.2989" Z="397.2881" AllowedVariance="3" />
+
                <PickUp QuestName="Pink Elekks on Parade" QuestId="11118"
                        GiverName="Goldark Snipehunter" GiverId="23486"
                        Nav="Fly" X="-5172.92" Y="-562.57" Z="397.18" />
@@ -613,24 +650,14 @@
                    </Else>
                </If>
 
-               <While Condition="!IsObjectiveComplete(2,11118)">
-                   <CustomBehavior File="InteractWith" MobId="23511"
-                                   InteractByBuyingItemId="33034" BuyItemCount="10"
-                                   TerminateWhen="GetItemCount(33034) &gt;= 10" />
-                   <CustomBehavior File="WaitTimer" WaitTime="1300" VariantTime="1200" />
-
-                   <!-- If we can't see Elekks, keep drinking... -->
-                   <While Condition="HasItem(33034)">
-                       <CustomBehavior File="UseItem" ItemId="33034" />
-                       <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
-                   </While>
-
-                   <CustomBehavior File="InteractWith" QuestId="11118" QuestObjectiveIndex="2"
-                                   NumOfTimes="100" InteractByUsingItemId="32960" Range="15"
-                                   MobId="23528" MobId2="23507" MobId3="23527"
-                                   MobId4="23529" MobId5="23530" MobId6="23531"
-                                   PreInteractMountStrategy="Dismount" WaitForNpcs="false" />
-               </While>
+               <CustomBehavior File="UserSettings" AutoEquip="false" />
+               <CustomBehavior File="EquipItem" ItemId="46735" />
+               <CustomBehavior File="InteractWith" QuestId="11118" QuestObjectiveIndex="2"
+                               NumOfTimes="100" InteractByUsingItemId="32960" Range="15"
+                               MobId="23528" MobId2="23507" MobId3="23527"
+                               MobId4="23529" MobId5="23530" MobId6="23531"
+                               PreInteractMountStrategy="Dismount" />
+               <CustomBehavior File="UserSettings" AutoEquip="original" />
            </If>
 
            <!-- If Teldrassil Elekks are needed... -->
@@ -681,24 +708,14 @@
                                X="9973.107" Y="2205.384" Z="1329.092" ArrivalTolerance="10" />
                <CustomBehavior File="ForcedDismount" />
 
-               <While Condition="!IsObjectiveComplete(3,11118)">
-                   <CustomBehavior File="InteractWith" MobId="23511"
-                                   InteractByBuyingItemId="33034" BuyItemCount="10"
-                                   TerminateWhen="GetItemCount(33034) &gt;= 10" />
-                   <CustomBehavior File="WaitTimer" WaitTime="1300" VariantTime="1200" />
-
-                   <!-- If we can't see Elekks, keep drinking... -->
-                   <While Condition="HasItem(33034)">
-                       <CustomBehavior File="UseItem" ItemId="33034" />
-                       <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
-                   </While>
-
-                   <CustomBehavior File="InteractWith" QuestId="11118" QuestObjectiveIndex="3"
-                                   NumOfTimes="100" InteractByUsingItemId="32960" Range="15"
-                                   MobId="23528" MobId2="23507" MobId3="23527"
-                                   MobId4="23529" MobId5="23530" MobId6="23531"
-                                   PreInteractMountStrategy="Dismount" WaitForNpcs="false" />
-               </While>
+               <CustomBehavior File="UserSettings" AutoEquip="false" />
+               <CustomBehavior File="EquipItem" ItemId="46735" />
+               <CustomBehavior File="InteractWith" QuestId="11118" QuestObjectiveIndex="3"
+                               NumOfTimes="100" InteractByUsingItemId="32960" Range="15"
+                               MobId="23528" MobId2="23507" MobId3="23527"
+                               MobId4="23529" MobId5="23530" MobId6="23531"
+                               PreInteractMountStrategy="Dismount" />
+               <CustomBehavior File="UserSettings" AutoEquip="original" />
            </If>
 
            <!-- If Azuremyst Elekks are needed... -->
@@ -720,25 +737,14 @@
                <MoveTo DestName="Azuremyst Brewfest" X="-3986.956" Y="-11874.19" Z="0.3620152" />
                <CustomBehavior File="ForcedDismount" />
 
-               <While Condition="!IsObjectiveComplete(1,11118)">
-                   <CustomBehavior File="InteractWith" MobId="23511"
-                                   InteractByBuyingItemId="33034" BuyItemCount="10"
-                                   TerminateWhen="GetItemCount(33034) &gt;= 10" />
-                   <CustomBehavior File="WaitTimer" WaitTime="1300" VariantTime="1200" />
-
-                   <MoveTo X="-4020.01" Y="-11907.77" Z="-2.093034" />
-
-                   <While Condition="HasItem(33034)">
-                       <CustomBehavior File="UseItem" ItemId="33034" />
-                       <CustomBehavior File="WaitTimer" WaitTime="100" VariantTime="700" />
-                   </While>
-
-                   <CustomBehavior File="InteractWith" QuestId="11118" QuestObjectiveIndex="1"
-                                   NumOfTimes="100" InteractByUsingItemId="32960" Range="15"
-                                   MobId="23528" MobId2="23507" MobId3="23527"
-                                   MobId4="23529" MobId5="23530" MobId6="23531"
-                                   PreInteractMountStrategy="Dismount" WaitForNpcs="false" />
-               </While>
+               <CustomBehavior File="UserSettings" AutoEquip="false" />
+               <CustomBehavior File="EquipItem" ItemId="46735" />
+               <CustomBehavior File="InteractWith" QuestId="11118" QuestObjectiveIndex="1"
+                               NumOfTimes="100" InteractByUsingItemId="32960" Range="15"
+                               MobId="23528" MobId2="23507" MobId3="23527"
+                               MobId4="23529" MobId5="23530" MobId6="23531"
+                               PreInteractMountStrategy="Dismount" />
+               <CustomBehavior File="UserSettings" AutoEquip="original" />
            </If>
        </If>
 
@@ -779,18 +785,6 @@
                    Nav="Fly" X="-5172.92" Y="-562.57" Z="397.18" />
        </If>
 
-       <!-- Quest: This One Time, When I Was Drunk... -->
-       <!-- We can't pick this one up, because it requires a large team effort
-            to do.  But, if the user has done this successfully, go turn it in
-            for them.
-       -->
-       <If Condition="HasQuest(12020)" >
-           <TurnIn QuestName="This One Time, When I Was Drunk..." QuestId="12020"
-                   TurnInName="Boxey Boltspinner" TurnInId="27215"
-                   Nav="Fly" X="-5185.34" Y="-540.17" Z="397.12" />
-       </If>
-
-
        <!--
            ========== Daily quests ==========
        -->
@@ -801,98 +795,113 @@
             log, and there is nowhere to turn it in.  Once you have the quest, if you mess up, you cannot get it
             again on that day.  Once you have the quest, you just "keep going" until you no longer have a ram mount.
        -->
-       <PickUp QuestName="Brew For Brewfest" QuestId="29394"
-               GiverName="Neill Ramstein" GiverId="23558"
-               Nav="Fly" X="-5200.16" Y="-491.55" Z="388.48" />
+       <If Condition="!IsQuestCompleted(29394)" >
+           <!-- Micro-manage approach to NPC to prevent getting stuck on Brewfest seasonal doodads -->
+           <CustomBehavior File="FlyTo" QuestId="11318" DestName="Ram racing area" Land="true"
+                           X="-5208.785" Y="-494.4889" Z="388.4344" AllowedVariance="7" />
+           <CustomBehavior File="WaitTimer" QuestId="11318" WaitTime="3000" VariantTime="5000"
+                           GoalText="Loitering for {TimeRemaining}" />
 
-       <CustomBehavior File="SpecificQuests\Holiday\Brewfest-RamRidingQuests" QuestId="29394" >
-           <RidingPath>
-               <!-- We micro-manage the path to work around some navigator quirks... -->
-               <Hotspot Name="Torch avoidance" X="-5211.265" Y="-483.2207" Z="389.1165" AllowedVariance="2" />
-               <Hotspot Name="Banner to road" X="-5229.856" Y="-478.0888" Z="386.3706" AllowedVariance="3" />
-               <Hotspot Name="Riverbed 1" X="-5309.548" Y="-522.5736" Z="388.3328" AllowedVariance="7" />
-               <Hotspot Name="Apple Bucket 1" X="-5357.132" Y="-536.7656" Z="391.7714" AllowedVariance="3" />
-               <Hotspot Name="Apple Bucket 1 (top of fence)" X="-5359.22" Y="-536.167" Z="392.7879" />
-               <Hotspot Name="Apple Bucket 1 (other side of fence)" X="-5363.143" Y="-535.0867" Z="392.7849" AllowedVariance="2" />
-               <Hotspot Name="Beside tree near Apple Bucket2" X="-5460.032" Y="-540.7568" Z="398.394" AllowedVariance="3" />
-               <Hotspot Name="Apple Bucket 2" X="-5492.018" Y="-534.7864" Z="398.1151" AllowedVariance="3" />
-               <Hotspot Name="Tents by Inn" X="-5547.676" Y="-506.3896" Z="402.0213" AllowedVariance="3" />
-               <Hotspot Name="Kegs by Flynn Firebrew" X="-5599.494" Y="-469.1557" Z="398.0992" AllowedVariance="4" />
-               <Hotspot Name="Turning around for return" X="-5592.111" Y="-470.8087" Z="398.4724" AllowedVariance="3" />
+           <PickUp QuestName="Brew For Brewfest" QuestId="29394"
+                   GiverName="Neill Ramstein" GiverId="23558"
+                   Nav="Fly" X="-5200.16" Y="-491.55" Z="388.48" />
 
-               <Hotspot Name="Road by tents" X="-5528.97" Y="-486.5582" Z="397.5043" AllowedVariance="5" />
-               <Hotspot Name="Apple Bucket 2" X="-5492.018" Y="-534.7864" Z="398.1151" AllowedVariance="3" />
-               <Hotspot Name="Beside tree near Apple Bucket2" X="-5460.032" Y="-540.7568" Z="398.394" AllowedVariance="3" />
-               <Hotspot Name="Apple Bucket 1 (other side of fence)" X="-5363.143" Y="-535.0867" Z="392.7849" AllowedVariance="2" />
-               <Hotspot Name="Apple Bucket 1 (top of fence)" X="-5359.22" Y="-536.167" Z="392.7879" />
-               <Hotspot Name="Apple Bucket 1" X="-5357.132" Y="-536.7656" Z="391.7714" AllowedVariance="3" />
-               <Hotspot Name="Riverbed 1" X="-5309.548" Y="-522.5736" Z="388.3328" AllowedVariance="7" />
-               <Hotspot Name="Brew drop-off location" X="-5203.017" Y="-496.6536" Z="388.3303" AllowedVariance="3" />
-           </RidingPath>
-       </CustomBehavior>
+           <CustomBehavior File="SpecificQuests\Holiday\Brewfest-RamRidingQuests" QuestId="29394" >
+               <RidingPath>
+                   <!-- We micro-manage the path to work around some navigator quirks... -->
+                   <Hotspot Name="Torch avoidance" X="-5211.265" Y="-483.2207" Z="389.1165" />
+                   <Hotspot Name="Banner to road" X="-5229.856" Y="-478.0888" Z="386.3706" />
+                   <Hotspot Name="Riverbed 1" X="-5309.548" Y="-522.5736" Z="388.3328" />
+                   <Hotspot Name="Apple Bucket 1" X="-5357.132" Y="-536.7656" Z="391.7714" />
+                   <Hotspot Name="Apple Bucket 1 (top of fence)" X="-5359.22" Y="-536.167" Z="392.7879" />
+                   <Hotspot Name="Apple Bucket 1 (other side of fence)" X="-5363.143" Y="-535.0867" Z="392.7849" />
+                   <Hotspot Name="Beside tree near Apple Bucket2" X="-5460.032" Y="-540.7568" Z="398.394" />
+                   <Hotspot Name="Apple Bucket 2" X="-5492.018" Y="-534.7864" Z="398.1151" />
+                   <Hotspot Name="Tents by Inn" X="-5547.676" Y="-506.3896" Z="402.0213" />
+                   <Hotspot Name="Kegs by Flynn Firebrew" X="-5599.494" Y="-469.1557" Z="398.0992" />
+                   <Hotspot Name="Turning around for return" X="-5592.111" Y="-470.8087" Z="398.4724" />
 
+                   <Hotspot Name="Road by tents" X="-5528.97" Y="-486.5582" Z="397.5043" />
+                   <Hotspot Name="Apple Bucket 2" X="-5492.018" Y="-534.7864" Z="398.1151" />
+                   <Hotspot Name="Beside tree near Apple Bucket2" X="-5460.032" Y="-540.7568" Z="398.394" />
+                   <Hotspot Name="Apple Bucket 1 (other side of fence)" X="-5363.143" Y="-535.0867" Z="392.7849" />
+                   <Hotspot Name="Apple Bucket 1 (top of fence)" X="-5359.22" Y="-536.167" Z="392.7879" />
+                   <Hotspot Name="Apple Bucket 1" X="-5357.132" Y="-536.7656" Z="391.7714" />
+                   <Hotspot Name="Riverbed 1" X="-5309.548" Y="-522.5736" Z="388.3328" />
+                   <Hotspot Name="Brew drop-off location" X="-5203.017" Y="-496.6536" Z="388.3303" />
+               </RidingPath>
+           </CustomBehavior>
+       </If>
+           
        <!-- Daily Quest: Bark for the XXXXX!
             You can only do one "Bark" quest per day, of the two offered. We pick a random one.
        -->
-       <If Condition="Chance(50.0)" >
-           <PickUp QuestName="Bark for the Barleybrews" QuestId="11293"
-                   GiverName="Becan Barleybrew" GiverId="23627"
-                   Nav="Fly" X="-5184.127" Y="-611.7972" Z="397.1764" />
+       <If Condition="new uint[]{11293,11294}.Any(questId => HasQuest(questId) || !IsQuestCompleted(questId))">
+           <CustomBehavior File="FlyTo" DestName="Brewfest Food Court center" Land="true"
+                           X="-5157.048" Y="-600.1396" Z="398.1775" AllowedVariance="15" />
+           <CustomBehavior File="WaitTimer" WaitTime="3000" VariantTime="5000"
+                           GoalText="Loitering for {TimeRemaining}" />
 
-           <CustomBehavior File="SpecificQuests\Holiday\Brewfest-RamRidingQuests" QuestId="11293" >
-               <RidingPath>
-                   <Hotspot Name="Brewfest Food Court entrance" X="-5193.195" Y="-551.8193" Z="397.177" AllowedVariance="5" />
-                   <Hotspot Name="Road up to Ironforge" X="-5242.531" Y="-556.0771" Z="399.5165" AllowedVariance="5" />
-                   <Hotspot Name="Gates of Ironforge" X="-5030.774" Y="-822.8729" Z="495.1454" AllowedVariance="3" />
-                   <Hotspot Name="Ironforge porticullis" X="-4979.556" Y="-883.6346" Z="501.6496" AllowedVariance="3" />
-                   <Hotspot Name="Auction House" X="-4909.324" Y="-882.5582" Z="501.6595" AllowedVariance="3" />
-                   <Hotspot Name="Bank" X="-4914.549" Y="-950.118" Z="501.4976" AllowedVariance="5" />
-                   <Hotspot Name="Military Quarter" X="-4950.494" Y="-1195.39" Z="501.6605" AllowedVariance="5" />
-                   <Hotspot Name="Tinker Town" X="-4829.352" Y="-1272.954" Z="501.8688" AllowedVariance="3" />
-                   <Hotspot Name="Halls of Exploration" X="-4695.971" Y="-1227.686" Z="501.6597" AllowedVariance="3" />
-                   <Hotspot Name="The Forlorn Cavern" X="-4629.39" Y="-1103.125" Z="501.3285" AllowedVariance="3" />
-                   <Hotspot Name="The Mystic Ward" X="-4686.149" Y="-974.3801" Z="501.6597" AllowedVariance="3" />
-                   <Hotspot Name="Brewfest Food Court" X="-5165.171" Y="-595.3418" Z="398.1745" AllowedVariance="7" />
-               </RidingPath>
-           </CustomBehavior>
+           <If Condition="Chance(50.0)" >
+               <PickUp QuestName="Bark for the Barleybrews" QuestId="11293"
+                       GiverName="Becan Barleybrew" GiverId="23627"
+                       Nav="Fly" X="-5184.127" Y="-611.7972" Z="397.1764" />
 
-           <TurnIn QuestName="Bark for the Barleybrews" QuestId="11293"
-                   TurnInName="Becan Barleybrew" TurnInId="23627"
-                   Nav="Fly" X="-5184.127" Y="-611.7972" Z="397.1764" />
+               <CustomBehavior File="SpecificQuests\Holiday\Brewfest-RamRidingQuests" QuestId="11293" >
+                   <RidingPath>
+                       <Hotspot Name="Brewfest Food Court entrance" X="-5193.195" Y="-551.8193" Z="397.177" AllowedVariance="5" />
+                       <Hotspot Name="Road up to Ironforge" X="-5242.531" Y="-556.0771" Z="399.5165" AllowedVariance="5" />
+                       <Hotspot Name="Gates of Ironforge" X="-5030.774" Y="-822.8729" Z="495.1454" AllowedVariance="3" />
+                       <Hotspot Name="Ironforge porticullis" X="-4979.556" Y="-883.6346" Z="501.6496" AllowedVariance="3" />
+                       <Hotspot Name="Auction House" X="-4909.324" Y="-882.5582" Z="501.6595" AllowedVariance="3" />
+                       <Hotspot Name="Bank" X="-4914.549" Y="-950.118" Z="501.4976" AllowedVariance="5" />
+                       <Hotspot Name="Military Quarter" X="-4950.494" Y="-1195.39" Z="501.6605" AllowedVariance="5" />
+                       <Hotspot Name="Tinker Town" X="-4829.352" Y="-1272.954" Z="501.8688" AllowedVariance="3" />
+                       <Hotspot Name="Halls of Exploration" X="-4695.971" Y="-1227.686" Z="501.6597" AllowedVariance="3" />
+                       <Hotspot Name="The Forlorn Cavern" X="-4629.39" Y="-1103.125" Z="501.3285" AllowedVariance="3" />
+                       <Hotspot Name="The Mystic Ward" X="-4686.149" Y="-974.3801" Z="501.6597" AllowedVariance="3" />
+                       <Hotspot Name="Brewfest Food Court" X="-5165.171" Y="-595.3418" Z="398.1745" AllowedVariance="7" />
+                   </RidingPath>
+               </CustomBehavior>
 
-       <Else>
-           <PickUp QuestName="Bark for the Thunderbrews" QuestId="11294"
-                   GiverName="Daran Thunderbrew" GiverId="23628"
-                   Nav="Fly" X="-5146.556" Y="-633.5544" Z="397.1813" />
+               <TurnIn QuestName="Bark for the Barleybrews" QuestId="11293"
+                       TurnInName="Becan Barleybrew" TurnInId="23627"
+                       Nav="Fly" X="-5184.127" Y="-611.7972" Z="397.1764" />
 
-           <CustomBehavior File="SpecificQuests\Holiday\Brewfest-RamRidingQuests" QuestId="11294" >
-               <RidingPath>
-                   <Hotspot Name="Brewfest Food Court entrance" X="-5193.195" Y="-551.8193" Z="397.177" AllowedVariance="5" />
-                   <Hotspot Name="Road up to Ironforge" X="-5242.531" Y="-556.0771" Z="399.5165" AllowedVariance="5" />
-                   <Hotspot Name="Gates of Ironforge" X="-5030.774" Y="-822.8729" Z="495.1454" AllowedVariance="3" />
-                   <Hotspot Name="Ironforge porticullis" X="-4979.556" Y="-883.6346" Z="501.6496" AllowedVariance="3" />
-                   <Hotspot Name="Auction House" X="-4909.324" Y="-882.5582" Z="501.6595" AllowedVariance="3" />
-                   <Hotspot Name="Bank" X="-4914.549" Y="-950.118" Z="501.4976" AllowedVariance="5" />
-                   <Hotspot Name="Military Quarter" X="-4950.494" Y="-1195.39" Z="501.6605" AllowedVariance="5" />
-                   <Hotspot Name="Tinker Town" X="-4829.352" Y="-1272.954" Z="501.8688" AllowedVariance="3" />
-                   <Hotspot Name="Halls of Exploration" X="-4695.971" Y="-1227.686" Z="501.6597" AllowedVariance="3" />
-                   <Hotspot Name="The Forlorn Cavern" X="-4629.39" Y="-1103.125" Z="501.3285" AllowedVariance="3" />
-                   <Hotspot Name="The Mystic Ward" X="-4686.149" Y="-974.3801" Z="501.6597" AllowedVariance="3" />
-                   <Hotspot Name="Brewfest Food Court" X="-5165.171" Y="-595.3418" Z="398.1745" AllowedVariance="7" />
-               </RidingPath>
-           </CustomBehavior>
+               <Else>
+                   <PickUp QuestName="Bark for the Thunderbrews" QuestId="11294"
+                           GiverName="Daran Thunderbrew" GiverId="23628"
+                           Nav="Fly" X="-5146.556" Y="-633.5544" Z="397.1813" />
 
-           <TurnIn QuestName="Bark for the Thunderbrews" QuestId="11294"
-                   TurnInName="Daran Thunderbrew" TurnInId="23628"
-                   Nav="Fly" X="-5146.556" Y="-633.5544" Z="397.1813" />
-           </Else>
+                   <CustomBehavior File="SpecificQuests\Holiday\Brewfest-RamRidingQuests" QuestId="11294" >
+                       <RidingPath>
+                           <Hotspot Name="Brewfest Food Court entrance" X="-5193.195" Y="-551.8193" Z="397.177" AllowedVariance="5" />
+                           <Hotspot Name="Road up to Ironforge" X="-5242.531" Y="-556.0771" Z="399.5165" AllowedVariance="5" />
+                           <Hotspot Name="Gates of Ironforge" X="-5030.774" Y="-822.8729" Z="495.1454" AllowedVariance="3" />
+                           <Hotspot Name="Ironforge porticullis" X="-4979.556" Y="-883.6346" Z="501.6496" AllowedVariance="3" />
+                           <Hotspot Name="Auction House" X="-4909.324" Y="-882.5582" Z="501.6595" AllowedVariance="3" />
+                           <Hotspot Name="Bank" X="-4914.549" Y="-950.118" Z="501.4976" AllowedVariance="5" />
+                           <Hotspot Name="Military Quarter" X="-4950.494" Y="-1195.39" Z="501.6605" AllowedVariance="5" />
+                           <Hotspot Name="Tinker Town" X="-4829.352" Y="-1272.954" Z="501.8688" AllowedVariance="3" />
+                           <Hotspot Name="Halls of Exploration" X="-4695.971" Y="-1227.686" Z="501.6597" AllowedVariance="3" />
+                           <Hotspot Name="The Forlorn Cavern" X="-4629.39" Y="-1103.125" Z="501.3285" AllowedVariance="3" />
+                           <Hotspot Name="The Mystic Ward" X="-4686.149" Y="-974.3801" Z="501.6597" AllowedVariance="3" />
+                           <Hotspot Name="Brewfest Food Court" X="-5165.171" Y="-595.3418" Z="398.1745" AllowedVariance="7" />
+                       </RidingPath>
+                   </CustomBehavior>
+
+                   <TurnIn QuestName="Bark for the Thunderbrews" QuestId="11294"
+                           TurnInName="Daran Thunderbrew" TurnInId="23628"
+                           Nav="Fly" X="-5146.556" Y="-633.5544" Z="397.1813" />
+               </Else>
+           </If>
        </If>
-
+           
 
        <!--
            ========== All we can automate ==========
        -->
-       <CustomBehavior File="UserDialog" StopOnContinue="true"
+       <CustomBehavior File="UserDialog" StopOnContinue="true" ExpiryTime="30"
                        Text="END of the line.  Here is what's left:\n\n* Quest: &quot;This One Time, When I Was Drunk...&quot;\nEvery 30mins the Dark Iron Dwarves will invade Brewfest.\nIf the players are successful in repelling them, there will be a part remaining on the ground that starts a quest.   Take it and simply turn it in.  If you already had this quest in your log, we've turned it on for you.\n\n* DAILY Quest: &quot;Direbrew's Dire Brew&quot; quest\nYou must do Coren Direbrew dungeon by some other means.* When you get 200 Brewfest Prize Tokens, purchase a &quot;Brew of the Month&quot; membership." />
 
    </QuestOrder>
