@@ -541,7 +541,6 @@
 
 
 
-
    <!-- END: Quest Overrides -->
    <!-- SMV - Gorgrond - Talador - Spires - Nagrand -->
 
@@ -567,12 +566,25 @@
 
         <CustomBehavior File="Message" Text="Compiling SW Quests" LogColor="CornflowerBlue" />
 		
-			<If Condition="!HasQuest(35933) &amp;&amp; !IsQuestCompleted(35933) &amp;&amp; Me.MapId != 1265" > <!-- Draenor -->
-				<CustomBehavior File="FlyTo" DestName="Port to WoD" X="-8871.879" Y="587.5573" Z="93.08315" />
+			<If Condition="!IsQuestCompleted(34420)" > <!-- Pull Distance Modifier for high mob count areas -->
+				<TargetingDistance Value="5" /> <!-- Use LevelBot default -->
+				<!-- looting = 5 -->
+			</If>
+
+			<!-- Callboard if deleted quest - SW -->
+			<If Condition="!HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398) &amp;&amp; Me.MapId != 0 &amp;&amp; HasQuest(35933) &amp;&amp; !IsQuestCompleted(35933)" > <!-- EK -->
+				<CustomBehavior File="FlyTo" DestName="Callboard quest" X="-8830.302" Y="626.3619" Z="94.23802" />
+		<PickUp QuestName="The Dark Portal" QuestId="34398" GiverName="Hero's Call Board" GiverId="206111" GiverType="Object" X="-8823.851" Y="630.5729" Z="94.136" />
+			</If>
+			<If Condition="HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)" >
+				<CustomBehavior File="FlyTo" DestName="Khadgar port to Tanaan" X="-8871.879" Y="587.5573" Z="93.08315" />
 				<CustomBehavior File="ForcedDismount" />
 				<CustomBehavior File="InteractWith" MobId="83863" GossipOptions="1" Range="5" X="-8871.879" Y="587.5573" Z="93.08315" /> <!-- Khadgar -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+				<!-- kill cinematic -->
 			</If>
+		<TurnIn QuestName="The Dark Portal" QuestId="34398" TurnInName="Archmage Khadgar" TurnInId="78558" X="4066.427" Y="-2372.571" Z="94.59667" />
+		<!-- End of SW / Callboard -->
 		
 		<!-- Dark Portal -->
 		<PickUp QuestName="Azeroth's Last Stand" QuestId="35933" GiverName="Archmage Khadgar" GiverId="78558" X="4066.427" Y="-2372.571" Z="94.59667" />
@@ -614,7 +626,12 @@
 		<!-- End of Dark Portal -->
 		
 		<!-- Heartblood -->
+			<If Condition="HasQuest(34420)" > <!-- The Cost of War -->
+				<MoveTo X="3936.718" Y="-2505.224" Z="69.73077" />
+				<CustomBehavior File="WaitTimer" WaitTime="7000" GoalText="Waiting for quest to complete {TimeRemaining}" />
         <TurnIn QuestName="The Cost of War" QuestId="34420" TurnInName="Archmage Khadgar" TurnInId="78559" X="3936.718" Y="-2505.224" Z="69.73077" /> <!-- NEW NPC ID -->
+				<TargetingDistance Value="17" />
+			</If>
 		<PickUp QuestName="Blaze of Glory" QuestId="34422" GiverName="Archmage Khadgar" GiverId="78559" X="3936.718" Y="-2505.224" Z="69.73077" /> <!-- Npc leaves -->
 		<PickUp QuestName="Vengeance for the Fallen" QuestId="35242" GiverName="Rephuura" GiverId="81763" X="3991.332" Y="-2552.413" Z="65.92829" />
 		<PickUp QuestName="Bled Dry" QuestId="35240" GiverName="Taag" GiverId="81762" X="3990.823" Y="-2553.802" Z="65.99426" />
@@ -737,8 +754,8 @@
 				<CustomBehavior File="InteractWith" QuestId="34987" MobId="231119" ObjectType="GameObject" Range="4" X="4325.336" Y="-2185.328" Z="6.931957" />
 			 </While>
 			 <While Condition="!IsObjectiveComplete(2, 34987)"> <!-- Click Plunger -->
-				<MoveTo X="4366.746" Y="-2112.854" Z="2.479628" />
-				<CustomBehavior File="InteractWith" QuestId="34987" MobId="231066" ObjectType="GameObject" Range="4" X="4366.746" Y="-2112.854" Z="2.479628" />
+				<MoveTo X="4365.916" Y="-2114.574" Z="2.412212" />
+				<CustomBehavior File="InteractWith" QuestId="34987" MobId="231066" ObjectType="GameObject" Range="2" X="4365.916" Y="-2114.574" Z="2.412212" />
 			 </While>
 			</If>
 		<TurnIn QuestName="The Gunpowder Plot" QuestId="34987" TurnInName="Hansel Heavyhands" TurnInId="78569" X="4366.801" Y="-2116.076" Z="2.378612" />
@@ -777,7 +794,7 @@
 		<TurnIn QuestName="A Taste of Iron" QuestId="34445" TurnInName="Thaelin Darkanvil" TurnInId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
 		<PickUp QuestName="The Home Stretch" QuestId="35884" GiverName="Thaelin Darkanvil" GiverId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
 			<If Condition="HasQuest(35884) &amp;&amp; !IsQuestCompleted(35884)" > <!-- The Home Stretch -->
-				<MoveTo X="3527.663" Y="-2125.812" Z="17.23087" />
+				<CustomBehavior File="NoCombatMoveTo" X="3527.663" Y="-2125.812" Z="17.23087" /> 
 			</If>
 		<TurnIn QuestName="The Home Stretch" QuestId="35884" TurnInName="Archmage Khadgar" TurnInId="78563" X="3545.687" Y="-2123.458" Z="17.23104" />
 		<!-- Cutscene -->
@@ -840,13 +857,13 @@
 			 <While Condition="!IsObjectiveComplete(1, 35176)"> <!-- Asst Brightstone -->
 				<CustomBehavior File="InteractWith" QuestId="35176" MobId="84455" GossipOptions="1" Range="5" X="1847.38" Y="239.7118" Z="76.6667" />
 			 </While>
-			 <While Condition="!IsObjectiveComplete(2, 35176)"> <!-- Shelly's Supplies -->
+			 <While Condition="!IsObjectiveComplete(2, 35176)"> <!-- Shelly's Report -->
 				<CustomBehavior File="InteractWith" QuestId="35176" MobId="81441" GossipOptions="1" Range="5" X="1934.74" Y="323.7326" Z="88.98896" />
 			 </While>
-			 <While Condition="!IsObjectiveComplete(3, 35176)"> <!-- Baros' Blueprints -->
-				<CustomBehavior File="InteractWith" QuestId="35176" MobId="231855" ObjectType="GameObject" WaitTime="5000" Range="3" X="1906.99" Y="235.7743" Z="77.62298" />
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(111956)" WaitTime="1000" /> <!-- Garrison Blueprint: Barracks, Level 1 -->
-				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for cast {TimeRemaining}" />
+			 <While Condition="!IsObjectiveComplete(3, 35176)"> <!-- Garrison Cache -->
+				<CustomBehavior File="InteractWith" QuestId="35176" MobId="236916" ObjectType="GameObject" WaitTime="5000" Range="3" X="1893.25" Y="211.1607" Z="77.06377" />
+				<!--<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(111956)" WaitTime="1000" />  Garrison Blueprint: Barracks, Level 1 
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for cast {TimeRemaining}" />-->
 			 </While>
 			</If>
 		<TurnIn QuestName="Keeping it Together" QuestId="35176" TurnInName="Baros Alexston" TurnInId="77209" X="1866.262" Y="263.6458" Z="77.17226" />
@@ -1215,6 +1232,14 @@
 		<PickUp QuestName="Going Undercover" QuestId="33080" GiverName="Rangari Veka" GiverId="73425" X="211.2188" Y="-450.5295" Z="-3.819519" />
 		<PickUp QuestName="Loola's Lost Love" QuestId="34876" GiverName="Old Loola" GiverId="71641" X="198.6563" Y="-497.7361" Z="-5.490199" />
 		<PickUp QuestName="A Grandmother's Remedy" QuestId="33077" GiverName="Old Loola" GiverId="71641" X="198.6563" Y="-497.7361" Z="-5.490199" />
+		
+		
+		
+		
+		
+		
+		
+		
 			
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Tested profile, development from here" />
 			
@@ -1222,7 +1247,7 @@
 
 			
 			
-			
+			<!--
 			<Objective QuestName="The Clarity Elixir" QuestId="33076" Type="CollectItem" ItemId="104350" CollectCount="6" />
 			<Objective QuestName="The Clarity Elixir" QuestId="33076" Type="CollectItem" ItemId="105716" CollectCount="3" />
 			<Objective QuestName="The Clarity Elixir" QuestId="33076" Type="CollectItem" ItemId="111024" CollectCount="1" />
@@ -1235,7 +1260,7 @@
 			<Objective QuestName="Going Undercover" QuestId="33080" Type="KillMob" MobId="79325" KillCount="1" />
 			<Objective QuestName="Going Undercover" QuestId="33080" Type="CollectItem" ItemId="107076" CollectCount="1" />
 		<TurnIn QuestName="Going Undercover" QuestId="33080" TurnInName="" TurnInId="" />
-
+			-->
 			
 			
 			
