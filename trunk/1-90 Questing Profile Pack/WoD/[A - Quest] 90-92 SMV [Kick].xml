@@ -862,8 +862,6 @@
 			 </While>
 			 <While Condition="!IsObjectiveComplete(3, 35176)"> <!-- Garrison Cache -->
 				<CustomBehavior File="InteractWith" QuestId="35176" MobId="236916" ObjectType="GameObject" WaitTime="5000" Range="3" X="1893.25" Y="211.1607" Z="77.06377" />
-				<!--<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(111956)" WaitTime="1000" />  Garrison Blueprint: Barracks, Level 1 
-				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for cast {TimeRemaining}" />-->
 			 </While>
 			</If>
 		<TurnIn QuestName="Keeping it Together" QuestId="35176" TurnInName="Baros Alexston" TurnInId="77209" X="1866.262" Y="263.6458" Z="77.17226" />
@@ -873,13 +871,21 @@
 		<TurnIn QuestName="Pale Moonlight" QuestId="35174" TurnInName="Vindicator Maraad" TurnInId="79457" X="1848.149" Y="244.5642" Z="76.80275" />
 		<TurnIn QuestName="Ship Salvage" QuestId="35166" TurnInName="Baros Alexston" TurnInId="77209" X="1866.262" Y="263.6458" Z="77.17226" />
 		<PickUp QuestName="Build Your Barracks" QuestId="34587" GiverName="Baros Alexston" GiverId="77209" X="1866.262" Y="263.6458" Z="77.17226" />
-			<If Condition="HasQuest(34587) &amp;&amp; !IsQuestCompleted(34587)" > <!-- Keeping it Together -->
-			 <While Condition="!IsObjectiveComplete(1, 34587)"> <!-- Architect Table / Build Your Barracks -->
-				<CustomBehavior File="InteractWith" QuestId="34587" MobId="81369" Range="5" X="1868.715" Y="265.151" Z="77.25529" />
+			<If Condition="HasQuest(34587) &amp;&amp; !IsQuestCompleted(34587)" > <!-- Build Your Barracks -->
+			 <While Condition="!IsObjectiveComplete(1, 34587)"> <!-- Loot Blueprint -->
+				<CustomBehavior File="InteractWith" QuestId="35176" MobId="231855" ObjectType="GameObject" WaitTime="5000" Range="3" X="1904.745" Y="235.8087" Z="77.60767" />
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for cast {TimeRemaining}" />
+			 </While>
+			 <While Condition="!IsObjectiveComplete(2, 34587)"> <!-- Learn Blueprint -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(111956)" WaitTime="1000" /> <!-- Garrison Blueprint: Barracks, Level 1 -->
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for cast {TimeRemaining}" />
+			 </While>
+			 <While Condition="!IsObjectiveComplete(3, 34587)"> <!-- Architect Table / Build Your Barracks -->
+				<CustomBehavior File="InteractWith" QuestId="34587" MobId="81369" Range="5" X="1868.715" Y="265.151" Z="77.25529" /> <!-- Architect Table -->
 				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Build your barracks" />
 				<CustomBehavior File="WaitTimer" WaitTime="25000" GoalText="Waiting for cast {TimeRemaining}" />
 			 </While>
-			 <While Condition="!IsObjectiveComplete(2, 34587)"> <!-- Finalize Garrison Plot -->
+			 <While Condition="!IsObjectiveComplete(4, 34587)"> <!-- Finalize Garrison Plot -->
 				<CustomBehavior File="InteractWith" QuestId="34587" MobId="232651" ObjectType="GameObject" WaitTime="12000" Range="3" X="1892.78" Y="240.9705" Z="76.37019" />
 			 </While>
 			</If>
@@ -916,6 +922,9 @@
 			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="KillMob" MobId="74256" KillCount="1" />
 			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="KillMob" MobId="74244" KillCount="1" />
 		<TurnIn QuestName="Gloomshade Grove" QuestId="33263" TurnInName="" TurnInId="" />
+		
+		leads to game of thorns
+		http://wod.wowhead.com/quest=33271
 		-->
 			<If Condition="HasQuest(33075) &amp;&amp; !IsQuestCompleted(33075)" > <!-- A Hero's Welcome -->
 				<MoveTo X="922.9953" Y="-815.6843" Z="-28.82178" />
@@ -983,7 +992,9 @@
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(113259)" WaitTime="1000" /> <!-- Receive quest item pickup -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting to loot {TimeRemaining}" /> 
+				<!-- tradeskill pickup
 		<PickUp QuestName="The Mysterious Flask" QuestId="35342" GiverType="Item" GiverName="Mysterious Flask" GiverId="113103" />
+				-->
 			</If>
 		<PickUp QuestName="Into Twilight" QuestId="33072" GiverName="Prophet Velen" GiverId="74043" X="989.5816" Y="-1034.179" Z="6.398266" />
 		<PickUp QuestName="The Southern Wilds" QuestId="35444" GiverName="Farmer Gehaar" GiverId="82256" X="935.0868" Y="-1016.727" Z="-1.02208" />
@@ -1081,8 +1092,8 @@
 			// lots of imps next
 			<Vendor Name="Tormentor Imp" Entry="82544" Type="Repair" X="1490.019" Y="-2186.103" Z="88.80363" />-->
 			</If>
-		<TurnIn QuestName="Speaker for the Dead" QuestId="34789" TurnInName="Exarch Maladaar" TurnInId="80073" X="1491.712" Y="-2182.271" Z="88.80321" />
-		<PickUp QuestName="The Traitor's True Name" QuestId="34792" GiverName="Exarch Maladaar" GiverId="80073" X="1491.712" Y="-2182.271" Z="88.80321" />
+		<TurnIn QuestName="Speaker for the Dead" QuestId="34789" TurnInName="Exarch Maladaar" TurnInId="88972" X="1491.712" Y="-2182.271" Z="88.80315" />
+		<PickUp QuestName="The Traitor's True Name" QuestId="34792" GiverName="Exarch Maladaar" GiverId="88972" X="1491.712" Y="-2182.271" Z="88.80315" />
 			<If Condition="HasQuest(34792) &amp;&amp; !IsQuestCompleted(34792)" > <!-- The Traitor's True Name -->
 			 <While Condition="!IsObjectiveComplete(1, 34792)"> 
 				<CustomBehavior File="InteractWith" QuestId="34792" MobId="233077" ObjectType="GameObject" WaitTime="2000" Range="4" X="1741.566" Y="-1787.983" Z="155.5779" />
@@ -1099,13 +1110,13 @@
 			<Vendor Name="Socrethar" Entry="82625" Type="Repair" X="1733.351" Y="-1791.01" Z="156.3891" />
 			-->
 			</If>
-		<TurnIn QuestName="The Traitor's True Name" QuestId="34792" TurnInName="Exarch Maladaar" TurnInId="80073" X="1489.33" Y="-1923.948" Z="67.46728" />
-		<PickUp QuestName="Friend of the Exarchs" QuestId="34788" GiverName="Exarch Naielle" GiverId="80079" X="1489.214" Y="-1917.429" Z="67.46739" />
+		<TurnIn QuestName="The Traitor's True Name" QuestId="34792" TurnInName="Exarch Maladaar" TurnInId="88972" X="1489.33" Y="-1923.948" Z="67.46728" />
+		<PickUp QuestName="Friend of the Exarchs" QuestId="34788" GiverName="Exarch Naielle" GiverId="88972" X="1489.214" Y="-1917.429" Z="67.46739" />
 			<If Condition="HasQuest(34788) &amp;&amp; !IsQuestCompleted(34788)" > <!-- Friend of the Exarchs -->
 				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Choose a companion" />
 			</If>
-		<TurnIn QuestName="Friend of the Exarchs" QuestId="34788" TurnInName="Exarch Naielle" TurnInId="80079" X="1489.214" Y="-1917.429" Z="67.46739" />
-		<PickUp QuestName="Supply Drop" QuestId="35905" GiverName="Exarch Naielle" GiverId="80079" X="1489.214" Y="-1917.429" Z="67.46739" />
+		<TurnIn QuestName="Friend of the Exarchs" QuestId="34788" TurnInName="Exarch Naielle" TurnInId="88972" X="1489.214" Y="-1917.429" Z="67.46739" />
+		<PickUp QuestName="Supply Drop" QuestId="35905" GiverName="Exarch Naielle" GiverId="88972" X="1489.214" Y="-1917.429" Z="67.46739" />
 			<!-- use glowing hearthstone back to base ??? -->
 		<TurnIn QuestName="Supply Drop" QuestId="35905" TurnInName="Baros Alexston" TurnInId="77209" X="1866.262" Y="263.6458" Z="77.17221" />
 		<!-- Ignoring Quest from Baros for lvl 2 garrison - we must be lvl 93 to purchase the plans
@@ -1120,6 +1131,7 @@
 		<!-- End of Elodor -->
 
 		<!-- The Verdant Mire -->
+		<!-- alchemist chain
 		<PickUp QuestName="The Mysterious Flask" QuestId="35342" GiverType="Item" GiverName="Mysterious Flask" GiverId="113103" />
 		<TurnIn QuestName="The Mysterious Flask" QuestId="35342" TurnInName="Aenir" TurnInId="82466" X="1883.939" Y="220.0885" Z="77.06384" />
 		<PickUp QuestName="The Young Alchemist" QuestId="35343" GiverName="Aenir" GiverId="82466" X="1883.939" Y="220.0885" Z="77.06384" />
@@ -1128,10 +1140,11 @@
 		<TurnIn QuestName="The Missing Father" QuestId="35344" TurnInName="Telos" TurnInId="82496" X="616.6805" Y="-1350.472" Z="-23.93264" />
 		<PickUp QuestName="Shocking Assistance" QuestId="35345" GiverName="Telos" GiverId="82496" X="616.6805" Y="-1350.472" Z="-23.93264" />
 			<Objective QuestName="Shocking Assistance" QuestId="35345" Type="CollectItem" ItemId="113248" CollectCount="100" />
-			<If Condition="HasQuest(35345) &amp;&amp; IsQuestCompleted(35345)" > <!-- Shocking Assistance -->
+			<If Condition="HasQuest(35345) &amp;&amp; IsQuestCompleted(35345)" > 
 		<TurnIn QuestName="Shocking Assistance" QuestId="35345" TurnInName="Abatha" TurnInId="82497" X="827.5555" Y="-1474.939" Z="3.712434" />
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(111812)" WaitTime="6000" />
 			</If>
+			-->
 		<!-- End of The Verdant Mire -->
 		
 		<!-- The Draakorium / Fiona's Caravan -->
