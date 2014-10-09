@@ -1275,7 +1275,7 @@
                 X="-180.8438" Y="628.3577" Z="165.4095" />
         <While Condition="HasQuest(30255) &amp;&amp; !IsQuestCompleted(30255)">
             <CustomBehavior File="InteractWith" QuestId="30255" InteractByUsingItemId="79104" MobId="59987"
-                            CollectionDistance="1000" WaitTime="4000">
+                            Range="4" CollectionDistance="1000" WaitTime="4000">
                 <HuntingGrounds>
                     <Hotspot X="-166.28" Y="636.965" Z="165.4093" />
                     <Hotspot X="-171.543" Y="637.844" Z="165.4093" />
@@ -1398,14 +1398,15 @@
                     <CustomBehavior File="InteractWith" MobId="62377" InteractByGossipOptions="1"
                                     X="219.8021" Y="783.0156" Z="161.6616" />
                 </If>
-                <!-- CJ: Look into why TerminateWhen is required on this one...
+                <!-- CJ: Look into why TerminateWhen Unit(41200) term is required on this one...
                     Its probably a bug in InteractWith, instead.
                 -->
                 <CustomBehavior File="InteractWith" QuestId="30050" MobId="41200" NumOfTimes="1000"
-                                                NonCompeteDistance="0" TerminateWhen="Unit(41200) == null"
-                                                InteractByUsingItemId="77281" Range="4" CollectionDistance="1000"
-                                                InteractBlacklistTimeInSeconds="20" WaitForNpcs="false"
-                                                X="273.1572" Y="735.7474" Z="161.6087" />
+                                NonCompeteDistance="0"
+                                TerminateWhen="!Me.HasAura(108123) || (Unit(41200) == null)"
+                                InteractByUsingItemId="77281" Range="4" CollectionDistance="1000"
+                                InteractBlacklistTimeInSeconds="20" WaitForNpcs="false"
+                                X="273.1572" Y="735.7474" Z="161.6087" />
             </While>
         </If>
         <If Condition="HasQuest(30050) &amp;&amp; IsQuestCompleted(30050)">
