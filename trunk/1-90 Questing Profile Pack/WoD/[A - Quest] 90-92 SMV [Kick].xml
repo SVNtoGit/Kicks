@@ -790,8 +790,6 @@
 		<TurnIn QuestName="Taking a Trip to the Top of the Tank" QuestId="35747" TurnInName="Thaelin Darkanvil" TurnInId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
 		<PickUp QuestName="A Taste of Iron" QuestId="34445" GiverName="Thaelin Darkanvil" GiverId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
 			<If Condition="HasQuest(34445) &amp;&amp; !IsQuestCompleted(34445)" > <!-- A Taste of Iron - Vehicle Quest -->
-				<!-- <CustomBehavior File="UserDialog" QuestId="34445" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Do Vehicle Quest" />
-				<GameObject Name="Worldbreaker Side Turret" Entry="231261" X="4051.398" Y="-2021.76" Z="73.3409" /> -->
 			 <If Condition="!IsObjectiveComplete(1, 34445)"> <!-- Mount Turret -->
 				<CustomBehavior File="InteractWith" MobId="231261" MobType="GameObject" Range="5" X="4054.708" Y="-2019.128" Z="73.14471" />
  			 </If>
@@ -896,7 +894,8 @@
 			 </While>
 			 <While Condition="!IsObjectiveComplete(3, 34587)"> <!-- Architect Table / Build Your Barracks -->
 				<CustomBehavior File="InteractWith" QuestId="34587" MobId="81369" Range="5" X="1868.715" Y="265.151" Z="77.25529" /> <!-- Architect Table -->
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Build your barracks" />
+				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for cast {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="C_Garrison.PlaceBuilding(23, 26)" /> <!-- Place Barracks -->
 				<CustomBehavior File="WaitTimer" WaitTime="25000" GoalText="Waiting for cast {TimeRemaining}" />
 			 </While>
 			 <While Condition="!IsObjectiveComplete(4, 34587)"> <!-- Finalize Garrison Plot -->
@@ -912,8 +911,14 @@
 		<PickUp QuestName="Delegating on Draenor" QuestId="34692" GiverName="Lieutenant Thorn" GiverId="79953" X="1847.073" Y="270.6632" Z="78.39755" />
 			<If Condition="HasQuest(34692) &amp;&amp; !IsQuestCompleted(34692)" > <!-- Delegating on Draenor -->
 				<CustomBehavior File="InteractWith" QuestId="34692" MobId="81546" Range="5" X="1847.561" Y="269.5938" Z="78.31422" />
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
-											Text="Click the checkbox and drag qiana to battle, then click start mission" />
+				
+				<!-- Replace with real lua later (non frames) -->
+				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameHelpBoxButton:Click()" NumOfTimes="3" WaitTime="1000" />
+				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameMissionsListScrollFrameButton1:Click()" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameFollowersListScrollFrameButton1:Click()" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="Misc\RunLua" Lua="DropDownList1Button1:Click()" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrame.MissionTab.MissionPage.StartMissionButton:Click()" NumOfTimes="1" WaitTime="1000" />
+				
 			</If>
 		<TurnIn QuestName="Delegating on Draenor" QuestId="34692" TurnInName="Lieutenant Thorn" TurnInId="79953" X="1847.073" Y="270.6632" Z="78.39755" />
 		<PickUp QuestName="Migrant Workers" QuestId="34778" GiverName="Vindicator Maraad" GiverId="79457" X="1848.149" Y="244.5642" Z="76.80275" />
@@ -1063,9 +1068,9 @@
 		<TurnIn QuestName="Hataaru, the Artificer" QuestId="34785" TurnInName="Exarch Hataaru" TurnInId="80075" X="1334.552" Y="-1879.568" Z="27.40559" />
 		<PickUp QuestName="Shut 'er Down" QuestId="35070" GiverName="Exarch Hataaru" GiverId="80075" X="1334.552" Y="-1879.568" Z="27.40559" />
 		<PickUp QuestName="Engorged Goren" QuestId="34786" GiverName="Apprentice Artificer Andren" GiverId="81140" X="1358.769" Y="-1876.785" Z="27.53875" />
-			<If Condition="HasQuest(35070) &amp;&amp; !IsQuestCompleted(35070)" > <!-- Shut 'er Down -->
-				<CustomBehavior File="InteractWith" QuestId="35070" MobId="231657" ObjectType="GameObject" WaitTime="2000" Range="3" X="1490.734" Y="-2048.611" Z="8.227856" />
-			</If>
+			<While Condition="HasQuest(35070) &amp;&amp; !IsQuestCompleted(35070)" > <!-- Shut 'er Down -->
+				<CustomBehavior File="InteractWith" QuestId="35070" MobId="231657" ObjectType="GameObject" WaitTime="5000" Range="3" X="1490.734" Y="-2048.611" Z="8.227856" />
+			</While>
 			<Objective QuestName="Engorged Goren" QuestId="34786" Type="CollectItem" ItemId="112738" CollectCount="20" />
 		<TurnIn QuestName="Engorged Goren" QuestId="34786" TurnInName="Apprentice Artificer Andren" TurnInId="81140" X="1358.769" Y="-1876.785" Z="27.53875" />
 		<TurnIn QuestName="Shut 'er Down" QuestId="35070" TurnInName="Exarch Hataaru" TurnInId="80075" X="1334.552" Y="-1879.568" Z="27.40559" />
