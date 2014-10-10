@@ -560,7 +560,7 @@
         <CustomBehavior File="Misc\ProfileCompatibilityInfo" AllowBrokenAddOns="true" AllowBrokenPlugIns="true" />
 
         <LootMobs Value="true" />
-        <TargetingDistance Value="17" /> <!-- Use LevelBot default -->
+        <TargetingDistance Value="45" /> <!-- Use LevelBot default -->
         <UseMount Value="true" />
         <!-- END: Checkpoint Block -->
 
@@ -790,8 +790,16 @@
 		<TurnIn QuestName="Taking a Trip to the Top of the Tank" QuestId="35747" TurnInName="Thaelin Darkanvil" TurnInId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
 		<PickUp QuestName="A Taste of Iron" QuestId="34445" GiverName="Thaelin Darkanvil" GiverId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
 			<If Condition="HasQuest(34445) &amp;&amp; !IsQuestCompleted(34445)" > <!-- A Taste of Iron - Vehicle Quest -->
-				<CustomBehavior File="UserDialog" QuestId="34445" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Do Vehicle Quest" />
-				<!-- <GameObject Name="Worldbreaker Side Turret" Entry="231261" X="4051.398" Y="-2021.76" Z="73.3409" /> -->
+				<!-- <CustomBehavior File="UserDialog" QuestId="34445" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Do Vehicle Quest" />
+				<GameObject Name="Worldbreaker Side Turret" Entry="231261" X="4051.398" Y="-2021.76" Z="73.3409" /> -->
+			 <If Condition="!IsObjectiveComplete(1, 34445)"> <!-- Mount Turret -->
+				<CustomBehavior File="InteractWith" MobId="231261" MobType="GameObject" Range="5" X="4054.708" Y="-2019.128" Z="73.14471" />
+ 			 </If>
+			 <While Condition="!IsObjectiveComplete(2, 34445)"> <!-- Kill Mobs -->
+                <CustomBehavior File="Misc\RunLua" Lua="OverrideActionBarButton1:Click()" WaitTime="100" />
+				<CustomBehavior File="SpellLocation" QuestId="34445" X="3923.166" Y="-2020.857" Z="19.50727" />
+				<CustomBehavior File="WaitTimer" WaitTime="600" GoalText="Waiting for GCD {TimeRemaining}" />
+			 </While>
 			 <While Condition="!IsObjectiveComplete(3, 34445)"> <!-- Click Trigger -->
 				<RunTo X="4065.838" Y="-2022.482" Z="75.43866" />
 				<CustomBehavior File="InteractWith" QuestId="34445" MobId="232538" ObjectType="GameObject" Range="6" X="4065.838" Y="-2022.482" Z="75.43866" />
@@ -996,11 +1004,13 @@
 			<If Condition="HasQuest(34019) &amp;&amp; IsQuestCompleted(34019)" > <!-- Turnin Shadows Awaken -->
 		<TurnIn QuestName="Shadows Awaken" QuestId="34019" TurnInName="Prophet Velen" TurnInId="74043" X="989.5816" Y="-1034.179" Z="6.398266" />	
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(113259)" WaitTime="1000" /> <!-- Receive quest item pickup -->
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting to loot {TimeRemaining}" /> 
-				<!-- tradeskill pickup
-		<PickUp QuestName="The Mysterious Flask" QuestId="35342" GiverType="Item" GiverName="Mysterious Flask" GiverId="113103" />
-				-->
+				<If Condition="HasItem(113259)">
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(113259)" WaitTime="1000" /> <!-- Receive quest item pickup -->
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting to loot {TimeRemaining}" /> 
+					<!-- tradeskill pickup
+			<PickUp QuestName="The Mysterious Flask" QuestId="35342" GiverType="Item" GiverName="Mysterious Flask" GiverId="113103" />
+					-->
+				</If>
 			</If>
 		<PickUp QuestName="Into Twilight" QuestId="33072" GiverName="Prophet Velen" GiverId="74043" X="989.5816" Y="-1034.179" Z="6.398266" />
 		<PickUp QuestName="The Southern Wilds" QuestId="35444" GiverName="Farmer Gehaar" GiverId="82256" X="935.0868" Y="-1016.727" Z="-1.02208" />
