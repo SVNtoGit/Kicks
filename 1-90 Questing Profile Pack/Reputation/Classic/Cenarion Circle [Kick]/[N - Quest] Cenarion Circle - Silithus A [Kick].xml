@@ -7,19 +7,19 @@
     <MinDurability>0.2</MinDurability>
     <MinFreeBagSlots>2</MinFreeBagSlots>
 
-    <MailGrey>False</MailGrey>
-    <MailWhite>False</MailWhite>
-    <MailGreen>False</MailGreen>
-    <MailBlue>True</MailBlue>
-    <MailPurple>True</MailPurple>
+    <MailGrey>false</MailGrey>
+    <MailWhite>false</MailWhite>
+    <MailGreen>false</MailGreen>
+    <MailBlue>true</MailBlue>
+    <MailPurple>true</MailPurple>
 
-    <SellGrey>True</SellGrey>
-    <SellWhite>True</SellWhite>
-    <SellGreen>True</SellGreen>
-    <SellBlue>False</SellBlue>
-    <SellPurple>False</SellPurple>
+    <SellGrey>true</SellGrey>
+    <SellWhite>true</SellWhite>
+    <SellGreen>true</SellGreen>
+    <SellBlue>false</SellBlue>
+    <SellPurple>false</SellPurple>
 
-    <TargetElites>True</TargetElites>
+    <TargetElites>true</TargetElites>
 
     <AvoidMobs>
     </AvoidMobs>
@@ -143,8 +143,8 @@
     <Quest Id="8284" Name="The Twilight Mystery">
         <Objective Type="CollectItem" ItemId="20378" CollectCount="8">
             <CollectFrom>
-                <GameObject Name="Twilight Tablet Fragment" Id="180501" />
-                <GameObject Name="Twilight Tablet Fragment" Id="180583" />
+                <Object Name="Twilight Tablet Fragment" Id="180501" />
+                <Object Name="Twilight Tablet Fragment" Id="180583" />
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="-6167.555" Y="1771.938" Z="31.00033" />
@@ -246,7 +246,7 @@
     <Quest Id="8282" Name="Noggle's Lost Satchel">
         <Objective Type="CollectItem" ItemId="20379" CollectCount="1">
             <CollectFrom>
-                <GameObject Name="Noggle's Satchel" Id="180435" />
+                <Object Name="Noggle's Satchel" Id="180435" />
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="-8080.263" Y="983.8337" Z="65.23743" />
@@ -256,7 +256,8 @@
 
     <QuestOrder>
 
-                <CustomBehavior File="UserSettings" LootMobs="True" PullDistance="38" TrainNewSkills="False" LearnFlightPaths="True" />
+        <LootMobs Value="true" />
+        <UseMount Value="true" />
 
         <If Condition="Me.GetReputationLevelWith(609) &lt; Styx.WoWUnitReaction.Exalted" >
 
@@ -357,7 +358,7 @@
                 <CustomBehavior File="FlyTo" X="-7591.029" Y="255.5147" Z="3.14413" />
                 <CustomBehavior File="ForcedDismount" />
         <TurnIn QuestName="The Deserter" QuestId="8285" TurnInName="Hermit Ortell" TurnInId="15194" X="-7578.721" Y="196.9136" Z="11.46642" />
-                <RunTo X="-7588.745" Y="236.5513" Z="10.09998" />
+        <MoveTo X="-7588.745" Y="236.5513" Z="10.09998" />
             </If>
             <If Condition="((HasQuest(8282)) &amp;&amp; (!IsQuestCompleted(8282)))" >
                 <CustomBehavior File="FlyTo" X="-8057.809" Y="984.4365" Z="42.65918" />
@@ -398,8 +399,12 @@
                 <CustomBehavior File="FlyTo" X="-8010.16" Y="1100.567" Z="4.059024" />
                 <CustomBehavior File="ForcedDismount" />
               <While Condition="((HasQuest(8304)) &amp;&amp; (!IsQuestCompleted(8304)))" >
-                <CustomBehavior File="InteractWith" QuestId="8304" MobId="15170" NumOfTimes="1" GossipOptions="1, 1, 1, 1, 1, 1, 1, 1" WaitTime="1000" CollectionDistance="50" X="-8010.16" Y="1100.567" Z="4.059024" />
-                <CustomBehavior File="InteractWith" QuestId="8304" MobId="15171" NumOfTimes="1" GossipOptions="1, 1, 1, 1, 1, 1, 1, 1" WaitTime="1000" CollectionDistance="50" X="-8022.499" Y="1115.789" Z="2.737845" />
+                  <CustomBehavior File="InteractWith" QuestId="8304" MobId="15170"
+                                  InteractByGossipOptions="1,1,1,1,1,1,1,1" CollectionDistance="50"
+                                  X="-8010.16" Y="1100.567" Z="4.059024" />
+                  <CustomBehavior File="InteractWith" QuestId="8304" MobId="15171"
+                                  InteractByGossipOptions="1,1,1,1,1,1,1,1" CollectionDistance="50"
+                                  X="-8022.499" Y="1115.789" Z="2.737845" />
               </While>
             </If>
             <If Condition="((HasQuest(8304)) &amp;&amp; (IsQuestCompleted(8304)))" >
@@ -416,9 +421,8 @@
                 <If Condition="(GetItemCount(20404) &lt; 30)" >
                     <CustomBehavior File="FlyTo" X="-6414.597" Y="293.4403" Z="8.63738" />
                     <CustomBehavior File="ForcedDismount" />
-                    <CustomBehavior File="UserSettings" PullDistance="35" />
                         <SetGrindArea>
-                            <Grindarea>
+                            <GrindArea>
                                 <TargetMinLevel>45</TargetMinLevel>
                                 <TargetMaxLevel>65</TargetMaxLevel>
                                 <Factions>16</Factions> <!-- [Twilights] -->
@@ -457,23 +461,24 @@
                                     <Hotspot X="-6304.832" Y="128.3194" Z="14.03956" /> <!-- at entrance of cave -->
                                     <Hotspot X="-6414.597" Y="293.4403" Z="8.63738" /> <!-- outside camp -->
                                 </Hotspots>
-                            </Grindarea>
+                            </GrindArea>
                         </SetGrindArea>
-                    <GrindTo Condition="(GetItemCount(20404) &gt;= 30)" GoalText="Getting 30 Text's" />
+                        <GrindUntil Condition="(GetItemCount(20404) &gt;= 30)" GoalText="Getting 30 Text's" />
                 </If>
 
                     <CustomBehavior File="FlyTo" X="-6834.226" Y="846.9423" Z="48.85535" />
                 <While Condition="(GetItemCount(20404) &gt;= 10) &amp;&amp; (Me.GetReputationLevelWith(609) &lt; Styx.WoWUnitReaction.Exalted)" >
-                    <CustomBehavior File="InteractWith"  MobId="15306" NumOfTimes="1" CollectionDistance="50" WaitTime="1000" X="-6836.007" Y="845.5305" Z="48.99781" />
-                    <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
-                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" NumOfTimes="1" WaitTime="1000" />
-                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />
+                    <CustomBehavior File="InteractWith"  MobId="15306" CollectionDistance="50"
+                                    X="-6836.007" Y="845.5305" Z="48.99781" />
+                    <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" />
+                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
                     <CustomBehavior File="WaitTimer" WaitTime="3000" />
                 </While>
             </While>
 
             <If Condition="Me.GetReputationLevelWith(609) == Styx.WoWUnitReaction.Exalted" >
-                <CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nIf you liked this profile, +rep is always appreciated" />
+                <CustomBehavior File="UserDialog" Title="title" AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nIf you liked this profile, +rep is always appreciated" />
             </If>
 
     </QuestOrder>

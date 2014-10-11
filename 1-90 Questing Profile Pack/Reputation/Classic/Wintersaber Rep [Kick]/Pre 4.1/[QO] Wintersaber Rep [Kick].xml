@@ -6,22 +6,22 @@
     <MinDurability>0.1</MinDurability>
     <MinFreeBagSlots>2</MinFreeBagSlots>
 
-    <SellGrey>True</SellGrey>
-    <SellWhite>False</SellWhite>
-    <SellGreen>False</SellGreen>
-    <SellBlue>False</SellBlue>
-    <SellPurple>False</SellPurple>
+    <SellGrey>true</SellGrey>
+    <SellWhite>false</SellWhite>
+    <SellGreen>false</SellGreen>
+    <SellBlue>false</SellBlue>
+    <SellPurple>false</SellPurple>
 
-    <MailWhite>True</MailWhite>
-    <MailGreen>True</MailGreen>
-    <MailBlue>True</MailBlue>
-    <MailPurple>True</MailPurple>
+    <MailWhite>true</MailWhite>
+    <MailGreen>true</MailGreen>
+    <MailBlue>true</MailBlue>
+    <MailPurple>true</MailPurple>
 
     <ContinentId>1</ContinentId>
 
     <Vendors>
-        <Vendor Name="Trapper Kiefer" Entry="50094" Type="Repair" X="7636.761" Y="-4429.5" Z="623.8735" />
-        <Vendor Name="Wixxrak" Entry="11184" Type="Repair" X="6733.39" Y="-4699.038" Z="721.3696" />
+        <Vendor Name="Trapper Kiefer" Id="50094" Type="Repair" X="7636.761" Y="-4429.5" Z="623.8735" />
+        <Vendor Name="Wixxrak" Id="11184" Type="Repair" X="6733.39" Y="-4699.038" Z="721.3696" />
     </Vendors>
 
     <Mailboxes>
@@ -67,7 +67,7 @@
     <QuestOrder>
             <!-- This will stop the bot after you're Exalted -->
             <If Condition="Me.GetReputationLevelWith(589) == Styx.WoWUnitReaction.Exalted" >
-                <CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nIf you liked this profile, +rep is always appreciated" />
+                <CustomBehavior File="UserDialog" Title="title" AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nIf you liked this profile, +rep is always appreciated" />
             </If>
 
             <!-- If you don't have the quest, fly there and get the quest -->
@@ -75,20 +75,20 @@
                 <CustomBehavior File="ForcedMount"  MountType="Flying" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000"/>
                 <CustomBehavior File="FlyTo" X="8067.484" Y="-3862.439" Z="763.0035" />
-                <CustomBehavior File="RunMacro" Macro="/dismount\n/cancelaura Swift Flight Form\n/cancelaura Flight Form" NumOfTimes="1" WaitTime="2000" />
-        <Pickup QuestName="Frostsaber Provisions" QuestId="4970" GiverName="Rivern Frostwind" GiverId="10618" GiverType="NPC" X="8067.484" Y="-3862.439" Z="763.0035" />
+                <CustomBehavior File="RunMacro" Macro="/dismount\n/cancelaura Swift Flight Form\n/cancelaura Flight Form" />
+                <PickUp QuestName="Frostsaber Provisions" QuestId="4970" GiverName="Rivern Frostwind" GiverId="10618" GiverType="NPC" X="8067.484" Y="-3862.439" Z="763.0035" />
             </If>
 
             <!-- This will get Winterfall Intrusion once you're above Neutral -->
             <If Condition="Me.GetReputationLevelWith(589) &gt;= Styx.WoWUnitReaction.Friendly" >
-        <Pickup QuestName="Winterfall Intrusion" QuestId="5201" GiverName="Rivern Frostwind" GiverId="10618" GiverType="NPC" X="8067.484" Y="-3862.439" Z="763.0035" />
+                <PickUp QuestName="Winterfall Intrusion" QuestId="5201" GiverName="Rivern Frostwind" GiverId="10618" GiverType="NPC" X="8067.484" Y="-3862.439" Z="763.0035" />
             </If>
 
             <If Condition="((HasQuest(4970)) &amp;&amp; (!IsQuestCompleted(4970)))" >
                 <CustomBehavior File="ForcedMount"  MountType="Flying" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000"/>
                 <CustomBehavior File="FlyTo" X="7427.28" Y="-4557.608" Z="599.6826" />
-                <CustomBehavior File="RunMacro" Macro="/dismount\n/cancelaura Swift Flight Form\n/cancelaura Flight Form" NumOfTimes="1" WaitTime="2000" />
+                <CustomBehavior File="RunMacro" Macro="/dismount\n/cancelaura Swift Flight Form\n/cancelaura Flight Form" />
 
                     <SetGrindArea>
                         <GrindArea>
@@ -130,7 +130,7 @@
                             </Hotspots>
                         </GrindArea>
                     </SetGrindArea>
-                <GrindTo Condition="(IsQuestCompleted(4970))" />
+                    <GrindUntil Condition="(IsQuestCompleted(4970))" />
             </If>
 
             <!--
@@ -142,7 +142,7 @@
                 <CustomBehavior File="ForcedMount"  MountType="Flying" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000"/>
                 <CustomBehavior File="FlyTo" X="6834.525" Y="-5088.687" Z="691.638" />
-                <CustomBehavior File="RunMacro" Macro="/dismount\n/cancelaura Swift Flight Form\n/cancelaura Flight Form" NumOfTimes="1" WaitTime="2000" />
+                <CustomBehavior File="RunMacro" Macro="/dismount\n/cancelaura Swift Flight Form\n/cancelaura Flight Form" />
 
                     <SetGrindArea>
                         <GrindArea>
@@ -164,7 +164,7 @@
                             </Hotspots>
                         </GrindArea>
                     </SetGrindArea>
-                <GrindTo Condition="(IsQuestCompleted(5201))" />
+                    <GrindUntil Condition="(IsQuestCompleted(5201))" />
 
             <!--
             <Objective QuestName="Winterfall Intrusion" QuestId="5201" Type="KillMob" MobId="7439" KillCount="5" />
@@ -174,17 +174,17 @@
                 <CustomBehavior File="ForcedMount"  MountType="Flying" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000"/>
                 <CustomBehavior File="FlyTo" X="8067.484" Y="-3862.439" Z="763.0035" />
-                <CustomBehavior File="RunMacro" Macro="/dismount\n/cancelaura Swift Flight Form\n/cancelaura Flight Form" NumOfTimes="1" WaitTime="2000" />
+                <CustomBehavior File="RunMacro" Macro="/dismount\n/cancelaura Swift Flight Form\n/cancelaura Flight Form" />
         <TurnIn QuestName="Winterfall Intrusion" QuestId="5201" TurnInName="Rivern Frostwind" TurnInId="10618" X="8067.484" Y="-3862.439" Z="763.0035" />
-        <Pickup QuestName="Winterfall Intrusion" QuestId="5201" GiverName="Rivern Frostwind" GiverId="10618" GiverType="NPC" X="8067.484" Y="-3862.439" Z="763.0035" />
+        <PickUp QuestName="Winterfall Intrusion" QuestId="5201" GiverName="Rivern Frostwind" GiverId="10618" GiverType="NPC" X="8067.484" Y="-3862.439" Z="763.0035" />
             </If>
             <If Condition="((HasQuest(5201)) &amp;&amp; (IsQuestCompleted(5201)))" >
         <TurnIn QuestName="Winterfall Intrusion" QuestId="5201" TurnInName="Rivern Frostwind" TurnInId="10618" X="8067.484" Y="-3862.439" Z="763.0035" />
-        <Pickup QuestName="Winterfall Intrusion" QuestId="5201" GiverName="Rivern Frostwind" GiverId="10618" GiverType="NPC" X="8067.484" Y="-3862.439" Z="763.0035" />
+        <PickUp QuestName="Winterfall Intrusion" QuestId="5201" GiverName="Rivern Frostwind" GiverId="10618" GiverType="NPC" X="8067.484" Y="-3862.439" Z="763.0035" />
             </If>
             <If Condition="Me.GetReputationLevelWith(589) &gt;= Styx.WoWUnitReaction.Friendly" >
             <If Condition="(!HasQuest(5201))" >
-        <Pickup QuestName="Winterfall Intrusion" QuestId="5201" GiverName="Rivern Frostwind" GiverId="10618" GiverType="NPC" X="8067.484" Y="-3862.439" Z="763.0035" />
+                <PickUp QuestName="Winterfall Intrusion" QuestId="5201" GiverName="Rivern Frostwind" GiverId="10618" GiverType="NPC" X="8067.484" Y="-3862.439" Z="763.0035" />
             </If>
             </If>
 
@@ -193,16 +193,16 @@
                 <CustomBehavior File="ForcedMount"  MountType="Flying" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000"/>
                 <CustomBehavior File="FlyTo" X="8067.484" Y="-3862.439" Z="763.0035" />
-                <CustomBehavior File="RunMacro" Macro="/dismount\n/cancelaura Swift Flight Form\n/cancelaura Flight Form" NumOfTimes="1" WaitTime="2000" />
+                <CustomBehavior File="RunMacro" Macro="/dismount\n/cancelaura Swift Flight Form\n/cancelaura Flight Form" />
             </If>
         <TurnIn QuestName="Frostsaber Provisions" QuestId="4970" TurnInName="Rivern Frostwind" TurnInId="10618" X="8067.484" Y="-3862.439" Z="763.0035" />
             <If Condition="((HasQuest(4970)) &amp;&amp; (IsQuestCompleted(4970)))" >
         <TurnIn QuestName="Frostsaber Provisions" QuestId="4970" TurnInName="Rivern Frostwind" TurnInId="10618" X="8067.484" Y="-3862.439" Z="763.0035" />
             </If>
-        <Pickup QuestName="Frostsaber Provisions" QuestId="4970" GiverName="Rivern Frostwind" GiverId="10618" GiverType="NPC" X="8067.484" Y="-3862.439" Z="763.0035" />
+            <PickUp QuestName="Frostsaber Provisions" QuestId="4970" GiverName="Rivern Frostwind" GiverId="10618" GiverType="NPC" X="8067.484" Y="-3862.439" Z="763.0035" />
 
             <If Condition="(!HasQuest(4970))" >
-        <Pickup QuestName="Frostsaber Provisions" QuestId="4970" GiverName="Rivern Frostwind" GiverId="10618" GiverType="NPC" X="8067.484" Y="-3862.439" Z="763.0035" />
+                <PickUp QuestName="Frostsaber Provisions" QuestId="4970" GiverName="Rivern Frostwind" GiverId="10618" GiverType="NPC" X="8067.484" Y="-3862.439" Z="763.0035" />
             </If>
 
 
@@ -214,5 +214,5 @@
 </HBProfile>
 
 <!--
-<GrindTo Condition="(Me.CarriedItems.Count(ret => ret.Entry == 12622) &gt;= 5)"/>
+    <GrindUntil Condition="(Me.CarriedItems.Count(ret => ret.Entry == 12622) &gt;= 5)"/>
  -->

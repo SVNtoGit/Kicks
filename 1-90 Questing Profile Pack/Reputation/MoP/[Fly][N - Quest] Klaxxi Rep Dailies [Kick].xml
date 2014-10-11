@@ -136,7 +136,7 @@
     <Quest Id="31504" Name="Ordnance Disposal">
         <Objective Type="CollectItem" ItemId="85634" CollectCount="8">
             <CollectFrom>
-                <GameObject Name="Pheromone Mine" Id="214341" />
+                <Object Name="Pheromone Mine" Id="214341" />
             </CollectFrom>
             <Hotspots>
 
@@ -218,7 +218,7 @@
     <Quest Id="31232" Name="An Ancient Empire">
         <Objective Type="CollectItem" ItemId="85634" CollectCount="8">
             <CollectFrom>
-                <GameObject Name="Gurthani Tablet" Id="213314" />
+                <Object Name="Gurthani Tablet" Id="213314" />
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="421.4111" Y="2602.486" Z="219.1851" />
@@ -474,7 +474,8 @@
 
     <CustomBehavior File="Message" Text="Klaxxi Daily Quests Profile Loaded" LogColor="Cornflowerblue" />
 
-        <CustomBehavior File="UserSettings" LootMobs="true" PullDistance="25"  />
+        <LootMobs Value="true" />
+        <UseMount Value="true" />
 
             <While Condition="(HasQuestAvailable(62180))" > <!-- Korven the Prime -->
                 <CustomBehavior File="InteractWith" MobId="62180" X="128.8819" Y="3232.749" Z="215.6481" />
@@ -511,11 +512,12 @@
 
             <If Condition="((HasQuest(31216)) &amp;&amp; (!IsQuestCompleted(31216)))" > <!-- Dark Skies, from Xaril the Poisoned Mind -->
                 <CustomBehavior File="FlyTo" X="147.7272" Y="3216.591" Z="214.7609" /> <!-- get real xyz -->
-                <CustomBehavior File="InteractWith" MobId="62151" NumOfTimes="1" CollectionDistance="200" WaitTime="1000" X="147.7272" Y="3216.591" Z="214.7609" /> <!-- get real xyz -->
+                <CustomBehavior File="InteractWith" MobId="62151" CollectionDistance="200"
+                                X="147.7272" Y="3216.591" Z="214.7609" /> <!-- get real xyz -->
                 <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton3" /> <!-- gossipoptions 3 ?? -->
                 <CustomBehavior File="WaitTimer" WaitTime="5000" />
                 <CustomBehavior File="SpecificQuests\31216-DreadWastes-DarkSkies" />
-                <CustomBehavior File="RunMacro" Macro="/click OverrideActionBarButton6" NumOfTimes="1" WaitTime="3000" />
+                <CustomBehavior File="RunMacro" Macro="/click OverrideActionBarButton6" WaitTime="3000" />
                 <CustomBehavior File="WaitTimer" WaitTime="5000" />
             </If>
             <If Condition="((HasQuest(31216)) &amp;&amp; (IsQuestCompleted(31216)))" > <!-- Turn in Dark Skies, from Xaril the Poisoned Mind -->
@@ -538,13 +540,14 @@
                 <CustomBehavior File="FlyTo" X="-842.3643" Y="2565.052" Z="131.4536" />
                 <CustomBehavior File="ForcedDismount" />
                 <Objective QuestName="The Scale-Lord" QuestId="31269" Type="KillMob" MobId="63179" KillCount="1"/>
-                <RunTo X="-842.3643" Y="2565.052" Z="131.4536" />
+                <MoveTo X="-842.3643" Y="2565.052" Z="131.4536" />
             </If>
 
             <If Condition="((HasQuest(31024)) &amp;&amp; (!IsQuestCompleted(31024)))" > <!-- Kunchong Treats -->
                 <CustomBehavior File="FlyTo" X="-537.123" Y="2463.532" Z="163.1879" />
                 <CustomBehavior File="ForcedDismount" />
-                <Objective QuestName="Kunchong Treats" QuestId="31024" Type="Collect" CollectCount="4" ItemId="82869" />
+                <Objective QuestName="Kunchong Treats" QuestId="31024" Type="CollectItem" CollectCount="4"
+                           ItemId="82869" />
             </If>
 
             <If Condition="((HasQuest(31270)) &amp;&amp; (!IsQuestCompleted(31270)))" > <!-- The Fight Against Fear -->
@@ -564,60 +567,74 @@
                 <CustomBehavior File="FlyTo" DestName="Central Feeder" X="435.9955" Y="4162.975" Z="218.1395" />
                 <CustomBehavior File="ForcedDismount" />
              <While Condition="(!IsObjectiveComplete(1, 31496))">
-                <CustomBehavior File="InteractWith" MobId="215762" ObjectType="Gameobject" X="373.6962" Y="4138.381" Z="217.4163" />
+                <CustomBehavior File="InteractWith" MobId="215762" X="373.6962" Y="4138.381" Z="217.4163" />
              </While>
-                <RunTo X="435.9955" Y="4162.975" Z="218.1395" />
+             <MoveTo X="435.9955" Y="4162.975" Z="218.1395" />
              </If>
 
              <If Condition="(!IsObjectiveComplete(2, 31496))">
                 <CustomBehavior File="FlyTo" DestName="East Feeder" X="291.8333" Y="4077.327" Z="252.0626" />
                 <CustomBehavior File="ForcedDismount" />
              <While Condition="(!IsObjectiveComplete(2, 31496))">
-                <CustomBehavior File="InteractWith" MobId="215761" ObjectType="Gameobject" X="238.7053" Y="4113.336" Z="246.2584" />
+                <CustomBehavior File="InteractWith" MobId="215761" X="238.7053" Y="4113.336" Z="246.2584" />
              </While>
-                <RunTo X="291.8333" Y="4077.327" Z="252.0626" />
+             <MoveTo X="291.8333" Y="4077.327" Z="252.0626" />
              </If>
 
              <If Condition="(!IsObjectiveComplete(3, 31496))">
                 <CustomBehavior File="FlyTo" DestName="North Feeder" X="277.7463" Y="4214.196" Z="265.8298" />
                 <CustomBehavior File="ForcedDismount" />
              <While Condition="(!IsObjectiveComplete(3, 31496))">
-                <CustomBehavior File="InteractWith" MobId="215703" ObjectType="Gameobject" X="244.8045" Y="4158.962" Z="261.8624" />
+                <CustomBehavior File="InteractWith" MobId="215703" X="244.8045" Y="4158.962" Z="261.8624" />
              </While>
-                <RunTo X="277.7463" Y="4214.196" Z="265.8298" />
+             <MoveTo X="277.7463" Y="4214.196" Z="265.8298" />
              </If>
 
              <If Condition="(!IsObjectiveComplete(4, 31496))">
                 <CustomBehavior File="FlyTo" DestName="Northeast Feeder" X="394.0566" Y="4027.12" Z="226.3875" />
                 <CustomBehavior File="ForcedDismount" />
              <While Condition="(!IsObjectiveComplete(4, 31496))">
-                <CustomBehavior File="InteractWith" MobId="215700" ObjectType="Gameobject" X="330.364" Y="4049.648" Z="222.3627" />
+                <CustomBehavior File="InteractWith" MobId="215700" X="330.364" Y="4049.648" Z="222.3627" />
              </While>
-                <RunTo X="394.0566" Y="4027.12" Z="226.3875" />
+             <MoveTo X="394.0566" Y="4027.12" Z="226.3875" />
              </If>
             </If>
 
             <If Condition="((HasQuest(31504)) &amp;&amp; (!IsQuestCompleted(31504)))" > <!-- Ordnance Disposal -->
                 <CustomBehavior File="FlyTo" X="313.2956" Y="3537.095" Z="245.7121" />
                 <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="UserSettings" LootMobs="true" PullDistance="1" UseMount="false"  />
+                <LootMobs Value="true" />
+                <UseMount Value="false" />
+                <DisableBehavior Name="Pull" />
              <While Condition="((HasQuest(31504)) &amp;&amp; (!IsQuestCompleted(31504)))" >
-                <CustomBehavior File="InteractWith" QuestId="31504" MobId="214341" ObjectType="Gameobject" CollectionDistance="1000" Range="6" WaitForNpcs="false" IgnoreMobsInBlackspots="true" NumOfTimes="20" X="242.7852" Y="3525.502" Z="243.8373" />
-                <CustomBehavior File="InteractWith" QuestId="31504" MobId="214341" ObjectType="Gameobject" CollectionDistance="1000" Range="6" WaitForNpcs="false" IgnoreMobsInBlackspots="true" NumOfTimes="20" X="131.6149" Y="3563.857" Z="233.753" />
-                <CustomBehavior File="InteractWith" QuestId="31504" MobId="214341" ObjectType="Gameobject" CollectionDistance="1000" Range="6" WaitForNpcs="false" IgnoreMobsInBlackspots="true" NumOfTimes="20" X="339.1628" Y="3649.472" Z="243.6112" />
-                <CustomBehavior File="InteractWith" QuestId="31504" MobId="214341" ObjectType="Gameobject" CollectionDistance="1000" Range="6" WaitForNpcs="false" IgnoreMobsInBlackspots="true" NumOfTimes="20" X="168.0726" Y="3767.506" Z="243.7185" />
+                 <CustomBehavior File="InteractWith" QuestId="31504" MobId="214341" CollectionDistance="1000"
+                                 Range="6" IgnoreMobsInBlackspots="true" NumOfTimes="20">
+                     <HuntingGrounds>
+                         <Hotspot X="242.7852" Y="3525.502" Z="243.8373" />
+                         <Hotspot X="131.6149" Y="3563.857" Z="233.753" />
+                         <Hotspot X="339.1628" Y="3649.472" Z="243.6112" />
+                         <Hotspot X="168.0726" Y="3767.506" Z="243.7185" />
+                     </HuntingGrounds>
+                 </CustomBehavior>
              </While>
-                <CustomBehavior File="UserSettings" LootMobs="true" PullDistance="25" UseMount="true"  />
+             <EnableBehavior Name="Pull" />
+             <LootMobs Value="true" />
+             <UseMount Value="true" />
             </If>
 
             <If Condition="((HasQuest(31494)) &amp;&amp; (!IsQuestCompleted(31494)))" > <!-- Free From Her Clutches -->
                 <CustomBehavior File="FlyTo" X="313.2956" Y="3537.095" Z="245.7121" />
                 <CustomBehavior File="ForcedDismount" />
              <While Condition="((HasQuest(31494)) &amp;&amp; (!IsQuestCompleted(31494)))" >
-                <CustomBehavior File="InteractWith" QuestId="31494" MobId="214292" ObjectType="Gameobject" CollectionDistance="1000" Range="6" WaitForNpcs="false" IgnoreMobsInBlackspots="true" NumOfTimes="20" X="242.7852" Y="3525.502" Z="243.8373" />
-                <CustomBehavior File="InteractWith" QuestId="31494" MobId="214292" ObjectType="Gameobject" CollectionDistance="1000" Range="6" WaitForNpcs="false" IgnoreMobsInBlackspots="true" NumOfTimes="20" X="131.6149" Y="3563.857" Z="233.753" />
-                <CustomBehavior File="InteractWith" QuestId="31494" MobId="214292" ObjectType="Gameobject" CollectionDistance="1000" Range="6" WaitForNpcs="false" IgnoreMobsInBlackspots="true" NumOfTimes="20" X="339.1628" Y="3649.472" Z="243.6112" />
-                <CustomBehavior File="InteractWith" QuestId="31494" MobId="214292" ObjectType="Gameobject" CollectionDistance="1000" Range="6" WaitForNpcs="false" IgnoreMobsInBlackspots="true" NumOfTimes="20" X="168.0726" Y="3767.506" Z="243.7185" />
+                 <CustomBehavior File="InteractWith" QuestId="31494" MobId="214292" CollectionDistance="1000"
+                                 Range="6" IgnoreMobsInBlackspots="true" NumOfTimes="20" >
+                     <HuntingGrounds>
+                         <Hotspot X="242.7852" Y="3525.502" Z="243.8373" />
+                         <Hotspot X="131.6149" Y="3563.857" Z="233.753" />
+                         <Hotspot X="339.1628" Y="3649.472" Z="243.6112" />
+                         <Hotspot X="168.0726" Y="3767.506" Z="243.7185" />
+                     </HuntingGrounds>
+                 </CustomBehavior>
              </While>
             </If>
 
@@ -634,7 +651,8 @@
             <If Condition="((HasQuest(31502)) &amp;&amp; (!IsQuestCompleted(31502)))" > <!-- Wing Clip -->
                 <CustomBehavior File="FlyTo" X="226.6778" Y="3955.194" Z="228.096" />
                 <CustomBehavior File="ForcedDismount" />
-                <Objective QuestName="Wing Clip" QuestId="31502" Type="Collect" CollectCount="24" ItemId="87401" />
+                <Objective QuestName="Wing Clip" QuestId="31502" Type="CollectItem" CollectCount="24"
+                           ItemId="87401" />
             </If>
 
             <If Condition="((HasQuest(31503)) &amp;&amp; (!IsQuestCompleted(31503)))" > <!-- Shortcut to Ruin -->
@@ -652,19 +670,20 @@
             <If Condition="((HasQuest(31234)) &amp;&amp; (!IsQuestCompleted(31234)))" > <!-- Putting An Eye Out -->
                 <CustomBehavior File="FlyTo" X="542.4321" Y="2497.895" Z="274.9459" />
                 <CustomBehavior File="ForcedDismount" />
-                <Objective QuestName="Putting An Eye Out" QuestId="31234" Type="Collect" CollectCount="1" ItemId="85635" />
+                <Objective QuestName="Putting An Eye Out" QuestId="31234" Type="CollectItem" CollectCount="1"
+                           ItemId="85635" />
             </If>
 
             <If Condition="((HasQuest(31232)) &amp;&amp; (!IsQuestCompleted(31232)))" > <!-- An Ancient Empire -->
                 <CustomBehavior File="FlyTo" X="20.35941" Y="2313.101" Z="204.6583"  />
                 <CustomBehavior File="ForcedDismount" />
-                <Objective QuestName="An Ancient Empire" QuestId="31232" Type="Collect" CollectCount="8" ItemId="213314" ObjectType="GameObject" />
+                <Objective QuestName="An Ancient Empire" QuestId="31232" Type="CollectItem" CollectCount="8"
+                           ItemId="213314" ObjectType="GameObject" />
             </If>
 
             <If Condition="((HasQuest(31235)) &amp;&amp; (!IsQuestCompleted(31235)))" > <!-- Nope Nope Nope -->
                 <CustomBehavior File="FlyTo" X="515.5919" Y="2220.019" Z="302.318" />
                 <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="UserSettings" PullDistance="10" />
              <While Condition="((HasQuest(31235)) &amp;&amp; (!IsQuestCompleted(31235)))" >
                 <CustomBehavior File="UseItemOn" QuestId="31235" MobId="62077" ItemId="82807" Range="6" WaitTime="5000" WaitForNpcs="false" NumOfTimes="100" CollectionDistance="1000" X="535.9993" Y="2171.962" Z="312.0496" />
                 <CustomBehavior File="UseItemOn" QuestId="31235" MobId="62077" ItemId="82807" Range="6" WaitTime="5000" WaitForNpcs="false" NumOfTimes="100" CollectionDistance="1000" X="617.1434" Y="2225.997" Z="311.2982" />
@@ -673,7 +692,6 @@
                 <CustomBehavior File="UseItemOn" QuestId="31235" MobId="62077" ItemId="82807" Range="6" WaitTime="5000" WaitForNpcs="false" NumOfTimes="100" CollectionDistance="1000" X="360.7227" Y="2499.508" Z="218.171" />
                 <CustomBehavior File="UseItemOn" QuestId="31235" MobId="62077" ItemId="82807" Range="6" WaitTime="5000" WaitForNpcs="false" NumOfTimes="100" CollectionDistance="1000" X="406.6755" Y="2609.616" Z="218.1947" />
               </While>
-                <CustomBehavior File="UserSettings" PullDistance="25" />
             </If>
 
             <If Condition="((HasQuest(31233)) &amp;&amp; (!IsQuestCompleted(31233)))" > <!-- Sap Tapping -->
@@ -682,67 +700,83 @@
              <While Condition="((HasQuest(31233)) &amp;&amp; (!IsQuestCompleted(31233)))" >
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="387.3337" Y="2431.111" Z="222.6302" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="406.7822" Y="2508.066" Z="225.9567" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="363.4454" Y="2581.001" Z="216.3402" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="305.8086" Y="2496.958" Z="215.7043" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="259.5336" Y="2366.271" Z="188.2862" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="226.2623" Y="2430.043" Z="175.2083" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="-21.44146" Y="2507.365" Z="155.5786" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="-11.43822" Y="2569.724" Z="153.5951" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="-103.3933" Y="2558.234" Z="162.0557" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="-133.2257" Y="2622.634" Z="163.7759" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="579.9288" Y="2580.475" Z="279.0648" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="671.2522" Y="2621.985" Z="298.1065" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="776.4866" Y="2611.854" Z="303.3028" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="191.1372" Y="2275.369" Z="201.2437" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="97.93566" Y="2318.386" Z="202.575" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
 
                 <CustomBehavior QuestId="31233" File="InteractWith" MobId="63740" CollectionDistance="1000" WaitTime="3000" WaitForNpcs="false" Range="11" X="28.48037" Y="2325.731" Z="203.9167" />
                 <CustomBehavior QuestId="31233" File="WaitTimer" WaitTime="2000" GoalText="Waiting for item cd {TimeRemaining}" />
-                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" ObjectType="GameObject" CollectionDistance="50" WaitForNpcs="false" />
+                <CustomBehavior QuestId="31233" File="InteractWith" MobId="213319" CollectionDistance="50"
+                                WaitForNpcs="false" />
              </While>
             </If>
 
@@ -761,7 +795,8 @@
             <If Condition="((HasQuest(31238)) &amp;&amp; (!IsQuestCompleted(31238)))" > <!-- Brain Food -->
                 <CustomBehavior File="FlyTo" X="489.1926" Y="3106.341" Z="266.811" />
                 <CustomBehavior File="ForcedDismount" />
-                <Objective QuestName="Brain Food" QuestId="31238" Type="Collect" CollectCount="4" ItemId="85665" />
+                <Objective QuestName="Brain Food" QuestId="31238" Type="CollectItem" CollectCount="4"
+                           ItemId="85665" />
             </If>
 
             <If Condition="((HasQuest(31271)) &amp;&amp; (!IsQuestCompleted(31271)))" > <!-- Bad Genes -->
@@ -807,40 +842,45 @@
                           </Hotspots>
                         </GrindArea>
                     </SetGrindArea>
-                    <GrindTo Condition="((HasQuest(31272)) &amp;&amp; (IsQuestCompleted(31272)))" />
+                    <GrindUntil Condition="((HasQuest(31272)) &amp;&amp; (IsQuestCompleted(31272)))" />
             </If>
 
             <If Condition="((HasQuest(31509)) &amp;&amp; (!IsQuestCompleted(31509)))" > <!-- Fear Takes Root -->
                 <CustomBehavior File="FlyTo" X="-1030.041" Y="4435.16" Z="72.78317" />
                 <CustomBehavior File="ForcedDismount" />
              <While Condition="((HasQuest(31509)) &amp;&amp; (!IsQuestCompleted(31509)))" >
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1063.514" Y="4428.327" Z="74.82639" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1076.726" Y="4516.847" Z="72.80863" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1118.104" Y="4620.913" Z="74.62312" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1246.934" Y="4575.292" Z="128.0366" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1219.963" Y="4473.15" Z="111.792" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1212.947" Y="4391.665" Z="99.5155" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1292.277" Y="4390.295" Z="104.3268" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1232.575" Y="4249.594" Z="58.14263" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1188.143" Y="4149.664" Z="57.10069" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1188.974" Y="4081.118" Z="56.71139" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1112.352" Y="4403.146" Z="79.97213" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1117.574" Y="4638.143" Z="71.51524" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1180.37" Y="4827.234" Z="36.9862" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1328.967" Y="4907.674" Z="21.24546" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1517.394" Y="4911.817" Z="43.61832" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1407.681" Y="4846.978" Z="62.62519" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1063.514" Y="4428.327" Z="74.82639" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1284.133" Y="4394.356" Z="104.5804" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1412.739" Y="4405.562" Z="115.9389" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1504.475" Y="4507.004" Z="143.7772" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1594.94" Y="4452.352" Z="88.92185" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1707.435" Y="4423.723" Z="51.6024" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1533.795" Y="4335.046" Z="70.57746" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1688.554" Y="4623.144" Z="82.77893" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1794.865" Y="4560.268" Z="36.19208" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1886.689" Y="4518.967" Z="42.63491" />
-                <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543" ObjectType="GameObject" WaitForNpcs="false" NumOfTimes="20" CollectionDistance="1000" X="-1718.209" Y="4398.91" Z="47.06013" />
+                 <CustomBehavior File="InteractWith" QuestId="31509" MobId="214543"
+                                 NumOfTimes="20" CollectionDistance="1000">
+                     <HuntingGrounds>
+                         <Hotspot X="-1063.514" Y="4428.327" Z="74.82639" />
+                         <Hotspot X="-1076.726" Y="4516.847" Z="72.80863" />
+                         <Hotspot X="-1118.104" Y="4620.913" Z="74.62312" />
+                         <Hotspot X="-1246.934" Y="4575.292" Z="128.0366" />
+                         <Hotspot X="-1219.963" Y="4473.15" Z="111.792" />
+                         <Hotspot X="-1212.947" Y="4391.665" Z="99.5155" />
+                         <Hotspot X="-1292.277" Y="4390.295" Z="104.3268" />
+                         <Hotspot X="-1232.575" Y="4249.594" Z="58.14263" />
+                         <Hotspot X="-1188.143" Y="4149.664" Z="57.10069" />
+                         <Hotspot X="-1188.974" Y="4081.118" Z="56.71139" />
+                         <Hotspot X="-1112.352" Y="4403.146" Z="79.97213" />
+                         <Hotspot X="-1117.574" Y="4638.143" Z="71.51524" />
+                         <Hotspot X="-1180.37" Y="4827.234" Z="36.9862" />
+                         <Hotspot X="-1328.967" Y="4907.674" Z="21.24546" />
+                         <Hotspot X="-1517.394" Y="4911.817" Z="43.61832" />
+                         <Hotspot X="-1407.681" Y="4846.978" Z="62.62519" />
+                         <Hotspot X="-1063.514" Y="4428.327" Z="74.82639" />
+                         <Hotspot X="-1284.133" Y="4394.356" Z="104.5804" />
+                         <Hotspot X="-1412.739" Y="4405.562" Z="115.9389" />
+                         <Hotspot X="-1504.475" Y="4507.004" Z="143.7772" />
+                         <Hotspot X="-1594.94" Y="4452.352" Z="88.92185" />
+                         <Hotspot X="-1707.435" Y="4423.723" Z="51.6024" />
+                         <Hotspot X="-1533.795" Y="4335.046" Z="70.57746" />
+                         <Hotspot X="-1688.554" Y="4623.144" Z="82.77893" />
+                         <Hotspot X="-1794.865" Y="4560.268" Z="36.19208" />
+                         <Hotspot X="-1886.689" Y="4518.967" Z="42.63491" />
+                         <Hotspot X="-1718.209" Y="4398.91" Z="47.06013" />
+                     </HuntingGrounds>
+                 </CustomBehavior>
              </While>
             </If>
 
@@ -854,13 +894,15 @@
             <If Condition="((HasQuest(31506)) &amp;&amp; (!IsQuestCompleted(31506)))" > <!-- Shackles of Manipulation -->
                 <CustomBehavior File="FlyTo" X="-1030.041" Y="4435.16" Z="72.78317" />
                 <CustomBehavior File="ForcedDismount" />
-                <Objective QuestName="Shackles of Manipulation" QuestId="31506" Type="Collect" CollectCount="6" ItemId="87813" />
+                <Objective QuestName="Shackles of Manipulation" QuestId="31506" Type="CollectItem"
+                           CollectCount="6" ItemId="87813" />
             </If>
 
             <If Condition="((HasQuest(31508)) &amp;&amp; (!IsQuestCompleted(31508)))" > <!-- Specimen Request -->
                 <CustomBehavior File="FlyTo" X="-1030.041" Y="4435.16" Z="72.78317" />
                 <CustomBehavior File="ForcedDismount" />
-                <Objective QuestName="Specimen Request" QuestId="31508" Type="Collect" CollectCount="6" ItemId="87874" />
+                <Objective QuestName="Specimen Request" QuestId="31508" Type="CollectItem"
+                           CollectCount="6" ItemId="87874" />
             </If>
 
             <If Condition="((HasQuest(31505)) &amp;&amp; (!IsQuestCompleted(31505)))" > <!-- Vess-Guard Duty -->
@@ -880,7 +922,8 @@
                 <CustomBehavior File="FlyTo" X="-1670.958" Y="4849.939" Z="60.82497" />
                 <CustomBehavior File="ForcedDismount" />
              <While Condition="((HasQuest(31510)) &amp;&amp; (!IsQuestCompleted(31510)))" >
-                <CustomBehavior File="InteractWith" QuestId="31510" MobId="214455" ObjectType="GameObject" CollectionDistance="1000" X="-1664.171" Y="4850.184" Z="59.85145" />
+                 <CustomBehavior File="InteractWith" QuestId="31510" MobId="214455" CollectionDistance="1000"
+                                 X="-1664.171" Y="4850.184" Z="59.85145" />
              </While>
             </If>
 

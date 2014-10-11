@@ -7,36 +7,38 @@
     <MinLevel>1</MinLevel>
     <MaxLevel>1001</MaxLevel>
 
-    <MailGrey>False</MailGrey>
-    <MailWhite>True</MailWhite>
-    <MailGreen>True</MailGreen>
-    <MailBlue>True</MailBlue>
-    <MailPurple>True</MailPurple>
+    <MailGrey>false</MailGrey>
+    <MailWhite>true</MailWhite>
+    <MailGreen>true</MailGreen>
+    <MailBlue>true</MailBlue>
+    <MailPurple>true</MailPurple>
 
-    <SellGrey>True</SellGrey>
-    <SellWhite>False</SellWhite>
-    <SellGreen>False</SellGreen>
-    <SellBlue>False</SellBlue>
-    <SellPurple>False</SellPurple>
+    <SellGrey>true</SellGrey>
+    <SellWhite>false</SellWhite>
+    <SellGreen>false</SellGreen>
+    <SellBlue>false</SellBlue>
+    <SellPurple>false</SellPurple>
 
         <Mailboxes>
             <Mailbox X="-8742.377" Y="407.5558" Z="98.20789" /> <!-- Old Town -->
         </Mailboxes>
         <Vendors>
-            <Vendor Name="Seoman Griffith" Entry="1320" Type="Repair" X="-8713.808" Y="474.3274" Z="98.61314" /> <!-- SW LW -->
+            <Vendor Name="Seoman Griffith" Id="1320" Type="Repair" X="-8713.808" Y="474.3274" Z="98.61314" /> <!-- SW LW -->
         </Vendors>
 
 
         <AvoidMobs>
-            <Mob Name="Zanzil Mindslave" Entry="43223" />
-            <Mob Name="Zanzil Zombie" Entry="1488" />
-            <Mob Name="Brownfeather Hawk" Entry="44475" />
-            <Mob Name="Windroc" Entry="17128" />
+            <Mob Name="Zanzil Mindslave" Id="43223" />
+            <Mob Name="Zanzil Zombie" Id="1488" />
+            <Mob Name="Brownfeather Hawk" Id="44475" />
+            <Mob Name="Windroc" Id="17128" />
         </AvoidMobs>
 
         <QuestOrder>
 
-        <CustomBehavior File="UserSettings" LootMobs="True" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" PullDistance="25" SkinMobs="True" NinjaSkin="False" />
+        <CustomBehavior File="UserSettings" UseFlightPaths="false" />
+        <LootMobs Value="true" />
+        <UseMount Value="true" />
 
         <!-- EK 1-300 Skinning -->
         <CustomBehavior File="Message" Text="Compiling EK 1-300 Skinning" LogColor="Green" />
@@ -50,7 +52,7 @@
         </SetMailbox>
         <SetVendor>
             <Vendors>
-                    <Vendor Name="Seoman Griffith" Entry="1320" Type="Repair" X="-8713.808" Y="474.3274" Z="98.61314" /> <!-- SW LW -->
+                    <Vendor Name="Seoman Griffith" Id="1320" Type="Repair" X="-8713.808" Y="474.3274" Z="98.61314" /> <!-- SW LW -->
             </Vendors>
         </SetVendor>
 
@@ -61,19 +63,20 @@
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="InteractWith" MobId="1292" X="-8716.408" Y="469.4141" Z="98.61299" />
 
-                <CustomBehavior File="RunMacro" NumOfTimes="1" WaitTime="1000"
+                <CustomBehavior File="RunMacro"
                 Macro="/run LoadAddOn'Blizzard_TrainerUI' f=ClassTrainerTrainButton f.e = 0 if f:GetScript'OnUpdate' then f:SetScript('OnUpdate', nil)else f:SetScript('OnUpdate', function(f,e) f.e=f.e+e if f.e>.01 then f.e=0 f:Click() end end)end" />
-                <CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" NumOfTimes="1" WaitTime="5000"/>
-                <CustomBehavior File="RunMacro" NumOfTimes="1" WaitTime="1000"
+                <CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" WaitTime="5000"/>
+                <CustomBehavior File="RunMacro"
                 Macro="/run LoadAddOn'Blizzard_TrainerUI' f=ClassTrainerTrainButton f.e = 0 if f:GetScript'OnUpdate' then f:SetScript('OnUpdate', nil)else f:SetScript('OnUpdate', function(f,e) f.e=f.e+e if f.e>.01 then f.e=0 f:Click() end end)end" />
 
              <If Condition="!HasItem(7005)">
-                <CustomBehavior File="InteractWith" MobId="5565" BuyItemId="7005" X="-8722.868" Y="479.3223" Z="98.61316" />
+                 <CustomBehavior File="InteractWith" MobId="5565" InteractByBuyingItemId="7005"
+                                 X="-8722.868" Y="479.3223" Z="98.61316" />
              </If>
 
-                <CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+                <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
 
-                <RunTo X="-8722.247" Y="440.4887" Z="97.61475" />
+                <MoveTo X="-8722.247" Y="440.4887" Z="97.61475" />
 
             </If>
 
@@ -84,9 +87,10 @@
                 <CustomBehavior File="FlyTo" DestName="Train Skinning in SW" X="-8722.247" Y="440.4887" Z="97.61475" />
                 <CustomBehavior File="ForcedDismount" />
 
-                <CustomBehavior File="InteractWith" MobId="5565" BuyItemId="7005" X="-8722.868" Y="479.3223" Z="98.61316" />
+                <CustomBehavior File="InteractWith" MobId="5565" InteractByBuyingItemId="7005"
+                                X="-8722.868" Y="479.3223" Z="98.61316" />
 
-                <RunTo X="-8722.247" Y="440.4887" Z="97.61475" />
+                <MoveTo X="-8722.247" Y="440.4887" Z="97.61475" />
              </If>
 
                 <CustomBehavior File="FlyTo" DestName="Farm Area" X="-9519.333" Y="176.2865" Z="57.20312" />
@@ -123,7 +127,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 30" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 30" />
             </If>
 
                 <CustomBehavior File="Message" Text="Compiling 30-75 Skinning" LogColor="CornflowerBlue" />
@@ -170,7 +174,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 75" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 75" />
             </If>
 
             <If Condition="(Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 75) &amp;&amp; (Me.GetSkill(Styx.SkillLine.Skinning).MaxValue == 75)">
@@ -180,12 +184,12 @@
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="InteractWith" MobId="1292" X="-8716.408" Y="469.4141" Z="98.61299" />
 
-                <CustomBehavior File="RunMacro" NumOfTimes="1" WaitTime="1000"
+                <CustomBehavior File="RunMacro"
                 Macro="/run LoadAddOn'Blizzard_TrainerUI' f=ClassTrainerTrainButton f.e = 0 if f:GetScript'OnUpdate' then f:SetScript('OnUpdate', nil)else f:SetScript('OnUpdate', function(f,e) f.e=f.e+e if f.e>.01 then f.e=0 f:Click() end end)end" />
 
-                <CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+                <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
 
-                <RunTo X="-8722.247" Y="440.4887" Z="97.61475" />
+                <MoveTo X="-8722.247" Y="440.4887" Z="97.61475" />
             </If>
 
                 <CustomBehavior File="Message" Text="Compiling 75-105 Skinning" LogColor="CornflowerBlue" />
@@ -231,7 +235,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 105" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 105" />
             </If>
 
                 <CustomBehavior File="Message" Text="Compiling 105-135 Skinning" LogColor="CornflowerBlue" />
@@ -313,7 +317,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 135" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 135" />
             </If>
 
             <If Condition="(Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 135) &amp;&amp; (Me.GetSkill(Styx.SkillLine.Skinning).MaxValue == 135)">
@@ -323,15 +327,15 @@
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="InteractWith" MobId="1292" X="-8716.408" Y="469.4141" Z="98.61299" />
 
-                <CustomBehavior File="RunMacro" NumOfTimes="1" WaitTime="1000"
+                <CustomBehavior File="RunMacro"
                 Macro="/run LoadAddOn'Blizzard_TrainerUI' f=ClassTrainerTrainButton f.e = 0 if f:GetScript'OnUpdate' then f:SetScript('OnUpdate', nil)else f:SetScript('OnUpdate', function(f,e) f.e=f.e+e if f.e>.01 then f.e=0 f:Click() end end)end" />
-                <CustomBehavior File="RunMacro" NumOfTimes="1" WaitTime="1000"
+                <CustomBehavior File="RunMacro"
                 Macro="/run LoadAddOn'Blizzard_TrainerUI' f=ClassTrainerTrainButton f.e = 0 if f:GetScript'OnUpdate' then f:SetScript('OnUpdate', nil)else f:SetScript('OnUpdate', function(f,e) f.e=f.e+e if f.e>.01 then f.e=0 f:Click() end end)end" />
 
 
-                <CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+                <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
 
-                <RunTo X="-8722.247" Y="440.4887" Z="97.61475" />
+                <MoveTo X="-8722.247" Y="440.4887" Z="97.61475" />
             </If>
 
                 <CustomBehavior File="Message" Text="Compiling 135-175 Skinning" LogColor="CornflowerBlue" />
@@ -366,7 +370,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 175" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 175" />
             </If>
 
                 <CustomBehavior File="Message" Text="Compiling 175-225 Skinning" LogColor="CornflowerBlue" />
@@ -397,7 +401,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 225" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 225" />
             </If>
 
             <If Condition="(Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 225) &amp;&amp; (Me.GetSkill(Styx.SkillLine.Skinning).MaxValue == 225)">
@@ -407,15 +411,15 @@
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="InteractWith" MobId="1292" X="-8716.408" Y="469.4141" Z="98.61299" />
 
-                <CustomBehavior File="RunMacro" NumOfTimes="1" WaitTime="1000"
+                <CustomBehavior File="RunMacro"
                 Macro="/run LoadAddOn'Blizzard_TrainerUI' f=ClassTrainerTrainButton f.e = 0 if f:GetScript'OnUpdate' then f:SetScript('OnUpdate', nil)else f:SetScript('OnUpdate', function(f,e) f.e=f.e+e if f.e>.01 then f.e=0 f:Click() end end)end" />
-                <CustomBehavior File="RunMacro" NumOfTimes="1" WaitTime="1000"
+                <CustomBehavior File="RunMacro"
                 Macro="/run LoadAddOn'Blizzard_TrainerUI' f=ClassTrainerTrainButton f.e = 0 if f:GetScript'OnUpdate' then f:SetScript('OnUpdate', nil)else f:SetScript('OnUpdate', function(f,e) f.e=f.e+e if f.e>.01 then f.e=0 f:Click() end end)end" />
 
 
-                <CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+                <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
 
-                <RunTo X="-8722.247" Y="440.4887" Z="97.61475" />
+                <MoveTo X="-8722.247" Y="440.4887" Z="97.61475" />
             </If>
 
                 <CustomBehavior File="Message" Text="Compiling 225-255 Skinning" LogColor="CornflowerBlue" />
@@ -446,7 +450,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 255" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 255" />
             </If>
 
                 <CustomBehavior File="Message" Text="Compiling 255-300 Skinning" LogColor="CornflowerBlue" />
@@ -478,7 +482,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 300" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 300" />
             </If>
 
             <If Condition="(Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 300) &amp;&amp; (Me.GetSkill(Styx.SkillLine.Skinning).MaxValue == 300)">
@@ -488,15 +492,15 @@
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="InteractWith" MobId="1292" X="-8716.408" Y="469.4141" Z="98.61299" />
 
-                <CustomBehavior File="RunMacro" NumOfTimes="1" WaitTime="1000"
+                <CustomBehavior File="RunMacro"
                 Macro="/run LoadAddOn'Blizzard_TrainerUI' f=ClassTrainerTrainButton f.e = 0 if f:GetScript'OnUpdate' then f:SetScript('OnUpdate', nil)else f:SetScript('OnUpdate', function(f,e) f.e=f.e+e if f.e>.01 then f.e=0 f:Click() end end)end" />
-                <CustomBehavior File="RunMacro" NumOfTimes="1" WaitTime="1000"
+                <CustomBehavior File="RunMacro"
                 Macro="/run LoadAddOn'Blizzard_TrainerUI' f=ClassTrainerTrainButton f.e = 0 if f:GetScript'OnUpdate' then f:SetScript('OnUpdate', nil)else f:SetScript('OnUpdate', function(f,e) f.e=f.e+e if f.e>.01 then f.e=0 f:Click() end end)end" />
 
 
-                <CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+                <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
 
-                <RunTo X="-8722.247" Y="440.4887" Z="97.61475" />
+                <MoveTo X="-8722.247" Y="440.4887" Z="97.61475" />
             </If>
 
             <If Condition="(Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 300)">
@@ -504,7 +508,7 @@
                 <CustomBehavior File="FlyTo" DestName="BC Portal" X="-11903.13" Y="-3208.053" Z="-14.81489" />
                 <CustomBehavior File="ForcedDismount" />
 
-                <RunTo X="-11903.13" Y="-3208.053" Z="-14.81489" />
+                <MoveTo X="-11903.13" Y="-3208.053" Z="-14.81489" />
               <While Condition="Me.MapId == 0" >
                 <CustomBehavior File="MyCTM" X="-11907.85" Y="-3208.708" Z="-14.83699" />
                 <CustomBehavior File="WaitTimer" WaitTime="20000"/>
@@ -542,41 +546,41 @@
 
         <SetVendor>
             <Vendors>
-                <Vendor Name="Caregiver Isel" Entry="18914" Type="Food" X="-2761.415" Y="7300.421" Z="43.4711" />
-                <Vendor Name="Sparik" Entry="19012" Type="Repair" X="-2541.9" Y="7364.772" Z="6.949437" />
-                <Vendor Name="Mari Stonehand" Entry="19373" Type="Repair" X="-3966.329" Y="2201.351" Z="101.8696" />
-                <Vendor Name="Kerpow Blastwrench" Entry="22491" Type="Repair" X="2955.032" Y="1802.131" Z="139.1211" />
-                <Vendor Name="Wind Trader Tuluman" Entry="20112" Type="Repair" X="4045.836" Y="3553.271" Z="121.3136" />
-                <Vendor Name="Apprentice Andrethan" Entry="20463" Type="Repair" X="2290.125" Y="2266.04" Z="93.63638" />
-                <Vendor Name="Siflaed Coldhammer" Entry="20890" Type="Repair" X="-2844.427" Y="5050.748" Z="-18.12777" />
-                <Vendor Name="Sid Limbardi" Entry="16826" Type="Food" X="-708.8713" Y="2739.131" Z="94.7337" />
-                <Vendor Name="Caregiver Ophera Windfury" Entry="18906" Type="Food" X="229.118" Y="4333.729" Z="119.0834" />
-                <Vendor Name="Provisioner Anir" Entry="16798" Type="Food" X="95.04395" Y="4292.254" Z="101.8884" />
-                <Vendor Name="Talaara" Entry="19001" Type="Repair" X="105.5018" Y="4337.619" Z="101.466" />
-                <Vendor Name="Fedryen Swiftspear" Entry="17904" Type="Repair" X="-198.9696" Y="5490.686" Z="21.84628"/>
-                <Vendor Name="Innkeeper Coryth Stoktron" Entry="18907" Type="Food" X="-174.478" Y="5529.211" Z="29.40756" />
-                <Vendor Name="Innkeeper Kerp" Entry="18908" Type="Food" X="1056.379" Y="7370.99" Z="39.58458" />
-                <Vendor Name="Innkeeper Biribi" Entry="19296" Type="Food" X="-2917.881" Y="4021.484" Z="0.4283262" />
-                <Vendor Name="Cecil Meyers" Entry="19056" Type="Repair" X="-2978.951" Y="4033.115" Z="3.573919" />
-                <Vendor Name="Aaron Hollman" Entry="19662" Type="Repair" X="-2099.772" Y="5298.396" Z="-37.32356" />
-                <Vendor Name="Shaarubo" Entry="19182" Type="Food" X="-1769.024" Y="5152.543" Z="-37.20408" />
-                <Vendor Name="Xerintha Ravenoak" Entry="20916" Type="Food" X="2949.437" Y="5456.5" Z="146.2315" />
-                <Vendor Name="Zinyen Swiftstrider" Entry="20917" Type="Repair" X="3023.432" Y="5504.725" Z="145.7471" />
-                <Vendor Name="Fizit &quot;Doc&quot; Clocktock" Entry="21110" Type="Food" X="1944.855" Y="5537.872" Z="266.651" />
-                <Vendor Name="Bossi Pentapiston" Entry="21112" Type="Repair" X="1910.417" Y="5548.362" Z="263.9332" />
-                <Vendor Name="Innkeeper Shaunessy" Entry="19495" Type="Food" X="2098.176" Y="6903.917" Z="183.2305" />
-                <Vendor Name="Cahill" Entry="19499" Type="Repair" X="2100.732" Y="6797.837" Z="175.6132" />
-                <Vendor Name="Gant" Entry="19572" Type="Food" X="3073.644" Y="3656.375" Z="143.0913" />
-                <Vendor Name="Blazzle" Entry="28344" Type="Repair" X="3063.406" Y="3677.57" Z="142.6772" />
+                <Vendor Name="Caregiver Isel" Id="18914" Type="Food" X="-2761.415" Y="7300.421" Z="43.4711" />
+                <Vendor Name="Sparik" Id="19012" Type="Repair" X="-2541.9" Y="7364.772" Z="6.949437" />
+                <Vendor Name="Mari Stonehand" Id="19373" Type="Repair" X="-3966.329" Y="2201.351" Z="101.8696" />
+                <Vendor Name="Kerpow Blastwrench" Id="22491" Type="Repair" X="2955.032" Y="1802.131" Z="139.1211" />
+                <Vendor Name="Wind Trader Tuluman" Id="20112" Type="Repair" X="4045.836" Y="3553.271" Z="121.3136" />
+                <Vendor Name="Apprentice Andrethan" Id="20463" Type="Repair" X="2290.125" Y="2266.04" Z="93.63638" />
+                <Vendor Name="Siflaed Coldhammer" Id="20890" Type="Repair" X="-2844.427" Y="5050.748" Z="-18.12777" />
+                <Vendor Name="Sid Limbardi" Id="16826" Type="Food" X="-708.8713" Y="2739.131" Z="94.7337" />
+                <Vendor Name="Caregiver Ophera Windfury" Id="18906" Type="Food" X="229.118" Y="4333.729" Z="119.0834" />
+                <Vendor Name="Provisioner Anir" Id="16798" Type="Food" X="95.04395" Y="4292.254" Z="101.8884" />
+                <Vendor Name="Talaara" Id="19001" Type="Repair" X="105.5018" Y="4337.619" Z="101.466" />
+                <Vendor Name="Fedryen Swiftspear" Id="17904" Type="Repair" X="-198.9696" Y="5490.686" Z="21.84628"/>
+                <Vendor Name="Innkeeper Coryth Stoktron" Id="18907" Type="Food" X="-174.478" Y="5529.211" Z="29.40756" />
+                <Vendor Name="Innkeeper Kerp" Id="18908" Type="Food" X="1056.379" Y="7370.99" Z="39.58458" />
+                <Vendor Name="Innkeeper Biribi" Id="19296" Type="Food" X="-2917.881" Y="4021.484" Z="0.4283262" />
+                <Vendor Name="Cecil Meyers" Id="19056" Type="Repair" X="-2978.951" Y="4033.115" Z="3.573919" />
+                <Vendor Name="Aaron Hollman" Id="19662" Type="Repair" X="-2099.772" Y="5298.396" Z="-37.32356" />
+                <Vendor Name="Shaarubo" Id="19182" Type="Food" X="-1769.024" Y="5152.543" Z="-37.20408" />
+                <Vendor Name="Xerintha Ravenoak" Id="20916" Type="Food" X="2949.437" Y="5456.5" Z="146.2315" />
+                <Vendor Name="Zinyen Swiftstrider" Id="20917" Type="Repair" X="3023.432" Y="5504.725" Z="145.7471" />
+                <Vendor Name="Fizit &quot;Doc&quot; Clocktock" Id="21110" Type="Food" X="1944.855" Y="5537.872" Z="266.651" />
+                <Vendor Name="Bossi Pentapiston" Id="21112" Type="Repair" X="1910.417" Y="5548.362" Z="263.9332" />
+                <Vendor Name="Innkeeper Shaunessy" Id="19495" Type="Food" X="2098.176" Y="6903.917" Z="183.2305" />
+                <Vendor Name="Cahill" Id="19499" Type="Repair" X="2100.732" Y="6797.837" Z="175.6132" />
+                <Vendor Name="Gant" Id="19572" Type="Food" X="3073.644" Y="3656.375" Z="143.0913" />
+                <Vendor Name="Blazzle" Id="28344" Type="Repair" X="3063.406" Y="3677.57" Z="142.6772" />
             </Vendors>
         </SetVendor>
 
                 <CustomBehavior File="Message" Text="Compiling BC 300-325 Skinning" LogColor="CornflowerBlue" />
 
             <If Condition="((Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue &lt; 290)">
-                <CustomBehavior File="UserDialog" StopOnContinue="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This Profile starts in Eastern Kingdoms - Please go there and press start\n\n1-300 is EK, 300-375 is BC, 375-450 is LK, 450-525 is Kalimdor (Hyjal until 500, then Uldum)" />
-                <CustomBehavior File="UserDialog" StopOnContinue="True" SoundCue="Exclamation" SoundCueInterval="2" Text="HEY! YOU NO PRESSY DA BUTTON!!!!111!11ONEONEONEONE11!11!!1" />
-                <CustomBehavior File="UserSettings" StopBot="True" />
+                <CustomBehavior File="UserDialog" StopOnContinue="true" SoundCue="Exclamation" SoundCueInterval="1" Text="This Profile starts in Eastern Kingdoms - Please go there and press start\n\n1-300 is EK, 300-375 is BC, 375-450 is LK, 450-525 is Kalimdor (Hyjal until 500, then Uldum)" />
+                <CustomBehavior File="UserDialog" StopOnContinue="true" SoundCue="Exclamation" SoundCueInterval="2" Text="HEY! YOU NO PRESSY DA BUTTON!!!!111!11ONEONEONEONE11!11!!1" />
+                <CustomBehavior File="UserSettings" StopBot="true" />
             </If>
 
             <If Condition="((Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue &gt;= 290) &amp;&amp; (Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue &lt; 325))">
@@ -606,7 +610,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 325" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 325" />
             </If>
 
                 <CustomBehavior File="Message" Text="Compiling BC 325-350 Skinning" LogColor="CornflowerBlue" />
@@ -647,7 +651,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 350" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 350" />
             </If>
 
                 <CustomBehavior File="Message" Text="Compiling BC 350-375 Skinning" LogColor="CornflowerBlue" />
@@ -692,15 +696,15 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 375" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 375" />
             </If>
 
             <!-- Train Skinning at 375
             <If Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue = 375">
                 // Go to Trainer in Hellfire:
 
-                    <Vendor Name="Jelena Nightsky" Entry="18777" Type="Train" TrainProfession X="-693.8346" Y="2724.696" Z="94.11061" />
-                <RunTo X="-693.8346" Y="2724.696" Z="94.11061" />
+                    <Vendor Name="Jelena Nightsky" Id="18777" Type="Train" TrainProfession X="-693.8346" Y="2724.696" Z="94.11061" />
+                    <MoveTo X="-693.8346" Y="2724.696" Z="94.11061" />
             </If>
             -->
 
@@ -728,15 +732,15 @@
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="InteractWith" MobId="1292" X="-8716.408" Y="469.4141" Z="98.61299" />
 
-                <CustomBehavior File="RunMacro" NumOfTimes="1" WaitTime="1000"
+                <CustomBehavior File="RunMacro"
                 Macro="/run LoadAddOn'Blizzard_TrainerUI' f=ClassTrainerTrainButton f.e = 0 if f:GetScript'OnUpdate' then f:SetScript('OnUpdate', nil)else f:SetScript('OnUpdate', function(f,e) f.e=f.e+e if f.e>.01 then f.e=0 f:Click() end end)end" />
-                <CustomBehavior File="RunMacro" NumOfTimes="1" WaitTime="1000"
+                <CustomBehavior File="RunMacro"
                 Macro="/run LoadAddOn'Blizzard_TrainerUI' f=ClassTrainerTrainButton f.e = 0 if f:GetScript'OnUpdate' then f:SetScript('OnUpdate', nil)else f:SetScript('OnUpdate', function(f,e) f.e=f.e+e if f.e>.01 then f.e=0 f:Click() end end)end" />
 
 
-                <CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+                <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
 
-                <RunTo X="-8722.247" Y="440.4887" Z="97.61475" />
+                <MoveTo X="-8722.247" Y="440.4887" Z="97.61475" />
             </If>
 
             <!-- Going to LK -->
@@ -764,26 +768,26 @@
 
         <SetVendor>
     <Vendors>
-        <Vendor Name="Arlen Brighthammer" Entry="28796" Type="Repair" X="5410.7" Y="-2658.249" Z="303.9552" />
-        <Vendor Name="Archmage Berinand" Entry="25314" Type="Repair" X="3575.609" Y="6671.719" Z="195.1089" />
-        <Vendor Name="Lanudal Silverhart" Entry="30241" Type="Repair" X="5056.556" Y="-591.7134" Z="219.9718" />
-        <Vendor Name="Tonraq" Entry="27188" Type="Repair" X="2891.413" Y="4079.36" Z="2.214931" /> <!-- Unu'pe -->
-        <Vendor Name="Xark Bolthammer" Entry="29907" Type="Repair" X="6097.559" Y="-1071.257" Z="404.4124" />
-        <Vendor Name="Master Smith Devin Brevig" Entry="27045" Type="Repair" X="3677.906" Y="-737.243" Z="213.6113" />
-        <Vendor Name="Mardan Thunderhoof" Entry="28040" Type="Repair" X="5552.257" Y="5738.877" Z="-76.21725" />
-        <Vendor Name="Brom Armstrong" Entry="27062" Type="Repair" X="3421.368" Y="-2757.578" Z="199.3005" />
-        <Vendor Name="Quartermaster McCarty" Entry="26375" Type="Food" X="4596.138" Y="-4237.277" Z="178.6546" />
-        <Vendor Name="Tiernan Anvilheart" Entry="26229" Type="Repair" X="4542.522" Y="-4249.319" Z="170.4924" />
-        <Vendor Name="Willis Wobblewheel" Entry="26599" Type="Repair" X="4135.004" Y="5281.168" Z="25.08813" />
-        <Vendor Name="Broff Bombast" Entry="27011" Type="Repair" X="2359.466" Y="5237.433" Z="7.713012" />
-        <Vendor Name="Mardan Thunderhoof" Entry="28040" Type="Repair" X="5552.257" Y="5738.877" Z="-76.21725" />
-        <Vendor Name="Sentinel Amberline" Entry="27055" Type="Repair" X="3514.701" Y="1999.156" Z="64.88658" />
-        <Vendor Name="Deniigi" Entry="27151" Type="Repair" X="801.2076" Y="-2948.573" Z="6.660284" />
-        <Vendor Name="Everett McGill" Entry="26934" Type="Repair" X="488.725" Y="-5932.577" Z="308.7209" />
-        <Vendor Name="Eldrim Mounder" Entry="24052" Type="Repair" X="2428.321" Y="-5086.521" Z="273.2868" />
-        <Vendor Name="Bartleby Armorfist" Entry="23735" Type="Repair" X="543.8926" Y="-4995.161" Z="10.56989" />
-        <Vendor Name="Kuk'uq" Entry="27185" Type="Repair" X="2754.21" Y="858.1937" Z="6.692381" />
-        <Vendor Name="Brollen Wheatbeard" Entry="33599" Type="Repair" X="8548.112" Y="933.3629" Z="547.2929" />
+        <Vendor Name="Arlen Brighthammer" Id="28796" Type="Repair" X="5410.7" Y="-2658.249" Z="303.9552" />
+        <Vendor Name="Archmage Berinand" Id="25314" Type="Repair" X="3575.609" Y="6671.719" Z="195.1089" />
+        <Vendor Name="Lanudal Silverhart" Id="30241" Type="Repair" X="5056.556" Y="-591.7134" Z="219.9718" />
+        <Vendor Name="Tonraq" Id="27188" Type="Repair" X="2891.413" Y="4079.36" Z="2.214931" /> <!-- Unu'pe -->
+        <Vendor Name="Xark Bolthammer" Id="29907" Type="Repair" X="6097.559" Y="-1071.257" Z="404.4124" />
+        <Vendor Name="Master Smith Devin Brevig" Id="27045" Type="Repair" X="3677.906" Y="-737.243" Z="213.6113" />
+        <Vendor Name="Mardan Thunderhoof" Id="28040" Type="Repair" X="5552.257" Y="5738.877" Z="-76.21725" />
+        <Vendor Name="Brom Armstrong" Id="27062" Type="Repair" X="3421.368" Y="-2757.578" Z="199.3005" />
+        <Vendor Name="Quartermaster McCarty" Id="26375" Type="Food" X="4596.138" Y="-4237.277" Z="178.6546" />
+        <Vendor Name="Tiernan Anvilheart" Id="26229" Type="Repair" X="4542.522" Y="-4249.319" Z="170.4924" />
+        <Vendor Name="Willis Wobblewheel" Id="26599" Type="Repair" X="4135.004" Y="5281.168" Z="25.08813" />
+        <Vendor Name="Broff Bombast" Id="27011" Type="Repair" X="2359.466" Y="5237.433" Z="7.713012" />
+        <Vendor Name="Mardan Thunderhoof" Id="28040" Type="Repair" X="5552.257" Y="5738.877" Z="-76.21725" />
+        <Vendor Name="Sentinel Amberline" Id="27055" Type="Repair" X="3514.701" Y="1999.156" Z="64.88658" />
+        <Vendor Name="Deniigi" Id="27151" Type="Repair" X="801.2076" Y="-2948.573" Z="6.660284" />
+        <Vendor Name="Everett McGill" Id="26934" Type="Repair" X="488.725" Y="-5932.577" Z="308.7209" />
+        <Vendor Name="Eldrim Mounder" Id="24052" Type="Repair" X="2428.321" Y="-5086.521" Z="273.2868" />
+        <Vendor Name="Bartleby Armorfist" Id="23735" Type="Repair" X="543.8926" Y="-4995.161" Z="10.56989" />
+        <Vendor Name="Kuk'uq" Id="27185" Type="Repair" X="2754.21" Y="858.1937" Z="6.692381" />
+        <Vendor Name="Brollen Wheatbeard" Id="33599" Type="Repair" X="8548.112" Y="933.3629" Z="547.2929" />
     </Vendors>
         </SetVendor>
 
@@ -838,7 +842,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 395" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 395" />
             </If>
 
                 <CustomBehavior File="Message" Text="Compiling LK 395-450 Skinning" LogColor="CornflowerBlue" />
@@ -909,15 +913,15 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 450" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 450" />
             </If>
 
             <!-- Train Skinning at 450
             <If Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue = 450">
                 // Go to Trainer in Borean:
-                    <Vendor Name="Trapper Jack" Entry="27000" Type="Repair" X="2136.098" Y="5255.882" Z="19.44923" />
+                    <Vendor Name="Trapper Jack" Id="27000" Type="Repair" X="2136.098" Y="5255.882" Z="19.44923" />
 
-                <RunTo X="2136.098" Y="5255.882" Z="19.44923" />
+<MoveTo X="2136.098" Y="5255.882" Z="19.44923" />
             </If>
             -->
         <If Condition="Me.MapId == 571" >
@@ -925,7 +929,7 @@
             <CustomBehavior File="ForcedDismount" />
             <!-- Valiance Keep to SW dock -->
             <CustomBehavior File="UseTransport"
-                            Entry="2234.375, 5132.568, 5.343217"
+                            Id="2234.375, 5132.568, 5.343217"
                             Exit="-8300.08, 1405.158, 4.422395"
                             Start="2218.391, 5119.589, 0.04"
                             End="-8288.816, 1424.703, 0.04"
@@ -943,15 +947,15 @@
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="InteractWith" MobId="1292" X="-8716.408" Y="469.4141" Z="98.61299" />
 
-                <CustomBehavior File="RunMacro" NumOfTimes="1" WaitTime="1000"
+                <CustomBehavior File="RunMacro"
                 Macro="/run LoadAddOn'Blizzard_TrainerUI' f=ClassTrainerTrainButton f.e = 0 if f:GetScript'OnUpdate' then f:SetScript('OnUpdate', nil)else f:SetScript('OnUpdate', function(f,e) f.e=f.e+e if f.e>.01 then f.e=0 f:Click() end end)end" />
-                <CustomBehavior File="RunMacro" NumOfTimes="1" WaitTime="1000"
+                <CustomBehavior File="RunMacro"
                 Macro="/run LoadAddOn'Blizzard_TrainerUI' f=ClassTrainerTrainButton f.e = 0 if f:GetScript'OnUpdate' then f:SetScript('OnUpdate', nil)else f:SetScript('OnUpdate', function(f,e) f.e=f.e+e if f.e>.01 then f.e=0 f:Click() end end)end" />
 
 
-                <CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+                <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
 
-                <RunTo X="-8722.247" Y="440.4887" Z="97.61475" />
+                <MoveTo X="-8722.247" Y="440.4887" Z="97.61475" />
             </If>
 
         <!-- Hyjal and Uldum Skinning -->
@@ -963,14 +967,14 @@
                 <CustomBehavior File="ForcedDismount" />
                 <!-- BB dock to Ratchet -->
                 <CustomBehavior File="UseTransport" TransportId="20808"
-                                Entry="-14280.88, 566.6268, 6.979454"
+                                Id="-14280.88, 566.6268, 6.979454"
                                 Exit="-996.8669, -3826.07, 5.536246"
                                 Start="-14277.75, 582.8661, 0.01553879"
                                 End="-1005.613, -3841.648, 0.03330701"
                                 StandOnX="-14270.46" StandOnY="579.9881" StandOnZ="6.088587" />
             </If>
             <If Condition="(IsQuestCompleted(27922))" >
-                <CustomBehavior File="InteractWith" MobId="207695" ObjectType="GameObject" Range="8" X="-8230.338" Y="418.9445" Z="117.5297" />
+                <CustomBehavior File="InteractWith" MobId="207695" Range="8" X="-8230.338" Y="418.9445" Z="117.5297" />
             </If>
         </If>
 
@@ -979,15 +983,15 @@
         <SetVendor>
     <Vendors>
         <!-- Hyjal -->
-        <Vendor Name="Mahaega Grimforge" Entry="43564" Type="Repair" X="4610.84" Y="-4729.36" Z="883.6992" />
-        <Vendor Name="Nunaha Grasshoof" Entry="43495" Type="Repair" X="4924.59" Y="-2740.14" Z="1437.64" />
-        <Vendor Name="Jalin Lakedeep" Entry="43380" Type="Repair" X="5180.91" Y="-1716.01" Z="1339.965" />
-        <Vendor Name="Toron Rockhoof" Entry="43410" Type="Repair" X="5573.142" Y="-3603.472" Z="1570.72" />
-        <Vendor Name="Inoho Stronghide" Entry="43550" Type="Repair" X="4421.68" Y="-2095.55" Z="1205.802" />
+        <Vendor Name="Mahaega Grimforge" Id="43564" Type="Repair" X="4610.84" Y="-4729.36" Z="883.6992" />
+        <Vendor Name="Nunaha Grasshoof" Id="43495" Type="Repair" X="4924.59" Y="-2740.14" Z="1437.64" />
+        <Vendor Name="Jalin Lakedeep" Id="43380" Type="Repair" X="5180.91" Y="-1716.01" Z="1339.965" />
+        <Vendor Name="Toron Rockhoof" Id="43410" Type="Repair" X="5573.142" Y="-3603.472" Z="1570.72" />
+        <Vendor Name="Inoho Stronghide" Id="43550" Type="Repair" X="4421.68" Y="-2095.55" Z="1205.802" />
 
         <!-- Uldum -->
-        <Vendor Name="&quot;Chesty&quot; Jake" Entry="49409" Type="Repair" X="-8353.455" Y="759.2292" Z="151.4582" />
-        <Vendor Name="Blacksmith Abasi" Entry="48617" Type="Repair" X="-9404.68" Y="-906.438" Z="112.5407" />
+        <Vendor Name="&quot;Chesty&quot; Jake" Id="49409" Type="Repair" X="-8353.455" Y="759.2292" Z="151.4582" />
+        <Vendor Name="Blacksmith Abasi" Id="48617" Type="Repair" X="-9404.68" Y="-906.438" Z="112.5407" />
     </Vendors>
         </SetVendor>
 
@@ -1007,9 +1011,9 @@
 
 
             <If Condition="((Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue &lt; 425)">
-                <CustomBehavior File="UserDialog" StopOnContinue="True" SoundCue="Exclamation" SoundCueInterval="1" Text="This Profile starts in Eastern Kingdoms - Please go there and press start\n\n1-300 is EK, 300-375 is BC, 375-450 is LK, 450-525 is Kalimdor (Hyjal until 500, then Uldum)" />
-                <CustomBehavior File="UserDialog" StopOnContinue="True" SoundCue="Exclamation" SoundCueInterval="2" Text="HEY! YOU NO PRESSY DA BUTTON!!!!111!11ONEONEONEONE11!11!!1" />
-                <CustomBehavior File="UserSettings" StopBot="True" />
+                <CustomBehavior File="UserDialog" StopOnContinue="true" SoundCue="Exclamation" SoundCueInterval="1" Text="This Profile starts in Eastern Kingdoms - Please go there and press start\n\n1-300 is EK, 300-375 is BC, 375-450 is LK, 450-525 is Kalimdor (Hyjal until 500, then Uldum)" />
+                <CustomBehavior File="UserDialog" StopOnContinue="true" SoundCue="Exclamation" SoundCueInterval="2" Text="HEY! YOU NO PRESSY DA BUTTON!!!!111!11ONEONEONEONE11!11!!1" />
+                <CustomBehavior File="UserSettings" StopBot="true" />
             </If>
 
                 <CustomBehavior File="Message" Text="Compiling Uldum 450-525 Skinning" LogColor="CornflowerBlue" />
@@ -1046,10 +1050,10 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 525" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 525" />
             </If>
 
-    <CustomBehavior File="UserDialog" AllowBotStop="False" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="30" ExpiryAction="InputEnabled_Continue" Text="We're done!  Press continue if you want to keep farming this small Uldum route" />
+    <CustomBehavior File="UserDialog" AllowBotStop="false" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="30" ExpiryAction="InputEnabled_Continue" Text="We're done!  Press continue if you want to keep farming this small Uldum route" />
 
                 <CustomBehavior File="Message" Text="Farming Kick's Uldum Skinning" LogColor="CornflowerBlue" />
 
@@ -1085,7 +1089,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-            <GrindTo Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 526" />
+                <GrindUntil Condition="Me.GetSkill(Styx.SkillLine.Skinning).CurrentValue == 526" />
             </If>
             </If>
 

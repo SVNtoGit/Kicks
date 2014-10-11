@@ -7,19 +7,19 @@
     <MinDurability>0.2</MinDurability>
     <MinFreeBagSlots>2</MinFreeBagSlots>
 
-    <MailGrey>False</MailGrey>
-    <MailWhite>False</MailWhite>
-    <MailGreen>False</MailGreen>
-    <MailBlue>True</MailBlue>
-    <MailPurple>True</MailPurple>
+    <MailGrey>false</MailGrey>
+    <MailWhite>false</MailWhite>
+    <MailGreen>false</MailGreen>
+    <MailBlue>true</MailBlue>
+    <MailPurple>true</MailPurple>
 
-    <SellGrey>True</SellGrey>
-    <SellWhite>True</SellWhite>
-    <SellGreen>True</SellGreen>
-    <SellBlue>False</SellBlue>
-    <SellPurple>False</SellPurple>
+    <SellGrey>true</SellGrey>
+    <SellWhite>true</SellWhite>
+    <SellGreen>true</SellGreen>
+    <SellBlue>false</SellBlue>
+    <SellPurple>false</SellPurple>
 
-    <TargetElites>True</TargetElites>
+    <TargetElites>true</TargetElites>
 
     <AvoidMobs>
     </AvoidMobs>
@@ -77,7 +77,8 @@
 
     <QuestOrder>
 
-                <CustomBehavior File="UserSettings" LootMobs="True" PullDistance="35" TrainNewSkills="False" LearnFlightPaths="True" />
+        <LootMobs Value="true" />
+        <UseMount Value="true" />
 
             <If Condition="Me.GetReputationLevelWith(609) &lt; Styx.WoWUnitReaction.Exalted" >
                 <!-- Non repeatable quest -->
@@ -106,9 +107,8 @@
                 <If Condition="(GetItemCount(20404) &lt; 30)" >
                     <CustomBehavior File="FlyTo" X="-6414.597" Y="293.4403" Z="8.63738" />
                     <CustomBehavior File="ForcedDismount" />
-                    <CustomBehavior File="UserSettings" PullDistance="35" />
                         <SetGrindArea>
-                            <Grindarea>
+                            <GrindArea>
                                 <TargetMinLevel>45</TargetMinLevel>
                                 <TargetMaxLevel>65</TargetMaxLevel>
                                 <Factions>16</Factions> <!-- [Twilights] -->
@@ -147,23 +147,24 @@
                                     <Hotspot X="-6304.832" Y="128.3194" Z="14.03956" /> <!-- at entrance of cave -->
                                     <Hotspot X="-6414.597" Y="293.4403" Z="8.63738" /> <!-- outside camp -->
                                 </Hotspots>
-                            </Grindarea>
+                            </GrindArea>
                         </SetGrindArea>
-                    <GrindTo Condition="(GetItemCount(20404) &gt;= 30)" GoalText="Getting 30 Text's" />
+                        <GrindUntil Condition="(GetItemCount(20404) &gt;= 30)" GoalText="Getting 30 Text's" />
                 </If>
 
                     <CustomBehavior File="FlyTo" X="-6836.007" Y="845.5305" Z="48.99781" />
                 <While Condition="(GetItemCount(20404) &gt;= 10) &amp;&amp; (Me.GetReputationLevelWith(609) &lt; Styx.WoWUnitReaction.Exalted)" >
-                    <CustomBehavior File="InteractWith"  MobId="15306" NumOfTimes="1" CollectionDistance="50" WaitTime="1000" X="-6836.007" Y="845.5305" Z="48.99781" />
-                    <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
-                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" NumOfTimes="1" WaitTime="1000" />
-                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />
+                    <CustomBehavior File="InteractWith"  MobId="15306" CollectionDistance="50"
+                                    X="-6836.007" Y="845.5305" Z="48.99781" />
+                    <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" />
+                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
                     <CustomBehavior File="WaitTimer" WaitTime="3000" />
                 </While>
             </While>
 
             <If Condition="Me.GetReputationLevelWith(609) == Styx.WoWUnitReaction.Exalted" >
-                <CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nIf you liked this profile, +rep is always appreciated" />
+                <CustomBehavior File="UserDialog" Title="title" AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nIf you liked this profile, +rep is always appreciated" />
             </If>
 
     </QuestOrder>

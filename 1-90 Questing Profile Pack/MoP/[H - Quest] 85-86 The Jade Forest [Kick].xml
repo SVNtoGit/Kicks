@@ -850,10 +850,10 @@
                 <MoveTo X="1612.796" Y="-4372.504" Z="24.63282" />
                 <CustomBehavior File="WaitTimer" WaitTime="5000"
                                 GoalText="Waiting for a couple of secs {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="StopCinematic() GameMovieFinished()" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="StopCinematic() GameMovieFinished()" />
                 <CustomBehavior File="WaitTimer" WaitTime="5000"
                                 GoalText="Waiting for a couple of secs {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="StopCinematic() GameMovieFinished()" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="StopCinematic() GameMovieFinished()" />
             </If>
             <If Condition="HasQuest(29611) &amp;&amp; IsQuestCompleted(29611)">
                 <TurnIn QuestName="The Art of War" QuestId="29611" TurnInName="General Nazgrim" TurnInId="54870"
@@ -896,7 +896,7 @@
             <CustomBehavior File="InteractWith" QuestId="29690" MobId="55054" InteractByGossipOptions="1" Range="8"
                             MovementBy="ClickToMoveOnly" X="1863.272" Y="-5463.423" Z="443.7446" />
             <CustomBehavior File="WaitTimer" WaitTime="12000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-            <CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+            <CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" />
             <While Condition="HasQuest(29690) &amp;&amp; !IsQuestCompleted(29690)">
                 <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
             </While>
@@ -977,21 +977,21 @@
         <While Condition="HasQuest(31769) &amp;&amp; !IsQuestCompleted(31769)">
             <If Condition="HasQuest(31769) &amp;&amp; !IsObjectiveComplete(1,31769)">
                 <MoveTo X="3188.688" Y="-923.0823" Z="280.4145" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(89769)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(89769)" />
             </If>
             <If Condition="HasQuest(31769) &amp;&amp; !IsObjectiveComplete(2,31769)">
                 <MoveTo X="3190.297" Y="-972.6284" Z="307.3627" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(89769)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(89769)" />
             </If>
             <If Condition="HasQuest(31769) &amp;&amp; !IsObjectiveComplete(3,31769)">
                 <MoveTo X="3157.417" Y="-990.3625" Z="307.3627" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(89769)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(89769)" />
             </If>
             <If Condition="HasQuest(31769) &amp;&amp; !IsObjectiveComplete(4,31769)">
                 <MoveTo X="3157.633" Y="-894.3948" Z="324.696" />
                 <CustomBehavior File="WaitTimer" WaitTime="12000"
                                 GoalText="Waiting for noob to run away {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" />
                 <CustomBehavior File="WaitTimer" WaitTime="30000"
                                 GoalText="Waiting for quest to complete {TimeRemaining}" />
             </If>
@@ -1023,12 +1023,12 @@
         <PickUp QuestName="Priorities!" QuestId="31978" GiverName="Gi-Oh" GiverId="66662"
                 X="3034.144" Y="-781.7656" Z="227.3228" />
         <!--<If Condition="(!Me.HasAura(???))">  Summon Gi-Oh
-            <CustomBehavior File="InteractWith" MobId="66662" GossipOptions="2"
+            <CustomBehavior File="InteractWith" MobId="66662" InteractByGossipOptions="2"
             X="3034.144" Y="-781.7656" Z="227.3228" />
              </If>-->
         <!-- change this to multiple hotspots ... but only if interactwith hasauraid="xxx" -->
         <While Condition="HasQuest(31978) &amp;&amp; !IsQuestCompleted(31978)">
-            <CustomBehavior File="UserSettings" UseMount="false" />
+            <UseMount Value="false" />
             <If Condition="!(ObjectManager.GetObjectsOfType&lt;WoWUnit&gt;().Any(u =&gt; u.Entry == 66874 || u.Entry == 66870 ))">
                 <CustomBehavior File="InteractWith" MobId="66662" InteractByGossipOptions="2"
                                 X="3034.144" Y="-781.7656" Z="227.3228" />
@@ -1049,7 +1049,7 @@
                 </HuntingGrounds>
             </CustomBehavior>
         </While>
-        <CustomBehavior File="UserSettings" UseMount="true" />
+        <UseMount Value="true" />
         <While Condition="HasQuest(29694) &amp;&amp; !IsQuestCompleted(29694)">
             <If Condition="HasQuest(29694) &amp;&amp; !IsObjectiveComplete(1,29694)">
                 <!-- Kiryn -->
@@ -1249,7 +1249,7 @@
                 <Mob Name="Strongarm Gyrocopter" Id="65843" Flags="Pull, Combat" />
             </Blacklist>
         </SetBlacklist>
- 
+
         <While Condition="HasQuest(31778) &amp;&amp; !IsQuestCompleted(31778)">
             <CustomBehavior File="InteractWith" QuestId="31778" MobId="67090" MobId2="65974"
                             InteractByGossipOptions="1" CollectionDistance="1000" NumOfTimes="20" >
@@ -1461,7 +1461,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-                <GrindTo Condition="HasItem(85783)" />
+                <GrindUntil Condition="HasItem(85783)" />
             </If>
             <If Condition="HasItem(85783)">
             <PickUp QuestName="Captain Jack's Dead" QuestId="31261" GiverName="Captain Jack's Head"
@@ -1526,7 +1526,7 @@
         <If Condition="HasQuest(31239) &amp;&amp; IsQuestCompleted(31239)">
             <TurnIn QuestName="What's in a Name Name?" QuestId="31239" TurnInName="Chief Kah Kah" TurnInId="56336"
                     X="1455.585" Y="-502.2483" Z="346.1902" />
-            <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(84105)" WaitTime="1000" />
+            <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(84105)" />
             <!-- Learn Fishy pet -->
             <CustomBehavior File="ForceSetVendor" DoMail="true" />
         </If>
@@ -1540,7 +1540,7 @@
             <MoveTo X="1074.735" Y="-413.8377" Z="259.1998" />
             <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
             <MoveTo X="1074.735" Y="-413.8377" Z="259.1998" />
-            <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(76262)" WaitTime="2000" />
+            <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(76262)" />
             <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 
             <CustomBehavior File="MyCTM" X="1062.377" Y="-398.3861" Z="255.9124" />
@@ -1574,7 +1574,7 @@
                 X="1447.208" Y="-547.8195" Z="352.7315" />
         <If Condition="HasQuest(29730) &amp;&amp; !IsQuestCompleted(29730)">
             <If Condition="Me.IsOnTransport">
-                <CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" />
             </If>
             <CustomBehavior File="AbandonQuest" QuestId="29730" Type="All" />
             <CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for abandon {TimeRemaining}" />
@@ -1610,13 +1610,13 @@
                 <CustomBehavior File="WaitTimer" QuestId="29730" WaitTime="35000"
                                 GoalText="Waiting for objective to complete {TimeRemaining}" />
             </If>
-            <CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" WaitTime="1000" />
+            <CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" />
         </While>
         <TurnIn QuestName="Scouting Report: Hostile Natives" QuestId="29730" TurnInName="Riko"
                 TurnInId="55648" X="1444.606" Y="-545.2101" Z="353.1352" />
         <If Condition="HasQuest(29731) &amp;&amp; !IsQuestCompleted(29731)">
             <If Condition="Me.IsOnTransport">
-                <CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" />
             </If>
             <CustomBehavior File="AbandonQuest" QuestId="29731" Type="All" />
             <CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for abandon {TimeRemaining}" />
@@ -1644,7 +1644,7 @@
             <CustomBehavior File="SpecificQuests\29823-HordeJadeForest-ScoutingReportTheFriendofMyEnemy" />
             <CustomBehavior File="WaitTimer" WaitTime="3000"
                             GoalText="Waiting for quest to complete {TimeRemaining}" />
-            <CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" WaitTime="1000" />
+            <CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" />
             <CustomBehavior File="WaitTimer" WaitTime="5000"
                             GoalText="Waiting for quest to complete {TimeRemaining}" />
         </While>
@@ -1716,8 +1716,8 @@
         <PickUp QuestName="Boom Goes the Doonamite!" QuestId="29967" GiverName="Rivett Clutchpop" GiverId="56406"
                 X="1288.79" Y="-449.6007" Z="343.997" />
         <If Condition="HasQuest(29967) &amp;&amp; !IsQuestCompleted(29967)">
-            <!--<CustomBehavior File="InteractWith" QuestId="29967" MobId="56525" GossipOptions="1" NumOfTimes="1"
-                WaitTime="1000" CollectionDistance="1000" X="1368.113" Y="-571.8212" Z="339.3784" />-->
+            <!--<CustomBehavior File="InteractWith" QuestId="29967" MobId="56525" InteractByGossipOptions="1"
+                CollectionDistance="1000" X="1368.113" Y="-571.8212" Z="339.3784" />-->
             <CustomBehavior File="SpecificQuests\29967-HordeJadeForest-BoomGoesTheDoonamite!" />
         </If>
         <TurnIn QuestName="Boom Goes the Doonamite!" QuestId="29967" TurnInName="Rivett Clutchpop" TurnInId="56525"
@@ -1901,7 +1901,7 @@
                     TurnInId="56346" X="2394.139" Y="-2105.363" Z="230.0331" />
             <CustomBehavior File="WaitTimer" WaitTime="3000"
                             GoalText="Waiting for quest to complete {TimeRemaining}" />
-            <CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+            <CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" />
         </If>
         <PickUp QuestName="Calamity Jade" QuestId="29926" GiverName="Foreman Mann" GiverId="56346"
                 X="2394.139" Y="-2105.363" Z="230.0331" />
@@ -1969,7 +1969,7 @@
                     </Hotspots>
                 </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="IsQuestCompleted(29749)" Nav="Run" />
+            <GrindUntil Condition="IsQuestCompleted(29749)" Nav="Run" />
             <UseMount Value="true" />
         </If>
         <TurnIn QuestName="An Urgent Plea" QuestId="29749" TurnInName="Pei-Zhi" TurnInId="55614"
@@ -2251,7 +2251,7 @@
                     X="2392.4" Y="-2107.32" Z="230.1798" />
             <CustomBehavior File="WaitTimer" WaitTime="3000"
                             GoalText="Waiting for quest to complete {TimeRemaining}" />
-            <CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+            <CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" />
         </If>
         <TurnIn QuestName="Calamity Jade" QuestId="29926" TurnInName="Foreman Mann" TurnInId="56346"
                 X="2392.4" Y="-2107.32" Z="230.1798" />
@@ -2337,7 +2337,7 @@
                             X="995.6285" Y="-2447.675" Z="168.5978" />
             <CustomBehavior File="WaitTimer" WaitTime="5000"
                             GoalText="Waiting for objective to complete {TimeRemaining}" />
-            <CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+            <CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" />
             <CustomBehavior File="WaitTimer" WaitTime="35000"
                             GoalText="Waiting for objective to complete {TimeRemaining}" />
         </If>
@@ -2354,7 +2354,7 @@
         <PickUp QuestName="Lighting Up the Sky" QuestId="30005" GiverName="Fei" GiverId="56784"
                 X="905.5399" Y="-2600.372" Z="185.1206" />
         <While Condition="HasQuest(30005) &amp;&amp; !IsQuestCompleted(30005)">
-            <CustomBehavior File="InteractWith" QuestId="30005" CollectionDistance="1000" WaitTime="2000"
+            <CustomBehavior File="InteractWith" QuestId="30005" CollectionDistance="1000"
                             PreInteractMountStrategy="DismountOrCancelShapeshift"
                             MobId="215568" MobId2="210003" MobId3="209996" MobId4="210004">
                 <HuntingGrounds>
@@ -2390,7 +2390,7 @@
         <PickUp QuestName="Pages of History" QuestId="30002" GiverName="Lorewalker Stonestep" GiverId="56786"
                 X="839.3281" Y="-2476.998" Z="176.3033" />
         <While Condition="HasQuest(30002) &amp;&amp; !IsQuestCompleted(30002)">
-            <CustomBehavior File="InteractWith" QuestId="30002" MobId="209594" WaitTime="2000"
+            <CustomBehavior File="InteractWith" QuestId="30002" MobId="209594"
                             IgnoreMobsInBlackspots="true" CollectionDistance="1000">
                 <Blackspots>
                     <Blackspot X="821.0117" Y="-2478.628" Z="192.5526" Radius="5" />
@@ -2622,9 +2622,9 @@
         </If>
         <While Condition="HasQuest(30485) &amp;&amp; !IsQuestCompleted(30485)">
             <MoveTo X="535.8745" Y="-1656.537" Z="200.7" />
-            <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(80071)" WaitTime="1000" />
+            <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(80071)" />
             <CustomBehavior File="WaitTimer" WaitTime="5000" />
-            <CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+            <CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" />
             <CustomBehavior File="WaitTimer" WaitTime="120000" />
         </While>
         <TurnIn QuestName="Last Piece of the Puzzle" QuestId="30485" TurnInName="Lorewalker Cho" TurnInId="59411"
@@ -2671,7 +2671,7 @@
                 <CustomBehavior File="WaitTimer" WaitTime="5000"
                                 GoalText="Waiting for transport to mount {TimeRemaining}" />
             </If>
-            <CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" WaitTime="1000" />
+            <CustomBehavior File="Misc\RunLua" Lua="StopCinematic()" />
             <CustomBehavior File="WaitTimer" WaitTime="5000"
                             GoalText="Waiting for transport to mount {TimeRemaining}" />
             <EnableBehavior Name="Combat" />
@@ -2689,28 +2689,28 @@
             <While Condition="!IsObjectiveComplete(1,30504)">
                 <!-- Nazgrim -->
                 <MoveTo X="777.8867" Y="-1908.515" Z="59.11979" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(86467)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(86467)" />
             </While>
             <While Condition="!IsObjectiveComplete(2,30504)">
                 <!-- Kiryn -->
                 <MoveTo X="741.0624" Y="-1846.861" Z="60.39627" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(86467)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(86467)" />
             </While>
             <While Condition="!IsObjectiveComplete(3,30504)">
                 <!-- Shokia -->
                 <MoveTo X="828.4055" Y="-1820.128" Z="62.86535" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(86467)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(86467)" />
             </While>
             <While Condition="!IsObjectiveComplete(4,30504)">
                 <!-- Rivett -->
                 <MoveTo X="902.4197" Y="-1902.526" Z="57.98389" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(86467)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(86467)" />
             </While>
         </If>
         <While Condition="HasQuest(30502) &amp;&amp; !IsQuestCompleted(30502)">
             <Objective QuestName="Jaded Heart" QuestId="30502" Type="CollectItem" ItemId="80074" CollectCount="6" />
             <While Condition="GetItemCount(80074) &lt; 1">
-                <CustomBehavior File="InteractWith" QuestId="30502" MobId="210921" WaitTime="2000"
+                <CustomBehavior File="InteractWith" QuestId="30502" MobId="210921"
                                 CollectionDistance="1000" X="812.5245" Y="-1922.784" Z="60.64294" />
             </While>
             <CustomBehavior File="CombatUseItemOnV2" QuestId="30502" MobId="59434" ItemId="80074"
@@ -2740,7 +2740,7 @@
                                 <MoveTo X="1604.366" Y="-1744.601" Z="263.989" />
                                 <CustomBehavior File="InteractWith" MobId="56774"
                                 X="1604.366" Y="-1744.601" Z="263.989" />
-                                <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" WaitTime="1000" />
+                                <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" />
                                 <CustomBehavior File="WaitTimer" WaitTime="5000"
                                 GoalText="Waiting for quest to register {TimeRemaining}" />
                         </If>

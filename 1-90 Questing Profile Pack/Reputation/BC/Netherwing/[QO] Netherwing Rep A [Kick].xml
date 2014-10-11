@@ -7,19 +7,19 @@
     <MinDurability>0.2</MinDurability>
     <MinFreeBagSlots>2</MinFreeBagSlots>
 
-    <MailGrey>False</MailGrey>
-    <MailWhite>False</MailWhite>
-    <MailGreen>False</MailGreen>
-    <MailBlue>True</MailBlue>
-    <MailPurple>True</MailPurple>
+    <MailGrey>false</MailGrey>
+    <MailWhite>false</MailWhite>
+    <MailGreen>false</MailGreen>
+    <MailBlue>true</MailBlue>
+    <MailPurple>true</MailPurple>
 
-    <SellGrey>True</SellGrey>
-    <SellWhite>True</SellWhite>
-    <SellGreen>True</SellGreen>
-    <SellBlue>False</SellBlue>
-    <SellPurple>False</SellPurple>
+    <SellGrey>true</SellGrey>
+    <SellWhite>true</SellWhite>
+    <SellGreen>true</SellGreen>
+    <SellBlue>false</SellBlue>
+    <SellPurple>false</SellPurple>
 
-    <TargetElites>True</TargetElites>
+    <TargetElites>true</TargetElites>
 
     <AvoidMobs>
         <Mob Name="Dragonmaw Ascendant" Id="22253" />
@@ -36,7 +36,7 @@
     </Mailboxes>
 
     <Vendors>
-        <Vendor Name="Gug" Entry="23144" Type="Repair" X="-5119.803" Y="624.7665" Z="86.76022" />
+        <Vendor Name="Gug" Id="23144" Type="Repair" X="-5119.803" Y="624.7665" Z="86.76022" />
     </Vendors>
 
     <Quest Id="10804" Name="Kindness">
@@ -64,7 +64,7 @@
     <Quest Id="10837" Name="To Netherwing Ledge!">
         <Objective Type="CollectItem" ItemId="31504" CollectCount="12">
             <CollectFrom>
-                <GameObject Name="Nethervine Crystal" Id="185182" />
+                <Object Name="Nethervine Crystal" Id="185182" />
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="-4952.758" Y="383.7342" Z="85.53783" />
@@ -111,8 +111,8 @@
     <Quest Id="11049" Name="The Great Netherwing Egg Hunt">
         <Objective Type="CollectItem" ItemId="32506" CollectCount="1">
             <CollectFrom>
-                <GameObject Name="Netherwing Egg" Id="185915" />
-                <GameObject Name="Netherwing Egg" Id="185600" />
+                <Object Name="Netherwing Egg" Id="185915" />
+                <Object Name="Netherwing Egg" Id="185600" />
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="-5029.996" Y="373.3292" Z="170.6461" />
@@ -225,7 +225,9 @@
 
     <QuestOrder>
 
-    <CustomBehavior File="UserSettings" LootMobs="True" PullDistance="35" TrainNewSkills="False" LearnFlightPaths="False" KillBetweenHotspots="True" LogoutForInactivity="False" />
+    <CustomBehavior File="UserSettings" KillBetweenHotspots="true" LogoutForInactivity="false" />
+        <LootMobs Value="true" />
+        <UseMount Value="true" />
 
         <!-- Quests and Dailies / Grind until Honored, then we get more quests -->
         <If Condition="Me.GetReputationLevelWith(1015) &lt; Styx.WoWUnitReaction.Exalted" >
@@ -259,8 +261,8 @@
                                 </Hotspots>
                             </GrindArea>
                         </SetGrindArea>
-                    <GrindTo Condition="(GetItemCount(31373) &gt;= 5)" GoalText="Getting 8 Carcases" />
-                    <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(31373)" WaitTime="2000" />
+                        <GrindUntil Condition="(GetItemCount(31373) &gt;= 5)" GoalText="Getting 8 Carcases" />
+                    <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(31373)" />
                     <CustomBehavior File="WaitTimer" WaitTime="3000" />
               </While>
              <If Condition="(HasItem(31372))" >
@@ -285,16 +287,16 @@
             </If>
             <If Condition="((HasQuest(10811)) &amp;&amp; (IsQuestCompleted(10811)))" >
                 <CustomBehavior File="FlyTo" X="-4145.2" Y="554.7842" Z="155.034" />
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and turn into him and grab next quest\n\nListen to his story and turnin that quest and get the next one" />
+    <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and turn into him and grab next quest\n\nListen to his story and turnin that quest and get the next one" />
         <!-- <TurnIn QuestName="Seek Out Neltharaku" QuestId="10811" TurnInName="Neltharaku" TurnInId="21657" /> -->
             </If>
             <If Condition="((!HasQuest(10814)) &amp;&amp; (!IsQuestCompleted(10814)))" >
                 <CustomBehavior File="FlyTo" X="-4145.2" Y="554.7842" Z="155.034" />
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and grab next quest\n\nListen to his story and turnin that quest and get the next one" />
+    <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and grab next quest\n\nListen to his story and turnin that quest and get the next one" />
         <!-- <PickUp QuestName="Neltharaku's Tale" QuestId="10814" GiverName="Neltharaku" GiverId="21657" /> -->
             </If>
             <If Condition="((HasQuest(10814)) &amp;&amp; (!IsQuestCompleted(10814)))" >
-        <!-- interactwith 21657, GossipOptions="1, 1, 1, 1"
+        <!-- interactwith 21657, InteractByGossipOptions="1, 1, 1, 1"
             runmacro cleartarget x2 -->
             </If>
             <If Condition="((HasQuest(10814)) &amp;&amp; (IsQuestCompleted(10814)))" >
@@ -303,7 +305,7 @@
             </If>
             <If Condition="((!HasQuest(10836)) &amp;&amp; (!IsQuestCompleted(10836)))" >
                 <CustomBehavior File="FlyTo" X="-4145.2" Y="554.7842" Z="155.034" />
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and grab next quest\n\n" />
+    <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and grab next quest\n\n" />
         <!-- <PickUp QuestName="Infiltrating Dragonmaw Fortress" QuestId="10836" GiverName="Neltharaku" GiverId="21657" /> -->
             </If>
             <If Condition="((HasQuest(10836)) &amp;&amp; (!IsQuestCompleted(10836)))" >
@@ -313,12 +315,12 @@
             </If>
             <If Condition="((HasQuest(10836)) &amp;&amp; (IsQuestCompleted(10836)))" >
                 <CustomBehavior File="FlyTo" X="-4145.2" Y="554.7842" Z="155.034" />
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and turn into him and grab next quest" />
+    <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and turn into him and grab next quest" />
         <!-- <TurnIn QuestName="Infiltrating Dragonmaw Fortress" QuestId="10836" TurnInName="Neltharaku" TurnInId="21657" /> -->
             </If>
             <If Condition="((!HasQuest()) &amp;&amp; (!IsQuestCompleted()))" >
                 <CustomBehavior File="FlyTo" X="-4145.2" Y="554.7842" Z="155.034" />
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and grab next quest\n\n" />
+    <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and grab next quest\n\n" />
         <!-- <PickUp QuestName="To Netherwing Ledge!" QuestId="10837" GiverName="Neltharaku" GiverId="21657" /> -->
             </If>
             <If Condition="((HasQuest(10837)) &amp;&amp; (!IsQuestCompleted(10837)))" >
@@ -328,35 +330,36 @@
             </If>
             <If Condition="((HasQuest(10837)) &amp;&amp; (IsQuestCompleted(10837)))" >
                 <CustomBehavior File="FlyTo" X="-4145.2" Y="554.7842" Z="155.034" />
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and turn into him and grab next quest" />
+    <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and turn into him and grab next quest" />
         <!-- <TurnIn QuestName="To Netherwing Ledge!" QuestId="10837" TurnInName="Neltharaku" TurnInId="21657" /> -->
             </If>
             <If Condition="((!HasQuest(10854)) &amp;&amp; (!IsQuestCompleted(10854)))" >
                 <CustomBehavior File="FlyTo" X="-4145.2" Y="554.7842" Z="155.034" />
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and grab next quest\n\n" />
+    <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and grab next quest\n\n" />
         <!-- <PickUp QuestName="The Force of Neltharaku" QuestId="10854" GiverName="Neltharaku" GiverId="21657" /> -->
             </If>
             <If Condition="((HasQuest(10854)) &amp;&amp; (!IsQuestCompleted(10854)))" >
                 <CustomBehavior File="FlyTo" X="-4172.386" Y="526.4583" Z="21.73062" />
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Right now, I need a behavior that works for quests like this.\n\nUse the Enchanted Nethervine Crystal on a drake, then kill everything around it so that it can fly away" />
+    <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="Right now, I need a behavior that works for quests like this.\n\nUse the Enchanted Nethervine Crystal on a drake, then kill everything around it so that it can fly away" />
                 <!--
                 <CustomBehavior File="ForcedDismount" />
               <While Condition="((HasQuest(10854)) &amp;&amp; (!IsQuestCompleted(10854)))" >
-                <CustomBehavior File="UserSettings" PullDistance="1" />
-                <CustomBehavior File="UseItemOn" QuestId="10854" MobId="21722" ItemId="31652" NumOfTimes="1" WaitTime="3000" Range="15" NpcState="Alive" CollectionDistance="500" X="-4246.594" Y="390.6838" Z="73.65751" />
-                <CustomBehavior File="UserSettings" PullDistance="25" />
+                <DisableBehavior Name="Pull" />
+<CustomBehavior File="UseItemOn" QuestId="10854" MobId="21722" ItemId="31652" Range="15"
+                MobState="Alive" CollectionDistance="500" X="-4246.594" Y="390.6838" Z="73.65751" />
+                <EnableBehavior Name="Pull" />
                 <CustomBehavior File="WaitTimer" WaitTime="3000" />
               </While>
               -->
             </If>
             <If Condition="((HasQuest(10854)) &amp;&amp; (IsQuestCompleted(10854)))" >
                 <CustomBehavior File="FlyTo" X="-4145.2" Y="554.7842" Z="155.034" />
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and turn into him and grab next quest" />
+    <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and turn into him and grab next quest" />
         <!-- <TurnIn QuestName="The Force of Neltharaku" QuestId="10854" TurnInName="Neltharaku" TurnInId="21657" /> -->
             </If>
             <If Condition="((!HasQuest(10858)) &amp;&amp; (!IsQuestCompleted(10858)))" >
                 <CustomBehavior File="FlyTo" X="-4145.2" Y="554.7842" Z="155.034" />
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and grab next quest\n\n" />
+    <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="Find the flying dragon in the sky and grab next quest\n\n" />
         <!-- <PickUp QuestName="Karynaku" QuestId="10858" GiverName="Neltharaku" GiverId="21657" /> -->
             </If>
             <If Condition="((HasQuest(10858)) &amp;&amp; (IsQuestCompleted(10858)))" >
@@ -367,14 +370,15 @@
                 <CustomBehavior File="FlyTo" X="-4197.369" Y="384.9256" Z="117.9248" />
                 <CustomBehavior File="ForcedDismount" />
         <PickUp QuestName="Karynaku" QuestId="10858" GiverName="Neltharaku" GiverId="21657" />
-                <CustomBehavior File="RunMacro" Macro="/tar Zuluhed" NumOfTimes="1" WaitTime="1000" />
+                <CustomBehavior File="RunMacro" Macro="/tar Zuluhed" />
             </If>
             <If Condition="((HasQuest(10858)) &amp;&amp; (!IsQuestCompleted(10858)))" >
                 <CustomBehavior File="FlyTo" X="-4197.369" Y="384.9256" Z="117.9248" />
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="RunMacro" Macro="/tar Zuluhed" NumOfTimes="5" WaitTime="500" />
                 <CustomBehavior File="WaitTimer" WaitTime="15000" />
-                <CustomBehavior File="InteractWith" QuestId="10858" MobId="185156" ObjectType="Gameobject" NumOfTimes="1" CollectionDistance="50" X="-4194.592" Y="382.2363" Z="117.9662" />
+                <CustomBehavior File="InteractWith" QuestId="10858" MobId="185156" CollectionDistance="50"
+                                X="-4194.592" Y="382.2363" Z="117.9662" />
                 <CustomBehavior File="WaitTimer" WaitTime="6000" />
             </If>
             <If Condition="((HasQuest(10858)) &amp;&amp; (IsQuestCompleted(10858)))" >
@@ -391,9 +395,10 @@
         <TurnIn QuestName="Ally of the Netherwing" QuestId="10871" TurnInName="Mordenai" TurnInId="22113" X="-4100.113" Y="962.5827" Z="24.57802" />
             </If>
             <If Condition="((!HasQuest(11012)) &amp;&amp; (!IsQuestCompleted(11012)))" >
-                <CustomBehavior File="InteractWith"  MobId="22113" NumOfTimes="1" CollectionDistance="50" X="-4100.113" Y="962.5827" Z="24.57802" />
-                <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
-                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />
+                <CustomBehavior File="InteractWith"  MobId="22113" CollectionDistance="50"
+                                X="-4100.113" Y="962.5827" Z="24.57802" />
+                <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
             </If>
             <If Condition="((!HasQuest(11013)) &amp;&amp; (!IsQuestCompleted(11013)))" >
                 <CustomBehavior File="FlyTo" X="-4100.113" Y="962.5827" Z="24.57802" />
@@ -425,9 +430,10 @@
             <If Condition="((!HasQuest(11019)) &amp;&amp; (!IsQuestCompleted(11019)))" >
                 <CustomBehavior File="FlyTo" X="-5121.085" Y="585.2968" Z="84.88553" />
                 <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="InteractWith"  MobId="23141" NumOfTimes="1" CollectionDistance="50" X="-5121.085" Y="585.2968" Z="84.88553" />
-                <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
-                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />
+                <CustomBehavior File="InteractWith"  MobId="23141" CollectionDistance="50"
+                                X="-5121.085" Y="585.2968" Z="84.88553" />
+                <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
         <PickUp QuestName="The Great Netherwing Egg Hunt" QuestId="11049" GiverName="Yarzill the Merc" GiverId="23141" />
             </If>
             <If Condition="((!HasQuest(11049)) &amp;&amp; (!IsQuestCompleted(11049)))" >
@@ -451,7 +457,7 @@
                                 </Hotspots>
                             </GrindArea>
                         </SetGrindArea>
-                    <GrindTo Condition="(HasItem(32621))" />
+                        <GrindUntil Condition="(HasItem(32621))" />
                 </If>
         <PickUp QuestName="A Job Unfinished..." QuestId="11041" GiverName="Partially Digested Hand" GiverId="32621" GiverType="Item" />
               </If>
@@ -507,11 +513,13 @@
         <PickUp QuestName="Picking Up The Pieces..." QuestId="11076" GiverName="Mistress of the Mines" GiverId="23149" />
 
             <!-- turn on the plugin -->
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Enable the Netherwing Collector Plugin and OpenThatStuff Plugin!!!\n\nPress continue if it's already on" />
+    <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="Enable the Netherwing Collector Plugin and OpenThatStuff Plugin!!!\n\nPress continue if it's already on" />
             <!-- turn on the plugin -->
 
             </If>
-    <CustomBehavior File="UserSettings" LootMobs="True" PullDistance="5" TrainNewSkills="False" LearnFlightPaths="False" KillBetweenHotspots="True" LogoutForInactivity="False" />
+    <CustomBehavior File="UserSettings" KillBetweenHotspots="true" LogoutForInactivity="false" />
+        <LootMobs Value="true" />
+        <UseMount Value="true" />
 
 
             <!-- Mine Dailies -->
@@ -521,7 +529,7 @@
         <PickUp QuestName="Crazed and Confused" QuestId="11083" GiverName="Ronag the Slave Driver" GiverId="23166" X="-5162.354" Y="287.0931" Z="-27.47245" />
             </If>
             <If Condition="((HasQuest(11083)) &amp;&amp; (!IsQuestCompleted(11083)))" >
-                <RunTo X="-5237.36" Y="220.3843" Z="-12.79366" />
+                <MoveTo X="-5237.36" Y="220.3843" Z="-12.79366" />
                 <CustomBehavior File="Message" Text="Waiting for respawns" LogColor="Red" />
                 <Objective QuestName="Crazed and Confused" QuestId="11083" Type="KillMob" MobId="23305" KillCount="1" />
                 <Objective QuestName="Crazed and Confused" QuestId="11083" Type="KillMob" MobId="23324" KillCount="5" />
@@ -556,14 +564,18 @@
         <PickUp QuestName="Seeker of Truth" QuestId="11082" GiverName="Mistress of the Mines" GiverId="23149" />
             </If>
             <If Condition="((HasQuest(11082)) &amp;&amp; (!IsQuestCompleted(11082)))" >
-                <CustomBehavior File="InteractWith" QuestId="11082" MobId="23309" NumOfTimes="1" GossipOptions="1, 1, 1, 1, 1, 1" WaitTime="1000" CollectionDistance="50" X="-4961.051" Y="211.6252" Z="-11.0619" />
+                <CustomBehavior File="InteractWith" QuestId="11082" MobId="23309"
+                                InteractByGossipOptions="1,1,1,1,1,1" CollectionDistance="50"
+                                X="-4961.051" Y="211.6252" Z="-11.0619" />
             </If>
             <If Condition="((HasQuest(11082)) &amp;&amp; (IsQuestCompleted(11082)))" >
         <TurnIn QuestName="Seeker of Truth" QuestId="11082" TurnInName="Mistress of the Mines" TurnInId="23149" />
             </If>
             <!-- End of Mine Dailies -->
 
-    <CustomBehavior File="UserSettings" LootMobs="True" PullDistance="35" TrainNewSkills="False" LearnFlightPaths="False" KillBetweenHotspots="True" LogoutForInactivity="False" />
+    <CustomBehavior File="UserSettings" KillBetweenHotspots="true" LogoutForInactivity="false" />
+        <LootMobs Value="true" />
+        <UseMount Value="true" />
 
             <!-- Beginning of *other* dailies -->
             <If Condition="((!HasQuest(11020)) &amp;&amp; (!IsQuestCompleted(11020)))" >
@@ -669,7 +681,7 @@
                             </Hotspots>
                         </GrindArea>
                     </SetGrindArea>
-                <GrindTo Condition="(IsQuestCompleted(11035))" />
+                    <GrindUntil Condition="(IsQuestCompleted(11035))" />
                 <Objective QuestName="The Not-So-Friendly Skies..." QuestId="11035" Type="CollectItem" ItemId="32509" CollectCount="10" />
             </If>
 
@@ -700,9 +712,10 @@
             <If Condition="((!HasQuest(11063)) &amp;&amp; (!IsQuestCompleted(11063)))" >
                 <CustomBehavior File="FlyTo" X="-5141.472" Y="600.1478" Z="83.21472" />
                 <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="InteractWith"  MobId="22433" NumOfTimes="1" CollectionDistance="50" X="-5141.472" Y="600.1478" Z="83.21472" />
-                <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
-                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />
+                <CustomBehavior File="InteractWith"  MobId="22433" CollectionDistance="50"
+                                X="-5141.472" Y="600.1478" Z="83.21472" />
+                <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
             </If>
 
             <If Condition="((!HasQuest(11089)) &amp;&amp; (!IsQuestCompleted(11089)))" >
@@ -728,9 +741,11 @@
               <If Condition="(!HasItem(32822))" >
                 <CustomBehavior File="FlyTo" X="-2479.839" Y="4680.146" Z="156.5848" />
                 <CustomBehavior File="ForcedDismount" />
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Escort Sar'this and press continue when you have the arcane essence" />
+    <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="Escort Sar'this and press continue when you have the arcane essence" />
               <While Condition="((HasQuest(11089)) &amp;&amp; (!IsQuestCompleted(11089)))" >
-                <CustomBehavior File="InteractWith" QuestId="11089" MobId="23093" NumOfTimes="1" GossipOptions="1" WaitTime="1000" CollectionDistance="50" X="-2479.839" Y="4680.146" Z="156.5848" />
+                  <CustomBehavior File="InteractWith" QuestId="11089" MobId="23093"
+                                  InteractByGossipOptions="1" CollectionDistance="50"
+                                  X="-2479.839" Y="4680.146" Z="156.5848" />
                 <CustomBehavior File="Escort" QuestId="11089" MobId="23093" X="-2479.839" Y="4680.146" Z="156.5848" />
               </While>
                 <Objective QuestName="The Soul Cannon of Reth'hedron" QuestId="11089" Type="CollectItem" ItemId="32822" CollectCount="1" />
@@ -776,8 +791,10 @@
                 <CustomBehavior File="FlyTo" X="-5089.415" Y="488.5521" Z="83.51935" />
                 <CustomBehavior File="ForcedDismount" />
               <While Condition="((HasQuest(11055)) &amp;&amp; (!IsQuestCompleted(11055)))" >
-                <CustomBehavior File="UseItemOn" QuestId="11055" MobId="23311" ItemId="32680" NpcState="Alive" NumOfTimes="1" WaitTime="1000" Range="5" CollectionDistance="500" X="-4984.396" Y="293.2464" Z="81.05711" />
-                <CustomBehavior File="UseItemOn" QuestId="11055" MobId="23311" ItemId="32680" NpcState="Alive" NumOfTimes="1" WaitTime="1000" Range="5" CollectionDistance="500" X="-5076.987" Y="489.773" Z="84.10658" />
+              <CustomBehavior File="UseItemOn" QuestId="11055" MobId="23311" ItemId="32680" MobState="Alive"
+              Range="5" CollectionDistance="500" X="-4984.396" Y="293.2464" Z="81.05711" />
+              <CustomBehavior File="UseItemOn" QuestId="11055" MobId="23311" ItemId="32680" MobState="Alive"
+              Range="5" CollectionDistance="500" X="-5076.987" Y="489.773" Z="84.10658" />
               </While>
             </If>
             -->
@@ -790,8 +807,9 @@
             <If Condition="((HasQuest(11090)) &amp;&amp; (!IsQuestCompleted(11090)))" >
                 <!-- Nagrand -->
                 <CustomBehavior File="FlyTo" X="-1477.296" Y="9741.095" Z="233.0524" />
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="Use the item on Reth while flying, then drift around on your mount until he is dead (don't engage him in combat or you won't get credit)" />
-                <CustomBehavior File="UseItemOn" QuestId="11090" MobId="22357" ItemId="32825" NumOfTimes="1" WaitTime="1000" Range="35" CollectionDistance="50" X="-1473.474" Y="9651.223" Z="202.9606" />
+                <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="Use the item on Reth while flying, then drift around on your mount until he is dead (don't engage him in combat or you won't get credit)" />
+                <CustomBehavior File="UseItemOn" QuestId="11090" MobId="22357" ItemId="32825" Range="35"
+                                CollectionDistance="50" X="-1473.474" Y="9651.223" Z="202.9606" />
                 <!-- <CustomBehavior File="WaitTimer" WaitTime="60000" /> -->
             </If>
             <If Condition="((HasQuest(11090)) &amp;&amp; (IsQuestCompleted(11090)))" >
@@ -820,9 +838,11 @@
         </If>
 
 
-    <CustomBehavior File="UserSettings" LootMobs="True" PullDistance="35" TrainNewSkills="False" LearnFlightPaths="False" KillBetweenHotspots="True" LogoutForInactivity="False" />
+    <CustomBehavior File="UserSettings" KillBetweenHotspots="true" LogoutForInactivity="false" />
+        <LootMobs Value="true" />
+        <UseMount Value="true" />
 
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="End of Dailies - press continue to farm for eggs - make sure the Netherwing and OpenThatStuff Plugins are enabled!\n\nIf you want to do a few more quests that the bot can't do atm, go up top and do them" />
+    <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="1" Text="End of Dailies - press continue to farm for eggs - make sure the Netherwing and OpenThatStuff Plugins are enabled!\n\nIf you want to do a few more quests that the bot can't do atm, go up top and do them" />
 
         <!-- Ok, let's farm Eggs and turn them in -->
         <While Condition="Me.GetReputationLevelWith(1015) &lt; Styx.WoWUnitReaction.Exalted" >
@@ -838,16 +858,17 @@
                             </Hotspots>
                         </GrindArea>
                     </SetGrindArea>
-                <GrindTo Condition="(GetItemCount(32506) &gt;= 4)" GoalText="Getting 4 Eggs; 1 = 250 rep" />
+                    <GrindUntil Condition="(GetItemCount(32506) &gt;= 4)" GoalText="Getting 4 Eggs; 1 = 250 rep" />
             </If>
 
-                <RunTo X="-5171.624" Y="765.3389" Z="47.49495" />
+            <MoveTo X="-5171.624" Y="765.3389" Z="47.49495" />
                 <CustomBehavior File="FlyTo" X="-5119.726" Y="593.5252" Z="84.85072" />
             <While Condition="(GetItemCount(32506) &gt;= 1)" >
-                <CustomBehavior File="InteractWith"  MobId="23141" NumOfTimes="1" CollectionDistance="50" WaitTime="1000" X="-5119.726" Y="593.5252" Z="84.85072" />
-                <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
-                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" NumOfTimes="1" WaitTime="1000" />
-                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />
+                <CustomBehavior File="InteractWith"  MobId="23141" CollectionDistance="50"
+                                X="-5119.726" Y="593.5252" Z="84.85072" />
+                <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" />
+                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
                 <CustomBehavior File="WaitTimer" WaitTime="3000" />
             </While>
 
@@ -863,7 +884,7 @@
                     <CustomBehavior File="ForcedDismount" />
 
                     <SetVendor><Vendors>
-                        <Vendor Name="Cecil Meyers" Entry="19056" Type="Repair" X="-2978.951" Y="4033.115" Z="3.573883" />
+                        <Vendor Name="Cecil Meyers" Id="19056" Type="Repair" X="-2978.951" Y="4033.115" Z="3.573883" />
                     </Vendors></SetVendor>
                     <SetMailbox><Mailboxes>
                         <Mailbox X="-2931.671" Y="4008.319" Z="-1.318626" />
@@ -872,7 +893,7 @@
                     <CustomBehavior File="ForceSetVendor" VendorType="Repair" />
                     <CustomBehavior File="ForceSetVendor" VendorType="Sell" />
                     <CustomBehavior File="ForceSetVendor" VendorType="Mail" />
-                    <!-- <CustomBehavior File="ForceSetVendor" DoMail="True" DoSell="True" DoRepair="True" DoTrain="False" /> -->
+                    <!-- <CustomBehavior File="ForceSetVendor" DoMail="true" DoSell="true" DoRepair="true" DoTrain="false" /> -->
 
                     <ClearMailbox /><ClearVendor />
                 <CustomBehavior File="FlyTo" X="-5171.624" Y="765.3389" Z="47.49495" />
@@ -892,7 +913,7 @@
                     <CustomBehavior File="ForcedDismount" />
 
                     <SetVendor><Vendors>
-                        <Vendor Name="Bar Talet" Entry="18962" Type="Repair" X="-2639.384" Y="4425.386" Z="36.68298" />
+                        <Vendor Name="Bar Talet" Id="18962" Type="Repair" X="-2639.384" Y="4425.386" Z="36.68298" />
                     </Vendors></SetVendor>
                     <SetMailbox><Mailboxes>
                         <Mailbox X="-2616.172" Y="4413.635" Z="35.41801" />
@@ -901,7 +922,7 @@
                     <CustomBehavior File="ForceSetVendor" VendorType="Repair" />
                     <CustomBehavior File="ForceSetVendor" VendorType="Sell" />
                     <CustomBehavior File="ForceSetVendor" VendorType="Mail" />
-                    <!-- <CustomBehavior File="ForceSetVendor" DoMail="True" DoSell="True" DoRepair="True" DoTrain="False" /> -->
+                    <!-- <CustomBehavior File="ForceSetVendor" DoMail="true" DoSell="true" DoRepair="true" DoTrain="false" /> -->
 
                     <ClearMailbox /><ClearVendor />
                 <CustomBehavior File="FlyTo" X="-5171.624" Y="765.3389" Z="47.49495" />
@@ -914,7 +935,7 @@
         </While>
 
         <If Condition="Me.GetReputationLevelWith(1015) == Styx.WoWUnitReaction.Exalted" >
-            <CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nDrake Dealer Hurlunk sells the drakes\n\nIf you liked this profile, +rep is always appreciated" />
+            <CustomBehavior File="UserDialog" Title="title" AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nDrake Dealer Hurlunk sells the drakes\n\nIf you liked this profile, +rep is always appreciated" />
         </If>
 
 

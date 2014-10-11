@@ -47,17 +47,17 @@
    <MinDurability>0.4</MinDurability>
    <MinFreeBagSlots>2</MinFreeBagSlots>
 
-   <MailGrey>False</MailGrey>
-   <MailWhite>False</MailWhite>
-   <MailGreen>True</MailGreen>
-   <MailBlue>True</MailBlue>
-   <MailPurple>True</MailPurple>
+   <MailGrey>false</MailGrey>
+   <MailWhite>false</MailWhite>
+   <MailGreen>true</MailGreen>
+   <MailBlue>true</MailBlue>
+   <MailPurple>true</MailPurple>
 
-   <SellGrey>True</SellGrey>
-   <SellWhite>True</SellWhite>
-   <SellGreen>False</SellGreen>
-   <SellBlue>False</SellBlue>
-   <SellPurple>False</SellPurple>
+   <SellGrey>true</SellGrey>
+   <SellWhite>true</SellWhite>
+   <SellGreen>false</SellGreen>
+   <SellBlue>false</SellBlue>
+   <SellPurple>false</SellPurple>
 
 
    <Blackspots>
@@ -66,8 +66,7 @@
    </Blackspots>
 
    <QuestOrder>
-        <CustomBehavior File="UserSettings" Preset="NoDistractions"
-                LearnFlightPaths="false" UseFlightPaths="false" />
+        <CustomBehavior File="UserSettings" Preset="NoDistractions" UseFlightPaths="false" />
 
         <CustomBehavior File="UserDialog" AllowBotStop="true" ExpiryTime="120"
                 Title="Problem Areas..."
@@ -100,15 +99,14 @@
 
             <!-- Quest: Eye of the Storm -->
             <If Condition="!HasQuest(28826) &amp;&amp; !IsQuestCompleted(28826)" >
-                <Pickup QuestName="The Eye of the Storm" QuestId="28826"
+                <PickUp QuestName="The Eye of the Storm" QuestId="28826"
                     GiverName="Naraat the Earthspeaker"  GiverId="45226"
                     X="-8216.31" Y="427.675" Z="118.0753" />
                 <CustomBehavior File="WaitTimer" WaitTime="1500" VariantTime="1000" />
             </If>
 
             <If Condition="HasQuest(28826) &amp;&amp; !IsQuestCompleted(28826)">
-                <CustomBehavior File="InteractWith" MobId="207416"
-                    ObjectType="Gameobject" />
+                <CustomBehavior File="InteractWith" MobId="207416" />
                 <CustomBehavior File="WaitTimer" WaitTime="60000" VariantTime="15000"
                     GoalText="Waiting for Cut Scene to complete" />
             </If>
@@ -125,7 +123,7 @@
                     SoundCueInterval="3"
                     Title="HONORBUDDY BUG..."
                     Text="HONORBUDDY BUG...\n\nHonorbuddy will 'bug out' by continuously attempting to pick up the next quest, &quot;The Maelstrom&quot;, from Naraat.\n\nWhen this happens, please just stop/start Honorbuddy and the profile will work around the problem." />
-                <Pickup QuestName="The Maelstrom" QuestId="27203"
+                <PickUp QuestName="The Maelstrom" QuestId="27203"
                     GiverName="Naraat the Earthspeaker"  GiverId="45226"
                     X="-8216.31" Y="427.675" Z="118.0753" />
                 <CustomBehavior File="WaitTimer" WaitTime="1500" VariantTime="1000" />
@@ -134,8 +132,7 @@
             <If Condition="(HasQuest(27203) || HasQuest(27123)) &amp;&amp; (Me.ZoneId == 1519)" >
                 <!-- Use Portal to Maelstrom -->
                 <CustomBehavior File="InteractWith" MobId="205268"
-                    ObjectType="Gameobject"
-                    X="-8209.03" Y="428.774" Z="118.164" />
+                                X="-8209.03" Y="428.774" Z="118.164" />
                 <CustomBehavior File="WaitTimer" WaitTime="10000" VariantTime="5000" />
             </If>
 
@@ -146,7 +143,7 @@
                 </If>
 
                 <If Condition="!HasQuest(27123) &amp;&amp; !IsQuestCompleted(27123)" >
-                    <Pickup QuestName="Deepholm, Realm of Earth" QuestId="27123"
+                    <PickUp QuestName="Deepholm, Realm of Earth" QuestId="27123"
                         GiverName="Thrall"  GiverId="45042" />
                 </If>
 
@@ -165,8 +162,8 @@
 
             <!-- Otherwise, Deepholm Portal should be active... use it -->
             <If Condition="IsQuestCompleted(27123) &amp;&amp; (Me.ZoneId == 1519)" >
-                <RunTo DestName="Deepholm Portal" X="-8225.467" Y="446.3542" Z="117.8004" />
-                <CustomBehavior File="InteractWith" MobId="207693" ObjectType="Gameobject" />
+                <MoveTo DestName="Deepholm Portal" X="-8225.467" Y="446.3542" Z="117.8004" />
+                <CustomBehavior File="InteractWith" MobId="207693" />
                 <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="7000" />
             </If>
 
@@ -187,8 +184,8 @@
             </If>
 
             <!-- Snag new Handful of Treats -->
-            <CustomBehavior File="InteractWith" MobId="208183" ObjectType="Gameobject"
-                X="1037.625" Y="636.8455" Z="-45.40393" WaitTime="100" />
+            <CustomBehavior File="InteractWith" MobId="208183"
+                            X="1037.625" Y="636.8455" Z="-45.40393" WaitTime="100" />
             <CustomBehavior File="WaitTimer" WaitTime="500" VariantTime="2000" />
             <CustomBehavior File="Misc\RunLua" Lua="GetQuestReward(1)" />
             <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="2000" />
@@ -226,8 +223,7 @@
 
         <If Condition="Me.ZoneId == 5042" >
             <!-- Move to portal and go back to Stormwind -->
-            <CustomBehavior File="InteractWith" MobId="205272" ObjectType="Gameobject"
-                X="965.25" Y="577.229" Z="-44.2583" />
+            <CustomBehavior File="InteractWith" MobId="205272" X="965.25" Y="577.229" Z="-44.2583" />
             <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="7000" />
         </If>
 
@@ -287,13 +283,13 @@
             <If Condition="!HasQuest(14482) &amp;&amp; !IsQuestCompleted(14482)" >
                 <CustomBehavior File="FlyTo" DestName="Stormwind Docks"
                     X="-8278.183" Y="1245.433" Z="5.312114" />
-                <Pickup QuestName="Call of Duty" QuestId="14482"
+                <PickUp QuestName="Call of Duty" QuestId="14482"
                     GiverName="Recuiter Burns"  GiverId="36799"
                     X="-8275.52" Y="1247.45" Z="5.23" />
             </If>
 
             <If Condition="HasQuest(14482) &amp;&amp; (Me.ZoneId == 1519)" >
-                <RunTo DestName="End of dock"
+                <MoveTo DestName="End of dock"
                     X="-8290.955" Y="1399.146" Z="4.774575" />
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="UseTransport" TransportId="197195"
@@ -313,7 +309,7 @@
 
             <!-- Quest: Sea Legs -->
             <If Condition="!HasQuest(24432) &amp;&amp; !IsQuestCompleted(24432)" >
-                <RunTo X="-4455.09" Y="3808.04" Z="-82.7854" />
+                <MoveTo X="-4455.09" Y="3808.04" Z="-82.7854" />
                 <PickUp QuestName="Sea Legs" QuestId="24432"
                     GiverName="Erunak Stonespeaker"  GiverId="36915" />
                 <CustomBehavior File="MyCTM" X="-4456.072" Y="3813.583" Z="-83.74014" />
@@ -427,7 +423,7 @@
                     <CustomBehavior File="MyCTM" X="-5144.837" Y="3293.227" Z="-119.5735" />
 
                     <!-- Snag new Handful of Treats -->
-                    <CustomBehavior File="InteractWith" MobId="208141" ObjectType="Gameobject"
+                    <CustomBehavior File="InteractWith" MobId="208141"
                         X="-5144.837" Y="3293.227" Z="-119.5735" WaitTime="100" />
                     <CustomBehavior File="WaitTimer" WaitTime="500" VariantTime="2000" />
                     <CustomBehavior File="Misc\RunLua" Lua="GetQuestReward(1)" />
@@ -509,7 +505,7 @@
                     <CustomBehavior File="MyCTM" X="-6114.71" Y="4278.24" Z="-350.7117" />
 
                     <!-- Snag new Handful of Treats -->
-                    <CustomBehavior File="InteractWith" MobId="208142" ObjectType="Gameobject"
+                    <CustomBehavior File="InteractWith" MobId="208142"
                         X="-6111.506" Y="4294.206" Z="-348.6067" WaitTime="100" />
                     <CustomBehavior File="WaitTimer" WaitTime="500" VariantTime="2000" />
                     <CustomBehavior File="Misc\RunLua" Lua="GetQuestReward(1)" />
@@ -595,7 +591,7 @@
                     <CustomBehavior File="MyCTM" X="-6601.526" Y="4307.074" Z="-564.2615" />
 
                     <!-- Snag new Handful of Treats -->
-                    <CustomBehavior File="InteractWith" MobId="208133" ObjectType="Gameobject"
+                    <CustomBehavior File="InteractWith" MobId="208133"
                         X="-6610.523" Y="4272.179" Z="-562.7366" WaitTime="100" />
                     <CustomBehavior File="WaitTimer" WaitTime="500" VariantTime="2000" />
                     <CustomBehavior File="Misc\RunLua" Lua="GetQuestReward(1)" />
@@ -680,7 +676,7 @@
                     <CustomBehavior File="MyCTM" X="-6910.011" Y="5966.06" Z="-766.4152" />
 
                     <!-- Snag new Handful of Treats -->
-                    <CustomBehavior File="InteractWith" MobId="208132" ObjectType="Gameobject"
+                    <CustomBehavior File="InteractWith" MobId="208132"
                         X="-6867.623" Y="6005.045" Z="-764.0035" WaitTime="100" />
                     <CustomBehavior File="WaitTimer" WaitTime="500" VariantTime="2000" />
                     <CustomBehavior File="Misc\RunLua" Lua="GetQuestReward(1)" />

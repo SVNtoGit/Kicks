@@ -7,23 +7,23 @@
     <MinDurability>0.2</MinDurability>
     <MinFreeBagSlots>2</MinFreeBagSlots>
 
-    <MailGrey>False</MailGrey>
-    <MailWhite>False</MailWhite>
-    <MailGreen>False</MailGreen>
-    <MailBlue>True</MailBlue>
-    <MailPurple>True</MailPurple>
+    <MailGrey>false</MailGrey>
+    <MailWhite>false</MailWhite>
+    <MailGreen>false</MailGreen>
+    <MailBlue>true</MailBlue>
+    <MailPurple>true</MailPurple>
 
-    <SellGrey>True</SellGrey>
-    <SellWhite>True</SellWhite>
-    <SellGreen>True</SellGreen>
-    <SellBlue>False</SellBlue>
-    <SellPurple>False</SellPurple>
+    <SellGrey>true</SellGrey>
+    <SellWhite>true</SellWhite>
+    <SellGreen>true</SellGreen>
+    <SellBlue>false</SellBlue>
+    <SellPurple>false</SellPurple>
 
-    <TargetElites>True</TargetElites>
+    <TargetElites>true</TargetElites>
 
     <AvoidMobs>
-        <Mob Name="Blackwind Warp Chaser" Entry="23219" />
-        <Mob Name="Skettis Kaliri" Entry="21804" />
+        <Mob Name="Blackwind Warp Chaser" Id="23219" />
+        <Mob Name="Skettis Kaliri" Id="21804" />
     </AvoidMobs>
 
     <Blackspots>
@@ -33,7 +33,7 @@
     </Mailboxes>
 
     <Vendors>
-        <Vendor Name="Grella" Entry="23367" Type="Repair" X="-3384.475" Y="3611.3" Z="275.9874" />
+        <Vendor Name="Grella" Id="23367" Type="Repair" X="-3384.475" Y="3611.3" Z="275.9874" />
     </Vendors>
 
 
@@ -97,7 +97,7 @@
     <Quest Id="11056" Name="Hazzik's Bargain">
         <Objective Type="CollectItem" ItemId="32687" CollectCount="1">
             <CollectFrom>
-                <GameObject Name="Hazzik's Package" Id="185954" />
+                <Object Name="Hazzik's Package" Id="185954" />
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="-3884.893" Y="3043.044" Z="358.1394" />
@@ -108,11 +108,13 @@
 
     <QuestOrder>
 
-    <CustomBehavior File="UserSettings" LootMobs="True" PullDistance="35" TrainNewSkills="False" LearnFlightPaths="False" KillBetweenHotspots="True" LogoutForInactivity="False" />
+    <CustomBehavior File="UserSettings" KillBetweenHotspots="true" LogoutForInactivity="false" />
+        <LootMobs Value="true" />
+        <UseMount Value="true" />
 
         <!-- This will stop the bot after you're Exalted -->
         <If Condition="Me.GetReputationLevelWith(1031) == Styx.WoWUnitReaction.Exalted" >
-            <CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nIf you liked this profile, +rep is always appreciated" />
+            <CustomBehavior File="UserDialog" Title="title" AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nIf you liked this profile, +rep is always appreciated" />
         </If>
 
         <If Condition="Me.GetReputationLevelWith(1031) &lt; Styx.WoWUnitReaction.Exalted" >
@@ -187,7 +189,7 @@
                                 </Hotspots>
                             </GrindArea>
                         </SetGrindArea>
-                    <GrindTo Condition="(IsQuestCompleted(11093))" GoalText="10 Nether Ray Meals" />
+                        <GrindUntil Condition="(IsQuestCompleted(11093))" GoalText="10 Nether Ray Meals" />
             </If>
 
             <If Condition="((HasQuest(11004)) &amp;&amp; (!IsQuestCompleted(11004)))" >
@@ -217,13 +219,13 @@
                                 </Hotspots>
                             </GrindArea>
                         </SetGrindArea>
-                    <GrindTo Condition="(IsQuestCompleted(11004))" GoalText="6 Shadow Dusts" />
+                        <GrindUntil Condition="(IsQuestCompleted(11004))" GoalText="6 Shadow Dusts" />
             </If>
 
             <!--
             <If Condition="((HasQuest(11008)) &amp;&amp; (!IsQuestCompleted(11008)))" >
                 <CustomBehavior File="FlyTo" X="-3998.922" Y="3436.714" Z="401.9122" />
-    <CustomBehavior File="UserDialog"  AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="You'll have to do this quest manually.  Fly up a little and search for sparkling eggs at the top of roofs" />
+    <CustomBehavior File="UserDialog"  AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="You'll have to do this quest manually.  Fly up a little and search for sparkling eggs at the top of roofs" />
             </If>
             -->
 
@@ -254,7 +256,7 @@
         <PickUp QuestName="Secrets of the Talonpriests" QuestId="11005" GiverName="Sky Commander Adaris" GiverId="23038" />
             </If>
             <If Condition="((HasQuest(11005)) &amp;&amp; (!IsQuestCompleted(11005)))" >
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(32446)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(32446)" />
 
                 <CustomBehavior File="FlyTo" X="-3814.991" Y="3336.041" Z="324.0606" />
                 <CustomBehavior File="ForcedDismount" />
@@ -318,16 +320,18 @@
             <If Condition="((HasQuest(11029)) &amp;&amp; (!IsQuestCompleted(11029)))" >
                 <CustomBehavior File="FlyTo" X="-3886.034" Y="3480.572" Z="274.7623" />
                 <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(32741)" WaitTime="1000" />
-                <RunTo X="-3879.108" Y="3474.246" Z="275.0208" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(32741)" />
+                <MoveTo X="-3879.108" Y="3474.246" Z="275.0208" />
                 <CustomBehavior File="MyCTM" X="-3870.047" Y="3462.952" Z="275.4349" />
 
-                <CustomBehavior File="InteractWith" QuestId="11029" MobId="23363" NumOfTimes="1" GossipOptions="1" BuyItemId="32742" WaitTime="1000" CollectionDistance="50" X="-3867.538" Y="3464.76" Z="275.4328" />
+                <CustomBehavior File="InteractWith" QuestId="11029" MobId="23363"
+                                InteractByGossipOptions="1" InteractByBuyingItemId="32742" CollectionDistance="50"
+                                X="-3867.538" Y="3464.76" Z="275.4328" />
                 <CustomBehavior File="MyCTM" X="-3882.396" Y="3478.244" Z="275.2042" />
-                <CustomBehavior File="RunMacro" Macro="/cancelaura Shabby Arakkoa Disguise" NumOfTimes="1" WaitTime="1000" />
+                <CustomBehavior File="RunMacro" Macro="/cancelaura Shabby Arakkoa Disguise" />
             </If>
             <If Condition="((HasQuest(11029)) &amp;&amp; (IsQuestCompleted(11029)))" >
-                <CustomBehavior File="RunMacro" Macro="/cancelaura Shabby Arakkoa Disguise" NumOfTimes="1" WaitTime="1000" />
+                <CustomBehavior File="RunMacro" Macro="/cancelaura Shabby Arakkoa Disguise" />
                 <CustomBehavior File="FlyTo" X="-3397.678" Y="3613.834" Z="276.1902" />
                 <CustomBehavior File="ForcedDismount" />
         <TurnIn QuestName="A Shabby Disguise" QuestId="11029" TurnInName="Hazzik" TurnInId="23306" />
@@ -365,7 +369,8 @@
             <If Condition="((HasQuest(11073)) &amp;&amp; (!IsQuestCompleted(11073)))" >
                 <CustomBehavior File="FlyTo" X="-3783.128" Y="3505.344" Z="286.9921" />
                 <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="InteractWith" QuestId="11073" MobId="185928" ObjectType="Gameobject" NumOfTimes="1" GossipOptions="1" CollectionDistance="50" X="-3783.128" Y="3505.344" Z="286.9921" />
+                <CustomBehavior File="InteractWith" QuestId="11073" MobId="185928" InteractByGossipOptions="1"
+                                CollectionDistance="50" X="-3783.128" Y="3505.344" Z="286.9921" />
                 <CustomBehavior File="WaitTimer" WaitTime="7000" />
                 <Objective QuestName="Terokk's Downfall" QuestId="11073" Type="KillMob" MobId="21838" KillCount="1" />
             </If>
@@ -380,9 +385,10 @@
                     <CustomBehavior File="FlyTo" X="-3783.128" Y="3505.344" Z="286.9921" Name="kill Terrok" />
                     <CustomBehavior File="ForcedDismount" />
                     <CustomBehavior File="Message" Text="Terrok has an 11 minute respawn timer, waiting for respawn (500 Rep)" LogColor="Red" />
-                    <CustomBehavior File="InteractWith"  MobId="185928" ObjectType="Gameobject" NumOfTimes="1" GossipOptions="1" CollectionDistance="50" X="-3783.128" Y="3505.344" Z="286.9921" />
+                    <CustomBehavior File="InteractWith"  MobId="185928" InteractByGossipOptions="1"
+                                    CollectionDistance="50" X="-3783.128" Y="3505.344" Z="286.9921" />
                     <CustomBehavior File="WaitTimer" WaitTime="7000" />
-                    <CustomBehavior File="RunMacro" Macro="/tar Terrok\n/startattack" NumOfTimes="1" WaitTime="1000" />
+                    <CustomBehavior File="RunMacro" Macro="/tar Terrok\n/startattack" />
                     <CustomBehavior File="WaitTimer" WaitTime="2000" />
                 </If>
 
@@ -414,24 +420,26 @@
                                 </Hotspots>
                             </GrindArea>
                         </SetGrindArea>
-                    <GrindTo Condition="(GetItemCount(32388) &gt;= 6)" GoalText="6 Shadow Dusts = 150 rep" />
+                        <GrindUntil Condition="(GetItemCount(32388) &gt;= 6)" GoalText="6 Shadow Dusts = 150 rep" />
                 </If>
 
                 <!-- Shadow Dust -->
                 <While Condition="(GetItemCount(32388) &gt;= 6)" >
                     <CustomBehavior File="FlyTo" X="-3399.722" Y="3615.042" Z="276.3743" Name="Turn in Shadow Dust" />
-                    <CustomBehavior File="InteractWith"  MobId="23042" NumOfTimes="1" CollectionDistance="50" WaitTime="1000" X="-3407.585" Y="3624.566" Z="278.0751" />
-                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" NumOfTimes="1" WaitTime="1000" />
-                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />
+                    <CustomBehavior File="InteractWith"  MobId="23042" CollectionDistance="50"
+                                    X="-3407.585" Y="3624.566" Z="278.0751" />
+                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" />
+                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
                     <CustomBehavior File="WaitTimer" WaitTime="2000" />
                 </While>
 
                 <!-- The items from the 4 mini bosses -->
                 <While Condition="((HasItem(32717)) &amp;&amp; (HasItem(32718)) &amp;&amp; (HasItem(32715)) &amp;&amp; (HasItem(32716)))" >
-                    <CustomBehavior File="InteractWith"  MobId="23306" NumOfTimes="1" CollectionDistance="50" WaitTime="1000" X="-3407.585" Y="3624.566" Z="278.0751" />
-                    <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
-                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" NumOfTimes="1" WaitTime="1000" />
-                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />
+                    <CustomBehavior File="InteractWith"  MobId="23306" CollectionDistance="50"
+                                    X="-3407.585" Y="3624.566" Z="278.0751" />
+                    <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" />
+                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
                     <CustomBehavior File="WaitTimer" WaitTime="2000" />
                 </While>
 
@@ -444,7 +452,7 @@
                     <CustomBehavior File="ForcedDismount" />
 
                     <SetVendor><Vendors>
-                        <Vendor Name="Cecil Meyers" Entry="19056" Type="Repair" X="-2978.951" Y="4033.115" Z="3.573883" />
+                        <Vendor Name="Cecil Meyers" Id="19056" Type="Repair" X="-2978.951" Y="4033.115" Z="3.573883" />
                     </Vendors></SetVendor>
                     <SetMailbox><Mailboxes>
                         <Mailbox X="-2931.671" Y="4008.319" Z="-1.318626" />
@@ -453,7 +461,7 @@
                     <CustomBehavior File="ForceSetVendor" VendorType="Repair" />
                     <CustomBehavior File="ForceSetVendor" VendorType="Sell" />
                     <CustomBehavior File="ForceSetVendor" VendorType="Mail" />
-                    <!-- <CustomBehavior File="ForceSetVendor" DoMail="True" DoSell="True" DoRepair="True" DoTrain="False" /> -->
+                    <!-- <CustomBehavior File="ForceSetVendor" DoMail="true" DoSell="true" DoRepair="true" DoTrain="false" /> -->
 
                     <ClearMailbox /><ClearVendor />
 
@@ -469,7 +477,7 @@
                     <CustomBehavior File="ForcedDismount" />
 
                     <SetVendor><Vendors>
-                        <Vendor Name="Bar Talet" Entry="18962" Type="Repair" X="-2639.384" Y="4425.386" Z="36.68298" />
+                        <Vendor Name="Bar Talet" Id="18962" Type="Repair" X="-2639.384" Y="4425.386" Z="36.68298" />
                     </Vendors></SetVendor>
                     <SetMailbox><Mailboxes>
                         <Mailbox X="-2616.172" Y="4413.635" Z="35.41801" />
@@ -478,7 +486,7 @@
                     <CustomBehavior File="ForceSetVendor" VendorType="Repair" />
                     <CustomBehavior File="ForceSetVendor" VendorType="Sell" />
                     <CustomBehavior File="ForceSetVendor" VendorType="Mail" />
-                    <!-- <CustomBehavior File="ForceSetVendor" DoMail="True" DoSell="True" DoRepair="True" DoTrain="False" /> -->
+                    <!-- <CustomBehavior File="ForceSetVendor" DoMail="true" DoSell="true" DoRepair="true" DoTrain="false" /> -->
 
                     <ClearMailbox /><ClearVendor />
 
@@ -491,7 +499,7 @@
 
             <!-- This will stop the bot after you're Exalted -->
             <If Condition="Me.GetReputationLevelWith(1031) == Styx.WoWUnitReaction.Exalted" >
-                <CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nIf you liked this profile, +rep is always appreciated" />
+                <CustomBehavior File="UserDialog" Title="title" AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nIf you liked this profile, +rep is always appreciated" />
             </If>
 
     </QuestOrder>

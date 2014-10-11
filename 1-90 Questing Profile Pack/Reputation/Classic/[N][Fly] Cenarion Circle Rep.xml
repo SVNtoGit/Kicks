@@ -8,7 +8,7 @@
         * The profile works for both factions, and may be started anywhere in Easter Kingdoms
           or Kalimdor.
     -->
-    
+
     <Name>Hawker's Cenarion Circle Reputation Profile ($Rev$)</Name>
 
     <MinLevel>54</MinLevel>
@@ -92,10 +92,10 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-                <GrindTo Condition="GetItemCount(20404) &gt;= 10" GoalText="Getting 10 Encrypted Twilight Text." />
-				<!--
-				<CustomBehavior File="DeleteItems" Ids="20406, 20407, 20408" />
-				-->
+                <GrindUntil Condition="GetItemCount(20404) &gt;= 10" GoalText="Getting 10 Encrypted Twilight Text." />
+                <!--
+                <CustomBehavior File="DeleteItems" Ids="20406, 20407, 20408" />
+                -->
             </If>
 
             <If Condition="GetItemCount(20404) &lt; 20" >
@@ -114,7 +114,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-                <GrindTo Condition="GetItemCount(20404) &gt;= 20" GoalText="Getting 20 Encrypted Twilight Text." />
+                <GrindUntil Condition="GetItemCount(20404) &gt;= 20" GoalText="Getting 20 Encrypted Twilight Text." />
             </If>
 
             <If Condition="GetItemCount(20404) &lt; 30" >
@@ -134,7 +134,7 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-                <GrindTo Condition="GetItemCount(20404) &gt;= 30" GoalText="Getting 30 Encrypted Twilight Text." />
+                <GrindUntil Condition="GetItemCount(20404) &gt;= 30" GoalText="Getting 30 Encrypted Twilight Text." />
             </If>
 
             <If Condition="CanFly()">
@@ -143,21 +143,22 @@
             <MoveTo DestName="Cenarion Hold" X="-6822.05" Y="829.7651" Z="49.46407" />
 
             <While Condition="( GetItemCount(20404) &gt;= 10 ) &amp;&amp; ( Me.GetReputationLevelWith(609) &lt; WoWUnitReaction.Exalted )" >
-                <CustomBehavior File="InteractWith"  MobId="15306" CollectionDistance="50" WaitTime="1000" X="-6836.007" Y="845.5305" Z="48.99781" />
-                <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" WaitTime="1000" />
-                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" WaitTime="1000" />
-                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" WaitTime="1000" />
+                <CustomBehavior File="InteractWith"  MobId="15306" CollectionDistance="50"
+                                X="-6836.007" Y="845.5305" Z="48.99781" />
+                <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" />
+                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
                 <CustomBehavior File="WaitTimer" WaitTime="3000" />
 
                 <While Condition="HasItem(20768)" >
                     <!-- Oozing Bag -->
-                    <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(20768)" WaitTime="1000" />
+                    <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(20768)" />
                     <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for Oozing Bag loot {TimeRemaining}" />
                 </While>
 
                 <While Condition="HasItem(20767)" >
                     <!-- Scum Covered Bag -->
-                    <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(20767)" WaitTime="1000" />
+                    <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(20767)" />
                     <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for Scum Covered Bag loot {TimeRemaining}" />
                 </While>
 
@@ -173,14 +174,13 @@
                 </If>
 
             </While>
-			<CustomBehavior File="ForceSetVendor" DoMail="True" DoSell="True" DoRepair="True" />
+            <CustomBehavior File="ForceSetVendor" DoMail="true" DoSell="true" DoRepair="true" />
         </While>
 
         <If Condition="GetItemCount(20404) &lt; 20" >
             <If Condition="CanFly()">
                 <CustomBehavior File="FlyTo" DestName="Twilight Outpost" Land="true" X="-7839.408" Y="1838.146" Z="4.190873" />
             </If>
-            <CustomBehavior File="UserSettings" PullDistance="35" />
             <SetGrindArea>
                 <GrindArea>
                     <TargetMinLevel>45</TargetMinLevel>
@@ -194,7 +194,7 @@
                     </Hotspots>
                 </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="GetItemCount(20404) &gt;= 20" GoalText="Getting 20 more texts to get to 999/1000 Exalted." />
+            <GrindUntil Condition="GetItemCount(20404) &gt;= 20" GoalText="Getting 20 more texts to get to 999/1000 Exalted." />
         </If>
 
         <If Condition="CanFly()">
@@ -203,13 +203,13 @@
         <MoveTo DestName="The Inn at Cenarion Hold" X="-6867.857" Y="730.6714" Z="45.66279" />
         <While Condition="HasItem(20768)" >
             <!-- Oozing Bag -->
-            <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(20768)" WaitTime="1000" />
+            <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(20768)" />
             <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for Oozing Bag loot {TimeRemaining}" />
         </While>
 
         <While Condition="HasItem(20767)" >
             <!-- Scum Covered Bag -->
-            <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(20767)" WaitTime="1000" />
+            <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(20767)" />
             <CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for Scum Covered Bag loot {TimeRemaining}" />
         </While>
 
@@ -269,7 +269,7 @@
     <Quest Name="DummyCollectfromGameObject" Id="123456" >
         <Objective Type="CollectItem" ItemId="1" ItemName="Item" CollectCount="1">
             <CollectFrom>
-                <Object Name="GameObject" Id="1"/>
+                <Object Name="Object" Id="1"/>
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="1" Y="1" Z="1" />
@@ -284,7 +284,7 @@
         <Vendor Nav="Fly" Name="Vargus" Id="15176" Type="Repair" X="-6860.931" Y="753.0439" Z="42.47247" />
     </Vendors>
 
-    
+
     <Mailboxes>
         <!-- Cenarion Hold -->
         <Mailbox Nav="Fly" X="-6838.836" Y="734.1841" Z="42.18411" />

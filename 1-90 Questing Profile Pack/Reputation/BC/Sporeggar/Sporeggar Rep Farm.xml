@@ -4,17 +4,17 @@
     <MaxLevel>1001</MaxLevel>
     <MinDurability>0.3</MinDurability>
     <MinFreeBagSlots>3</MinFreeBagSlots>
-    <SellGrey>True</SellGrey>
-    <SellWhite>True</SellWhite>
-    <SellGreen>True</SellGreen>
-    <SellBlue>False</SellBlue>
-    <SellPurple>False</SellPurple>
+    <SellGrey>true</SellGrey>
+    <SellWhite>true</SellWhite>
+    <SellGreen>true</SellGreen>
+    <SellBlue>false</SellBlue>
+    <SellPurple>false</SellPurple>
 
-    <MailGrey>False</MailGrey>
-    <MailWhite>True</MailWhite>
-    <MailGreen>True</MailGreen>
-    <MailBlue>True</MailBlue>
-    <MailPurple>True</MailPurple>
+    <MailGrey>false</MailGrey>
+    <MailWhite>true</MailWhite>
+    <MailGreen>true</MailGreen>
+    <MailBlue>true</MailBlue>
+    <MailPurple>true</MailPurple>
 
     <Vendors>
         <Vendor Nav="Fly" Name="Innkeeper Coryth Stoktron" Id="18907" Type="Food" X="-174.478" Y="5529.211" Z="29.40774" />
@@ -76,7 +76,7 @@
     <Quest Id="9808" Name="Glowcap Mushrooms">
         <Objective Type="CollectItem" ItemId="24245" CollectCount="10">
             <CollectFrom>
-                <GameObject Name="Glowcap" Id="182053" />
+                <Object Name="Glowcap" Id="182053" />
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="264.3096" Y="8548.396" Z="19.32652" />
@@ -187,11 +187,11 @@
         <PickUp QuestName="Natural Enemies" QuestId="9743" GiverName="Fahssn" GiverId="17923" X="-214.1056"
             Y="8514.414" Z="22.89437" />
         <While Condition="HasQuest(9739) &amp;&amp; !IsQuestCompleted(9739)">
-            <CustomBehavior File="InteractWith" QuestId="9739" ObjectType="GameObject" MobId="182069"
-                      WaitForNpcs="False" PreInteractMountStrategy="Dismount" NumOfTimes="20"
+            <CustomBehavior File="InteractWith" QuestId="9739" MobId="182069"
+                      WaitForNpcs="false" PreInteractMountStrategy="Dismount" NumOfTimes="20"
                       CollectionDistance="500" X="-80.25971" Y="8692.001" Z="19.71755" />
-            <CustomBehavior File="InteractWith" QuestId="9739" ObjectType="GameObject" MobId="182069"
-                      WaitForNpcs="False" PreInteractMountStrategy="Dismount" NumOfTimes="20"
+            <CustomBehavior File="InteractWith" QuestId="9739" MobId="182069"
+                      WaitForNpcs="false" PreInteractMountStrategy="Dismount" NumOfTimes="20"
                       CollectionDistance="500" X="-102.7065" Y="8836.516" Z="18.96124" />
         </While>
         <Objective QuestName="Natural Enemies" QuestId="9743" Type="CollectItem" ItemId="24291" CollectCount="6" />
@@ -218,21 +218,19 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-                <GrindTo Condition="GetItemCount(24291) &gt;= 6" />
+                <GrindUntil Condition="GetItemCount(24291) &gt;= 6" />
             </If>
             <If Condition="GetItemCount(24291) &gt;= 6">
                 <CustomBehavior File="FlyTo" X="-214.1056" Y="8514.414" Z="22.89437" />
-                <CustomBehavior File="InteractWith" MobId="17923" NumOfTimes="1" CollectionDistance="50"
-                        WaitTime="1000" X="-214.1056" Y="8514.414" Z="22.89437" />
-                <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton2" NumOfTimes="1" WaitTime="1000" />
-                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" NumOfTimes="1" WaitTime="1000" />
-                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1"
-                        WaitTime="1000" />
-            </If>
+                <CustomBehavior File="InteractWith" MobId="17923" CollectionDistance="50"
+                        X="-214.1056" Y="8514.414" Z="22.89437" />
+                <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton2" />
+                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" />
+                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
         </While>
 
         <!-- Quests avail at Neutral -->
-        <Pickup QuestName="Sporeggar" QuestId="9919" GiverName="Fahssn" GiverId="17923" X="-195.0107" Y="8518.729"
+        <PickUp QuestName="Sporeggar" QuestId="9919" GiverName="Fahssn" GiverId="17923" X="-195.0107" Y="8518.729"
             Z="22.5245" />
         <If Condition="HasQuest(9919)">
             <CustomBehavior File="FlyTo" DestName="TurnIn: Sporeggar" X="210.8893" Y="8504.154" Z="24.22618" />
@@ -246,7 +244,7 @@
         <ClearVendor />
         <SetVendor>
             <Vendors>
-                <Vendor Name="Mycah" Entry="18382" Type="Repair" X="221.3056" Y="8577.191" Z="24.65688" />
+                <Vendor Name="Mycah" Id="18382" Type="Repair" X="221.3056" Y="8577.191" Z="24.65688" />
                 <Vendor Nav="Fly" Name="Innkeeper Coryth Stoktron" Id="18907" Type="Food" X="-174.478" Y="5529.211" Z="29.40774" />
                 <Vendor Nav="Fly" Name="Fedryen Swiftspear" Id="17904" Type="Repair" X="-198.9696" Y="5490.686" Z="21.84618" />
                 <Vendor Nav="Fly" Name="Pilot Marsha" Id="18278" Type="Repair" X="-1480.122" Y="6357.977" Z="34.26571" />
@@ -266,7 +264,7 @@
                  has issues, if left unassisted.
             -->
             <CustomBehavior File="FlyTo" DestName="Workaraound for Quest PickUp: Fertile Spores"
-                      Land="True" X="238.1418" Y="8508.891" Z="23.04393" />
+                      Land="true" X="238.1418" Y="8508.891" Z="23.04393" />
             <PickUp QuestName="Fertile Spores" QuestId="9806" GiverName="Gshaff" GiverId="17925"
               X="280.2096" Y="8512.685" Z="24.21214" Nav="Run" />
         </If>
@@ -287,7 +285,7 @@
                      has issues, if left unassisted.
                 -->
             <CustomBehavior File="FlyTo" DestName="Workaraound for Quest TurnIn: Fertile Spores"
-                      Land="True" X="238.1418" Y="8508.891" Z="23.04393" />
+                      Land="true" X="238.1418" Y="8508.891" Z="23.04393" />
             <TurnIn QuestName="Fertile Spores" QuestId="9806" TurnInName="Gshaff" TurnInId="17925"
               X="280.2096" Y="8512.685" Z="24.21214" Nav="Run" />
         </If>
@@ -340,7 +338,7 @@
             <CustomBehavior File="ForcedDismount" />
             <PickUp QuestName="Now That We're Still Friends..." QuestId="9727" GiverName="Gzhun'tt" GiverId="17856" />
 
-            <LootMobs Value="False" />
+            <LootMobs Value="false" />
 
             <If Condition="HasQuest(9727) &amp;&amp; !IsQuestCompleted(9727)">
                 <CustomBehavior File="FlyTo" DestName="Bloodscale Enclave" X="572.5067" Y="8188.215" Z="18.86026" />
@@ -356,19 +354,19 @@
                 <TurnIn QuestName="Now That We're Friends..." QuestId="9727" TurnInName="Gzhun'tt" TurnInId="17856" />
             </If>
 
-            <LootMobs Value="True" />
+            <LootMobs Value="true" />
 
         </While>
 
-        <LootMobs Value="True" />
+        <LootMobs Value="true" />
 
 
         <!-- buy the Tiny Sporebat -->
         <If Condition="(GetItemCount(24245) &gt; 29) &amp;&amp; !HasItem(34478) &amp;&amp; !HasSpell(45082)" >
-            <CustomBehavior File="FlyTo" DestName="Mycah" Entry="18382" X="221.3056" Y="8577.191" Z="24.65688" />
+            <CustomBehavior File="FlyTo" DestName="Mycah" Id="18382" X="221.3056" Y="8577.191" Z="24.65688" />
             <CustomBehavior File="ForcedDismount" />
-            <CustomBehavior File="InteractWith" MobId="18382" NumOfTimes="1"
-                        InteractByBuyingItemId="34478" WaitTime="3000" X="221.3056" Y="8577.191" Z="24.65688" />
+            <CustomBehavior File="InteractWith" MobId="18382"
+                            InteractByBuyingItemId="34478" WaitTime="3000" X="221.3056" Y="8577.191" Z="24.65688" />
         </If>
 
         <!-- get rid of the unidentified Plant Parts -->
@@ -381,11 +379,11 @@
     </QuestOrder>
 
     <ProtectedItems>
-        <Item Name="Arakkoa Feather" Entry="25719" />
-        <Item Name="Glowcap" Entry="24245" />
-        <Item Name="Fertile Spores" Entry="24449" />
-        <Item Name="Mature Spore Sac" Entry="24290" />
-        <Item Name="Bog Lord Tendril" Entry="24291" />
+        <Item Name="Arakkoa Feather" Id="25719" />
+        <Item Name="Glowcap" Id="24245" />
+        <Item Name="Fertile Spores" Id="24449" />
+        <Item Name="Mature Spore Sac" Id="24290" />
+        <Item Name="Bog Lord Tendril" Id="24291" />
         <Item Name="Unidentified Plant Parts" Id="24401" />
         <Item Name="Obsidian Warbead" Id="25433" />
 
