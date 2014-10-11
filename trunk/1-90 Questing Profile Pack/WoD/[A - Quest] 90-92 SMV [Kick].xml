@@ -716,19 +716,21 @@
 			<If Condition="HasQuest(34429) &amp;&amp; !IsQuestCompleted(34429)" > <!-- Altar Altercation -->
 			 <While Condition="!IsObjectiveComplete(1, 34429)"> <!-- Enter the Arena -->
 				<MoveTo X="4388.781" Y="-2828.687" Z="4.838441" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for cutscene {TimeRemaining}" />
-				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+				<!-- un cancelable cutscene -->
+				<MoveTo X="4396.81" Y="-2823.687" Z="4.992444" />
 			 </While>
 			 <While Condition="!IsObjectiveComplete(2, 34429)"> <!-- Kill 99 / 100 mobs - we could do escort group, but ... meh -->
+				<MoveTo X="4396.81" Y="-2823.687" Z="4.992444" />
 				<!--<Objective QuestName="Kill Your Hundred" QuestId="34429" Type="KillMob" MobId="82066" KillCount="100" />--> <!-- we can just /afk here and the npcs will handle it -->
 				<!--<Objective QuestName="Kill Your Hundred" QuestId="34429" Type="KillMob" MobId="82142" KillCount="99" />-->
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for objective to auto complete {TimeRemaining}" />
 			 </While>
 			 <While Condition="!IsObjectiveComplete(3, 34429)"> <!-- Escape Arena -->
 				<MoveTo X="4510.224" Y="-2634.387" Z="1.843593" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for cutscene {TimeRemaining}" />
-				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+				<CustomBehavior File="WaitTimer" QuestId="34429" WaitTime="8000" GoalText="Waiting for cutscene {TimeRemaining}" />
 			 </While>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for cutscene {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
 			</If>
 		<TurnIn QuestName="Kill Your Hundred" QuestId="34429" TurnInName="Archmage Khadgar" TurnInId="78561" X="4510.708" Y="-2635.453" Z="1.748904" /> <!-- New NPC Id -->
 		<PickUp QuestName="The Shadowmoon Clan" QuestId="34432" GiverName="Vindicator Maraad" GiverId="78554" X="4505.308" Y="-2633.774" Z="1.709742" />
@@ -737,7 +739,7 @@
 		<PickUp QuestName="Yrel" QuestId="34434" GiverName="Yrel" GiverId="78994" X="4614.925" Y="-2470.79" Z="13.76395" />
 			<If Condition="HasQuest(34434) &amp;&amp; !IsQuestCompleted(34434)" > <!-- Yrel - 'Escort' Quest -->
 				<RunTo X="4540.177" Y="-2503.882" Z="19.88293" />
-				<CustomBehavior File="WaitTimer" QuestId="34434" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" QuestId="34434" WaitTime="15000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="UserDialog" QuestId="34434" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Do Escort, we failed" />
 				<!-- Escort quest logic - 
 				<Vendor Name="Yrel" Entry="78994" Type="Repair" X="4614.925" Y="-2470.79" Z="13.76395" />
