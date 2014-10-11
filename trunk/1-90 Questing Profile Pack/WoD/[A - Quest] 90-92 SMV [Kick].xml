@@ -25,6 +25,7 @@
 
     <AvoidMobs>
 		<Mob Name="Umbraspore Giant" Entry="82318" />
+		<Mob Name="Volatile Spore" Entry="82328" />
     </AvoidMobs>
 
     <Blackspots>
@@ -1125,11 +1126,11 @@
 		<TurnIn QuestName="Naielle, The Rangari" QuestId="34783" TurnInName="Exarch Naielle" TurnInId="80079" X="1609.405" Y="-1516.061" Z="1.774968" />
 		<PickUp QuestName="Fun with Fungus" QuestId="34784" GiverName="Exarch Naielle" GiverId="80079" X="1609.405" Y="-1516.061" Z="1.774968" />
 		<PickUp QuestName="The Sting" QuestId="34790" GiverName="Rangari Chel" GiverId="82537" X="1633.63" Y="-1531.101" Z="1.978926" />
-			<Objective QuestName="The Sting" QuestId="34790" Type="CollectItem" ItemId="113256" CollectCount="1" />
 			<While Condition="HasQuest(34784) &amp;&amp; !IsQuestCompleted(34784)" > <!-- Fun with Fungus -->
 				<TargetingDistance Value="10" />
 				<If Condition="!Me.HasAura(165892) &amp;&amp; !IsQuestCompleted(34784)" > <!-- Missing Shimmershroom Aura -->
-					<CustomBehavior File="InteractWith" QuestId="34784" MobId="232533" MobType="GameObject" Range="4" TerminateWhen="Me.HasAura(165892)" >
+					<CustomBehavior File="ForcedMount" MountType="Ground" />
+					<CustomBehavior File="InteractWith" QuestId="34784" MobId="232533" MobType="GameObject" Range="4" TerminateWhen="Me.HasAura(165892)" WaitTime="100" >
 						<HuntingGrounds>
 							<Hotspot X="1601.425" Y="-1580.819" Z="-0.2653325" />
 							<Hotspot X="1634.604" Y="-1604.08" Z="-0.3766119" />
@@ -1152,7 +1153,7 @@
 				</If>
 				<If Condition="Me.HasAura(165892) &amp;&amp; !IsQuestCompleted(34784)" > <!-- Have Shimmershroom Aura -->
 					<CustomBehavior File="ForcedMount" MountType="Ground" />
-					<CustomBehavior File="InteractWith" QuestId="34784" MobId="82328" Range="4" TerminateWhen="!Me.HasAura(165892)" >
+					<CustomBehavior File="InteractWith" QuestId="34784" MobId="82328" Range="4" TerminateWhen="!Me.HasAura(165892)" WaitTime="100" >
 						<HuntingGrounds>
 							<Hotspot X="1601.425" Y="-1580.819" Z="-0.2653325" />
 							<Hotspot X="1634.604" Y="-1604.08" Z="-0.3766119" />
@@ -1174,6 +1175,7 @@
 				</If>
 				<TargetingDistance Value="45" />
 			</While>
+			<Objective QuestName="The Sting" QuestId="34790" Type="CollectItem" ItemId="113256" CollectCount="1" />
 		<TurnIn QuestName="The Sting" QuestId="34790" TurnInName="Rangari Chel" TurnInId="82537" X="1633.63" Y="-1531.101" Z="1.978926" />
 		<TurnIn QuestName="Fun with Fungus" QuestId="34784" TurnInName="Exarch Naielle" TurnInId="80079" X="1609.405" Y="-1516.061" Z="1.774968" />
 		<PickUp QuestName="Exarch Maladaar" QuestId="34787" GiverName="Exarch Akama" GiverId="80078" X="1606.686" Y="-1517.252" Z="1.778397" />
@@ -1219,7 +1221,7 @@
 		<TurnIn QuestName="The Traitor's True Name" QuestId="34792" TurnInName="Exarch Maladaar" TurnInId="80073" X="1489.33" Y="-1923.948" Z="67.46728" />
 		<PickUp QuestName="Friend of the Exarchs" QuestId="34788" GiverName="Exarch Naielle" GiverId="80079" X="1489.214" Y="-1917.429" Z="67.46739" />
 			<If Condition="HasQuest(34788) &amp;&amp; !IsQuestCompleted(34788)" > <!-- Friend of the Exarchs -->
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Choose a companion" />
+				<CustomBehavior File="UserDialog" QuestId="34788" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Choose a companion" />
 			</If>
 		<TurnIn QuestName="Friend of the Exarchs" QuestId="34788" TurnInName="Exarch Naielle" TurnInId="80079" X="1489.214" Y="-1917.429" Z="67.46739" />
 		<PickUp QuestName="Supply Drop" QuestId="35905" GiverName="Exarch Naielle" GiverId="80079" X="1489.214" Y="-1917.429" Z="67.46739" />
