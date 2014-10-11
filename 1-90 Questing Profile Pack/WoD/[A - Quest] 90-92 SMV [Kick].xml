@@ -588,20 +588,25 @@
 		
 		<!-- Dark Portal -->
 			<If Condition="!IsQuestCompleted(34393)" >
-		<DisableBehavior Name="Pull" />
+				<DisableBehavior Name="Pull" />
 			</If>
 		<PickUp QuestName="Azeroth's Last Stand" QuestId="35933" GiverName="Archmage Khadgar" GiverId="78558" X="4066.427" Y="-2372.571" Z="94.59667" />
-			<Objective QuestName="Azeroth's Last Stand" QuestId="35933" Type="CollectItem" ItemId="113579" CollectCount="1" />
+            <While Condition="HasQuest(35933) &amp;&amp; !IsQuestCompleted(35933)"> <!-- Azeroth's Last Stand -->
+				<!--<Objective QuestName="Azeroth's Last Stand" QuestId="35933" Type="CollectItem" ItemId="113579" CollectCount="1" />-->
+				<CustomBehavior File="InteractWith" QuestId="35933" MobId="78883" MobState="Alive" X="4066.309" Y="-2304.655" Z="64.92082" />
+			</While>
             <While Condition="HasQuest(35933) &amp;&amp; IsQuestCompleted(35933)"> <!-- Turnin Azeroth's Last Stand, Pickup Onslaught's End -->
                 <TurnIn QuestId="35933" /> <!-- Get 34392 -->
                 <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
             </While>
 			<If Condition="HasQuest(34392) &amp;&amp; !IsQuestCompleted(34392)" > <!-- Onslaught's End -->
 			 <While Condition="!IsObjectiveComplete(1, 34392)"> <!-- North -->
-				<CustomBehavior File="InteractWith" QuestId="34392" MobId="233056" ObjectType="GameObject" Range="8" WaitTime="3000" X="4167.366" Y="-2281.594" Z="59.87671" />
+				<MoveTo X="4167.385" Y="-2287.48" Z="59.87266" />
+				<CustomBehavior File="InteractWith" QuestId="34392" MobId="233056" ObjectType="GameObject" Range="8" WaitTime="3000" X="4167.385" Y="-2287.48" Z="59.87266" />
 			 </While>
 			 <While Condition="!IsObjectiveComplete(2, 34392)"> <!-- South -->
-				<CustomBehavior File="InteractWith" QuestId="34392" MobId="233057" ObjectType="GameObject" Range="8" WaitTime="3000" X="3964.796" Y="-2283.616" Z="59.87628" />
+				<MoveTo X="3964.42" Y="-2290.505" Z="59.67453" />
+				<CustomBehavior File="InteractWith" QuestId="34392" MobId="233057" ObjectType="GameObject" Range="8" WaitTime="3000" X="3964.42" Y="-2290.505" Z="59.67453" />
 			 </While>
 			</If>
         <TurnIn QuestName="Onslaught's End" QuestId="34392" TurnInName="Archmage Khadgar" TurnInId="78558" X="4066.427" Y="-2372.571" Z="94.59733" />
@@ -775,13 +780,32 @@
 		<TurnIn QuestName="The Prodigal Frostwolf" QuestId="34437" TurnInName="Farseer Drek'Thar" TurnInId="78996" X="4417.996" Y="-2090.691" Z="2.777332" />
 		<PickUp QuestName="Taking a Trip to the Top of the Tank" QuestId="35747" GiverName="Archmage Khadgar" GiverId="78563" X="4380.106" Y="-2093.049" Z="4.028507" /> <!-- New NPC Id -->
 			<If Condition="HasQuest(35747) &amp;&amp; !IsQuestCompleted(35747)" > <!-- Taking a Trip to the Top of the Tank - Escort -->
-				<CustomBehavior File="UserDialog" QuestId="35747" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Do Escort. (combine the next 3 steps)" />
+				<!--<CustomBehavior File="UserDialog" QuestId="35747" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Do Escort. (combine the next 3 steps)" />-->
 			 <While Condition="!IsObjectiveComplete(1, 35747)"> <!-- Thaelin Darkanvil -->
 				<CustomBehavior File="InteractWith" MobId="78568" GossipOptions="1" X="4364.854" Y="-2115.491" Z="2.372287" /> <!-- Thaelin Darkanvil -->
+				<MoveTo X="4338.178" Y="-2060.592" Z="1.166897" />
 			 </While>
-			 <While Condition="!IsObjectiveComplete(2, 35747)"> <!-- Kill Gogluk -->
+			 <While Condition="!IsObjectiveComplete(2, 35747)"> <!-- Kill Gogluk
+				<MoveTo X="4338.178" Y="-2060.592" Z="1.166897" />
+				<CustomBehavior File="EscortGroup" QuestId="35747" EscortCompleteWhen="QuestObjectiveComplete" QuestObjectiveIndex="2" EscortCountMax="1" 
+											EscortNpcId="78568" EscortMaxFightDistance="15" SearchForNpcsRadius="75" >
+					<SearchPath>
+						<Hotspot X="4338.178" Y="-2060.592" Z="1.166897" />
+						<Hotspot X="4278.509" Y="-2019.878" Z="3.447598" />
+						<Hotspot X="4209.694" Y="-1980.295" Z="15.53718" />
+						<Hotspot X="4159.312" Y="-1968.087" Z="21.50705" />
+						<Hotspot X="4108.087" Y="-1931.512" Z="26.35879" />
+						<Hotspot X="4068.011" Y="-1922.626" Z="25.98899" />
+						<Hotspot X="4065.759" Y="-1955.649" Z="27.77714" />
+					</SearchPath>
+				</CustomBehavior> -->
+				<MoveTo X="4109.659" Y="-1930.428" Z="26.4752" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Kill noob mobs {TimeRemaining}" />
+				<MoveTo X="4065.759" Y="-1955.649" Z="27.83311" />
+			  <While Condition="!IsObjectiveComplete(2, 35747)"> <!-- Thaelin Darkanvil & Kill Gogluk -->
 				<MoveTo X="4065.759" Y="-1955.649" Z="27.83311" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Kill Gogluk npc 86039 {TimeRemaining}" />
+			  </While>
 			 </While>
 			 <While Condition="!IsObjectiveComplete(3, 35747)"> <!-- Climb the rear chains -->
 				<MoveTo X="4064.357" Y="-2021.231" Z="74.99429" />
@@ -806,7 +830,9 @@
 		<TurnIn QuestName="A Taste of Iron" QuestId="34445" TurnInName="Thaelin Darkanvil" TurnInId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
 		<PickUp QuestName="The Home Stretch" QuestId="35884" GiverName="Thaelin Darkanvil" GiverId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
 			<If Condition="HasQuest(35884) &amp;&amp; !IsQuestCompleted(35884)" > <!-- The Home Stretch -->
+				<UseMount Value="false" />
 				<CustomBehavior File="NoCombatMoveTo" X="3527.663" Y="-2125.812" Z="17.23087" /> 
+				<UseMount Value="true" />
 			</If>
 		<TurnIn QuestName="The Home Stretch" QuestId="35884" TurnInName="Archmage Khadgar" TurnInId="78563" X="3545.687" Y="-2123.458" Z="17.23104" />
 		<!-- Cutscene -->
@@ -909,15 +935,24 @@
 			</If>
 		<TurnIn QuestName="Qiana Moonshadow" QuestId="34646" TurnInName="Qiana Moonshadow" TurnInId="81948" X="1845.29" Y="268.9618" Z="78.31454" />
 		<PickUp QuestName="Delegating on Draenor" QuestId="34692" GiverName="Lieutenant Thorn" GiverId="79953" X="1847.073" Y="270.6632" Z="78.39755" />
-			<If Condition="HasQuest(34692) &amp;&amp; !IsQuestCompleted(34692)" > <!-- Delegating on Draenor -->
+			<If Condition="HasQuest(34692) &amp;&amp; !IsQuestCompleted(34692)" > <!-- Delegating on Draenor 
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for table to activate {TimeRemaining}" />-->
 				<CustomBehavior File="InteractWith" QuestId="34692" MobId="81546" Range="5" X="1847.561" Y="269.5938" Z="78.31422" />
 				
 				<!-- Replace with real lua later (non frames) -->
-				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameHelpBoxButton:Click()" NumOfTimes="3" WaitTime="1000" />
 				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameMissionsListScrollFrameButton1:Click()" NumOfTimes="1" WaitTime="1000" />
-				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameFollowersListScrollFrameButton1:Click()" NumOfTimes="1" WaitTime="1000" />
-				<CustomBehavior File="Misc\RunLua" Lua="DropDownList1Button1:Click()" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="Misc\RunLua" Lua="DropDownList1MenuBackdrop:Click()" NumOfTimes="1" WaitTime="2000" />
+				<CustomBehavior File="Misc\RunLua" Lua="DropDownList1Button1:Click()" NumOfTimes="1" WaitTime="2000" />
 				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrame.MissionTab.MissionPage.StartMissionButton:Click()" NumOfTimes="1" WaitTime="1000" />
+				<!--
+				C_Garrison.AddFollowerToMission(66,34)
+				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameHelpBoxButton:Click()" NumOfTimes="3" WaitTime="1000" />
+				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameFollowersListScrollFrameButton1:Click()" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="Misc\RunLua" Lua="DropDownList1Button1:Click()" NumOfTimes="1" WaitTime="2000" />
+				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrame.MissionTab.MissionPage.StartMissionButton:Click()" NumOfTimes="1" WaitTime="1000" />
+				
+				<CustomBehavior File="Misc\RunLua" Lua="C_Garrison.AddFollowerToMission(66,34)" NumOfTimes="1" WaitTime="1000" />
+				-->
 				
 			</If>
 		<TurnIn QuestName="Delegating on Draenor" QuestId="34692" TurnInName="Lieutenant Thorn" TurnInId="79953" X="1847.073" Y="270.6632" Z="78.39755" />
@@ -1026,7 +1061,16 @@
 				<MoveTo X="1390.312" Y="-1171.933" Z="-12.86604" />
 			 </If>
 			 <While Condition="!IsObjectiveComplete(2, 34779)"> 
-				<!-- defend the camp logic here -->
+				<!-- defend the camp logic here 
+				
+				<CustomBehavior File="EscortGroup" QuestId="34779" EscortCompleteWhen="QuestObjectiveComplete" QuestObjectiveIndex="2" EscortCountMax="1" 
+											EscortNpcId="" EscortMaxFightDistance="15" SearchForNpcsRadius="75" >
+					<SearchPath>
+						<MoveTo X="1390.312" Y="-1171.933" Z="-12.86604" />
+					</SearchPath>
+				</CustomBehavior>
+				
+				-->
 				<CustomBehavior File="UserDialog" QuestId="34779" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="defend the camp logic" />
 			 </While>
 			 <While Condition="!IsObjectiveComplete(3, 34779)"> 
@@ -1078,17 +1122,54 @@
 		<PickUp QuestName="Fun with Fungus" QuestId="34784" GiverName="Exarch Naielle" GiverId="80079" X="1609.405" Y="-1516.061" Z="1.774968" />
 		<PickUp QuestName="The Sting" QuestId="34790" GiverName="Rangari Chel" GiverId="82537" X="1633.63" Y="-1531.101" Z="1.978926" />
 			<Objective QuestName="The Sting" QuestId="34790" Type="CollectItem" ItemId="113256" CollectCount="1" />
-			<If Condition="HasQuest(34784) &amp;&amp; !IsQuestCompleted(34784)" > <!-- Fun with Fungus -->
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Use orange glowcap and get buff. collect spores" />
-			<!-- <Aura Name="" SpellId="161694" StackCount="0" CreatorGuid="080F2C00000000000000000000020EE6" TimeLeft="00:00:00" Flags="Passive, Cancelable, PlayerCasted" /> 
-				// Shimmershroom Aura 
-				You must click a mushroom (orange glowcap) and then get this buff, then 'collect' the Volatile Spores... but you can only collect when you have the buff. it lasts 30s
-				<Object Name="Shimmershroom" Id="232533" />
-				<Mob Name="Volatile Spore" Id="82328" />
-				<Objective QuestName="Fun with Fungus" QuestId="34784" Type="CollectItem" ItemId="113192" CollectCount="12" />
-				// hotspots are in the override above for quest 34784
-				-->
-			</If>
+			<While Condition="HasQuest(34784) &amp;&amp; !IsQuestCompleted(34784)" > <!-- Fun with Fungus -->
+				<TargetingDistance Value="10" />
+				<If Condition="!Me.HasAura(165892) &amp;&amp; !IsQuestCompleted(34784)" > <!-- Missing Shimmershroom Aura -->
+					<CustomBehavior File="InteractWith" QuestId="34784" MobId="232533" MobType="GameObject" Range="4" TerminateWhen="Me.HasAura(165892)" >
+						<HuntingGrounds>
+							<Hotspot X="1601.425" Y="-1580.819" Z="-0.2653325" />
+							<Hotspot X="1634.604" Y="-1604.08" Z="-0.3766119" />
+							<Hotspot X="1675.526" Y="-1593.786" Z="-1.060312" />
+							<Hotspot X="1699.751" Y="-1566.427" Z="-0.1916027" />
+							<Hotspot X="1747.602" Y="-1521.402" Z="-1.172306" />
+							<Hotspot X="1722.092" Y="-1478.15" Z="3.349336" />
+							<Hotspot X="1673.19" Y="-1453.13" Z="-1.109383" />
+							<Hotspot X="1638.276" Y="-1365.976" Z="1.44685" />
+							<Hotspot X="1606.374" Y="-1337.337" Z="-0.05834799" />
+							<Hotspot X="1658.915" Y="-1313.932" Z="2.530425" />
+							<Hotspot X="1691.107" Y="-1209.609" Z="4.079405" />
+							<Hotspot X="1788.816" Y="-1230.756" Z="0.2748472" />
+							<Hotspot X="1825.347" Y="-1282.217" Z="3.083823" />
+							<Hotspot X="1839.702" Y="-1359.582" Z="5.983283" />
+							<Hotspot X="1906.551" Y="-1346.478" Z="0.7707717" />
+						</HuntingGrounds>
+					</CustomBehavior>
+					<CustomBehavior File="ForcedMount" MountType="Ground" />
+				</If>
+				<If Condition="Me.HasAura(165892) &amp;&amp; !IsQuestCompleted(34784)" > <!-- Have Shimmershroom Aura -->
+					<CustomBehavior File="ForcedMount" MountType="Ground" />
+					<CustomBehavior File="InteractWith" QuestId="34784" MobId="82328" Range="4" TerminateWhen="!Me.HasAura(165892)" >
+						<HuntingGrounds>
+							<Hotspot X="1601.425" Y="-1580.819" Z="-0.2653325" />
+							<Hotspot X="1634.604" Y="-1604.08" Z="-0.3766119" />
+							<Hotspot X="1675.526" Y="-1593.786" Z="-1.060312" />
+							<Hotspot X="1699.751" Y="-1566.427" Z="-0.1916027" />
+							<Hotspot X="1747.602" Y="-1521.402" Z="-1.172306" />
+							<Hotspot X="1722.092" Y="-1478.15" Z="3.349336" />
+							<Hotspot X="1673.19" Y="-1453.13" Z="-1.109383" />
+							<Hotspot X="1638.276" Y="-1365.976" Z="1.44685" />
+							<Hotspot X="1606.374" Y="-1337.337" Z="-0.05834799" />
+							<Hotspot X="1658.915" Y="-1313.932" Z="2.530425" />
+							<Hotspot X="1691.107" Y="-1209.609" Z="4.079405" />
+							<Hotspot X="1788.816" Y="-1230.756" Z="0.2748472" />
+							<Hotspot X="1825.347" Y="-1282.217" Z="3.083823" />
+							<Hotspot X="1839.702" Y="-1359.582" Z="5.983283" />
+							<Hotspot X="1906.551" Y="-1346.478" Z="0.7707717" />
+						</HuntingGrounds>
+					</CustomBehavior>
+				</If>
+				<TargetingDistance Value="45" />
+			</While>
 		<TurnIn QuestName="The Sting" QuestId="34790" TurnInName="Rangari Chel" TurnInId="82537" X="1633.63" Y="-1531.101" Z="1.978926" />
 		<TurnIn QuestName="Fun with Fungus" QuestId="34784" TurnInName="Exarch Naielle" TurnInId="80079" X="1609.405" Y="-1516.061" Z="1.774968" />
 		<PickUp QuestName="Exarch Maladaar" QuestId="34787" GiverName="Exarch Akama" GiverId="80078" X="1606.686" Y="-1517.252" Z="1.778397" />
@@ -1192,7 +1273,9 @@
 			<If Condition="HasQuest(33788) &amp;&amp; !IsQuestCompleted(33788)" > <!-- Cooking With Unstable Herbs -->
 			 <While Condition="!IsObjectiveComplete(1, 33788)"> 
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="this quest is like the LK brew quest in sholazar" />
+				<!--
 				<CustomBehavior File="InteractWith" QuestId="33788" MobId="76204" Range="5" GossipOptions="1" WaitTime="4000" X="101.8281" Y="-1322.726" Z="-4.050506" />
+				-->
 			 </While>
 			 <While Condition="!IsObjectiveComplete(2, 33788)"> 
 	<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="this quest is like the LK brew quest in sholazar" />
