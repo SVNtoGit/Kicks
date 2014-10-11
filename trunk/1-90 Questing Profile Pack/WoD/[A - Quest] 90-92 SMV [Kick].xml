@@ -580,14 +580,16 @@
 			<If Condition="HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)" >
 				<CustomBehavior File="FlyTo" DestName="Khadgar port to Tanaan" X="-8871.879" Y="587.5573" Z="93.08315" />
 				<CustomBehavior File="ForcedDismount" />
+				<MoveTo X="-8871.879" Y="587.5573" Z="93.08245" />
 				<CustomBehavior File="InteractWith" MobId="83863" GossipOptions="1" Range="5" X="-8871.879" Y="587.5573" Z="93.08315" /> <!-- Khadgar -->
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for port {TimeRemaining}" />
 				<!-- kill cinematic -->
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="1000" />
 			</If>
 		<TurnIn QuestName="The Dark Portal" QuestId="34398" TurnInName="Archmage Khadgar" TurnInId="78558" X="4066.427" Y="-2372.571" Z="94.59667" />
 		<!-- End of SW / Callboard -->
-		
-		<!-- Dark Portal -->
+
+			<!-- Dark Portal -->
 			<If Condition="!IsQuestCompleted(34393)" >
 				<DisableBehavior Name="Pull" />
 			</If>
@@ -598,7 +600,7 @@
 			</While>
             <While Condition="HasQuest(35933) &amp;&amp; IsQuestCompleted(35933)"> <!-- Turnin Azeroth's Last Stand, Pickup Onslaught's End -->
                 <TurnIn QuestId="35933" /> <!-- Get 34392 -->
-                <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
+                <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for CLQ {TimeRemaining}" />
             </While>
 			<If Condition="HasQuest(34392) &amp;&amp; !IsQuestCompleted(34392)" > <!-- Onslaught's End -->
 			 <While Condition="!IsObjectiveComplete(1, 34392)"> <!-- North -->
@@ -614,8 +616,11 @@
 		<PickUp QuestName="The Portal's Power" QuestId="34393" GiverName="Archmage Khadgar" GiverId="78558" X="4066.427" Y="-2372.571" Z="94.59733" />
 			<If Condition="HasQuest(34393) &amp;&amp; !IsQuestCompleted(34393)" > <!-- The Portal's Power -->
 			 <While Condition="!IsObjectiveComplete(1, 34393)"> <!-- Enter the Soul Chamber -->
-				<MoveTo X="4065.719" Y="-2378.269" Z="74.91065" />
-				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for cutscene {TimeRemaining}" />
+				<MoveTo X="4026.397" Y="-2377.47" Z="79.60987" />
+				<MoveTo X="4034.27" Y="-2377.651" Z="79.64513" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for scenmatic {TimeRemaining}" />
+				<!-- kill cinematic -->
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="1000" />
 			 </While>
 			 <While Condition="!IsObjectiveComplete(2, 34393)"> <!-- Burning Blade -->
 				<CustomBehavior File="InteractWith" QuestId="34393" MobId="229598" ObjectType="GameObject" Range="8" WaitTime="3000" X="4099.781" Y="-2402.887" Z="69.81522" />
@@ -629,6 +634,9 @@
 			 <While Condition="!IsObjectiveComplete(5, 34393)"> <!-- Stasis Core -->
 				<CustomBehavior File="InteractWith" QuestId="34393" MobId="233104" ObjectType="GameObject" Range="8" WaitTime="3000" X="4066.543" Y="-2402.026" Z="78.02605" />
 			 </While>
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for scenmatic {TimeRemaining}" />
+				<!-- kill cinematic -->
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="1000" />
 			</If>
         <TurnIn QuestName="The Portal's Power" QuestId="34393" TurnInName="Archmage Khadgar" TurnInId="78558" X="4066.427" Y="-2372.571" Z="94.59733" />
 		<PickUp QuestName="The Cost of War" QuestId="34420" GiverName="Archmage Khadgar" GiverId="78558" X="4066.427" Y="-2372.571" Z="94.59733" />
@@ -706,7 +714,7 @@
 				<MoveTo X="4388.781" Y="-2828.687" Z="4.838441" />
 				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for cutscene {TimeRemaining}" />
 			 </While>
-			 <While Condition="!IsObjectiveComplete(2, 34429)"> <!-- Kill 99 / 100 mobs -->
+			 <While Condition="!IsObjectiveComplete(2, 34429)"> <!-- Kill 99 / 100 mobs - we could do escort group, but ... meh -->
 				<!--<Objective QuestName="Kill Your Hundred" QuestId="34429" Type="KillMob" MobId="82066" KillCount="100" />--> <!-- we can just /afk here and the npcs will handle it -->
 				<!--<Objective QuestName="Kill Your Hundred" QuestId="34429" Type="KillMob" MobId="82142" KillCount="99" />-->
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for objective to auto complete {TimeRemaining}" />
@@ -1267,8 +1275,8 @@
 		<PickUp QuestName="Swamplighter Queen" QuestId="33808" GiverName="Fiona" GiverId="76204" X="101.8281" Y="-1322.726" Z="-4.050506" />
 		<PickUp QuestName="Rotting Riverbeasts" QuestId="34996" GiverName="Rangari Duula" GiverId="80859" X="-6.258681" Y="-1255.694" Z="-23.01572" />
 			<Objective QuestName="Fiona's Solution" QuestId="33787" Type="CollectItem" ItemId="108409" CollectCount="3" />
-			<Objective QuestName="Fiona's Solution" QuestId="33787" Type="CollectItem" ItemId="108394" CollectCount="1" />
 			<Objective QuestName="Fiona's Solution" QuestId="33787" Type="CollectItem" ItemId="108396" CollectCount="4" />
+			<Objective QuestName="Fiona's Solution" QuestId="33787" Type="CollectItem" ItemId="108394" CollectCount="1" />
 			<Objective QuestName="Fiona's Solution" QuestId="33787" Type="CollectItem" ItemId="108395" CollectCount="2" />
 			<Objective QuestName="Swamplighter Queen" QuestId="33808" Type="CollectItem" ItemId="108410" CollectCount="1" />
 			<Objective QuestName="Rotting Riverbeasts" QuestId="34996" Type="KillMob" MobId="80752" KillCount="5" />
