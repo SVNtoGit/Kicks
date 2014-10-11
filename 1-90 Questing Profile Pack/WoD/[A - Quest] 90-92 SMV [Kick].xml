@@ -581,8 +581,11 @@
 				<CustomBehavior File="FlyTo" DestName="Khadgar port to Tanaan" X="-8871.879" Y="587.5573" Z="93.08315" />
 				<CustomBehavior File="ForcedDismount" />
 				<MoveTo X="-8871.879" Y="587.5573" Z="93.08245" />
-				<CustomBehavior File="InteractWith" MobId="83863" GossipOptions="1" Range="5" X="-8871.879" Y="587.5573" Z="93.08315" /> <!-- Khadgar -->
-				<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for port {TimeRemaining}" />
+				<CustomBehavior File="BasicInteractWith" MobId="83863" /> <!-- Khadgar -->
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for dialog {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="SelectGossipOption(1)" WaitTime="1000" />
+				<!-- <CustomBehavior File="InteractWith" MobId="83863" GossipOptions="1" Range="5" X="-8871.879" Y="587.5573" Z="93.08315" />  Khadgar -->
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
 				<!-- kill cinematic -->
 				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="1000" />
 			</If>
@@ -641,7 +644,8 @@
         <TurnIn QuestName="The Portal's Power" QuestId="34393" TurnInName="Archmage Khadgar" TurnInId="78558" X="4066.427" Y="-2372.571" Z="94.59733" />
 		<PickUp QuestName="The Cost of War" QuestId="34420" GiverName="Archmage Khadgar" GiverId="78558" X="4066.427" Y="-2372.571" Z="94.59733" />
 			<If Condition="HasQuest(34420) &amp;&amp; IsQuestCompleted(34393)" >
-		<EnableBehavior Name="Pull" />
+				<EnableBehavior Name="Pull" />
+				<TargetingDistance Value="17" />
 			</If>
 		<!-- End of Dark Portal -->
 		
@@ -899,11 +903,15 @@
 			<Objective QuestName="Quakefist" QuestId="34585" Type="KillMob" MobId="81360" KillCount="1" />
 		<TurnIn QuestName="Quakefist" QuestId="34585" TurnInName="Yrel" TurnInId="79567" X="1928.167" Y="331.4112" Z="89.11049" />
 		<PickUp QuestName="Establish Your Garrison" QuestId="34586" GiverName="Baros Alexston" GiverId="79243" X="1936.286" Y="322.4192" Z="88.9762" />
-			<If Condition="HasQuest(34586) &amp;&amp; !IsQuestCompleted(34586)" > <!-- For the Alliance! -->
+			<If Condition="HasQuest(34586) &amp;&amp; !IsQuestCompleted(34586)" > <!-- Establish Your Garrison -->
 				<CustomBehavior File="InteractWith" QuestId="34586" MobId="79243" GossipOptions="1" Range="5" X="1936.269" Y="322.3976" Z="88.97637" />
 				<CustomBehavior File="WaitTimer" QuestId="34586" WaitTime="20000" GoalText="Waiting for camp to be built {TimeRemaining}" />
 			</If>
+			<If Condition="HasQuest(34586) &amp;&amp; IsQuestCompleted(34586)" > <!-- Establish Your Garrison -->
 		<TurnIn QuestName="Establish Your Garrison" QuestId="34586" TurnInName="Baros Alexston" TurnInId="77209" X="1866.262" Y="263.6458" Z="77.17226" /> <!-- New NPC Id -->
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+			</If>
 		<!-- End Lunarfall main -->
 		
 		<!-- Our Character's Outpost / Garrison -->
@@ -932,7 +940,7 @@
 			<If Condition="HasQuest(34587) &amp;&amp; !IsQuestCompleted(34587)" > <!-- Build Your Barracks -->
 			 <While Condition="!IsObjectiveComplete(1, 34587)"> <!-- Loot Blueprint -->
 				<CustomBehavior File="InteractWith" QuestId="34587" MobId="231855" ObjectType="GameObject" WaitTime="5000" Range="2" X="1905.098" Y="235.3547" Z="77.60751" />
-				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for cast {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for cast {TimeRemaining}" />
 			 </While>
 			 <While Condition="!IsObjectiveComplete(2, 34587)"> <!-- Learn Blueprint -->
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(111956)" WaitTime="1000" /> <!-- Garrison Blueprint: Barracks, Level 1 -->
@@ -947,6 +955,8 @@
 			 <While Condition="!IsObjectiveComplete(4, 34587)"> <!-- Finalize Garrison Plot -->
 				<CustomBehavior File="InteractWith" QuestId="34587" MobId="232651" ObjectType="GameObject" WaitTime="12000" Range="3" X="1892.78" Y="240.9705" Z="76.37019" />
 			 </While>
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
 			</If>
 		<TurnIn QuestName="Build Your Barracks" QuestId="34587" TurnInName="Vindicator Maraad" TurnInId="79457" X="1848.149" Y="244.5642" Z="76.80275" />
 		<PickUp QuestName="Qiana Moonshadow" QuestId="34646" GiverName="Vindicator Maraad" GiverId="79457" X="1848.149" Y="244.5642" Z="76.80275" />
@@ -958,6 +968,8 @@
 			<If Condition="HasQuest(34692) &amp;&amp; !IsQuestCompleted(34692)" > <!-- Delegating on Draenor 
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for table to activate {TimeRemaining}" />-->
 				<CustomBehavior File="InteractWith" QuestId="34692" MobId="81546" Range="5" X="1847.561" Y="269.5938" Z="78.31422" />
+				
+				<CustomBehavior File="UserDialog" QuestId="34692" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Drag Qiana down to the mission and start it" />
 				
 				<!-- Replace with real lua later (non frames) -->
 				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameMissionsListScrollFrameButton1:Click()" NumOfTimes="1" WaitTime="1000" />
