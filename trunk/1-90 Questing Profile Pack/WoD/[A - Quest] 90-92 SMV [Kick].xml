@@ -761,12 +761,18 @@
 		<PickUp QuestName="Prepare for Battle" QuestId="35019" GiverName="Vindicator Maraad" GiverId="78554" X="4613.97" Y="-2223.531" Z="9.555444" />
 			<Objective QuestName="Prepare for Battle" QuestId="35019" Type="CollectItem" ItemId="112337" CollectCount="30" />
 		<TurnIn QuestName="Prepare for Battle" QuestId="35019" TurnInName="Vindicator Maraad" TurnInId="78554" X="4613.97" Y="-2223.531" Z="9.555444" />
+			<If Condition="!HasQuest(34987) &amp;&amp; !IsQuestCompleted(34439)" > <!-- The Battle of the Forge -->
 		<PickUp QuestName="The Battle of the Forge" QuestId="34439" GiverName="Cordana Felsong" GiverId="78430" X="4613.3" Y="-2246.304" Z="15.1033" />
-			<!-- 15-20s cutscene -->
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+			</If>
 			<Objective QuestName="The Battle of the Forge" QuestId="34439" Type="KillMob" MobId="80775" KillCount="3" />
 			<Objective QuestName="The Battle of the Forge" QuestId="34439" Type="KillMob" MobId="80786" KillCount="15" />
-		<TurnIn QuestName="Farseer Drek'Thar" QuestId="34439" TurnInName="Cordana Felsong" TurnInId="78996" X="4417.996" Y="-2090.691" Z="2.777354" /> <!-- cutscene -->
-			<!-- 25-30s cutscene -->
+			<If Condition="HasQuest(34987) &amp;&amp; IsQuestCompleted(34439)" > <!-- The Battle of the Forge -->
+		<TurnIn QuestName="The Battle of the Forge" QuestId="34439" TurnInName="Cordana Felsong" TurnInId="78996" X="4417.996" Y="-2090.691" Z="2.777354" /> <!-- cutscene -->
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+			</If>
 		<PickUp QuestName="Ga'nar of the Frostwolf" QuestId="34442" GiverName="Cordana Felsong" GiverId="78996" X="4417.996" Y="-2090.691" Z="2.777354" />
 		<PickUp QuestName="The Gunpowder Plot" QuestId="34987" GiverName="Hansel Heavyhands" GiverId="78569" X="4366.801" Y="-2116.076" Z="2.378612" />
 		<PickUp QuestName="The Shadow of the Worldbreaker" QuestId="34958" GiverName="Thaelin Darkanvil" GiverId="78568" X="4364.854" Y="-2115.491" Z="2.372308" />
@@ -831,7 +837,7 @@
 			 <While Condition="!IsObjectiveComplete(2, 34445)"> <!-- Kill Mobs -->
                 <CustomBehavior File="Misc\RunLua" Lua="OverrideActionBarButton1:Click()" WaitTime="100" />
 				<CustomBehavior File="SpellLocation" QuestId="34445" X="3923.166" Y="-2020.857" Z="19.50727" />
-				<CustomBehavior File="WaitTimer" WaitTime="600" GoalText="Waiting for GCD {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="400" GoalText="Waiting for GCD {TimeRemaining}" />
 			 </While>
 			 <While Condition="!IsObjectiveComplete(3, 34445)"> <!-- Click Trigger -->
 				<RunTo X="4065.838" Y="-2022.482" Z="75.43866" />
@@ -845,8 +851,11 @@
 				<CustomBehavior File="NoCombatMoveTo" X="3527.663" Y="-2125.812" Z="17.23087" /> 
 				<UseMount Value="true" />
 			</If>
+			<If Condition="HasQuest(35884) &amp;&amp; IsQuestCompleted(35884)" > <!-- The Home Stretch -->
 		<TurnIn QuestName="The Home Stretch" QuestId="35884" TurnInName="Archmage Khadgar" TurnInId="78563" X="3545.687" Y="-2123.458" Z="17.23104" />
-		<!-- Cutscene -->
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+			</If>
 		<!-- End of Blackrock Quarry -->
 
 		<!-- Eventide Landing -->
