@@ -7,19 +7,19 @@
     <MinDurability>0.2</MinDurability>
     <MinFreeBagSlots>2</MinFreeBagSlots>
 
-    <MailGrey>False</MailGrey>
-    <MailWhite>False</MailWhite>
-    <MailGreen>False</MailGreen>
-    <MailBlue>True</MailBlue>
-    <MailPurple>True</MailPurple>
+    <MailGrey>false</MailGrey>
+    <MailWhite>false</MailWhite>
+    <MailGreen>false</MailGreen>
+    <MailBlue>true</MailBlue>
+    <MailPurple>true</MailPurple>
 
-    <SellGrey>True</SellGrey>
-    <SellWhite>True</SellWhite>
-    <SellGreen>True</SellGreen>
-    <SellBlue>False</SellBlue>
-    <SellPurple>False</SellPurple>
+    <SellGrey>true</SellGrey>
+    <SellWhite>true</SellWhite>
+    <SellGreen>true</SellGreen>
+    <SellBlue>false</SellBlue>
+    <SellPurple>false</SellPurple>
 
-    <TargetElites>True</TargetElites>
+    <TargetElites>true</TargetElites>
 
     <AvoidMobs>
     </AvoidMobs>
@@ -39,8 +39,8 @@
     </Mailboxes>
 
     <Vendors>
-        <Vendor Name="Paulsta'ats" Entry="23007" Type="Repair" X="-2054.747" Y="8609.072" Z="22.16219" /> <!-- Consortium, Nagrand -->
-        <Vendor Name="Qiff " Entry="19575" Type="Repair" X="2975.461" Y="3663.066" Z="143.0852" /> <!-- Area 52, Netherstorm -->
+        <Vendor Name="Paulsta'ats" Id="23007" Type="Repair" X="-2054.747" Y="8609.072" Z="22.16219" /> <!-- Consortium, Nagrand -->
+        <Vendor Name="Qiff " Id="19575" Type="Repair" X="2975.461" Y="3663.066" Z="143.0852" /> <!-- Area 52, Netherstorm -->
     </Vendors>
 
     <Quest Id="9893" Name="Obsidian Warbeads">
@@ -99,35 +99,42 @@
 
     <QuestOrder>
 
-    <CustomBehavior File="UserSettings" LootMobs="True" PullDistance="35" TrainNewSkills="False" LearnFlightPaths="False" KillBetweenHotspots="True" LogoutForInactivity="False" />
+    <CustomBehavior File="UserSettings" KillBetweenHotspots="true" LogoutForInactivity="false" />
+        <LootMobs Value="true" />
+        <UseMount Value="true" />
 
             <!-- Farming for Oshu'gun Crystal Fragments - 10 for each turnin, we're getting 24+ per "run" -->
             <While Condition="Me.GetReputationLevelWith(933) &lt; Styx.WoWUnitReaction.Friendly" >
                 <If Condition="(GetItemCount(25416) &lt; 10)" >
-                    <CustomBehavior File="UserSettings" PullDistance="1" />
+                    <DisableBehavior Name="Pull" />
                     <CustomBehavior File="FlyTo" X="-2221.953" Y="8437.491" Z="-24.29752" />
                     <CustomBehavior File="ForcedDismount" />
                   <While Condition="(GetItemCount(25416) &lt; 10)" >
-                    <CustomBehavior File="InteractWith"  MobId="182258" ObjectType="Gameobject" NumOfTimes="6" CollectionDistance="1000" X="-2297.695" Y="8367.567" Z="-35.90181" />
+                      <CustomBehavior File="InteractWith"  MobId="182258" NumOfTimes="6" CollectionDistance="1000"
+                                      X="-2297.695" Y="8367.567" Z="-35.90181" />
                         <CustomBehavior File="FlyTo" X="-2525.27" Y="8021.611" Z="-48.77736" />
                         <CustomBehavior File="ForcedDismount" />
-                    <CustomBehavior File="InteractWith"  MobId="182258" ObjectType="Gameobject" NumOfTimes="6" CollectionDistance="1000" X="-2525.27" Y="8021.611" Z="-48.77736" />
+                        <CustomBehavior File="InteractWith"  MobId="182258" NumOfTimes="6" CollectionDistance="1000"
+                                        X="-2525.27" Y="8021.611" Z="-48.77736" />
                         <CustomBehavior File="FlyTo" X="-2770.325" Y="8567.024" Z="-36.15606" />
                         <CustomBehavior File="ForcedDismount" />
-                    <CustomBehavior File="InteractWith"  MobId="182258" ObjectType="Gameobject" NumOfTimes="6" CollectionDistance="1000" X="-2770.325" Y="8567.024" Z="-36.15606" />
+                        <CustomBehavior File="InteractWith"  MobId="182258" NumOfTimes="6" CollectionDistance="1000"
+                                        X="-2770.325" Y="8567.024" Z="-36.15606" />
                         <CustomBehavior File="FlyTo" X="-2326.249" Y="8412.931" Z="-35.84259" />
                         <CustomBehavior File="ForcedDismount" />
-                    <CustomBehavior File="InteractWith"  MobId="182258" ObjectType="Gameobject" NumOfTimes="6" CollectionDistance="1000" X="-2326.249" Y="8412.931" Z="-35.84259" />
+                        <CustomBehavior File="InteractWith"  MobId="182258" NumOfTimes="6" CollectionDistance="1000"
+                                        X="-2326.249" Y="8412.931" Z="-35.84259" />
                   </While>
                 </If>
                 <If Condition="(GetItemCount(25416) &gt;= 10)" >
                     <CustomBehavior File="FlyTo" X="-2065.237" Y="8554.801" Z="23.84142" />
                     <CustomBehavior File="ForcedDismount" />
                   <While Condition="(GetItemCount(25416) &gt;= 10) &amp;&amp; (Me.GetReputationLevelWith(933) &lt; Styx.WoWUnitReaction.Friendly)" >
-                    <CustomBehavior File="InteractWith"  MobId="18265" NumOfTimes="1" CollectionDistance="50" WaitTime="1000" X="-2087.022" Y="8562.938" Z="22.01344" />
-                    <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
-                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" NumOfTimes="1" WaitTime="1000" />
-                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />
+                      <CustomBehavior File="InteractWith"  MobId="18265" CollectionDistance="50"
+                                      X="-2087.022" Y="8562.938" Z="22.01344" />
+                    <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" />
+                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
                     <CustomBehavior File="WaitTimer" WaitTime="3000" />
                   </While>
                 </If>
@@ -143,9 +150,9 @@
                 <If Condition="((HasQuest(9893)) &amp;&amp; (!IsQuestCompleted(9893)))" >
                     <CustomBehavior File="FlyTo" X="-1926.844" Y="7644.984" Z="-87.07913" />
                     <CustomBehavior File="ForcedDismount" />
-                    <CustomBehavior File="UserSettings" PullDistance="35" />
+                    <EnableBehavior Name="Pull" />
                         <SetGrindArea>
-                            <Grindarea>
+                            <GrindArea>
                                 <TargetMinLevel>64</TargetMinLevel>
                                 <TargetMaxLevel>71</TargetMaxLevel>
                                 <Factions>45</Factions> <!-- [Ogre] -->
@@ -173,9 +180,9 @@
                                     <Hotspot X="-1995.714" Y="7590.118" Z="-90.95038" />
                                     <Hotspot X="-1949.175" Y="7682.474" Z="-93.26241" /> <!-- End of Southwind Cleft & cave -->
                                 </Hotspots>
-                            </Grindarea>
+                            </GrindArea>
                         </SetGrindArea>
-                    <GrindTo Condition="(GetItemCount(25433) &gt;= 10)" GoalText="Getting 10 Warbeads" />
+                        <GrindUntil Condition="(GetItemCount(25433) &gt;= 10)" GoalText="Getting 10 Warbeads" />
                 </If>
                 <If Condition="((HasQuest(9893)) &amp;&amp; (IsQuestCompleted(9893)))" >
                     <CustomBehavior File="FlyTo" X="-2065.237" Y="8554.801" Z="23.84142" />
@@ -248,9 +255,9 @@
                 <If Condition="(GetItemCount(29209) &lt; 30)" >
                 <CustomBehavior File="FlyTo" X="2721.242" Y="3791.269" Z="146.9909" />
                 <CustomBehavior File="ForcedDismount" />
-                <CustomBehavior File="UserSettings" PullDistance="35" />
+                <EnableBehavior Name="Pull" />
                         <SetGrindArea>
-                            <Grindarea>
+                            <GrindArea>
                                 <TargetMinLevel>66</TargetMinLevel>
                                 <TargetMaxLevel>72</TargetMaxLevel>
                                 <Factions>16</Factions> <!-- [Constortium] -->
@@ -269,23 +276,24 @@
                                     <Hotspot X="2673.365" Y="3727.322" Z="144.3405" />
                                     <Hotspot X="2681.213" Y="3767.474" Z="142.329" />
                                 </Hotspots>
-                            </Grindarea>
+                            </GrindArea>
                         </SetGrindArea>
-                    <GrindTo Condition="(GetItemCount(29209) &gt;= 30)" GoalText="Getting 30 Insignia's" />
+                        <GrindUntil Condition="(GetItemCount(29209) &gt;= 30)" GoalText="Getting 30 Insignia's" />
                 </If>
 
                     <CustomBehavior File="FlyTo" X="3067.401" Y="3671.251" Z="142.5094" />
                 <While Condition="(GetItemCount(29209) &gt;= 10) &amp;&amp; (Me.GetReputationLevelWith(933) &lt; Styx.WoWUnitReaction.Exalted)" >
-                    <CustomBehavior File="InteractWith"  MobId="19880" NumOfTimes="1" CollectionDistance="50" WaitTime="1000" X="3067.401" Y="3671.251" Z="142.5094" />
-                    <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" NumOfTimes="1" WaitTime="1000" />
-                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" NumOfTimes="1" WaitTime="1000" />
-                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />
+                    <CustomBehavior File="InteractWith"  MobId="19880" CollectionDistance="50"
+                                    X="3067.401" Y="3671.251" Z="142.5094" />
+                    <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
+                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" />
+                    <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
                     <CustomBehavior File="WaitTimer" WaitTime="3000" />
                 </While>
             </While>
 
             <If Condition="Me.GetReputationLevelWith(933) == Styx.WoWUnitReaction.Exalted" >
-                <CustomBehavior File="UserDialog" Title="title" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nIf you liked this profile, +rep is always appreciated" />
+                <CustomBehavior File="UserDialog" Title="title" AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="1" Text="You have reached Exalted\nIf you liked this profile, +rep is always appreciated" />
             </If>
 
     </QuestOrder>

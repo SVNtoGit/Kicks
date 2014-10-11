@@ -6,15 +6,15 @@
     <MinDurability>0.1</MinDurability>
     <MinFreeBagSlots>1</MinFreeBagSlots>
 
-    <SellGrey>True</SellGrey>
-    <SellWhite>True</SellWhite>
-    <SellGreen>True</SellGreen>
-    <SellBlue>True</SellBlue>
+    <SellGrey>true</SellGrey>
+    <SellWhite>true</SellWhite>
+    <SellGreen>true</SellGreen>
+    <SellBlue>true</SellBlue>
 
-    <MailWhite>True</MailWhite>
-    <MailGreen>True</MailGreen>
-    <MailBlue>True</MailBlue>
-    <MailPurple>True</MailPurple>
+    <MailWhite>true</MailWhite>
+    <MailGreen>true</MailGreen>
+    <MailBlue>true</MailBlue>
+    <MailPurple>true</MailPurple>
 
     <Blackspots>
         <Blackspot X="-4364.624" Y="3753.08" Z="-75.95557" Radius="5.65239" />
@@ -27,20 +27,22 @@
     </AvoidMobs>
 
     <Vendors>
-        <Vendor Name="Erunak Stonespeaker" Entry="36915" Type="Food" X="-4455.174" Y="3803.011" Z="-81.99465" />
-        <Vendor Name="Erunak Stonespeaker" Entry="36915" Type="Sell" X="-4455.174" Y="3803.011" Z="-81.99465" />
-        <Vendor Name="Rusty Anvil" Entry="41461" Type="Repair" X="-4462.955" Y="3809.103" Z="-83.56189" />
+        <Vendor Name="Erunak Stonespeaker" Id="36915" Type="Food" X="-4455.174" Y="3803.011" Z="-81.99465" />
+        <Vendor Name="Erunak Stonespeaker" Id="36915" Type="Sell" X="-4455.174" Y="3803.011" Z="-81.99465" />
+        <Vendor Name="Rusty Anvil" Id="41461" Type="Repair" X="-4462.955" Y="3809.103" Z="-83.56189" />
     </Vendors>
 
     <Mailboxes>
     </Mailboxes>
 
 
-    <QuestOrder IgnoreCheckpoints="True" >
+    <QuestOrder IgnoreCheckpoints="true" >
 
-    <CustomBehavior File="UserSettings" LootMobs="True" UseMount="False" TrainNewSkills="False" LearnFlightPaths="False" UseFlightPaths="False" PullDistance="5" />
+        <CustomBehavior File="UserSettings" UseFlightPaths="false" />
+        <LootMobs Value="true" />
+        <UseMount Value="false" />
         <If Condition="(!IsQuestCompleted(27724))" >
-    <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" ExpiryTime="10" ExpiryAction="InputEnabled_Continue" SoundCueInterval="2"
+    <CustomBehavior File="UserDialog" AllowBotStop="true" SoundCue="Exclamation" ExpiryTime="10" ExpiryAction="InputEnabled_Continue" SoundCueInterval="2"
     Text="This is a Vashj'ir Mount Run Profile ONLY!\n\nDo NOT AFK this profile! - This profile is NOT SUPPORTED.  If you do not have code to give, please do not QQ about it" />
         </If>
 
@@ -64,7 +66,7 @@
                 <CustomBehavior File="FlyTo" DestName="Boat" X="-8291.557" Y="1405.631" Z="4.716912" />
                 <CustomBehavior File="ForcedDismount" />
 
-                <CustomBehavior File="UserDialog" QuestId="14482" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Get on the boat and ride it to Vashj'ir\n\nThis window will auto close when you wake up!" />
+                <CustomBehavior File="UserDialog" QuestId="14482" AllowBotStop="true" SoundCue="Exclamation" SoundCueInterval="1" Text="Get on the boat and ride it to Vashj'ir\n\nThis window will auto close when you wake up!" />
             </If>
             <!--
 
@@ -97,7 +99,9 @@
                 <CustomBehavior File="CollectThings" QuestId="24432" ObjectId="205989" CollectItemCount="3" CollectItemId="54828" HuntingGroundRadius="200" X="-4491.999" Y="3814.793" Z="-104.6294" />
                 -->
              <While Condition="((HasQuest(24432)) &amp;&amp; (!IsObjectiveComplete(1, 24432)))">
-                <CustomBehavior File="InteractWith" QuestId="24432" MobId="205989" ObjectType="Gameobject" Range="4" NumOfTimes="1" Nav="CTM" CollectionDistance="1000" X="-4516.011" Y="3802.54" Z="-97.61694" />
+                 <CustomBehavior File="InteractWith" QuestId="24432" MobId="205989" Range="4"
+                                 CollectionDistance="1000"
+                                 MovementBy="ClickToMoveOnly" X="-4516.011" Y="3802.54" Z="-97.61694" />
                 <CustomBehavior File="MyCTM" X="-4516.011" Y="3802.54" Z="-97.61694" />
              </While>
                 <CustomBehavior File="CollectThings" QuestId="24432" ObjectId="202560" CollectItemCount="1" CollectItemId="52504" HuntingGroundRadius="200" X="-4491.999" Y="3814.793" Z="-104.6294" />
@@ -125,7 +129,9 @@
                     <CustomBehavior File="MyCTM" X="-4457.473" Y="3774.673" Z="-105.1683" />
                     <CustomBehavior File="MyCTM" X="-4516.011" Y="3802.54" Z="-97.61694" />
                 </If>
-                <CustomBehavior File="UseItemOn" QuestId="25281" MobId="39663" ItemId="52710" NumOfTimes="100" MobState="Alive" WaitTime="2000" Range="5" Nav="CTM" CollectionDistance="1000" X="-4455.228" Y="3849.246" Z="-76.71584" />
+                <CustomBehavior File="UseItemOn" QuestId="25281" MobId="39663" ItemId="52710"
+                                NumOfTimes="100" MobState="Alive" Range="5" CollectionDistance="1000"
+                                Nav="CTM" X="-4455.228" Y="3849.246" Z="-76.71584" />
             </If>
             <If Condition="((HasQuest(25281)) &amp;&amp; (IsQuestCompleted(25281))) &amp;&amp; (!Me.IsIndoors)" >
                 <CustomBehavior File="MyCTM" X="-4516.011" Y="3802.54" Z="-97.61694" />
@@ -210,41 +216,59 @@
                 </CustomBehavior>
                 -->
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4518.161" Y="3678.568" Z="-114.3587" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4539.708" Y="3681.169" Z="-110.765" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4549.774" Y="3672.645" Z="-118.4126" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4551.221" Y="3672.838" Z="-117.5455" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4572.766" Y="3686.55" Z="-118.288" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4586.496" Y="3673.964" Z="-115.9627" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4623.357" Y="3679.128" Z="-119.1274" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4637.016" Y="3655.744" Z="-119.1274" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4573.6" Y="3623.711" Z="-103.8185" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4507.995" Y="3642.804" Z="-103.9922" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4470.147" Y="3673.164" Z="-120.558" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4496.993" Y="3715.714" Z="-117.2454" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4431.273" Y="3720.227" Z="-93.50142" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4436.703" Y="3679.747" Z="-114.2395" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4420.799" Y="3679.677" Z="-100.639" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4406.273" Y="3686.518" Z="-107.2568" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4410.508" Y="3685.18" Z="-55.56793" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
                     <CustomBehavior File="MyCTM" QuestId="25564" X="-4518.46" Y="3671.557" Z="-110.2237" />
-                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" ObjectType="Gameobject" Range="4" CollectionDistance="5" Nav="CTM" WaitForNpcs="False" />
+                    <CustomBehavior File="InteractWith" QuestId="25564" MobId="203061" Range="4"
+                                    CollectionDistance="5" WaitForNpcs="false" MovementBy="ClickToMoveOnly" />
             </While>
             <If Condition="((HasQuest(25545)) &amp;&amp; (!IsQuestCompleted(25545)))" >
                 <If Condition="(Me.IsIndoors)"> <!-- Get out of cabin (Me.Y &lt; 3810) -->
@@ -332,7 +356,8 @@
             </If>
             <While Condition="((!HasQuest(27729)) &amp;&amp; (!IsQuestCompleted(27729)))" >
                 <CustomBehavior File="AscendInWater" />
-                <CustomBehavior File="InteractWith" MobId="40855" Nav="CTM" X="-4549.904" Y="3729.019" Z="-111.392" />
+                <CustomBehavior File="InteractWith" MobId="40855"
+                                MovementBy="ClickToMoveOnly" X="-4549.904" Y="3729.019" Z="-111.392" />
             </While>
             <If Condition="((HasQuest(27729)) &amp;&amp; (!IsQuestCompleted(27729)))" >
                 <CustomBehavior File="AscendInWater" />
@@ -383,7 +408,7 @@
                     <CustomBehavior File="MyCTM" X="-4498.745" Y="3816.122" Z="-104.5784" />
                 </If>
                 <!--
-                <CustomBehavior File="CollectThings" QuestId="25558" MobId1="40782" MobId2="40797" CollectUntil="QuestComplete" HuntingGroundRadius="80" >
+                <CustomBehavior File="CollectThings" QuestId="25558" MobId="40782" MobId2="40797" CollectUntil="QuestComplete" HuntingGroundRadius="80" >
                     <Hotspot X="-4490.405" Y="3822.626" Z="-99.1144" />
                     <Hotspot X="-4895.474" Y="3772.646" Z="-148.1422" />
                 </CustomBehavior>
@@ -409,7 +434,9 @@
         <PickUp QuestName="Better Late Than Dead" QuestId="25477" GiverName="Moanah Stormhoof" GiverId="41248" />
             <While Condition="((HasQuest(25477)) &amp;&amp; (!IsQuestCompleted(25477)))" >
                 <CustomBehavior File="MyCTM" X="-4908.723" Y="3578.676" Z="-90.67768" />
-                <CustomBehavior File="UseItemOn" QuestId="25477" MobId="40223" ItemId="54462" Nav="CTM" NumOfTimes="1" WaitTime="1000" Range="3" CollectionDistance="1000" X="-4908.723" Y="3578.676" Z="-90.67768" />
+                <CustomBehavior File="UseItemOn" QuestId="25477" MobId="40223" ItemId="54462" Range="3"
+                                CollectionDistance="1000"
+                                MovementBy="ClickToMoveOnly" X="-4908.723" Y="3578.676" Z="-90.67768" />
                 <CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for quest to complete {TimeRemaining}" />
                 <CustomBehavior File="AscendInWater" />
                 <CustomBehavior File="MyCTM" X="-4908.723" Y="3578.676" Z="-90.67768" />
@@ -421,15 +448,17 @@
             </If>
         <PickUp QuestName="The Abyssal Ride" QuestId="25371" GiverName="Moanah Stormhoof" GiverId="41248" />
             <If Condition="((HasQuest(25371)) &amp;&amp; (!IsQuestCompleted(25371)))" >
-    <CustomBehavior File="UserDialog" QuestId="25371" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Use the line and then mount the seahorse\n\nOnce mounted, read the queues on screen to complete" />
+    <CustomBehavior File="UserDialog" QuestId="25371" AllowBotStop="true" SoundCue="Exclamation" SoundCueInterval="1" Text="Use the line and then mount the seahorse\n\nOnce mounted, read the queues on screen to complete" />
             <!-- fiddle w/ this later
              <If Condition="((HasQuest(25371)) &amp;&amp; (!IsObjectiveComplete(1, 25371)))">
                 <CustomBehavior File="MyCTM" X="-4890.172" Y="3797.045" Z="-147.5677" />
-                <CustomBehavior File="InteractWith" QuestId="25371" MobId="202766" ObjectType="Gameobject" Nav="CTM" Range="8" NumOfTimes="1" CollectionDistance="1000" X="-4890.172" Y="3797.045" Z="-147.5677" />
+                <CustomBehavior File="InteractWith" QuestId="25371" MobId="202766" Range="8"
+                CollectionDistance="1000" MovementBy="ClickToMoveOnly" X="-4890.172" Y="3797.045" Z="-147.5677" />
                 <CustomBehavior File="WaitTimer" WaitTime="12000" GoalText="Waiting for seahorse {TimeRemaining}" />
              </If>
              <If Condition="((HasQuest(25371)) &amp;&amp; (!IsObjectiveComplete(2, 25371)))">
-                <CustomBehavior File="InteractWith" QuestId="25371" MobId="39996" Nav="CTM" NumOfTimes="1" WaitTime="1000" CollectionDistance="1000" X="-4878.225" Y="3828.313" Z="-152.924" />
+             <CustomBehavior File="InteractWith" QuestId="25371" MobId="39996" CollectionDistance="1000"
+             MovementBy="ClickToMoveOnly" X="-4878.225" Y="3828.313" Z="-152.924" />
              </If>
              -->
             </If>
@@ -441,11 +470,11 @@
                 <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for quest to complete {TimeRemaining}" />
             </If>
              <If Condition="(HasItem(54465))" >
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(54465)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(54465)" />
              </If>
 
 
-    <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of profile, if you enjoyed this profile please +rep or donate\n\n-Kick" />
+    <CustomBehavior File="UserDialog" AllowBotStop="true" SoundCue="Exclamation" SoundCueInterval="1" Text="End of profile, if you enjoyed this profile please +rep or donate\n\n-Kick" />
 
 
 

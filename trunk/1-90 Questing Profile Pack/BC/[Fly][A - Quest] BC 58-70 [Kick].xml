@@ -203,7 +203,7 @@
     <Quest Name="DummyCollectfromGameObject" Id="123456">
         <Objective Type="CollectItem" ItemId="1" Name="Item" CollectCount="1">
             <CollectFrom>
-                <Object Name="GameObject" Id="1" />
+                <Object Name="Object" Id="1" />
             </CollectFrom>
             <Hotspots>
                 <Hotspot X="1" Y="1" Z="1" />
@@ -2061,8 +2061,8 @@
             Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; Me.Gold &gt;= 278 &amp;&amp; Me.Level &gt;= 60">
             <CustomBehavior File="Message" Text="Compiling Train Flying" LogColor="Orange" />
             <MoveTo X="-675.6533" Y="2735.204" Z="93.90858" DestName="Train Flying" />
-            <CustomBehavior File="InteractWith" MobId="35100" WaitTime="2000" CollectionDistance="50" X="-677.5347"
-                            Y="2736.305" Z="93.90835" />
+            <CustomBehavior File="InteractWith" MobId="35100" CollectionDistance="50"
+                            X="-677.5347" Y="2736.305" Z="93.90835" />
             <CustomBehavior File="ForceTrainRiding" MobId="35100" />
             <CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
             <If Condition="!HasItem(25472)">
@@ -2207,7 +2207,7 @@
                     <MoveTo QuestId="10144" X="-418.7708" Y="1848.609" Z="81.10023" />
                     <MoveTo QuestId="10144" X="-418.1776" Y="1861.961" Z="85.3735" />
                     <CustomBehavior File="InteractWith" QuestId="10144" QuestObjectiveIndex="1"
-                                    MobId="184414" NonCompeteDistance="0" WaitTime="2000"
+                                    MobId="184414" NonCompeteDistance="0"
                                     PreInteractMountStrategy="DismountOrCancelShapeshift" Range="5"
                                     CollectionDistance="500" X="-418.8635" Y="1848.716" Z="81.12464" />
                 </If>
@@ -2216,7 +2216,7 @@
                     <MoveTo QuestId="10144" X="-564.7162" Y="1791.949" Z="63.04517" />
                     <MoveTo QuestId="10144" X="-564.7162" Y="1791.949" Z="63.04517" />
                     <CustomBehavior File="InteractWith" QuestId="10144" QuestObjectiveIndex="2"
-                                    MobId="184415" NonCompeteDistance="0"  WaitTime="2000"
+                                    MobId="184415" NonCompeteDistance="0"
                                     PreInteractMountStrategy="DismountOrCancelShapeshift" Range="5"
                                     CollectionDistance="500" X="-548.933" Y="1783.239" Z="58.72824" />
                     <MoveTo X="-564.7162" Y="1791.949" Z="63.04517" />
@@ -2394,11 +2394,11 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-                <GrindTo Condition="GetItemCount(23270) == 8" GoalText="8 Tainted Helboar Meat" />
+                <GrindUntil Condition="GetItemCount(23270) == 8" GoalText="8 Tainted Helboar Meat" />
             </If>
             <CustomBehavior File="WaitTimer" WaitTime="2000" />
             <While Condition="HasItem(23270)">
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(23268)" WaitTime="1500" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(23268)" />
             </While>
         </While>
         <If Condition="HasQuest(9361) &amp;&amp; IsQuestCompleted(9361)">
@@ -2531,7 +2531,7 @@
             </Hotspots>
             </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="HasItem(23338)" GoalText="Dropquest Item" />
+            <GrindUntil Condition="HasItem(23338)" GoalText="Dropquest Item" />
             </If>
             <If Condition="HasItem(23338)" >
             <PickUp QuestName="Missing Missive" QuestId="9373" GiverType="Item" GiverId="23338" />
@@ -2682,14 +2682,14 @@
                 </Hotspots>
             </GrindArea>
         </SetGrindArea>
-        <GrindTo Level="60" />
+        <GrindUntil Level="60" />
 
         <!-- Training Flying -->
         <If
             Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; Me.Gold &gt;= 278 &amp;&amp; Me.Level &gt;= 60">
             <CustomBehavior File="Message" Text="Compiling Train Flying" LogColor="Orange" />
             <MoveTo X="-675.6533" Y="2735.204" Z="93.90858" DestName="Train Flying" />
-            <CustomBehavior File="InteractWith" MobId="35100" WaitTime="2000" CollectionDistance="50"
+            <CustomBehavior File="InteractWith" MobId="35100" CollectionDistance="50"
                             X="-677.5347" Y="2736.305" Z="93.90835" />
             <CustomBehavior File="ForceTrainRiding" MobId="35100" />
             <CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
@@ -2958,7 +2958,8 @@
             <If Condition="!CanFly()">
                 <MoveTo X="291.4504" Y="1494.346" Z="-14.81268" />
         <CustomBehavior File="ForcedDismount" />
-        <CustomBehavior File="InteractWith" MobId="20235" GossipOptions="1" X="291.4504" Y="1494.346" Z="-14.81268" WaitTime=" 5000" />
+        <CustomBehavior File="InteractWith" MobId="20235" InteractByGossipOptions="1"
+                        X="291.4504" Y="1494.346" Z="-14.81268" WaitTime=" 5000" />
             </If>
         <!-- bot wants to take fp to shatter point because it thinks there's an invisible bridge to honor point ... you can just ride your mount there -->
             <PickUp QuestName="Disruption - Forge Camp: Mageddon" QuestId="10394"
@@ -3200,17 +3201,17 @@
         </If>
         <While Condition="HasQuest(10368) &amp;&amp; !IsQuestCompleted(10368)">
             <While Condition="HasQuest(10368) &amp;&amp; !IsObjectiveComplete(2,10368)">
-                <CustomBehavior File="InteractWith" MobId="20678" InteractByGossipOptions="1" WaitTime="1000"
+                <CustomBehavior File="InteractWith" MobId="20678" InteractByGossipOptions="1"
                                 X="-541.7875" Y="4734.32" Z="38.71293" />
                 <MoveTo X="-546.4705" Y="4762.286" Z="32.83067" />
             </While>
             <While Condition="HasQuest(10368) &amp;&amp; !IsObjectiveComplete(3,10368)">
-                <CustomBehavior File="InteractWith" MobId="20679" InteractByGossipOptions="1" WaitTime="1000"
+                <CustomBehavior File="InteractWith" MobId="20679" InteractByGossipOptions="1"
                                 X="-530.684" Y="4867.858" Z="34.12392" />
                 <MoveTo X="-552.3524" Y="4865.536" Z="37.04965" />
             </While>
             <While Condition="HasQuest(10368) &amp;&amp; !IsObjectiveComplete(1,10368)">
-                <CustomBehavior File="InteractWith" MobId="20677" InteractByGossipOptions="1" WaitTime="1000"
+                <CustomBehavior File="InteractWith" MobId="20677" InteractByGossipOptions="1"
                                 X="-620.888" Y="4861.629" Z="41.41795" />
                 <MoveTo X="-593.2638" Y="4839.015" Z="38.52351" />
             </While>
@@ -3453,7 +3454,7 @@
                     </Hotspots>
                 </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="HasItem(23580)" />
+            <GrindUntil Condition="HasItem(23580)" />
         </While>
         <UseMount Value="true" />
         <If Condition="HasItem(23580)">
@@ -3527,7 +3528,7 @@
                     </Hotspots>
                 </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="HasItem(29476)" />
+            <GrindUntil Condition="HasItem(29476)" />
         </While>
 
         <If Condition="HasItem(29476)">
@@ -3548,7 +3549,7 @@
 
         <While Condition="HasQuest(10351) &amp;&amp; !IsQuestCompleted(10351)">
             <MoveTo DestName="Goliathon's Base" QuestId="10351" X="134.8253" Y="4834.953" Z="76.86269" />
-            <CustomBehavior QuestId="10351" File="Misc\RunLua" Lua="UseItemByName(29478)" WaitTime="1000" />
+            <CustomBehavior QuestId="10351" File="Misc\RunLua" Lua="UseItemByName(29478)" />
             <CustomBehavior File="WaitTimer" WaitTime="60000" GoalText="Waiting for Goliathon: {TimeRemaining}" />
         </While>
         <Objective QuestName="Natural Remedies" QuestId="10351" Type="KillMob" MobId="19305" KillCount="1" />
@@ -3628,7 +3629,7 @@
                 </Hotspots>
             </GrindArea>
         </SetGrindArea>
-        <GrindTo Level="62" />
+        <GrindUntil Level="62" />
         <!-- Zangarmarsh -->
         <Checkpoint Level="62" />
         <!-- CHECKPOINT BLOCK START: This code needs to be replicated after every checkpoint.
@@ -3924,9 +3925,9 @@
                 X="-234.2691" Y="5434.766" Z="22.42206" />
         <While Condition="HasQuest(9785) &amp;&amp; !IsQuestCompleted(9785)">
             <CustomBehavior File="InteractWith" QuestId="9785" MobId="17900" InteractByGossipOptions="1"
-                            WaitTime="1000" CollectionDistance="200" X="-205.5799" Y="5397.786" Z="22.72385" />
+                            CollectionDistance="200" X="-205.5799" Y="5397.786" Z="22.72385" />
             <CustomBehavior File="InteractWith" QuestId="9785" MobId="17901" InteractByGossipOptions="1"
-                            WaitTime="1000" CollectionDistance="200" X="-291.1291" Y="5516.625" Z="21.8473" />
+                            CollectionDistance="200" X="-291.1291" Y="5516.625" Z="21.8473" />
         </While>
         <TurnIn QuestName="Blessings of the Ancients" QuestId="9785" TurnInName="Windcaller Blackhoof" TurnInId="18070"
                 X="-234.2691" Y="5434.766" Z="22.42206" />
@@ -4069,7 +4070,7 @@
                     </Hotspots>
                 </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="HasItem(25459)" GoalText="Count Ungula's DropQuest" />
+            <GrindUntil Condition="HasItem(25459)" GoalText="Count Ungula's DropQuest" />
         </If>
         <If Condition="HasItem(25459)">
             <PickUp QuestName="The Count of the Marshes" QuestId="9911" GiverType="Item" GiverId="25459" />
@@ -4150,7 +4151,7 @@
                     </Hotspots>
                 </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="Me.GetReputationLevelWith(970) == WoWUnitReaction.Neutral" />
+            <GrindUntil Condition="Me.GetReputationLevelWith(970) == WoWUnitReaction.Neutral" />
         </If>
         <!-- Quests avail at Neutral -->
         <PickUp QuestName="Sporeggar" QuestId="9919" GiverName="Fahssn" GiverId="17923" X="-195.0107" Y="8518.729"
@@ -4252,7 +4253,7 @@
                     </Hotspots>
                 </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="HasItem(24483)" GoalText="Withered Basidium DropQuest" />
+            <GrindUntil Condition="HasItem(24483)" GoalText="Withered Basidium DropQuest" />
         </If>
         <If Condition="HasItem(24483)">
             <PickUp QuestName="Withered Basidium" QuestId="9827" GiverType="Item" GiverId="24483" />
@@ -4307,7 +4308,7 @@
             <CustomBehavior File="FlyTo" X="-66.84283" Y="5781.576" Z="18.84702" />
             <CustomBehavior File="ForcedDismount" />
             <If Condition="!Me.HasAura(22807)">
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25539)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25539)" />
             </If>
             <Objective QuestName="Too Many Mouths to Feed" QuestId="9781" Type="KillMob" MobId="18213"
                        KillCount="10" />
@@ -4379,12 +4380,12 @@
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-                <GrindTo Condition="GetItemCount(24291) &gt;= 6" />
+                <GrindUntil Condition="GetItemCount(24291) &gt;= 6" />
             </If>
             <If Condition="GetItemCount(24291) &gt;= 6">
                 <CustomBehavior File="FlyTo" X="-214.1056" Y="8514.414" Z="22.89437" />
                 <CustomBehavior File="InteractWith" MobId="17923" CollectionDistance="50"
-                                WaitTime="1000" X="-214.1056" Y="8514.414" Z="22.89437" />
+                                X="-214.1056" Y="8514.414" Z="22.89437" />
                 <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton2" />
                 <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteButton" />
                 <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
@@ -4551,7 +4552,7 @@
             <CustomBehavior File="ForcedDismount" />
 
             <If Condition="!Me.HasAura(22807)">
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25539)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25539)" />
             </If>
 
             <CustomBehavior File="CollectThings" QuestId="9780" MobId="18138" CollectItemId="24374"
@@ -4641,7 +4642,7 @@
                 </Hotspots>
             </GrindArea>
         </SetGrindArea>
-        <GrindTo Level="64" />
+        <GrindUntil Level="64" />
         <!-- Terrokar Forest -->
         <Checkpoint Level="64" />
         <!-- CHECKPOINT BLOCK START: This code needs to be replicated after every checkpoint.
@@ -4733,7 +4734,7 @@
             <CustomBehavior File="FlyTo" X="-1463.941" Y="4993.428" Z="-8.706647" />
             <CustomBehavior File="ForcedDismount" />
             <If Condition="!Me.HasAura(22807)">
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25539)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(25539)" />
             </If>
             <Objective QuestName="Rather Be Fishin'" QuestId="10037" Type="CollectItem" CollectCount="8"
                        Name="Pristine Shimmerscale Eel" ItemId="25891" />
@@ -4838,16 +4839,16 @@
             GiverId="18446" />
             <While Condition="HasQuest(9978)" >
             <CustomBehavior File="Message" Text="Waiting for Empoor to pass by - don't interfere!\n\nIt could be 30s to 5min!" LogColor="Orange" />
-            <CustomBehavior File="InteractWith" MobId="18482" WaitForNpcs="true" GossipOptions="1"
-            WaitTime="2000" X="-1945.773" Y="4687.774" Z="-2.231679" />
+            <CustomBehavior File="InteractWith" MobId="18482" WaitForNpcs="true" InteractByGossipOptions="1"
+            X="-1945.773" Y="4687.774" Z="-2.231679" />
             <CustomBehavior File="WaitTimer" WaitTime="10000"
             GoalText="Waiting for quest to complete {TimeRemaining}" />
 
 <CustomBehavior File="Message" Text="Waiting for Empoor to pass by - don't interfere!\n\nIt could be 30s to 5min!" LogColor="Orange" />
-<CustomBehavior File="InteractWith" MobId="18482" WaitForNpcs="true" GossipOptions="1" WaitTime="2000"
+<CustomBehavior File="InteractWith" MobId="18482" WaitForNpcs="true" InteractByGossipOptions="1"
 X="-1945.773" Y="4687.774" Z="-2.231679" />
 <CustomBehavior File="RunMacro" Macro="/click GossipTitleButton1" />
-<CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" NumOfTimes="1" WaitTime="1000" />
+<CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
 </While>
 <TurnIn QuestName="By Any Means Necessary" QuestId="9978" TurnInName="Empoor" TurnInId="18482" />
  -->
@@ -4878,7 +4879,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                     </Hotspots>
                 </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="HasItem(31707)" GoalText="Dropquest Item" />
+            <GrindUntil Condition="HasItem(31707)" GoalText="Dropquest Item" />
         </If>
         <If Condition="HasItem(31707)">
             <PickUp QuestName="Cabal Orders" QuestId="10880" GiverType="Item" GiverId="31707" />
@@ -4904,7 +4905,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                     X="-2928.188" Y="3922.56" Z="3.282001" />
         </If>
         <!-- I need to know if we spam pickup here or not
-             <Pickup QuestName="Speak with Rilak the Redeemed" QuestId="10908" GiverName="Kirrik the Awakened"
+             <PickUp QuestName="Speak with Rilak the Redeemed" QuestId="10908" GiverName="Kirrik the Awakened"
              GiverId="22272" />
              <TurnIn QuestName="Speak with Rilak the Redeemed" QuestId="10908" TurnInName="Rilak the Redeemed"
              TurnInId="22292" TurnInType="Npc" />
@@ -4935,7 +4936,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
         <If Condition="HasQuest(10863)">
             <CustomBehavior File="FlyTo" DestName="Furnan Skysoar for flight path"
                             X="-2993.202" Y="3871.405" Z="9.39763" />
-            <CustomBehavior File="TaxiRide" MobId="18809" DestName="Shattrath" WaitTime="1000" />
+            <CustomBehavior File="TaxiRide" MobId="18809" DestName="Shattrath" />
             <CustomBehavior File="FlyTo" DestName="Turnin: Secrets of the Arakkoa"
                             X="-1656.826" Y="5444.883" Z="-40.40486" />
             <CustomBehavior File="ForcedDismount" />
@@ -4949,7 +4950,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                     X="-1656.826" Y="5444.883" Z="-40.40486" />
         </If>
         <!--
-            <Pickup QuestName="The Outcast's Plight" QuestId="10917" GiverName="Vekax" GiverId="22429" />
+            <PickUp QuestName="The Outcast's Plight" QuestId="10917" GiverName="Vekax" GiverId="22429" />
  -->
         <If Condition="HasQuest(10038)">
             <CustomBehavior File="FlyTo" X="-2301.673" Y="4898.389" Z="1.144995" />
@@ -5140,7 +5141,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                        CollectCount="4" />
             <CustomBehavior File="InteractWith" MobId="185202" MobId2="185203" MobId3="185204" MobId4="185205"
                             PreInteractMountStrategy="Dismount" NumOfTimes="4" NonCompeteDistance="10"
-                            TerminateWhen="!HasItem(31655)" WaitTime="1500"
+                            TerminateWhen="!HasItem(31655)"
                             X="-2521.825" Y="5444.137" Z="0.0509126" />
         </While>
         <UseMount Value="true" />
@@ -5198,16 +5199,16 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
             <CustomBehavior File="FlyTo" X="-3745.483" Y="5399.98" Z="-3.352765" />
             <CustomBehavior File="ForcedDismount" />
         </If>
-        <!-- <Pickup QuestName="Taken in the Night" QuestId="10873" GiverName="Scout Navrin" GiverId="22364" /> -->
+        <!-- <PickUp QuestName="Taken in the Night" QuestId="10873" GiverName="Scout Navrin" GiverId="22364" /> -->
         <PickUp QuestName="The Dread Relic" QuestId="10877" GiverName="Oakun" GiverId="22456" />
         <PickUp QuestName="An Improper Burial" QuestId="10913" GiverName="Commander Ra'vaj" GiverId="22446" />
         <While Condition="HasQuest(10913) &amp;&amp; !IsQuestCompleted(10913)">
             <CustomBehavior File="InteractWith" QuestId="10913" InteractByUsingItemId="31769" MobId="21859"
-                            NumOfTimes="2" CollectionDistance="500" WaitTime="1000" X="-3720.182" Y="5196.918"
-                            Z="-20.48547" />
+                            NumOfTimes="2" CollectionDistance="500"
+                            X="-3720.182" Y="5196.918" Z="-20.48547" />
             <CustomBehavior File="InteractWith" QuestId="10913" InteractByUsingItemId="31769" MobId="21846"
-                            NumOfTimes="2" CollectionDistance="500" WaitTime="1000" X="-3720.182" Y="5196.918"
-                            Z="-20.48547" />
+                            NumOfTimes="2" CollectionDistance="500"
+                            X="-3720.182" Y="5196.918" Z="-20.48547" />
         </While>
         <Objective QuestName="Helping the Lost Find Their Way" QuestId="10031" Type="KillMob" MobId="18460"
                    KillCount="10" />
@@ -5243,7 +5244,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                     </Hotspots>
                 </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="IsQuestCompleted(10873)" GoalText="Free 8 Captives" />
+            <GrindUntil Condition="IsQuestCompleted(10873)" GoalText="Free 8 Captives" />
         </If>
         <Objective QuestName="For the Fallen" QuestId="10920" Type="KillMob" MobId="18467" KillCount="20" />
         <If Condition="HasQuest(10920) &amp;&amp; IsQuestCompleted(10920)">
@@ -5271,8 +5272,8 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                 <Hotspot X="-3615.737" Y="5809.607" Z="-3.495775" />
             </CustomBehavior>
             <CustomBehavior File="AscendInWater" />
-            <!-- <CustomBehavior File="InteractWith" MobId1="185212" MobId2="185210" MobId3="185211"
-                 MobId4="185208" Range="7" NumOfTimes="1" GossipOptions="1" WaitTime="3000"
+            <!-- <CustomBehavior File="InteractWith" MobId="185212" MobId2="185210" MobId3="185211"
+                 MobId4="185208" Range="7" InteractByGossipOptions="1" WaitTime="3000"
                  X="-2521.825" Y="5444.137" Z="0.0509126" /> -->
         </While>
 
@@ -5373,20 +5374,20 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
         </If>
 
 
-        <!-- <Pickup QuestName="Veil Lithic: Preemptive Strike" QuestId="10861" GiverName="Kirrik the Awakened"
+        <!-- <PickUp QuestName="Veil Lithic: Preemptive Strike" QuestId="10861" GiverName="Kirrik the Awakened"
              GiverId="22272" /> -->
         <!-- i've had issues with this quest. 185211 and 212 don't work.  neither does 208 209, but eggs are sometimes left with 210 -->
         <!-- Let's change this to a while, and numoftimes="1" -->
         <!-- this quest has issues
              <While Condition="HasQuest(10861) &amp;&amp; !IsQuestCompleted(10861)" >
-             <CustomBehavior File="InteractWith" QuestId="10861" ObjectType="GameObject" MobId="185211"
+             <CustomBehavior File="InteractWith" QuestId="10861" MobId="185211"
              CollectionDistance="500" X="-3639.392" Y="5791.665" Z="0.4478073" />
-             <CustomBehavior File="InteractWith" QuestId="10861" ObjectType="GameObject" MobId="185210"
+             <CustomBehavior File="InteractWith" QuestId="10861" MobId="185210"
              CollectionDistance="500" X="-3639.392" Y="5791.665" Z="0.4478073" />
              </While>
              <TurnIn QuestName="Veil Lithic: Preemptive Strike" QuestId="10861" TurnInName="Kirrik the Awakened"
              TurnInId="22272" />
-             <Pickup QuestName="Veil Shalas: Signal Fires" QuestId="10874" GiverName="Kirrik the Awakened"
+             <PickUp QuestName="Veil Shalas: Signal Fires" QuestId="10874" GiverName="Kirrik the Awakened"
              GiverId="22272" />
              <Objective QuestName="Veil Shalas: Signal Fires" QuestId="10874" Type="UseObject" ObjectId="185216"
              UseCount="1" />
@@ -5398,13 +5399,13 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
              UseCount="1" />
              <TurnIn QuestName="Veil Shalas: Signal Fires" QuestId="10874" TurnInName="Kirrik the Awakened"
              TurnInId="22272" />
-             <Pickup QuestName="Return to Shattrath" QuestId="10889" GiverName="Kirrik the Awakened"
+             <PickUp QuestName="Return to Shattrath" QuestId="10889" GiverName="Kirrik the Awakened"
              GiverId="22272" />
              <TurnIn QuestName="Return to Shattrath" QuestId="10889" TurnInName="Rilak the Redeemed"
              TurnInId="22292" TurnInType="Npc" />
  -->
         <!-- Disabled for now
-             <Pickup QuestName="The Skettis Offensive" QuestId="10879" GiverName="Defender Grashna" GiverId="22373" />
+             <PickUp QuestName="The Skettis Offensive" QuestId="10879" GiverName="Defender Grashna" GiverId="22373" />
              I had issues with this quest, so if your bot does it, great... if not, not a huge deal
              <If Condition="HasQuest(10879) &amp;&amp; IsQuestCompleted(10879)" >
              <TurnIn QuestName="The Skettis Offensive" QuestId="10879" TurnInName="Rilak the Redeemed"
@@ -5458,7 +5459,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
 
         </SetGrindArea>
 
-        <GrindTo Level="66" />
+        <GrindUntil Level="66" />
 
         <!-- Nagrand -->
         <Checkpoint Level="66" />
@@ -5581,7 +5582,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                     </Hotspots>
                 </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="Me.GetReputationLevelWith(978) &gt;= WoWUnitReaction.Neutral"
+            <GrindUntil Condition="Me.GetReputationLevelWith(978) &gt;= WoWUnitReaction.Neutral"
                      GoalText="Getting Neutral with Kurenai" />
         </If>
 
@@ -5774,7 +5775,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-                <GrindTo Condition="HasItem(24504)" GoalText="Dropquest Item" />
+                <GrindUntil Condition="HasItem(24504)" GoalText="Dropquest Item" />
             </If>
             <If Condition="HasItem(24504)">
                 <PickUp QuestName="The Howling Wind" QuestId="9861" GiverType="Item" GiverId="24504" />
@@ -5865,7 +5866,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-                <GrindTo Condition="HasItem(24559)" GoalText="Dropquest Item" />
+                <GrindUntil Condition="HasItem(24559)" GoalText="Dropquest Item" />
             </If>
             <If Condition="HasItem(24559)">
                 <PickUp QuestName="Murkblood Invaders" QuestId="9871" GiverType="Item" GiverId="24559" />
@@ -6156,8 +6157,8 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                 <CustomBehavior File="ForcedDismount" />
                 <While Condition="HasQuest(10108) &amp;&amp; !IsQuestCompleted(10108)">
                     <CustomBehavior File="InteractWith" QuestId="10108" MobId="18261"
-                                    InteractByGossipOptions="1,1,1,1,1,1,1,1,1,1" X="-2264.138" Y="6217.799"
-                                    Z="44.39255" />
+                                    InteractByGossipOptions="1,1,1,1,1,1,1,1,1,1"
+                                    X="-2264.138" Y="6217.799" Z="44.39255" />
                 </While>
             </If>
             <TurnIn QuestName="Diplomatic Measures" QuestId="10108" TurnInName="Lantresor of the Blade"
@@ -6169,9 +6170,10 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                 <CustomBehavior File="FlyTo" X="-2716.035" Y="6413.419" Z="39.82007" />
                 <CustomBehavior File="ForcedDismount" />
                 <While Condition="HasQuest(9927) &amp;&amp; !IsQuestCompleted(9927)">
-                    <CustomBehavior File="InteractWith" QuestId="9927" MobId1="17146" MobId2="17147" MobId="171483" MobState="Dead" InteractByUsingItemId="25552"
-                                    PreInteractMountStrategy="Dismount" NumOfTimes="10" WaitTime="5000" CollectionDistance="300" X="-2855.058"
-                                    Y="6393.893" Z="79.41189" />
+                    <CustomBehavior File="InteractWith" QuestId="9927" MobId="17146" MobId2="17147" MobId3="171483"
+                                    MobState="Dead" InteractByUsingItemId="25552"
+                                    PreInteractMountStrategy="Dismount" NumOfTimes="10" WaitTime="5000"
+                                    CollectionDistance="300" X="-2855.058" Y="6393.893" Z="79.41189" />
                 </While>
             </If>
             <Objective QuestName="Armaments for Deception" QuestId="9928" Type="CollectItem" CollectCount="10"
@@ -6238,8 +6240,8 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                  <Objective QuestName="Cho'war the Pillager" QuestId="9955" Type="CollectItem" ItemId="25648"
                  CollectCount="1" />
                  <MoveTo X="-917.6691" Y="8666.546" Z="172.0338" />
-                 <CustomBehavior File="UseGameObject" QuestId="9955" ObjectId="182521" NumOfTimes="1"
-                 WaitTime="1000" CollectionDistance="50" X="-917.6691" Y="8666.546" Z="172.0338" />
+                 <CustomBehavior File="UseGameObject" QuestId="9955" ObjectId="182521"
+                 CollectionDistance="50" X="-917.6691" Y="8666.546" Z="172.0338" />
                  </If>
                  <Vendor Nav="Fly" Name="Corki" Id="18445" Type="Repair" X="-918.1429" Y="8663.936" Z="172.4575" />
 
@@ -6486,7 +6488,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                            Name="Ruuan'ok Claws" ItemId="30704" />
                 <MoveTo X="3211.959" Y="5347.84" Z="144.5375" />
                 <CustomBehavior File="WaitTimer" WaitTime="5000" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(30704)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(30704)" />
                 <CustomBehavior File="WaitTimer" WaitTime="15000" />
                 <Objective QuestName="Creating the Pendant" QuestId="10567" Type="CollectItem" CollectCount="1"
                            Name="Harbinger's Pendant" ItemId="30706" />
@@ -6532,7 +6534,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                         </Hotspots>
                     </GrindArea>
                 </SetGrindArea>
-                <GrindTo Condition="IsQuestCompleted(10504)" GoalText="Kill da Ogres!" />
+                <GrindUntil Condition="IsQuestCompleted(10504)" GoalText="Kill da Ogres!" />
             </If>
             <If Condition="HasQuest(10502) &amp;&amp; IsQuestCompleted(10502)">
                 <CustomBehavior File="FlyTo" X="2070.813" Y="6861.579" Z="174.5544" />
@@ -6622,9 +6624,9 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
              X="2277.489" Y="6542.667" Z="3.301638" />
              <CustomBehavior File="WaitTimer" WaitTime="3000"/>
              </If>
-             <Objective QuestName="The Trappings of a Vindicator" QuestId="10516" Type="Collect" CollectCount="1"
+             <Objective QuestName="The Trappings of a Vindicator" QuestId="10516" Type="CollectItem" CollectCount="1"
              ItemId="30413" />
-             <Objective QuestName="The Trappings of a Vindicator" QuestId="10516" Type="Collect" CollectCount="1"
+             <Objective QuestName="The Trappings of a Vindicator" QuestId="10516" Type="CollectItem" CollectCount="1"
              ItemId="30415" />
              <TurnIn QuestName="The Trappings of a Vindicator" TurnInName="Vindicator Vuuleen" QuestId="10516"
              TurnInId="21277" />
@@ -6642,12 +6644,12 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
              <TurnIn QuestName="Gorr'Dim, Your Time Has Come..." TurnInName="Vindicator Vuuleen" QuestId="10517"
              TurnInId="21277" />
              <PickUp QuestName="Planting the Banner" GiverName="Vindicator Vuuleen" QuestId="10518" GiverId="21277" />
-             <Objective QuestName="Planting the Banner" QuestId="10518" Type="Collect" CollectCount="1"
+             <Objective QuestName="Planting the Banner" QuestId="10518" Type="CollectItem" CollectCount="1"
              ItemId="30416" />
              <UseItem QuestName="Planting the Banner" QuestId="10518" ItemId="30416"
              X="1711.723" Y="6312.257" Z="33.40957" />
              <CustomBehavior File="WaitTimer" WaitTime="15000"/>
-             <Objective QuestName="Planting the Banner" QuestId="10518" Type="Collect" CollectCount="1"
+             <Objective QuestName="Planting the Banner" QuestId="10518" Type="CollectItem" CollectCount="1"
              ItemId="30417" />
  -->
         <!--
@@ -6703,7 +6705,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
             <While Condition="HasQuest(10557) &amp;&amp; !IsQuestCompleted(10557)" >
             <MoveTo X="1923.364" Y="5581.691" Z="263.894" />
             <CustomBehavior File="ForcedDismount" />
-            <CustomBehavior File="InteractWith" QuestId="10557" MobId="21461" NumOfTimes="1" GossipOptions="1"
+            <CustomBehavior File="InteractWith" QuestId="10557" MobId="21461" InteractByGossipOptions="1"
             WaitTime="5000" CollectionDistance="50" X="1923.364" Y="5581.691" Z="263.894" />
             </While>
             <TurnIn QuestName="Test Flight: The Zephyrium Capacitorium" TurnInName="Tally Zapnabber"
@@ -6778,11 +6780,11 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
              I'll have to interactwith eggs first
              <PickUp QuestName="What Came First, the Drake or the Egg?"
              GiverName="Fizit &quot;Doc&quot; Clocktock" QuestId="10609" GiverId="21110" />
-             <Objective QuestName="What Came First, the Drake or the Egg?" QuestId="10609" Type="Collect"
+             <Objective QuestName="What Came First, the Drake or the Egg?" QuestId="10609" Type="CollectItem"
              CollectCount="3" ItemId="30743" />
-             <Objective QuestName="What Came First, the Drake or the Egg?" QuestId="10609" Type="Collect"
+             <Objective QuestName="What Came First, the Drake or the Egg?" QuestId="10609" Type="CollectItem"
              CollectCount="3" ItemId="30782" />
-             <Objective QuestName="What Came First, the Drake or the Egg?" QuestId="10609" Type="Collect"
+             <Objective QuestName="What Came First, the Drake or the Egg?" QuestId="10609" Type="CollectItem"
              CollectCount="3" ItemId="30783" />
              <TurnIn QuestName="What Came First, the Drake or the Egg?"
              TurnInName="Fizit &quot;Doc&quot; Clocktock" QuestId="10609" TurnInId="21110" />
@@ -6827,7 +6829,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
             </Hotspots>
             </GrindArea>
             </SetGrindArea> <CustomBehavior File="InteractWith" QuestId="9923" MobId="182349" />
-            <GrindTo Level="68" /> -->
+            <GrindUntil Level="68" /> -->
         <!-- Netherstorm -->
 
         <Checkpoint Level="69" />
@@ -6957,7 +6959,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
                  <CustomBehavior File="UserDialog" AllowBotStop="true" SoundCue="Exclamation" SoundCueInterval="5"
                  Text="You are too high for this Combat UseItemOn quest, please manually do it!" />
                  </If>
-                 <Objective QuestName="Elemental Power Extraction" QuestId="10226" Type="Collect" CollectCount="5"
+                 <Objective QuestName="Elemental Power Extraction" QuestId="10226" Type="CollectItem" CollectCount="5"
                  ItemId="28548" />
                  <TurnIn QuestName="Elemental Power Extraction" TurnInName="Chief Engineer Trep" QuestId="10226"
                  TurnInId="19709" />
@@ -7020,7 +7022,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
             <While Condition="HasQuest(10173) &amp;&amp; !IsQuestCompleted(10173)">
                 <MoveTo X="2758.608" Y="3201.355" Z="150.7346" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(29207)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(29207)" />
                 <CustomBehavior File="WaitTimer" WaitTime="5000" />
             </While>
             <Objective QuestName="The Archmage's Staff" QuestId="10173" Type="CollectItem" CollectCount="1"
@@ -7061,7 +7063,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
                     X="2997.609" Y="3734.968" Z="143.9955" />
             <PickUp QuestName="Curse of the Violet Tower" QuestId="10174" GiverName="Ravandwyr" GiverId="19217" />
             <If Condition="HasQuest(10174)">
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000" />
                 <TurnIn QuestName="Curse of the Violet Tower" TurnInName="Image of Archmage Vargoth" QuestId="10174"
                         TurnInId="19644" />
@@ -7069,7 +7071,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
                         GiverId="19644" />
             </If>
             <If Condition="!HasQuest(10188) &amp;&amp; !IsQuestCompleted(10188)">
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000" />
                 <PickUp QuestName="The Sigil of Krasus" GiverName="Image of Archmage Vargoth" QuestId="10188"
                         GiverId="19644" />
@@ -7114,7 +7116,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
             </If>
             <If Condition="HasQuest(10188) &amp;&amp; IsQuestCompleted(10188)">
                 <MoveTo X="2310.922" Y="2561.037" Z="122.9297" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000" />
                 <TurnIn QuestName="The Sigil of Krasus" QuestId="10188" TurnInName="Image of Archmage Vargoth"
                         TurnInId="19644" />
@@ -7123,7 +7125,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
             </If>
             <If Condition="!HasQuest(10192) &amp;&amp; !IsQuestCompleted(10192)">
                 <MoveTo X="2310.922" Y="2561.037" Z="122.9297" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000" />
                 <PickUp QuestName="Krasus's Compendium" GiverName="Image of Archmage Vargoth" QuestId="10192"
                         GiverId="19644" />
@@ -7160,7 +7162,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
                 <DisableBehavior Name="Pull" />
                 <CustomBehavior File="UseItem" ItemId="28455" WaitTime="3000"
                                 X="2213.396" Y="2208.377" Z="84.11353" />
-                <!-- <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" WaitTime="1000" />
+                <!-- <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" />
                     <CustomBehavior File="WaitTimer" WaitTime="3000" /> -->
                 <TurnIn QuestName="Krasus's Compendium" TurnInName="Image of Archmage Vargoth" QuestId="10192"
                         TurnInId="19644" />
@@ -7170,7 +7172,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
             </If>
             <If Condition="!HasQuest(10301) &amp;&amp; !IsQuestCompleted(10301)">
                 <MoveTo X="2213.396" Y="2208.377" Z="84.11353" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" />
                 <CustomBehavior File="WaitTimer" WaitTime="3000" />
                 <PickUp QuestName="Unlocking the Compendium" GiverName="Image of Archmage Vargoth" QuestId="10301"
                         GiverId="19644" />
@@ -7386,7 +7388,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
                 <CustomBehavior File="FlyTo" X="2400.195" Y="2225.911" Z="111.0966" />
                 <CustomBehavior File="ForcedDismount" />
                 <MoveTo X="2400.195" Y="2225.911" Z="111.0966" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000" />
                 <TurnIn QuestName="Unlocking the Compendium" TurnInName="Image of Archmage Vargoth" QuestId="10301"
                         TurnInId="19644" />
@@ -7401,7 +7403,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
                 <CustomBehavior File="FlyTo" X="2400.195" Y="2225.911" Z="111.0966" />
                 <CustomBehavior File="ForcedDismount" />
                 <MoveTo X="2400.195" Y="2225.911" Z="111.0966" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000" />
                 <TurnIn QuestName="Krasus's Compendium" TurnInName="Image of Archmage Vargoth" QuestId="10192"
                         TurnInId="19644" />
@@ -7415,7 +7417,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
                 <CustomBehavior File="FlyTo" X="2400.195" Y="2225.911" Z="111.0966" />
                 <CustomBehavior File="ForcedDismount" />
                 <MoveTo X="2400.195" Y="2225.911" Z="111.0966" />
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000"/>
                 <PickUp QuestName="Summoner Kanthin's Prize" GiverName="Image of Archmage Vargoth"
                 QuestId="10209" GiverId="19644" />
@@ -7445,7 +7447,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
                 <If Condition="HasQuest(10209) &amp;&amp; !IsQuestCompleted(10209)" >
                 <CustomBehavior File="FlyTo" X="3138.638" Y="2209.508" Z="151.7021" />
                 <CustomBehavior File="ForcedDismount" />
-                <Objective QuestName="Summoner Kanthin's Prize" QuestId="10209" Type="Collect" CollectCount="1"
+                <Objective QuestName="Summoner Kanthin's Prize" QuestId="10209" Type="CollectItem" CollectCount="1"
                 ItemId="28479" />
                 </If>
                 <If Condition="HasQuest(10223) &amp;&amp; IsQuestCompleted(10223)" >
@@ -7460,7 +7462,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="WaitTimer" WaitTime="30000" />
 
-                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(28455)" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000" />
                 <TurnIn QuestName="Summoner Kanthin's Prize" TurnInName="Image of Archmage Vargoth" QuestId="10209"
                         TurnInId="19644" />
@@ -7717,7 +7719,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
             <PickUp QuestName="Flora of the Eco-Domes" GiverName="Aurine Moonblaze" QuestId="10426" GiverId="20871" />
             <While Condition="HasQuest(10426) &amp;&amp; !IsQuestCompleted(10426)">
                 <CustomBehavior File="InteractWith" QuestId="10426" MobId="20774" InteractByUsingItemId="29818"
-                                NumOfTimes="20" WaitTime="1000" CollectionDistance="200"
+                                NumOfTimes="20" CollectionDistance="200"
                                 X="4148.641" Y="3189.374" Z="196.3461" />
             </While>
             <If Condition="HasQuest(10426) &amp;&amp; IsQuestCompleted(10426)">
@@ -7770,9 +7772,9 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
                            CollectCount="5" />
                 <CustomBehavior File="InteractWith" QuestId="10855" MobId="22293"
                                 CollectionDistance="100" X="4501.383" Y="3367.621" Z="156.7108" />
-                <CustomBehavior File="Misc\RunLua" Lua="CompleteQuest();" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="CompleteQuest();" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000" />
-                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" WaitTime="2000" />
+                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
                 <!-- <TurnIn QuestId="10855" /> -->
             </If>
             <If Condition="HasQuest(10435) &amp;&amp; !IsQuestCompleted(10435)">
@@ -7967,7 +7969,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
                 </If>
                 <CustomBehavior File="InteractWith" QuestId="10271" MobId="18877" InteractByUsingItemId="69825"
                                 PreInteractMountStrategy="Dismount" MobState="AliveNotInCombat"
-                                WaitTime="1000" NonCompeteDistance="0" Range="30"
+                                NonCompeteDistance="0" Range="30"
                                 MinRange="22" IgnoreLoSToTarget="true" NumOfTimes="20">
                     <HuntingGrounds>
                         <Hotspot X="3947.879" Y="1395.529" Z="-127.8127" />
@@ -8057,7 +8059,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
                 </Hotspots>
                 </GrindArea>
                 </SetGrindArea>
-                <GrindTo Condition="IsQuestCompleted(10411)" GoalText="Kill 30 somethings" />
+                <GrindUntil Condition="IsQuestCompleted(10411)" GoalText="Kill 30 somethings" />
                 <Objective QuestName="Electro-Shock Goodness!" QuestId="10411" Type="KillMob" KillCount="30"
                 MobId="20805" />
                 </If>
@@ -8095,7 +8097,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
                  but the vial only lasts 60 seconds on me (buff) so i need a hasaura CB
                  <PickUp QuestName="Potential for Brain Damage = High" GiverName="Image of Commander Ameer"
                  QuestId="10385" GiverId="20482" />
-                 <Objective QuestName="Potential for Brain Damage = High" QuestId="10385" Type="Collect"
+                 <Objective QuestName="Potential for Brain Damage = High" QuestId="10385" Type="CollectItem"
                  CollectCount="15" ItemId="29459" />
                  <TurnIn QuestName="Potential for Brain Damage = High" TurnInName="Image of Commander Ameer"
                  QuestId="10385" TurnInId="20482" />
@@ -8104,7 +8106,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
                 <CustomBehavior File="FlyTo" X="4277.414" Y="2260.65" Z="125.306" />
                 <CustomBehavior File="ForcedDismount" />
                 <CustomBehavior File="InteractWith" QuestId="10273" MobId="20071" InteractByGossipOptions="1"
-                                WaitTime="1000" CollectionDistance="50" X="4277.414" Y="2260.65" Z="125.306" />
+                                CollectionDistance="50" X="4277.414" Y="2260.65" Z="125.306" />
                 <MoveTo QuestId="10273" X="4326.54" Y="2142.664" Z="124.8" />
                 <CustomBehavior File="WaitTimer" WaitTime="18000" />
                 <MoveTo X="4307.938" Y="2140.469" Z="129.1283" />
@@ -8146,7 +8148,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
      <PickUp QuestName="Bloody Imp-ossible!" QuestId="10924" GiverName="Sab'aoth" GiverId="22479" />
      <If Condition="HasQuest(10924) &amp;&amp; !IsQuestCompleted(10924)" >
      <UseItem QuestName="Bloody Imp-ossible!" QuestId="10924" ItemId="31815" X="2957.568" Y="1783.448" Z="139.121" />
-     <Objective QuestName="Bloody Imp-ossible!" QuestId="10924" Type="Collect" CollectCount="8" ItemId="31813" />
+     <Objective QuestName="Bloody Imp-ossible!" QuestId="10924" Type="CollectItem" CollectCount="8" ItemId="31813" />
      </If>
      <If Condition="HasQuest(10924) &amp;&amp; IsQuestCompleted(10924)" >
      <CustomBehavior File="FlyTo" X="2963.457" Y="1787.51" Z="139.1212" />
@@ -8202,19 +8204,19 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
      <If Condition="HasQuest(10569) &amp;&amp; !IsQuestCompleted(10569)" >
      <CustomBehavior File="FlyTo" X="-3198.632" Y="2209.411" Z="63.58923" />
      <CustomBehavior File="ForcedDismount" />
-     <Objective QuestName="The Sketh'lon Wreckage" QuestId="10569" Type="Collect" CollectCount="1" ItemId="31260" />
-     <Objective QuestName="The Sketh'lon Wreckage" QuestId="10569" Type="Collect" CollectCount="1" ItemId="31261" />
-     <Objective QuestName="The Sketh'lon Wreckage" QuestId="10569" Type="Collect" CollectCount="1" ItemId="31262" />
+     <Objective QuestName="The Sketh'lon Wreckage" QuestId="10569" Type="CollectItem" CollectCount="1" ItemId="31260" />
+     <Objective QuestName="The Sketh'lon Wreckage" QuestId="10569" Type="CollectItem" CollectCount="1" ItemId="31261" />
+     <Objective QuestName="The Sketh'lon Wreckage" QuestId="10569" Type="CollectItem" CollectCount="1" ItemId="31262" />
      </If>
      <If Condition="HasQuest(10642) &amp;&amp; !IsQuestCompleted(10642)" >
      <CustomBehavior File="FlyTo" X="-3477.689" Y="1920.85" Z="91.67542" />
      <CustomBehavior File="ForcedDismount" />
-     <Objective QuestName="A Ghost in the Machine" QuestId="10642" Type="Collect" CollectCount="15" ItemId="30716" />
+     <Objective QuestName="A Ghost in the Machine" QuestId="10642" Type="CollectItem" CollectCount="15" ItemId="30716" />
      </If>
      <If Condition="HasQuest(10661) &amp;&amp; !IsQuestCompleted(10661)" >
      <CustomBehavior File="FlyTo" X="-3477.689" Y="1920.85" Z="91.67542" />
      <CustomBehavior File="ForcedDismount" />
-     <Objective QuestName="Spleendid!" QuestId="10661" Type="Collect" CollectCount="8" ItemId="30819" />
+     <Objective QuestName="Spleendid!" QuestId="10661" Type="CollectItem" CollectCount="8" ItemId="30819" />
      </If>
      <If Condition="HasQuest(10562) &amp;&amp; !IsQuestCompleted(10562)" >
      <CustomBehavior File="FlyTo" X="-3919.216" Y="2048.247" Z="95.18011" />
@@ -8239,7 +8241,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
      <If Condition="HasQuest(10677) &amp;&amp; !IsQuestCompleted(10677)" >
      <CustomBehavior File="FlyTo" X="-3908.786" Y="1138.147" Z="23.5929" />
      <CustomBehavior File="ForcedDismount" />
-     <Objective QuestName="The Second Course..." QuestId="10677" Type="Collect" CollectCount="1" ItemId="30867" />
+     <Objective QuestName="The Second Course..." QuestId="10677" Type="CollectItem" CollectCount="1" ItemId="30867" />
      </If>
      <If Condition="HasQuest(10677) &amp;&amp; IsQuestCompleted(10677)" >
      <CustomBehavior File="FlyTo" X="-3969.937" Y="2210.721" Z="102.0797" />
@@ -8250,7 +8252,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
      <If Condition="HasQuest(10678) &amp;&amp; !IsQuestCompleted(10678)" >
      <CustomBehavior File="FlyTo" X="-3612.25" Y="1144.047" Z="52.04873" />
      <CustomBehavior File="ForcedDismount" />
-     <Objective QuestName="The Main Course!" QuestId="10678" Type="Collect" CollectCount="1" ItemId="30851" />
+     <Objective QuestName="The Main Course!" QuestId="10678" Type="CollectItem" CollectCount="1" ItemId="30851" />
      </If>
      <If Condition="HasQuest(10678) &amp;&amp; IsQuestCompleted(10678)" >
      <CustomBehavior File="FlyTo" X="-3969.937" Y="2210.721" Z="102.0797" />
@@ -8266,7 +8268,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
      <If Condition="HasQuest(10777) &amp;&amp; !IsQuestCompleted(10777)" >
      <CustomBehavior File="FlyTo" X="-3100.864" Y="1985.77" Z="101.1739" />
      <CustomBehavior File="ForcedDismount" />
-     <Objective QuestName="Asghar's Totem" QuestId="10777" Type="Collect" CollectCount="1" ItemId="31169" />
+     <Objective QuestName="Asghar's Totem" QuestId="10777" Type="CollectItem" CollectCount="1" ItemId="31169" />
      </If>
      <If Condition="HasQuest(10777) &amp;&amp; IsQuestCompleted(10777)" >
      <CustomBehavior File="FlyTo" X="-3491.274" Y="2276.75" Z="65.11924" />
@@ -8277,8 +8279,8 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
      <If Condition="HasQuest(10778) &amp;&amp; !IsQuestCompleted(10778)" >
      <CustomBehavior File="FlyTo" X="-4457.815" Y="1696.474" Z="161.3078" />
      <CustomBehavior File="ForcedDismount" />
-     <Objective QuestName="The Rod of Lianthe" QuestId="10778" Type="Collect" CollectCount="1" ItemId="31316" />
-     <Objective QuestName="The Rod of Lianthe" QuestId="10778" Type="Collect" CollectCount="1" ItemId="31317" />
+     <Objective QuestName="The Rod of Lianthe" QuestId="10778" Type="CollectItem" CollectCount="1" ItemId="31316" />
+     <Objective QuestName="The Rod of Lianthe" QuestId="10778" Type="CollectItem" CollectCount="1" ItemId="31317" />
      </If>
      <If Condition="HasQuest(10778) &amp;&amp; IsQuestCompleted(10778)" >
      <CustomBehavior File="FlyTo" X="-3491.274" Y="2276.75" Z="65.11924" />
@@ -8289,7 +8291,7 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
      <If Condition="HasQuest(10780) &amp;&amp; !IsQuestCompleted(10780)" >
      <CustomBehavior File="FlyTo" X="-3879.385" Y="1795.426" Z="97.53547" />
      <CustomBehavior File="ForcedDismount" />
-     <Objective QuestName="Sketh'lon Feathers" QuestId="10780" Type="Collect" CollectCount="8" ItemId="31324" />
+     <Objective QuestName="Sketh'lon Feathers" QuestId="10780" Type="CollectItem" CollectCount="8" ItemId="31324" />
      </If>
      <If Condition="HasQuest(10780) &amp;&amp; IsQuestCompleted(10780)" >
      <CustomBehavior File="FlyTo" X="-3491.274" Y="2276.75" Z="65.11924" />
@@ -8353,11 +8355,11 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
      <If Condition="HasQuest(10572) &amp;&amp; !IsQuestCompleted(10572)" >
      <CustomBehavior File="FlyTo" X="-3424.088" Y="2802.047" Z="124.3346" />
      <CustomBehavior File="ForcedDismount" />
-     <Objective QuestName="Setting Up the Bomb" QuestId="10572" Type="Collect" CollectCount="1" ItemId="30628" />
+     <Objective QuestName="Setting Up the Bomb" QuestId="10572" Type="CollectItem" CollectCount="1" ItemId="30628" />
 
      <CustomBehavior File="FlyTo" X="-3271.735" Y="3006.856" Z="139.6539" />
      <CustomBehavior File="ForcedDismount" />
-     <Objective QuestName="Setting Up the Bomb" QuestId="10572" Type="Collect" CollectCount="1" ItemId="30631" />
+     <Objective QuestName="Setting Up the Bomb" QuestId="10572" Type="CollectItem" CollectCount="1" ItemId="30631" />
      </If>
      <If Condition="HasQuest(10572) &amp;&amp; IsQuestCompleted(10572)" >
      <CustomBehavior File="FlyTo" X="-3916.513" Y="2049.908" Z="95.18369" />
@@ -8403,11 +8405,11 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
      <PickUp QuestName="The Fate of Flanis" GiverName="Stormer Ewan Wildwing" QuestId="10583" GiverId="21471" />
      <PickUp QuestName="The Summoning Chamber" GiverName="Stormer Ewan Wildwing" QuestId="10585" GiverId="21471" />
      <If Condition="HasQuest(10583) &amp;&amp; !IsQuestCompleted(10583)" >
-     <CustomBehavior File="InteractWith" QuestId="10583" MobId="21727" NumOfTimes="1" GossipOptions="1"
+     <CustomBehavior File="InteractWith" QuestId="10583" MobId="21727" InteractByGossipOptions="1"
      CollectionDistance="50" X="-3410.419" Y="2320.867" Z="37.09591" />
      </If>
      <If Condition="HasQuest(10585) &amp;&amp; !IsQuestCompleted(10585)" >
-     <Objective QuestName="The Summoning Chamber" QuestId="10585" Type="Collect" CollectCount="1" ItemId="30672" />
+     <Objective QuestName="The Summoning Chamber" QuestId="10585" Type="CollectItem" CollectCount="1" ItemId="30672" />
      <MoveTo QuestId="10585" X="-3335.105" Y="2125.891" Z="-0.778717" />
      <MoveTo QuestId="10585" X="-3332.569" Y="2146.406" Z="-1.225852" />
      <MoveTo QuestId="10585" X="-3337.776" Y="2162.551" Z="1.249333" />
@@ -8421,16 +8423,15 @@ WaitTime="6000" Range="30" CollectionDistance="200" X="1632.311" Y="6357.229" Z=
      GiverId="21471" />
      <If Condition="HasQuest(10586) &amp;&amp; !IsQuestCompleted(10586)" >
      <MoveTo QuestId="10586" X="-3511.783" Y="2169.442" Z="34.61002" />
-     <CustomBehavior File="InteractWith" QuestId="10586" ObjectType="GameObject" MobId="184246"
+     <CustomBehavior File="InteractWith" QuestId="10586" MobId="184246"
      CollectionDistance="50" X="-3511.783" Y="2169.442" Z="34.61002" />
      <MoveTo QuestId="10586" X="-3516.57" Y="2169.365" Z="34.60789" />
      <MoveTo QuestId="10586" X="-3659.333" Y="2078.107" Z="10.31083" />
-     <Objective QuestName="Bring Down the Warbringer!" QuestId="10586" Type="Collect" CollectCount="1"
+     <Objective QuestName="Bring Down the Warbringer!" QuestId="10586" Type="CollectItem" CollectCount="1"
      ItemId="30689" />
      <Objective QuestName="Bring Down the Warbringer!" QuestId="10586" Type="KillMob" KillCount="1" MobId="21287" />
-
-<CustomBehavior File="InteractWith"  ObjectType="GameObject" MobId="184246" NumOfTimes="1"
-CollectionDistance="50" X="-3511.783" Y="2169.442" Z="34.61002" />
+     <CustomBehavior File="InteractWith" MobId="184246"
+     CollectionDistance="50" X="-3511.783" Y="2169.442" Z="34.61002" />
      </If>
      <TurnIn QuestName="Bring Down the Warbringer!" TurnInName="Wing Commander Nuainn" QuestId="10586"
      TurnInId="21357" />

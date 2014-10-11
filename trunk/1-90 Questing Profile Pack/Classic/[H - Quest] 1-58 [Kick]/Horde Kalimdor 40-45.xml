@@ -48,7 +48,10 @@
         <CustomBehavior File="Misc\ProfileCompatibilityInfo"
             AllowBrokenAddOns="true" AllowBrokenPlugIns="true" />
 
-        <CustomBehavior File="UserSettings" UseMount="true" LootMobs="true" UseFlightPaths="true" PullDistance="25" GroundMountFarmingMode="false" KillBetweenHotspots="true" />
+        <CustomBehavior File="UserSettings" UseFlightPaths="true" GroundMountFarmingMode="false"
+                        KillBetweenHotspots="true" />
+        <LootMobs Value="true" />
+        <UseMount Value="true" />
 
         <ClearVendor />
         <SetVendor>
@@ -127,7 +130,7 @@
                     </Hotspots>
                 </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="HasItem(9530)" GoalText="Getting DropQuest Item - Horn of Hatetalon" />
+            <GrindUntil Condition="HasItem(9530)" GoalText="Getting DropQuest Item - Horn of Hatetalon" />
         </If>
 
         <While Condition="!IsQuestCompleted(25340)">
@@ -201,7 +204,7 @@
                     </Hotspots>
                 </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="HasItem(8705)" GoalText="Getting DropQuest Item - Find OOX-22/FE!" />
+            <GrindUntil Condition="HasItem(8705)" GoalText="Getting DropQuest Item - Find OOX-22/FE!" />
         </If>
 
         <TurnIn QuestName="The Gordunni Threat" QuestId="25209" TurnInName="Orhan Ogreblade" TurnInId="39656" />
@@ -283,7 +286,7 @@
                     </Hotspots>
                 </GrindArea>
             </SetGrindArea>
-            <GrindTo Condition="HasItem(55167)" GoalText="Getting DropQuest Item - Perfect Yeti Hide" />
+            <GrindUntil Condition="HasItem(55167)" GoalText="Getting DropQuest Item - Perfect Yeti Hide" />
             <PickUp QuestName="Perfect Yeti Hide" QuestId="25454" GiverName="Perfect Yeti Hide" GiverId="55167" GiverType="Item" />
         </If>
 
@@ -636,7 +639,7 @@
 
         <PickUp QuestName="Secrets in the Oasis" QuestId="25032" GiverName="Mazoga" GiverId="38927" />
         <MoveTo QuestId="25032" DestName="A Puddle in the Desert" X="-7450.754" Y="-2881.353" Z="6.68323" />
-        <CustomBehavior File="InteractWith" QuestId="25032" MobId="202441" InteractByGossipOptions="1" WaitTime="10000" NumOfTimes="1"
+        <CustomBehavior File="InteractWith" QuestId="25032" MobId="202441" InteractByGossipOptions="1" WaitTime="10000"
             PreInteractMountStrategy="Dismount" X="-7450.754" Y="-2881.353" Z="6.68323" />
         <Objective QuestName="Secrets in the Oasis" QuestId="25032" Type="KillMob" MobId="39159" KillCount="1" />
         <TurnIn QuestName="Secrets in the Oasis" QuestId="25032" TurnInName="Trenton Lighthammer" TurnInId="7804" />
@@ -674,7 +677,8 @@
 
         <PickUp QuestName="Booty Duty" QuestId="24949" GiverName="Megs Dreadshredder" GiverId="38703" />
 
-        <CustomBehavior File="InteractWith" QuestId="24949" MobId="202263"  MobId2="203019" MobId3="203022" Range="5" CollectionDistance="10" WaitTime="2000" WaitForNpcs="false" NumOfTimes="150">
+        <CustomBehavior File="InteractWith" QuestId="24949" MobId="202263"  MobId2="203019" MobId3="203022"
+                        Range="5" CollectionDistance="10" WaitForNpcs="false" NumOfTimes="150" >
             <HuntingGrounds WaypointVisitStrategy="InOrder">
             <Hotspot X="-8000.11" Y="-5207.908" Z="1.20099" />
             <Hotspot X="-8011.953" Y="-5194.469" Z="0.6287619" />
@@ -735,8 +739,9 @@
 
     <PickUp QuestName="A Great Idea" QuestId="24951" GiverName="Zeke Bootscuff" GiverId="38706" />
     <While Condition="HasQuest(24951) &amp;&amp; !IsQuestCompleted(24951)" >
-        <CustomBehavior File="InteractWith" QuestId="24951" InteractByUsingItemId="52031"  MobId="5451" MobState="Alive" Range="10" NumOfTimes="1"
-                PreInteractMountStrategy="Dismount" CollectionDistance="300" >
+        <CustomBehavior File="InteractWith" QuestId="24951" InteractByUsingItemId="52031"
+                        MobId="5451" MobState="Alive" Range="10"
+                        PreInteractMountStrategy="Dismount" CollectionDistance="300" >
             <HuntingGrounds>
                 <Hotspot X="-8763.223" Y="-4093.716" Z="11.04831" />
                 <Hotspot X="-8682.43" Y="-4144.269" Z="14.04611" />
@@ -744,14 +749,14 @@
                 <Hotspot X="-9096.504" Y="-4162.766" Z="9.944347" />
             </HuntingGrounds>
         </CustomBehavior>
-        <CustomBehavior File="UserSettings" UseMount="false" />
+        <UseMount Value="false" />
         <MoveTo QuestId="24951" X="-8682.899" Y="-4069.877" Z="40.59719" />
         <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for teleport: {TimeRemaining}" />
-        <CustomBehavior File="UserSettings" UseMount="true" />
+        <UseMount Value="true" />
     </While>
 
     <TurnIn QuestName="A Great Idea" QuestId="24951" TurnInName="Zeke Bootscuff" TurnInId="38706" />
-    <CustomBehavior File="UserSettings" UseMount="true" />
+    <UseMount Value="true" />
 
     <PickUp QuestName="Just Trying to Kill Some Bugs" QuestId="24953" GiverName="Zeke Bootscuff" GiverId="38706" />
     <If Condition="HasQuest(24953)" >
@@ -787,7 +792,7 @@
         </GrindArea>
     </SetGrindArea>
 
-    <GrindTo Level="45"/>
+    <GrindUntil Level="45"/>
 
     <PickUp QuestName="Returning a Favor" QuestId="24905" GiverName="Zeke Bootscuff" GiverId="38706" />
     <TurnIn QuestName="Returning a Favor" QuestId="24905" TurnInName="Megs Dreadshredder" TurnInId="38849" />
@@ -1370,7 +1375,7 @@
 <Quest Name="DummyCollectfromGameObject" Id="123456" >
     <Objective Type="CollectItem" ItemId="1" ItemName="Item" CollectCount="1">
         <CollectFrom>
-            <Object Name="GameObject" Id="1"/>
+            <Object Name="Object" Id="1"/>
         </CollectFrom>
         <Hotspots>
             <Hotspot X="1" Y="1" Z="1" />

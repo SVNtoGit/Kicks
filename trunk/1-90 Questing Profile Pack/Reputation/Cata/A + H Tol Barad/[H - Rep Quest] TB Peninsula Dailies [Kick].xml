@@ -6,24 +6,24 @@
     <MinDurability>0.2</MinDurability>
     <MinFreeBagSlots>2</MinFreeBagSlots>
 
-    <MailGrey>False</MailGrey>
-    <MailWhite>False</MailWhite>
-    <MailGreen>False</MailGreen>
-    <MailBlue>False</MailBlue>
-    <MailPurple>False</MailPurple>
+    <MailGrey>false</MailGrey>
+    <MailWhite>false</MailWhite>
+    <MailGreen>false</MailGreen>
+    <MailBlue>false</MailBlue>
+    <MailPurple>false</MailPurple>
 
-    <SellGrey>True</SellGrey>
-    <SellWhite>False</SellWhite>
-    <SellGreen>False</SellGreen>
-    <SellBlue>False</SellBlue>
-    <SellPurple>False</SellPurple>
+    <SellGrey>true</SellGrey>
+    <SellWhite>false</SellWhite>
+    <SellGreen>false</SellGreen>
+    <SellBlue>false</SellBlue>
+    <SellPurple>false</SellPurple>
 
     <Blackspots>
         <Blackspot X="-163.6802" Y="1901.315" Z="1.837813" Radius="21" />
     </Blackspots>
 
     <Vendors>
-        <Vendor Name="Karosh" Entry="48356" Type="Repair" X="-607.5608" Y="1380.215" Z="22.00996" />
+        <Vendor Name="Karosh" Id="48356" Type="Repair" X="-607.5608" Y="1380.215" Z="22.00996" />
     </Vendors>
 
     <Quest Id="28700" Name="Taking the Overlook Back">
@@ -38,7 +38,7 @@
         <CollectFrom>
             <Mob Name="Ghastly Dockhand" Id="46641" />
             <Mob Name="Accursed Shipbuilder" Id="46643" />
-            <GameObject Name="Shipyard Lumber" Id="206583" />
+            <Object Name="Shipyard Lumber" Id="206583" />
         </CollectFrom>
         <Hotspots>
             <Hotspot X="-167.3765" Y="1849.325" Z="2.382729" />
@@ -173,18 +173,19 @@
 
   <QuestOrder>
 
-        <CustomBehavior File="UserSettings" UseMount="True" LootMobs="True" PullDistance="25"  />
+        <LootMobs Value="true" />
+        <UseMount Value="true" />
 
      <!-- If I am in Dalaran, take the portal to Org -->
      <If Condition="(Me.ZoneId == 4395)" >
         <CustomBehavior File="ForcedDismount" />
-        <RunTo X="5924.277" Y="589.9855" Z="639.8734" />
+        <MoveTo X="5924.277" Y="589.9855" Z="639.8734" />
         <CustomBehavior File="ForcedDismount" />
 
-        <CustomBehavior File="InteractWith" MobId="191009" ObjectType="Gameobject" Range="4" X="5925.295" Y="593.4274" Z="640.5935" />
+        <CustomBehavior File="InteractWith" MobId="191009" Range="4" X="5925.295" Y="593.4274" Z="640.5935" />
         <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
       <If Condition="(Me.ZoneId == 1637)" >
-        <RunTo X="1897.4" Y="-4523.682" Z="27.50176" />
+          <MoveTo X="1897.4" Y="-4523.682" Z="27.50176" />
       </If>
      </If>
 
@@ -193,40 +194,40 @@
         <CustomBehavior File="FlyTo" DestName="Org Portal" X="2031.758" Y="-4332.968" Z="95.4723" />
         <CustomBehavior File="ForcedDismount" />
 
-        <CustomBehavior File="InteractWith" MobId="206595" ObjectType="Gameobject" Range="4" X="2031.758" Y="-4332.968" Z="95.4723" />
+        <CustomBehavior File="InteractWith" MobId="206595" Range="4" X="2031.758" Y="-4332.968" Z="95.4723" />
         <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
      </If>
 
     <If Condition="(Me.ZoneId == 5095)" >
-        <RunTo X="-598.8535" Y="1380.87" Z="21.99788" />
+        <MoveTo X="-598.8535" Y="1380.87" Z="21.99788" />
     </If>
 
     <While Condition="HasQuestAvailable(48361)" >
         <CustomBehavior File="InteractWith" MobId="48361" Range="3" X="-1226.825" Y="982.4016" Z="119.5738" />
-        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" WaitTime="1000" />
-        <CustomBehavior File="Misc\RunLua" Lua="SelectAvailableQuest(1)" WaitTime="1000" />
-        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" WaitTime="1000" />
+        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" />
+        <CustomBehavior File="Misc\RunLua" Lua="SelectAvailableQuest(1)" />
+        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" />
     </While>
 
     <While Condition="HasQuestAvailable(48360)" >
         <CustomBehavior File="InteractWith" MobId="48360" Range="3" X="-1226.825" Y="982.4016" Z="119.5738" />
-        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" WaitTime="1000" />
-        <CustomBehavior File="Misc\RunLua" Lua="SelectAvailableQuest(1)" WaitTime="1000" />
-        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" WaitTime="1000" />
+        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" />
+        <CustomBehavior File="Misc\RunLua" Lua="SelectAvailableQuest(1)" />
+        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" />
     </While>
 
     <While Condition="HasQuestAvailable(48358)" >
         <CustomBehavior File="InteractWith" MobId="48358" Range="3" X="-1226.825" Y="982.4016" Z="119.5738" />
-        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" WaitTime="1000" />
-        <CustomBehavior File="Misc\RunLua" Lua="SelectAvailableQuest(1)" WaitTime="1000" />
-        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" WaitTime="1000" />
+        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" />
+        <CustomBehavior File="Misc\RunLua" Lua="SelectAvailableQuest(1)" />
+        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" />
     </While>
 
     <While Condition="HasQuestAvailable(48363)" >
         <CustomBehavior File="InteractWith" MobId="48363" Range="3" X="-1226.825" Y="982.4016" Z="119.5738" />
-        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" WaitTime="1000" />
-        <CustomBehavior File="Misc\RunLua" Lua="SelectAvailableQuest(1)" WaitTime="1000" />
-        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" WaitTime="1000" />
+        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" />
+        <CustomBehavior File="Misc\RunLua" Lua="SelectAvailableQuest(1)" />
+        <CustomBehavior File="Misc\RunLua" Lua="AcceptQuest()" />
     </While>
 
 
@@ -235,77 +236,97 @@
     </If>
 
     <If Condition="(HasQuest(28692)) &amp;&amp; (!IsQuestCompleted(28692))">
-        <CustomBehavior File="UserSettings" UseMount="False" PullDistance="1" />
+        <UseMount Value="false" />
+        <DisableBehavior Name="Pull" />
      <While Condition="((HasQuest(28692)) &amp;&amp; (!IsQuestCompleted(28692)))" > <!-- TB -->
         <UseItem QuestId="28692" ItemId="62829" X="-354.8989" Y="1729.685" Z="24.83073" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-375.6446" Y="1713.888" Z="21.03204" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-387.5059" Y="1678.007" Z="17.98487" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-369.5399" Y="1662.519" Z="18.06426" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-363.9879" Y="1643.076" Z="18.18084" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-342.6443" Y="1634.853" Z="20.98205" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-359.9781" Y="1617.626" Z="24.28876" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-381.2203" Y="1637.391" Z="22.99713" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-397.9663" Y="1640.518" Z="20.73367" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-415.3267" Y="1617.886" Z="18.6075" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-396.8392" Y="1599.369" Z="23.03087" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-383.5915" Y="1575.847" Z="17.72996" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-412.6295" Y="1572.277" Z="23.08245" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-435.7594" Y="1596.063" Z="23.56715" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-459.0166" Y="1573.946" Z="24.13523" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-457.5177" Y="1555.46" Z="21.3856" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
 
         <UseItem QuestId="28692" ItemId="62829" X="-482.6157" Y="1536.296" Z="18.46501" />
         <CustomBehavior File="WaitTimer" QuestId="28692" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-        <CustomBehavior File="InteractWith" QuestId="28692" MobId1="206644" MobId2="206651" MobId3="206652" ObjectType="Gameobject" Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="False" />
+        <CustomBehavior File="InteractWith" QuestId="28692" MobId="206644" MobId2="206651" MobId3="206652"
+                        Range="4" NumOfTimes="20" CollectionDistance="20" WaitForNpcs="false" />
      </While>
-        <CustomBehavior File="UserSettings" LootMobs="True" UseMount="True" PullDistance="15"  />
+        <LootMobs Value="true" />
+        <UseMount Value="true" />
+        <EnableBehavior Name="Pull" />
     </If>
 
     <If Condition="HasQuest(28691)">
@@ -325,12 +346,14 @@
     </If>
 
     <If Condition="(HasQuest(28696)) &amp;&amp; (!IsQuestCompleted(28696))">
-        <RunTo X="-71.24492" Y="2008.903" Z="7.228067" />
+        <MoveTo X="-71.24492" Y="2008.903" Z="7.228067" />
         <CustomBehavior File="ForcedDismount" />
             <If Condition="Me.Class == WoWClass.Druid">
-                <CustomBehavior File="RunMacro" Macro="/cancelaura cat form\n/cancelaura moonkin form\n/cancelaura bear form" NumOfTimes="1" WaitTime="1000" />
+                <CustomBehavior File="RunMacro" Macro="/cancelaura cat form\n/cancelaura moonkin form\n/cancelaura bear form" />
             </If>
-        <CustomBehavior File="NoControlVehicle" QuestId="28696" VehicleMountId="48283" TargetId="48286" NumOfTimes="10" AttackButton="1" GoHomeButton="1" MaxRange="200" WaitTime="2000" />
+            <CustomBehavior File="Vehicles\NoControlVehicle" QuestId="28696" VehicleMountId="48283"
+                            TargetId="48286" NumOfTimes="10" AttackButton="1"
+                            GoHomeButton="1" MaxRange="200" />
     </If>
 
     <If Condition="HasQuest(28694)">
@@ -342,7 +365,7 @@
     </If>
 
     <While Condition="(HasQuest(28721)) &amp;&amp; (!IsQuestCompleted(28721))">
-        <RunTo QuestId="28721" X="24.51268" Y="1728.881" Z="28.21425"  />
+        <MoveTo QuestId="28721" X="24.51268" Y="1728.881" Z="28.21425"  />
         <CustomBehavior File="InteractWith" QuestId="28721" MobId="48309" X="19.70313" Y="1733.854" Z="28.21435" />
         <CustomBehavior File="FollowNpcUntil" NpcId="49443" Location="21.19097 1728.368 36.44616" EndNpcId="48325" />
         <CustomBehavior File="WaitTimer" QuestId="28721" WaitTime="5000" GoalText="Waiting for  {TimeRemaining}" />
@@ -389,16 +412,12 @@
     </If>
 
     <If Condition="HasQuest(28683)">
-        <CustomBehavior File="UserSettings" PullDistance="35"  />
         <Objective QuestName="Thinning the Brood" QuestId="28683" Type="KillMob" MobId="46508" KillCount="12" />
-        <CustomBehavior File="UserSettings" PullDistance="15"  />
     </If>
 
     <If Condition="((HasQuest(28681)) &amp;&amp; (!IsQuestCompleted(28681)))">
-        <CustomBehavior File="UserSettings" PullDistance="40"  />
-        <RunTo QuestId="28681" X="88.00489" Y="1511.841" Z="-1.689145" />
+        <MoveTo QuestId="28681" X="88.00489" Y="1511.841" Z="-1.689145" />
         <Objective QuestName="Shark Tank" QuestId="28681" Type="KillMob" MobId="46608" KillCount="1" />
-        <CustomBehavior File="UserSettings" PullDistance="15"  />
    </If>
 
         <If Condition="HasQuest(28689)">
@@ -470,7 +489,8 @@
 
 
             <If Condition="(Me.ZoneId == 5389)" > <!-- Portal to Org -->
-                <CustomBehavior File="InteractWith" MobId="208226" ObjectType="GameObject" X="-598.69" Y="1380.432" Z="21.99778" />
+                <CustomBehavior File="InteractWith" MobId="208226"
+                                X="-598.69" Y="1380.432" Z="21.99778" />
             </If>
 
             <!--
@@ -480,7 +500,7 @@
             <CustomBehavior File="LoadProfile" ProfileName="..\[Fly][N - Rep Quest] DH Therazane Rep Dailies [Kick]" />
         </If>
 
-        <CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Asterisk" SoundCueInterval="2" Text="End of TB Dailies" />
+        <CustomBehavior File="UserDialog" AllowBotStop="true" SoundCue="Asterisk" SoundCueInterval="2" Text="End of TB Dailies" />
 
  </QuestOrder>
 
