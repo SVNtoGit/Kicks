@@ -29,6 +29,7 @@
     </AvoidMobs>
 
     <Blackspots>
+		<Blackspot X="4330.935" Y="-2169.555" Z="19.06018" Radius="36.66254" /> <!-- Blackrock Quarry guys on roof -->
     </Blackspots>
 
     <Mailboxes>
@@ -581,10 +582,7 @@
 				<CustomBehavior File="FlyTo" DestName="Khadgar port to Tanaan" X="-8871.879" Y="587.5573" Z="93.08315" />
 				<CustomBehavior File="ForcedDismount" />
 				<MoveTo X="-8871.879" Y="587.5573" Z="93.08245" />
-				<CustomBehavior File="BasicInteractWith" MobId="83863" /> <!-- Khadgar -->
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for dialog {TimeRemaining}" />
-				<CustomBehavior File="Misc\RunLua" Lua="SelectGossipOption(1)" WaitTime="1000" />
-				<!--<CustomBehavior File="InteractWith" MobId="83863" GossipOptions="1" Range="5" X="-8871.879" Y="587.5573" Z="93.08315" />   Khadgar -->
+				<CustomBehavior File="InteractWith" MobId="83863" GossipOptions="1" NonCompeteDistance="0" Range="5" X="-8871.879" Y="587.5573" Z="93.08315" />  <!-- Khadgar -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
 				<!-- kill cinematic -->
 				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="1000" />
@@ -621,7 +619,7 @@
 			 <While Condition="!IsObjectiveComplete(1, 34393)"> <!-- Enter the Soul Chamber -->
 				<MoveTo X="4026.397" Y="-2377.47" Z="79.60987" />
 				<MoveTo X="4034.27" Y="-2377.651" Z="79.64513" />
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for scenmatic {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
 				<!-- kill cinematic -->
 				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="1000" />
 			 </While>
@@ -637,7 +635,7 @@
 			 <While Condition="!IsObjectiveComplete(5, 34393)"> <!-- Stasis Core -->
 				<CustomBehavior File="InteractWith" QuestId="34393" MobId="233104" ObjectType="GameObject" Range="8" WaitTime="3000" X="4066.543" Y="-2402.026" Z="78.02605" />
 			 </While>
-				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for scenmatic {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
 				<!-- kill cinematic -->
 				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="1000" />
 			</If>
@@ -692,7 +690,9 @@
 				<CustomBehavior File="InteractWith" QuestId="34423" MobId="83670" Range="8" WaitTime="3000" X="3975.969" Y="-2896.4" Z="61.32322" />
 				<CustomBehavior File="InteractWith" QuestId="34423" MobId="83670" Range="8" WaitTime="3000" X="3985.049" Y="-2933.867" Z="62.71131" />
 				<CustomBehavior File="InteractWith" QuestId="34423" MobId="83670" Range="8" WaitTime="3000" X="3985.527" Y="-2950.739" Z="91.71924" />
-				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for cinematic {TimeRemaining}" />
+				
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
 			 </While>
 			 <While Condition="!IsObjectiveComplete(4, 34423)"> <!-- Find Khadgar on Tar'thog Bridge -->
 				<MoveTo X="4191.499" Y="-2786.998" Z="26.74773" /> <!-- Npc Id 78560 -->
@@ -709,6 +709,8 @@
 		<!-- Kargathar Proving Grounds -->
 		<PickUp QuestName="A Potential Ally" QuestId="34478" GiverName="Archmage Khadgar" GiverId="78560" X="4229.732" Y="-2812.947" Z="17.11976" />
 			<While Condition="HasQuest(34478) &amp;&amp; !IsQuestCompleted(34478)" > <!-- A Potential Ally -->
+				<MoveTo X="4295.471" Y="-2713.788" Z="8.792819" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 				<UseItem QuestId="34478" ItemId="110799" X="4295.471" Y="-2713.788" Z="8.792819" /> <!-- Channel for ~10s -->
 			</While>
 		<TurnIn QuestName="A Potential Ally" QuestId="34478" TurnInName="Exarch Maladaar" TurnInId="79537" X="4217.415" Y="-2817.856" Z="16.9857" />
@@ -911,7 +913,8 @@
 		<PickUp QuestName="Establish Your Garrison" QuestId="34586" GiverName="Baros Alexston" GiverId="79243" X="1936.286" Y="322.4192" Z="88.9762" />
 			<If Condition="HasQuest(34586) &amp;&amp; !IsQuestCompleted(34586)" > <!-- Establish Your Garrison -->
 				<CustomBehavior File="InteractWith" QuestId="34586" MobId="79243" GossipOptions="1" Range="5" X="1936.269" Y="322.3976" Z="88.97637" />
-				<CustomBehavior File="WaitTimer" QuestId="34586" WaitTime="20000" GoalText="Waiting for camp to be built {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
 			</If>
 			<If Condition="HasQuest(34586) &amp;&amp; IsQuestCompleted(34586)" > <!-- Establish Your Garrison -->
 		<TurnIn QuestName="Establish Your Garrison" QuestId="34586" TurnInName="Baros Alexston" TurnInId="77209" X="1866.262" Y="263.6458" Z="77.17226" /> <!-- New NPC Id -->
