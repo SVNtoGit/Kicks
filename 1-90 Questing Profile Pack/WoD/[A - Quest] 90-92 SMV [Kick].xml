@@ -739,17 +739,11 @@
 		<PickUp QuestName="Masters of Shadow" QuestId="34431" GiverName="Luuka" GiverId="79661" X="4497.979" Y="-2628.984" Z="1.990316" />
 			<Objective QuestName="Masters of Shadow" QuestId="34431" Type="KillMob" MobId="79593" KillCount="1" /> <!-- Ankova the Fallen --> 
 		<PickUp QuestName="Yrel" QuestId="34434" GiverName="Yrel" GiverId="78994" X="4614.925" Y="-2470.79" Z="13.76395" />
-			<If Condition="HasQuest(34434) &amp;&amp; !IsQuestCompleted(34434)" > <!-- Yrel - 'Escort' Quest -->
+			<While Condition="HasQuest(34434) &amp;&amp; !IsQuestCompleted(34434)" > <!-- Yrel - 'Escort' Quest -->
 				<RunTo X="4540.177" Y="-2503.882" Z="19.88293" />
 				<CustomBehavior File="WaitTimer" QuestId="34434" WaitTime="15000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-				<CustomBehavior File="UserDialog" QuestId="34434" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Do Escort, we failed" />
-				<!-- Escort quest logic - 
-				<Vendor Name="Yrel" Entry="78994" Type="Repair" X="4614.925" Y="-2470.79" Z="13.76395" />
-				escort to 
-				<Hotspot X="4540.177" Y="-2503.882" Z="19.88293" />
-				and that's it
-				-->
-			</If>
+				<CustomBehavior File="InteractWith" QuestId="34434" MobId="34434" NonCompeteDistance="0" X="4614.925" Y="-2470.79" Z="13.76395" /> <!-- failsafe -->
+			</While>
 			<Objective QuestName="Masters of Shadow" QuestId="34431" Type="KillMob" MobId="79585" KillCount="1" /> <!-- Taskmaster Gurran -->
 			<Objective QuestName="Masters of Shadow" QuestId="34431" Type="KillMob" MobId="79583" KillCount="1" /> <!-- Ungra -->
 			<Objective QuestName="The Shadowmoon Clan" QuestId="34432" Type="KillMob" MobId="79589" KillCount="12" />
@@ -806,7 +800,6 @@
 		<TurnIn QuestName="The Prodigal Frostwolf" QuestId="34437" TurnInName="Farseer Drek'Thar" TurnInId="78996" X="4417.996" Y="-2090.691" Z="2.777332" />
 		<PickUp QuestName="Taking a Trip to the Top of the Tank" QuestId="35747" GiverName="Archmage Khadgar" GiverId="78563" X="4380.106" Y="-2093.049" Z="4.028507" /> <!-- New NPC Id -->
 			<If Condition="HasQuest(35747) &amp;&amp; !IsQuestCompleted(35747)" > <!-- Taking a Trip to the Top of the Tank - Escort -->
-				<!--<CustomBehavior File="UserDialog" QuestId="35747" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Do Escort. (combine the next 3 steps)" />-->
 			 <While Condition="!IsObjectiveComplete(1, 35747)"> <!-- Thaelin Darkanvil -->
 				<CustomBehavior File="InteractWith" MobId="78568" GossipOptions="1" X="4364.854" Y="-2115.491" Z="2.372287" /> <!-- Thaelin Darkanvil -->
 				<MoveTo X="4338.178" Y="-2060.592" Z="1.166897" />
@@ -874,6 +867,15 @@
 		<PickUp QuestName="Step Three: Prophet!" QuestId="34575" GiverName="Archmage Khadgar" GiverId="78563" X="3545.687" Y="-2123.458" Z="17.23104" />
 		<TurnIn QuestName="Step Three: Prophet!" QuestId="34575" TurnInName="Prophet Velen" TurnInId="79206" X="2298.302" Y="461.8368" Z="8.514358" />
 		<PickUp QuestName="Finding a Foothold" QuestId="34582" GiverName="Prophet Velen" GiverId="79206" X="2298.302" Y="461.8368" Z="8.514358" />
+			<While Condition="HasQuest(34582) &amp;&amp; !IsQuestCompleted(34582)" > <!-- Finding a Foothold - quest bugs out sometimes -->
+				<MoveTo X="1935.315" Y="339.6169" Z="88.966" />
+				
+				<!-- If it bugged out, do this: -->
+                    <CustomBehavior File="AbandonQuest" QuestId="34582" Type="Incomplete" />
+                    <CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to abandon {TimeRemaining}" />
+		<PickUp QuestName="Finding a Foothold" QuestId="34582" GiverName="Prophet Velen" GiverId="79206" X="2298.302" Y="461.8368" Z="8.514358" />
+                    <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for bot {TimeRemaining}" />
+			</While>
 		<TurnIn QuestName="Finding a Foothold" QuestId="34582" TurnInName="Vindicator Maraad" TurnInId="79470" X="1935.315" Y="339.6169" Z="88.966" />
 		<PickUp QuestName="For the Alliance!" QuestId="34583" GiverName="Vindicator Maraad" GiverId="79470" X="1935.315" Y="339.6169" Z="88.966" />
 			<If Condition="HasQuest(34583) &amp;&amp; !IsQuestCompleted(34583)" > <!-- For the Alliance! -->
@@ -976,14 +978,19 @@
 		<PickUp QuestName="Delegating on Draenor" QuestId="34692" GiverName="Lieutenant Thorn" GiverId="79953" X="1847.073" Y="270.6632" Z="78.39755" />
 			<If Condition="HasQuest(34692) &amp;&amp; !IsQuestCompleted(34692)" > <!-- Delegating on Draenor -->
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for table to activate {TimeRemaining}" />
-				<CustomBehavior File="InteractWith" QuestId="34692" MobId="81546" Range="5" X="1847.561" Y="269.5938" Z="78.31422" />
+				<CustomBehavior File="InteractWith" QuestId="34692" MobId="81546" Range="5" WaitTime="2000" X="1847.561" Y="269.5938" Z="78.31422" />
 				
-				<!-- Replace with real lua later (non frames) -->
-				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameMissionsListScrollFrameButton1:Click()" NumOfTimes="1" WaitTime="1000" />
-				<CustomBehavior File="Misc\RunLua" Lua="DropDownList1:Click()" NumOfTimes="1" WaitTime="2000" />
-				<CustomBehavior File="Misc\RunLua" Lua="DropDownList1Button1:Click()" NumOfTimes="1" WaitTime="2000" />
-				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrame.MissionTab.MissionPage.StartMissionButton:Click()" NumOfTimes="1" WaitTime="1000" />
+				<!-- try and add addfollowertomission when we find out wth is wrong -->
+				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameHelpBoxButton:Click()" NumOfTimes="3" WaitTime="500" />
+				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameMissionsListScrollFrameButton1:Click()" NumOfTimes="1" WaitTime="500" />
+				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameHelpBoxButton:Click()" NumOfTimes="2" WaitTime="500" />
+				
+				<CustomBehavior File="UserDialog" QuestId="34692" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" Text="Drag Qiana to the mission and press start" />
 				<!-- this doesn't work QQ
+				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameFollowersListScrollFrameButton1:Click()" WaitTime="500" />
+				<CustomBehavior File="Misc\RunLua" Lua="DropDownList1:Click()" NumOfTimes="1" WaitTime="500" />
+				<CustomBehavior File="Misc\RunLua" Lua="DropDownList1Button1:Click()" NumOfTimes="1" WaitTime="1000" />
+				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrame.MissionTab.MissionPage.StartMissionButton:Click()" WaitTime="500" />
 				<CustomBehavior File="Misc\RunLua" Lua="C_Garrison.AddFollowerToMission(66,34)" NumOfTimes="1" WaitTime="1000" />
 				-->
 			</If>
@@ -1245,8 +1252,8 @@
 				<CustomBehavior File="InteractWith" QuestId="34792" MobId="80076" X="1733.351" Y="-1791.01" Z="156.3891" />
 			 </While>
 			 <!-- 
-			 Name="Exarch Othaar" Entry="80076" Type="Repair" X="1744.552" Y="-1786.462" Z="156.3895" />
-			<Vendor Name="Socrethar" Entry="82625" Type="Repair" X="1733.351" Y="-1791.01" Z="156.3891" />
+				 Name="Exarch Othaar" Entry="80076" Type="Repair" X="1744.552" Y="-1786.462" Z="156.3895" />
+				<Vendor Name="Socrethar" Entry="82625" Type="Repair" X="1733.351" Y="-1791.01" Z="156.3891" />
 			-->
 			</If>
 		<TurnIn QuestName="The Traitor's True Name" QuestId="34792" TurnInName="Exarch Maladaar" TurnInId="80073" X="1489.33" Y="-1923.948" Z="67.46728" />
@@ -1262,8 +1269,7 @@
 		<PickUp QuestName="Bigger is Better" QuestId="36592" GiverName="Baros Alexston" GiverId="77209" X="1866.262" Y="263.6458" Z="77.17221" />
 			<If Condition="HasQuest(36592) &amp;&amp; !IsQuestCompleted(36592)" >
 				<CustomBehavior File="InteractWith" QuestId="36592" MobId="81369" Range="5" X="1868.496" Y="262.1124" Z="77.15714" />
-				<CustomBehavior File="UserDialog" QuestId="36592" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
-											Text="Upgrade Garrison" />
+				// upgrade garrison
 			</If>
 		<TurnIn QuestName="Bigger is Better" QuestId="36592" TurnInName="Baros Alexston" TurnInId="77209" X="1866.262" Y="263.6458" Z="77.17221" />
 		-->
