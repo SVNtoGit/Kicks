@@ -1304,11 +1304,27 @@
 		<PickUp QuestName="Fiona's Solution" QuestId="33787" GiverName="Fiona" GiverId="76204" X="101.8281" Y="-1322.726" Z="-4.050506" />
 		<PickUp QuestName="Swamplighter Queen" QuestId="33808" GiverName="Fiona" GiverId="76204" X="101.8281" Y="-1322.726" Z="-4.050506" />
 		<PickUp QuestName="Rotting Riverbeasts" QuestId="34996" GiverName="Rangari Duula" GiverId="80859" X="-6.258681" Y="-1255.694" Z="-23.01572" />
-			<Objective QuestName="Fiona's Solution" QuestId="33787" Type="CollectItem" ItemId="108409" CollectCount="3" />
-			<Objective QuestName="Fiona's Solution" QuestId="33787" Type="CollectItem" ItemId="108396" CollectCount="4" />
-			<Objective QuestName="Fiona's Solution" QuestId="33787" Type="CollectItem" ItemId="108394" CollectCount="1" />
-			<Objective QuestName="Fiona's Solution" QuestId="33787" Type="CollectItem" ItemId="108395" CollectCount="2" />
 			<Objective QuestName="Swamplighter Queen" QuestId="33808" Type="CollectItem" ItemId="108410" CollectCount="1" />
+			<If Condition="HasQuest(33786) &amp;&amp; !IsQuestCompleted(33786)" > <!-- Crippled Caravan -->
+				<Objective QuestName="Fiona's Solution" QuestId="33787" Type="CollectItem" ItemId="108395" CollectCount="2" />
+				<Objective QuestName="Fiona's Solution" QuestId="33787" Type="CollectItem" ItemId="108409" CollectCount="3" />
+				<Objective QuestName="Fiona's Solution" QuestId="33787" Type="CollectItem" ItemId="108396" CollectCount="4" />
+				<!--<Objective QuestName="Fiona's Solution" QuestId="33787" Type="CollectItem" ItemId="108394" CollectCount="1" /> - stuck trying to get this all day -->
+				<While Condition="!IsObjectiveComplete(1, 33787)"> <!-- Riverbeast Heart -->
+					<CustomBehavior File="InteractWith" QuestId="33787" MobId="83455" Range="4" NonCompeteDistance="0" >
+						<HuntingGrounds WaypointVisitStrategy="Random" >
+							<Hotspot X="-61.78881" Y="-1159.938" Z="-25.9568" />
+							<Hotspot X="-88.49944" Y="-1187.859" Z="-25.9568" />
+							<Hotspot X="-124.3295" Y="-1213.62" Z="-25.9568" />
+							<Hotspot X="-20.26871" Y="-1209.683" Z="-25.12195" />
+							<Hotspot X="18.62089" Y="-1223.386" Z="-24.94174" />
+							<Hotspot X="73.25156" Y="-1193.995" Z="-25.19233" />
+							<Hotspot X="104.2738" Y="-1134.526" Z="-24.11585" />
+							<Hotspot X="96.38084" Y="-1094.593" Z="-24.92231" />
+						</HuntingGrounds>
+					</CustomBehavior>
+				</While>
+			</If>
 			<Objective QuestName="Rotting Riverbeasts" QuestId="34996" Type="KillMob" MobId="80752" KillCount="5" />
 		<TurnIn QuestName="Rotting Riverbeasts" QuestId="34996" TurnInName="Rangari Duula" TurnInId="80859" X="-6.258681" Y="-1255.694" Z="-23.01572" />
 		<TurnIn QuestName="Swamplighter Queen" QuestId="33808" TurnInName="Fiona" TurnInId="76204" X="101.8281" Y="-1322.726" Z="-4.050506" />
