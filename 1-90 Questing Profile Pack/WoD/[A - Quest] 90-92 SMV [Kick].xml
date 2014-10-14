@@ -27,7 +27,7 @@
 		<Mob Name="Umbraspore Giant" Entry="82318" />
 		<Mob Name="Volatile Spore" Entry="82328" />
 		<Mob Name="Swamplighter Hive" Entry="82366" /> <!-- In Tree -->
-		<Mob Name="Void Wolf" Entry="78798" />
+		<!--<Mob Name="Void Wolf" Entry="78798" />--> <!-- Won't defend against mob -->
     </AvoidMobs>
 
     <Blackspots>
@@ -1555,14 +1555,18 @@
 		<PickUp QuestName="Going Undercover" QuestId="33080" GiverName="Rangari Veka" GiverId="73425" X="211.2188" Y="-450.5295" Z="-3.819519" />
 		<PickUp QuestName="Loola's Lost Love" QuestId="34876" GiverName="Old Loola" GiverId="71641" X="198.6563" Y="-497.7361" Z="-5.490199" />
 		<PickUp QuestName="A Grandmother's Remedy" QuestId="33077" GiverName="Old Loola" GiverId="71641" X="198.6563" Y="-497.7361" Z="-5.490199" />
-			<While Condition="HasQuest(33080) &amp;&amp; !IsQuestCompleted(33080)" > <!-- Going Undercover -->
+			<If Condition="HasQuest(33080) &amp;&amp; !IsQuestCompleted(33080)" > <!-- Going Undercover -->
+				<DisableBehavior Name="Pull" />
+			 <While Condition="HasQuest(33080) &amp;&amp; !IsQuestCompleted(33080)" > <!-- Going Undercover -->
 				<CustomBehavior File="InteractWith" QuestId="33080" MobId="73106" Range="5" GossipOptions="1" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 33080)" X="220.8958" Y="-454.5955" Z="-3.551974" /> <!-- Sylene -->
 				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="(IsObjectiveComplete(2, 33080) || !(Me.HasAura(150456) || Me.HasAura(148601)))" X="14.46354" Y="-221.2587" Z="90.15543" /> <!-- Supply Hut -->
 				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="(IsObjectiveComplete(3, 33080) || !(Me.HasAura(150456) || Me.HasAura(148601)))" X="-83.50935" Y="-168.7972" Z="103.2403" /> <!-- Main Lodge -->
 				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="(IsObjectiveComplete(4, 33080) || !(Me.HasAura(150456) || Me.HasAura(148601)))" X="-146.2804" Y="-354.458" Z="103.1558" /> <!-- Chieftan's Seat -->
 				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="(IsObjectiveComplete(5, 33080) || !(Me.HasAura(150456) || Me.HasAura(148601)))" X="-268.0872" Y="-180.9171" Z="81.50096" /> <!-- Training Pit -->
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(107076)" TerminateWhen="HasAura(150456)" WaitTime="4000" /> <!-- Sylene's Amulet of Illusion -->
-			</While>
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(107076)" TerminateWhen="(Me.HasAura(150456) || Me.HasAura(148601))" WaitTime="4000" /> <!-- Sylene's Amulet of Illusion -->
+			 </While>
+				<EnableBehavior Name="Pull" />
+			</If>
 		<TurnIn QuestName="Going Undercover" QuestId="33080" TurnInName="Yrel" TurnInId="74877" X="-164.3993" Y="-23.49479" Z="90.11432" />
 		<PickUp QuestName="Escape From Shaz'gul" QuestId="33081" GiverName="Yrel" GiverId="74877" X="-164.3993" Y="-23.49479" Z="90.11432" />
 			<While Condition="HasQuest(33081) &amp;&amp; !IsQuestCompleted(33081)" > <!-- Escape From Shaz'gul -->
