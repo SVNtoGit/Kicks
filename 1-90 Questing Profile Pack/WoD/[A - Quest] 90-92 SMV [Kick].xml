@@ -28,12 +28,15 @@
 		<Mob Name="Volatile Spore" Entry="82328" />
 		<Mob Name="Swamplighter Hive" Entry="82366" /> <!-- In Tree -->
 		<!--<Mob Name="Void Wolf" Entry="78798" />--> <!-- Won't defend against mob -->
+		<Mob Name="Void-Torn Kaliri" Entry="79061" />
     </AvoidMobs>
 
     <Blackspots>
 		<Blackspot X="4330.935" Y="-2169.555" Z="19.06018" Radius="36.66254" /> <!-- Blackrock Quarry guys on roof -->
 		<Blackspot X="1127.392" Y="-1447.719" Z="-11.02879" Radius="20" /> <!-- Elodor Fields infinite respawn -->
 		<Blackspot X="435.5926" Y="-910.9053" Z="-33.97211" Radius="10" /> <!-- Underwater mud -->
+		<Blackspot X="435.5926" Y="-910.9053" Z="-33.97211" Radius="10" /> <!-- Underwater mud -->
+		<Blackspot X="455.7845" Y="-778.6798" Z="0.2282028" Radius="8" /> <!-- Height issue -->
     </Blackspots>
 
     <Mailboxes>
@@ -660,17 +663,13 @@
 		</Objective>
 		<Objective Type="KillMob" MobId="79148" KillCount="3">
 			<Hotspots>
-				<Hotspot X="64.27989" Y="-567.9501" Z="15.0295" />
-				<Hotspot X="84.83012" Y="-666.8835" Z="11.92863" />
-				<Hotspot X="159.0977" Y="-686.1683" Z="12.66856" />
-				<Hotspot X="136.3213" Y="-784.4387" Z="15.23571" />
-				<Hotspot X="61.91932" Y="-828.2121" Z="13.64906" />
-				<Hotspot X="-26.57343" Y="-834.428" Z="10.79992" />
-				<Hotspot X="-110.7323" Y="-754.5837" Z="14.92634" />
-				<Hotspot X="-189.3116" Y="-731.5469" Z="6.43648" />
-				<Hotspot X="-180.2688" Y="-673.3466" Z="11.24423" />
-				<Hotspot X="-33.43029" Y="-736.6577" Z="15.56651" />
-				<Hotspot X="-5.663828" Y="-683.6739" Z="18.75719" />
+				<Hotspot X="-145.1454" Y="-635.7947" Z="14.49851" />
+				<Hotspot X="-245.0284" Y="-622.8435" Z="14.3087" />
+				<Hotspot X="-314.2461" Y="-593.7631" Z="19.66578" />
+				<Hotspot X="-316.9564" Y="-693.3411" Z="16.65641" />
+				<Hotspot X="-273.5406" Y="-775.6212" Z="14.75543" />
+				<Hotspot X="-143.0979" Y="-813.8969" Z="15.27185" />
+				<Hotspot X="-84.22952" Y="-790.0365" Z="14.03948" />
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -1558,13 +1557,17 @@
 			<If Condition="HasQuest(33080) &amp;&amp; !IsQuestCompleted(33080)" > <!-- Going Undercover -->
 				<DisableBehavior Name="Pull" />
 			 <While Condition="HasQuest(33080) &amp;&amp; !IsQuestCompleted(33080)" > <!-- Going Undercover -->
+				<!-- WoW bug (in beta at least) may prevent you from casting another aura if it dropped - relogging fixes it -->
 				<CustomBehavior File="InteractWith" QuestId="33080" MobId="73106" Range="5" GossipOptions="1" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 33080)" X="220.8958" Y="-454.5955" Z="-3.551974" /> <!-- Sylene -->
-				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="(IsObjectiveComplete(2, 33080) || !(Me.HasAura(150456) || Me.HasAura(148601)))" X="14.46354" Y="-221.2587" Z="90.15543" /> <!-- Supply Hut -->
-				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="(IsObjectiveComplete(3, 33080) || !(Me.HasAura(150456) || Me.HasAura(148601)))" X="-83.50935" Y="-168.7972" Z="103.2403" /> <!-- Main Lodge -->
-				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="(IsObjectiveComplete(4, 33080) || !(Me.HasAura(150456) || Me.HasAura(148601)))" X="-146.2804" Y="-354.458" Z="103.1558" /> <!-- Chieftan's Seat -->
-				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="(IsObjectiveComplete(5, 33080) || !(Me.HasAura(150456) || Me.HasAura(148601)))" X="-268.0872" Y="-180.9171" Z="81.50096" /> <!-- Training Pit -->
+				<!-- TerminateWhen="(IsObjectiveComplete(2, 33080) || !(Me.HasAura(150456) || Me.HasAura(148601)))" - current wow beta bugs out on using necklace -->
+ 				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(2, 33080)" X="14.46354" Y="-221.2587" Z="90.15543" /> <!-- Supply Hut -->
+				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(3, 33080)" X="-83.50935" Y="-168.7972" Z="103.2403" /> <!-- Main Lodge -->
+				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(4, 33080)" X="-146.2804" Y="-354.458" Z="103.1558" /> <!-- Chieftan's Seat -->
+				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(5, 33080)" X="-268.0872" Y="-180.9171" Z="81.50096" /> <!-- Training Pit -->
+
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(107076)" TerminateWhen="(Me.HasAura(150456) || Me.HasAura(148601))" WaitTime="4000" /> <!-- Sylene's Amulet of Illusion -->
 			 </While>
+				<MoveTo X="-164.3993" Y="-23.49479" Z="90.11432" />
 				<EnableBehavior Name="Pull" />
 			</If>
 		<TurnIn QuestName="Going Undercover" QuestId="33080" TurnInName="Yrel" TurnInId="74877" X="-164.3993" Y="-23.49479" Z="90.11432" />
@@ -1597,7 +1600,22 @@
 			<If Condition="HasQuest(33078) &amp;&amp; HasQuest(34076) &amp;&amp; !IsQuestCompleted(34076)" > <!-- Bonus Objective: The Burial Fields - part of: The Dark that Blinds Us -->
 					<SetGrindArea>
 						<GrindArea>
-							<Factions>16 1711 1917</Factions>
+							<Factions>1917</Factions>
+							<Hotspots>
+								<Hotspot X="-145.1454" Y="-635.7947" Z="14.49851" />
+								<Hotspot X="-245.0284" Y="-622.8435" Z="14.3087" />
+								<Hotspot X="-314.2461" Y="-593.7631" Z="19.66578" />
+								<Hotspot X="-316.9564" Y="-693.3411" Z="16.65641" />
+								<Hotspot X="-273.5406" Y="-775.6212" Z="14.75543" />
+								<Hotspot X="-143.0979" Y="-813.8969" Z="15.27185" />
+								<Hotspot X="-84.22952" Y="-790.0365" Z="14.03948" />
+							</Hotspots>
+						</GrindArea>  
+					</SetGrindArea>
+				<GrindTo Condition="!IsObjectiveComplete(3, 34076)" GoalText="Completing Bonus Objective! - Pearltusk" />
+					<SetGrindArea>
+						<GrindArea>
+							<Factions>16 1711 2000</Factions>
 							<Hotspots>
 								<Hotspot X="64.27989" Y="-567.9501" Z="15.0295" />
 								<Hotspot X="84.83012" Y="-666.8835" Z="11.92863" />
@@ -1613,7 +1631,7 @@
 							</Hotspots>
 						</GrindArea>  
 					</SetGrindArea>
-				<GrindTo Condition="IsQuestCompleted(34076)" />
+				<GrindTo Condition="IsQuestCompleted(34076)" GoalText="Completing Bonus Objective!"  />
 			</If>
 		<!--<TurnIn QuestName="Bonus Objective: The Burial Fields" QuestId="34076" TurnInName="" TurnInId="" /> --> <!-- Auto Complete -->
 		<TurnIn QuestName="The Dark that Blinds Us" QuestId="33078" TurnInName="Loreseeker Heidii" TurnInId="74121" X="98.24653" Y="-554.7396" Z="18.75066" />
@@ -1678,7 +1696,7 @@
 				<DisableBehavior Name="Pull" />
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 1">
 					<MoveTo X="578.1978" Y="-3081.296" Z="59.73512" />
-					<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for Krull to come out {TimeRemaining}" />
+					<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for Krull to come out {TimeRemaining}" />
 				</While>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 2">
 					<MoveTo X="578.1978" Y="-3081.296" Z="59.73512" />
