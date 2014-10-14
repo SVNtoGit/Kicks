@@ -27,6 +27,7 @@
 		<Mob Name="Umbraspore Giant" Entry="82318" />
 		<Mob Name="Volatile Spore" Entry="82328" />
 		<Mob Name="Swamplighter Hive" Entry="82366" /> <!-- In Tree -->
+		<Mob Name="Void Wolf" Entry="78798" />
     </AvoidMobs>
 
     <Blackspots>
@@ -1575,18 +1576,19 @@
 		<PickUp QuestName="Loola's Lost Love" QuestId="34876" GiverName="Old Loola" GiverId="71641" X="198.6563" Y="-497.7361" Z="-5.490199" />
 		<PickUp QuestName="A Grandmother's Remedy" QuestId="33077" GiverName="Old Loola" GiverId="71641" X="198.6563" Y="-497.7361" Z="-5.490199" />
 			<While Condition="HasQuest(33080) &amp;&amp; !IsQuestCompleted(33080)" > <!-- Going Undercover -->
-				<CustomBehavior File="InteractWith" QuestId="33080" MobId="73106" Range="5" GossipOptions="1" NonCompeteDistance="0" TerminateWhen="!IsObjectiveComplete(1, 33080)" X="220.8958" Y="-454.5955" Z="-3.551974" /> <!-- Sylene -->
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(107076)" TerminateWhen="HasAura(150456)" WaitTime="1000" /> <!-- Sylene's Amulet of Illusion -->
-				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(2, 33080) || !HasAura(150456)" X="14.46354" Y="-221.2587" Z="90.15543" /> <!-- Supply Hut -->
-				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(3, 33080) || !HasAura(150456)" X="-83.50935" Y="-168.7972" Z="103.2403" /> <!-- Main Lodge -->
-				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(4, 33080) || !HasAura(150456)" X="-146.2804" Y="-354.458" Z="103.1558" /> <!-- Chieftan's Seat -->
-				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(5, 33080) || !HasAura(150456)" X="-268.0872" Y="-180.9171" Z="81.50096" /> <!-- Training Pit -->
+				<CustomBehavior File="InteractWith" QuestId="33080" MobId="73106" Range="5" GossipOptions="1" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 33080)" X="220.8958" Y="-454.5955" Z="-3.551974" /> <!-- Sylene -->
+				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="(IsObjectiveComplete(2, 33080) || !Me.HasAura(148601))" X="14.46354" Y="-221.2587" Z="90.15543" /> <!-- Supply Hut -->
+				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="(IsObjectiveComplete(3, 33080) || !Me.HasAura(148601))" X="-83.50935" Y="-168.7972" Z="103.2403" /> <!-- Main Lodge -->
+				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="(IsObjectiveComplete(4, 33080) || !Me.HasAura(148601))" X="-146.2804" Y="-354.458" Z="103.1558" /> <!-- Chieftan's Seat -->
+				<CustomBehavior File="InteractWith" QuestId="33080" MobId="74811" Range="5" NonCompeteDistance="0" TerminateWhen="(IsObjectiveComplete(5, 33080) || !Me.HasAura(148601))" X="-268.0872" Y="-180.9171" Z="81.50096" /> <!-- Training Pit -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(107076)" TerminateWhen="HasAura(150456)" WaitTime="4000" /> <!-- Sylene's Amulet of Illusion -->
 			</While>
 		<TurnIn QuestName="Going Undercover" QuestId="33080" TurnInName="Yrel" TurnInId="74877" X="-164.3993" Y="-23.49479" Z="90.11432" />
 		<PickUp QuestName="Escape From Shaz'gul" QuestId="33081" GiverName="Yrel" GiverId="74877" X="-164.3993" Y="-23.49479" Z="90.11432" />
 			<While Condition="HasQuest(33081) &amp;&amp; !IsQuestCompleted(33081)" > <!-- Escape From Shaz'gul -->
-				<CustomBehavior File="InteractWith" QuestId="33081" MobId="74877" Range="5" GossipOptions="2,1" NonCompeteDistance="0" X="-164.3993" Y="-23.49479" Z="90.11432" /> <!-- Yrel -->
-				<CustomBehavior File="EscortGroup" QuestId="33081" EscortCompleteWhen="QuestObjectiveComplete" QuestObjectiveIndex="2" EscortCountMax="1" EscortNpcId="74877"  EscortMaxFightDistance="15" SearchForNpcsRadius="75" >
+				<CustomBehavior File="InteractWith" QuestId="33081" MobId="74877" Range="5" StartEscortGossipOptions="2,1" NonCompeteDistance="0" WaitTime="4000" X="-164.3993" Y="-23.49479" Z="90.11432" /> <!-- Yrel -->
+				<CustomBehavior File="EscortGroup" QuestId="33081" EscortCompleteWhen="QuestObjectiveComplete" QuestObjectiveIndex="2" StartEscortGossipOptions="2,1"
+										EscortCountMax="1" StartNpcId="74877" EscortNpcId="88864" EscortMaxFightDistance="15" SearchForNpcsRadius="75" >
 					<SearchPath> <!-- Escort Yrel -->
 						<Hotspot X="-154.5448" Y="-79.76411" Z="88.47097" />
 						<Hotspot X="-200.2401" Y="-172.7134" Z="80.46567" />
@@ -1609,9 +1611,25 @@
 				<CustomBehavior File="InteractWith" QuestId="33078" MobId="224707" Range="8" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(4, 33078)" X="-194.1147" Y="-701.7024" Z="4.999907" /> <!-- Southern -->
 			</If>
 			<If Condition="HasQuest(33078) &amp;&amp; HasQuest(34076) &amp;&amp; !IsQuestCompleted(34076)" > <!-- Bonus Objective: The Burial Fields - part of: The Dark that Blinds Us -->
-				<Objective QuestName="Bonus Objective: The Burial Fields" QuestId="34076" Type="KillMob" MobId="79148" KillCount="3" /> <!-- Phantom Pearltusk -->
-				<Objective QuestName="Bonus Objective: The Burial Fields" QuestId="34076" Type="KillMob" MobId="82196" KillCount="6" /> <!-- Void Priestess -->
-				<Objective QuestName="Bonus Objective: The Burial Fields" QuestId="34076" Type="KillMob" MobId="82220" KillCount="6" /> <!-- Orc Spirit -->
+					<SetGrindArea>
+						<GrindArea>
+							<Factions>16 1711 1917</Factions>
+							<Hotspots>
+								<Hotspot X="64.27989" Y="-567.9501" Z="15.0295" />
+								<Hotspot X="84.83012" Y="-666.8835" Z="11.92863" />
+								<Hotspot X="159.0977" Y="-686.1683" Z="12.66856" />
+								<Hotspot X="136.3213" Y="-784.4387" Z="15.23571" />
+								<Hotspot X="61.91932" Y="-828.2121" Z="13.64906" />
+								<Hotspot X="-26.57343" Y="-834.428" Z="10.79992" />
+								<Hotspot X="-110.7323" Y="-754.5837" Z="14.92634" />
+								<Hotspot X="-189.3116" Y="-731.5469" Z="6.43648" />
+								<Hotspot X="-180.2688" Y="-673.3466" Z="11.24423" />
+								<Hotspot X="-33.43029" Y="-736.6577" Z="15.56651" />
+								<Hotspot X="-5.663828" Y="-683.6739" Z="18.75719" />
+							</Hotspots>
+						</GrindArea>  
+					</SetGrindArea>
+				<GrindTo Condition="IsQuestCompleted(34076)" />
 			</If>
 		<!--<TurnIn QuestName="Bonus Objective: The Burial Fields" QuestId="34076" TurnInName="" TurnInId="" /> --> <!-- Auto Complete -->
 		<TurnIn QuestName="The Dark that Blinds Us" QuestId="33078" TurnInName="Loreseeker Heidii" TurnInId="74121" X="98.24653" Y="-554.7396" Z="18.75066" />
