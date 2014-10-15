@@ -211,17 +211,17 @@ GrindArea =
        | MobIds
        | (Factions, MobIds)
        | (MobIds, Factions))
-    & LootMobs?
+    & LootMobs-ElementForm?
     & LootRadius?
     & MaximumHotspotTime?
     & MaxDistance?
     & Name?
     & RandomizeHotspots?
     & TargetElites?
-    & TargetingDistance?
+    & TargetingDistance-ElementForm?
     & TargetMaxLevel?
     & TargetMinLevel?
-    & UseMount?
+    & UseMount-ElementForm?
     & Hotspots
   }
 
@@ -268,10 +268,17 @@ If =
   }
 
 
-LootMobs =
+LootMobs-AttributeForm =
   element LootMobs
   {
     attribute Value { HBType-MetaBoolean }
+  }
+
+
+LootMobs-ElementForm =
+  element LootMobs
+  {
+    HBType-MetaBoolean
   }
 
 
@@ -421,7 +428,7 @@ Objective |=
     Attributes-ObjectiveCore,
     attribute CollectCount { HBType-Count },    
     attribute ItemId { HBType-Id },
-    attribute Name { HBType-Name }?
+    attribute ItemName { HBType-Name }?
   }
 
 
@@ -432,7 +439,7 @@ Objective |=
     Attributes-ObjectiveCore,
     attribute KillCount { HBType-Count },
     attribute MobId { HBType-Id },
-    attribute Name { HBType-Name }? # convenience, as HB doesn't support this
+    attribute MobName { HBType-Name }? # convenience, as HB doesn't support this
   }
 
 
@@ -442,7 +449,7 @@ Objective |=
     attribute Type { "UseObject" },
     Attributes-ObjectiveCore,
     attribute ObjectId { HBType-Id },
-    attribute Name { HBType-Name }?,
+    attribute ObjectName { HBType-Name }?,
     attribute UseCount { HBType-Count }
   }
 
@@ -453,7 +460,7 @@ ObjectiveOverride |=
     attribute Type { "CollectItem" },
     attribute CollectCount { HBType-Count },    
     attribute ItemId { HBType-Id },
-    attribute Name { HBType-Name }?, # convenience, as HB doesn't support this
+    attribute ItemName { HBType-Name }?, # convenience, as HB doesn't support this
     CollectFrom?,
     ObjectiveOverride_GrindArea
   }
@@ -472,7 +479,7 @@ ObjectiveOverride |=
     attribute Type { "KillMob" },
     attribute KillCount { HBType-Count },
     attribute MobId { HBType-Id },
-    attribute Name { HBType-Name }?, # convenience, as HB doesn't support this
+    attribute MobName { HBType-Name }?, # convenience, as HB doesn't support this
     CollectFrom?,
     ObjectiveOverride_GrindArea
   }
@@ -483,7 +490,7 @@ ObjectiveOverride |=
   {
     attribute Type { "UseObject" },
     attribute ObjectId { HBType-Id },
-    attribute Name { HBType-Name }?,
+    attribute ObjectName { HBType-Name }?,
     attribute UseCount { HBType-Count },
     ObjectiveOverride_GrindArea
   }
@@ -549,7 +556,7 @@ QuestOrder_Directives =
    | EnableRepair
    | GrindUntil
    | If
-   | LootMobs
+   | LootMobs-AttributeForm
    | LootRadius
    | MoveTo
    | Objective
@@ -557,10 +564,10 @@ QuestOrder_Directives =
    | SetGrindArea
    | SetMailbox
    | SetVendor
-   | TargetingDistance
+   | TargetingDistance-AttributeForm
    | TurnIn
    | UseItem
-   | UseMount
+   | UseMount-AttributeForm
    | While
   )+
 
@@ -628,10 +635,17 @@ SetVendor =
   }
 
 
-TargetingDistance =
+TargetingDistance-AttributeForm =
   element TargetingDistance
   {
     attribute Value { HBType-MetaDecimalNonNegative }?
+  }
+
+
+TargetingDistance-ElementForm =
+  element TargetingDistance
+  {
+    HBType-MetaDecimalNonNegative
   }
 
 
@@ -686,10 +700,17 @@ UseItem =
   }
 
 
-UseMount =
+UseMount-AttributeForm =
   element UseMount
   {
     attribute Value { HBType-Boolean }
+  }
+
+
+UseMount-ElementForm =
+  element UseMount
+  {
+    HBType-Boolean
   }
 
 
