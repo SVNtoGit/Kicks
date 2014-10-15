@@ -39,10 +39,12 @@
 		<Blackspot X="455.7845" Y="-778.6798" Z="0.2282028" Radius="8" /> <!-- Height issue -->
     </Blackspots>
 
-    <Mailboxes>
+    <Mailboxes> <!-- Need to add Mailboxes and Vendors! -->
+
     </Mailboxes>
 
-    <Vendors>
+    <Vendors> <!-- Need to add Mailboxes and Vendors! -->
+		
     </Vendors>
 
     <!-- BEGIN: Quest Overrides -->
@@ -852,8 +854,6 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-
-
    <!-- END: Quest Overrides -->
    <!-- SMV - Gorgrond - Talador - Spires - Nagrand -->
 
@@ -902,7 +902,7 @@
 		<!-- End of SW / Callboard -->
 
 			<!-- Dark Portal -->
-			<If Condition="!IsQuestCompleted(34393)" > <!-- Disable Pull -->
+			<If Condition="!IsQuestCompleted(34393)" > <!-- Disable Pull for Dark Portal -->
 				<DisableBehavior Name="Pull" />
 			</If>
 		<PickUp QuestName="Azeroth's Last Stand" QuestId="35933" GiverName="Archmage Khadgar" GiverId="78558" X="4066.427" Y="-2372.571" Z="94.59667" />
@@ -952,14 +952,14 @@
 			</If>
         <TurnIn QuestName="The Portal's Power" QuestId="34393" TurnInName="Archmage Khadgar" TurnInId="78558" X="4066.427" Y="-2372.571" Z="94.59733" />
 		<PickUp QuestName="The Cost of War" QuestId="34420" GiverName="Archmage Khadgar" GiverId="78558" X="4066.427" Y="-2372.571" Z="94.59733" />
-			<If Condition="HasQuest(34420) &amp;&amp; IsQuestCompleted(34393)" > <!-- Enable Pull -->
+			<If Condition="HasQuest(34420) &amp;&amp; IsQuestCompleted(34393)" > <!-- Enable Pull for Dark Portal -->
 				<EnableBehavior Name="Pull" />
 				<TargetingDistance Value="17" />
 			</If>
 		<!-- End of Dark Portal -->
 		
 		<!-- Heartblood -->
-			<If Condition="HasQuest(34420)" > <!-- The Cost of War -->
+			<If Condition="HasQuest(34420)" > <!-- The Cost of War - Turnin -->
 				<MoveTo X="3936.718" Y="-2505.224" Z="69.73077" />
 				<CustomBehavior File="WaitTimer" WaitTime="7000" GoalText="Waiting for quest to complete {TimeRemaining}" />
         <TurnIn QuestName="The Cost of War" QuestId="34420" TurnInName="Archmage Khadgar" TurnInId="78559" X="3936.718" Y="-2505.224" Z="69.73077" /> <!-- NEW NPC ID -->
@@ -1296,8 +1296,10 @@
 				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameMissionsListScrollFrameButton1:Click()" NumOfTimes="1" WaitTime="500" />
 				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameHelpBoxButton:Click()" NumOfTimes="2" WaitTime="500" />
 				
-				<CustomBehavior File="UserDialog" QuestId="34692" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" Text="Drag Qiana to the mission and press start" />
-				<!-- this doesn't work QQ
+				<!-- This is the only userdialog that stops a full /afk profile -->
+				<CustomBehavior File="UserDialog" QuestId="34692" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" 
+				Text="Drag Qiana to the mission and press start" />
+				<!-- this doesn't work QQ - it doesn't 'select' the target frame before trying to add her.  if you manually click her and run code - it works!
 				<CustomBehavior File="Misc\RunLua" Lua="GarrisonMissionFrameFollowersListScrollFrameButton1:Click()" WaitTime="500" />
 				<CustomBehavior File="Misc\RunLua" Lua="DropDownList1:Click()" NumOfTimes="1" WaitTime="500" />
 				<CustomBehavior File="Misc\RunLua" Lua="DropDownList1Button1:Click()" NumOfTimes="1" WaitTime="1000" />
@@ -1311,25 +1313,7 @@
 			<If Condition="HasQuest(34778) &amp;&amp; !IsQuestCompleted(34778)" > <!-- Migrant Workers -->
 				<CustomBehavior File="InteractWith" QuestId="34778" MobId="81912" Range="5" GossipOptions="1" X="1858.806" Y="243.0087" Z="76.99307" />
 			</If>
-		<!--<PickUp QuestName="Ashran Appearance" QuestId="36624" GiverName="Lieutenant Thorn" GiverId="79953" X="1847.073" Y="270.6632" Z="78.39755" />  PVP quest? -->
-		<!-- random quest from lost packmule near plains of serenity (w/nw) otw to a hero's welcome. too lazy to code
-		<Vendor Name="Lost Packmule" Entry="79966" Type="Repair" X="1316.679" Y="-427.1111" Z="2.344282" />
-		<PickUp QuestName="Gloomshade Grove" QuestId="33263" GiverName="" GiverId="" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="KillMob" MobId="73875" KillCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74667" CollectCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="UseObject" ObjectId="224229" UseCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74681" CollectCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="UseObject" ObjectId="223720" UseCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74686" CollectCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74193" CollectCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="CollectItem" ItemId="74687" CollectCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="KillMob" MobId="74256" KillCount="1" />
-			<Objective QuestName="Gloomshade Grove" QuestId="33263" Type="KillMob" MobId="74244" KillCount="1" />
-		<TurnIn QuestName="Gloomshade Grove" QuestId="33263" TurnInName="" TurnInId="" />
-		
-		leads to game of thorns
-		http://wod.wowhead.com/quest=33271
-		-->
+		<!--<PickUp QuestName="Ashran Appearance" QuestId="36624" GiverName="Lieutenant Thorn" GiverId="79953" X="1847.073" Y="270.6632" Z="78.39755" />  Get a follower in pvp zone -->
 			<If Condition="HasQuest(33075) &amp;&amp; !IsQuestCompleted(33075)" > <!-- A Hero's Welcome -->
 				<MoveTo X="922.9953" Y="-815.6843" Z="-28.82178" />
 			</If>
@@ -2174,7 +2158,8 @@
 			<Objective QuestName="Gloomshade Game Hunter" QuestId="33461" Type="CollectItem" ItemId="111884" CollectCount="5" />
 			<Objective QuestName="Gloomshade Game Hunter" QuestId="33461" Type="CollectItem" ItemId="111885" CollectCount="5" />
 		<TurnIn QuestName="Gloomshade Game Hunter" QuestId="33461" TurnInName="Arsenio Zerep" TurnInId="80159" X="1904.377" Y="211.1814" Z="77.05808" />
-		<!-- Ashran Appearance 
+		<!-- Ashran Appearance - 
+		bugs out, unless you manually click the fp guy - it doesn't give u credit.  GossipOptions="2" doesn't work properly in this situtation, nor does the lua
 		<PickUp QuestName="Ashran Appearance" QuestId="36624" GiverName="Lieutenant Thorn" GiverId="79953" X="1847.073" Y="270.6632" Z="78.39755" />
 			<If Condition="HasQuest(36624) &amp;&amp; !IsQuestCompleted(36624)" > 
 				<CustomBehavior File="InteractWith" MobId="81103" KeepTargetSelected="True" WaitTime="2000" X="1864.33" Y="217.8108" Z="76.63772" />
@@ -2184,7 +2169,7 @@
 		-->
 			<If Condition="HasQuest(33533) &amp;&amp; IsQuestCompleted(33533)" > <!-- The Secrets of Gorgrond -->
 				<If Condition="Me.ZoneId == 7078"> <!-- WoD SMV -->
-					<!-- This isn't working, need to find a way to make bot fly, grr! -->
+					<!-- This isn't working, need to find a way to make bot fly via fp, grr! -->
 					<CustomBehavior File="InteractWith" MobId="81103" WaitTime="2000" X="1864.33" Y="217.8108" Z="76.63772" />
 					<MoveTo X="6458.474" Y="-177.2899" Z="120.0832" /> <!-- Wildwood Wash FP -->
 				</If>
