@@ -690,8 +690,74 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-
-
+	<Quest Id="33083" Name="On the Offensive">
+		<Objective Type="KillMob" MobId="74373" KillCount="15">
+			<Hotspots>
+				<Hotspot X="896.0571" Y="-11.18123" Z="20.2538" />
+				<Hotspot X="921.4739" Y="61.10225" Z="20.2538" />
+				<Hotspot X="926.366" Y="138.4281" Z="20.08564" />
+				<Hotspot X="924.2108" Y="147.6348" Z="20.23491" />
+				<Hotspot X="914.4122" Y="267.0155" Z="42.10138" />
+				<Hotspot X="889.9998" Y="325.0867" Z="54.34322" />
+				<Hotspot X="844.2866" Y="187.3196" Z="20.95701" />
+				<Hotspot X="768.6526" Y="167.8268" Z="12.20954" />
+				<Hotspot X="812.1439" Y="172.3228" Z="7.464104" />
+				<Hotspot X="882.1516" Y="150.7945" Z="7.518225" />
+				<Hotspot X="906.3406" Y="78.2054" Z="7.464441" />
+				<Hotspot X="857.9367" Y="35.93954" Z="-4.700909" />
+				<Hotspot X="891.8804" Y="4.814979" Z="-4.701408" />
+				<Hotspot X="906.8073" Y="88.88944" Z="7.464143" />
+				<Hotspot X="889.3329" Y="161.0112" Z="7.525485" />
+				<Hotspot X="785.2637" Y="150.9151" Z="7.465032" />
+				<Hotspot X="805.9163" Y="-16.85678" Z="7.464211" />
+				<Hotspot X="908.1855" Y="305.0264" Z="45.91182" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	<Quest Id="33795" Name="Across the Stars">
+		<Objective Type="CollectItem" ItemId="112385" CollectCount="5">
+			<CollectFrom>
+				<GameObject Name="Star Reading" Entry="223508" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="908.1855" Y="305.0264" Z="45.91182" />
+				<Hotspot X="896.0571" Y="-11.18123" Z="20.2538" />
+				<Hotspot X="921.4739" Y="61.10225" Z="20.2538" />
+				<Hotspot X="926.366" Y="138.4281" Z="20.08564" />
+				<Hotspot X="924.2108" Y="147.6348" Z="20.23491" />
+				<Hotspot X="914.4122" Y="267.0155" Z="42.10138" />
+				<Hotspot X="889.9998" Y="325.0867" Z="54.34322" />
+				<Hotspot X="844.2866" Y="187.3196" Z="20.95701" />
+				<Hotspot X="768.6526" Y="167.8268" Z="12.20954" />
+				<Hotspot X="812.1439" Y="172.3228" Z="7.464104" />
+				<Hotspot X="882.1516" Y="150.7945" Z="7.518225" />
+				<Hotspot X="906.3406" Y="78.2054" Z="7.464441" />
+				<Hotspot X="857.9367" Y="35.93954" Z="-4.700909" />
+				<Hotspot X="891.8804" Y="4.814979" Z="-4.701408" />
+				<Hotspot X="906.8073" Y="88.88944" Z="7.464143" />
+				<Hotspot X="889.3329" Y="161.0112" Z="7.525485" />
+				<Hotspot X="785.2637" Y="150.9151" Z="7.465032" />
+				<Hotspot X="805.9163" Y="-16.85678" Z="7.464211" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	<Quest Id="33793" Name="Harbingers of the Void">
+		<Objective Type="KillMob" MobId="76209" KillCount="1"> <!-- Shadow -->
+			<Hotspots>
+				<Hotspot X="732.6989" Y="-15.24408" Z="20.77187" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="KillMob" MobId="74519" KillCount="1"> <!-- Darkness -->
+			<Hotspots>
+				<Hotspot X="901.9528" Y="167.8698" Z="19.28481" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="KillMob" MobId="76210" KillCount="1"> <!-- Anguish -->
+			<Hotspots>
+				<Hotspot X="634.1702" Y="-63.52431" Z="24.45946" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 
 
 
@@ -1795,41 +1861,89 @@
 		<PickUp QuestName="The Great Salvation" QuestId="33794" GiverName="Rangari Saato" GiverId="81176" X="1009.635" Y="-132.5833" Z="-5.126611" />
 		<PickUp QuestName="On the Offensive" QuestId="33083" GiverName="Rangari Saato" GiverId="81176" X="1009.635" Y="-132.5833" Z="-5.126611" />
 		<PickUp QuestName="Across the Stars" QuestId="33795" GiverName="Illuminate Praavi" GiverId="81173" X="1010.09" Y="-101.3924" Z="-4.560985" />
-
-
-		
-		
-
-		
-			<!--
-
+			<If Condition="HasQuest(35032) &amp;&amp; !IsQuestCompleted(35032)" > <!-- Into Anguish -->
+			 <While Condition="(!IsObjectiveComplete(1, 35032))"> <!-- Open Door -->
+				<MoveTo X="966.7886" Y="-78.96068" Z="28.12074" /> <!-- Fragment of Anguish -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(112386)" WaitTime="5000" />
+			 </While>
+ 				<CustomBehavior File="InteractWith" QuestId="35032" MobId="80741" Range="8" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(2, 35032)" X="884.8594" Y="292.5521" Z="51.63548" />
+ 				<CustomBehavior File="InteractWith" QuestId="35032" MobId="80742" Range="8" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(3, 35032)" X="811.5278" Y="-43.21528" Z="26.39269" />
+ 				<CustomBehavior File="InteractWith" QuestId="35032" MobId="80743" Range="8" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(4, 35032)" X="929.3368" Y="81.48438" Z="25.37406" />
+			</If>
+            <While Condition="HasQuest(35032) &amp;&amp; IsQuestCompleted(35032)"> <!-- Turnin Into Anguish, Pickup The Dark Side of the Moon -->
+		<TurnIn QuestName="Into Anguish" QuestId="35032" /> <!-- Into Anguish CLQ -->
+		<!-- <PickUp QuestName="The Dark Side of the Moon" QuestId="34054" /> -->
+                <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for CLQ {TimeRemaining}" />
+            </While>
+			<While Condition="HasQuest(33794) &amp;&amp; !IsQuestCompleted(33794)" > <!-- The Great Salvation -->
+				<CustomBehavior File="InteractWith" QuestId="33794" MobId="225924" MobType="GameObject" NumOfTimes="50" IgnoreMobsInBlackspots="True" Range="7" NonCompeteDistance="0" CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+				  <HuntingGrounds WaypointVisitStrategy="Random" >
+					<Hotspot X="896.0571" Y="-11.18123" Z="20.2538" />
+					<Hotspot X="921.4739" Y="61.10225" Z="20.2538" />
+					<Hotspot X="926.366" Y="138.4281" Z="20.08564" />
+					<Hotspot X="924.2108" Y="147.6348" Z="20.23491" />
+					<Hotspot X="914.4122" Y="267.0155" Z="42.10138" />
+					<Hotspot X="889.9998" Y="325.0867" Z="54.34322" />
+					<Hotspot X="844.2866" Y="187.3196" Z="20.95701" />
+					<Hotspot X="768.6526" Y="167.8268" Z="12.20954" />
+					<Hotspot X="812.1439" Y="172.3228" Z="7.464104" />
+					<Hotspot X="882.1516" Y="150.7945" Z="7.518225" />
+					<Hotspot X="906.3406" Y="78.2054" Z="7.464441" />
+					<Hotspot X="857.9367" Y="35.93954" Z="-4.700909" />
+					<Hotspot X="891.8804" Y="4.814979" Z="-4.701408" />
+					<Hotspot X="906.8073" Y="88.88944" Z="7.464143" />
+					<Hotspot X="889.3329" Y="161.0112" Z="7.525485" />
+					<Hotspot X="785.2637" Y="150.9151" Z="7.465032" />
+					<Hotspot X="805.9163" Y="-16.85678" Z="7.464211" />
+					<Hotspot X="908.1855" Y="305.0264" Z="45.91182" />
+				  </HuntingGrounds>
+				</CustomBehavior>
+			</While>
 			<Objective QuestName="Across the Stars" QuestId="33795" Type="CollectItem" ItemId="112385" CollectCount="5" />
-		<TurnIn QuestName="Across the Stars" QuestId="33795" TurnInName="Prophet Velen" TurnInId="77282" />
-
-
 			<Objective QuestName="Harbingers of the Void" QuestId="33793" Type="KillMob" MobId="76209" KillCount="1" />
 			<Objective QuestName="Harbingers of the Void" QuestId="33793" Type="KillMob" MobId="74519" KillCount="1" />
 			<Objective QuestName="Harbingers of the Void" QuestId="33793" Type="KillMob" MobId="76210" KillCount="1" />
-		<TurnIn QuestName="Harbingers of the Void" QuestId="33793" TurnInName="Prophet Velen" TurnInId="77282" />
-
-			<Objective QuestName="Into Anguish" QuestId="35032" Type="KillMob" MobId="80873" KillCount="1" />
-			<Objective QuestName="Into Anguish" QuestId="35032" Type="KillMob" MobId="80741" KillCount="1" />
-			<Objective QuestName="Into Anguish" QuestId="35032" Type="KillMob" MobId="80742" KillCount="1" />
-			<Objective QuestName="Into Anguish" QuestId="35032" Type="KillMob" MobId="80743" KillCount="1" />
-		<TurnIn QuestName="Into Anguish" QuestId="35032" TurnInName="" TurnInId="" />
-
-			<Objective QuestName="The Great Salvation" QuestId="33794" Type="KillMob" MobId="76212" KillCount="8" />
-		<TurnIn QuestName="The Great Salvation" QuestId="33794" TurnInName="Yrel" TurnInId="73395" />
-
 			<Objective QuestName="On the Offensive" QuestId="33083" Type="KillMob" MobId="74373" KillCount="15" />
-		<TurnIn QuestName="On the Offensive" QuestId="33083" TurnInName="Prophet Velen" TurnInId="77282" />
+			<While Condition="HasQuest(34054) &amp;&amp; !IsQuestCompleted(34054)" > <!-- The Dark Side of the Moon -->
+			 <While Condition="(!IsObjectiveComplete(1, 34054))">
+				<MoveTo X="754.3941" Y="300.9167" Z="90.15506" />
+			 </While>
+			 <While Condition="(!IsObjectiveComplete(2, 34054))">
+				<CustomBehavior File="EscortGroup" QuestId="34054" EscortCompleteWhen="QuestObjectiveComplete" QuestObjectiveIndex="2" 
+											EscortCountMax="1" EscortNpcId="76290" EscortMaxFightDistance="15" SearchForNpcsRadius="75" >
+					<SearchPath>
+						<Hotspot X="700.5243" Y="193.2361" Z="90.62926" />
+					</SearchPath>
+				</CustomBehavior>
+			 </While>
+			</While>
+		<TurnIn QuestName="The Dark Side of the Moon" QuestId="34054" TurnInName="Yrel" TurnInId="73395" X="935.5781" Y="-838.8489" Z="-28.83372" />
+		<TurnIn QuestName="The Great Salvation" QuestId="33794" TurnInName="Yrel" TurnInId="73395" X="935.5781" Y="-838.8489" Z="-28.83372" />
+		<TurnIn QuestName="Across the Stars" QuestId="33795" TurnInName="Prophet Velen" TurnInId="77282" X="932.2986" Y="-837.9618" Z="-28.83358" />
+		<TurnIn QuestName="Harbingers of the Void" QuestId="33793" TurnInName="Prophet Velen" TurnInId="77282" X="932.2986" Y="-837.9618" Z="-28.83358" />
+		<TurnIn QuestName="On the Offensive" QuestId="33083" TurnInName="Prophet Velen" TurnInId="77282" X="932.2986" Y="-837.9618" Z="-28.83358" />
+		<PickUp QuestName="Darkness Falls" QuestId="33837" GiverName="Prophet Velen" GiverId="77282" X="932.2986" Y="-837.9618" Z="-28.83358" />
+
+		
+		
+		
+		
+		
+		
+		
+			<!--
+
+			<Objective QuestName="Darkness Falls" QuestId="33837" Type="KillMob" MobId="82283" KillCount="1" />
+			<Objective QuestName="Darkness Falls" QuestId="33837" Type="KillMob" MobId="76450" KillCount="1" />
+			<Objective QuestName="Darkness Falls" QuestId="33837" Type="KillMob" MobId="76172" KillCount="1" />
+		<TurnIn QuestName="Darkness Falls" QuestId="33837" TurnInName="Yrel" TurnInId="73395" />
 
 
 
 
 		
+
 		<TurnIn QuestName="Fast Expansion" QuestId="33814" TurnInName="Baros Alexston" TurnInId="77209" />
-			
 			-->
 			
 			
