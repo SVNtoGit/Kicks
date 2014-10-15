@@ -32,11 +32,12 @@
     </Blackspots>
 
     <Mailboxes> <!-- Need to add Mailboxes and Vendors! -->
-		
+		<Mailbox X="6327.086" Y="715.55" Z="113.9088" />
     </Mailboxes>
 
     <Vendors> <!-- Need to add Mailboxes and Vendors! -->
-		
+		<Vendor Name="Trader Yula" Entry="85968" Type="Food" X="6330.835" Y="713.717" Z="113.9123" /> <!-- Highpass -->
+		<Vendor Name="Thaelin Darkanvil" Entry="75136" Type="Food" X="6331.465" Y="732.6285" Z="115.7077" /> <!-- Highpass -->
     </Vendors>
 
     <!-- BEGIN: Quest Overrides -->
@@ -488,7 +489,7 @@
         <CustomBehavior File="Misc\ProfileCompatibilityInfo" AllowBrokenAddOns="true" AllowBrokenPlugIns="true" />
 
         <LootMobs Value="true" />
-        <TargetingDistance Value="20" />    <!-- Use LevelBot default -->
+        <TargetingDistance Value="17" />    <!-- Use LevelBot default -->
         <UseMount Value="true" />
         <!-- END: Checkpoint Block -->
 
@@ -519,20 +520,14 @@
 			<Objective QuestName="A Harvester Has Come" QuestId="35065" Type="KillMob" MobId="84373" KillCount="1" />
 			<Objective QuestName="Wake of the Genesaur" QuestId="35834" Type="KillMob" MobId="84402" KillCount="9" />
 		<TurnIn QuestName="I Drew Agro...culture" QuestId="35828" TurnInName="Thaelin Darkanvil" TurnInId="75136" X="6733.364" Y="-98.94097" Z="76.86278" />
-		<PickUp QuestName="Lost Mole Machines" QuestId="35055" GiverName="Thaelin Darkanvil" GiverId="75136" X="6733.364" Y="-98.94097" Z="76.86278" />
 		<TurnIn QuestName="Wake of the Genesaur" QuestId="35834" TurnInName="Rangari Kaalya" TurnInId="80987" X="6739.449" Y="-96.40278" Z="76.45728" />
 		<TurnIn QuestName="A Harvester Has Come" QuestId="35065" TurnInName="Rangari D'kaan" TurnInId="75146" X="6741.146" Y="-102.5382" Z="75.95283" />
 		<PickUp QuestName="Rescue Rangari" QuestId="35050" GiverName="Rangari D'kaan" GiverId="75146" X="6741.146" Y="-102.5382" Z="75.95283" />
+		<PickUp QuestName="Lost Mole Machines" QuestId="35055" GiverName="Thaelin Darkanvil" GiverId="75136" X="6733.364" Y="-98.94097" Z="76.86278" />
 			<If Condition="HasQuest(35050) &amp;&amp; !IsQuestCompleted(35050)" > <!-- Rescue Rangari -->
-			 <While Condition="!IsObjectiveComplete(1, 35050)"> <!-- Rangari Kolaan -->
-				<CustomBehavior File="InteractWith" QuestId="35050" MobId="81018" GossipOptions="1" Range="5" X="6691.192" Y="205.0382" Z="57.9416" />
-			 </While>
-			 <While Condition="!IsObjectiveComplete(1, 35050)">  <!-- Rangari Rajess -->
-				<CustomBehavior File="InteractWith" QuestId="35050" MobId="81013" GossipOptions="1" Range="5" X="6630.991" Y="348.1615" Z="65.5507" />
-			 </While>
-			 <While Condition="!IsObjectiveComplete(1, 35050)">  <!-- Rangari Jonaa -->
-				<CustomBehavior File="InteractWith" QuestId="35050" MobId="81020" GossipOptions="1" Range="5" X="6397.988" Y="564.0382" Z="94.98792" />
-			 </While>
+				<CustomBehavior File="InteractWith" QuestId="35050" MobId="81018" GossipOptions="1" Range="5" TerminateWhen="IsObjectiveComplete(1, 35050)" X="6691.192" Y="205.0382" Z="57.9416" />
+				<CustomBehavior File="InteractWith" QuestId="35050" MobId="81013" GossipOptions="1" Range="5" TerminateWhen="IsObjectiveComplete(2, 35050)" X="6630.991" Y="348.1615" Z="65.5507" />
+				<CustomBehavior File="InteractWith" QuestId="35050" MobId="81020" GossipOptions="1" Range="5" TerminateWhen="IsObjectiveComplete(3, 35050)" X="6397.988" Y="564.0382" Z="94.98792" />
 			</If>
 			<If Condition="HasQuest(35055) &amp;&amp; !IsQuestCompleted(35055)" > <!-- Lost Mole Machines -->
 				<CustomBehavior File="InteractWith" QuestId="35055" MobId="84766" Range="5" X="6312.124" Y="654.2969" Z="101.6551" /> <!-- Gilrin -->
@@ -541,25 +536,29 @@
 		<TurnIn QuestName="Lost Mole Machines" QuestId="35055" TurnInName="Thaelin Darkanvil" TurnInId="75136" X="6301.531" Y="697.934" Z="116.5991" />
 		<PickUp QuestName="We Need An Outpost" QuestId="35063" GiverName="Thaelin Darkanvil" GiverId="75136" X="6301.531" Y="697.934" Z="116.5991" />
 			<If Condition="HasQuest(35063) &amp;&amp; !IsQuestCompleted(35063)" > <!-- We Need An Outpost -->
-			 <While Condition="!IsObjectiveComplete(1, 35063)"> 
+				<!-- I chose the sparring ring - the lumber yard has a vehicle that you have to jump in if you want to use it npc's are in the same exact place regardless of which camp you choose -->
 				<CustomBehavior File="InteractWith" QuestId="35063" MobId="81119" Range="5" X="6303.061" Y="696.3594" Z="116.5769" />
-			 </While>
-			 <!-- I chose the sparring ring - the lumber yard has a vehicle that you have to jump in if you want to use it 
-				npc's are in the same exact place regardless of which camp you choose -->
-			 <While Condition="!IsObjectiveComplete(2, 35063)"> 
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
-											Text="Choose a logging camp or sparring ring" />
-			 </While>
-				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="UserDialog" QuestId="35063" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="300" ExpiryAction="InputEnabled_Continue" Text="Choose a logging camp or sparring ring" />
+				<CustomBehavior File="Misc\RunLua" Lua="QuestChoiceFrameOption2.OptionButton:Click()" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
 		<TurnIn QuestName="We Need An Outpost" QuestId="35063" TurnInName="Thaelin Darkanvil" TurnInId="75136" X="6331.465" Y="732.6285" Z="115.3018" />
-		<PickUp QuestName="Rangari in the Red" QuestId="35666" GiverName="Rangari D'kaan" GiverId="75146" X="6325.343" Y="706.8889" Z="114.1233" />
-		<PickUp QuestName="A Rediscovered Legend" QuestId="34704" GiverName="Rangari Jonaa" GiverId="81076" X="6349.229" Y="727.4277" Z="117.5588" />
 		<PickUp QuestName="Rage and Wisdom" QuestId="35686" GiverName="Vindicator Maraad" GiverId="75127" X="6337.186" Y="745.6736" Z="116.6776" />
+		<PickUp QuestName="Seeking the Scout" QuestId="36432" GiverName="Rangari D'kaan" GiverId="75146" X="6325.343" Y="706.8889" Z="114.1237" />
 			<If Condition="HasQuest(35686) &amp;&amp; !IsQuestCompleted(35686)" > <!-- Rage and Wisdom -->
-				<CustomBehavior File="InteractWith" QuestId="35686" MobId="81074" Range="5" GossipOptions="1" WaitTime="3000" X="6356.173" Y="747.1268" Z="116.6614" />
+				<CustomBehavior File="InteractWith" QuestId="35686" MobId="81074" Range="5" GossipOptions="1" WaitTime="30000" X="6356.173" Y="747.1268" Z="116.6614" />
 			</If>
 		<TurnIn QuestName="Rage and Wisdom" QuestId="35686" TurnInName="Rangari Erdanii" TurnInId="82610" X="5954.557" Y="1284.179" Z="143.1895" />
+		
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="stop" />
+		
+		
+		
+		
+		<!-- used to be avail after we need an outpost, i guess they got moved?
+		<PickUp QuestName="Rangari in the Red" QuestId="35666" GiverName="Rangari D'kaan" GiverId="75146" X="6325.343" Y="706.8889" Z="114.1233" />
+		<PickUp QuestName="A Rediscovered Legend" QuestId="34704" GiverName="Rangari Jonaa" GiverId="81076" X="6349.229" Y="727.4277" Z="117.5588" />
+		-->
 		<PickUp QuestName="Seedbearers of Bad News" QuestId="35664" GiverName="Rangari Erdanii" GiverId="82610" X="5954.557" Y="1284.179" Z="143.1895" />
 		<PickUp QuestName="A Harsh Reminder" QuestId="35693" GiverName="Rangari Erdanii" GiverId="82610" X="5954.557" Y="1284.179" Z="143.1895" />
 			<While Condition="HasQuest(35664) &amp;&amp; !IsQuestCompleted(35664)" > <!-- Seedbearers of Bad News -->
@@ -633,13 +632,13 @@
 		<PickUp QuestName="What's Under There?" QuestId="36209" GiverName="Rangari Erdanii" GiverId="82610" X="6587.287" Y="1289.111" Z="64.70808" />
 			<While Condition="HasQuest(36209) &amp;&amp; !IsQuestCompleted(36209)" > <!-- What's Under There?" -->
 			 <If Condition="!IsObjectiveComplete(1, 36209)"> 
-				<CustomBehavior File="InteractWith" QuestId="36209" MobId="231880" Range="5" ObjectType="GameObject" WaitTime="10000" Range="3" X="6571.135" Y="1229.747" Z="63.78549" />
+				<CustomBehavior File="InteractWith" QuestId="36209" MobId="231880" Range="5" ObjectType="GameObject" WaitTime="10000" MinRange="3" X="6571.135" Y="1229.747" Z="63.78549" />
 			 </If>
 			 <If Condition="!IsObjectiveComplete(2, 36209)"> 
 				<CustomBehavior File="InteractWith" QuestId="36209" MobId="86022" Range="5" WaitTime="5000" X="6842.971" Y="1326.066" Z="68.78491" /> <!-- Corpse -->
 			 </If>
 			 <If Condition="!IsObjectiveComplete(3, 36209)"> 
-				<CustomBehavior File="InteractWith" QuestId="36209" MobId="231881" Range="5" ObjectType="GameObject" WaitTime="20000" Range="3" X="6845.359" Y="1323.064" Z="68.50857" />
+				<CustomBehavior File="InteractWith" QuestId="36209" MobId="231881" Range="5" ObjectType="GameObject" WaitTime="20000" MinRange="3" X="6845.359" Y="1323.064" Z="68.50857" />
 			 </If>
 			 <While Condition="!IsObjectiveComplete(4, 36209)"> 
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for objective to complete {TimeRemaining}" />
@@ -648,7 +647,7 @@
 				<CustomBehavior File="InteractWith" QuestId="36209" MobId="84503" Range="5" X="7284.402" Y="1537.425" Z="41.57669" /> <!-- Messenger -->
 			 </If>
 			 <If Condition="!IsObjectiveComplete(6, 36209)"> 
-				<CustomBehavior File="InteractWith" QuestId="36209" MobId="231883" Range="5" ObjectType="GameObject" WaitTime="35000" Range="3" X="7273.449" Y="1550.446" Z="42.68224" />
+				<CustomBehavior File="InteractWith" QuestId="36209" MobId="231883" Range="5" ObjectType="GameObject" WaitTime="35000" MinRange="3" X="7273.449" Y="1550.446" Z="42.68224" />
 			 </If>
 			</While>
 		<TurnIn QuestName="What's Under There?" QuestId="36209" TurnInName="Rangari Erdanii" TurnInId="82610" X="6587.287" Y="1289.111" Z="64.70808" />
@@ -689,7 +688,6 @@
 				<CustomBehavior File="InteractWith" MobId="82118" Range="5" GossipOptions="1" WaitTime="5000" X="7163.819" Y="1010.977" Z="33.90433" />
 			</If>
 		<TurnIn QuestName="Chains of Iron" QuestId="35702" TurnInName="Vindicator Maraad" TurnInId="75127" X="6337.186" Y="745.6736" Z="116.6776" />
-		<PickUp QuestName="Seeking the Scout" QuestId="36432" GiverName="Rangari D'kaan" GiverId="75146" X="6325.343" Y="706.8889" Z="114.1237" />
 		<TurnIn QuestName="Rangari in the Red" QuestId="35666" TurnInName="Khaano" TurnInId="80762" X="6518.398" Y="215.6563" Z="27.79734" />
 		<PickUp QuestName="Scout Forensics" QuestId="35633" GiverName="Khaano" GiverId="80762" X="6518.398" Y="215.6563" Z="27.79734" />
 		<PickUp QuestName="Vengeance for the Fallen" QuestId="35640" GiverName="Dying Rangari" GiverId="82499" X="6433.159" Y="200.4097" Z="4.811454" />
