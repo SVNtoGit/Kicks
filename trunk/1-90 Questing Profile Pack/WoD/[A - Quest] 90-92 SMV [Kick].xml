@@ -1964,9 +1964,11 @@
 				</CustomBehavior>
 			</While>
 			<Objective QuestName="Across the Stars" QuestId="33795" Type="CollectItem" ItemId="112385" CollectCount="5" />
-			<Objective QuestName="Harbingers of the Void" QuestId="33793" Type="KillMob" MobId="76209" KillCount="1" />
-			<Objective QuestName="Harbingers of the Void" QuestId="33793" Type="KillMob" MobId="74519" KillCount="1" />
-			<Objective QuestName="Harbingers of the Void" QuestId="33793" Type="KillMob" MobId="76210" KillCount="1" />
+			<While Condition="HasQuest(33793) &amp;&amp; !IsQuestCompleted(33793)" > <!-- Harbingers of the Void -->
+ 				<CustomBehavior File="InteractWith" QuestId="33793" MobId="80787" MobId2="76209" Range="8" NumOfTimes="4" WaitForNpcs="False" MobState="Alive" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 33793)" X="734.3295" Y="0.8552658" Z="20.25817" /> <!-- Shadow -->
+ 				<CustomBehavior File="InteractWith" QuestId="33793" MobId1="80787" MobId2="74519" Range="8" NumOfTimes="4" WaitForNpcs="False" MobState="Alive" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(2, 33793)" X="901.9528" Y="167.8698" Z="19.28481" /> <!-- Darkness -->
+ 				<CustomBehavior File="InteractWith" QuestId="33793" MobId="80787" MobId2="76210" Range="8" NumOfTimes="4" WaitForNpcs="False" MobState="Alive" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(3, 33793)" X="634.1702" Y="-63.52431" Z="24.45946" /> <!-- Anguish -->
+			</While>
 			<Objective QuestName="On the Offensive" QuestId="33083" Type="KillMob" MobId="74373" KillCount="15" />
 			<While Condition="HasQuest(34054) &amp;&amp; !IsQuestCompleted(34054)" > <!-- The Dark Side of the Moon -->
 			 <While Condition="(!IsObjectiveComplete(1, 34054))">
@@ -1995,18 +1997,18 @@
 				<MoveTo X="596.5054" Y="-1150.109" Z="-17.32368" />
 			 </While>
 			 <While Condition="(!IsObjectiveComplete(3, 33837))">
-				<CustomBehavior File="InteractWith" QuestId="33837" MobId="76172" NonCompeteDistance="0" X="599.1702" Y="-1209.141" Z="-21.4232" />
 				<!-- 76650 - Risen Spirit, but we need to switch to this other guy when main guy is at like 10-15%
+				<CustomBehavior File="InteractWith" QuestId="33837" MobId="76172" NonCompeteDistance="0" X="599.1702" Y="-1209.141" Z="-21.4232" />
 				<Vendor Name="Void Horror" Entry="76818" Type="Repair" X="586.387" Y="-1193.257" Z="-21.42324" />
 				
 				// Yrel NpcId is a guess! get correct id when running!
-				<CustomBehavior File="EscortGroup" QuestId="33837" EscortCompleteWhen="QuestObjectiveComplete" QuestObjectiveIndex="3" EscortCountMax="1" 
-											EscortNpcId="73395" PriorityTargetId1="76818" PriorityTargetId2="76650" EscortMaxFightDistance="60" SearchForNpcsRadius="75" >
+				-->
+				<CustomBehavior File="EscortGroup" QuestId="33837" EscortCompleteWhen="QuestObjectiveComplete" QuestObjectiveIndex="3" EscortCountMax="2" 
+											EscortNpcId="73395" PriorityTargetId="76818" PriorityTargetId2="76650" EscortMaxFightDistance="60" SearchForNpcsRadius="75" >
 					<SearchPath>
 						<Hotspot X="599.1702" Y="-1209.141" Z="-21.4232" />
 					</SearchPath>
 				</CustomBehavior>
-				-->
 			 </While>
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for Cinematic {TimeRemaining}" />
 				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
