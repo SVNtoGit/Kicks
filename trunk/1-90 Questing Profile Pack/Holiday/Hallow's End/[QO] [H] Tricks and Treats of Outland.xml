@@ -57,13 +57,14 @@
             <If Condition="!IsQuestCompleted(12404) || !IsQuestCompleted(12392) || !IsQuestCompleted(12390) || !IsQuestCompleted(12403) || !IsQuestCompleted(12393) || !IsQuestCompleted(12406) || !IsQuestCompleted(12394) || !IsQuestCompleted(12407) || !IsQuestCompleted(12408) || !IsQuestCompleted(12388) || !IsQuestCompleted(12389) || !IsQuestCompleted(12409) || !IsQuestCompleted(12395) || !IsQuestCompleted(12391)">
                 <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Compiling Candy Bucket quest status..." />
                 <!-- Shattrath City, Aldor Rise -->
-                <If Condition="!IsQuestCompleted(12404) &amp;&amp; Me.GetReputationLevelWith(932) &gt;= Styx.WoWUnitReaction.Neutral">
+                <If Condition="!IsQuestCompleted(12404) &amp;&amp; ( Me.GetReputationLevelWith(932) &gt;= WoWUnitReaction.Neutral )">
                     <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Moving to Shattrath City, Aldor Rise" />
                     <!-- Move to Inn -->
                     <CustomBehavior File="FlyTo" DestName="Shattrath City, Aldor Rise" X="-1901.48291" Y="5766.432" Z="131.212463" />
                     <CustomBehavior File="ForcedDismount" />
                     <!-- Interact with Candy Bucket -->
-                    <CustomBehavior File="InteractWith" MobId="190110" ObjectType="Gameobject" CollectionDistance="200" X="-1901.48291" Y="5766.432" Z="131.212463" WaitTime="100" />
+                    <CustomBehavior File="InteractWith" MobId="190110" CollectionDistance="200"
+                                    X="-1901.48291" Y="5766.432" Z="131.212463" />
                     <CustomBehavior File="WaitTimer" WaitTime="500" VariantTime="2000" />
                     <CustomBehavior File="Misc\RunLua" Lua="GetQuestReward(1)" />
                     <CustomBehavior File="WaitTimer" WaitTime="1000" VariantTime="2000" />
@@ -79,12 +80,12 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
                 <!-- Shattrath City, Scryer's Tier -->
-                <If Condition="!IsQuestCompleted(12404) &amp;&amp; Me.GetReputationLevelWith(934) &gt;= Styx.WoWUnitReaction.Neutral">
+                <If Condition="!IsQuestCompleted(12404) &amp;&amp; ( Me.GetReputationLevelWith(934) &gt;= WoWUnitReaction.Neutral )">
                     <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Moving to Shattrath City, Scryer's Tier" />
                     <!-- Move to Inn -->
                     <CustomBehavior File="FlyTo" DestName="Shattrath City, Scryer's Tier" X="-2187.63525" Y="5399.79248" Z="51.88249" />
@@ -107,7 +108,7 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
@@ -135,7 +136,7 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
@@ -164,7 +165,7 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
@@ -192,7 +193,7 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
@@ -220,7 +221,7 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
@@ -248,7 +249,7 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
@@ -276,7 +277,7 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
@@ -304,7 +305,7 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
@@ -332,7 +333,7 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
@@ -360,7 +361,7 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
@@ -388,12 +389,12 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
                 <!-- Shadowmoon Valley, Altar of Sha'tar -->
-                <If Condition="!IsQuestCompleted(12409) &amp;&amp; Me.GetReputationLevelWith(932) &gt;= Styx.WoWUnitReaction.Neutral">
+                <If Condition="!IsQuestCompleted(12409) &amp;&amp; ( Me.GetReputationLevelWith(932) &gt;= WoWUnitReaction.Neutral )">
                     <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Moving to Shadowmoon Valley, Altar of Sha'tar" />
                     <!-- Move to Inn -->
                     <CustomBehavior File="FlyTo" DestName="Shadowmoon Valley, Altar of Sha'tar" X="-2980.839" Y="870.2253" Z="-7.47893" />
@@ -416,12 +417,12 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
                 <!-- Shadowmoon Valley, Sanctum of the Stars -->
-                <If Condition="!IsQuestCompleted(12409) &amp;&amp; Me.GetReputationLevelWith(934) &gt;= Styx.WoWUnitReaction.Neutral">
+                <If Condition="!IsQuestCompleted(12409) &amp;&amp; ( Me.GetReputationLevelWith(934) &gt;= WoWUnitReaction.Neutral )">
                     <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Moving to Shadowmoon Valley, Sanctum of the Stars" />
                     <!-- Move to Inn -->
                     <CustomBehavior File="FlyTo" DestName="Shadowmoon Valley, Sanctum of the Stars" X="-4141.28" Y="1124.79517" Z="44.5249443" />
@@ -444,7 +445,7 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
@@ -472,7 +473,7 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
@@ -500,7 +501,7 @@
                     <!-- Cancel Costume -->
                     <CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do name,_ = UnitAura(&quot;player&quot;, i) if (name == nil) then break end if (strfind(name, &quot;Costume&quot;)) then CancelUnitBuff(&quot;player&quot;, i) end end" />
                     <CustomBehavior File="WaitTimer" WaitTime="700" VariantTime="1500" />
-                    <If Condition="(Me.HasAura(&quot;Trick&quot;))">
+                    <If Condition="Me.HasAura(&quot;Trick&quot;)">
                         <CustomBehavior File="WaitTimer" WaitTime="35000" VariantTime="5000" GoalText="Waiting for Trick to expire {TimeRemaining}" />
                     </If>
                 </If>
