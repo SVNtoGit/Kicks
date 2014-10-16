@@ -24,11 +24,23 @@
     <TargetElites>false</TargetElites>
 
     <AvoidMobs>
-
+		<Mob Name="Crater Lord Igneous" Entry="81528" />
+		<Mob Name="Mor the Dominator" Entry="86489" />
     </AvoidMobs>
 
     <Blackspots>
 		<Blackspot X="5787.103" Y="1295.249" Z="107.4588" Radius="44.53131" /> <!-- Beastwatch - Horde -->
+		<Blackspot X="6245.452" Y="654.035" Z="84.70582" Radius="12" /> <!-- Trying to scale a hill -->
+		
+		<!-- Highpass Sparring -->
+		<Blackspot X="6333.133" Y="734.4152" Z="115.9528" Radius="3" />
+		<Blackspot X="6334.858" Y="733.2184" Z="116.2151" Radius="3" />
+		<Blackspot X="6335.445" Y="729.7102" Z="116.5083" Radius="3" />
+		<Blackspot X="6336.938" Y="726.2833" Z="116.5083" Radius="3" />
+		<Blackspot X="6338.971" Y="723.6459" Z="116.536" Radius="3" />
+		<Blackspot X="6340.329" Y="738.9749" Z="116.6805" Radius="3" />
+		<Blackspot X="6338.973" Y="740.0145" Z="116.7196" Radius="3" />
+		<!-- End Highpass Sparring -->
     </Blackspots>
 
     <Mailboxes> <!-- Need to add Mailboxes and Vendors! -->
@@ -38,6 +50,7 @@
     <Vendors> <!-- Need to add Mailboxes and Vendors! -->
 		<Vendor Name="Trader Yula" Entry="85968" Type="Food" X="6330.835" Y="713.717" Z="113.9123" /> <!-- Highpass -->
 		<Vendor Name="Thaelin Darkanvil" Entry="75136" Type="Food" X="6331.465" Y="732.6285" Z="115.7077" /> <!-- Highpass -->
+		<Vendor Name="Budgy" Entry="84234" Type="Repair" X="6610.504" Y="1286.526" Z="64.83903" /> <!-- Breaker's Crown -->
     </Vendors>
 
     <!-- BEGIN: Quest Overrides -->
@@ -210,7 +223,10 @@
 				<Hotspot X="6999.516" Y="1544.669" Z="22.1588" />
 				<Hotspot X="7024.752" Y="1609.59" Z="10.74506" />
 				<Hotspot X="7069.297" Y="1601.22" Z="1.396409" />
+				<Hotspot X="7077.858" Y="1624.319" Z="2.78181" />
+				<Hotspot X="7015.229" Y="1629.38" Z="9.415204" />
 				<Hotspot X="7094.313" Y="1561.17" Z="-5.874248" />
+				<Hotspot X="7118.911" Y="1566.715" Z="-2.330315" />
 				<Hotspot X="7085.536" Y="1516.643" Z="-14.7361" />
 				<Hotspot X="7001.32" Y="1549.751" Z="-33.05667" />
 				<Hotspot X="6996.849" Y="1610.691" Z="-36.68636" />			
@@ -494,7 +510,7 @@
         <!-- END: Checkpoint Block -->
 
         <CustomBehavior File="Message" Text="Compiling Gorgrond Quests" LogColor="CornflowerBlue" />
-		
+				
 		<!-- Wild Wash / Naiellie's Watch -->
 			<If Condition="HasQuest(33533) &amp;&amp; IsQuestCompleted(33533)" > <!-- The Secrets of Gorgrond -->
 				<If Condition="Me.ZoneId == 7078"> <!-- WoD SMV -->
@@ -545,24 +561,15 @@
 		<TurnIn QuestName="We Need An Outpost" QuestId="35063" TurnInName="Thaelin Darkanvil" TurnInId="75136" X="6331.465" Y="732.6285" Z="115.3018" />
 		<PickUp QuestName="Rage and Wisdom" QuestId="35686" GiverName="Vindicator Maraad" GiverId="75127" X="6337.186" Y="745.6736" Z="116.6776" />
 		<PickUp QuestName="Seeking the Scout" QuestId="36432" GiverName="Rangari D'kaan" GiverId="75146" X="6325.343" Y="706.8889" Z="114.1237" />
+		<PickUp QuestName="Rangari in the Red" QuestId="35666" GiverName="Rangari D'kaan" GiverId="75146" X="6325.343" Y="706.8889" Z="114.1233" />
 			<If Condition="HasQuest(35686) &amp;&amp; !IsQuestCompleted(35686)" > <!-- Rage and Wisdom -->
 				<CustomBehavior File="InteractWith" QuestId="35686" MobId="81074" Range="5" GossipOptions="1" WaitTime="30000" X="6356.173" Y="747.1268" Z="116.6614" />
 			</If>
 		<TurnIn QuestName="Rage and Wisdom" QuestId="35686" TurnInName="Rangari Erdanii" TurnInId="82610" X="5954.557" Y="1284.179" Z="143.1895" />
-		
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="stop" />
-		
-		
-		
-		
-		<!-- used to be avail after we need an outpost, i guess they got moved?
-		<PickUp QuestName="Rangari in the Red" QuestId="35666" GiverName="Rangari D'kaan" GiverId="75146" X="6325.343" Y="706.8889" Z="114.1233" />
-		<PickUp QuestName="A Rediscovered Legend" QuestId="34704" GiverName="Rangari Jonaa" GiverId="81076" X="6349.229" Y="727.4277" Z="117.5588" />
-		-->
 		<PickUp QuestName="Seedbearers of Bad News" QuestId="35664" GiverName="Rangari Erdanii" GiverId="82610" X="5954.557" Y="1284.179" Z="143.1895" />
 		<PickUp QuestName="A Harsh Reminder" QuestId="35693" GiverName="Rangari Erdanii" GiverId="82610" X="5954.557" Y="1284.179" Z="143.1895" />
 			<While Condition="HasQuest(35664) &amp;&amp; !IsQuestCompleted(35664)" > <!-- Seedbearers of Bad News -->
-				<CustomBehavior File="InteractWith" QuestId="35664" MobId="82392" NumOfTimes="20" WaitTime="3000" Range="2" CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+				<CustomBehavior File="InteractWith" QuestId="35664" MobId="82392" NumOfTimes="20" Range="2" CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
 				  <HuntingGrounds WaypointVisitStrategy="Random" >
 					<Hotspot X="6015.352" Y="1536.708" Z="79.20621" />
 					<Hotspot X="6072.46" Y="1442.411" Z="69.70583" />
@@ -575,29 +582,34 @@
 				</CustomBehavior>
 			</While>
 			<Objective QuestName="A Harsh Reminder" QuestId="35693" Type="KillMob" MobId="80685" KillCount="8" />
-		<TurnIn QuestName="A Rediscovered Legend" QuestId="34704" TurnInName="Gladiator Akaani" TurnInId="79322" X="6157.402" Y="1570.752" Z="61.78229" />
-		<PickUp QuestName="Getting Gladiators" QuestId="34699" GiverName="Gladiator Akaani" GiverId="79322" X="6157.402" Y="1570.752" Z="61.78229" />
-		<PickUp QuestName="Slave Hunters" QuestId="34698" GiverName="Kash'drakor" GiverId="79320" X="6152.761" Y="1570.297" Z="61.70557" />
-		<PickUp QuestName="Nazgrel" QuestId="34700" GiverName="Kash'drakor" GiverId="79320" X="6152.761" Y="1570.297" Z="61.70557" />
-		<PickUp QuestName="Krav'ogra" QuestId="34702" GiverName="Beatface" GiverId="79331" X="6151.422" Y="1575.505" Z="62.2495" />
-		<TurnIn QuestName="A Harsh Reminder" QuestId="35693" TurnInName="Rangari Erdanii" TurnInId="82610" X="6102.186" Y="1391.904" Z="56.90799" />
-		<TurnIn QuestName="Seedbearers of Bad News" QuestId="35664" TurnInName="Rangari Erdanii" TurnInId="82610" X="6102.186" Y="1391.904" Z="56.90799" />
+			<While Condition="HasQuest(35664) &amp;&amp; IsQuestCompleted(35664)" > <!-- Turnin Seedbearers of Bad News -->
+                <CustomBehavior File="InteractWith" MobId="82610" Range="6" WaitTime="2000" X="6102.186" Y="1391.904" Z="56.90799" />
+                <CustomBehavior File="Misc\RunLua" Lua="QuestTitleButton1:Click()" WaitTime="2000" />
+                <CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" WaitTime="2000" />
+			</While>
+			<While Condition="HasQuest(35693) &amp;&amp; IsQuestCompleted(35693)" > <!-- Turnin A Harsh Reminder -->
+                <CustomBehavior File="InteractWith" MobId="82610" Range="6" WaitTime="2000" X="6102.186" Y="1391.904" Z="56.90799" />
+                <CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" WaitTime="2000" />
+                <CustomBehavior File="Misc\RunLua" Lua="QuestFrameAcceptButton:Click()" WaitTime="2000" />
+			</While>
+			<!-- Turnin Quests and get another
+		<TurnIn QuestName="A Harsh Reminder" QuestId="35693" Range="8" TurnInName="Rangari Erdanii" TurnInId="82610" X="6102.186" Y="1391.904" Z="56.90799" />
+		<TurnIn QuestName="Seedbearers of Bad News" QuestId="35664" Range="8" TurnInName="Rangari Erdanii" TurnInId="82610" X="6102.186" Y="1391.904" Z="56.90799" />
 		<PickUp QuestName="We Have Company" QuestId="35665" GiverName="Rangari Erdanii" GiverId="82610" X="6102.186" Y="1391.904" Z="56.90799" />
+			-->
+			<While Condition="!HasQuest(35665) &amp;&amp; !IsQuestCompleted(35665)" > <!-- Pickup We Have Company -->
+                <CustomBehavior File="InteractWith" MobId="82610" Range="6" WaitTime="2000" X="6102.186" Y="1391.904" Z="56.90799" />
+                <CustomBehavior File="Misc\RunLua" Lua="QuestFrameAcceptButton:Click()" WaitTime="2000" />
+			</While>
 			<If Condition="HasQuest(35665) &amp;&amp; !IsQuestCompleted(35665)" > <!-- We Have Company -->
-			 <While Condition="!IsObjectiveComplete(1, 35665)"> 
-				<CustomBehavior File="InteractWith" QuestId="35665" MobId="81056" Range="5" WaitTime="3000" X="6231.955" Y="1448.422" Z="39.95501" />
-			 </While>
-				<Objective QuestName="We Have Company" QuestId="35665" Type="KillMob" MobId="81118" KillCount="3" />
+				<CustomBehavior File="InteractWith" QuestId="35665" MobId="81056" Range="5" GossipOptions="1" WaitTime="3000" TerminateWhen="IsObjectiveComplete(1, 35665)" X="6231.955" Y="1448.422" Z="39.95501" />
+				<!--<Objective QuestName="We Have Company" QuestId="35665" Type="KillMob" MobId="81118" KillCount="3" />-->
 			</If>
 		<TurnIn QuestName="We Have Company" QuestId="35665" TurnInName="Rexxar" TurnInId="82832" X="6229.938" Y="1446.041" Z="39.95644" />
 		<PickUp QuestName="Cauterizing Wounds" QuestId="35730" GiverName="Rexxar" GiverId="82832" X="6229.938" Y="1446.041" Z="39.95644" />
 			<If Condition="HasQuest(35730) &amp;&amp; !IsQuestCompleted(35730)" > <!-- Cauterizing Wounds -->
-			 <While Condition="!IsObjectiveComplete(1, 35730)"> 
-				<CustomBehavior File="InteractWith" QuestId="35730" MobId="233180" ObjectType="GameObject" WaitTime="3000" Range="5" X="6249.96" Y="1437.177" Z="40.01296" />
-			 </While>
-			 <While Condition="!IsObjectiveComplete(2 35730)"> 
-				<CustomBehavior File="InteractWith" QuestId="35730" MobId="82802" Range="5" WaitTime="3000" X="6231.955" Y="1448.422" Z="39.955" />
-			 </While>
+				<CustomBehavior File="InteractWith" QuestId="35730" MobId="233180" ObjectType="GameObject" TerminateWhen="IsObjectiveComplete(1, 35730)" WaitTime="3000" Range="5" X="6249.96" Y="1437.177" Z="40.01296" />
+				<CustomBehavior File="InteractWith" QuestId="35730" MobId="82802" TerminateWhen="IsObjectiveComplete(2, 35730)" Range="5" WaitTime="3000" X="6231.955" Y="1448.422" Z="39.955" />
 			</If>
 		<TurnIn QuestName="Cauterizing Wounds" QuestId="35730" TurnInName="Rexxar" TurnInId="82832" X="6229.938" Y="1446.041" Z="39.95644" />
 		<PickUp QuestName="On the Mend" QuestId="35026" GiverName="Rexxar" GiverId="82832" X="6229.938" Y="1446.041" Z="39.95644" />
@@ -631,24 +643,12 @@
 		<TurnIn QuestName="The Crystal Shard" QuestId="36208" TurnInName="Rangari Erdanii" TurnInId="82610" X="6587.287" Y="1289.111" Z="64.70808" />
 		<PickUp QuestName="What's Under There?" QuestId="36209" GiverName="Rangari Erdanii" GiverId="82610" X="6587.287" Y="1289.111" Z="64.70808" />
 			<While Condition="HasQuest(36209) &amp;&amp; !IsQuestCompleted(36209)" > <!-- What's Under There?" -->
-			 <If Condition="!IsObjectiveComplete(1, 36209)"> 
-				<CustomBehavior File="InteractWith" QuestId="36209" MobId="231880" Range="5" ObjectType="GameObject" WaitTime="10000" MinRange="3" X="6571.135" Y="1229.747" Z="63.78549" />
-			 </If>
-			 <If Condition="!IsObjectiveComplete(2, 36209)"> 
-				<CustomBehavior File="InteractWith" QuestId="36209" MobId="86022" Range="5" WaitTime="5000" X="6842.971" Y="1326.066" Z="68.78491" /> <!-- Corpse -->
-			 </If>
-			 <If Condition="!IsObjectiveComplete(3, 36209)"> 
-				<CustomBehavior File="InteractWith" QuestId="36209" MobId="231881" Range="5" ObjectType="GameObject" WaitTime="20000" MinRange="3" X="6845.359" Y="1323.064" Z="68.50857" />
-			 </If>
-			 <While Condition="!IsObjectiveComplete(4, 36209)"> 
-				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for objective to complete {TimeRemaining}" />
-			 </While>
-			 <If Condition="!IsObjectiveComplete(5, 36209)"> 
-				<CustomBehavior File="InteractWith" QuestId="36209" MobId="84503" Range="5" X="7284.402" Y="1537.425" Z="41.57669" /> <!-- Messenger -->
-			 </If>
-			 <If Condition="!IsObjectiveComplete(6, 36209)"> 
-				<CustomBehavior File="InteractWith" QuestId="36209" MobId="231883" Range="5" ObjectType="GameObject" WaitTime="35000" MinRange="3" X="7273.449" Y="1550.446" Z="42.68224" />
-			 </If>
+				<CustomBehavior File="InteractWith" QuestId="36209" MobId="231880" Range="6" TerminateWhen="IsObjectiveComplete(1, 36209)" ObjectType="GameObject" WaitTime="10000" MinRange="3" X="6571.135" Y="1229.747" Z="63.78549" />
+				<CustomBehavior File="InteractWith" QuestId="36209" MobId="86022" Range="5" TerminateWhen="IsObjectiveComplete(2, 36209)" WaitTime="5000" X="6842.971" Y="1326.066" Z="68.78491" /> <!-- Corpse -->
+				<CustomBehavior File="InteractWith" QuestId="36209" MobId="231881" Range="6" TerminateWhen="IsObjectiveComplete(3, 36209)" ObjectType="GameObject" WaitTime="20000" MinRange="3" X="6845.359" Y="1323.064" Z="68.50857" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" TerminateWhen="IsObjectiveComplete(4, 36209)" GoalText="Waiting for objective to complete {TimeRemaining}" />
+				<CustomBehavior File="InteractWith" QuestId="36209" MobId="84503" TerminateWhen="IsObjectiveComplete(5, 36209)" Range="5" X="7284.402" Y="1537.425" Z="41.57669" /> <!-- Messenger -->
+				<CustomBehavior File="InteractWith" QuestId="36209" MobId="231883" TerminateWhen="IsObjectiveComplete(6, 36209)" Range="6" ObjectType="GameObject" WaitTime="35000" MinRange="3" X="7273.449" Y="1550.446" Z="42.68224" />
 			</While>
 		<TurnIn QuestName="What's Under There?" QuestId="36209" TurnInName="Rangari Erdanii" TurnInId="82610" X="6587.287" Y="1289.111" Z="64.70808" />
 		<PickUp QuestName="Leave Every Soldier Behind" QuestId="36223" GiverName="Rangari Erdanii" GiverId="82610" X="6587.287" Y="1289.111" Z="64.70808" />
@@ -656,7 +656,7 @@
 			<If Condition="HasQuest(36223) &amp;&amp; !IsQuestCompleted(36223)" >  <!-- Leave Every Soldier Behind -->
 			 <While Condition="!IsObjectiveComplete(1, 36223)"> 
 			  <If Condition="Unit(81674) != null" > 
-				<CustomBehavior File="InteractWith" MobId="81674" Range="5" GossipOptions="1" WaitTime="15000" X="6594.965" Y="1315.908" Z="64.63487" /> <!-- FP -->
+				<CustomBehavior File="InteractWith" MobId="81674" Range="5" GossipOptions="1" WaitTime="25000" X="6594.965" Y="1315.908" Z="64.63487" /> <!-- FP -->
 			  </If>
 				<RunTo X="6986.331" Y="1594.837" Z="-36.68663" />
 				<CustomBehavior File="InteractWith" QuestId="36223" MobId="81213" Range="5" GossipOptions="1" X="6986.331" Y="1594.837" Z="-36.68663" />
@@ -668,19 +668,26 @@
 			<Objective QuestName="Fair Warning" QuestId="35128" Type="KillMob" MobId="81043" KillCount="1" /> <!-- Borogahn -->
 			<Objective QuestName="Fair Warning" QuestId="35128" Type="KillMob" MobId="81240" KillCount="8" />
 		<PickUp QuestName="A Great Escape" QuestId="35210" GiverName="Goren Tunnel" GiverId="236140" GiverType="Object" X="7038.522" Y="1635.595" Z="-36.87573" />
-			<Objective QuestName="A Great Escape" QuestId="35210" Type="UseObject" ObjectId="235115" UseCount="1" />
+			<While Condition="HasQuest(35210) &amp;&amp; !IsQuestCompleted(35210)" >  <!-- A Great Escape -->
+				<CustomBehavior File="InteractWith" QuestId="35210" MobId="235115" Range="8" WaitTime="5000" MobType="GameObject" X="7038.901" Y="1635.549" Z="-35.95363" />
+				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for ride {TimeRemaining}" />
+			</While>
 		<TurnIn QuestName="A Great Escape" QuestId="35210" TurnInName="Rexxar" TurnInId="84131" X="6926.442" Y="1473.689" Z="33.26457" />
 		<TurnIn QuestName="Fair Warning" QuestId="35128" TurnInName="Rexxar" TurnInId="84131" X="6926.442" Y="1473.689" Z="33.26457" />
 		<TurnIn QuestName="Leave Every Soldier Behind" QuestId="36223" TurnInName="Rexxar" TurnInId="84131" X="6926.442" Y="1473.689" Z="33.26457" />
 		<PickUp QuestName="Eye in the Sky" QuestId="35139" GiverName="Rexxar" GiverId="84131" X="6926.442" Y="1473.689" Z="33.26457" />
 			<If Condition="HasQuest(35139) &amp;&amp; !IsQuestCompleted(35139)" > <!-- Eye in the Sky -->
 				<CustomBehavior File="InteractWith" QuestId="35139" MobId="83933" GossipOptions="1" Range="8" WaitTime="2000" X="6924.272" Y="1479.972" Z="37.6811" /> <!-- Nisha - FP -->
-				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for cutscene {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
 			</If>
 		<TurnIn QuestName="Eye in the Sky" QuestId="35139" TurnInName="Rexxar" TurnInId="84131" X="6926.442" Y="1473.689" Z="33.26457" />
 		<PickUp QuestName="Chains of Iron" QuestId="35702" GiverName="Rexxar" GiverId="84131" X="6926.442" Y="1473.689" Z="33.26457" />
-			<Objective QuestName="Chains of Iron" QuestId="35702" Type="KillMob" MobId="81254" KillCount="1" />
-			<Objective QuestName="Chains of Iron" QuestId="35702" Type="CollectItem" ItemId="112680" CollectCount="1" />
+			<While Condition="HasQuest(35702) &amp;&amp; !IsQuestCompleted(35702)" > <!-- Chains of Iron -->
+				<Objective QuestName="Chains of Iron" QuestId="35702" Type="KillMob" MobId="81254" KillCount="1" />
+				<!--<Objective QuestName="Chains of Iron" QuestId="35702" Type="CollectItem" ItemId="112680" CollectCount="1" /> - doesn't try to get it -->
+				<CustomBehavior File="InteractWith" MobId="231775" MobType="GameObject" X="7199.96" Y="999.7795" Z="40.30905" />
+			</While>
 			<If Condition="HasQuest(35702) &amp;&amp; IsQuestCompleted(35702) &amp;&amp; Unit(82118) != null" > <!-- Chains of Iron -->
 				<If Condition="Me.HasAura(168474)" > <!-- Goren Disguise -->
 					<CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do local id=select(11,UnitAura('player',i)) if id == 168474 then CancelUnitBuff('player',i) break end end" WaitTime="1000" />
@@ -688,6 +695,15 @@
 				<CustomBehavior File="InteractWith" MobId="82118" Range="5" GossipOptions="1" WaitTime="5000" X="7163.819" Y="1010.977" Z="33.90433" />
 			</If>
 		<TurnIn QuestName="Chains of Iron" QuestId="35702" TurnInName="Vindicator Maraad" TurnInId="75127" X="6337.186" Y="745.6736" Z="116.6776" />
+			<If Condition="!HasQuest(36833) &amp;&amp; !IsQuestCompleted(36833)" > <!-- May I Be of Service? / Erdannii Follower -->
+				<MoveTo X="6334.362" Y="707.6302" Z="113.7816" />
+				<CustomBehavior File="InteractWith" MobId="85278" WaitTime="3000" X="6334.362" Y="707.6302" Z="113.7816" />
+                <CustomBehavior File="RunMacro" Macro="/click QuestFrameCompleteQuestButton" />
+			</If>
+		<PickUp QuestName="A Rediscovered Legend" QuestId="34704" GiverName="Rangari Jonaa" GiverId="81076" X="6349.229" Y="727.4277" Z="117.5588" />
+		<!-- End of Gronn Canyon -->
+
+		<!-- Dionor's Demise -->
 		<TurnIn QuestName="Rangari in the Red" QuestId="35666" TurnInName="Khaano" TurnInId="80762" X="6518.398" Y="215.6563" Z="27.79734" />
 		<PickUp QuestName="Scout Forensics" QuestId="35633" GiverName="Khaano" GiverId="80762" X="6518.398" Y="215.6563" Z="27.79734" />
 		<PickUp QuestName="Vengeance for the Fallen" QuestId="35640" GiverName="Dying Rangari" GiverId="82499" X="6433.159" Y="200.4097" Z="4.811454" />
@@ -706,7 +722,7 @@
 				</CustomBehavior>
 			</While>
 			<Objective QuestName="Vengeance for the Fallen" QuestId="35640" Type="KillMob" MobId="80714" KillCount="10" />
-			<If Condition="HasQuest(35640) &amp;&amp; !HasItem(113260) &amp;&amp; !HasQuest(35642) &amp;&amp; !IsQuestCompleted(35642)" > <!-- Pickup Glowing Red Pod -->
+			<If Condition="HasQuest(35640) &amp;&amp; !HasItem(113260) &amp;&amp; (!HasQuest(35642) &amp;&amp; !IsQuestCompleted(35642))" > <!-- Pickup Glowing Red Pod -->
 				<SetGrindArea>
 					<GrindArea>
 						<Factions>14</Factions>
@@ -724,7 +740,10 @@
 				</SetGrindArea>
 				<GrindTo Condition="HasItem(113260)" GoalText="Getting dropquest item" /> <!-- Glowing Red Pod -->
 				
-		<PickUp QuestName="Mysterious Pod" QuestId="35642" GiverName="Glowing Red Pod" GiverId="113260" GiverType="Object" />
+		<PickUp QuestName="Mysterious Pod" QuestId="35642" GiverName="Glowing Red Pod" GiverId="113260" GiverType="Item" />
+			</If>
+			<If Condition="HasItem(113260) &amp;&amp; (!HasQuest(35642) &amp;&amp; !IsQuestCompleted(35642))" > <!-- Pickup Glowing Red Pod -->
+		<PickUp QuestName="Mysterious Pod" QuestId="35642" GiverName="Glowing Red Pod" GiverId="113260" GiverType="Item" />
 			</If>
 		<TurnIn QuestName="Mysterious Pod" QuestId="35642" TurnInName="Khaano" TurnInId="82476" X="6324.528" Y="302.9722" Z="13.24456" />
 		<TurnIn QuestName="Scout Forensics" QuestId="35633" TurnInName="Khaano" TurnInId="82476" X="6324.528" Y="302.9722" Z="13.24456" />
@@ -774,9 +793,14 @@
 				<CustomBehavior File="WaitTimer" QuestId="36443" WaitTime="30000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
 		<TurnIn QuestName="Laying Dionor to Rest" QuestId="36443" TurnInName="Birchus" TurnInId="82302" X="7000" Y="955" Z="80.08334" />
-		<!-- End of Gronn Canyon -->
+			<!-- End of Dionor's Demise -->
 
-		<!-- Stonemaul Arena -->
+			<!-- Stonemaul Arena -->
+		<TurnIn QuestName="A Rediscovered Legend" QuestId="34704" TurnInName="Gladiator Akaani" TurnInId="79322" X="6157.402" Y="1570.752" Z="61.78229" />
+		<PickUp QuestName="Getting Gladiators" QuestId="34699" GiverName="Gladiator Akaani" GiverId="79322" X="6157.402" Y="1570.752" Z="61.78229" />
+		<PickUp QuestName="Slave Hunters" QuestId="34698" GiverName="Kash'drakor" GiverId="79320" X="6152.761" Y="1570.297" Z="61.70557" />
+		<PickUp QuestName="Nazgrel" QuestId="34700" GiverName="Kash'drakor" GiverId="79320" X="6152.761" Y="1570.297" Z="61.70557" />
+		<PickUp QuestName="Krav'ogra" QuestId="34702" GiverName="Beatface" GiverId="79331" X="6151.422" Y="1575.505" Z="62.2495" />
 		<PickUp QuestName="Need More Teeth" QuestId="34012" GiverName="Prowler Sasha" GiverId="75008" X="5986.424" Y="1680.146" Z="79.78759" />
 			<Objective QuestName="Slave Hunters" QuestId="34698" Type="CollectItem" ItemId="108899" CollectCount="1" /> <!-- Brol -->
 			<Objective QuestName="Slave Hunters" QuestId="34698" Type="CollectItem" ItemId="111527" CollectCount="1" /> <!-- Krag -->
@@ -788,8 +812,8 @@
 		<TurnIn QuestName="Getting Gladiators" QuestId="34699" TurnInName="Bruto" TurnInId="77014" X="5889.095" Y="2053.071" Z="72.36064" />		
 		<PickUp QuestName="The Axe of Kor'gall" QuestId="34703" GiverName="Bruto" GiverId="77014" X="5889.095" Y="2053.071" Z="72.36064" />	
 			<If Condition="HasQuest(34703) &amp;&amp; !IsQuestCompleted(34703)" > <!-- The Axe of Kor'gall -->
-			 <If Condition="Unit(227114) != null"> <!-- Barricade -->
-				<CustomBehavior File="InteractWith" QuestId="34703" MobId="227114" ObjectType="GameObject" WaitTime="3000" Range="5" X="5878.697" Y="2061.201" Z="69.80282" />
+			 <If Condition="Object(227114) != null"> <!-- Barricade -->
+				<CustomBehavior File="InteractWith" MobId="227114" ObjectType="GameObject" WaitTime="3000" Range="8" X="5878.697" Y="2061.201" Z="69.80282" />
 			 </If>
 				<Objective QuestName="The Axe of Kor'gall" QuestId="34703" Type="CollectItem" ItemId="109023" CollectCount="1" />
 			</If>
@@ -809,28 +833,27 @@
 			</If>
 		<TurnIn QuestName="Slave Hunters" QuestId="34698" TurnInName="Kash'drakor" TurnInId="79320" X="6152.761" Y="1570.297" Z="61.70557" />
 		<TurnIn QuestName="Nazgrel" QuestId="34700" TurnInName="Kash'drakor" TurnInId="79320" X="6152.761" Y="1570.297" Z="61.70557" />
-		<PickUp QuestName="The Sparring Arena" QuestId="35137" GiverName="Kash'drakor" GiverId="79320" X="6152.761" Y="1570.297" Z="61.70557" />
+		<PickUp QuestName="The Sparring Arena" QuestId="35137" GiverName="Gladiator Akaani" GiverId="79322" X="6157.402" Y="1570.752" Z="61.78324" />
 		<TurnIn QuestName="The Sparring Arena" QuestId="35137" TurnInName="Rangari Jonaa" TurnInId="81076" X="6349.229" Y="727.4277" Z="118.0793" />
-			<!-- End of Stonemaul Arena -->
-
-			
-			
-			
-			
-			
-			
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Tested Profile. Development from here" />
-			
-			
-			
-			<!-- I ran out of quests and go to's for lvl 100. Hearthing to SMV and going to Talador -->
-			
-		<!-- load next profile, lvl 92-94'ish i guess - Gorgrond 
-			<CustomBehavior File="LoadProfile" ProfileName="[A - Quest] 94-96 Talador [Kick]" />
-		-->
-
+			<!-- End of Stonemaul Arena -->		
+		
+			<!-- Iron Approach -->
+		<PickUp QuestName="Strike While the Iron is Hot" QuestId="36576" GiverName="Vindicator Maraad" GiverId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
+			<If Condition="HasQuest(36576) &amp;&amp; !IsQuestCompleted(36576)" > <!-- Strike While the Iron is Hot -->
+				<CustomBehavior File="InteractWith" QuestId="36576" MobId="81074" GossipOptions="1" TerminateWhen="IsObjectiveComplete(1, 36576)" X="6356.173" Y="747.1268" Z="116.6612" /> <!-- FP to The Iron Approach -->
+			</If>
 
 		
+			
+			
+			<!--
+		
+		
+		
+		
+		<TurnIn QuestName="Strike While the Iron is Hot" QuestId="36576" TurnInName="Vindicator Maraad" TurnInId="75127" />
+		
+			-->
 
 		<!--
 		
@@ -845,6 +868,22 @@
 			</If>
 
 			-->
+			
+			
+			
+			
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Tested Profile. Development from here" />
+			
+			
+			
+			<!-- News from Talador is available at 94 from Highpass -->
+			
+		<!-- load next profile, lvl 92-94'ish i guess - Gorgrond 
+			<CustomBehavior File="LoadProfile" ProfileName="[A - Quest] 94-96 Talador [Kick]" />
+		-->
+
+
+		
 
 		
 
