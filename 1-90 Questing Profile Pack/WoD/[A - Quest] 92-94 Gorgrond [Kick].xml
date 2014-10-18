@@ -552,7 +552,7 @@
 		<TurnIn QuestName="Lost Mole Machines" QuestId="35055" TurnInName="Thaelin Darkanvil" TurnInId="75136" X="6301.531" Y="697.934" Z="116.5991" />
 		<PickUp QuestName="We Need An Outpost" QuestId="35063" GiverName="Thaelin Darkanvil" GiverId="75136" X="6301.531" Y="697.934" Z="116.5991" />
 			<If Condition="HasQuest(35063) &amp;&amp; !IsQuestCompleted(35063)" > <!-- We Need An Outpost -->
-				<!-- I chose the sparring ring - the lumber yard has a vehicle that you have to jump in if you want to use it npc's are in the same exact place regardless of which camp you choose -->
+				<!-- I chose the sparring ring, option 2 - the lumber yard has a vehicle that you have to jump in if you want to use it npc's are in the same exact place regardless of which camp you choose -->
 				<CustomBehavior File="InteractWith" QuestId="35063" MobId="81119" Range="5" X="6303.061" Y="696.3594" Z="116.5769" />
 				<CustomBehavior File="UserDialog" QuestId="35063" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="300" ExpiryAction="InputEnabled_Continue" Text="Choose a logging camp or sparring ring" />
 				<CustomBehavior File="Misc\RunLua" Lua="QuestChoiceFrameOption2.OptionButton:Click()" WaitTime="1000" />
@@ -684,14 +684,22 @@
 		<TurnIn QuestName="Eye in the Sky" QuestId="35139" TurnInName="Rexxar" TurnInId="84131" X="6926.442" Y="1473.689" Z="33.26457" />
 		<PickUp QuestName="Chains of Iron" QuestId="35702" GiverName="Rexxar" GiverId="84131" X="6926.442" Y="1473.689" Z="33.26457" />
 			<While Condition="HasQuest(35702) &amp;&amp; !IsQuestCompleted(35702)" > <!-- Chains of Iron -->
-				<Objective QuestName="Chains of Iron" QuestId="35702" Type="KillMob" MobId="81254" KillCount="1" />
-				<!--<Objective QuestName="Chains of Iron" QuestId="35702" Type="CollectItem" ItemId="112680" CollectCount="1" /> - doesn't try to get it -->
-				<CustomBehavior File="InteractWith" MobId="231775" MobType="GameObject" X="7199.96" Y="999.7795" Z="40.30905" />
+				<CustomBehavior File="EscortGroup" QuestId="35702" EscortCompleteWhen="QuestObjectiveComplete" QuestObjectiveIndex="1" EscortCountMax="2" 
+											EscortNpcId="82105" EscortNpcId2="84740" PriorityTargetId="81254" EscortMaxFightDistance="15" SearchForNpcsRadius="75" >
+					<SearchPath>
+						<Hotspot X="7090.485" Y="1130.009" Z="32.54194" />
+						<Hotspot X="7141.503" Y="1047.711" Z="33.15406" />
+					</SearchPath>
+				</CustomBehavior>
+				<CustomBehavior File="InteractWith" QuestId="35702" MobId="231775" WaitForNpcs="False" MobType="GameObject" X="7199.96" Y="999.7795" Z="40.30905" />
 			</While>
 			<If Condition="HasQuest(35702) &amp;&amp; IsQuestCompleted(35702) &amp;&amp; Unit(82118) != null" > <!-- Chains of Iron -->
 				<If Condition="Me.HasAura(168474)" > <!-- Goren Disguise -->
 					<CustomBehavior File="Misc\RunLua" Lua="for i=1,40 do local id=select(11,UnitAura('player',i)) if id == 168474 then CancelUnitBuff('player',i) break end end" WaitTime="1000" />
 				</If>
+			  <If Condition="Unit(81674) != null" > 
+				<CustomBehavior File="InteractWith" MobId="81674" Range="5" GossipOptions="1" WaitTime="25000" X="6594.965" Y="1315.908" Z="64.63487" /> <!-- FP -->
+			  </If>
 				<CustomBehavior File="InteractWith" MobId="82118" Range="5" GossipOptions="1" WaitTime="5000" X="7163.819" Y="1010.977" Z="33.90433" />
 			</If>
 		<TurnIn QuestName="Chains of Iron" QuestId="35702" TurnInName="Vindicator Maraad" TurnInId="75127" X="6337.186" Y="745.6736" Z="116.6776" />
@@ -840,20 +848,84 @@
 			<!-- Iron Approach -->
 		<PickUp QuestName="Strike While the Iron is Hot" QuestId="36576" GiverName="Vindicator Maraad" GiverId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
 			<If Condition="HasQuest(36576) &amp;&amp; !IsQuestCompleted(36576)" > <!-- Strike While the Iron is Hot -->
-				<CustomBehavior File="InteractWith" QuestId="36576" MobId="81074" GossipOptions="1" TerminateWhen="IsObjectiveComplete(1, 36576)" X="6356.173" Y="747.1268" Z="116.6612" /> <!-- FP to The Iron Approach -->
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 1">
+					<CustomBehavior File="InteractWith" QuestId="36576" MobId1="81074" MobId2="85619" GossipOptions="1" X="6356.173" Y="747.1268" Z="116.6612" /> <!-- FP to The Iron Approach -->
+					<MoveTo X="8681.092" Y="1440.195" Z="64.91515" />
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 2">
+					<MoveTo X="8655.655" Y="1418.248" Z="67.07001" />
+					<CustomBehavior File="Misc\RunLua" Lua="ExtraActionButton1:Click()" WaitTime="1000" />
+					<CustomBehavior File="WaitTimer" WaitTime="65000" GoalText="Waiting for timer to clear {TimeRemaining}" />
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 3">
+					<MoveTo X="8655.655" Y="1418.248" Z="67.07001" />
+					<CustomBehavior File="Misc\RunLua" Lua="ExtraActionButton1:Click()" WaitTime="1000" />
+					<CustomBehavior File="WaitTimer" WaitTime="65000" GoalText="Waiting for timer to clear {TimeRemaining}" />
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 4">
+					<MoveTo X="8709.237" Y="1475.511" Z="67.47324" />
+					<CustomBehavior File="InteractWith" QuestId="36576" MobId="85580" TerminateWhen="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 4" X="6356.173" Y="747.1268" Z="116.6612" /> <!-- Goc -->
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 5">
+					<MoveTo X="8709.237" Y="1475.511" Z="67.47324" />
+					<CustomBehavior File="Misc\RunLua" Lua="ExtraActionButton1:Click()" WaitTime="1000" />
+					<CustomBehavior File="InteractWith" QuestId="36576" MobId="85571" TerminateWhen="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 5" X="6356.173" Y="747.1268" Z="116.6612" /> <!-- Goc -->
+				</While>
+					<CustomBehavior File="InteractWith" MobId="84700" X="8487.958" Y="1546.837" Z="79.16023" /> <!-- FP - Nisha -->
+					<MoveTo X="6337.186" Y="745.6736" Z="116.6775" />
 			</If>
-
+			<If Condition="HasQuest(36576) &amp;&amp; IsQuestCompleted(36576) &amp;&amp; Me.ZoneId == 1402" > <!-- Strike While the Iron is Hot - GorgrondFinaleScenario -->
+				<CustomBehavior File="InteractWith" MobId="84700" X="8487.958" Y="1546.837" Z="79.16023" /> <!-- FP - Nisha -->
+				<MoveTo X="6337.186" Y="745.6736" Z="116.6775" />
+			</If>
+		<TurnIn QuestName="Strike While the Iron is Hot" QuestId="36576" TurnInName="Vindicator Maraad" TurnInId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
+		<PickUp QuestName="News from Talador" QuestId="36495" GiverName="Vindicator Maraad" GiverId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
+		<TurnIn QuestName="News from Talador" QuestId="36495" TurnInName="Bodrick Grey" TurnInId="81492" X="1941.726" Y="330.4358" Z="88.96596" />
+		<!-- End of Iron Approach -->
 		
+		<!-- Starfall Outpost - SMV -->
+		<PickUp QuestName="Meet Us at Starfall Outpost" QuestId="33359" GiverName="Cordana Felsong" GiverId="80645" X="1889.663" Y="246.6042" Z="76.58302" />
+		<TurnIn QuestName="An Audience With The Archmage" QuestId="34631" TurnInName="Archmage Khadgar" TurnInId="80142" X="1510.826" Y="312.0347" Z="66.69157" />
+		<PickUp QuestName="Shadowmoonwell" QuestId="33113" GiverName="Delas Moonfang" GiverId="72623" X="1564.929" Y="293.6667" Z="63.66102" />
+		<PickUp QuestName="Catching His Eye" QuestId="33062" GiverName="Archmage Khadgar" GiverId="77184" X="1510.826" Y="312.0347" Z="66.69157" />
 			
+
+
+
+
+
+
+
+
+
 			
 			<!--
+
+
+
+
+
+			<Objective QuestName="Shadowmoonwell" QuestId="33113" Type="CollectItem" ItemId="102491" CollectCount="1" />
+			<Objective QuestName="Catching His Eye" QuestId="33062" Type="KillMob" MobId="72783" KillCount="1" />
+		<TurnIn QuestName="Shadowmoonwell" QuestId="33113" TurnInName="Delas Moonfang" TurnInId="72623" X="1564.929" Y="293.6667" Z="63.66102" />
+		<TurnIn QuestName="Catching His Eye" QuestId="33062" TurnInName="Archmage Khadgar" TurnInId="77184" X="1510.826" Y="312.0347" Z="66.69157" />
+
+
 		
 		
 		
-		
-		<TurnIn QuestName="Strike While the Iron is Hot" QuestId="36576" TurnInName="Vindicator Maraad" TurnInId="75127" />
 		
 			-->
+			
+			
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Tested Profile. Development from here" />
+			
+			
+		<PickUp QuestName="The Critical Path" QuestId="37183" GiverName="Bodrick Grey" GiverId="81492" X="1941.726" Y="330.4358" Z="88.96596" />
+			<If Condition="HasQuest(37183) &amp;&amp; Me.ZoneId == 7078"> <!-- The Critical Path - WoD SMV -->
+				<CustomBehavior File="InteractWith" MobId="81103" GossipOptions="2" WaitTime="2000" X="1864.33" Y="217.8108" Z="76.63772" />
+			</If>
+		<TurnIn QuestName="The Critical Path" QuestId="37183" TurnInName="Foreman Eksos" TurnInId="79133" X="3601.91" Y="1666.689" Z="176.1843" />
 
 		<!--
 		
@@ -872,7 +944,6 @@
 			
 			
 			
-				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Tested Profile. Development from here" />
 			
 			
 			
