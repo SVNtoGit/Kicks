@@ -1905,12 +1905,12 @@
 				<MoveTo X="2003.896" Y="-956.5999" Z="28.1075" />
 			 </While>
 			 <While Condition="(!IsObjectiveComplete(2, 34847))">
-				<CustomBehavior File="InteractWith" QuestId="34847" MobId1="76295" MobId2="80250" NonCompeteDistance="0" X="1988.175" Y="-955.0695" Z="27.86312" />
+				<CustomBehavior File="InteractWith" QuestId="34847" MobId1="76295" MobId2="80250" MobState="Alive" NonCompeteDistance="0" X="1988.175" Y="-955.0695" Z="27.86312" />
 			 </While>
 			 <While Condition="(!IsObjectiveComplete(3, 34847))">
-				<CustomBehavior File="InteractWith" QuestId="34847" MobId1="76295" MobId2="80250" NonCompeteDistance="0" X="1992.034" Y="-955.9114" Z="27.87653" />
+				<CustomBehavior File="InteractWith" QuestId="34847" MobId1="76295" MobId2="80250" MobState="Alive" NonCompeteDistance="0" X="1992.034" Y="-955.9114" Z="27.87653" />
 			 </While>
-				<CustomBehavior File="InteractWith" QuestId="34847" MobId="80251" GossipOptions="1" NonCompeteDistance="0" X="1985.948" Y="-954.3281" Z="28.04138" />
+				<CustomBehavior File="InteractWith" QuestId="34847" MobId="80251" GossipOptions="1" MobState="Alive" NonCompeteDistance="0" X="1985.948" Y="-954.3281" Z="28.04138" />
 			</If>
 			<Objective QuestName="Lunarblossom" QuestId="34836" Type="CollectItem" ItemId="111937" CollectCount="5" />
 		<TurnIn QuestName="Lunarblossom" QuestId="34836" TurnInName="Zukaza" TurnInId="80248" X="1533.552" Y="-840.6754" Z="44.58467" />
@@ -1925,7 +1925,7 @@
 		<PickUp QuestName="On the Offensive" QuestId="33083" GiverName="Rangari Saato" GiverId="81176" X="1009.635" Y="-132.5833" Z="-5.126611" />
 		<PickUp QuestName="Across the Stars" QuestId="33795" GiverName="Illuminate Praavi" GiverId="81173" X="1010.09" Y="-101.3924" Z="-4.560985" />
 			<!-- need to force repair / sell here before going into the 'zone' -->
-			<If Condition="HasQuest(35032) &amp;&amp; !IsQuestCompleted(35032)" > <!-- Into Anguish -->
+			<While Condition="HasQuest(35032) &amp;&amp; !IsQuestCompleted(35032)" > <!-- Into Anguish -->
 			 <While Condition="(!IsObjectiveComplete(1, 35032))"> <!-- Open Door -->
 				<MoveTo X="966.7886" Y="-78.96068" Z="28.12074" /> <!-- Fragment of Anguish -->
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(112386)" WaitTime="5000" />
@@ -1933,11 +1933,11 @@
  				<CustomBehavior File="InteractWith" QuestId="35032" MobId="80741" Range="8" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(2, 35032)" X="884.8594" Y="292.5521" Z="51.63548" />
  				<CustomBehavior File="InteractWith" QuestId="35032" MobId="80742" Range="8" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(3, 35032)" X="811.5278" Y="-43.21528" Z="26.39269" />
  				<CustomBehavior File="InteractWith" QuestId="35032" MobId="80743" Range="8" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(4, 35032)" X="929.3368" Y="81.48438" Z="25.37406" />
-			</If>
+			</While>
             <While Condition="HasQuest(35032) &amp;&amp; IsQuestCompleted(35032)"> <!-- Turnin Into Anguish, Pickup The Dark Side of the Moon -->
 		<TurnIn QuestName="Into Anguish" QuestId="35032" /> <!-- Into Anguish CLQ -->
 		<!-- <PickUp QuestName="The Dark Side of the Moon" QuestId="34054" /> -->
-                <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for CLQ {TimeRemaining}" />
+                <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for CLQ {TimeRemaining}" />
             </While>
 			<While Condition="HasQuest(33794) &amp;&amp; !IsQuestCompleted(33794)" > <!-- The Great Salvation -->
 				<CustomBehavior File="InteractWith" QuestId="33794" MobId="225924" MobType="GameObject" NumOfTimes="50" IgnoreMobsInBlackspots="True" Range="7" NonCompeteDistance="0" CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
@@ -2054,6 +2054,13 @@
 				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			 </While>
 			 
+				<If Condition="Me.MapId == 1277" > <!-- 1277 = DefenseOfKaraborScenario -->
+					<CustomBehavior File="InteractWith" MobId="80300" X="561.997" Y="-3124.99" Z="58.29057" /> <!-- Raindash -->
+					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
+					<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+				</If>
+			</If>
+			<If Condition="HasQuest(33256) &amp;&amp; IsQuestCompleted(33256)" > <!-- The Defense of Karabor -->
 				<If Condition="Me.MapId == 1277" > <!-- 1277 = DefenseOfKaraborScenario -->
 					<CustomBehavior File="InteractWith" MobId="80300" X="561.997" Y="-3124.99" Z="58.29057" /> <!-- Raindash -->
 					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />

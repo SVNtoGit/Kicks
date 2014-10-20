@@ -851,14 +851,16 @@
 		
 			<!-- Iron Approach -->
 		<PickUp QuestName="Strike While the Iron is Hot" QuestId="36576" GiverName="Vindicator Maraad" GiverId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
-			<If Condition="HasQuest(36576) &amp;&amp; !IsQuestCompleted(36576)" > <!-- Strike While the Iron is Hot -->
+			<While Condition="HasQuest(36576) &amp;&amp; !IsQuestCompleted(36576)" > <!-- Strike While the Iron is Hot -->
 				<If Condition="((Unit(81074) != null) &amp;&amp; (Unit(81222) != null))"> <!-- FP - Highpass - Rajess -->
 					<CustomBehavior File="InteractWith" MobId="81074" GossipOptions="1" WaitTime="5000" X="6356.173" Y="747.1268" Z="116.6614" />
 					<!-- wait for taxi's to get fixed - then verify if i need a 45s waittimer or not -->
+					<CustomBehavior File="WaitTimer" WaitTime="50000" GoalText="Waiting for  {TimeRemaining}" />
 				</If>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 1">
-					<CustomBehavior File="InteractWith" QuestId="36576" MobId1="81074" MobId2="85619" GossipOptions="1" X="6356.173" Y="747.1268" Z="116.6612" /> <!-- FP to The Iron Approach -->
+					<CustomBehavior File="InteractWith" QuestId="36576" MobId="85619" GossipOptions="1" WaitForNpcs="False" X="8618.279" Y="1412.998" Z="64.88934" /> <!-- Yrel -->
 					<MoveTo X="8681.092" Y="1440.195" Z="64.91515" />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for timer to clear {TimeRemaining}" />
 				</While>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 2">
 					<MoveTo X="8655.655" Y="1418.248" Z="67.07001" />
@@ -872,16 +874,18 @@
 				</While>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 4">
 					<MoveTo X="8700.846" Y="1489.947" Z="67.46828" />
-					<CustomBehavior File="InteractWith" QuestId="36576" MobId="85580" TerminateWhen="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 4" X="6356.173" Y="747.1268" Z="116.6612" /> <!-- Goc -->
+					<CustomBehavior File="InteractWith" QuestId="36576" MobId="85580" TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber != 4" X="6356.173" Y="747.1268" Z="116.6612" /> <!-- Goc -->
 				</While>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 5">
 					<MoveTo X="8700.846" Y="1489.947" Z="67.46828" />
 					<CustomBehavior File="Misc\RunLua" Lua="ExtraActionButton1:Click()" WaitTime="1000" />
-					<CustomBehavior File="InteractWith" QuestId="36576" MobId="85571" TerminateWhen="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 5" X="6356.173" Y="747.1268" Z="116.6612" /> <!-- Goc -->
+					<CustomBehavior File="InteractWith" QuestId="36576" MobId="85571" TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber != 5" X="6356.173" Y="747.1268" Z="116.6612" /> <!-- Goc -->
 				</While>
+				<If Condition="HasQuest(36576) &amp;&amp; IsQuestCompleted(36576) &amp;&amp; Me.MapId == 1402" > <!-- Strike While the Iron is Hot - GorgrondFinaleScenario -->
 					<CustomBehavior File="InteractWith" MobId="84700" X="8487.958" Y="1546.837" Z="79.16023" /> <!-- FP - Nisha -->
 					<MoveTo X="6337.186" Y="745.6736" Z="116.6775" />
-			</If>
+				</If>
+			</While>
 			<If Condition="HasQuest(36576) &amp;&amp; IsQuestCompleted(36576) &amp;&amp; Me.MapId == 1402" > <!-- Strike While the Iron is Hot - GorgrondFinaleScenario -->
 				<CustomBehavior File="InteractWith" MobId="84700" X="8487.958" Y="1546.837" Z="79.16023" /> <!-- FP - Nisha -->
 				<MoveTo X="6337.186" Y="745.6736" Z="116.6775" />
