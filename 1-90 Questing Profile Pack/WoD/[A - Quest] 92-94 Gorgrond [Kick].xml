@@ -804,6 +804,7 @@
 			<!-- End of Dionor's Demise -->
 
 			<!-- Stonemaul Arena -->
+			<!-- add in force repair / sell -->
 		<TurnIn QuestName="A Rediscovered Legend" QuestId="34704" TurnInName="Gladiator Akaani" TurnInId="79322" X="6157.402" Y="1570.752" Z="61.78229" />
 		<PickUp QuestName="Getting Gladiators" QuestId="34699" GiverName="Gladiator Akaani" GiverId="79322" X="6157.402" Y="1570.752" Z="61.78229" />
 		<PickUp QuestName="Slave Hunters" QuestId="34698" GiverName="Kash'drakor" GiverId="79320" X="6152.761" Y="1570.297" Z="61.70557" />
@@ -826,9 +827,12 @@
 				<Objective QuestName="The Axe of Kor'gall" QuestId="34703" Type="CollectItem" ItemId="109023" CollectCount="1" />
 			</If>
 			<While Condition="HasQuest(34702) &amp;&amp; !IsQuestCompleted(34702)" > <!-- Krav'ogra -->
+			 <If Condition="Object(227114) != null"> <!-- Barricade -->
+				<CustomBehavior File="InteractWith" MobId="227114" ObjectType="GameObject" WaitTime="3000" Range="8" X="5878.697" Y="2061.201" Z="69.80282" />
+			 </If>
 				<CustomBehavior File="InteractWith" QuestId="34702" MobId="81388" Range="5" X="5906.417" Y="1762.99" Z="62.67542" /> <!-- Challenge Gong -->
 				<RunTo X="5922.32" Y="1780.74" Z="62.29099" />
-				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" QuestId="34702" WaitTime="20000" GoalText="Waiting for objective to complete {TimeRemaining}" />
 			</While>
 			<Objective QuestName="Need More Teeth" QuestId="34012" Type="CollectItem" ItemId="108898" CollectCount="30" />
 		<TurnIn QuestName="Need More Teeth" QuestId="34012" TurnInName="Prowler Sasha" TurnInId="75008" X="5986.424" Y="1680.146" Z="79.78772" />
@@ -848,6 +852,10 @@
 			<!-- Iron Approach -->
 		<PickUp QuestName="Strike While the Iron is Hot" QuestId="36576" GiverName="Vindicator Maraad" GiverId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
 			<If Condition="HasQuest(36576) &amp;&amp; !IsQuestCompleted(36576)" > <!-- Strike While the Iron is Hot -->
+				<If Condition="((Unit(81074) != null) &amp;&amp; (Unit(81222) != null))"> <!-- FP - Highpass - Rajess -->
+					<CustomBehavior File="InteractWith" MobId="81074" GossipOptions="1" WaitTime="5000" X="6356.173" Y="747.1268" Z="116.6614" />
+					<!-- wait for taxi's to get fixed - then verify if i need a 45s waittimer or not -->
+				</If>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 1">
 					<CustomBehavior File="InteractWith" QuestId="36576" MobId1="81074" MobId2="85619" GossipOptions="1" X="6356.173" Y="747.1268" Z="116.6612" /> <!-- FP to The Iron Approach -->
 					<MoveTo X="8681.092" Y="1440.195" Z="64.91515" />
@@ -858,36 +866,53 @@
 					<CustomBehavior File="WaitTimer" WaitTime="65000" GoalText="Waiting for timer to clear {TimeRemaining}" />
 				</While>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 3">
-					<MoveTo X="8655.655" Y="1418.248" Z="67.07001" />
+					<MoveTo X="8700.846" Y="1489.947" Z="67.46828" />
 					<CustomBehavior File="Misc\RunLua" Lua="ExtraActionButton1:Click()" WaitTime="1000" />
 					<CustomBehavior File="WaitTimer" WaitTime="65000" GoalText="Waiting for timer to clear {TimeRemaining}" />
 				</While>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 4">
-					<MoveTo X="8709.237" Y="1475.511" Z="67.47324" />
+					<MoveTo X="8700.846" Y="1489.947" Z="67.46828" />
 					<CustomBehavior File="InteractWith" QuestId="36576" MobId="85580" TerminateWhen="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 4" X="6356.173" Y="747.1268" Z="116.6612" /> <!-- Goc -->
 				</While>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 5">
-					<MoveTo X="8709.237" Y="1475.511" Z="67.47324" />
+					<MoveTo X="8700.846" Y="1489.947" Z="67.46828" />
 					<CustomBehavior File="Misc\RunLua" Lua="ExtraActionButton1:Click()" WaitTime="1000" />
 					<CustomBehavior File="InteractWith" QuestId="36576" MobId="85571" TerminateWhen="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 5" X="6356.173" Y="747.1268" Z="116.6612" /> <!-- Goc -->
 				</While>
 					<CustomBehavior File="InteractWith" MobId="84700" X="8487.958" Y="1546.837" Z="79.16023" /> <!-- FP - Nisha -->
 					<MoveTo X="6337.186" Y="745.6736" Z="116.6775" />
 			</If>
-			<If Condition="HasQuest(36576) &amp;&amp; IsQuestCompleted(36576) &amp;&amp; Me.ZoneId == 1402" > <!-- Strike While the Iron is Hot - GorgrondFinaleScenario -->
+			<If Condition="HasQuest(36576) &amp;&amp; IsQuestCompleted(36576) &amp;&amp; Me.MapId == 1402" > <!-- Strike While the Iron is Hot - GorgrondFinaleScenario -->
 				<CustomBehavior File="InteractWith" MobId="84700" X="8487.958" Y="1546.837" Z="79.16023" /> <!-- FP - Nisha -->
 				<MoveTo X="6337.186" Y="745.6736" Z="116.6775" />
 			</If>
 		<TurnIn QuestName="Strike While the Iron is Hot" QuestId="36576" TurnInName="Vindicator Maraad" TurnInId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
 		<PickUp QuestName="News from Talador" QuestId="36495" GiverName="Vindicator Maraad" GiverId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
-		<TurnIn QuestName="News from Talador" QuestId="36495" TurnInName="Bodrick Grey" TurnInId="81492" X="1941.726" Y="330.4358" Z="88.96596" />
 		<!-- End of Iron Approach -->
+		
+		<!-- Garrison -->
+		<TurnIn QuestName="News from Talador" QuestId="36495" TurnInName="Bodrick Grey" TurnInId="81492" X="1941.726" Y="330.4358" Z="88.96596" />
+		<PickUp QuestName="The Critical Path" QuestId="37183" GiverName="Bodrick Grey" GiverId="81492" X="1941.726" Y="330.4358" Z="88.96596" />
 		
 		<!-- Starfall Outpost - SMV -->
 		<PickUp QuestName="Meet Us at Starfall Outpost" QuestId="33359" GiverName="Cordana Felsong" GiverId="80645" X="1889.663" Y="246.6042" Z="76.58302" />
-		<TurnIn QuestName="An Audience With The Archmage" QuestId="34631" TurnInName="Archmage Khadgar" TurnInId="80142" X="1510.826" Y="312.0347" Z="66.69157" />
-		<PickUp QuestName="Shadowmoonwell" QuestId="33113" GiverName="Delas Moonfang" GiverId="72623" X="1564.929" Y="293.6667" Z="63.66102" />
+		<TurnIn QuestName="Meet Us at Starfall Outpost" QuestId="33359" TurnInName="Archmage Khadgar" TurnInId="77184" X="1510.826" Y="312.0347" Z="66.69157" />
 		<PickUp QuestName="Catching His Eye" QuestId="33062" GiverName="Archmage Khadgar" GiverId="77184" X="1510.826" Y="312.0347" Z="66.69157" />
+		<PickUp QuestName="Shadowmoonwell" QuestId="33113" GiverName="Delas Moonfang" GiverId="72623" X="1564.929" Y="293.6667" Z="63.66102" />
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 			
 
 
@@ -900,6 +925,7 @@
 
 			
 			<!--
+
 
 
 
