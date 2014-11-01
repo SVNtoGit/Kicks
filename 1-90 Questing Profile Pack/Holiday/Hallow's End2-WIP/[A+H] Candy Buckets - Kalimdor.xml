@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Original contribution by Chinajade
+    PROFILE EXPECTATIONS:
+        * When using this profile, be certain to set the HonorBuddy bot to (select only one):
+            ( ) Gatherbuddy2
+            ( ) Grinding / Mixed
+            (*) Questing
+            ( ) PvP
+        * This profile is appropriate for (check all that apply):
+            [X] Alliance   [X] Achievement
+            [X] Horde      [ ] Farming
+            [ ] Leveling
+            [ ] PvP
+            [X] Questing
+            [ ] Reputation
+            [X] Seasonal
+-->
+<HBProfile xsi:noNamespaceSchemaLocation="../../Schemas/QuestProfileSchema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+   <Name>[A+H] Candy Buckets - Kalimdor</Name>
+
+   <MinLevel>60</MinLevel>
+   <MaxLevel>1001</MaxLevel>
+
+   <MinDurability>0.1</MinDurability>
+   <MinFreeBagSlots>2</MinFreeBagSlots>
+
+   <MailGrey>false</MailGrey>
+   <MailWhite>false</MailWhite>
+   <MailGreen>true</MailGreen>
+   <MailBlue>true</MailBlue>
+   <MailPurple>true</MailPurple>
+
+   <SellGrey>true</SellGrey>
+   <SellWhite>true</SellWhite>
+   <SellGreen>false</SellGreen>
+   <SellBlue>false</SellBlue>
+   <SellPurple>false</SellPurple>
+
+   <TargetElites>false</TargetElites>
+
+
+    <AvoidMobs>
+    </AvoidMobs>
+
+    <!-- Honorbuddy v2.5.7644.652 introduced AerialBlackspots. Release notes have example. -->
+    <Blackspots>
+    </Blackspots>
+
+
+    <!-- We include Twilight Highland's Candy Buckets here also, to save time later
+         on the Cataclysm profile.
+    -->
+    <QuestOrder>
+        <DisableBehavior Name="Pull" />
+
+        <!-- If we do not have quests in Kalmdor, or Draenei area -->
+        <If Condition="!( Honorbuddy.Quest_Behaviors.HallowsEnd_CandyBuckets.HaveAnyQuestsOnMap(1) || Honorbuddy.Quest_Behaviors.HallowsEnd_CandyBuckets.HaveAnyQuestsOnMap(530) )">
+            <!-- The auto-loader should have performed this check before loading the profile.
+                 So, we emit a message for users that load this profile manually.
+            -->
+            <CustomBehavior File="UserDialog" StopOnContinue="true"
+                            Text="You have completed all the Kalimdor Candy Bucket quests for this year" />
+
+        <!-- If not in Kalimdor or Draenei area... -->
+        <ElseIf Condition="!( ( Me.MapId == 1 ) || ( Me.MapId == 530 ) )">
+            <!-- The auto-loader should have placed us on the correct Continent.
+                 If profile is run manually, the user needs to move us.
+            -->
+            <CustomBehavior File="UserDialog" StopOnContinue="true"
+                            Text="Please start this profile somewhere in Kalimdor." />
+            </ElseIf>
+
+        <Else>
+
+            <!--======================================================================
+                Achievement: Tricks and Treats of Kalimdor (Alliance: http://wowhead.com/achievement=963)
+                ======================================================================-->
+
+            <If Condition="Me.IsAlliance">
+                <!-- NOTE: Auto-loader should have already position an Alliance Toon at Ratchet -->
+
+                <!--Achievement(963,14): Northern Barrens, Ratchet -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12396" />
+
+                <!--Achievement(963,18): Southern Barrens, Northwatch Hold -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29007" />
+
+                <!--Achievement(963,16): Southern Barrens, Fort Triumph -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29008" />
+
+                <!--Achievement(963,8): Dustwallow Marsh, Mudsprocket -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12398" />
+
+                <!--Achievement(963,24): Tanaris, Gadgetzan -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12399" />
+
+                <!--Achievement(963,23): Tanaris, Bootlegger Outpost -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29014" />
+
+                <!--Achievement(963,26): Un'Goro Crater, Marshal's Stand -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29018" />
+
+                <!--Achievement(5837,10): Uldum, Ramkahen -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29017" />
+
+                <!--Achievement(5837,9): Uldum, Oasis of Vir'sar -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29016" />
+
+                <!--Achievement(963,15): Silithus, Cenarion Hold -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12401" />
+
+                <!--Achievement(963,13): Feralas, Feathermoon Stronghold -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12350" />
+
+                <!--Achievement(963,12): Feralas, Dreamer's Rest -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28952" />
+
+                <!--Achievement(963,6): Desolace, Karnum's Glade -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28993" />
+
+                <!--Achievement(963,7): Desolace, Nijel's Point -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12348" />
+
+                <!--Achievement(963,17): Southern Barrens, Honor's Stand -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29006" />
+
+                <!--Achievement(963,20): Stonetalon Mountains, Northwatch Expedition Base -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29010" />
+
+                <!--Achievement(963,22): Stonetalon Mountains, Windshear Hold -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29011" />
+
+                <!--Achievement(963,19): Stonetalon Mountains, Farwatcher's Glen -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29013" />
+
+                <!--Achievement(963,21): Stonetalon Mountains, Thal'darah Overlook -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29012" />
+
+                <!--Achievement(963,1): Ashenvale, Astranaar -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12345" />
+
+                <!--Achievement(5837,2): Mount Hyjal, Grove of Aessina -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29000" />
+
+                <!--Achievement(5837,4): Mount Hyjal, Shrine of Aviana -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29001" />
+
+                <!--Achievement(5837,3): Mount Hyjal, Nordrassil -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28999" />
+
+                <!--Achievement(963,27): Winterspring, Everlook -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12400" />
+
+                <!--Achievement(963,10): Felwood - Talonbranch Glade -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28995" />
+
+                <!--Achievement(963,11): Felwood - Whisperwind Grove -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28994" />
+
+                <!--Achievement(963,4): Darkshore, Lor'danel -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28951" />
+
+                <!-- Move to Darnassas, if not already in Darnassas or Teldrassil (but not Rut'theran Village)...
+                     Darnassas(1657), Teldrassil(141); Rut'theran(141, 702/*subzone*/)
+                -->
+                <If Condition="( Me.MapId == 1 ) &amp;&amp; !new uint[]{1657,141}.Any(z =&gt; Me.ZoneId == z &amp;&amp; Me.SubZoneId != 702)">
+                    <MoveTo Nav="Fly" X="8375.225" Y="995.8727" Z="27.38267" />
+                    <CustomBehavior File="GoThruPortal" X="8382.088" Y="998.9407" Z="29.46679" />
+                </If>
+
+                <!--Achievement(963,5): Darnassus, Craftsmen's Terrace -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12334" />
+
+                <!--Achievement(963,25): Teldrassil, Dolanaar -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12331" />
+
+                <!-- If in Darnassas or Teldrassil proper, move to use portal to Exodar in Temple...
+                     Darnassas(1657), Teldrassil(141); Rut'theran(141, 702/*subzone*/)
+                -->
+                <If Condition="new uint[]{1657,141}.Any(z =&gt; Me.ZoneId == z &amp;&amp; Me.SubZoneId != 702)">
+                    <CustomBehavior File="FlyTo" DestName="Exodar portal in Darnassas"
+                                    X="9724.685" Y="2525.455" Z="1335.677" AllowedVariance="7" />
+                    <CustomBehavior File="InteractWith" MobId="207995" />
+                    <CustomBehavior File="WaitTimer" WaitTime="5000" VariantTime="5000" />
+                </If>
+
+                <!--Achievement(963,9): Exodar, Seat of the Naaru -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12337" />
+
+                <!--Achievement(963,2): Azuremyst Isle, Azure Watch -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12333" />
+
+                <!--Achievement(963,3): Bloodmyst Isle, Blood Watch -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12341" />
+
+                <!-- If in Draenei starter area, take portal back to Darnassas -->
+                <If Condition="Me.MapId == 530" >
+                    <MoveTo Nav="Run" DestName="Darnassas portal in Exodar"
+                            X="-4043.321" Y="-11575.34" Z="-138.4649" />
+                    <CustomBehavior File="InteractWith" MobId="207996" />
+                    <CustomBehavior File="WaitTimer" WaitTime="5000" VariantTime="5000" />
+                </If>
+
+                <!-- If in Darnassas, move back through portal to docks -->
+                <If Condition="Me.ZoneId == 1657" >
+                    <MoveTo Nav="Fly" DestName="Portal to Rut'theran village"
+                            X="9945.54" Y="2609.131" Z="1316.258" />
+                    <CustomBehavior File="GoThruPortal" X="9946.044" Y="2616.174" Z="1316.379" />
+                    <CustomBehavior File="WaitTimer" WaitTime="5000" VariantTime="5000" />
+                </If>
+
+                <!-- If in Rut'theran Village, take ship (The Bravery) back to Stormwind -->
+                <If Condition="( Me.ZoneId == 141 ) &amp;&amp; ( Me.SubZoneId == 702 )">
+                    <CustomBehavior File="UseTransport" TransportId="176310"
+                                    WaitAtX="8184.588" WaitAtY="1001.16" WaitAtZ="7.262681"
+                                    TransportStartX="8162.587" TransportStartY="1005.365" TransportStartZ="0.04772588"
+                                    StandOnX="8167.651" StandOnY="1011.619" StandOnZ="6.015787"
+                                    TransportEndX="-8650.719" TransportEndY="1346.051" TransportEndZ="-0.04085977"
+                                    GetOffX="-8637.806" GetOffY="1324.105" GetOffZ="5.233248"  />
+                </If>
+
+                <!-- Disperse into Stormwind -->
+                <CustomBehavior File="FlyTo" >
+                    <DestinationChoices>
+                        <Hotspot Name="Old Town bridge" X="-8728.818" Y="539.5789" Z="101.047" AllowedVariance="3" />
+                        <Hotspot Name="top of Old Town porticullis" X="-8835.924" Y="700.5738" Z="131.0122" AllowedVariance="7" />
+                        <Hotspot Name="Cathedral Square bridge" X="-8730.799" Y="722.1186" Z="101.6446" AllowedVariance="3" />
+                        <Hotspot Name="top of Cathedral Square porticullis" X="-8754.491" Y="593.2128" Z="123.4767" AllowedVariance="7" />
+                        <Hotspot Name="Mage Quarter bridge" X="-8857.102" Y="741.834" Z="100.6356" AllowedVariance="3" />
+                        <Hotspot Name="top of Mage Quarter porticullis" X="-8755.277" Y="684.5886" Z="128.7067" AllowedVariance="7" />
+                        <Hotspot Name="Gallina Winery" X="-8884.18" Y="706.2628" Z="98.17048" AllowedVariance="7" />
+                        <Hotspot Name="top of main gate tower 1" X="-8928.818" Y="589.0203" Z="154.8591" AllowedVariance="7" />
+                        <Hotspot Name="top of main gate tower 2" X="-8883.096" Y="532.4412" Z="154.8598" AllowedVariance="7" />
+                    </DestinationChoices>
+                </CustomBehavior>
+            </If>
+
+
+            <!--======================================================================
+                Achievement: Tricks and Treats of Kalimdor (Horde: http://wowhead.com/achievement=965)
+                ======================================================================-->
+
+            <If Condition="Me.IsHorde">
+                <!-- NOTE: Auto-loader should have already positioned a Horde toon in Orgrimmar -->
+
+                <!--Achievement(965,20): Orgrimmar, Valley of Strength -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12366" />
+
+                <!--Achievement(965,8): Durotar, Razor Hill -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12361" />
+
+                <!--Achievement(965,18): Northern Barrens, Nozzlepot's Outpost -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29003" />
+
+                <!--Achievement(965,17): Northern Barrens, Grol'dom Farm -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29002" />
+
+                <!--Achievement(965,16): Northern Barrens, The Crossroads -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12374" />
+
+                <!--Achievement(965,19): Northern Barrens, Ratchet -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12396" />
+
+                <!--Achievement(965,23): Southern Barrens, Hunter's Hill -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29004" />
+
+                <!--Achievement(965,28): Thunder Bluff, Lower Rise -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12367" />
+
+                <!--Achievement(965,15): Mulgore, Bloodhoof Village -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12362" />
+
+                <!--Achievement(965,22): Southern Barrens, Desolation Hold -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29005" />
+
+                <!--Achievement(965,9): Dustwallow Marsh, Brackenwall Village -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12383" />
+
+                <!--Achievement(965,10): Dustwallow Marsh, Mudsprocket -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12398" />
+
+                <!--Achievement(965,27): Tanaris, Gadgetzan -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12399" />
+
+                <!--Achievement(965,26): Tanaris, Bootlegger Outpost -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29014" />
+
+                <!--Achievement(965,29): Un'Goro Crater, Marshal's Stand -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29018" />
+
+                <!--Achievement(5838,9): Uldum, Ramkahen -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29017" />
+
+                <!--Achievement(5838,8): Uldum, Oasis of Vir'sar -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29016" />
+
+                <!--Achievement(965,21): Silithus, Cenarion Hold -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12401" />
+
+                <!--Achievement(965,13): Feralas, Camp Mojache -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12386" />
+
+                <!--Achievement(965,14): Feralas, Stonemaul Hold -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28998" />
+
+                <!--Achievement(965,12): Feralas, Camp Ataya -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28996" />
+
+                <!--Achievement(965,7): Desolace, Shadowprey Village -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12381" />
+
+                <!--Achievement(965,6): Desolace, Karnum's Glade -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28993" />
+
+                <!--Achievement(965,25): Stonetalon Mountains, Sun Rock Retreat -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12378" />
+
+                <!--Achievement(965,24): Stonetalon Mountains, Krom'gar Fortress -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29009" />
+
+                <!--Achievement(965,2): Ashenvale, Silverwind Refuge -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28953" />
+
+                <!--Achievement(965,3): Ashenvale, Splintertree Post -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12377" />
+
+                <!--Achievement(965,1): Ashenvale, Hellscream's Watch -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28958" />
+
+                <!--Achievement(965,4): Ashenvale, Zoram'gar Outpost -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28989" />
+
+                <!--Achievement(965,11): Felwood, Whisperwind Grove -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28994" />
+
+                <!--Achievement(5838,2): Mount Hyjal, Grove of Aessina -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29000" />
+
+                <!--Achievement(5838,4): Mount Hyjal, Shrine of Aviana -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="29001" />
+
+                <!--Achievement(5838,3): Mount Hyjal, Nordrassil -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28999" />
+
+                <!--Achievement(965,30): Winterspring, Everlook -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="12400" />
+
+                <!--Achievement(965,5): Azshara, Bilgewater Harbor -->
+                <CustomBehavior File="Holiday\HallowsEnd-CandyBuckets" QuestId="28992" />
+
+                <!-- Move to one of the parking areas in Orgrimmar... -->
+                <If Condition="Me.MapId == 1">
+                    <CustomBehavior File="FlyTo" DestName="Orgrimmar parking area" >
+                        <DestinationChoices>
+                            <Hotspot Name="by taxi" X="1783.135" Y="-4363.315" Z="102.6938" AllowedVariance="5" />
+                            <Hotspot Name="by Varzok" X="1815.546" Y="-4409.744" Z="103.0266" AllowedVariance="10" />
+                            <Hotspot Name="by north elevator" X="1850.41" Y="-4355.158" Z="103.2104" AllowedVariance="10" />
+                        </DestinationChoices>
+                    </CustomBehavior>
+                </If>
+            </If>
+        </Else>
+    </If>
+
+    <EnableBehavior Name="Pull" />
+    </QuestOrder>
+</HBProfile>
+
+<!-- Orgrimmar to Grom'gol Base Camp -->
+<!--
+<CustomBehavior File="UseTransport" TransportId="175080"
+                WaitAtX="1864.492" WaitAtY="-4414.012" WaitAtZ="135.2331"
+                TransportStartX="1880.818" TransportStartY="-4435.269" TransportStartZ="152.8608"
+                StandOnX="1873.985" StandOnY="-4423.46" StandOnZ="135.0854"
+                TransportEndX="-12464.34" TransportEndY="233.1597" TransportEndZ="49.53437"
+                GetOffX="-12447.24" GetOffY="216.8994" GetOffZ="31.5489"  />
+ -->
+
+<!-- Grom'gol Base Camp to Orgrimmar -->
+<!--
+<CustomBehavior File="UseTransport" TransportId="175080"
+                WaitAtX="-12447.24" WaitAtY="216.8994" WaitAtZ="31.5489"
+                TransportStartX="-12464.34" TransportStartY="233.1597" TransportStartZ="49.53437"
+                StandOnX="-12455.49" StandOnY="222.7797" StandOnZ="31.75893"
+                TransportEndX="1880.818" TransportEndY="-4435.269" TransportEndZ="152.8608"
+                GetOffX="1864.492" GetOffY="-4414.012" GetOffZ="135.2331" />
+-->
+
+
+<!-- Tirisfal Glades to Orgrimmar: Blimp -->
+<!--
+<CustomBehavior File="UseTransport" TransportId="164871"
+                WaitAtX="2066.937" WaitAtY="286.9727" WaitAtZ="97.0321"
+                TransportStartX="2062.376" TransportStartY="292.998" TransportStartZ="114.973"
+                StandOnX="2067.816" StandOnY="294.7727" StandOnZ="97.22041"
+                TransportEndX="1833.509" TransportEndY="-4391.543" TransportEndZ="152.7679"
+                GetOffX="1840.926" GetOffY="-4391.46" GetOffZ="135.233" />
+-->
+
+<!-- Orgrimmar to Tirisfal Glades: Blimp -->
+<!--
+<CustomBehavior File="UseTransport" TransportId="164871"
+                WaitAtX="1840.926" WaitAtY="-4391.46" WaitAtZ="135.233"
+                TransportStartX="1833.509" TransportStartY="-4391.543" TransportStartZ="152.7679"
+                StandOnX="1835.123" StandOnY="-4386.054" StandOnZ="135.0153"
+                TransportEndX="2062.376" TransportEndY="292.998" TransportEndZ="114.973"
+                GetOffX="2066.937" GetOffY="286.9727" GetOffZ="97.0321" />
+-->
+
+<!-- Tirisfal Glades to Grom'gol Base Camp: Blimp -->
+<!--
+<CustomBehavior File="UseTransport" TransportId="176495"
+                WaitAtX="2059.427" WaitAtY="248.9169" WaitAtZ="99.76416"
+                TransportStartX="2062.599" TransportStartY="235.2645" TransportStartZ="117.7336"
+                StandOnX="2056.668" StandOnY="233.1074" StandOnZ="100.0225"
+                TransportEndX="-12406.89" TransportEndY="211.8377" TransportEndZ="49.69844"
+                GetOffX="-12413.72" GetOffY="206.9256" GetOffZ="31.52503" />
+-->
+
+<!-- Grom'gol Base Camp to Tirisfal Glades: Blimp -->
+<!--
+<CustomBehavior File="UseTransport" TransportId="176495"
+                WaitAtX="-12413.72" WaitAtY="206.9256" WaitAtZ="31.52503"
+                TransportEndX="-12406.89" TransportEndY="211.8377" TransportEndZ="49.69844"
+                StandOnX="-12413.72" StandOnY="206.9256" StandOnZ="31.52503"
+                TransportStartX="2062.599" TransportStartY="235.2645" TransportStartZ="117.7336"
+                GetOffX="2059.427" GetOffY="248.9169" GetOffZ="99.76416" />
+-->
+
+
+<!-- Undercity to Silvermoon City: Orb of Translocation -->
+<!--
+<MoveTo Nav="Fly" DestName="Orb of Translocation in Undercity"
+        X="1806.391" Y="334.1435" Z="70.3974" />
+<CustomBehavior File="InteractWith" MobId="184503" PreInteractMountStrategy="DismountOrCancelShapeshift"
+                X="1805.848" Y="348.8648" Z="70.87273" />
+-->
+
+<!-- Silvermoon City to Undercity: Orb of Translocation -->
+<!--
+<MoveTo Nav="Run" DestName="Orb of Translocation in Silvermoon City"
+        X="10043.03" Y="-7000.537" Z="61.98714"/>
+<CustomBehavior File="InteractWith" MobId="184502" PreInteractMountStrategy="DismountOrCancelShapeshift"
+                X="10032.36" Y="-7000.288" Z="61.30979" />
+-->
+
+<!-- Eastern Kingdoms to Blood Elf area zone boundary -->
+<!--
+<MoveTo Nav="Fly" DestName="Stargate to Blood Elf area"
+        X="3461.971" Y="-4470.39" Z="137.2498" />
+<CustomBehavior File="GoThruPortal" X="3465.352" Y="-4475.219" Z="137.354" />
+-->
+
+<!-- Blood Elf area to Eastern Kingdoms zone boundary -->
+<!--
+<MoveTo Nav="Run" DestName="Stargate to Eastern Kingdoms"
+        X="6133.736" Y="-7008.952" Z="140.8468" />
+<CustomBehavior File"GoThruPortal" X="6128.427" Y="-7005.887" Z="139.4094" />
+-->
