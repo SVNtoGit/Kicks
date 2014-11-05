@@ -170,7 +170,7 @@ namespace NobleGardenerAchievement
                         int max = (int)(cnt / _data[i, 0]);
                         for (int j = 0; j < max; j++)
                         {
-                            String s = String.Format("UseItemByName(\"{0}\")", item.Name);
+                            String s = String.Format("UseItemByName(&quot;item:\"{0}\"&quot;)", item.Name);
                             slog("Using {0} we have {1}", item.Name, cnt);
                             Lua.DoString(s);
                             StyxWoW.SleepForLagDuration();

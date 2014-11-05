@@ -76,7 +76,7 @@ namespace PluginShattariHelper
                     if (item.Entry == 32446)
                     {
                         Logging.Write(_messageColor, "[Sha'tari Helper]: Using {0} we have {1}", item.Name, item.StackCount);
-                        Lua.DoString("UseItemByName(\"" + item.Name + "\")");
+                        Lua.DoString("UseItemByName(&quot;item:\"" + item.Name + "\"&quot;)");
                     }
                 }
             }
