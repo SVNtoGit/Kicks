@@ -38,6 +38,7 @@
         <Blackspot X="435.5926" Y="-910.9053" Z="-33.97211" Radius="10" /> <!-- Underwater mud -->
         <Blackspot X="455.7845" Y="-778.6798" Z="0.2282028" Radius="8" /> <!-- Height issue -->
         <Blackspot X="-391.8893" Y="-1375.101" Z="-19.66898" Radius="10" /> <!-- Root -->
+		<Blackspot X="2423.264" Y="397.0293" Z="0.8167335" Radius="15" /> <!-- Eventide Landing Infinite Spawn -->
     </Blackspots>
 
     <Mailboxes> <!-- Need to add Mailboxes and Vendors! -->
@@ -990,7 +991,7 @@
                 <CustomBehavior File="InteractWith" QuestId="34423" MobId="83670" Range="8" WaitTime="3000" X="3985.049" Y="-2933.867" Z="62.71131" />
                 <CustomBehavior File="InteractWith" QuestId="34423" MobId="83670" Range="8" WaitTime="3000" X="3985.527" Y="-2950.739" Z="91.71924" />
 
-                <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
+                <CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for Cinematic {TimeRemaining}" />
                 <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
              </While>
              <While Condition="!IsObjectiveComplete(4, 34423)"> <!-- Find Khadgar on Tar'thog Bridge -->
@@ -1242,9 +1243,12 @@
              </While>
             </If>
         <TurnIn QuestName="Keeping it Together" QuestId="35176" TurnInName="Baros Alexston" TurnInId="77209" X="1866.262" Y="263.6458" Z="77.17226" />
-            <Objective QuestName="Pale Moonlight" QuestId="35174" Type="KillMob" MobId="81670" KillCount="1" /> <!-- Gnaw Bloodseeker - might have an issue attacking with singular -->
+			<If Condition="HasQuest(35174) &amp;&amp; !IsQuestCompleted(35174)" >
+				<MoveTo QuestId="35174" X="2407.569" Y="551.201" Z="4.815737" />
+				<Objective QuestName="Pale Moonlight" QuestId="35174" Type="KillMob" MobId="81670" KillCount="1" /> <!-- Gnaw Bloodseeker - might have an issue attacking with singular -->
+			</If>
             <Objective QuestName="Ship Salvage" QuestId="35166" Type="CollectItem" ItemId="112696" CollectCount="15" />
-            <Objective QuestName="Pale Moonlight" QuestId="35174" Type="KillMob" MobId="79205" KillCount="8" />
+				<Objective QuestName="Pale Moonlight" QuestId="35174" Type="KillMob" MobId="79205" KillCount="8" />
         <TurnIn QuestName="Pale Moonlight" QuestId="35174" TurnInName="Vindicator Maraad" TurnInId="79457" X="1848.149" Y="244.5642" Z="76.80275" />
         <TurnIn QuestName="Ship Salvage" QuestId="35166" TurnInName="Baros Alexston" TurnInId="77209" X="1866.262" Y="263.6458" Z="77.17226" />
         <PickUp QuestName="Build Your Barracks" QuestId="34587" GiverName="Baros Alexston" GiverId="77209" X="1866.262" Y="263.6458" Z="77.17226" />
