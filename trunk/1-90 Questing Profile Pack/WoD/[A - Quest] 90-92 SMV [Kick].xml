@@ -888,9 +888,9 @@
         <PickUp QuestName="The Dark Portal" QuestId="34398" GiverName="Hero's Call Board" GiverId="206111" GiverType="Object" X="-8823.851" Y="630.5729" Z="94.136" />
             </If>
             <If Condition="HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)" >
-                <CustomBehavior File="FlyTo" DestName="Khadgar port to Tanaan" X="-8871.879" Y="587.5573" Z="93.08315" />
+                <CustomBehavior File="FlyTo" DestName="Khadgar port to Tanaan" X="-8836.918" Y="621.7521" Z="93.56944" />
                 <CustomBehavior File="ForcedDismount" />
-                <MoveTo X="-8871.879" Y="587.5573" Z="93.08245" />
+                <MoveTo X="-8836.918" Y="621.7521" Z="93.56944" />
 				<CustomBehavior File="InteractWith" MobId="78423" GossipOptions="1" NonCompeteDistance="0" KeepTargetSelected="True" Range="6" X="-8831.111" Y="623.9757" Z="94.09922" />  <!-- Khadgar -->
 				<CustomBehavior File="Misc\RunLua" Lua="StaticPopup1Button1:Click()" WaitTime="1000" />
                 <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
@@ -902,12 +902,14 @@
 
             <!-- Dark Portal -->
             <If Condition="!IsQuestCompleted(34393)" > <!-- Disable Pull for Dark Portal -->
+				<TargetingDistance Value="20" /> <!-- Use LevelBot default -->
                 <DisableBehavior Name="Pull" />
             </If>
         <PickUp QuestName="Azeroth's Last Stand" QuestId="35933" GiverName="Archmage Khadgar" GiverId="78558" X="4066.427" Y="-2372.571" Z="94.59667" />
             <While Condition="HasQuest(35933) &amp;&amp; !IsQuestCompleted(35933)"> <!-- Azeroth's Last Stand -->
                 <!--<Objective QuestName="Azeroth's Last Stand" QuestId="35933" Type="CollectItem" ItemId="113579" CollectCount="1" />-->
-                <CustomBehavior File="InteractWith" QuestId="35933" MobId="78883" MobState="Alive" X="4066.309" Y="-2304.655" Z="64.92082" />
+				<MoveTo X="4066.702" Y="-2355.357" Z="83.85883" />
+                <CustomBehavior File="InteractWith" QuestId="35933" MobId="78883" MobState="Alive" IgnoreLOS="False" X="4066.309" Y="-2304.655" Z="64.92082" />
             </While>
             <While Condition="HasQuest(35933) &amp;&amp; IsQuestCompleted(35933)"> <!-- Turnin Azeroth's Last Stand, Pickup Onslaught's End -->
                 <TurnIn QuestId="35933" /> <!-- Get 34392 -->
@@ -944,7 +946,7 @@
         <PickUp QuestName="The Cost of War" QuestId="34420" GiverName="Archmage Khadgar" GiverId="78558" X="4066.427" Y="-2372.571" Z="94.59733" />
             <If Condition="HasQuest(34420) &amp;&amp; IsQuestCompleted(34393)" > <!-- Enable Pull for Dark Portal -->
                 <EnableBehavior Name="Pull" />
-                <TargetingDistance Value="17" />
+                <TargetingDistance Value="40" />
             </If>
         <!-- End of Dark Portal -->
 
@@ -953,7 +955,7 @@
                 <MoveTo X="3936.718" Y="-2505.224" Z="69.73077" />
                 <CustomBehavior File="WaitTimer" WaitTime="7000" GoalText="Waiting for quest to complete {TimeRemaining}" />
         <TurnIn QuestName="The Cost of War" QuestId="34420" TurnInName="Archmage Khadgar" TurnInId="78559" X="3936.718" Y="-2505.224" Z="69.73077" /> <!-- NEW NPC ID -->
-                <TargetingDistance Value="17" />
+                <TargetingDistance Value="40" />
             </If>
         <PickUp QuestName="Blaze of Glory" QuestId="34422" GiverName="Archmage Khadgar" GiverId="78559" X="3936.718" Y="-2505.224" Z="69.73077" /> <!-- Npc leaves -->
         <PickUp QuestName="Vengeance for the Fallen" QuestId="35242" GiverName="Rephuura" GiverId="81763" X="3991.332" Y="-2552.413" Z="65.92829" />
