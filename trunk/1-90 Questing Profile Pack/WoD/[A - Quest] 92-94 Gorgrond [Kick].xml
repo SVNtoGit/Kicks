@@ -77,7 +77,7 @@
 		</Objective>
 	</Quest>
 	<Quest Id="35693" Name="A Harsh Reminder">
-		<Objective Type="KillMob" MobId="80685" KillCount="8">
+		<Objective Type="KillMob" MobId="88169" KillCount="8">
 			<Hotspots>
 				<Hotspot X="6114.207" Y="885.2479" Z="76.55743" />
 				<Hotspot X="6071.684" Y="982.66" Z="107.1226" />
@@ -651,7 +651,7 @@
 		<PickUp QuestName="We Need An Outpost" QuestId="35063" GiverName="Thaelin Darkanvil" GiverId="75136" X="6301.531" Y="697.934" Z="116.5991" />
 			<If Condition="HasQuest(35063) &amp;&amp; !IsQuestCompleted(35063)" > <!-- We Need An Outpost -->
 				<!-- I chose the sparring ring, option 2 - the lumber yard has a vehicle that you have to jump in if you want to use it npc's are in the same exact place regardless of which camp you choose -->
-				<CustomBehavior File="InteractWith" QuestId="35063" MobId="81119" Range="5" X="6303.061" Y="696.3594" Z="116.5769" />
+				<CustomBehavior File="InteractWith" QuestId="35063" MobId="81119" Range="5" NonCompeteDistance="0" X="6303.061" Y="696.3594" Z="116.5769" />
 				<CustomBehavior File="UserDialog" QuestId="35063" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="300" ExpiryAction="InputEnabled_Continue" Text="Choose a logging camp or sparring ring" />
 				<CustomBehavior File="Misc\RunLua" Lua="QuestChoiceFrameOption2.OptionButton:Click()" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
@@ -662,7 +662,7 @@
 		<PickUp QuestName="Seeking the Scout" QuestId="36432" GiverName="Rangari D'kaan" GiverId="75146" X="6325.343" Y="706.8889" Z="114.1237" />
 		<PickUp QuestName="Rangari in the Red" QuestId="35666" GiverName="Rangari D'kaan" GiverId="75146" X="6325.343" Y="706.8889" Z="114.1233" />
 			<If Condition="HasQuest(35686) &amp;&amp; !IsQuestCompleted(35686)" > <!-- Rage and Wisdom -->
-				<CustomBehavior File="InteractWith" QuestId="35686" MobId="81074" Range="5" GossipOptions="1" WaitTime="30000" X="6356.173" Y="747.1268" Z="116.6614" />
+				<CustomBehavior File="InteractWith" QuestId="35686" MobId="81074" Range="5" GossipOptions="1" NonCompeteDistance="0" WaitTime="30000" X="6356.173" Y="747.1268" Z="116.6614" />
 			</If>
 		<TurnIn QuestName="Rage and Wisdom" QuestId="35686" TurnInName="Rangari Erdanii" TurnInId="82610" X="5954.557" Y="1284.179" Z="143.1895" />
 		<PickUp QuestName="Seedbearers of Bad News" QuestId="35664" GiverName="Rangari Erdanii" GiverId="82610" X="5954.557" Y="1284.179" Z="143.1895" />
@@ -680,7 +680,26 @@
 				  </HuntingGrounds>
 				</CustomBehavior>
 			</While>
-			<Objective QuestName="A Harsh Reminder" QuestId="35693" Type="KillMob" MobId="80685" KillCount="8" />
+			<While Condition="HasQuest(35693) &amp;&amp; !IsQuestCompleted(35693)" >
+				<!--<Objective QuestName="A Harsh Reminder" QuestId="35693" Type="KillMob" MobId="88169" KillCount="8" /> blizz sucks -->
+				<CustomBehavior File="InteractWith" QuestId="35693" MobId="88169" NonCompeteDistance="0" Range="4" MobState="Alive" TerminateWhen="IsObjectiveComplete(1, 35693)" WaitTime="1000" >
+					<HuntingGrounds>
+						<Hotspot X="6114.207" Y="885.2479" Z="76.55743" />
+						<Hotspot X="6071.684" Y="982.66" Z="107.1226" />
+						<Hotspot X="6028.702" Y="1000.038" Z="115.2694" />
+						<Hotspot X="6037.023" Y="1058.861" Z="124.5591" />
+						<Hotspot X="6043.212" Y="1136.182" Z="129.3305" />
+						<Hotspot X="6051.626" Y="1174.225" Z="121.6552" />
+						<Hotspot X="6047.188" Y="1234.521" Z="101.8974" />
+						<Hotspot X="6108.031" Y="1296.655" Z="75.52615" />
+						<Hotspot X="6075.203" Y="1355.196" Z="68.39396" />
+						<Hotspot X="6120.994" Y="1358.915" Z="61.28251" />
+						<Hotspot X="6131.4" Y="1430.546" Z="46.01816" />
+						<Hotspot X="6108.596" Y="1500.714" Z="58.59127" />
+						<Hotspot X="6043.26" Y="1481.82" Z="79.2524" />
+					</HuntingGrounds>
+				</CustomBehavior>
+			</While>
 			<While Condition="HasQuest(35664) &amp;&amp; IsQuestCompleted(35664)" > <!-- Turnin Seedbearers of Bad News -->
                 <CustomBehavior File="InteractWith" MobId="82610" Range="6" WaitTime="2000" X="6102.186" Y="1391.904" Z="56.90799" />
                 <CustomBehavior File="Misc\RunLua" Lua="QuestTitleButton1:Click()" WaitTime="2000" />
