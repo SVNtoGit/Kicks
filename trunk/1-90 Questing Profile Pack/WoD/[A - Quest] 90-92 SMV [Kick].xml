@@ -1342,17 +1342,31 @@
             <If Condition="HasQuest(33070) &amp;&amp; !IsQuestCompleted(33070)" > <!-- Think of the Children! -->
              <!--
              <While Condition="!IsObjectiveComplete(3, 33070)"> // Arianna, she offers a quest to 'save' her
-                <CustomBehavior File="InteractWith" QuestId="33070" MobId="71502" Range="5" X="1201.639" Y="-1217.285" Z="-47.55474" />
+                <CustomBehavior File="InteractWith" QuestId="33070" MobId="71502" Range="5" NonCompeteDistance="0" X="1201.639" Y="-1217.285" Z="-47.55474" />
              </While>
              -->
              <While Condition="!IsObjectiveComplete(2, 33070)"> <!-- Rastaak -->
-                <CustomBehavior File="InteractWith" QuestId="33070" MobId="64224" Range="5" X="1052.969" Y="-1211.469" Z="-43.89405" />
+                <CustomBehavior File="InteractWith" QuestId="33070" MobId="64224" Range="5" NonCompeteDistance="0" X="1052.969" Y="-1211.469" Z="-43.89405" />
              </While>
              <While Condition="!IsObjectiveComplete(1, 33070)"> <!-- Hakaam -->
-                <CustomBehavior File="InteractWith" QuestId="33070" MobId="62769" Range="5" X="1280.321" Y="-1012.964" Z="-75.17734" />
+                <CustomBehavior File="InteractWith" QuestId="33070" MobId="62769" Range="5" NonCompeteDistance="0" X="1280.321" Y="-1012.964" Z="-75.17734" />
              </While>
             </If>
-			<Objective QuestName="Closing the Door" QuestId="33905" Type="KillMob" MobId="80181" KillCount="3" />
+			<If Condition="HasQuest(33905) &amp;&amp; !IsQuestCompleted(33905)" >
+				<!--<Objective QuestName="Closing the Door" QuestId="33905" Type="KillMob" MobId="80181" KillCount="3" /> keeps throwing an error for some reason -->
+                    <CustomBehavior File="InteractWith" QuestId="33905" MobId="80181" NonCompeteDistance="0" Range="4" TerminateWhen="IsQuestCompleted(33905)" WaitTime="1000" >
+                        <HuntingGrounds>
+							<Hotspot X="1128.205" Y="-917.9604" Z="-77.96919" />
+							<Hotspot X="1213.542" Y="-933.0298" Z="-72.51781" />
+							<Hotspot X="1101.259" Y="-792.1445" Z="-60.28044" />
+							<Hotspot X="1128.988" Y="-770.5161" Z="-63.40012" />
+							<Hotspot X="1152.79" Y="-771.7679" Z="-63.65951" />
+							<Hotspot X="1149.419" Y="-1159.177" Z="-65.24557" />
+							<Hotspot X="1045.06" Y="-1272.447" Z="-25.5513" />
+							<Hotspot X="984.0708" Y="-1213.484" Z="-23.2955" />
+                        </HuntingGrounds>
+                    </CustomBehavior>
+			</If>
             <Objective QuestName="Dark Enemies" QuestId="33765" Type="KillMob" MobId="80162" KillCount="8" />
         <TurnIn QuestName="Dark Enemies" QuestId="33765" TurnInName="Prophet Velen" TurnInId="74043" X="940.3281" Y="-1022.436" Z="-0.8042811" />
         <TurnIn QuestName="Think of the Children!" QuestId="33070" TurnInName="Prophet Velen" TurnInId="74043" X="940.3281" Y="-1022.436" Z="-0.8042811" />
