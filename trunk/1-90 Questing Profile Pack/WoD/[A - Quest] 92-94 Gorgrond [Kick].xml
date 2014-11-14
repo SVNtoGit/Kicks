@@ -12,7 +12,7 @@
     <SellGrey>true</SellGrey>
     <SellWhite>true</SellWhite>
     <SellGreen>true</SellGreen>
-    <SellBlue>false</SellBlue>
+    <SellBlue>true</SellBlue>
     <SellPurple>false</SellPurple>
 
     <MailGrey>false</MailGrey>
@@ -335,7 +335,7 @@
 	<Quest Id="35659" Name="Heart of the Fen">
 		<Objective Type="KillMob" MobId="86282" KillCount="1">
 			<Hotspots>
-				<Hotspot X="6219.874" Y="68.43924" Z="0.6366454" />
+				<Hotspot X="6220.037" Y="62.91552" Z="0.9801645" />
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -897,9 +897,9 @@
 		<TurnIn QuestName="Seeking the Scout" QuestId="36432" TurnInName="Altauur" TurnInId="85426" X="6883.931" Y="1027.418" Z="72.03157" />
 		<PickUp QuestName="Plant Pruning" QuestId="36436" GiverName="Altauur" GiverId="85426" X="6883.931" Y="1027.418" Z="72.03157" />
 		<PickUp QuestName="Ambassador to the Ancient" QuestId="36437" GiverName="Altauur" GiverId="85426" X="6883.931" Y="1027.418" Z="72.03157" />
-			<If Condition="HasQuest(36437) &amp;&amp; !IsQuestCompleted(36437)" > <!-- Ambassador to the Ancient -->
-				<CustomBehavior File="InteractWith" QuestId="36437" MobId="81723" Range="5" GossipOptions="1,1,1" X="7000" Y="955" Z="80.08334" /> <!-- Birchus -->
-			</If>
+			<While Condition="HasQuest(36437) &amp;&amp; !IsQuestCompleted(36437)" > <!-- Ambassador to the Ancient -->
+				<CustomBehavior File="InteractWith" QuestId="36437" MobId="81723" Range="5" GossipOptions="1,1,1" NonCompeteDistance="0" X="7000" Y="955" Z="80.08334" /> <!-- Birchus -->
+			</While>
 			<Objective QuestName="Plant Pruning" QuestId="36436" Type="KillMob" MobId="81721" KillCount="12" />
 		<TurnIn QuestName="Ambassador to the Ancient" QuestId="36437" TurnInName="Altauur" TurnInId="85432" X="6975.458" Y="869.9393" Z="93.22194" />
 		<TurnIn QuestName="Plant Pruning" QuestId="36436" TurnInName="Altauur" TurnInId="85432" X="6975.458" Y="869.9393" Z="93.22194" />
@@ -1013,7 +1013,10 @@
 				<CustomBehavior File="InteractWith" MobId="84700" X="8487.958" Y="1546.837" Z="79.16023" /> <!-- FP - Nisha -->
 				<MoveTo X="6337.186" Y="745.6736" Z="116.6775" />
 			</If>
+			<If Condition="HasQuest(36576) &amp;&amp; IsQuestCompleted(36576)" > <!-- Strike While the Iron is Hot -->
 		<TurnIn QuestName="Strike While the Iron is Hot" QuestId="36576" TurnInName="Vindicator Maraad" TurnInId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
+                <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
+			</If>
 		
 
 			<If Condition="Me.Level &lt; 94" > <!-- Get to Level 94 -->
