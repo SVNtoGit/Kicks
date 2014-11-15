@@ -1693,13 +1693,13 @@
             </If>
             <If Condition="HasQuest(35006) &amp;&amp; !IsQuestCompleted(35006)" > <!-- Poison Paralysis -->
              <While Condition="!IsObjectiveComplete(1, 35006)"> <!-- Rimblat Earthshatter -->
-                <CustomBehavior File="InteractWith" QuestId="35006" MobId="80894" Range="5" X="-383.5504" Y="-1421.799" Z="-16.85112" />
+                <CustomBehavior File="InteractWith" QuestId="35006" MobId="80894" Range="5" NonCompeteDistance="0" X="-383.5504" Y="-1421.799" Z="-16.85112" />
              </While>
              <While Condition="!IsObjectiveComplete(2, 35006)"> <!-- "Argus Highbeacon -->
-                <CustomBehavior File="InteractWith" QuestId="35006" MobId="80903" Range="5" X="-485.1528" Y="-1535.592" Z="-10.44795" />
+                <CustomBehavior File="InteractWith" QuestId="35006" MobId="80903" Range="5" NonCompeteDistance="0" X="-485.1528" Y="-1535.592" Z="-10.44795" />
              </While>
              <While Condition="!IsObjectiveComplete(3, 35006)"> <!-- Talren Highbeacon -->
-                <CustomBehavior File="InteractWith" QuestId="35006" MobId="80906" Range="5" X="-502.9965" Y="-1357.734" Z="-24.93779" />
+                <CustomBehavior File="InteractWith" QuestId="35006" MobId="80906" Range="5" NonCompeteDistance="0" X="-502.9965" Y="-1357.734" Z="-24.93779" />
              </While>
             </If>
             <While Condition="HasQuest(35014) &amp;&amp; !IsQuestCompleted(35014)" > <!-- Blademoon Bloom -->
@@ -2068,7 +2068,15 @@
                     <!-- need a get out of fire behavior or something -->
                 </While>
                 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 2">
-					<CustomBehavior File="InteractWith" MobId="79875" MobState="Alive" CollectionDistance="1000" WaitForNpcs="False" X="806.3987" Y="-2896.955" Z="102.3077" /> <!-- 5x noobs for part 1 of stage 2 -->
+				 <While Condition="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.GetStep(1).IsComplete">
+					<CustomBehavior File="InteractWith" MobId="79875" MobId2="79843" NonCompeteDistance="0" NumOfTimes="20" TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.GetStep(1).IsComplete"
+												WaitTime="2000" Range="3" CollectionDistance="1000" MobState="Alive" WaitForNpcs="False" PreInteractMountStrategy="DismountOrCancelShapeshift" > <!-- 5x noobs for part 1 of stage 2 -->
+					  <HuntingGrounds>
+						<Hotspot X="806.3987" Y="-2896.955" Z="102.3077" />
+						<Hotspot X="742.618" Y="-2958.512" Z="100.3674" />
+					  </HuntingGrounds>
+					</CustomBehavior>
+				 </While>
 					<!-- need a get out of fire behavior or something or hook - Spell: Iron Fleet Black Skies -->
 					<MoveTo X="578.7453" Y="-3074.575" Z="59.6398" />
                 </While>
