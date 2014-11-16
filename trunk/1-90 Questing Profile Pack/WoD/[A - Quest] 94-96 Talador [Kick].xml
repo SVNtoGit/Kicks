@@ -34,6 +34,8 @@
 		<Blackspot X="1848.37" Y="2530.332" Z="126.9699" Radius="20" /> <!-- Exarch's Refuge Unlimited Spawns -->
 		<Blackspot X="1868.75" Y="2187.048" Z="76.8568" Radius="10" /> <!-- Tomb of Lights unlimited spawns -->
 		<Blackspot X="1889.746" Y="2173.816" Z="76.99595" Radius="10" /> <!-- Tomb of Lights unlimited spawns -->
+		<Blackspot X="798.1111" Y="2623.68" Z="164.7325" Radius="20" /> <!-- Stay away from this mob -->
+		<Blackspot X="4048.485" Y="2183.158" Z="75.64412" Radius="50" Height="30" /> <!-- Horde Base - N Talador -->
     </Blackspots>
 
     <Mailboxes> <!-- Need to add Mailboxes and Vendors! -->
@@ -747,7 +749,16 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-
+	<Quest Id="34639" Name="Bonus Objective: Aruuna's Desolation">
+		<Objective Type="KillMob" MobId="79409" KillCount="1">
+			<Hotspots>
+				<Hotspot X="2458.659" Y="1239.388" Z="139.3004" />
+				<Hotspot X="2501.329" Y="1218.1" Z="145.0697" />
+				<Hotspot X="2502.63" Y="1263.354" Z="142.611" />
+				<Hotspot X="2464.317" Y="1264.254" Z="136.2622" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 
 
 
@@ -772,7 +783,7 @@
         <CustomBehavior File="Misc\ProfileCompatibilityInfo" AllowBrokenAddOns="true" AllowBrokenPlugIns="true" />
 
         <LootMobs Value="true" />
-        <TargetingDistance Value="25" />    <!-- Use LevelBot default -->
+        <TargetingDistance Value="45" />    <!-- Use LevelBot default -->
         <UseMount Value="true" />
         <!-- END: Checkpoint Block -->
 
@@ -859,6 +870,51 @@
 			<Objective QuestName="Not In Your House" QuestId="34804" Type="KillMob" MobId="80058" KillCount="1" />
 		<TurnIn QuestName="Not In Your House" QuestId="34804" TurnInName="Quartermaster ORiley" TurnInId="79963" X="3570.741" Y="1683.467" Z="172.9262" />
 			<!-- End of Fort Wrynn -->
+			
+			<!-- DISABLE IF WE HAVE MELEE ISSUES - Melee will have an issue with this quest until we get an interactwith.cs change - interactby pulling with ranged spell or something -->
+			<If Condition="!HasQuest(37421) &amp;&amp; !IsQuestCompleted(37421)" >  <!--Pickup Bonus Objective: Kuuro's Claim -->
+				<MoveTo X="3513.094" Y="1372.163" Z="114.4696" />
+				<!--
+		<PickUp QuestName="Bonus Objective: Kuuro's Claim" QuestId="37421" GiverName="" GiverId="" />
+		<TurnIn QuestName="Bonus Objective: Kuuro's Claim" QuestId="37421" TurnInName="" TurnInId="" />
+			-->
+			</If>
+			<If Condition="HasQuest(37421) &amp;&amp; !IsQuestCompleted(37421)" > <!-- Bonus Objective: Kuuro's Claim -->
+				<CustomBehavior File="InteractWith" QuestId="37421" MobId="80072" NumOfTimes="20" Range="8" CollectionDistance="15" MobState="Alive" TerminateWhen="IsObjectiveComplete(2, 37421)" >
+				  <HuntingGrounds>
+					<Hotspot X="3704.039" Y="1219.953" Z="83.25912" />
+					<Hotspot X="3763.13" Y="1175.983" Z="82.61898" />
+					<Hotspot X="3811.039" Y="1141.853" Z="82.99288" />
+					<Hotspot X="3765.272" Y="1114.259" Z="83.32668" />
+					<Hotspot X="3735.361" Y="1153.05" Z="82.76314" />			
+					<Hotspot X="3689.428" Y="1165.552" Z="104.2811" />
+					<Hotspot X="3675.108" Y="1117.753" Z="107.6984" />
+					<Hotspot X="3835.973" Y="1127.576" Z="108.575" />
+					<Hotspot X="3834.064" Y="1181.338" Z="108.3625" />
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="InteractWith" QuestId="37421" MobId="80013" NumOfTimes="20" Range="8" CollectionDistance="1000" MobState="Alive" TerminateWhen="IsObjectiveComplete(1, 37421)" >
+				  <HuntingGrounds>
+					<Hotspot X="3567.678" Y="1419.736" Z="122.4571" />
+					<Hotspot X="3507.329" Y="1375.185" Z="114.2123" />
+					<Hotspot X="3438.38" Y="1332.196" Z="126.9618" />
+					<Hotspot X="3465.708" Y="1326.865" Z="125.5617" />
+					<Hotspot X="3551.066" Y="1327.646" Z="115.8937" />
+					<Hotspot X="3613.221" Y="1323.841" Z="108.7074" />
+					<Hotspot X="3668.577" Y="1264.585" Z="96.89268" />
+					<Hotspot X="3704.039" Y="1219.953" Z="83.25912" />
+					<Hotspot X="3763.13" Y="1175.983" Z="82.61898" />
+					<Hotspot X="3811.039" Y="1141.853" Z="82.99288" />
+					<Hotspot X="3765.272" Y="1114.259" Z="83.32668" />
+					<Hotspot X="3735.361" Y="1153.05" Z="82.76314" />					
+					<Hotspot X="3689.428" Y="1165.552" Z="104.2811" />
+					<Hotspot X="3675.108" Y="1117.753" Z="107.6984" />
+					<Hotspot X="3835.973" Y="1127.576" Z="108.575" />
+					<Hotspot X="3834.064" Y="1181.338" Z="108.3625" />
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
 			
 			<!-- Redemption Rise -->
 		<TurnIn QuestName="One Step Ahead" QuestId="36801" TurnInName="Vindicator Maraad" TurnInId="75803" X="3400.251" Y="2074.618" Z="160.4136" />
@@ -1042,6 +1098,69 @@
 		<PickUp QuestName="Khadgar's Plan" QuestId="34963" GiverName="Vindicator Maraad" GiverId="75803" X="3400.251" Y="2074.618" Z="160.4136" />
 			<!-- End of Redemption Rise -->
 			
+			<If Condition="!HasQuest(35236) &amp;&amp; !IsQuestCompleted(35236)" > <!-- Pickup Bonus Objective: Orunai Coast -->
+				<MoveTo X="3992.986" Y="2354.968" Z="15.91541" />
+				<!-- 
+		<PickUp QuestName="Bonus Objective: Orunai Coast" QuestId="35236" GiverName="" GiverId="" />
+			<Objective QuestName="Bonus Objective: Orunai Coast" QuestId="35236" Type="KillMob" MobId="75815" KillCount="6" />
+			<Objective QuestName="Bonus Objective: Orunai Coast" QuestId="35236" Type="CollectItem" ItemId="112994" CollectCount="20" />
+		<TurnIn QuestName="Bonus Objective: Orunai Coast" QuestId="35236" TurnInName="" TurnInId="" />
+				-->
+			</If>
+			<If Condition="HasQuest(35236) &amp;&amp; !IsQuestCompleted(35236)" > <!-- Bonus Objective: Orunai Coast -->
+				<CustomBehavior File="InteractWith" QuestId="35236" MobId="231962" MobType="GameObject" NumOfTimes="20" Range="8" CollectionDistance="1000" TerminateWhen="IsObjectiveComplete(2, 35236)" >
+				  <HuntingGrounds>
+					<Hotspot X="3634.66" Y="2541.564" Z="10.72686" />
+					<Hotspot X="3696.958" Y="2563.637" Z="8.032303" />
+					<Hotspot X="3733.299" Y="2486.706" Z="11.33622" />
+					<Hotspot X="3795.019" Y="2463.727" Z="9.473437" />
+					<Hotspot X="3842.801" Y="2439.818" Z="10.08411" />
+					<Hotspot X="3907.817" Y="2428.477" Z="9.850216" />
+					<Hotspot X="3945.941" Y="2417.373" Z="14.37388" />
+					<Hotspot X="3997.844" Y="2442.4" Z="9.944968" />
+					<Hotspot X="4019.943" Y="2477.995" Z="10.34428" />
+					<Hotspot X="4044.808" Y="2427.915" Z="15.06996" />
+					<Hotspot X="4101.023" Y="2405.174" Z="17.35217" />
+					<Hotspot X="4077.553" Y="2367.91" Z="20.5936" />
+					<Hotspot X="4018.813" Y="2337.651" Z="18.01294" />
+					<Hotspot X="3995.877" Y="2281.808" Z="25.84417" />
+					<Hotspot X="3937.617" Y="2280.18" Z="18.7465" />
+					<Hotspot X="3887.729" Y="2231.698" Z="24.3466" />
+					<Hotspot X="3837.793" Y="2189.546" Z="21.5798" />
+					<Hotspot X="3805.12" Y="2263.327" Z="24.287" />
+					<Hotspot X="3766.464" Y="2323.898" Z="20.29201" />
+					<Hotspot X="3740.165" Y="2388.208" Z="16.88565" />
+					<Hotspot X="3732.125" Y="2452.807" Z="14.92428" />				  
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="InteractWith" QuestId="35236" MobId="75815" NumOfTimes="20" Range="5" CollectionDistance="1000" TerminateWhen="IsObjectiveComplete(1, 35236)" >
+				  <HuntingGrounds>
+					<Hotspot X="3634.66" Y="2541.564" Z="10.72686" />
+					<Hotspot X="3696.958" Y="2563.637" Z="8.032303" />
+					<Hotspot X="3733.299" Y="2486.706" Z="11.33622" />
+					<Hotspot X="3795.019" Y="2463.727" Z="9.473437" />
+					<Hotspot X="3842.801" Y="2439.818" Z="10.08411" />
+					<Hotspot X="3907.817" Y="2428.477" Z="9.850216" />
+					<Hotspot X="3945.941" Y="2417.373" Z="14.37388" />
+					<Hotspot X="3997.844" Y="2442.4" Z="9.944968" />
+					<Hotspot X="4019.943" Y="2477.995" Z="10.34428" />
+					<Hotspot X="4044.808" Y="2427.915" Z="15.06996" />
+					<Hotspot X="4101.023" Y="2405.174" Z="17.35217" />
+					<Hotspot X="4077.553" Y="2367.91" Z="20.5936" />
+					<Hotspot X="4018.813" Y="2337.651" Z="18.01294" />
+					<Hotspot X="3995.877" Y="2281.808" Z="25.84417" />
+					<Hotspot X="3937.617" Y="2280.18" Z="18.7465" />
+					<Hotspot X="3887.729" Y="2231.698" Z="24.3466" />
+					<Hotspot X="3837.793" Y="2189.546" Z="21.5798" />
+					<Hotspot X="3805.12" Y="2263.327" Z="24.287" />
+					<Hotspot X="3766.464" Y="2323.898" Z="20.29201" />
+					<Hotspot X="3740.165" Y="2388.208" Z="16.88565" />
+					<Hotspot X="3732.125" Y="2452.807" Z="14.92428" />				  
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+
 			<!-- Shattrath City -->
 		<TurnIn QuestName="Khadgar's Plan" QuestId="34963" TurnInName="Archmage Khadgar" TurnInId="75805" X="2981.135" Y="2602.592" Z="81.42542" />
 		<PickUp QuestName="The Battle for Shattrath" QuestId="34099" GiverName="Archmage Khadgar" GiverId="75805" X="2981.135" Y="2602.592" Z="81.42542" />
@@ -1179,7 +1298,52 @@
 		<TurnIn QuestName="Forbidden Knowledge" QuestId="33581" TurnInName="Darkscryer Raastok" TurnInId="75323" X="2149.842" Y="1629.007" Z="131.5271" />
 		<TurnIn QuestName="Kura's Vengeance" QuestId="33582" TurnInName="Kura the Blind" TurnInId="75324" X="2172.118" Y="1613.33" Z="132.08" />
 			<!-- End of Terrokar Refuge -->
-
+			
+			<If Condition="!HasQuest(34639) &amp;&amp; !IsQuestCompleted(34639)" > <!-- Pickup Bonus Objective: Aruuna's Desolation -->
+				<MoveTo X="2460.773" Y="1246.671" Z="138.4279" />
+			<!--
+		<PickUp QuestName="Bonus Objective: Aruuna's Desolation" QuestId="34639" GiverName="" GiverId="" />
+		<TurnIn QuestName="Bonus Objective: Aruuna's Desolation" QuestId="34639" TurnInName="" TurnInId="" />
+			-->
+			</If>
+			<If Condition="HasQuest(34639) &amp;&amp; !IsQuestCompleted(34639)" > <!-- Bonus Objective: Aruuna's Desolation -->
+				<CustomBehavior File="InteractWith" QuestId="34639" MobId="79432" NumOfTimes="20" Range="8" CollectionDistance="1000" TerminateWhen="IsObjectiveComplete(2, 34639)" PreInteractMountStrategy="Mount" >
+				  <HuntingGrounds>
+					<Hotspot X="2422.702" Y="1257.187" Z="132.9391" />
+					<Hotspot X="2444.114" Y="1227.835" Z="138.0857" />
+					<Hotspot X="2456.882" Y="1212.906" Z="141.2056" />
+					<Hotspot X="2480.386" Y="1190.662" Z="143.5159" />
+					<Hotspot X="2503.367" Y="1207.881" Z="146.7199" />
+					<Hotspot X="2527.227" Y="1253.143" Z="147.5969" />
+					<Hotspot X="2537.383" Y="1314.279" Z="144.1951" />
+					<Hotspot X="2540.396" Y="1358.557" Z="140.9363" />
+					<Hotspot X="2475.322" Y="1330.519" Z="130.4025" />
+					<Hotspot X="2448.484" Y="1322.708" Z="129.1127" />
+					<Hotspot X="2447.124" Y="1279.975" Z="131.9513" />
+					<Hotspot X="2437.74" Y="1248.256" Z="135.1069" />
+					<Hotspot X="2432.363" Y="1217.759" Z="136.8255" />					
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="InteractWith" QuestId="34639" MobId="79409" NumOfTimes="20" Range="8" CollectionDistance="1000" TerminateWhen="IsObjectiveComplete(1, 34639)" PreInteractMountStrategy="Mount" >
+				  <HuntingGrounds>
+					<Hotspot X="2422.702" Y="1257.187" Z="132.9391" />
+					<Hotspot X="2444.114" Y="1227.835" Z="138.0857" />
+					<Hotspot X="2456.882" Y="1212.906" Z="141.2056" />
+					<Hotspot X="2480.386" Y="1190.662" Z="143.5159" />
+					<Hotspot X="2503.367" Y="1207.881" Z="146.7199" />
+					<Hotspot X="2527.227" Y="1253.143" Z="147.5969" />
+					<Hotspot X="2537.383" Y="1314.279" Z="144.1951" />
+					<Hotspot X="2540.396" Y="1358.557" Z="140.9363" />
+					<Hotspot X="2475.322" Y="1330.519" Z="130.4025" />
+					<Hotspot X="2448.484" Y="1322.708" Z="129.1127" />
+					<Hotspot X="2447.124" Y="1279.975" Z="131.9513" />
+					<Hotspot X="2437.74" Y="1248.256" Z="135.1069" />
+					<Hotspot X="2432.363" Y="1217.759" Z="136.8255" />					
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+			
 			<!-- Gordal Foothills -->
 		<TurnIn QuestName="The Foot of the Fortress" QuestId="34908" TurnInName="Magister Serena" TurnInId="80607" X="1714.698" Y="2121.344" Z="139.1829" />
 		<PickUp QuestName="Dropping In" QuestId="34913" GiverName="Magister Serena" GiverId="80607" X="1714.698" Y="2121.344" Z="139.1829" />
@@ -1357,6 +1521,55 @@
 		<TurnIn QuestName="Payback" QuestId="34234" TurnInName="Vindicator Kaluud" TurnInId="78082" X="958.0851" Y="2828.872" Z="137.0375" />
 			<!-- End of Telmor -->
 
+			<If Condition="!HasQuest(34660) &amp;&amp; !IsQuestCompleted(34660)" > <!-- Pickup Bonus Objective: Zorkra's Fall -->
+			<!--
+		<PickUp QuestName="Bonus Objective: Zorkra's Fall" QuestId="34660" GiverName="" GiverId="" />
+		<TurnIn QuestName="Bonus Objective: Zorkra's Fall" QuestId="34660" TurnInName="" TurnInId="" />
+			-->
+				<MoveTo X="959.9715" Y="2694.429" Z="137.0162" />
+			</If>
+			<If Condition="HasQuest(34660) &amp;&amp; !IsQuestCompleted(34660)" > <!-- Bonus Objective: Zorkra's Fall -->
+				<!-- Get out of fire hook -->
+				<CustomBehavior File="InteractWith" QuestId="34660" MobId="79520" NumOfTimes="20" Range="8" CollectionDistance="1000" TerminateWhen="IsObjectiveComplete(1, 34660)" >
+				  <HuntingGrounds>
+					<Hotspot X="956.6469" Y="2662.293" Z="139.301" />
+					<Hotspot X="992.9975" Y="2616.458" Z="139.1055" />
+					<Hotspot X="1018.056" Y="2572.488" Z="140.2382" />
+					<Hotspot X="948.1746" Y="2558.231" Z="163.637" />
+					<Hotspot X="911.2748" Y="2586.47" Z="180.7223" />
+					<Hotspot X="891.6281" Y="2540.219" Z="173.92" />
+					<Hotspot X="850.3176" Y="2557.018" Z="173.8628" />
+					<Hotspot X="840.066" Y="2623.56" Z="158.4636" />
+					<Hotspot X="773.5976" Y="2648.495" Z="170.9692" />
+					<Hotspot X="777.6081" Y="2574.515" Z="172.7293" />
+					<Hotspot X="870.7785" Y="2626.948" Z="156.7644" />
+					<Hotspot X="919.2487" Y="2686.314" Z="143.2098" />
+					<Hotspot X="947.6258" Y="2660.778" Z="140.6195" />
+					<Hotspot X="948.2855" Y="2616.881" Z="145.3221" />
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="InteractWith" QuestId="34660" MobId="79544" NumOfTimes="20" Range="8" CollectionDistance="1000" TerminateWhen="IsObjectiveComplete(2, 34660)" >
+				  <HuntingGrounds>
+					<Hotspot X="956.6469" Y="2662.293" Z="139.301" />
+					<Hotspot X="992.9975" Y="2616.458" Z="139.1055" />
+					<Hotspot X="1018.056" Y="2572.488" Z="140.2382" />
+					<Hotspot X="948.1746" Y="2558.231" Z="163.637" />
+					<Hotspot X="911.2748" Y="2586.47" Z="180.7223" />
+					<Hotspot X="891.6281" Y="2540.219" Z="173.92" />
+					<Hotspot X="850.3176" Y="2557.018" Z="173.8628" />
+					<Hotspot X="840.066" Y="2623.56" Z="158.4636" />
+					<Hotspot X="773.5976" Y="2648.495" Z="170.9692" />
+					<Hotspot X="777.6081" Y="2574.515" Z="172.7293" />
+					<Hotspot X="870.7785" Y="2626.948" Z="156.7644" />
+					<Hotspot X="919.2487" Y="2686.314" Z="143.2098" />
+					<Hotspot X="947.6258" Y="2660.778" Z="140.6195" />
+					<Hotspot X="948.2855" Y="2616.881" Z="145.3221" />
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<!-- end hook -->
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+
 			<!-- Retribution Point / Auchindoun -->
 		<TurnIn QuestName="Changing the Tide" QuestId="34326" TurnInName="Restalaan" TurnInId="77799" X="1410.068" Y="3243.658" Z="133.6588" />
 		<PickUp QuestName="Desperate Measures" QuestId="34092" GiverName="Restalaan" GiverId="77799" X="1410.068" Y="3243.658" Z="133.6588" />
@@ -1407,6 +1620,18 @@
 			</If>
 		<PickUp QuestName="Come Together" QuestId="34707" GiverName="Exarch Maladaar" GiverId="77581" X="1485.623" Y="3108.74" Z="93.5532" />
 			<!-- End of Retribution Point -->
+			
+			<!-- UNABLE TO COMPLETE BONUS:
+			<MoveTo X="2067.464" Y="3222.48" Z="121.4647" /> (Court of Souls / West Talador )
+			<PickUp QuestName="Bonus Objective: Court of Souls" QuestId="34667" GiverName="" GiverId="" />
+			<Objective QuestName="Bonus Objective: Court of Souls" QuestId="34667" Type="KillMob" MobId="79499" KillCount="8" />
+			<Objective QuestName="Bonus Objective: Court of Souls" QuestId="34667" Type="KillMob" MobId="79503" KillCount="10" />
+			<Objective QuestName="Bonus Objective: Court of Souls" QuestId="34667" Type="KillMob" MobId="88822" KillCount="4" />
+			<TurnIn QuestName="Bonus Objective: Court of Souls" QuestId="34667" TurnInName="" TurnInId="" />
+
+			:: we have to use a vehicle to shoot down 4x 
+			<Vendor Name="Shadowgaze Batrider" Entry="79514" Type="Repair" X="1978.188" Y="3287.724" Z="149.9076" />
+			-->
 			
 			<!-- Journe Mine / Auchindoun -->
 		<TurnIn QuestName="Every Bit Counts" QuestId="34709" TurnInName="Ageilaa" TurnInId="78534" X="2196.828" Y="2858.67" Z="134.0391" />
@@ -1468,17 +1693,24 @@
 			<!-- Possibly use garrison hearth and then fp to Fort Wrynn -->
 			<!-- End of Journe Mine / Auchindoun -->
 			
+			<!-- ADD A GRIND TO 96 HERE JUST IN CASE -->
+		
+			<!-- Fort Wrynn to Our Garrison-->
+		<TurnIn QuestName="Come Together" QuestId="34707" TurnInName="Vindicator Icia" TurnInId="79618" X="3570.226" Y="1680.144" Z="172.837" />
+		<PickUp QuestName="News from Spires of Arak" QuestId="35554" GiverName="Vindicator Icia" GiverId="79618" X="3570.226" Y="1680.144" Z="172.8371" />
+			<!-- End of Talador -->
 			
-<MoveTo X="949.2708" Y="2821.113" Z="137.0338" />			
+			<!-- Our Garrison, SMV -->
+		<TurnIn QuestName="News from Spires of Arak" QuestId="35554" TurnInName="Bodrick Grey" TurnInId="81492" X="1941.726" Y="330.4358" Z="88.96596" />
 			
+			
+			
+			
+
 			
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Tested Profile. Development from here" />
 
 
-		
-			<!-- Fort Wrynn -->
-		<TurnIn QuestName="Come Together" QuestId="34707" TurnInName="Vindicator Icia" TurnInId="79618" X="3570.226" Y="1680.144" Z="172.837" />
-			<!-- new go to requires lvl 96. we must do bonus objectives or grind from here to go to next zone, i need 7 bars -->
 			
 		
 		<!--
@@ -1488,18 +1720,7 @@
 
 		
 
-UNABLE TO COMPLETE:
-<MoveTo X="2067.464" Y="3222.48" Z="121.4647" /> (Court of Souls / West Talador )
-<PickUp QuestName="Bonus Objective: Court of Souls" QuestId="34667" GiverName="" GiverId="" />
-<Objective QuestName="Bonus Objective: Court of Souls" QuestId="34667" Type="KillMob" MobId="79499" KillCount="8" />
-<Objective QuestName="Bonus Objective: Court of Souls" QuestId="34667" Type="KillMob" MobId="79503" KillCount="10" />
-<Objective QuestName="Bonus Objective: Court of Souls" QuestId="34667" Type="KillMob" MobId="88822" KillCount="4" />
-<TurnIn QuestName="Bonus Objective: Court of Souls" QuestId="34667" TurnInName="" TurnInId="" />
 
-:: we have to use a vehicle to shoot down 4x 
-<Vendor Name="Shadowgaze Batrider" Entry="79514" Type="Repair" X="1978.188" Y="3287.724" Z="149.9076" />
-
-and i don't want to code it right now. 		
 
 		-->
 
@@ -1523,6 +1744,15 @@ and i don't want to code it right now.
 			</If>
 			
 			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="8" 
+											CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+				  <HuntingGrounds>
+					
+				  </HuntingGrounds>
+				</CustomBehavior>
+			</While>
+			
+			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
 				<CustomBehavior File="InteractWith" QuestId="" MobId="" MobType="GameObject" NumOfTimes="20" Range="8" 
 											CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
 				  <HuntingGrounds>
@@ -1530,6 +1760,23 @@ and i don't want to code it right now.
 				  </HuntingGrounds>
 				</CustomBehavior>
 			</While>
+			
+			// bonus objectives quick copy
+			<If Condition="!HasQuest() &amp;&amp; !IsQuestCompleted()" >
+				<MoveTo 
+			</If>
+			<If Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="8" CollectionDistance="1000" TerminateWhen="IsObjectiveComplete(1, )" >
+				  <HuntingGrounds>
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="8" CollectionDistance="1000" TerminateWhen="IsObjectiveComplete(2, )" >
+				  <HuntingGrounds>
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+			
 
 			-->
 
