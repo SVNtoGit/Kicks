@@ -1,0 +1,170 @@
+<HBProfile xsi:noNamespaceSchemaLocation="../../../Schemas/QuestProfileSchema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <!-- Original contribution by Kickazz006 -->
+    <Name>[A - Quest] 96-98 Arik [Kick] ($Rev: 3405 $)</Name>
+
+    <MinLevel>96</MinLevel>
+    <MaxLevel>1001</MaxLevel>
+
+    <MinDurability>0.3</MinDurability>
+    <MinFreeBagSlots>3</MinFreeBagSlots>
+
+    <!-- NB: Honorbuddy sells before mailing -->
+    <SellGrey>true</SellGrey>
+    <SellWhite>true</SellWhite>
+    <SellGreen>true</SellGreen>
+    <SellBlue>true</SellBlue>
+    <SellPurple>false</SellPurple>
+
+    <MailGrey>false</MailGrey>
+    <MailWhite>true</MailWhite>
+    <MailGreen>true</MailGreen>
+    <MailBlue>true</MailBlue>
+    <MailPurple>true</MailPurple>
+
+    <TargetElites>false</TargetElites>
+
+    <AvoidMobs>
+    </AvoidMobs>
+
+    <Blackspots>
+    </Blackspots>
+
+    <Mailboxes> <!-- Need to add Mailboxes and Vendors! -->
+    </Mailboxes>
+
+    <Vendors> <!-- Need to add Mailboxes and Vendors! -->
+		<Vendor Name="Percy" Entry="79748" Type="Sell" X="863.1875" Y="2035.922" Z="181.2414" />		
+	</Vendors>
+
+   <!-- BEGIN: Quest Overrides -->
+   
+   <!-- END: Quest Overrides -->
+   <!-- SMV - Gorgrond - Talador - Spires - Nagrand -->
+
+
+    <QuestOrder IgnoreCheckpoints="true" >
+        <!-- BEGIN: Checkpoint Block
+             This code needs to be replicated after every checkpoint.
+             If you modify something in this block, don't forget to update the copy of this
+             block after each checkpoint, and the at the start of the <QuestOrder>, also.
+        -->
+        <CustomBehavior File="Misc\RunLua" Lua="SetCVar('AutoLootDefault', 1)" />
+        <CustomBehavior File="UserSettings" AutoEquip="true" />
+
+        <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
+        <CustomBehavior File="EnablePlugin" Names="Refreshment Detection" />
+
+        <CustomBehavior File="Misc\ProfileCompatibilityInfo" AllowBrokenAddOns="true" AllowBrokenPlugIns="true" />
+
+        <LootMobs Value="true" />
+        <TargetingDistance Value="45" /> <!-- Use LevelBot default -->
+        <UseMount Value="true" />
+        <!-- END: Checkpoint Block -->
+
+        <CustomBehavior File="Message" Text="Compiling Arik Quests" LogColor="CornflowerBlue" />
+		
+			<!-- Our Garrison, SMV -->
+		<PickUp QuestName="Arakkoa Exodus" QuestId="34653" GiverName="Bodrick Grey" GiverId="81492" X="1941.726" Y="330.4358" Z="88.96596" />
+			<If Condition="HasQuest(34653) &amp;&amp; Me.ZoneId != 6722"> <!-- Arakkoa Exodus -->
+				<CustomBehavior File="InteractWith" MobId="81103" GossipOptions="1" Range="5" WaitTime="5000" X="1864.33" Y="217.8108" Z="76.63776" /> <!-- Dungar @ Garrison Flies us to Arik -->
+			</If>
+			<!-- End of Garrison -->
+			
+			<!-- Terrokar Pass -->
+		<TurnIn QuestName="Arakkoa Exodus" QuestId="34653" TurnInName="Azik" TurnInId="79539" X="655.0746" Y="2384.804" Z="203.7571" />
+		<PickUp QuestName="The Shadows of Skettis" QuestId="34655" GiverName="Azik" GiverId="79539" X="655.0746" Y="2384.804" Z="203.7571" />
+			<If Condition="HasQuest(34655) &amp;&amp; !IsQuestCompleted(34655)" > <!-- The Shadows of Skettis -->
+				<CustomBehavior File="InteractWith" QuestId="34655" MobId="79519" GossipOptions="1" Range="5" TerminateWhen="IsObjectiveComplete(1, 34655)" X="861.1337" Y="2035.833" Z="179.6189" />
+			</If>
+		<TurnIn QuestName="The Shadows of Skettis" QuestId="34655" TurnInName="Reshad" TurnInId="79519" X="861.1337" Y="2035.833" Z="179.6189" />
+		<PickUp QuestName="Hidden in Plain Sight" QuestId="34656" GiverName="Reshad" GiverId="79519" X="861.1337" Y="2035.833" Z="179.6189" />
+		<PickUp QuestName="Adherents of the Sun God" QuestId="34657" GiverName="Reshad" GiverId="79519" X="861.1337" Y="2035.833" Z="179.6189" />
+			
+			
+
+			
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="End of Tested Profile. Development from here" />
+
+
+			
+		
+		<!--
+		
+
+			<Objective QuestName="Hidden in Plain Sight" QuestId="34656" Type="CollectItem" ItemId="111485" CollectCount="1" />
+			<Objective QuestName="Hidden in Plain Sight" QuestId="34656" Type="CollectItem" ItemId="111524" CollectCount="1" />
+		<TurnIn QuestName="Hidden in Plain Sight" QuestId="34656" TurnInName="Reshad" TurnInId="79519" X="861.1337" Y="2035.833" Z="179.6189" />
+
+			<Objective QuestName="Adherents of the Sun God" QuestId="34657" Type="KillMob" MobId="79598" KillCount="8" />
+		<TurnIn QuestName="Adherents of the Sun God" QuestId="34657" TurnInName="Reshad" TurnInId="79519" X="861.1337" Y="2035.833" Z="179.6189" />
+
+
+
+		
+
+
+
+		-->
+
+		<!--
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" Range="5" TerminateWhen="" 
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" GossipOptions="1" Range="5" TerminateWhen="" 
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" MobType="GameObject" Range="8" TerminateWhen="" 
+		
+			 <If Condition="!IsObjectiveComplete(1, )">
+			 </If>
+			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
+			</While>
+			<If Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
+			</If>
+			 <While Condition="!IsObjectiveComplete(1, 00000)"> 
+			 </While>
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" Range="5" 
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" ObjectType="GameObject" WaitTime="2000" Range="3" 
+
+			<If Condition="HasQuest() &amp;&amp; !HasItem()" >
+			</If>
+			
+			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="8" 
+											CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+				  <HuntingGrounds>
+					
+				  </HuntingGrounds>
+				</CustomBehavior>
+			</While>
+			
+			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" MobType="GameObject" NumOfTimes="20" Range="8" 
+											CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+				  <HuntingGrounds>
+					
+				  </HuntingGrounds>
+				</CustomBehavior>
+			</While>
+			
+			// bonus objectives quick copy
+			<If Condition="!HasQuest() &amp;&amp; !IsQuestCompleted()" >
+				<MoveTo 
+			</If>
+			<If Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="8" CollectionDistance="1000" TerminateWhen="IsObjectiveComplete(1, )" >
+				  <HuntingGrounds>
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="8" CollectionDistance="1000" TerminateWhen="IsObjectiveComplete(2, )" >
+				  <HuntingGrounds>
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+			
+
+			-->
+
+		
+
+		
+    </QuestOrder>
+
+</HBProfile>
