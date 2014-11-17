@@ -437,7 +437,7 @@
 
         <!--<CustomBehavior File="NoCombatMoveTo" DestName="The Scarlet Cannon" QuestId="12701" X="2112.288" Y="-6192.548" Z="13.24286" />-->
 
-        <CustomBehavior File="InteractWith" MobId="28833" NonCompeteDistance="0" PreInteractMountStrategy="Dismount" IgnoreCombat="true" />
+        <CustomBehavior File="InteractWith" MobId="28833" NonCompeteDistance="0" Range="4" PreInteractMountStrategy="Dismount" IgnoreCombat="true" />
         <DisableBehavior Name="Combat" />
         <CustomBehavior File="Vehicles\CannonControl" VehicleId="28833" MobId="28834" QuestId="12701"
                         MaxAngle="0.4363" MinAngle="-0.4363" Gravity="15" Velocity="75"
@@ -529,7 +529,17 @@
       X="1580.829" Y="-5702.371" Z="121.6818" />
 
     <Objective QuestName="Lambs To The Slaughter" QuestId="12722" Type="KillMob" MobId="28984" KillCount="10" />
-    <CustomBehavior File="KillUntilComplete" QuestId="12722" MobId="28942" MobId2="28939" MobId3="28610" MobId4="28946" X="1620.13" Y="-5785.031" Z="116.1579" />
+    <!--<CustomBehavior File="KillUntilComplete" QuestId="12722" MobId="28942" MobId2="28939" MobId3="28610" MobId4="28946" X="1620.13" Y="-5785.031" Z="116.1579" />-->
+				<CustomBehavior File="InteractWith" QuestId="12722" MobId="28942" MobId2="28939" MobId3="28610" MobId4="28946" NumOfTimes="20" Range="5" 
+											CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+				  <HuntingGrounds>
+					<Hotspot X="1749.125" Y="-5878.692" Z="116.0421" />
+					<Hotspot X="1647.12" Y="-5805.044" Z="117.1233" />
+					<Hotspot X="1656.584" Y="-5878.257" Z="117.1397" />
+					<Hotspot X="1749.042" Y="-5800.559" Z="117.1222" />
+					<Hotspot X="1620.13" Y="-5785.031" Z="116.1579" />
+				  </HuntingGrounds>
+				</CustomBehavior>
 
     <DisableBehavior Name="Pull" />
     <TurnIn QuestName="Nowhere To Run And Nowhere To Hide" QuestId="12719" TurnInName="Prince Keleseth" TurnInId="28911" />
@@ -639,9 +649,10 @@
         <PickUp QuestName="A Special Surprise" QuestId="12742" GiverName="Knight Commander Plaguefist" GiverId="29053" />
         <If Condition="HasQuest(12742)" >
             <MoveTo QuestId="12742" X="1322.76" Y="-5743.032" Z="137.4825" />
-            <CustomBehavior File="ForcedDismount" />
-            <CustomBehavior File="WaitTimer" QuestId="12742" WaitTime="65000" />
-            <CustomBehavior File="InteractWith" QuestId="12742" MobId="29061" NumOfTimes="3" />
+            <CustomBehavior QuestId="12742" File="ForcedDismount" />
+			<CustomBehavior File="InteractWith" QuestId="12742" MobId="29061" NonCompeteDistance="0" WaitTime="2000" />
+			<CustomBehavior File="WaitTimer" QuestId="12742" WaitTime="65000" />
+            <CustomBehavior File="InteractWith" QuestId="12742" MobId="29061" NonCompeteDistance="0" WaitTime="2000" TerminateWhen="IsObjectiveComplete(1, 12742)" />
             <TurnIn QuestName="A Special Surprise" QuestId="12742" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
     </If>
@@ -651,7 +662,7 @@
             <MoveTo QuestId="12743" X="1320.915" Y="-5763.294" Z="137.7958" />
             <CustomBehavior File="ForcedDismount" />
             <CustomBehavior File="WaitTimer" QuestId="12743" WaitTime="65000" />
-            <CustomBehavior File="InteractWith" QuestId="12743" MobId="29065" NumOfTimes="3" />
+            <CustomBehavior File="InteractWith" QuestId="12743" MobId="29065" NumOfTimes="3" NonCompeteDistance="0" />
             <TurnIn QuestName="A Special Surprise" QuestId="12743" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
     </If>
@@ -662,7 +673,7 @@
             <MoveTo QuestId="12744" X="1328.813" Y="-5756.786" Z="137.5204" />
             <CustomBehavior File="ForcedDismount" />
             <CustomBehavior File="WaitTimer" QuestId="12744" WaitTime="65000" />
-            <CustomBehavior File="InteractWith" QuestId="12744" MobId="29067" NumOfTimes="3" />
+            <CustomBehavior File="InteractWith" QuestId="12744" MobId="29067" NumOfTimes="3" NonCompeteDistance="0" />
             <TurnIn QuestName="A Special Surprise" QuestId="12744" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
     </If>
@@ -672,7 +683,7 @@
             <MoveTo QuestId="12745" X="1323.075" Y="-5753.536" Z="137.4002" />
             <CustomBehavior File="ForcedDismount" />
             <CustomBehavior File="WaitTimer" QuestId="12745" WaitTime="65000" />
-            <CustomBehavior File="InteractWith" QuestId="12745" MobId="29068" NumOfTimes="3" />
+            <CustomBehavior File="InteractWith" QuestId="12745" MobId="29068" NumOfTimes="3" NonCompeteDistance="0" />
             <TurnIn QuestName="A Special Surprise" QuestId="12745" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
     </If>
@@ -682,7 +693,7 @@
             <MoveTo QuestId="12746" X="1328.571" Y="-5770.191" Z="137.7798" />
             <CustomBehavior File="ForcedDismount" />
             <CustomBehavior File="WaitTimer" QuestId="12746" WaitTime="65000" />
-            <CustomBehavior File="InteractWith" QuestId="12746" MobId="29070" NumOfTimes="3" />
+            <CustomBehavior File="InteractWith" QuestId="12746" MobId="29070" NumOfTimes="3" NonCompeteDistance="0" />
             <TurnIn QuestName="A Special Surprise" QuestId="12746" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
     </If>
@@ -692,7 +703,7 @@
             <MoveTo QuestId="28649" X="1329.528" Y="-5760.226" Z="137.6601" />
             <CustomBehavior File="ForcedDismount" />
             <CustomBehavior File="WaitTimer" QuestId="28649" WaitTime="65000" />
-            <CustomBehavior File="InteractWith" QuestId="28649" MobId="49355" NumOfTimes="3" />
+            <CustomBehavior File="InteractWith" QuestId="28649" MobId="49355" NumOfTimes="3" NonCompeteDistance="0" />
             <TurnIn QuestName="A Special Surprise" QuestId="28649" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
     </If>
@@ -703,7 +714,7 @@
             <MoveTo QuestId="12747" X="1329.184" Y="-5764.597" Z="137.8205" />
             <CustomBehavior File="ForcedDismount" />
             <CustomBehavior File="WaitTimer" QuestId="12747" WaitTime="65000" />
-            <CustomBehavior File="InteractWith" QuestId="12747" MobId="29074" NumOfTimes="3" />
+            <CustomBehavior File="InteractWith" QuestId="12747" MobId="29074" NumOfTimes="3" NonCompeteDistance="0" />
             <TurnIn QuestName="A Special Surprise" QuestId="12747" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
     </If>
@@ -713,7 +724,7 @@
             <MoveTo QuestId="12748" X="1330.117" Y="-5748.344" Z="137.3985" />
             <CustomBehavior File="ForcedDismount" />
             <CustomBehavior File="WaitTimer" QuestId="12748" WaitTime="65000" />
-            <CustomBehavior File="InteractWith" QuestId="12748" MobId="29072" NumOfTimes="3" />
+            <CustomBehavior File="InteractWith" QuestId="12748" MobId="29072" NumOfTimes="3" NonCompeteDistance="0" />
             <TurnIn QuestName="A Special Surprise" QuestId="12748" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
     </If>
@@ -723,7 +734,7 @@
             <MoveTo QuestId="12749" X="1324.012" Y="-5749.29" Z="137.3751"  />
             <CustomBehavior File="ForcedDismount" />
             <CustomBehavior File="WaitTimer" QuestId="12749" WaitTime="65000" />
-            <CustomBehavior File="InteractWith" QuestId="12749" MobId="29073" NumOfTimes="3" />
+            <CustomBehavior File="InteractWith" QuestId="12749" MobId="29073" NumOfTimes="3" NonCompeteDistance="0" />
             <TurnIn QuestName="A Special Surprise" QuestId="12749" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
     </If>
@@ -733,7 +744,7 @@
             <MoveTo QuestId="12750" X="1330.277" Y="-5742.156" Z="137.5444" />
             <CustomBehavior File="ForcedDismount" />
             <CustomBehavior File="WaitTimer" QuestId="12750" WaitTime="65000" />
-            <CustomBehavior File="InteractWith" QuestId="12750" MobId="29071" NumOfTimes="3" />
+            <CustomBehavior File="InteractWith" QuestId="12750" MobId="29071" NumOfTimes="3" NonCompeteDistance="0" />
             <TurnIn QuestName="A Special Surprise" QuestId="12750" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
     </If>
@@ -743,7 +754,7 @@
             <MoveTo QuestId="12739" X="1320.289" Y="-5769.147" Z="137.7749" />
             <CustomBehavior File="ForcedDismount" />
             <CustomBehavior File="WaitTimer" QuestId="12739" WaitTime="65000" />
-            <CustomBehavior File="InteractWith" QuestId="12739" MobId="29032" NumOfTimes="3" />
+            <CustomBehavior File="InteractWith" QuestId="12739" MobId="29032" NumOfTimes="3" NonCompeteDistance="0" />
             <TurnIn QuestName="A Special Surprise" QuestId="12739" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
     </If>
@@ -753,7 +764,7 @@
             <MoveTo QuestId="28650" X="1322.655" Y="-5759.51" Z="137.6409" />
             <CustomBehavior File="ForcedDismount" />
             <CustomBehavior File="WaitTimer" QuestId="28650" WaitTime="65000" />
-            <CustomBehavior File="InteractWith" QuestId="28650" MobId="49356" NumOfTimes="3" />
+            <CustomBehavior File="InteractWith" QuestId="28650" MobId="49356" NumOfTimes="3" NonCompeteDistance="0" />
             <TurnIn QuestName="A Special Surprise" QuestId="28650" TurnInName="Knight Commander Plaguefist" TurnInId="29053" />
         </If>
     </If>
@@ -851,7 +862,7 @@
     <If Condition="HasQuest(13165)" >
         <CustomBehavior File="Misc\RunLua" Lua = "CastSpellByID(50977)" />
         <CustomBehavior File="WaitTimer" WaitTime="3000" />
-        <CustomBehavior File="InteractWith" MobId="190942" />
+        <CustomBehavior File="InteractWith" MobId="190942" NonCompeteDistance="0" />
     </If>
     <TurnIn QuestName="Taking Back Acherus" QuestId="13165" TurnInName="Highlord Darion Mograine" TurnInId="31084" />
 
@@ -885,14 +896,14 @@
         <DisableBehavior Name="Combat,Pull" />
         <If Condition="HasQuest(13189) &amp;&amp; Me.ZoneId == 139" >
             <CustomBehavior File="InteractWith" MobId="193052" CollectionDistance="4"
-                X="2348.233" Y="-5695.629" Z="382.2405" />
+                X="2348.233" Y="-5695.629" Z="382.2405" NonCompeteDistance="0" />
             <CustomBehavior File="WaitTimer" WaitTime="20000" />
         </If>
         <If Condition="HasQuest(13189)" >
             <CustomBehavior File="NoCombatMoveTo" X="1669.178" Y="-4343.229" Z="28.36206" />
             <TurnIn QuestName="Warchief's Blessing" QuestId="13189" TurnInName="Garrosh Hellscream" TurnInId="39605" X="1669.178" Y="-4343.229" Z="28.36206" />
             <CustomBehavior File="InteractWith" MobId="6929" InteractByGossipOptions="1"
-                X="1573.266" Y="-4439.158" Z="16.05683" />
+                X="1573.266" Y="-4439.158" Z="16.05683" NonCompeteDistance="0" />
             <CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" WaitTime="5000"/>
             <!-- Set Hearth to Org -->
         </If>
@@ -909,7 +920,7 @@
         <DisableBehavior Name="Combat,Pull" />
         <If Condition="HasQuest(13188) &amp;&amp; Me.ZoneId == 139" >
             <CustomBehavior File="InteractWith" MobId="193053" CollectionDistance="4"
-                X="2324.699" Y="-5659.518" Z="382.2405" />
+                X="2324.699" Y="-5659.518" Z="382.2405" NonCompeteDistance="0" />
             <CustomBehavior File="WaitTimer" WaitTime="10000" />
         </If>
         <If Condition="HasQuest(13188)">
@@ -917,7 +928,7 @@
             <TurnIn QuestId="13188" QuestName="Where Kings Walk" TurnInName="King Varian Wrynn" TurnInId="29611"
                 X="-8363.06" Y="232.236" Z="156.9907" />
             <CustomBehavior File="InteractWith" MobId="6740" InteractByGossipOptions="1"
-                X="-8867.786" Y="673.6729" Z="97.90324" />
+                X="-8867.786" Y="673.6729" Z="97.90324" NonCompeteDistance="0" />
             <CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" WaitTime="5000"/>
             <!-- Set Hearth to SW -->
         </If>
