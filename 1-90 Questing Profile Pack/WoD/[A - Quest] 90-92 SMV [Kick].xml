@@ -875,7 +875,11 @@
 
 
     <QuestOrder IgnoreCheckpoints="true" >
-        <!-- BEGIN: Checkpoint Block
+         <While Condition="Me.IsHorde">
+            <CustomBehavior File="UserDialog" AllowBotStop="true" SoundCue="Exclamation"
+                            SoundCueInterval="1" Text="You must be Alliance to run this profile!" />
+        </While>
+       <!-- BEGIN: Checkpoint Block
              This code needs to be replicated after every checkpoint.
              If you modify something in this block, don't forget to update the copy of this
              block after each checkpoint, and the at the start of the <QuestOrder>, also.
@@ -900,15 +904,21 @@
 
 
             <!-- Callboard if deleted quest - SW -->
-            <If Condition="!HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398) &amp;&amp; Me.MapId != 0 &amp;&amp; HasQuest(35933) &amp;&amp; !IsQuestCompleted(35933)" > <!-- EK -->
+            <If Condition="!HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398) &amp;&amp; Me.ZoneId == 1519 &amp;&amp; HasQuest(35933) &amp;&amp; !IsQuestCompleted(35933)" > <!-- SW -->
                 <CustomBehavior File="FlyTo" DestName="Callboard quest" X="-8830.302" Y="626.3619" Z="94.23802" />
         <PickUp QuestName="The Dark Portal" QuestId="34398" GiverName="Hero's Call Board" GiverId="206111" GiverType="Object" X="-8823.851" Y="630.5729" Z="94.136" />
             </If>
             <If Condition="HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)" >
+			 <If Condition="Me.ZoneId == 1519> <!-- SW -->
                 <CustomBehavior File="FlyTo" DestName="Khadgar port to Tanaan" X="-8836.918" Y="621.7521" Z="93.56944" />
                 <CustomBehavior File="ForcedDismount" />
                 <MoveTo X="-8836.918" Y="621.7521" Z="93.56944" />
-				<CustomBehavior File="InteractWith" MobId="78423" GossipOptions="1" NonCompeteDistance="0" KeepTargetSelected="True" Range="6" X="-8831.111" Y="623.9757" Z="94.09922" />  <!-- Khadgar -->
+				<CustomBehavior File="InteractWith" MobId="78423" GossipOptions="1" NonCompeteDistance="0" KeepTargetSelected="True" Range="6" X="-8831.111" Y="623.9757" Z="94.09922" /> <!-- Khadgar -->
+			 </If>
+			 <If Condition="Me.ZoneId == 4"> <!-- Blasted Lands -->
+                <MoveTo X="-8836.918" Y="621.7521" Z="93.56944" />
+				<CustomBehavior File="InteractWith" MobId="78423" GossipOptions="1" NonCompeteDistance="0" KeepTargetSelected="True" Range="6" X="-11812.26" Y="-3205.597" Z="-29.56283" /> <!-- Khadgar -->
+			 </If>
 				<CustomBehavior File="Misc\RunLua" Lua="StaticPopup1Button1:Click()" WaitTime="1000" />
                 <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
                 <!-- kill cinematic -->
