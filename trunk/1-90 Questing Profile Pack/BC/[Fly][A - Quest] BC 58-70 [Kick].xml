@@ -1975,7 +1975,7 @@
                         KillBetweenHotspots="false" />
         <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
 
-        <If Condition="Me.MapId == 0">
+        <If Condition="Me.MapId == 0 &amp;&amp; !IsQuestCompleted(10055)">
             <If Condition="Me.ZoneId == 1519" >
 
                 <MoveTo X="-8997.52" Y="860.5231" Z="29.6207" />
@@ -2061,8 +2061,7 @@
 
         <!-- Training Flying -->
         <CustomBehavior File="Hooks\MountHook" state="true" />
-        <If
-            Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; Me.Gold &gt;= 278 &amp;&amp; Me.Level &gt;= 60">
+        <If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; Me.Gold &gt;= 278 &amp;&amp; Me.Level &gt;= 60">
             <CustomBehavior File="Message" Text="Compiling Train Flying" LogColor="Orange" />
             <MoveTo X="-675.6533" Y="2735.204" Z="93.90858" DestName="Train Flying" />
             <CustomBehavior File="InteractWith" MobId="35100" CollectionDistance="50"
@@ -3375,6 +3374,25 @@
                     X="-1003.985" Y="4305.968" Z="67.98934" />
         </If>
 
+		<!-- Train flying -->
+		<If Condition="Me.GetSkill(Styx.SkillLine.Riding).CurrentValue &lt; 225 &amp;&amp; Me.Gold &gt;= 278 &amp;&amp; Me.Level &gt;= 60">
+            <CustomBehavior File="Message" Text="Compiling Train Flying" LogColor="Orange" />
+            <MoveTo X="-675.6533" Y="2735.204" Z="93.90858" DestName="Train Flying" />
+            <CustomBehavior File="InteractWith" MobId="35100" CollectionDistance="50"
+                            X="-677.5347" Y="2736.305" Z="93.90835" />
+            <CustomBehavior File="ForceTrainRiding" MobId="35100" />
+            <CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting {TimeRemaining}" />
+            <If Condition="!HasItem(25472)">
+                <CustomBehavior File="InteractWith" MobId="35101" InteractByBuyingItemId="25472" WaitTime="5000"
+                                CollectionDistance="50" X="-674.4774" Y="2743.128" Z="93.9173" />
+                <CustomBehavior File="WaitTimer" WaitTime="4000" />
+            </If>
+            <If Condition="HasItem(25472)">
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:25472&quot;)" />
+            </If>
+            <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
+            <CustomBehavior File="WaitTimer" WaitTime="4000" />
+        </If>
 
         <PickUp QuestName="Gaining Mirren's Trust" GiverName="Mirren Longbeard" QuestId="9563" GiverId="16851" />
         <If Condition="HasQuest(9563) &amp;&amp; !IsQuestCompleted(9563)">
@@ -3391,23 +3409,12 @@
                         <MoveTo X="-248.064" Y="930.2079" Z="84.37978" DestName="BC Portal" />
                     </If>
                     <While Condition="Me.MapId == 530">
-                        <CustomBehavior File="MyCTM" X="-245.7161" Y="896.1308" Z="84.3497" />
+						<CustomBehavior File="InteractWith" MobId="195139" Range="5" WaitTime="10000" X="-274.9913" Y="931.8889" Z="84.37974" /> <!-- Portal to SW -->
                         <CustomBehavior File="WaitTimer" WaitTime="10000" />
                     </While>
                 </If>
-
-                <If Condition="Me.MapId == 0">
-                    <If Condition="CanFly()">
-                        <CustomBehavior File="FlyTo" X="-10946.64" Y="-3369.315" Z="66.49876"
-                                        DestName="Fly to Bernie Heisten in Nethergard Keep" />
-                    </If>
-                    <MoveTo X="-10946.64" Y="-3369.315" Z="66.49876"
-                            DestName="Run to Bernie Heisten in Nethergard Keep" />
-                    <CustomBehavior File="WaitTimer" WaitTime="3000" />
-                    <CustomBehavior File="InteractWith" QuestId="9563" MobId="3546" InteractByBuyingItemId="23848"
-                                    WaitTime="3000" CollectionDistance="20"
-                                    X="-10946.64" Y="-3369.315" Z="66.49859" />
-                    <CustomBehavior File="WaitTimer" WaitTime="2000" />
+				
+                <If Condition="Me.MapId == 0"> <!-- EK -->
                     <If Condition="HasQuest(32675)">
                         <CustomBehavior File="Message" Text="Turnin 'I Believe You Can Fly'" LogColor="Orange" />
                         <TurnIn QuestName="I Believe You Can Fly" QuestId="32675" TurnInName="Bralla Cloudwing"
@@ -3419,27 +3426,42 @@
                             <CustomBehavior File="ForceTrainRiding" MobId="43769" />
                         </If>
                     </If>
+				
+					<If Condition="Me.ZoneId == 1519"> <!-- SW -->
+						<MoveTo X="-8847.934" Y="501.2358" Z="109.6099" />
+						<MoveTo X="-10946.64" Y="-3369.315" Z="66.49876" /> <!-- Blasted lands - utilize fp master in SW to BL -->
+					</If>
+				
                     <If Condition="CanFly()">
-                        <CustomBehavior File="FlyTo" X="-11903.13" Y="-3208.053" Z="-14.81489" DestName="BC Portal" />
+                        <CustomBehavior File="FlyTo" X="-10946.64" Y="-3369.315" Z="66.49876"
+                                        DestName="Fly to Bernie Heisten in Nethergard Keep" />
                     </If>
-                    <MoveTo X="-11903.13" Y="-3208.053" Z="-14.81489" />
-                    <While Condition="Me.MapId == 0">
-                        <CustomBehavior File="MyCTM" X="-11913.2" Y="-3209.895" Z="-14.09549" />
-                        <CustomBehavior File="WaitTimer" WaitTime="10000" />
-                    </While>
+                    <MoveTo X="-10946.64" Y="-3369.315" Z="66.49876"
+                            DestName="Run to Bernie Heisten in Nethergard Keep" />
+                    <CustomBehavior File="WaitTimer" WaitTime="3000" />
+                    <CustomBehavior File="InteractWith" QuestId="9563" MobId="3546" InteractByBuyingItemId="23848"
+                                    WaitTime="3000" CollectionDistance="20"
+                                    X="-10946.64" Y="-3369.315" Z="66.49859" />
+                    <CustomBehavior File="WaitTimer" WaitTime="2000" />
+					
                 </If>
             </If>
 
-            <If Condition="HasItem(23848)">
-                <While Condition="Me.MapId == 0">
-                    <If Condition="CanFly()">
-                        <CustomBehavior File="FlyTo" X="-11903.13" Y="-3208.053" Z="-14.81489" DestName="BC Portal" />
-                    </If>
-                    <MoveTo X="-11903.13" Y="-3208.053" Z="-14.81489" />
-                    <CustomBehavior File="MyCTM" X="-11913.2" Y="-3209.895" Z="-14.09549" />
-                    <CustomBehavior File="WaitTimer" WaitTime="10000" />
-                </While>
-            </If>
+              <If Condition="HasItem(23848) &amp;&amp; Me.MapId == 0">
+				<If Condition="Me.ZoneId == 4"> <!-- Blasted Lands -->
+					<CustomBehavior File="InteractWith" MobId="8609" Range="5" WaitTime="2000" X="-11110.18" Y="-3437.098" Z="79.19973" /> <!-- FP master - blasted lands to SW -->
+					<MoveTo X="-8989.315" Y="843.2309" Z="105.7572" />
+				</If>		  
+					<If Condition="CanFly()">
+						<CustomBehavior File="FlyTo" X="-8989.315" Y="843.2309" Z="105.7572" DestName="SW Portal" />
+					</If>
+					<MoveTo X="-8989.315" Y="843.2309" Z="105.7572" />
+				   </If>
+				<While Condition="Me.MapId == 0">
+					<MoveTo X="-8997.52" Y="860.5231" Z="29.6207" />
+
+					<CustomBehavior File="InteractWith" MobId="195141" Range="5" WaitTime="10000" X="-9003.66" Y="855.3229" Z="29.62067" /> <!-- portal to hellfire -->
+				</While>
 
         </If>
         <If Condition="Me.MapId == 530 &amp;&amp; HasQuest(9563) &amp;&amp; IsQuestCompleted(9563)">
