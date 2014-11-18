@@ -2102,6 +2102,12 @@
         <TurnIn QuestName="The Righteous March" QuestId="33255" TurnInName="Exarch Akama" TurnInId="72413" X="980.2604" Y="-2921.111" Z="99.33604" />
         <PickUp QuestName="The Defense of Karabor" QuestId="33256" GiverName="Exarch Akama" GiverId="72413" X="980.2604" Y="-2921.111" Z="99.33604" />
             <If Condition="HasQuest(33256) &amp;&amp; !IsQuestCompleted(33256)" > <!-- The Defense of Karabor -->
+				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerSphere" Command="Add" ObjectType="AreaTrigger" ObjectId="5805" Radius="4" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPoly" Command="Add" ObjectType="AreaTrigger" ObjectId="5633" Radius="14" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPolyFieryBlast" Command="Add" AvoidWhen="UNIT.HasAura(151731)" ObjectId="75358" Radius="4" 
+											AvoidLocationProducer="WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location, UNIT.Location.RayCast(UNIT.Rotation, 10))" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="BlazingShot" Command="Add" ObjectType="AreaTrigger" ObjectId="5797" Radius="4" />
+				<!-- still have to add a couple more -->
              <While Condition="(!IsObjectiveComplete(1, 33256))">
                 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 1">
                     <MoveTo X="830.7855" Y="-2869.874" Z="100.4185" />
@@ -2139,6 +2145,10 @@
                     <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
 					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for cutscene to end {TimeRemaining}" />
                 </If>
+				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPolyFieryBlast" Command="Remove" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerSphere" Command="Remove" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPoly" Command="Remove" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="BlazingShot" Command="Remove" />
             </If>
             <If Condition="HasQuest(33256) &amp;&amp; IsQuestCompleted(33256)" > <!-- The Defense of Karabor -->
                 <If Condition="Me.MapId == 1277" > <!-- 1277 = DefenseOfKaraborScenario -->
