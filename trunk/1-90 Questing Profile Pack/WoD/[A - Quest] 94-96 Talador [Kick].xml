@@ -816,17 +816,17 @@
 		<TurnIn QuestName="At Your Command" QuestId="34558" TurnInName="Foreman Eksos" TurnInId="79133" X="3601.91" Y="1666.689" Z="176.1843" />
 			<!-- End of Start Talador -->
 			
-			<!-- Artillery -->
-			<!-- 
-			<If Condition="Me.HasAura()" > Artillery Outpost Chosen
+			<If Condition="Object(231140) != null"> <!-- Artillery Outpost Chosen - Armory GO -->
 		<PickUp QuestName="The Quarry Quandary" QuestId="34563" GiverName="Foreman Eksos" GiverId="79133" X="3601.91" Y="1666.689" Z="176.1843" />
 			</If>
-			-->
-			<If Condition="Me.HasAura(162131)" > <!-- Arcane Sanctum Chosen -->
+			<If Condition="HasQuest(34563)" > <!-- The Quarry Quandary -->
+		<TurnIn QuestName="The Quarry Quandary" QuestId="34563" TurnInName="Apprentice Miall" TurnInId="79159" X="3662.293" Y="1703.188" Z="183.8708" />
+			</If>
+			
+			<!-- Arcane Sanctum / Khadgar's Tower -->
+			<If Condition="Object(231141) != null"> <!-- Arcane Sanctum Chosen - Mage Tower GO  -->
 		<PickUp QuestName="An Audience With The Archmage" QuestId="34631" GiverName="Foreman Eksos" GiverId="79133" X="3601.91" Y="1666.689" Z="176.1843" />
 			</If>
-
-			<!-- Arcane Sanctum / Khadgar's Tower -->
 			<If Condition="HasQuest(34631)" > <!-- An Audience With The Archmage -->
 		<TurnIn QuestName="An Audience With The Archmage" QuestId="34631" TurnInName="Archmage Khadgar" TurnInId="80142" X="3189.076" Y="1362.391" Z="174.0521" />
 			</If>
@@ -880,7 +880,7 @@
 			<!-- END OF SANCTUM CHAIN - PARTIAL -->
 			
 			<!-- START ARTILLERY QUESTS -->
-			<If Condition="!IsQuestCompleted(34631) &amp;&amp; !IsQuestCompleted(34981)" > <!-- Sanctum - An Audience With The Archmage / only way to travel -->
+			<If Condition="IsQuestCompleted(34563) &amp;&amp; !IsQuestCompleted(34981)" > <!-- The Quarry Quandary / only way to travel -->
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" ExpiryAction="InputEnabled_Continue" 
 										Text="You must manually do the artillery quests. Development from here. \n
 										Yes, you read correctly.  There are no more quests after this message. Don't post on forums and ask. \n
