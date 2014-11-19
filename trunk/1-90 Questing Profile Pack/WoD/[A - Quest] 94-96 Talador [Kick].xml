@@ -814,13 +814,23 @@
 				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
 			</If>
 		<TurnIn QuestName="At Your Command" QuestId="34558" TurnInName="Foreman Eksos" TurnInId="79133" X="3601.91" Y="1666.689" Z="176.1843" />
-		
-		<!-- Arcane Sanctum here -->
-		<PickUp QuestName="An Audience With The Archmage" QuestId="34631" GiverName="Foreman Eksos" GiverId="79133" X="3601.91" Y="1666.689" Z="176.1843" />
 			<!-- End of Start Talador -->
-		
-			<!-- Khadgar's Tower -->
+			
+			<!-- Artillery -->
+			<!-- 
+			<If Condition="Me.HasAura()" > Artillery Outpost Chosen
+		<PickUp QuestName="The Quarry Quandary" QuestId="34563" GiverName="Foreman Eksos" GiverId="79133" X="3601.91" Y="1666.689" Z="176.1843" />
+			</If>
+			-->
+			<If Condition="Me.HasAura(162131)" > <!-- Arcane Sanctum Chosen -->
+		<PickUp QuestName="An Audience With The Archmage" QuestId="34631" GiverName="Foreman Eksos" GiverId="79133" X="3601.91" Y="1666.689" Z="176.1843" />
+			</If>
+
+			<!-- Arcane Sanctum / Khadgar's Tower -->
+			<If Condition="HasQuest(34815)" > <!-- An Audience With The Archmage -->
 		<TurnIn QuestName="An Audience With The Archmage" QuestId="34631" TurnInName="Archmage Khadgar" TurnInId="80142" X="3189.076" Y="1362.391" Z="174.0521" />
+			</If>
+			<If Condition="IsQuestCompleted(34815)" > <!-- Sanctum - An Audience With The Archmage -->
 		<PickUp QuestName="Making Acquaintances" QuestId="34815" GiverName="Archmage Khadgar" GiverId="80142" X="3189.076" Y="1362.391" Z="174.0521" />
 			<While Condition="HasQuest(34815) &amp;&amp; !IsQuestCompleted(34815)" > <!-- Making Acquaintances -->
 				<CustomBehavior File="InteractWith" QuestId="34815" MobId="230872" MobType="GameObject" WaitTime="3000" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 34815)" X="3390.911" Y="1025.759" Z="179.1573" />
@@ -864,11 +874,22 @@
 				<CustomBehavior File="InteractWith" MobId="80932" WaitTime="3000" NonCompeteDistance="0" X="3422.721" Y="1038.17" Z="178.0847" /> <!-- Zangarra FP Master -->
 			</If>
 		<TurnIn QuestName="Next Steps" QuestId="34875" TurnInName="Magister Serena" TurnInId="80966" X="3591.667" Y="1683.741" Z="172.898" />
+		<PickUp QuestName="The Foot of the Fortress" QuestId="34908" GiverName="Magister Serena" GiverId="80966" X="3591.667" Y="1683.741" Z="172.898" />
 			<!-- End of Khadgar's Tower -->
+			</If>
+			<!-- END OF SANCTUM CHAIN - PARTIAL -->
+			
+			<If Condition="!IsQuestCompleted(34815)" > <!-- Sanctum - An Audience With The Archmage -->
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="3" ExpiryTime="299" ExpiryAction="InputEnabled_Continue" 
+										Text="You must manually do the artillery quests. Development from here. 
+										Yes, you read correctly.  There are no more quests after this message. Don't post on forums and ask. 
+										http://www.wowhead.com/guide=2548/garrison-outpost-guide-zone-wide-perks-quests-followers
+										" />
+										
+			</If>
 		
 			<!-- Fort Wrynn -->
 			<!-- Ignoring 3x Wanted Quests (3+ recommended) from Patrick Messer -->
-		<PickUp QuestName="The Foot of the Fortress" QuestId="34908" GiverName="Magister Serena" GiverId="80966" X="3591.667" Y="1683.741" Z="172.898" />
 		<PickUp QuestName="One Step Ahead" QuestId="36801" GiverName="Sloan McCoy" GiverId="86442" X="3602.425" Y="1682.88" Z="173.157" />
 		<PickUp QuestName="Why Is The Brew Gone?" QuestId="34773" GiverName="Quartermaster O'Riley" GiverId="79963" X="3570.741" Y="1683.467" Z="172.9262" />
 			<Objective QuestName="Why Is The Brew Gone?" QuestId="34773" Type="CollectItem" ItemId="111808" CollectCount="5" />
@@ -1352,6 +1373,9 @@
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
 			
+			<!-- ARCANE SANCTUM CHAIN -->
+			<If Condition="IsQuestCompleted(34815)" > <!-- Sanctum - An Audience With The Archmage -->
+			
 			<!-- Gordal Foothills -->
 		<TurnIn QuestName="The Foot of the Fortress" QuestId="34908" TurnInName="Magister Serena" TurnInId="80607" X="1714.698" Y="2121.344" Z="139.1829" />
 		<PickUp QuestName="Dropping In" QuestId="34913" GiverName="Magister Serena" GiverId="80607" X="1714.698" Y="2121.344" Z="139.1829" />
@@ -1422,6 +1446,8 @@
                 <CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
             </If>
 			<!-- End of Gordal Foothills -->
+			</If>
+			<!-- END OF ARCANE SANCTUM CHAIN -->
 		
 			<!-- Exarch's Refuge / Auchindoun -->
 		<PickUp QuestName="Speaker for the Dead" QuestId="34701" GiverName="Vindicator Icia" GiverId="79618" X="3570.226" Y="1680.144" Z="172.8371" /> <!-- Fort Wrynn -->
