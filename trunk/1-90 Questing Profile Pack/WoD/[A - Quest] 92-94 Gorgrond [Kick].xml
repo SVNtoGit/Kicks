@@ -662,10 +662,6 @@
 			</If>
 			<!-- We get different quests if we do lumber mill vs sparring arena -->
 		<TurnIn QuestName="We Need An Outpost" QuestId="35063" TurnInName="Thaelin Darkanvil" TurnInId="75136" X="6331.465" Y="732.6285" Z="115.3018" />
-		<!-- Certain quests will only become available from Vindicator Maraad depending on if you chose the lumber yard or sparring ring.  -->
-
-		
-		
 			<If Condition="Me.HasAura(168474)" > <!-- Sparring Arena - 168474 -->
 		<PickUp QuestName="Rage and Wisdom" QuestId="35686" GiverName="Vindicator Maraad" GiverId="75127" X="6337.186" Y="745.6736" Z="116.6776" />
 			</If>
@@ -673,6 +669,8 @@
 		<PickUp QuestName="Deeproot" QuestId="35212" GiverName="Thaelin Darkanvil" GiverId="75136" X="6331.465" Y="732.6285" Z="115.7079" />
 		<PickUp QuestName="Tangleheart" QuestId="35708" GiverName="Glirin" GiverId="85119" X="6329.924" Y="730.9462" Z="115.4108" />
 			</If>
+		<!-- LUMBER MILL OR ARENA CODE BELOW  -->
+		
 		<PickUp QuestName="Seeking the Scout" QuestId="36432" GiverName="Rangari D'kaan" GiverId="75146" X="6325.343" Y="706.8889" Z="114.1237" />
 		<PickUp QuestName="Rangari in the Red" QuestId="35666" GiverName="Rangari D'kaan" GiverId="75146" X="6325.343" Y="706.8889" Z="114.1233" />
 		
@@ -703,16 +701,17 @@
 		
 		
 		
+			
 			<If Condition="HasQuest(35686) &amp;&amp; !IsQuestCompleted(35686)" > <!-- Arena - Rage and Wisdom -->
 				<CustomBehavior File="InteractWith" QuestId="35686" MobId="81074" Range="5" GossipOptions="1" NonCompeteDistance="0" WaitTime="30000" X="6356.173" Y="747.1268" Z="116.6614" />
 			</If>
 			<If Condition="HasQuest(35686)" > <!-- Arena - Rage and Wisdom -->
 		<TurnIn QuestName="Rage and Wisdom" QuestId="35686" TurnInName="Rangari Erdanii" TurnInId="82610" X="5954.557" Y="1284.179" Z="143.1895" />
 			</If>
+			<!-- START ARENA CHAIN HERE -->
 			<If Condition="IsQuestCompleted(35686)" > <!-- Arena - Rage and Wisdom -->
 		<PickUp QuestName="Seedbearers of Bad News" QuestId="35664" GiverName="Rangari Erdanii" GiverId="82610" X="5954.557" Y="1284.179" Z="143.1895" />
 		<PickUp QuestName="A Harsh Reminder" QuestId="35693" GiverName="Rangari Erdanii" GiverId="82610" X="5954.557" Y="1284.179" Z="143.1895" />
-			</If>
 			<While Condition="HasQuest(35664) &amp;&amp; !IsQuestCompleted(35664)" > <!-- Seedbearers of Bad News -->
 				<CustomBehavior File="InteractWith" QuestId="35664" MobId="82392" NumOfTimes="20" Range="2" CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
 				  <HuntingGrounds WaypointVisitStrategy="Random" >
@@ -787,9 +786,9 @@
 			</If>
 		<TurnIn QuestName="Basilisk Butcher" QuestId="35870" TurnInName="Nisha" TurnInId="81674" X="6594.965" Y="1315.908" Z="64.63465" />
 		<TurnIn QuestName="On the Mend" QuestId="35026" TurnInName="Nisha" TurnInId="81674" X="6594.965" Y="1315.908" Z="64.63465" />
-		<!-- End Highpass -->
+		<!-- End Highpass - Arena Chain -->
 		
-		<!-- Breaker's Crown - Neutral -->
+		<!-- Breaker's Crown - Neutral - Arena Chain-->
 		<PickUp QuestName="Is This One of Yours?" QuestId="36508" GiverName="Rexxar" GiverId="83569" X="6606.086" Y="1301.87" Z="64.63428" />
 			<If Condition="HasQuest(36508) &amp;&amp; !IsQuestCompleted(36508)" > <!-- Is This One of Yours? -->
 				<CustomBehavior File="InteractWith" QuestId="36508" MobId="83569" Range="5" GossipOptions="1" X="6606.086" Y="1301.87" Z="64.63428" /> <!-- Rexxar -->
@@ -879,8 +878,9 @@
 			</If>
 		<PickUp QuestName="A Rediscovered Legend" QuestId="34704" GiverName="Rangari Jonaa" GiverId="81076" X="6349.229" Y="727.4277" Z="117.5588" />
 		<!-- End of Gronn Canyon -->
+			</If> <!-- PARTIAL END OF Arena Chain -->
 
-		<!-- Dionor's Demise -->
+		<!-- Dionor's Demise - EITHER CHAIN - MAYBE MOVE THIS UP AFTER WE GET LUMBER MILL? -->
 		<TurnIn QuestName="Rangari in the Red" QuestId="35666" TurnInName="Khaano" TurnInId="80762" X="6518.398" Y="215.6563" Z="27.79734" />
 		<PickUp QuestName="Scout Forensics" QuestId="35633" GiverName="Khaano" GiverId="80762" X="6518.398" Y="215.6563" Z="27.79734" />
 		<PickUp QuestName="Vengeance for the Fallen" QuestId="35640" GiverName="Dying Rangari" GiverId="82499" X="6433.159" Y="200.4097" Z="4.811454" />
@@ -972,6 +972,8 @@
 		<TurnIn QuestName="Laying Dionor to Rest" QuestId="36443" TurnInName="Birchus" TurnInId="82302" X="7000" Y="955" Z="80.08334" />
 			<!-- End of Dionor's Demise -->
 
+			<!-- START ARENA CHAIN HERE -->
+			<If Condition="IsQuestCompleted(35686)" > <!-- Arena - Rage and Wisdom -->
 			<!-- Stonemaul Arena -->
 			<!-- add in force repair / sell -->
 		<TurnIn QuestName="A Rediscovered Legend" QuestId="34704" TurnInName="Gladiator Akaani" TurnInId="79322" X="6157.402" Y="1570.752" Z="61.78229" />
@@ -1063,7 +1065,7 @@
 		<TurnIn QuestName="Strike While the Iron is Hot" QuestId="36576" TurnInName="Vindicator Maraad" TurnInId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
                 <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
 			</If>
-		
+			</If> <!-- END OF ARENA CHAIN -->
 
 			<If Condition="Me.Level &lt; 94" > <!-- Get to Level 94 -->
 				
