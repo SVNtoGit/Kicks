@@ -903,12 +903,13 @@
 			Text="We are not accepting bug reports against the 90-100 portion of this pack.  Please do NOT open new threads in the forum regarding bugs with these profiles--such threads will be deleted!" />
 
 
-            <!-- Callboard if deleted quest - SW -->
-            <If Condition="(!HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)) &amp;&amp; Me.ZoneId == 1519 &amp;&amp; (!HasQuest(35933) &amp;&amp; !IsQuestCompleted(35933))" > <!-- SW -->
+            <!-- Callboard if deleted quest - SW 
+            <If Condition="(!HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)) &amp;&amp; Me.ZoneId == 1519 &amp;&amp; (!HasQuest(35933) &amp;&amp; !IsQuestCompleted(35933))" >
                 <CustomBehavior File="FlyTo" DestName="Callboard quest" X="-8830.302" Y="626.3619" Z="94.23802" />
         <PickUp QuestName="The Dark Portal" QuestId="34398" GiverName="Hero's Call Board" GiverId="206111" GiverType="Object" X="-8823.851" Y="630.5729" Z="94.136" />
             </If>
-            <If Condition="HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)" >
+			-->
+            <If Condition="(HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)) || (HasQuest(36881) &amp;&amp; !IsQuestCompleted(36881))" >
 			 <If Condition="Me.ZoneId == 1519"> <!-- SW -->
                 <CustomBehavior File="FlyTo" DestName="Khadgar port to Tanaan" X="-8836.918" Y="621.7521" Z="93.56944" />
                 <CustomBehavior File="ForcedDismount" />
@@ -925,8 +926,13 @@
                 <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="1000" />
 				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for cutscene to end {TimeRemaining}" />
             </If>
-        <TurnIn QuestName="The Dark Portal" QuestId="34398" TurnInName="Archmage Khadgar" TurnInId="78558" X="4066.427" Y="-2372.571" Z="94.59667" />
-        <!-- End of SW / Callboard -->
+             <If Condition="HasQuest(34398)" >
+       <TurnIn QuestName="The Dark Portal" QuestId="34398" TurnInName="Archmage Khadgar" TurnInId="78558" X="4066.427" Y="-2372.571" Z="94.59667" />
+             </If>
+             <If Condition="HasQuest(36881)" >
+       <TurnIn QuestName="The Dark Portal" QuestId="36881" TurnInName="Archmage Khadgar" TurnInId="78558" X="4066.427" Y="-2372.571" Z="94.59667" />
+             </If>
+       <!-- End of SW / Callboard -->
 
             <!-- Dark Portal -->
             <If Condition="!IsQuestCompleted(34393)" > <!-- Disable Pull for Dark Portal -->
