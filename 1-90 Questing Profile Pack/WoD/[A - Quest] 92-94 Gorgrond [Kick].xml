@@ -657,22 +657,62 @@
 				<!-- I chose the sparring ring, option 2 - the lumber yard has a vehicle that you have to jump in if you want to use it npc's are in the same exact place regardless of which camp you choose -->
 				<CustomBehavior File="InteractWith" QuestId="35063" MobId="81119" Range="5" NonCompeteDistance="0" X="6303.061" Y="696.3594" Z="116.5769" />
 				<CustomBehavior File="UserDialog" QuestId="35063" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="300" ExpiryAction="InputEnabled_Continue" Text="Profile is written to assume sparring ring is chosen. YOU MUST CHOOSE THE SPARRING RING OR THE PROFILE WILL NOT RUN PROPERLY." />
-				<CustomBehavior File="Misc\RunLua" Lua="QuestChoiceFrameOption2.OptionButton:Click()" WaitTime="1000" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" QuestId="35063" Lua="QuestChoiceFrameOption2.OptionButton:Click()" WaitTime="1000" />
+				<CustomBehavior File="WaitTimer" QuestId="35063" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
 			<!-- We get different quests if we do lumber mill vs sparring arena -->
 		<TurnIn QuestName="We Need An Outpost" QuestId="35063" TurnInName="Thaelin Darkanvil" TurnInId="75136" X="6331.465" Y="732.6285" Z="115.3018" />
 		<!-- Certain quests will only become available from Vindicator Maraad depending on if you chose the lumber yard or sparring ring.  -->
-		<!-- Rage and Wisdom can only be picked up if you chose the sparring ring -->
+
+		
+		
+			<If Condition="Me.HasAura(168474)" > <!-- Sparring Arena - 168474 -->
 		<PickUp QuestName="Rage and Wisdom" QuestId="35686" GiverName="Vindicator Maraad" GiverId="75127" X="6337.186" Y="745.6736" Z="116.6776" />
+			</If>
+			<If Condition="Me.HasAura(168474)" > <!-- Lumber Mill - 168478 -->
+		<PickUp QuestName="Deeproot" QuestId="35212" GiverName="Thaelin Darkanvil" GiverId="75136" X="6331.465" Y="732.6285" Z="115.7079" />
+		<PickUp QuestName="Tangleheart" QuestId="35708" GiverName="Glirin" GiverId="85119" X="6329.924" Y="730.9462" Z="115.4108" />
+			</If>
 		<PickUp QuestName="Seeking the Scout" QuestId="36432" GiverName="Rangari D'kaan" GiverId="75146" X="6325.343" Y="706.8889" Z="114.1237" />
 		<PickUp QuestName="Rangari in the Red" QuestId="35666" GiverName="Rangari D'kaan" GiverId="75146" X="6325.343" Y="706.8889" Z="114.1233" />
-			<If Condition="HasQuest(35686) &amp;&amp; !IsQuestCompleted(35686)" > <!-- Rage and Wisdom -->
+		
+			<If Condition="HasQuest(35708)" > <!-- Lumber Mill - Tangleheart -->
+		<TurnIn QuestName="Tangleheart" QuestId="35708" TurnInName="Glirin" TurnInId="82575" X="5690.549" Y="493.4236" Z="105.457" />
+			</If>
+			<If Condition="IsQuestCompleted(35708)" > <!-- Lumber Mill - Tangleheart -->
+		<PickUp QuestName="Growing Wood" QuestId="35652" GiverName="Glirin" GiverId="82575" X="5690.549" Y="493.4236" Z="105.457" />
+		<PickUp QuestName="Lost Lumberjack" QuestId="36368" GiverName="Glirin" GiverId="82575" X="5690.549" Y="493.4236" Z="105.457" />
+		<!--
+			<Objective QuestName="Growing Wood" QuestId="35652" Type="CollectItem" ItemId="113136" CollectCount="100" />
+		<TurnIn QuestName="Growing Wood" QuestId="35652" TurnInName="Glirin" TurnInId="85130" />
+		<TurnIn QuestName="Lost Lumberjack" QuestId="36368" TurnInName="Frenna" TurnInId="82569" />
+		-->
+			</If>
+			
+			
+			
+			
+			
+			
+			<!--
+			<If Condition="HasQuest(35212)" >
+		<TurnIn QuestName="Deeproot" QuestId="35212" TurnInName="Thaelin Darkanvil" TurnInId="81588" />
+			</If>
+			-->
+		
+		
+		
+		
+			<If Condition="HasQuest(35686) &amp;&amp; !IsQuestCompleted(35686)" > <!-- Arena - Rage and Wisdom -->
 				<CustomBehavior File="InteractWith" QuestId="35686" MobId="81074" Range="5" GossipOptions="1" NonCompeteDistance="0" WaitTime="30000" X="6356.173" Y="747.1268" Z="116.6614" />
 			</If>
+			<If Condition="HasQuest(35686)" > <!-- Arena - Rage and Wisdom -->
 		<TurnIn QuestName="Rage and Wisdom" QuestId="35686" TurnInName="Rangari Erdanii" TurnInId="82610" X="5954.557" Y="1284.179" Z="143.1895" />
+			</If>
+			<If Condition="IsQuestCompleted(35686)" > <!-- Arena - Rage and Wisdom -->
 		<PickUp QuestName="Seedbearers of Bad News" QuestId="35664" GiverName="Rangari Erdanii" GiverId="82610" X="5954.557" Y="1284.179" Z="143.1895" />
 		<PickUp QuestName="A Harsh Reminder" QuestId="35693" GiverName="Rangari Erdanii" GiverId="82610" X="5954.557" Y="1284.179" Z="143.1895" />
+			</If>
 			<While Condition="HasQuest(35664) &amp;&amp; !IsQuestCompleted(35664)" > <!-- Seedbearers of Bad News -->
 				<CustomBehavior File="InteractWith" QuestId="35664" MobId="82392" NumOfTimes="20" Range="2" CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
 				  <HuntingGrounds WaypointVisitStrategy="Random" >
@@ -686,7 +726,7 @@
 				  </HuntingGrounds>
 				</CustomBehavior>
 			</While>
-			<While Condition="HasQuest(35693) &amp;&amp; !IsQuestCompleted(35693)" >
+			<While Condition="HasQuest(35693) &amp;&amp; !IsQuestCompleted(35693)" > <!-- A Harsh Reminder -->
 				<!--<Objective QuestName="A Harsh Reminder" QuestId="35693" Type="KillMob" MobId="88169" KillCount="8" /> blizz sucks -->
 				<CustomBehavior File="InteractWith" QuestId="35693" MobId="88169" NonCompeteDistance="0" Range="4" MobState="Alive" TerminateWhen="IsObjectiveComplete(1, 35693)" WaitTime="1000" >
 					<HuntingGrounds>
@@ -721,7 +761,7 @@
 		<TurnIn QuestName="Seedbearers of Bad News" QuestId="35664" Range="8" TurnInName="Rangari Erdanii" TurnInId="82610" X="6102.186" Y="1391.904" Z="56.90799" />
 		<PickUp QuestName="We Have Company" QuestId="35665" GiverName="Rangari Erdanii" GiverId="82610" X="6102.186" Y="1391.904" Z="56.90799" />
 			-->
-			<While Condition="!HasQuest(35665) &amp;&amp; !IsQuestCompleted(35665)" > <!-- Pickup We Have Company -->
+			<While Condition="!HasQuest(35665) &amp;&amp; !IsQuestCompleted(35665) &amp;&amp; IsQuestCompleted(35686)" > <!-- Pickup We Have Company -->
                 <CustomBehavior File="InteractWith" MobId="82610" Range="6" WaitTime="2000" X="6102.186" Y="1391.904" Z="56.90799" />
                 <CustomBehavior File="Misc\RunLua" Lua="QuestFrameAcceptButton:Click()" WaitTime="2000" />
 			</While>
