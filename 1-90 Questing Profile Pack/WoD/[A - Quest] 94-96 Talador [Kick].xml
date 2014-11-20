@@ -1521,7 +1521,11 @@
 		<PickUp QuestName="Pieces of Us" QuestId="33734" GiverName="Crystal-Shaper Barum" GiverId="75896" X="2889.734" Y="1476.467" Z="181.7534" />
 		<PickUp QuestName="Barum's aNotes" QuestId="33761" GiverName="Barum's Notes" GiverId="225778" GiverType="Object" X="2729.158" Y="1285.531" Z="187.9987" />	
 		<PickUp QuestName="Pyrophobia" QuestId="33578" GiverName="Raksi" GiverId="75311" X="2681.8" Y="1198.316" Z="197.4381" />
-			<Objective QuestName="Pyrophobia" QuestId="33578" Type="KillMob" MobId="75302" KillCount="1" />
+			<If Condition="HasQuest(33578) &amp;&amp; !IsQuestCompleted(33578)" > <!-- Pyrophobia -->
+				<CustomBehavior File="Hooks\Avoid" AvoidName="SolarZone" Command="Add" ObjectType="AreaTrigger" ObjectId="6622" Radius="5" />
+				<Objective QuestName="Pyrophobia" QuestId="33578" Type="KillMob" MobId="75302" KillCount="1" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="SolarZone" Command="Remove" />
+			</If>
 		<TurnIn QuestName="Pyrophobia" QuestId="33578" TurnInName="Raksi" TurnInId="75311" X="2681.8" Y="1198.316" Z="197.4381" />
 		<PickUp QuestName="What the Draenei Found" QuestId="33579" GiverName="Raksi" GiverId="75311" X="2681.8" Y="1198.316" Z="197.4381" />
 			<Objective QuestName="Pieces of Us" QuestId="33734" Type="CollectItem" ItemId="107851" CollectCount="1" />
