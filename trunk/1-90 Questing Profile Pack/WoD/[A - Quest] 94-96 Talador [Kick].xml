@@ -975,7 +975,7 @@
 			<!-- END OF SANCTUM CHAIN - PARTIAL -->
 			
 			<!-- START ARTILLERY QUESTS -->
-			<If Condition="IsQuestCompleted(34563) &amp;&amp; !IsQuestCompleted(34981)" > <!-- The Quarry Quandary / only way to travel -->
+			<If Condition="IsQuestCompleted(34563) &amp;&amp; !IsQuestCompleted(34981)" > <!-- The Quarry Quandary / The Only Way to Travel -->
 		<PickUp QuestName="In Ared's Memory" QuestId="35045" GiverName="Apprentice Miall" GiverId="79159" X="3662.293" Y="1703.188" Z="183.8707" />
 			<If Condition="HasQuest(35045)" > <!-- In Ared's Memory -->
 				<MoveTo X="3597.285" Y="1680.157" Z="172.9388" />
@@ -1702,6 +1702,7 @@
 			</If>
 			<If Condition="HasQuest(33917) &amp;&amp; IsQuestCompleted(33917)" > <!-- Disrupting the Flow -->
 		<TurnIn QuestName="Disrupting the Flow" QuestId="33917" TurnInName="Vindicator Nobundo" TurnInId="78482" X="1814.354" Y="2450.097" Z="129.3672" />
+				<CustomBehavior File="NoCombatMoveTo" X="1737.653" Y="2514.695" Z="133.6592" />
 				<TargetingDistance Value="45" /> <!-- Use LevelBot default -->
 			</If>
 		<TurnIn QuestName="Holding the Line" QuestId="34407" TurnInName="Exarch Maladaar" TurnInId="75119" X="1737.653" Y="2514.695" Z="133.6592" />
@@ -1863,10 +1864,10 @@
 		<PickUp QuestName="Hiding in the Shadows" QuestId="34163" GiverName="Shadow Council Communicator" GiverId="227737" GiverType="GameObject" X="1593.51" Y="3645.911" Z="157.7726" />
 		<PickUp QuestName="Book Burning" QuestId="34164" GiverName="Korthos Dawnfury" GiverId="77629" X="1489.457" Y="3806.353" Z="177.5265" />	
 			<While Condition="HasQuest(34163) &amp;&amp; !IsQuestCompleted(34163)" > <!-- Hiding in the Shadows -->
-				<CustomBehavior File="InteractWith" QuestId="34163" MobId="227680" Range="8" MobType="GameObject" X="1354.62" Y="3579.76" Z="176.91" /> <!-- Eastern -->
-				<CustomBehavior File="InteractWith" QuestId="34163" MobId="236352" Range="8" MobType="GameObject" X="1255.67" Y="3710.36" Z="214.8926" /><!-- Southern -->
-				<CustomBehavior File="InteractWith" QuestId="34163" MobId="236353" Range="8" MobType="GameObject" X="1631.479" Y="3777.78" Z="216.7447" /> <!-- Northern -->
-			</While>
+				<CustomBehavior File="InteractWith" QuestId="34163" MobId="227680" Range="4" TerminateWhen="IsObjectiveComplete(1, 34163)" MobType="GameObject" X="1354.62" Y="3579.76" Z="176.91" /> <!-- Eastern -->
+				<CustomBehavior File="InteractWith" QuestId="34163" MobId="236352" Range="4" TerminateWhen="IsObjectiveComplete(2, 34163)" MobType="GameObject" X="1255.67" Y="3710.36" Z="214.8926" /> <!-- Southern -->
+				<CustomBehavior File="InteractWith" QuestId="34163" MobId="236353" Range="4" TerminateWhen="IsObjectiveComplete(3, 34163)" MobType="GameObject" X="1631.479" Y="3777.78" Z="216.7447" /> <!-- Northern -->
+			</While> 
 		<TurnIn QuestName="Hiding in the Shadows" QuestId="34163" /> <!-- CLQ -->
 			<Objective QuestName="Book Burning" QuestId="34164" Type="CollectItem" ItemId="109259" CollectCount="3" /> <!-- 3 books to burn -->
 			<While Condition="HasQuest(34164) &amp;&amp; !IsQuestCompleted(34164)" > <!-- Book Burning -->
