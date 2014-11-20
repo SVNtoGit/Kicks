@@ -1107,8 +1107,44 @@
 			<Objective QuestName="Not In Your House" QuestId="34804" Type="KillMob" MobId="80058" KillCount="1" />
 		<TurnIn QuestName="Not In Your House" QuestId="34804" TurnInName="Quartermaster ORiley" TurnInId="79963" X="3570.741" Y="1683.467" Z="172.9262" />
 			<!-- End of Fort Wrynn -->
+
+			<If Condition="!HasQuest(37422) &amp;&amp; !IsQuestCompleted(37422) &amp;&amp; IsQuestCompleted(34563)" > <!-- ARTILLERY BONUS: Pickup Bonus Objective: Zangarra -->
+				<MoveTo X="3170.357" Y="831.5842" Z="79.12801" />
+				<!--
+		<PickUp QuestName="Bonus Objective: Zangarra" QuestId="37422" GiverName="" GiverId="" />
+		<TurnIn QuestName="Bonus Objective: Zangarra" QuestId="37422" TurnInName="" TurnInId="" />
+				-->
+			</If>
+			<If Condition="HasQuest(37422) &amp;&amp; !IsQuestCompleted(37422)" > <!-- Bonus Objective: Zangarra -->
+				<CustomBehavior File="InteractWith" QuestId="37422" MobId="79333" NumOfTimes="20" Range="8" CollectionDistance="1000" TerminateWhen="IsObjectiveComplete(1, 37422)" >
+				  <HuntingGrounds>
+					<Hotspot X="3289.594" Y="869.9839" Z="57.8108" />
+					<Hotspot X="3267.517" Y="958.6392" Z="41.6645" />
+					<Hotspot X="3352.155" Y="900.2118" Z="1.078875" />
+					<Hotspot X="3166.236" Y="924.2118" Z="39.367" />
+					<Hotspot X="3265.72" Y="1022.078" Z="39.59874" />
+					<Hotspot X="3306.402" Y="955.4496" Z="20.00258" />
+					<Hotspot X="3341.514" Y="899.4184" Z="-0.2390384" />
+					<Hotspot X="3222.581" Y="824.7274" Z="-1.721146" />
+					<Hotspot X="3264.261" Y="741.1024" Z="0.2861528" />
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="InteractWith" QuestId="37422" MobId="79335" NumOfTimes="20" Range="8" CollectionDistance="1000" TerminateWhen="IsObjectiveComplete(2, 37422)" >
+				  <HuntingGrounds>
+					<Hotspot X="3289.594" Y="869.9839" Z="57.8108" />
+					<Hotspot X="3267.517" Y="958.6392" Z="41.6645" />
+					<Hotspot X="3352.155" Y="900.2118" Z="1.078875" />
+					<Hotspot X="3166.236" Y="924.2118" Z="39.367" />
+					<Hotspot X="3265.72" Y="1022.078" Z="39.59874" />
+					<Hotspot X="3306.402" Y="955.4496" Z="20.00258" />
+					<Hotspot X="3341.514" Y="899.4184" Z="-0.2390384" />
+					<Hotspot X="3222.581" Y="824.7274" Z="-1.721146" />
+					<Hotspot X="3264.261" Y="741.1024" Z="0.2861528" />
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
 			
-			<!-- DISABLE IF WE HAVE MELEE ISSUES - Melee will have an issue with this quest until we get an interactwith.cs change - interactby pulling with ranged spell or something -->
 			<If Condition="!HasQuest(37421) &amp;&amp; !IsQuestCompleted(37421) &amp;&amp; IsQuestCompleted(34631)" >  <!-- SANCTUM BONUS: Pickup Bonus Objective: Kuuro's Claim -->
 				<MoveTo X="3513.094" Y="1372.163" Z="114.4696" />
 				<!--
@@ -1675,10 +1711,8 @@
                 <EnableBehavior Name="Pull" />
 				<TargetingDistance Value="1" /> <!-- Use LevelBot default -->
 			</If>
-			<!-- Add Hook: Get out of fire 
-				Fiery Trail - Id: 7710, Shape: AreaTriggerBox - Extents: <1.5, 0.75, 0.75>, ExtentsTarget: <1.5, 0.75, 0.75>, Flags: Unknown2, Unknown400, Unknown800, Unknown2000
-			-->
 			<While Condition="HasQuest(33917) &amp;&amp; !IsQuestCompleted(33917)" > <!-- Disrupting the Flow -->
+				<CustomBehavior File="Hooks\Avoid" AvoidName="FieryTrail" Command="Add" ObjectType="AreaTrigger" ObjectId="7710" Radius="2" />
 				<TargetingDistance Value="1" /> <!-- Use LevelBot default -->
 				<MoveTo X="1881.415" Y="2419.431" Z="121.6267" />
 				<TargetingDistance Value="10" /> <!-- Use LevelBot default -->
@@ -1705,10 +1739,10 @@
 		<TurnIn QuestName="Disrupting the Flow" QuestId="33917" TurnInName="Vindicator Nobundo" TurnInId="78482" X="1814.354" Y="2450.097" Z="129.3672" />
 				<CustomBehavior File="NoCombatMoveTo" X="1737.653" Y="2514.695" Z="133.6592" />
 				<TargetingDistance Value="45" /> <!-- Use LevelBot default -->
+				<CustomBehavior File="Hooks\Avoid" AvoidName="FieryTrail" Command="Remove" />
 			</If>
 		<TurnIn QuestName="Holding the Line" QuestId="34407" TurnInName="Exarch Maladaar" TurnInId="75119" X="1737.653" Y="2514.695" Z="133.6592" />
 		<TurnIn QuestName="Powering the Defenses" QuestId="34458" TurnInName="Soulbinder Tuulani" TurnInId="77737" X="1897.236" Y="2128.445" Z="76.93946" /> <!-- Tomb of Lights -->
-			<!-- Delete Hook: Get out of fire -->
 		<PickUp QuestName="We Must Construct Additional Pylons" QuestId="34351" GiverName="Soulbinder Tuulani" GiverId="77737" X="1897.236" Y="2128.445" Z="76.93946" />
 		<PickUp QuestName="Nightmare in the Tomb" QuestId="33530" GiverName="Yuuri" GiverId="76790" X="1828.885" Y="2213.498" Z="79.53819" />
 			<If Condition="HasQuest(34351)" >
@@ -1807,8 +1841,8 @@
 			-->
 				<MoveTo X="959.9715" Y="2694.429" Z="137.0162" />
 			</If>
-			<If Condition="HasQuest(34660) &amp;&amp; !IsQuestCompleted(34660)" > <!-- Bonus Objective: Zorkra's Fall -->
-				<!-- Get out of fire hook -->
+			<While Condition="HasQuest(34660) &amp;&amp; !IsQuestCompleted(34660)" > <!-- Bonus Objective: Zorkra's Fall -->
+				<CustomBehavior File="Hooks\Avoid" AvoidName="ShadowZone" Command="Add" ObjectType="AreaTrigger" ObjectId="6654" Radius="5" />
 				<CustomBehavior File="InteractWith" QuestId="34660" MobId="79520" NumOfTimes="20" Range="8" CollectionDistance="1000" TerminateWhen="IsObjectiveComplete(1, 34660)" >
 				  <HuntingGrounds>
 					<Hotspot X="956.6469" Y="2662.293" Z="139.301" />
@@ -1845,9 +1879,9 @@
 					<Hotspot X="948.2855" Y="2616.881" Z="145.3221" />
 				  </HuntingGrounds>
 				</CustomBehavior>
-				<!-- end hook -->
 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-			</If>
+				<CustomBehavior File="Hooks\Avoid" AvoidName="ShadowZone" Command="Remove" />
+			</While>
 
 			<!-- Retribution Point / Auchindoun -->
 		<TurnIn QuestName="Changing the Tide" QuestId="34326" TurnInName="Restalaan" TurnInId="77799" X="1410.068" Y="3243.658" Z="133.6588" />
