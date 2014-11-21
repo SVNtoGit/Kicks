@@ -1092,7 +1092,7 @@
                 <Objective QuestName="Keli'dan the Breaker" QuestId="34436" Type="KillMob" MobId="79702" KillCount="1" />
                 <!-- If we're trying to heal, it won't skip -->
                 <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for cutscene {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="10000" />
+                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="10000" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for cutscene to end {TimeRemaining}" />
             </If>
         <TurnIn QuestName="Keli'dan the Breaker" QuestId="34436" TurnInName="Archmage Khadgar" TurnInId="78562" X="4610.563" Y="-2246.493" Z="15.40344" /> <!-- New NPC Id -->
@@ -2086,12 +2086,14 @@
                     </SearchPath>
                 </CustomBehavior>
                 -->
-				<CustomBehavior File="KillUntilComplete" MobId1="76650" MobId2="76818" ImmediatelySwitchToHighestPriorityTarget="True"
+				<CustomBehavior File="KillUntilComplete" QuestId="33837" ImmediatelySwitchToHighestPriorityTarget="True"
 											TerminateWhen="IsObjectiveComplete(3, 33837)" X="599.1701" Y="-1209.141" Z="-21.42319" >
 					<PursuitList>
-						<PursueUnit Id="76650" Priority="9999" /> <!-- Risen Spirit x3 -->
-						<PursueUnit Id="76818" Priority="8888" /> <!-- Void Horror -->
-						<PursueUnit Id="76172" Priority="-9999" /> <!-- Ner'zhul -->
+					  <PursueUnit Id="76650" Priority="0" />
+					  <PursueUnit Id="76818" Priority="0" />
+					  <PursueUnit Id="76650" Priority="9999" /> <!-- Risen Spirit x3 -->
+					  <PursueUnit Id="76818" Priority="8888" /> <!-- Void Horror -->
+					  <PursueUnit Id="76172" Priority="-9999" /> <!-- Ner'zhul -->
 					</PursuitList>
 				</CustomBehavior>
              </While>
