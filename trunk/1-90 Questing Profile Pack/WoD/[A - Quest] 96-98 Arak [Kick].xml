@@ -491,16 +491,10 @@
 		<TurnIn QuestName="Inspecting the Troops" QuestId="35276" TurnInName="Jasper Fel" TurnInId="81915" X="-1059.425" Y="2257.431" Z="7.580749" />
 		<PickUp QuestName="Orders, Commander?" QuestId="35286" GiverName="Lieutenant Willem" GiverId="81929" X="-1072.765" Y="2267.486" Z="6.815571" />
 			<While Condition="HasQuest(35286) &amp;&amp; !IsQuestCompleted(35286)" > <!-- Orders, Commander? -->
-		
-			<CustomBehavior File="UserDialog" SoundCue="Exclamation" SoundCueInterval="30" StopOnContinue="True" 
-										Text="End of Dev Profile. Development from here. \n
-										Yes, you read correctly.  There are no more quests after this message. Don't post on forums and ask.\n
-										I will choose brewery and dev that first." />
-										
 				<CustomBehavior File="InteractWith" QuestId="35286" MobId="232089" NonCompeteDistance="0" MobType="GameObject" X="-1074.243" Y="2272.849" Z="6.641958" />
 				<!-- I chose the Stocktron Brewery, option 1 -->
 				<CustomBehavior File="UserDialog" QuestId="34558" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="300" 
-											ExpiryAction="InputEnabled_Continue" Text="Choose a Brewery or Den - I chose Brewery.  If you do not choose Brewery, you must do this zone manually." />
+											ExpiryAction="InputEnabled_Continue" Text="Choose a Brewery or Den.  Brewery has a 20% XP Boost.\nBoth are developed." />
 				<CustomBehavior File="Misc\RunLua" QuestId="34558" Lua="QuestChoiceFrameOption1.OptionButton:Click()" WaitTime="8000" />
 			</While>
 		<TurnIn QuestName="Orders, Commander?" QuestId="35286" TurnInName="Lieutenant Willem" TurnInId="81929" X="-1072.765" Y="2267.486" Z="6.815571" />
@@ -519,10 +513,8 @@
 			</If>
 
 			<!-- BREWERY -->
-			<If Condition="HasQuest(37327)"> <!-- Befriending the Locals -->
+			<If Condition="(HasQuest(37327) || IsQuestCompleted(37327)" > <!-- BREWERY CHAIN -->
 		<TurnIn QuestName="Befriending the Locals" QuestId="37327" TurnInName="Dusk-Seer Irizzar" TurnInId="83463" X="-592.6059" Y="2020.816" Z="15.62265" />
-			</If>
-			<If Condition="IsQuestCompleted(37327)" > <!-- BREWERY CHAIN -->
 		<PickUp QuestName="A Lack of Wasps" QuestId="37296" GiverName="Dusk-Seer Irizzar" GiverId="83463" X="-592.6059" Y="2020.816" Z="15.62265" />
 			<Objective QuestName="A Lack of Wasps" QuestId="37296" Type="KillMob" MobId="84866" KillCount="8" />
 		<TurnIn QuestName="A Lack of Wasps" QuestId="37296" TurnInName="Dusk-Seer Irizzar" TurnInId="83463" X="-592.6059" Y="2020.816" Z="15.62265" />
