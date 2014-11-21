@@ -2074,16 +2074,26 @@
              <While Condition="(!IsObjectiveComplete(3, 33837))">
                 <!-- 76650 - Risen Spirit, but we need to switch to this other guy when main guy is at like 10-15%
                 <CustomBehavior File="InteractWith" QuestId="33837" MobId="76172" NonCompeteDistance="0" X="599.1702" Y="-1209.141" Z="-21.4232" />
+				
                 <Vendor Name="Void Horror" Entry="76818" Type="Repair" X="586.387" Y="-1193.257" Z="-21.42324" />
-
+				<Vendor Name="Ner'zhul" Entry="76172" Type="Repair" X="599.1701" Y="-1209.141" Z="-21.42319" />
                 // Yrel NpcId is a guess! get correct id when running!
-                -->
+				
                 <CustomBehavior File="EscortGroup" QuestId="33837" EscortCompleteWhen="QuestObjectiveComplete" QuestObjectiveIndex="3" EscortCountMax="2"
                                             EscortNpcId="73395" PriorityTargetId="76818" PriorityTargetId2="76650" EscortMaxFightDistance="60" SearchForNpcsRadius="75" >
                     <SearchPath>
                         <Hotspot X="599.1702" Y="-1209.141" Z="-21.4232" />
                     </SearchPath>
                 </CustomBehavior>
+                -->
+				<CustomBehavior File="KillUntilComplete" MobId1="76650" MobId2="76818" ImmediatelySwitchToHighestPriorityTarget="True"
+											TerminateWhen="IsObjectiveComplete(3, 33837)" X="599.1701" Y="-1209.141" Z="-21.42319" >
+					<PursuitList>
+						<PursueUnit Id="76650" Priority="9999" /> <!-- Risen Spirit x3 -->
+						<PursueUnit Id="76818" Priority="8888" /> <!-- Void Horror -->
+						<PursueUnit Id="76172" Priority="-9999" /> <!-- Ner'zhul -->
+					</PursuitList>
+				</CustomBehavior>
              </While>
                 <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for Cinematic {TimeRemaining}" />
                 <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
