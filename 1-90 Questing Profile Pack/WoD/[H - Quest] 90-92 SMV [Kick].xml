@@ -320,7 +320,7 @@
  				<CustomBehavior File="Misc\RunLua" Lua="StaticPopup1Button1:Click()" WaitTime="3000" />
                 <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
                 <!-- kill cinematic -->
-                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="3000" />
+                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="3000" />
             </If>
              <If Condition="HasQuest(36881)" >
        <TurnIn QuestName="The Dark Portal" QuestId="36881" TurnInName="Archmage Khadgar" TurnInId="78558" X="4066.427" Y="-2372.571" Z="94.59667" />
@@ -357,14 +357,14 @@
                 <MoveTo X="4034.27" Y="-2377.651" Z="79.64513" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
                 <!-- kill cinematic -->
-                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="1000" />
              </While>
                 <CustomBehavior File="InteractWith" QuestId="34393" MobId="229598" ObjectType="GameObject" NonCompeteDistance="0" Range="8" TerminateWhen="IsObjectiveComplete(2, 34393)" WaitTime="3000" X="4099.781" Y="-2402.887" Z="69.81522" /> <!-- Burning Blade -->
                 <CustomBehavior File="InteractWith" QuestId="34393" MobId="229599" ObjectType="GameObject" NonCompeteDistance="0" Range="8" TerminateWhen="IsObjectiveComplete(3, 34393)" WaitTime="3000" X="4067.173" Y="-2435.339" Z="69.09592" /> <!-- Shattered Hand -->
                 <CustomBehavior File="InteractWith" QuestId="34393" MobId="229600" ObjectType="GameObject" NonCompeteDistance="0" Range="8" TerminateWhen="IsObjectiveComplete(4, 34393)" WaitTime="3000" X="4033.497" Y="-2403.375" Z="69.81548" /> <!-- Blackrock -->
                 <CustomBehavior File="InteractWith" QuestId="34393" MobId="233104" ObjectType="GameObject" NonCompeteDistance="0" Range="8" TerminateWhen="IsObjectiveComplete(5, 34393)" WaitTime="3000" X="4066.543" Y="-2402.026" Z="78.02605" /> <!-- Stasis Core -->
                 <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="1000" />
+                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="1000" />
             </If>
         <TurnIn QuestName="The Portal's Power" QuestId="34393" TurnInName="Archmage Khadgar" TurnInId="78558" X="4066.427" Y="-2372.571" Z="94.59733" />
         <PickUp QuestName="The Cost of War" QuestId="34420" GiverName="Archmage Khadgar" GiverId="78558" X="4066.427" Y="-2372.571" Z="94.59733" />
@@ -416,7 +416,7 @@
                 <CustomBehavior File="InteractWith" QuestId="34423" MobId="83670" Range="8" WaitTime="3000" X="3985.527" Y="-2950.739" Z="91.71924" />
 
                 <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
              </While>
              <While Condition="!IsObjectiveComplete(4, 34423)"> <!-- Find Khadgar on Tar'thog Bridge -->
                 <MoveTo X="4191.499" Y="-2786.998" Z="26.74773" /> <!-- Npc Id 78560 -->
@@ -456,7 +456,7 @@
                 <CustomBehavior File="WaitTimer" QuestId="34429" WaitTime="10000" GoalText="Waiting for cutscene {TimeRemaining}" /> <!-- don't edit timer - Kick -->
              </While>
                 <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for cutscene {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
             </If>
         <TurnIn QuestName="Kill Your Hundred" QuestId="34429" TurnInName="Archmage Khadgar" TurnInId="78561" X="4510.708" Y="-2635.453" Z="1.748904" /> <!-- New NPC Id -->
         <PickUp QuestName="The Shadowmoon Clan" QuestId="34739" GiverName="Thrall" GiverId="78553" X="4527.632" Y="-2636.3" Z="1.649512" />
@@ -479,7 +479,7 @@
                 <Objective QuestName="Keli'dan the Breaker" QuestId="34741" Type="KillMob" MobId="79702" KillCount="1" />
                 <!-- If we're trying to heal, it won't skip -->
                 <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for cutscene {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="10000" />
+                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="10000" />
             </If>
         <TurnIn QuestName="Keli'dan the Breaker" QuestId="34741" TurnInName="Archmage Khadgar" TurnInId="78562" X="4610.563" Y="-2246.493" Z="15.40344" /> <!-- New NPC Id -->
             <!-- End Kargathar Proving Grounds -->
@@ -491,14 +491,14 @@
             <If Condition="!HasQuest(34439) &amp;&amp; !IsQuestCompleted(34439)" > <!-- The Battle of the Forge -->
         <PickUp QuestName="The Battle of the Forge" QuestId="34439" GiverName="Cordana Felsong" GiverId="78430" X="4613.3" Y="-2246.304" Z="15.1033" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
             </If>
             <Objective QuestName="The Battle of the Forge" QuestId="34439" Type="KillMob" MobId="80775" KillCount="3" />
             <Objective QuestName="The Battle of the Forge" QuestId="34439" Type="KillMob" MobId="80786" KillCount="15" />
             <If Condition="HasQuest(34439) &amp;&amp; IsQuestCompleted(34439)" > <!-- The Battle of the Forge -->
         <TurnIn QuestName="The Battle of the Forge" QuestId="34439" TurnInName="Cordana Felsong" TurnInId="78996" X="4417.996" Y="-2090.691" Z="2.777354" /> <!-- cutscene -->
                 <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
             </If>
         <PickUp QuestName="Ga'nar of the Frostwolf" QuestId="34442" GiverName="Cordana Felsong" GiverId="78996" X="4417.996" Y="-2090.691" Z="2.777354" />
         <PickUp QuestName="The Gunpowder Plot" QuestId="34987" GiverName="Hansel Heavyhands" GiverId="78569" X="4366.801" Y="-2116.076" Z="2.378612" />
@@ -572,7 +572,7 @@
                 <CustomBehavior File="InteractWith" QuestId="34445" MobId="232538" ObjectType="GameObject" NonCompeteDistance="0" Range="6" X="4065.838" Y="-2022.482" Z="75.43866" />
              </While>
                 <CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for Cinematic {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
             </If>
         <TurnIn QuestName="A Taste of Iron" QuestId="34445" TurnInName="Thaelin Darkanvil" TurnInId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
         <PickUp QuestName="The Home Stretch" QuestId="34446" GiverName="Thaelin Darkanvil" GiverId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
@@ -584,7 +584,7 @@
             <If Condition="HasQuest(34446) &amp;&amp; IsQuestCompleted(34446)" > <!-- The Home Stretch -->
         <TurnIn QuestName="The Home Stretch" QuestId="34446" TurnInName="Archmage Khadgar" TurnInId="78563" X="3545.687" Y="-2123.458" Z="17.23104" />
                 <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
             </If>
         <!-- End of Blackrock Quarry -->
 
@@ -647,12 +647,12 @@
             <If Condition="HasQuest(34378) &amp;&amp; !IsQuestCompleted(34378)" > <!-- Establish Your Garrison -->
                 <CustomBehavior File="InteractWith" QuestId="34378" MobId="79243" GossipOptions="1" Range="5" X="5570.273" Y="4636.163" Z="146.499"  />
                 <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
             </If>
             <If Condition="HasQuest(34378) &amp;&amp; IsQuestCompleted(34378)" > <!-- Establish Your Garrison -->
         <TurnIn QuestName="Establish Your Garrison" QuestId="34378" TurnInName="Gazlowe" TurnInId="78466" X="5564.242" Y="4517.042" Z="132.0609" /> <!-- New NPC Id? -->
                 <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
-                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
             </If>
         <!-- End Frostwall main -->
 
@@ -687,7 +687,7 @@
              <While Condition="!IsObjectiveComplete(5, 34461)"> <!-- Finalize Garrison Plot -->
                 <CustomBehavior File="InteractWith" QuestId="34461" MobId="231217" ObjectType="GameObject" NonCompeteDistance="0" WaitTime="15000" Range="3" X="5587.527" Y="4476.992" Z="130.2609" />
              </While>
-                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame:IsVisible() then MovieFrame:StopMovie() else CinematicFrame_CancelCinematic() end" WaitTime="4000" />
+                <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="4000" />
             </While>
         <TurnIn QuestName="Build Your Barracks" QuestId="34461" TurnInName="Gazlowe" TurnInId="78466" X="5587.911" Y="4482.173" Z="130.0529" />
 		<PickUp QuestName="We Need An Army" QuestId="34861" GiverName="Gazlowe" GiverId="78466" X="5587.911" Y="4482.173" Z="130.0529" />
