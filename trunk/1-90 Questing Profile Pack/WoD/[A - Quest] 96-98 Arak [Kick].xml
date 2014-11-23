@@ -932,11 +932,31 @@
 		
 		
 			<!-- Our Garrison, SMV -->
-			<If Condition="HasQuest(34655)" > <!-- Arak - The Shadows of Skettis -->
-				<If Condition="Me.ZoneId != 6722"> <!-- Arakkoa Exodus -->
-					<CustomBehavior File="InteractWith" MobId="81103" GossipOptions="1" Range="5" WaitTime="5000" X="1864.33" Y="217.8108" Z="76.63776" /> <!-- Dungar @ Garrison Flies us to Arik -->
+			<!-- If I'm less than level 96 -->
+			<If Condition="Me.Level &lt; 96">
+				<CustomBehavior File="UserDialog" AllowBotStop="True" StopOnContinue="True" SoundCue="Exclamation" SoundCueInterval="1" Text="You must be level 96 or higher to run this profile." />
+			</If>
+
+			<!-- If I'm not in Lunarfall -->
+			<If Condition="Me.ZoneId != 7078 &amp;&amp; !HasQuest(34655) &amp;&amp; !IsQuestCompleted(34655)" >
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(item:110560)" /><!-- Use Garrison Hearthstone -->
+				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for port {TimeRemaining}" />
+			</If>
+
+			<!-- If I'm in Lunarfall -->
+			<If Condition="Me.ZoneId == 7078" >
+				<If Condition="!HasQuest(36951) &amp;&amp; !IsQuestCompleted(36951)" > <!-- Bulletin Board's Arakkoa Exodus -->
+					<If Condition="(IsQuestCompleted(34586)) &amp;&amp; (!IsQuestCompleted(36592))" > <!-- If I have a level 1 Garrison -->
+						<!-- Pick up the Bulletin Board's Arakkoa Exodus -->
+		<PickUp QuestName="Arakkoa Exodus" QuestId="36951" GiverName="Bulletin Board" GiverId="232397" X="1889.443" Y="252.7309" Z="76.62231" />
+					</If>
+					<If Condition="IsQuestCompleted(36592)" > <!-- If I have a level 2 or 3 Garrison -->
+		<PickUp QuestName="Arakkoa Exodus" QuestId="36951" GiverName="Bulletin Board" GiverId="232400" X="1888.486" Y="254.5486" Z="76.64058" />
+					</If>
+					<CustomBehavior File="InteractWith" MobId="81103" GossipOptions="2" WaitForNpcs="False" X="1864.33" Y="217.8108" Z="76.6386" /> <!-- Fly to Spires of Arak -->
+		<TurnIn QuestName="Arakkoa Exodus" QuestId="36951" TurnInName="Azik" TurnInId="79539" X="655.0746" Y="2384.804" Z="203.7571" />
+		<PickUp QuestName="The Shadows of Skettis" QuestId="34655" GiverName="Azik" GiverId="79539" X="655.0746" Y="2384.804" Z="203.7571" />
 				</If>
-		<TurnIn QuestName="Arakkoa Exodus" QuestId="34653" TurnInName="Azik" TurnInId="79539" X="655.0746" Y="2384.804" Z="203.7571" />
 			</If>
 			<!-- End of Garrison -->
 			
@@ -1318,8 +1338,12 @@
 				</CustomBehavior>
 			</While>
 			<Objective QuestName="Legacy of the Apexis" QuestId="35258" Type="CollectItem" ItemId="113081" CollectCount="5" />
-			<Objective QuestName="Sol Sisters" QuestId="35259" Type="KillMob" MobId="81933" KillCount="1" />
-			<Objective QuestName="Sol Sisters" QuestId="35259" Type="KillMob" MobId="81934" KillCount="1" />
+			<If Condition="HasQuest(35259)" >
+				<Objective QuestName="Sol Sisters" QuestId="35259" Type="KillMob" MobId="81933" KillCount="1" />
+				<Objective QuestName="Sol Sisters" QuestId="35259" Type="KillMob" MobId="81934" KillCount="1" />
+				<MoveTo X="348.2197" Y="2741.416" Z="70.95568" />
+				<MoveTo X="353.5365" Y="2747.607" Z="71.85035" />
+			</If>
 		<TurnIn QuestName="Sol Sisters" QuestId="35259" TurnInName="Inactive Apexis Destroyer" TurnInId="82123" X="353.5365" Y="2747.607" Z="71.85035" />
 		<PickUp QuestName="Shot-Caller" QuestId="35261" GiverName="Inactive Apexis Destroyer" GiverId="82123" X="353.5365" Y="2747.607" Z="71.85035" />
 			<Objective QuestName="Shot-Caller" QuestId="35261" Type="CollectItem" ItemId="113121" CollectCount="1" />
