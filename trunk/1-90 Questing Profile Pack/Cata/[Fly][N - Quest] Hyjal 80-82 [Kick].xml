@@ -1709,11 +1709,15 @@
             <MoveTo X="4582.165" Y="-2701.421" Z="1140.713" />
             <MoveTo X="4608.294" Y="-2707.581" Z="1146.11" />
             <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for agro to clear {TimeRemaining}" />
-            <CustomBehavior File="InteractWith" MobId="202928" Range="10" />
+            <CustomBehavior File="InteractWith" MobId="202928" Range="8" X="4608.294" Y="-2707.581" Z="1146.11" />
             <CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for event {TimeRemaining}" />
-
-            <CustomBehavior File="InteractWith" MobId="46925" Range="15" MobState="Alive" NumOfTimes="5"
-                            WaitForNpcs="false" />
+			
+			<CustomBehavior File="KillUntilComplete" QuestId="25502" ImmediatelySwitchToHighestPriorityTarget="True"
+											TerminateWhen="IsObjectiveComplete(2, 25502) || Object(202928) == null || !Me.HasAura(75470)" X="4608.294" Y="-2707.581" Z="1146.11" >
+					<PursuitList>
+					  <PursueUnit Id="46925" Priority="9999" /> <!-- Flameward -->
+					</PursuitList>
+				</CustomBehavior>
 
             <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for lewts {TimeRemaining}" />
         </While>
