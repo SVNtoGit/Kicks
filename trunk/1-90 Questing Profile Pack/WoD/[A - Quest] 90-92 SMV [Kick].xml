@@ -1930,10 +1930,13 @@
             <While Condition="HasQuest(33059) &amp;&amp; !IsQuestCompleted(33059)" > <!-- The Fate of Karabor -->
              <If Condition="(!IsObjectiveComplete(1, 33059))">
                 <UseItem QuestId="33059" ItemId="111591" X="464.4299" Y="-96.27913" Z="92.55475" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
              </If>
              <If Condition="(!IsObjectiveComplete(2, 33059))">
 				<If Condition="Me.MapId != 1227"> <!-- Fate of Karabor instance -->
-					<MoveTo X="578.1978" Y="-3081.296" Z="59.73512" />
+					<MoveTo X="464.4299" Y="-96.27913" Z="92.55475" />
+					<UseItem QuestId="33059" ItemId="111591" X="464.4299" Y="-96.27913" Z="92.55475" />
+					<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
 				</If>
                 <DisableBehavior Name="Pull" />
                 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 1">
@@ -1941,12 +1944,17 @@
                     <CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for Krull to come out {TimeRemaining}" />
                 </While>
                 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 2">
+				 <If Condition="Me.MapId != 1227"> <!-- Fate of Karabor instance -->
+					<MoveTo X="464.4299" Y="-96.27913" Z="92.55475" />
+					<UseItem QuestId="33059" ItemId="111591" X="464.4299" Y="-96.27913" Z="92.55475" />
+					<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
+				 </If>
                     <MoveTo X="578.1978" Y="-3081.296" Z="59.73512" />
-                    <CustomBehavior File="InteractWith" QuestId="33059" MobId="79560" X="578.1978" Y="-3081.296" Z="59.73512" /> <!-- Kill Krull -->
+                    <CustomBehavior File="InteractWith" QuestId="33059" WaitForNpcs="False" MobId="79560" X="578.1978" Y="-3081.296" Z="59.73512" /> <!-- Kill Krull -->
                 </While>
                 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 3">
                     <MoveTo X="578.1978" Y="-3081.296" Z="59.73512" />
-                    <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Krull to come out {TimeRemaining}" />
+                    <CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
                 </While>
                 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 4">
                     <MoveTo X="580.0881" Y="-3036.546" Z="69.39507" />
