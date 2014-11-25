@@ -2344,10 +2344,13 @@
         <TurnIn QuestName="The Righteous March" QuestId="33255" TurnInName="Exarch Akama" TurnInId="72413" X="980.2604" Y="-2921.111" Z="99.33604" />
         <PickUp QuestName="The Defense of Karabor" QuestId="33256" GiverName="Exarch Akama" GiverId="72413" X="980.2604" Y="-2921.111" Z="99.33604" />
             <If Condition="HasQuest(33256) &amp;&amp; !IsQuestCompleted(33256)" > <!-- The Defense of Karabor -->
+				<UseMount Value="False" />
 				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerSphere" Command="Add" ObjectType="AreaTrigger" ObjectId="5805" Radius="5" />
 				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPoly" Command="Add" ObjectType="AreaTrigger" ObjectId="5633" Radius="15" />
-				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPolyFieryBlast" Command="Add" AvoidWhen="UNIT.HasAura(151731)" ObjectId="75358" Radius="5" 
+				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPolyFieryBlast" Command="Add" AvoidWhen="UNIT.HasAura(151731)" ObjectId="75358" Radius="15" 
 											AvoidLocationProducer="WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location, UNIT.Location.RayCast(UNIT.Rotation, 10))" />
+											
+											<!-- 151766 - scorched earth -->
 											
 				<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlazingShot" Command="Add" ObjectType="AreaTrigger" ObjectId="5797" Radius="10" />
 				<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlackestSkiesMissileLIne" Command="Add" ObjectType="Missile" ObjectId="150274" Radius="5" />
@@ -2409,6 +2412,7 @@
                     <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
 					<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for cutscene to end {TimeRemaining}" />
                 </If>
+				<UseMount Value="true" />
             </If>
         <TurnIn QuestName="The Defense of Karabor" QuestId="33256" TurnInName="Yrel" TurnInId="73395" X="935.5781" Y="-838.8489" Z="-28.83364" />
             <If Condition="!HasQuest(35556) &amp;&amp; !IsQuestCompleted(35556)" > <!-- The Secrets of Gorgrond - a diff goto -->
