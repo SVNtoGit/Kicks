@@ -2123,6 +2123,7 @@
             <While Condition="HasQuest(33255) &amp;&amp; !IsQuestCompleted(33255)" > <!-- The Righteous March -->
              <While Condition="(!IsObjectiveComplete(1, 33255))">
 				<MoveTo QuestId="33255" X="603.873" Y="-1230.87" Z="-21.42327" />
+				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for  {TimeRemaining}" />				
                <If Condition="Unit(73395) != null &amp;&amp; !IsQuestCompleted(33255)"> <!-- Yrel / Get on Transport -->
                 <CustomBehavior File="InteractWith" QuestId="33255" MobId="77312" MobId2="75145" WaitForNpcs="False" WaitTime="40000" PreInteractMountStrategy="DismountOrCancelShapeshift" NonCompeteDistance="0" GossipOptions="1" X="603.873" Y="-1230.87" Z="-21.42327" /> <!-- Maraad -->
                </If>
@@ -2344,12 +2345,12 @@
         <PickUp QuestName="The Defense of Karabor" QuestId="33256" GiverName="Exarch Akama" GiverId="72413" X="980.2604" Y="-2921.111" Z="99.33604" />
             <If Condition="HasQuest(33256) &amp;&amp; !IsQuestCompleted(33256)" > <!-- The Defense of Karabor -->
 				<UseMount Value="False" />
-				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerSphere" Command="Add" ObjectType="AreaTrigger" ObjectId="5805" Radius="5" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerSphere" Command="Add" ObjectType="AreaTrigger" ObjectId="5805" Radius="8" />
 				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPoly" Command="Add" ObjectType="AreaTrigger" ObjectId="5633" Radius="15" />
-				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPolyFieryBlast" Command="Add" ObjectId="75358" Radius="15" 
-											AvoidWhen="UNIT.CastingSpellId == 151732 || UNIT.CastingSpellId == 151766 || UNIT.HasAura(151731) || UNIT.HasAura(151766)" 
-											AvoidLocationProducer="WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location, UNIT.Location.RayCast(UNIT.Rotation, 10))" />
-											
+				<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPolyFieryBlast" Command="Add" ObjectId="75358" Radius="30" 
+				AvoidWhen="UNIT.CastingSpellId == 151732 || UNIT.CastingSpellId == 149378 || UNIT.CastingSpellId == 151766 || UNIT.HasAura(151731) || UNIT.HasAura(161320) || UNIT.HasAura(151766)" 
+				AvoidLocationProducer="WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location, UNIT.Location.RayCast(UNIT.Rotation, 20))" />
+
 				<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlazingShot" Command="Add" ObjectType="AreaTrigger" ObjectId="5797" Radius="10" />
 				<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlackestSkiesMissileLIne" Command="Add" ObjectType="Missile" ObjectId="150274" Radius="5" />
 				<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlackestSkiesMissile" Command="Add" ObjectType="Missile" ObjectId="151661" Radius="5" />
@@ -2359,10 +2360,25 @@
                     <MoveTo X="830.7855" Y="-2869.874" Z="100.4185" />
 				</If>
                 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 1">
-                    <MoveTo X="830.7855" Y="-2869.874" Z="100.4185" />
+                    <!--<MoveTo X="830.7855" Y="-2869.874" Z="100.4185" />
 					<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for Arnokk {TimeRemaining}" />
-                    <CustomBehavior File="InteractWith" QuestId="33256" MobId="75358" WaitForNpcs="False" MobState="Alive" X="830.7855" Y="-2869.874" Z="100.4185" /> <!-- Kill Arnokk -->
+                    <CustomBehavior File="InteractWith" QuestId="33256" MobId="75358" WaitForNpcs="False" MobState="Alive" X="830.7855" Y="-2869.874" Z="100.4185" />  Kill Arnokk -->
                     <!-- Need to tweak his Avoid hooks some -->
+				<CustomBehavior File="KillUntilComplete" QuestId="33256" ImmediatelySwitchToHighestPriorityTarget="True" Range="7" CollectionDistance="80" 
+											TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 2" >
+					<PursuitList>
+						<PursueUnit Id="79855" Priority="5000" />
+						<PursueUnit Id="79875" Priority="5000" />
+						<PursueUnit Id="79843" Priority="5000" />
+						<PursueUnit Id="79824" Priority="5000" />
+						<PursueUnit Id="79827" Priority="9000" />
+						<PursueUnit Id="79557" Priority="8000" />
+						<PursueUnit Id="75358" Priority="-5000" />
+					</PursuitList>
+					<HuntingGrounds>
+						<Hotspot X="830.7855" Y="-2869.874" Z="100.4185" />
+					</HuntingGrounds>
+				</CustomBehavior>
                 </While>
                 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 2">
 				 <While Condition="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.GetStep(1).IsComplete">
