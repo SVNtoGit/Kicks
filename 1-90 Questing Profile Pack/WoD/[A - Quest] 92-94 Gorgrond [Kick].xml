@@ -1042,10 +1042,23 @@
 			<Objective QuestName="Chapter II: The Harvest" QuestId="35651" Type="KillMob" MobId="82372" KillCount="1" />
 			<Objective QuestName="Chapter III: Ritual of the Charred" QuestId="35650" Type="KillMob" MobId="82360" KillCount="4" />
 			<Objective QuestName="Growing Wood" QuestId="35652" Type="CollectItem" ItemId="113136" CollectCount="100" />
-		
-		
-		
-		
+		<TurnIn QuestName="Growing Wood" QuestId="35652" TurnInName="Glirin" TurnInId="85130" X="6059.319" Y="102.5851" Z="47.44364" />
+		<TurnIn QuestName="Chapter I: Plant Food" QuestId="35654" TurnInName="Glirin" TurnInId="85130" X="6059.319" Y="102.5851" Z="47.44364" />
+		<TurnIn QuestName="Chapter II: The Harvest" QuestId="35651" TurnInName="Glirin" TurnInId="85130" X="6059.319" Y="102.5851" Z="47.44364" />
+			<If Condition="HasQuest(35650) &amp;&amp; IsQuestCompleted(35650)" > <!-- TurnIn Chapter III: Ritual of the Charred -->
+		<TurnIn QuestName="Chapter III: Ritual of the Charred" QuestId="35650" TurnInName="Glirin" TurnInId="85130" X="6059.319" Y="102.5851" Z="47.44364" />	
+				<CustomBehavior File="InteractWith" MobId="234425" MobType="GameObject" NonCompeteDistance="0" WaitTime="5000" Range="5" X="6052.97" Y="106.349" Z="46.97743" /> <!-- Mole Machine -->
+			</If>
+            <If Condition="!HasQuest(35617) &amp;&amp; !IsQuestCompleted(35617)" > <!-- Glirin / Follower -->
+                <MoveTo X="6329.924" Y="730.9462" Z="115.4108" />
+                <CustomBehavior File="InteractWith" MobId="85119" X="6329.924" Y="730.9462" Z="115.4108" WaitTime="3000" />
+                <CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" WaitTime="3000" />
+            </If>
+			<!-- End of Tangleheart Chain -->
+			
+			<!-- Deeproot Chain -->
+		<TurnIn QuestName="Deeproot" QuestId="35212" TurnInName="Thaelin Darkanvil" TurnInId="81588" />
+	
 		
 		
 		
@@ -1060,14 +1073,6 @@
 		
 		
 		
-		<TurnIn QuestName="Chapter I: Plant Food" QuestId="35654" TurnInName="Glirin" TurnInId="85130" />
-
-		<TurnIn QuestName="Chapter II: The Harvest" QuestId="35651" TurnInName="Glirin" TurnInId="85130" />
-
-		<TurnIn QuestName="Chapter III: Ritual of the Charred" QuestId="35650" TurnInName="Glirin" TurnInId="85130" />		
-		
-		
-		<TurnIn QuestName="Growing Wood" QuestId="35652" TurnInName="Glirin" TurnInId="85130" />
 		
 		
 		
@@ -1143,9 +1148,6 @@
 			
 			
 			<!--
-			<If Condition="HasQuest(35212)" >
-		<TurnIn QuestName="Deeproot" QuestId="35212" TurnInName="Thaelin Darkanvil" TurnInId="81588" />
-			</If>
 			-->
 		
 		<!--
@@ -1171,7 +1173,7 @@
 		 Lumber, I Hardly Knew 'Er		 
 		-->
 		
-				<CustomBehavior File="UserDialog" QuestId="35063" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="300" ExpiryAction="InputEnabled_Continue" 
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="300" ExpiryAction="InputEnabled_Continue" 
 				Text="YOU MUST DO ALL OF THE LUMBER MILL QUESTS BY HAND UNTIL I GET TO THEM.
 				\nhttp://www.wowhead.com/guide=2548/garrison-outpost-guide-zone-wide-perks-quests-followers
 				\n" />
