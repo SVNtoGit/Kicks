@@ -1951,19 +1951,24 @@
 					<UseItem QuestId="33059" ItemId="111591" X="464.4299" Y="-96.27913" Z="92.55475" />
 					<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
 				 </If>
-					<CustomBehavior File="KillUntilComplete" QuestId="33059" ImmediatelySwitchToHighestPriorityTarget="True"
-												TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber != 2" >
+                    <MoveTo X="578.1978" Y="-3081.296" Z="59.73512" />
+                    <CustomBehavior File="InteractWith" QuestId="33059" WaitForNpcs="False" MobId="79560" Range="4" CollectionDistance="200" X="578.5238" Y="-3076.904" Z="59.72013" /> <!-- Kill Krull -->
+					<!--
+					ADD HOOK: STAND HERE AT ALL TIMES WHILE FIGHTING KRULL
+					Radiant Light - Id: 6640, Shape: AreaTriggerSphere - Radius: 3, RadiusTarget: 3, Flags: Unknown2
+					
+					<CustomBehavior File="KillUntilComplete" QuestId="33059" ImmediatelySwitchToHighestPriorityTarget="True" CollectionDistance="200" 
+												TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 2" >
 						<PursuitList>
-						  <PursueUnit Id="79560" Priority="0" /> <!-- Krull -->
+						  <PursueUnit Id="79560" Priority="5000" />
 						</PursuitList>
 						<HuntingGrounds>
 							<Hotspot X="580.9465" Y="-3153.998" Z="59.52285" />
 							<Hotspot X="578.5238" Y="-3076.904" Z="59.72013" />
 						</HuntingGrounds>
 					</CustomBehavior>
+					-->
 				 
-                    <MoveTo X="578.1978" Y="-3081.296" Z="59.73512" />
-                    <CustomBehavior File="InteractWith" QuestId="33059" WaitForNpcs="False" MobId="79560" X="578.1978" Y="-3081.296" Z="59.73512" /> <!-- Kill Krull -->
                 </While>
                 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 3">
                     <MoveTo X="578.1978" Y="-3081.296" Z="59.73512" />
@@ -2118,7 +2123,7 @@
         <PickUp QuestName="The Righteous March" QuestId="33255" GiverName="Vindicator Maraad" GiverId="77312" X="603.873" Y="-1230.87" Z="-21.42327" />
             <While Condition="HasQuest(33255) &amp;&amp; !IsQuestCompleted(33255)" > <!-- The Righteous March -->
              <While Condition="(!IsObjectiveComplete(1, 33255))">
-				<MoveTo X="603.873" Y="-1230.87" Z="-21.42327" />
+				<MoveTo QuestId="33255" X="603.873" Y="-1230.87" Z="-21.42327" />
                <If Condition="Unit(73395) != null &amp;&amp; !IsQuestCompleted(33255)"> <!-- Yrel / Get on Transport -->
                 <CustomBehavior File="InteractWith" QuestId="33255" MobId="77312" MobId2="75145" WaitForNpcs="False" WaitTime="40000" PreInteractMountStrategy="DismountOrCancelShapeshift" NonCompeteDistance="0" GossipOptions="1" X="603.873" Y="-1230.87" Z="-21.42327" /> <!-- Maraad -->
                </If>
