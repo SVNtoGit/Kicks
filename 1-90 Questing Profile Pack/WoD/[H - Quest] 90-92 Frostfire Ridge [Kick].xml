@@ -443,6 +443,13 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+	<Quest Id="33467" Name="The Fall of the Warlord">
+		<Objective Type="KillMob" MobId="73763" KillCount="1">
+			<Hotspots>
+				<Hotspot X="7196.233" Y="6105.592" Z="117.4457" />
+			</Hotspots>
+		</Objective>
+	</Quest>
 	  
    
    
@@ -484,7 +491,7 @@
         <CustomBehavior File="Message" Text="Compiling SW Quests" LogColor="CornflowerBlue" />
 		
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="3" ExpiryTime="9" ExpiryAction="InputEnabled_Continue" 
-			Text="HORDE ONLY GOES TO END OF GARRISON, NO MORE QUESTS AFTER THAT. DO NOT POST ON FORUMS AND ASK FOR MORE. ALLY IS GETTING DONE FIRST. " />
+			Text="Horde developments in progress, \nplease do not post on forums and ask for more quests, there are no more after the last popup." />
 
 
             <If Condition="!IsQuestCompleted(34420)" > <!-- Pull Distance Modifier for high mob count areas -->
@@ -1083,18 +1090,18 @@
 		<TurnIn QuestName="The Warlord's Guard" QuestId="33450" TurnInName="Igrimar the Resolute" TurnInId="74635" X="7091.213" Y="6011.755" Z="133.8653" />
 		<TurnIn QuestName="The Cure" QuestId="33454" TurnInName="Igrimar the Resolute" TurnInId="74635" X="7091.213" Y="6011.755" Z="133.8653" />
 		<PickUp QuestName="The Fall of the Warlord" QuestId="33467" GiverName="Igrimar the Resolute" GiverId="74635" X="7091.213" Y="6011.755" Z="133.8653" />
-			
-			
+			<While Condition="HasQuest(33467) &amp;&amp; !IsQuestCompleted(33467)" > <!-- The Fall of the Warlord -->
+				<CustomBehavior File="InteractWith" QuestId="33467" MobId="227291" ObjectType="GameObject" Range="5" WaitTime="5000" TerminateWhen="Unit(73763) != null || IsObjectiveComplete(1, 33467)" X="7211.021" Y="6077.176" Z="117.4463" />
+				<CustomBehavior File="KillUntilComplete" QuestId="33467" MobId="74697" TerminateWhen="Unit(73763) == null || IsObjectiveComplete(1, 33467)" X="7196.233" Y="6105.592" Z="117.4457" />
+			</While>
+		<TurnIn QuestName="The Fall of the Warlord" QuestId="33467" TurnInName="Snowrunner Rolga" TurnInId="81678" X="6785.769" Y="5957.668" Z="257.9766" />
+			<!-- End of Circle of Blood -->
 			
 		
 		
 	<!--
 	
-			<Objective QuestName="The Fall of the Warlord" QuestId="33467" Type="KillMob" MobId="73763" KillCount="1" />
-		<TurnIn QuestName="The Fall of the Warlord" QuestId="33467" TurnInName="Snowrunner Rolga" TurnInId="81678" />
 
-
-	
 
 			
 
