@@ -399,7 +399,51 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-  
+	<Quest Id="33450" Name="The Warlord's Guard">
+		<Objective Type="CollectItem" ItemId="106943" CollectCount="1">
+			<CollectFrom>
+				<Mob Name="Thunk" Entry="74704" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="7259.942" Y="5864.626" Z="122.053" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="CollectItem" ItemId="106944" CollectCount="1">
+			<CollectFrom>
+				<Mob Name="Gullok" Entry="74707" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="7317.433" Y="5797.162" Z="111.3053" />
+			</Hotspots>
+		</Objective>
+		<Objective Type="CollectItem" ItemId="106942" CollectCount="1">
+			<CollectFrom>
+				<Mob Name="Splorg" Entry="74706" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="7210.009" Y="5754.581" Z="140.2088" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	<Quest Id="33454" Name="The Cure">
+		<Objective Type="CollectItem" ItemId="106958" CollectCount="5">
+			<CollectFrom>
+				<Mob Name="Bladespire Geomancer" Entry="74697" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="7115.669" Y="5964.927" Z="126.8914" />
+				<Hotspot X="7172.802" Y="5961.551" Z="126.6932" />
+				<Hotspot X="7255.184" Y="5934.813" Z="126.698" />
+				<Hotspot X="7337.828" Y="5905.59" Z="135.352" />
+				<Hotspot X="7278.906" Y="5908.184" Z="126.6938" />
+				<Hotspot X="7215.408" Y="5868.382" Z="119.8627" />
+				<Hotspot X="7178.675" Y="5828.443" Z="120.0962" />
+				<Hotspot X="7131.376" Y="5818.437" Z="116.8381" />
+				<Hotspot X="7211.58" Y="5801.935" Z="133.0887" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	  
    
    
    
@@ -1004,63 +1048,56 @@
 		<TurnIn QuestName="Mopping Up" QuestId="33412" TurnInName="Igrimar the Resolute" TurnInId="74635" X="7117.029" Y="6008.2" Z="133.8583"  />
 		<PickUp QuestName="The Warlord's Guard" QuestId="33450" GiverName="Igrimar the Resolute" GiverId="74635" X="7117.029" Y="6008.2" Z="133.8583"  />
 		<PickUp QuestName="The Cure" QuestId="33454" GiverName="Igrimar the Resolute" GiverId="74635" X="7117.029" Y="6008.2" Z="133.8583"  />
-			
-			
-			
-			
+			<While Condition="HasQuest(33454) &amp;&amp; !IsQuestCompleted(33454)" > <!-- The Cure -->
+				<CustomBehavior File="KillUntilComplete" QuestId="33454" MobId="74697" CollectionDistance="200" TerminateWhen="HasItem(106958) || IsObjectiveComplete(1, 33454)" >
+					<HuntingGrounds>
+						<Hotspot X="7115.669" Y="5964.927" Z="126.8914" />
+						<Hotspot X="7172.802" Y="5961.551" Z="126.6932" />
+						<Hotspot X="7255.184" Y="5934.813" Z="126.698" />
+						<Hotspot X="7337.828" Y="5905.59" Z="135.352" />
+						<Hotspot X="7278.906" Y="5908.184" Z="126.6938" />
+						<Hotspot X="7215.408" Y="5868.382" Z="119.8627" />
+						<Hotspot X="7178.675" Y="5828.443" Z="120.0962" />
+						<Hotspot X="7131.376" Y="5818.437" Z="116.8381" />
+						<Hotspot X="7211.58" Y="5801.935" Z="133.0887" />
+					</HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="InteractWith" QuestId="33454" MobId="74672" NumOfTimes="20" Range="4" TerminateWhen="!HasItem(106958) || IsObjectiveComplete(1, 33454)" 
+											InteractByUsingItemId="106958" CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+					<HuntingGrounds>
+						<Hotspot X="7115.669" Y="5964.927" Z="126.8914" />
+						<Hotspot X="7172.802" Y="5961.551" Z="126.6932" />
+						<Hotspot X="7255.184" Y="5934.813" Z="126.698" />
+						<Hotspot X="7337.828" Y="5905.59" Z="135.352" />
+						<Hotspot X="7278.906" Y="5908.184" Z="126.6938" />
+						<Hotspot X="7215.408" Y="5868.382" Z="119.8627" />
+						<Hotspot X="7178.675" Y="5828.443" Z="120.0962" />
+						<Hotspot X="7131.376" Y="5818.437" Z="116.8381" />
+						<Hotspot X="7211.58" Y="5801.935" Z="133.0887" />
+					</HuntingGrounds>
+				</CustomBehavior>
+			</While>
+			<Objective QuestName="The Warlord's Guard" QuestId="33450" Type="CollectItem" ItemId="106943" CollectCount="1" />
+			<Objective QuestName="The Warlord's Guard" QuestId="33450" Type="CollectItem" ItemId="106944" CollectCount="1" />
+			<Objective QuestName="The Warlord's Guard" QuestId="33450" Type="CollectItem" ItemId="106942" CollectCount="1" />
+		<TurnIn QuestName="The Warlord's Guard" QuestId="33450" TurnInName="Igrimar the Resolute" TurnInId="74635" X="7091.213" Y="6011.755" Z="133.8653" />
+		<TurnIn QuestName="The Cure" QuestId="33454" TurnInName="Igrimar the Resolute" TurnInId="74635" X="7091.213" Y="6011.755" Z="133.8653" />
+		<PickUp QuestName="The Fall of the Warlord" QuestId="33467" GiverName="Igrimar the Resolute" GiverId="74635" X="7091.213" Y="6011.755" Z="133.8653" />
 			
 			
 			
 		
 		
 	<!--
+	
+			<Objective QuestName="The Fall of the Warlord" QuestId="33467" Type="KillMob" MobId="73763" KillCount="1" />
+		<TurnIn QuestName="The Fall of the Warlord" QuestId="33467" TurnInName="Snowrunner Rolga" TurnInId="81678" />
 
-			<Objective QuestName="The Cure" QuestId="33454" Type="KillMob" MobId="74672" KillCount="5" />
-			<Objective QuestName="The Cure" QuestId="33454" Type="CollectItem" ItemId="106958" CollectCount="5" />
 
-			<Objective QuestName="The Warlord's Guard" QuestId="33450" Type="CollectItem" ItemId="106943" CollectCount="1" />
-			<Objective QuestName="The Warlord's Guard" QuestId="33450" Type="CollectItem" ItemId="106944" CollectCount="1" />
-			<Objective QuestName="The Warlord's Guard" QuestId="33450" Type="CollectItem" ItemId="106942" CollectCount="1" />
-			
-		<TurnIn QuestName="The Warlord's Guard" QuestId="33450" TurnInName="Igrimar the Resolute" TurnInId="74635" X="7117.029" Y="6008.2" Z="133.8583"  />
-		<TurnIn QuestName="The Cure" QuestId="33454" TurnInName="Igrimar the Resolute" TurnInId="74635" X="7117.029" Y="6008.2" Z="133.8583"  />
+	
 
-<Quest Id="33450" Name="The Warlord's Guard">
-	<Objective Type="CollectItem" ItemId="106943" CollectCount="1">
-		<CollectFrom>
 			
-		</CollectFrom>
-		<Hotspots>
-			<Hotspot 
-		</Hotspots>
-	</Objective>
-	<Objective Type="CollectItem" ItemId="106944" CollectCount="1">
-		<CollectFrom>
-			
-		</CollectFrom>
-		<Hotspots>
-			<Hotspot 
-		</Hotspots>
-	</Objective>
-	<Objective Type="CollectItem" ItemId="106942" CollectCount="1">
-		<CollectFrom>
-			
-		</CollectFrom>
-		<Hotspots>
-			<Hotspot 
-		</Hotspots>
-	</Objective>
-</Quest>
-<Quest Id="33454" Name="The Cure">
-	<Objective Type="CollectItem" ItemId="106958" CollectCount="5">
-		<CollectFrom>
-			<Mob Name="Bladespire Geomancer" Entry="74697" />
-		</CollectFrom>
-		<Hotspots>
 
-		</Hotspots>
-	</Objective>
-</Quest>
 			
 
 
