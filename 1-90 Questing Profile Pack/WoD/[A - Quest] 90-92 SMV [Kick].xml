@@ -910,13 +910,14 @@
             </If>
             <If Condition="(HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)) || (HasQuest(36881) &amp;&amp; !IsQuestCompleted(36881))" >
 			 <If Condition="Me.ZoneId == 1519"> <!-- SW -->
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
                 <CustomBehavior File="FlyTo" DestName="Khadgar port to Tanaan" X="-8836.918" Y="621.7521" Z="93.56944" />
                 <CustomBehavior File="ForcedDismount" />
                 <MoveTo X="-8836.918" Y="621.7521" Z="93.56944" />
 				<CustomBehavior File="InteractWith" MobId="78423" ProactiveCombatStrategy="ClearMobsTargetingUs" GossipOptions="1" NonCompeteDistance="0" KeepTargetSelected="True" Range="10" X="-8831.111" Y="623.9757" Z="94.09922" /> <!-- Khadgar -->
 			 </If>
 			 <If Condition="Me.ZoneId == 4"> <!-- Blasted Lands -->
-                <MoveTo DestName="near Khadgar." X="-11806.83" Y="-3203.989" Z="-28.92494" />
+                <MoveTo DestName="near Khadgar" X="-11806.83" Y="-3203.989" Z="-28.92494" />
 				<CustomBehavior File="InteractWith" MobId="78423" GossipOptions="1" ProactiveCombatStrategy="ClearMobsTargetingUs" NonCompeteDistance="0" KeepTargetSelected="True" Range="6" X="-11812.26" Y="-3205.597" Z="-29.56283" /> <!-- Khadgar -->
 			 </If>
 				<CustomBehavior File="Misc\RunLua" Lua="StaticPopup1Button1:Click()" WaitTime="1000" />
@@ -984,6 +985,10 @@
                 <TargetingDistance Value="40" />
             </If>
         <!-- End of Dark Portal -->
+		
+		<!-- ADD IN A FORCE VENDOR HERE SOMEWHERE IF POSSIBLE
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+		-->
 
         <!-- Heartblood -->
             <If Condition="HasQuest(34420)" > <!-- The Cost of War - Turnin -->
@@ -1582,7 +1587,7 @@
 				<MoveTo X="1490.019" Y="-2186.103" Z="88.80363" />
                 <CustomBehavior File="InteractWith" QuestId="34789" MobId1="80073" MobId2="88972" WaitTime="5000" Range="5" TerminateWhen="IsObjectiveComplete(1, 34789) &amp;&amp; Unit(88972) != null" GossipOptions="1" CollectionDistance="10" X="1491.712" Y="-2182.271" Z="88.80327" />
  				<CustomBehavior File="KillUntilComplete" QuestId="34789" TerminateWhen="IsObjectiveComplete(2, 34789) || Unit(88972) == null"
-											ImmediatelySwitchToHighestPriorityTarget="True" X="1490.019" Y="-2186.103" Z="88.80363" >
+											ImmediatelySwitchToHighestPriorityTarget="True" X="1490.019" Y="-2186.103" Z="88.80363" > <!-- add a 20 yard leash here -->
 					<PursuitList>
 					  <PursueUnit Id="82544" Priority="1000" />
 					  <PursueUnit Id="82543" Priority="-1000" />
