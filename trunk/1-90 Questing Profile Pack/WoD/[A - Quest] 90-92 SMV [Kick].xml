@@ -903,12 +903,11 @@
 			Text="We are now accepting bug reports against the 90-100 portion of this pack.  Please do NOT open new threads in the forum regarding bugs with these profiles--such threads will be deleted!  Use Kick's Profiles thread!" />
 
 
-            <!-- Callboard if deleted quest - SW 
-            <If Condition="(!HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)) &amp;&amp; Me.ZoneId == 1519 &amp;&amp; (!HasQuest(35933) &amp;&amp; !IsQuestCompleted(35933))" >
+            <!-- Callboard if deleted quest - SW -->
+            <If Condition="(!HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)) &amp;&amp; Me.ZoneId == 1519 &amp;&amp; (!HasQuest(35933) &amp;&amp; !IsQuestCompleted(35933) &amp;&amp; (!HasQuest(36881) &amp;&amp; !IsQuestCompleted(36881))" >
                 <CustomBehavior File="FlyTo" DestName="Callboard quest" X="-8830.302" Y="626.3619" Z="94.23802" />
         <PickUp QuestName="The Dark Portal" QuestId="34398" GiverName="Hero's Call Board" GiverId="206111" GiverType="Object" X="-8823.851" Y="630.5729" Z="94.136" />
             </If>
-			-->
             <If Condition="(HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)) || (HasQuest(36881) &amp;&amp; !IsQuestCompleted(36881))" >
 			 <If Condition="Me.ZoneId == 1519"> <!-- SW -->
                 <CustomBehavior File="FlyTo" DestName="Khadgar port to Tanaan" X="-8836.918" Y="621.7521" Z="93.56944" />
@@ -1575,19 +1574,21 @@
         <PickUp QuestName="Warning the Exarchs" QuestId="34791" GiverName="Shadow Council Tome of Curses" GiverId="233229" GiverType="Object" X="1569.264" Y="-1812.804" Z="50.40388" />
         <TurnIn QuestName="Warning the Exarchs" QuestId="34791" TurnInName="Exarch Maladaar" TurnInId="80073" X="1486.394" Y="-1915" Z="67.46745" />
         <PickUp QuestName="Speaker for the Dead" QuestId="34789" GiverName="Exarch Maladaar" GiverId="80073" X="1486.394" Y="-1915" Z="67.46745" />
-            <If Condition="HasQuest(34789) &amp;&amp; !IsQuestCompleted(34789)" > <!-- Speaker for the Dead -->
-             <While Condition="!IsObjectiveComplete(1, 34789)">
-                <CustomBehavior File="InteractWith" QuestId="34789" MobId1="80073" MobId2="88972" Range="5" WaitTime="25000" GossipOptions="1" CollectionDistance="10" X="1491.712" Y="-2182.271" Z="88.80327" />
-             </While>
-             <While Condition="!IsObjectiveComplete(2, 34789)"> <!-- Defend Ritual - code this -->
-                <CustomBehavior File="InteractWith" QuestId="34789" MobId="82543" MobId2="82544" Range="5" X="1492.721" Y="-2185.581" Z="90.42973" />
-             </While>
-                <!-- move out of spew
-                    <Vendor Name="Shrakun" Entry="82543" Type="Repair" X="1492.721" Y="-2185.581" Z="90.42973" />
-                    // lots of imps next
-                    <Vendor Name="Tormentor Imp" Entry="82544" Type="Repair" X="1490.019" Y="-2186.103" Z="88.80363" />
-                -->
-            </If>
+            <While Condition="HasQuest(34789) &amp;&amp; !IsQuestCompleted(34789)" > <!-- Speaker for the Dead -->
+				<CustomBehavior File="Hooks\Avoid" AvoidName="Spew" Command="Add" ObjectId="82543" Radius="12" 
+				AvoidWhen="UNIT.CastingSpellId == 166308|| UNIT.HasAura(166309)" 
+				AvoidLocationProducer="WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location, UNIT.Location.RayCast(UNIT.Rotation, 12))" />
+                <CustomBehavior File="InteractWith" QuestId="34789" MobId1="80073" MobId2="88972" Range="5" WaitTime="5000" TerminateWhen="IsObjectiveComplete(1, 34789) &amp;&amp; Unit(88972) != null" GossipOptions="1" CollectionDistance="10" X="1491.712" Y="-2182.271" Z="88.80327" />
+ 				<CustomBehavior File="KillUntilComplete" QuestId="34789" MobId="74697" CollectionDistance="200" TerminateWhen="IsObjectiveComplete(2, 34789) || Unit(88972) == null" 
+											ImmediatelySwitchToHighestPriorityTarget="True"X="1490.019" Y="-2186.103" Z="88.80363" />
+					<PursuitList>
+					  <PursueUnit Id="82544" Priority="1000" />
+					  <PursueUnit Id="82543" Priority="-1000" />
+					  <PursueUnit Id="82548" Priority="-5000" />
+					</PursuitList>
+				</CustomBehavior>
+ 				<CustomBehavior File="Hooks\Avoid" AvoidName="Spew" Command="Remove" />
+           </While>
         <TurnIn QuestName="Speaker for the Dead" QuestId="34789" TurnInName="Exarch Maladaar" TurnInId="88972" X="1491.712" Y="-2182.271" Z="88.80315" />
         <PickUp QuestName="The Traitor's True Name" QuestId="34792" GiverName="Exarch Maladaar" GiverId="88972" X="1491.712" Y="-2182.271" Z="88.80315" />
             <If Condition="HasQuest(34792) &amp;&amp; !IsQuestCompleted(34792)" > <!-- The Traitor's True Name -->
