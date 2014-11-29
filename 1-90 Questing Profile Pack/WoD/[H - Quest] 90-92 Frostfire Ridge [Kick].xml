@@ -31,7 +31,7 @@
 
     <Blackspots>
 		<Blackspot X="7134.479" Y="5200.173" Z="81.23247" Radius="20" />
-		
+		<Blackspot X="5690.297" Y="4421.963" Z="139.0097" Radius="20" Height="30" /> <!-- Horde Garrison issue -->
     </Blackspots>
 
     <Mailboxes> <!-- Need to add Mailboxes and Vendors! -->
@@ -627,6 +627,31 @@
 		<Objective Type="KillMob" MobId="76594" KillCount="1">
 			<Hotspots>
 				<Hotspot X="5209.513" Y="3687.604" Z="128.229" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	<Quest Id="33010" Name="The Iron Wolf">
+		<Objective Type="KillMob" MobId="74225" KillCount="1">
+			<Hotspots>
+				<Hotspot X="5597.403" Y="3465.611" Z="116.8938" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+	<Quest Id="34960" Name="The Land Provides">
+		<Objective Type="CollectItem" ItemId="112266" CollectCount="30">
+			<CollectFrom>
+				<GameObject Name="Icevine" Entry="231098" />
+				<GameObject Name="Icevine" Entry="231097" />
+				<GameObject Name="Icevine" Entry="231096" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="5540.14" Y="4197.909" Z="58.17916" />
+				<Hotspot X="5500.416" Y="4198.085" Z="58.31599" />
+				<Hotspot X="5453.217" Y="4185.163" Z="58.55759" />
+				<Hotspot X="5423.399" Y="4171.563" Z="58.48677" />
+				<Hotspot X="5390.377" Y="4154.615" Z="58.71305" />
+				<Hotspot X="5354.347" Y="4136.123" Z="62.3187" />
+				<Hotspot X="5313.287" Y="4126.396" Z="65.76789" />
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -1415,7 +1440,7 @@
 		<PickUp QuestName="To the Garrison" QuestId="32796" GiverName="Ganar" GiverId="70941" X="6915.31" Y="4560.843" Z="68.06326" />
 			<!-- End of Daggermaw Ravine -->
 		
-			<!-- Stonefang Outpost -->
+			<!-- Stonefang Outpost / Boneslag -->
 		<TurnIn QuestName="Securing the South" QuestId="32989" TurnInName="Lokra" TurnInId="72274" X="6137.248" Y="5149.958" Z="131.6138" />
 		<PickUp QuestName="They Who Held Fast" QuestId="32990" GiverName="Lokra" GiverId="72274" X="6137.248" Y="5149.958" Z="131.6138" />
 			<While Condition="HasQuest(32990) &amp;&amp; !IsQuestCompleted(32990)" > <!-- They Who Held Fast -->
@@ -1494,21 +1519,253 @@
 			</While>
 			<Objective QuestName="The Master Siegesmith" QuestId="33828" Type="KillMob" MobId="76594" KillCount="1" />
 			<Objective QuestName="Karg Unchained" QuestId="33785" Type="KillMob" MobId="74186" KillCount="25" />
-		<TurnIn QuestName="The Master Siegesmith" QuestId="33828" TurnInName="Lokra" TurnInId="72274" X="5411.949" Y="3711.482" Z="121.9018" />
 		<TurnIn QuestName="Karg Unchained" QuestId="33785" TurnInName="Karg Blutfuror" TurnInId="72373" X="5411.949" Y="3711.482" Z="121.9018" />
 		<TurnIn QuestName="Enfilade" QuestId="32994" TurnInName="Karg Blutfuror" TurnInId="72373" X="5411.949" Y="3711.482" Z="121.9018" />
+		<TurnIn QuestName="The Master Siegesmith" QuestId="33828" TurnInName="Lokra" TurnInId="72274" X="5411.949" Y="3711.482" Z="121.9018" />
+		<PickUp QuestName="Return to the Pack" QuestId="33493" GiverName="Lokra" GiverId="72274" X="5411.949" Y="3711.482" Z="121.9018" />
+			<!-- End of Stonefang Outpost / Boneslag -->
 		
-		
-		
-		
-		
-		
-	<!--
-
+			<!-- Grom'gar -->
+		<TurnIn QuestName="Return to the Pack" QuestId="33493" TurnInName="Durotan" TurnInId="74163" X="5637.069" Y="4533.289" Z="118.9294" />
+		<TurnIn QuestName="To the Garrison" QuestId="32796" TurnInName="Durotan" TurnInId="74163" X="5637.069" Y="4533.289" Z="118.9294" />
+		<PickUp QuestName="We Be Needin' Supplies" QuestId="34736" GiverName="Rokhan" GiverId="78487" X="5573.185" Y="4525.507" Z="130.2195" />
+		<!-- ignoring Ashran Appearance -->
+		<PickUp QuestName="Bigger is Better" QuestId="36567" GiverName="Gazlowe" GiverId="78466" X="5564.242" Y="4517.042" Z="132.0611" />
+			<If Condition="HasQuest(36567) &amp;&amp; !IsQuestCompleted(36567)"> <!-- Bigger is Better -->
+				<CustomBehavior File="InteractWith" QuestId="36567" MobId="80600" ObjectType="GameObject" WaitTime="5000" NonCompeteDistance="0" X="5563.049" Y="4518.574" Z="132.0593" />
+				<CustomBehavior File="Misc\RunLua" Lua="C_Garrison.UpgradeGarrison()" WaitTime="5000" />
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+			</If>
+		<TurnIn QuestName="Bigger is Better" QuestId="36567" TurnInName="Gazlowe" TurnInId="78466" X="5554.179" Y="4589.436" Z="141.1604" />
+		<PickUp QuestName="Thunderlord Invasion!" QuestId="37291" GiverName="Sergeant Grimjaw" GiverId="88228" X="5590.561" Y="4579.132" Z="136.5882" />
+			<While Condition="HasQuest(37291) &amp;&amp; !IsQuestCompleted(37291)"> <!-- Thunderlord Invasion! -->
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 0">
+					<CustomBehavior File="InteractWith" QuestId="37291" MobId="88228" GossipOptions="1" KeepTargetSelected="true" NonCompeteDistance="0" X="5590.561" Y="4579.132" Z="136.5878" />
+					<CustomBehavior File="Misc\RunLua" Lua="StaticPopup1Button1:Click()" WaitTime="5000" />
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 1">
+					<MoveTo X="5692.055" Y="4514.929" Z="126.1018" />
+					<CustomBehavior File="WaitTimer" WaitTime="20000" TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 1" />
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 2">
+					<CustomBehavior File="KillUntilComplete" QuestId="37291" Range="4" MobId1="72934" MobId2="88263" MobId3="88265" MobId4="88268" MobId5="88272" MobId6="89241" MobId7="89217" MobId8="87040" MobId9="88266" 
+												TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 2" >
+						<HuntingGrounds>
+							<Hotspot X="5736.703" Y="4497.613" Z="131.9077" />
+							<Hotspot X="5624.576" Y="4526.718" Z="119.2713" />
+							<Hotspot X="5552.432" Y="4497.701" Z="131.6525" />
+							<Hotspot X="5615.764" Y="4621.868" Z="138.6584" />
+						</HuntingGrounds>
+					</CustomBehavior>
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 3">
+					<MoveTo X="5692.055" Y="4514.929" Z="126.1018" />
+					<CustomBehavior File="KillUntilComplete" QuestId="37291" Range="4" MobId1="72934" MobId2="88263" MobId3="88265" MobId4="88268" MobId5="88272" MobId6="89241" MobId7="89217" MobId8="87040" MobId9="88266" 
+												TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 3" >
+						<HuntingGrounds>
+							<Hotspot X="5736.703" Y="4497.613" Z="131.9077" />
+							<Hotspot X="5624.576" Y="4526.718" Z="119.2713" />
+							<Hotspot X="5552.432" Y="4497.701" Z="131.6525" />
+							<Hotspot X="5615.764" Y="4621.868" Z="138.6584" />
+						</HuntingGrounds>
+					</CustomBehavior>
+					<CustomBehavior File="WaitTimer" WaitTime="30000" TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 3" />
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 4">
+					<CustomBehavior File="KillUntilComplete" QuestId="37291" Range="4" MobId1="72934" MobId2="88263" MobId3="88265" MobId4="88268" MobId5="88272" MobId6="89241" MobId7="89217" MobId8="87040" MobId9="88266" 
+												TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 4" >
+						<HuntingGrounds>
+							<Hotspot X="5736.703" Y="4497.613" Z="131.9077" />
+							<Hotspot X="5624.576" Y="4526.718" Z="119.2713" />
+							<Hotspot X="5552.432" Y="4497.701" Z="131.6525" />
+							<Hotspot X="5615.764" Y="4621.868" Z="138.6584" />
+						</HuntingGrounds>
+					</CustomBehavior>
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 5">
+					<MoveTo X="5641.439" Y="4522.961" Z="119.0655"  />
+					<CustomBehavior File="WaitTimer" WaitTime="10000" TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 5" />
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 6">
+					<CustomBehavior File="KillUntilComplete" QuestId="37291" X="5692.055" Y="4514.929" Z="126.1018" TerminateWhen="IsQuestCompleted(37291)" >
+						<PursuitList>
+						  <PursueUnit Id="79654" Priority="5000" /> <!-- Totem -->
+						  <PursueUnit Id="79609" Priority="-5000" /> <!-- Boss -->
+						</PursuitList>
+					</CustomBehavior>
+				</While>
+			</While>
+		<TurnIn QuestName="Thunderlord Invasion!" QuestId="37291" TurnInName="Sergeant Grimjaw" TurnInId="88228" X="5590.561" Y="4579.132" Z="136.5883" />
+		<PickUp QuestName="The Iron Wolf" QuestId="33010" GiverName="Durotan" GiverId="74163" X="5637.069" Y="4533.289" Z="118.9297" />
+			<While Condition="HasQuest(33010) &amp;&amp; !IsQuestCompleted(33010)"> <!-- The Iron Wolf -->
+				<DisableBehavior Name="Pull" />
+				<If Condition="Unit(76669) == null">
+					<MoveTo X="5598.736" Y="3585.472" Z="112.9104" /> <!-- Inside -->
+					<MoveTo X="5595.855" Y="3658.556" Z="126.0724" /> <!-- Outside to reset -->
+					<MoveTo X="5599.329" Y="3579.712" Z="112.9342" /> <!-- Inside -->
+				</If>
+				<CustomBehavior File="EscortGroup" QuestId="33010" EscortNpcId="76669" EscortNpcId2="76670" >
+					<SearchPath>
+						<Hotspot X="5598.736" Y="3585.472" Z="112.9104" /> <!-- Npcs -->
+						<Hotspot X="5599.882" Y="3538.275" Z="110.9838" /> <!-- Mobs 1 -->
+						<Hotspot X="5576.464" Y="3519.681" Z="112.553" /> <!-- Mobs 2 -->
+						<Hotspot X="5597.404" Y="3465.611" Z="116.8938" /> <!-- Wolf -->
+					</SearchPath>
+					<!-- chilltongue first, then the iron wolf
+						<Vendor Name="Chilltongue" Entry="76477" Type="Repair" X="5589.52" Y="3500.959" Z="112.2968" />
+						<Vendor Name="The Iron Wolf" Entry="74225" Type="Repair" X="5598.55" Y="3500.36" Z="112.073" />
+					-->
+				</CustomBehavior>
+				<EnableBehavior Name="Pull" />
+			</While>
+		<TurnIn QuestName="The Iron Wolf" QuestId="33010" TurnInName="Thrall" TurnInId="76720" X="5604.18" Y="3503.138" Z="111.6745" />
+		<PickUp QuestName="To Thunder Pass" QuestId="34123" GiverName="Thrall" GiverId="76720" X="5604.18" Y="3503.138" Z="111.6745" />
+		<PickUp QuestName="The Land Provides" QuestId="34960" GiverName="Icevine" GiverId="231100" GiverType="GameObject" X="5522.144" Y="4190.591" Z="58.17908" />
+			<If Condition="HasQuest(34960)" > <!-- The Land Provides -->
+				<DisableBehavior Name="Pull" />
+				<Objective QuestName="The Land Provides" QuestId="34960" Type="CollectItem" ItemId="112266" CollectCount="30" />
+		<TurnIn QuestName="The Land Provides" QuestId="34960" TurnInName="Gazlowe" TurnInId="78466" X="5587.91" Y="4482.172" Z="130.0531" />
+				<EnableBehavior Name="Pull" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+			</If>
+			<!-- End of Grom'gar -->
+			
+			<!-- Darkspear's Edge -->
+		<TurnIn QuestName="We Be Needin' Supplies" QuestId="34736" TurnInName="Shadow Hunter Rala" TurnInId="78208" X="6627.257" Y="4288.268" Z="87.47401" />
+		<PickUp QuestName="Lurkers" QuestId="34344" GiverName="Shadow Hunter Rala" GiverId="78208" X="6627.257" Y="4288.268" Z="87.47401" />
+		<PickUp QuestName="Poulticide" QuestId="34345" GiverName="Shadow Hunter Rala" GiverId="78208" X="6627.257" Y="4288.268" Z="87.47401" />
+		<PickUp QuestName="Frosted Fury" QuestId="34346" GiverName="Shadow Hunter Mala" GiverId="78209" X="6627.025" Y="4295.588" Z="87.2765" />
+			
+			
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
+										Text="End of Tested Profile. Development from here. \n
+										Yes, you read correctly.  There are no more quests after this message. Don't post on forums and ask." />
 
 			
+			
+			<!-- Thunder Pass -->
+		<TurnIn QuestName="To Thunder Pass" QuestId="34123" TurnInName="Lokra" TurnInId="76487" X="5876.698" Y="3016.414" Z="184.9594" />
+		<PickUp QuestName="The Battle of Thunder Pass" QuestId="34124" GiverName="Lokra" GiverId="76487" X="5876.698" Y="3016.414" Z="184.9594" />
+			<While Condition="HasQuest(34124) &amp;&amp; !IsQuestCompleted(34124)"> <!-- The Battle of Thunder Pass -->
+			 <If Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 0">
+				<CustomBehavior File="InteractWith" MobId="76484" GossipOptions="1" KeepTargetSelected="True" NonCompeteDistance="0" X="6001.138" Y="2920.924" Z="184.5199" 
+											TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 1" />
+			 </If>
+			 <If Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 1">
+				<CustomBehavior File="InteractWith" MobId="76484" GossipOptions="1" KeepTargetSelected="True" NonCompeteDistance="0" X="6001.138" Y="2920.924" Z="184.5199" 
+											TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 1" />
+			 </If>
+			 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 2">
+					<CustomBehavior File="KillUntilComplete" QuestId="34124" MobId="76549" MobId2="76639" MobId3="76633" X="6025.898" Y="2850.042" Z="200.3987"
+												TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 2" />
+			 </While>
+			 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 3">
+				<CustomBehavior File="GetOutOfGroundEffectAndAuras" QuestId="34124" EventCompleteDeadMobId="76629" PreferKillingMobId="76629" EventCompleteWhen="SpecificMobsDead" 
+				MoveBehindMobCastingSpellId1="155255" MoveBehindMobCastingSpellId2="155243" MoveBehindMobCastingSpellId3="155264" EventX="6074.845" EventY="2759.896" EventZ="206.0831" >
+					<Safespots>
+						<Hotspot X="6070.383" Y="2799.27" Z="204.0809" />
+						<Hotspot X="6092.598" Y="2783.37" Z="208.8708" />
+						<Hotspot X="6078.464" Y="2755.861" Z="206.4712" />
+						<Hotspot X="6055.088" Y="2748.347" Z="205.2164" />
+						<Hotspot X="6064.146" Y="2774.715" Z="203.8596" />
+					</Safespots>
+				</CustomBehavior>
+			 </While>
+			 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 4">
+				<CustomBehavior File="KillUntilComplete" QuestId="34124" MobId="76549" MobId2="76639" MobId3="76633" X="6025.898" Y="2850.042" Z="200.3987"
+											TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 4" />
+			 </While>
+			 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 5">
+				<!-- may want to change this to escort for part 5 -->
+				<CustomBehavior File="KillUntilComplete" QuestId="34124" MobId="76549" MobId2="76639" MobId3="76633" 
+											TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 5" >
+					<HuntingGrounds>
+						<Hotspot X="6005.886" Y="2771.448" Z="222.6227" />
+						<Hotspot X="6025.45" Y="2859.532" Z="199.9225" />
+						<Hotspot X="6048.47" Y="2788.855" Z="201.118" />
+						<Hotspot X="6036.049" Y="2734.356" Z="207.0474" />
+						<Hotspot X="5987.789" Y="2642.387" Z="221.2444" />
+					</HuntingGrounds>
+				</CustomBehavior>
+			 </While>
+			 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 6">
+				<CustomBehavior File="KillUntilComplete" QuestId="34124" MobId="76624" MobId2="76587" X="6025.898" Y="2850.042" Z="200.3987"
+											TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 6" />
+			 </While>
+			 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 7">
+				<CustomBehavior File="GetOutOfGroundEffectAndAuras" QuestId="34124" EventCompleteDeadMobId="76630" PreferKillingMobId="76630" EventCompleteWhen="SpecificMobsDead" 
+											MoveBehindMobCastingSpellId1="148815" MoveBehindMobCastingSpellId2="148826" EventX="6074.845" EventY="2759.896" EventZ="206.0831" >
+					<Safespots>
+						<Hotspot X="6070.383" Y="2799.27" Z="204.0809" />
+						<Hotspot X="6092.598" Y="2783.37" Z="208.8708" />
+						<Hotspot X="6078.464" Y="2755.861" Z="206.4712" />
+						<Hotspot X="6055.088" Y="2748.347" Z="205.2164" />
+						<Hotspot X="6064.146" Y="2774.715" Z="203.8596" />
+					</Safespots>
+				</CustomBehavior>
+			 </While>
+			 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 8">
+					<CustomBehavior File="KillUntilComplete" QuestId="34124" MobId="76549" MobId2="76639" MobId3="76633" X="6025.898" Y="2850.042" Z="200.3987"
+												TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 8" />
+			 </While>
+			 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 9">
+				<CustomBehavior File="GetOutOfGroundEffectAndAuras" QuestId="34124" EventCompleteWhen="SpecificMobsDead" EventCompleteDeadMobId="76491" PreferKillingMobId="76491"
+											MoveBehindMobCastingSpellId1="155230" MoveAwayFromMobCastingSpellId2="155290" EventX="6074.845" EventY="2759.896" EventZ="206.0831" >
+					<Safespots>
+						<Hotspot X="6070.383" Y="2799.27" Z="204.0809" />
+						<Hotspot X="6092.598" Y="2783.37" Z="208.8708" />
+						<Hotspot X="6078.464" Y="2755.861" Z="206.4712" />
+						<Hotspot X="6055.088" Y="2748.347" Z="205.2164" />
+						<Hotspot X="6064.146" Y="2774.715" Z="203.8596" />
+					</Safespots>
+				</CustomBehavior>
+			 </While>
+			 <If Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 10">
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for Scenario to complete {TimeRemaining}" />
+			 </If>
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+				<MoveTo X="6025.898" Y="2850.042" Z="200.401" />
+			</While>
+		<TurnIn QuestName="The Battle of Thunder Pass" QuestId="34124" TurnInName="Durotan" TurnInId="76484" X="6025.898" Y="2850.042" Z="200.401" />
+		<PickUp QuestName="The Secrets of Gorgrond" QuestId="34867" GiverName="Durotan" GiverId="76484" X="6025.898" Y="2850.042" Z="200.401" />
+		<PickUp QuestName="The Frostwolves Stand Ready" QuestId="37563" GiverName="Makar Stonebinder" GiverId="76730" X="6033.52" Y="2839.22" Z="200.0953" />
+	        <While Condition="HasQuest(37563) &amp;&amp; !IsQuestCompleted(37563)"> <!-- The Frostwolves Stand Ready -->
+				<MoveTo X="6033.367" Y="2839.109" Z="200.0946" />
+			 <If Condition="Chance(33.3)">
+				<CustomBehavior File="InteractWith" MobId="88655" GossipOptions="1" KeepTargetSelected="true" NonCompeteDistance="0" X="6033.367" Y="2839.109" Z="200.0946" />
+			  <ElseIf Condition="Chance(50)">
+				<CustomBehavior File="InteractWith" MobId="76724" GossipOptions="1" KeepTargetSelected="true" NonCompeteDistance="0" X="6033.367" Y="2839.109" Z="200.0946" />
+			  </ElseIf>
+			  <Else>
+				<CustomBehavior File="InteractWith" MobId="76487" GossipOptions="1" KeepTargetSelected="true" NonCompeteDistance="0" X="6033.367" Y="2839.109" Z="200.0946" />
+			  </Else>
+			 </If>
+				<CustomBehavior File="Misc\RunLua" Lua="StaticPopup1Button1:Click()" WaitTime="2000" />
+			</While>
+		<TurnIn QuestName="The Frostwolves Stand Ready" QuestId="37563" TurnInName="Makar Stonebinder" TurnInId="76730" X="6033.52" Y="2839.22" Z="200.0953" />
+
+			
+			
+			
+		
+	<!--
 	
-		<TurnIn QuestName="To the Garrison" QuestId="32796" TurnInName="Durotan" TurnInId="74163" />
+	
+	
+
+			<Objective QuestName="Frosted Fury" QuestId="34346" Type="CollectItem" ItemId="110228" CollectCount="3" />
+		<TurnIn QuestName="Frosted Fury" QuestId="34346" TurnInName="Shadow Hunter Mala" TurnInId="78209" X="6627.025" Y="4295.588" Z="87.2765" />
+
+	
+			<Objective QuestName="Lurkers" QuestId="34344" Type="CollectItem" ItemId="110226" CollectCount="8" />
+			<Objective QuestName="Poulticide" QuestId="34345" Type="CollectItem" ItemId="110227" CollectCount="10" />
+
+		<TurnIn QuestName="Poulticide" QuestId="34345" TurnInName="Shadow Hunter Rala" TurnInId="78208" X="6627.257" Y="4288.268" Z="87.47401" />
+		<TurnIn QuestName="Lurkers" QuestId="34344" TurnInName="Shadow Hunter Rala" TurnInId="78208" X="6627.257" Y="4288.268" Z="87.47401" />
+
+
+	
+		<TurnIn QuestName="The Secrets of Gorgrond" QuestId="34867" TurnInName="Durotan" TurnInId="74594" X="5392.558" Y="2018.155" Z="175.3698" />
 
 	-->
 
