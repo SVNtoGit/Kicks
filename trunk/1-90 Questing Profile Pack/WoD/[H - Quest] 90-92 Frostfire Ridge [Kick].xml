@@ -967,14 +967,38 @@
 		
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="3" ExpiryTime="9" ExpiryAction="InputEnabled_Continue" 
 			Text="Horde developments in progress, \nplease do not post on forums and ask for more quests, there are no more after the last popup." />
-
+			
             <If Condition="!IsQuestCompleted(34420)" > <!-- Pull Distance Modifier for high mob count areas -->
                 <TargetingDistance Value="5" /> <!-- Use LevelBot default -->
             </If>
 
-            <If Condition="HasQuest(36881) &amp;&amp; !IsQuestCompleted(36881)" >
+            <If Condition="HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)" >
+		<PickUp QuestName="The Dark Portal" QuestId="34398" GiverName="Warchiefs Command Board" GiverId="206109" X="1596.325" Y="-4365.863" Z="21.06839" />
+            </If>
+            <If Condition="HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)" >
+			 <If Condition="Me.ZoneId == 1637"> <!-- SW -->
+				<ClearVendor />
+				<SetVendor>
+					<Vendors>
+						 <Vendor Name="Sana" Entry="3319" Type="Repair" X="1583.74" Y="-4288.98" Z="21.54139" />
+					</Vendors>
+				</SetVendor>
+				<ClearMailbox />
+				<SetMailbox>
+					<Mailboxes>
+						<Mailbox X="1550.458" Y="-4364.466" Z="17.52338" />
+					</Mailboxes>
+				</SetMailbox>
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+				<ClearVendor />
+				<ClearMailbox />
+			 </If>
+			
+			
+			
 				<UseMount Value="false" />
 				
+                <CustomBehavior File="FlyTo" DestName="Khadgar port to Tanaan" X="1585.265" Y="-4370.585" Z="20.78289" />
 				<MoveTo X="1585.265" Y="-4370.585" Z="20.78289" /> <!-- The Dark Portal -->
                 <CustomBehavior File="InteractWith" MobId="78423" KeepTargetSelected="True" PreInteractMountStrategy="DismountOrCancelShapeshift" 
 											GossipOptions="1" NonCompeteDistance="0" Range="5" WaitTime="5000" X="1592.226" Y="-4373.335" Z="20.77822" /> <!-- Khadgar -->
@@ -983,8 +1007,8 @@
                 <!-- kill cinematic -->
                 <CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="3000" />
             </If>
-             <If Condition="HasQuest(36881)" >
-       <TurnIn QuestName="The Dark Portal" QuestId="36881" TurnInName="Archmage Khadgar" TurnInId="78558" X="4066.427" Y="-2372.571" Z="94.59667" />
+             <If Condition="HasQuest(34398)" >
+       <TurnIn QuestName="The Dark Portal" QuestId="34398" TurnInName="Archmage Khadgar" TurnInId="78558" X="4066.427" Y="-2372.571" Z="94.59667" />
              </If>
 			<!-- End of Org / Callboard -->
 
