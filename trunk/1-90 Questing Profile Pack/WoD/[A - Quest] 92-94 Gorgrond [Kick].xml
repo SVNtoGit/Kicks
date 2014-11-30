@@ -951,11 +951,13 @@
 		<PickUp QuestName="On the Mend" QuestId="35026" GiverName="Rexxar" GiverId="82832" X="6229.938" Y="1446.041" Z="39.95644" />
 		<PickUp QuestName="Basilisk Butcher" QuestId="35870" GiverName="Rexxar" GiverId="82832" X="6229.938" Y="1446.041" Z="39.95644" />
 			<Objective QuestName="On the Mend" QuestId="35026" Type="CollectItem" ItemId="113009" CollectCount="100" />
-			<Objective QuestName="Basilisk Butcher" QuestId="35870" Type="CollectItem" ItemId="113504" CollectCount="9" />
-			<If Condition="HasQuest(35870) &amp;&amp; IsQuestCompleted(35870)" > <!-- Basilisk Butcher - temp fix for FP issues -->
+			<If Condition="HasQuest(35870)" > <!-- Basilisk Butcher - temp fix for FP issues -->
+                <CustomBehavior File="Hooks\Avoid" AvoidName="AvoidIgneous" Command="Add" ObjectId="81528" Radius="50" />
+				<Objective QuestName="Basilisk Butcher" QuestId="35870" Type="CollectItem" ItemId="113504" CollectCount="9" />
 				<MoveTo X="6594.965" Y="1315.908" Z="64.63465" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for taxi map crap {TimeRemaining}" />
 				<CustomBehavior File="Misc\RunLua" Lua="TaxiFrame.CloseButton:Click()" WaitTime="1000" />
+                <CustomBehavior File="Hooks\Avoid" AvoidName="AvoidIgneous" Command="Remove" />
 			</If>
 		<TurnIn QuestName="Basilisk Butcher" QuestId="35870" TurnInName="Nisha" TurnInId="81674" X="6594.965" Y="1315.908" Z="64.63465" />
 		<TurnIn QuestName="On the Mend" QuestId="35026" TurnInName="Nisha" TurnInId="81674" X="6594.965" Y="1315.908" Z="64.63465" />
