@@ -39,10 +39,10 @@
 		<Blackspot X="3189.836" Y="2887.071" Z="54.17657" Radius="55" /> <!-- Invis Wall -->
 	</Blackspots>
 
-<Blacklist>
-<Mob Name="Shadow Infiltrator" Id="76663" Flags="Combat, Pull, Interact" />
-<Mob Name="Shadow Pillager" Id="76686"  Flags="Combat, Pull, Interact" />
-</Blacklist>
+	<Blacklist>
+		<Mob Name="Shadow Infiltrator" Id="76663" Flags="Combat, Pull, Interact" />
+		<Mob Name="Shadow Pillager" Id="76686"  Flags="Combat, Pull, Interact" />
+	</Blacklist>
 
 	<Mailboxes> <!-- Need to add Mailboxes and Vendors! -->
 		<Mailbox X="3571.417" Y="1678.606" Z="172.7925" /> <!-- Fort Wrynn -->
@@ -697,7 +697,7 @@
 				<Mob Name="Arcane Wraith" Id="78451" />
 				<Mob Name="Crystal Rager" Id="78327" />
 				<Mob Name="Crystal Rager" Id="78452" />
-				
+
 			</CollectFrom>
 			<Hotspots>
 				<Hotspot X="2482.856" Y="2727.076" Z="98.93221" />
@@ -1711,15 +1711,19 @@
 					</HuntingGrounds>
 				</CustomBehavior>
 			</While>
-			<If Condition="HasQuest(34910) &amp;&amp; !IsQuestCompleted(34910)" > <!-- Vicious Viziers -->
+
+			<While Condition="HasQuest(34910) &amp;&amp; !IsQuestCompleted(34910)" > <!-- Vicious Viziers -->
 				<!-- DELETE CONDITION AND MOVETO'S AFTER HB IS FIXED AND CAN MOVE TO KILLMOB X1 ON IT'S OWN -->
-				<MoveTo X="1136.474" Y="1746.022" Z="332.404" />
-				<Objective QuestName="Vicious Viziers" QuestId="34910" Type="KillMob" MobId="80294" KillCount="1" />
-				<MoveTo X="1366.564" Y="1830.259" Z="349.1287" />
-				<Objective QuestName="Vicious Viziers" QuestId="34910" Type="KillMob" MobId="80292" KillCount="1" />
-				<MoveTo X="1203.583" Y="1886.641" Z="343.8008" />
-				<Objective QuestName="Vicious Viziers" QuestId="34910" Type="KillMob" MobId="80295" KillCount="1" />
-			</If>
+				<If Condition="!IsObjectiveComplete(1, 34910)"> <!-- Vizier Vorgorsh -->
+					<MoveTo X="1136.474" Y="1746.022" Z="332.404" />
+				</If>
+				<If Condition="!IsObjectiveComplete(2, 34910)"> <!-- Vizier Zulmork -->
+					<MoveTo X="1366.564" Y="1830.259" Z="349.1287" />
+				</If>
+				<If Condition="!IsObjectiveComplete(3, 34910)"> <!-- Vizier Cromaug -->
+					<MoveTo X="1203.583" Y="1886.641" Z="343.8008" />
+				</If>
+			</While>
 			<Objective QuestName="While We're in the Neighborhood" QuestId="34909" Type="CollectItem" ItemId="112088" CollectCount="8" />
 			<TurnIn QuestName="Vicious Viziers" QuestId="34910" TurnInName="Magister Serenaa" TurnInId="79392" X="1668.189" Y="1662.498" Z="304.7826" />
 			<TurnIn QuestName="While We're in the Neighborhood" QuestId="34909" TurnInName="Magister Serena" TurnInId="79392" X="1668.189" Y="1662.498" Z="304.7826" />
