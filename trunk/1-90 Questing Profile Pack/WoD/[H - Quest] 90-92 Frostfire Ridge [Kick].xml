@@ -1460,14 +1460,15 @@
 		<TurnIn QuestName="Deeds Left Undone" QuestId="33546" TurnInName="Durotan" TurnInId="75177" X="6653.87" Y="5914.223" Z="254.1397" />
 		<PickUp QuestName="Great Balls of Fire!" QuestId="33408" GiverName="Durotan" GiverId="75177" X="6653.87" Y="5914.223" Z="254.1397" />
 			<While Condition="HasQuest(33408) &amp;&amp; !IsQuestCompleted(33408)"> <!-- Great Balls of Fire! -->
-				<MoveTo QuestId="33408" X="6627.853" Y="5889.411" Z="257.6767" />
-				<MoveTo QuestId="33408" X="6598.518" Y="5850.681" Z="272.9184" />
-				<MoveTo QuestId="33408" X="6594.336" Y="5827.066" Z="283.4371" />
-				<MoveTo QuestId="33408" X="6593.64" Y="5763.806" Z="309.1479" />
-			 <While Condition="HasQuest(33408) &amp;&amp; !IsQuestCompleted(33408)"> <!-- Great Balls of Fire! -->
-				<CustomBehavior File="UserDialog" QuestId="33408" AllowBotStop="true" SoundCue="Exclamation" SoundCueInterval="30" ExpiryTime="300" ExpiryAction="InputEnabled_Continue"
-									Text="Go up the hill, avoid the fireballs.  Use the left side to hide" />
-			 </While>
+                <CustomBehavior File="Hooks\Avoid" AvoidName="AvoidBalls" Command="Add" ObjectId="224636" ObjectType="GameObject" Radius="5" />
+                <CustomBehavior File="Hooks\Avoid" AvoidName="BallsOfFire" Command="Add" ObjectType="AreaTrigger" ObjectId="5669" Radius="6" 
+                AvoidLocationProducer="WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, AREATRIGGER.Location, AREATRIGGER.Location.RayCast(AREATRIGGER.Rotation, 8))" />
+                
+				<CustomBehavior File="ForcedMount" MountType="Ground" />
+                <MoveTo X="6592.074" Y="5774.022" Z="306.117" />
+                
+                <CustomBehavior File="Hooks\Avoid" AvoidName="AvoidBalls" Command="Remove" />
+                <CustomBehavior File="Hooks\Avoid" AvoidName="BallsOfFire" Command="Remove" />
 			</While>
 		<TurnIn QuestName="Great Balls of Fire!" QuestId="33408" TurnInName="Thrall" TurnInId="75186" X="6627.966" Y="5665.899" Z="318.8831" />	
 		<PickUp QuestName="The Butcher of Bladespire" QuestId="33410" GiverName="Thrall" GiverId="75186" X="6627.966" Y="5665.899" Z="318.8831" />	
