@@ -2034,7 +2034,25 @@
 		<TurnIn QuestName="Trouble In The Mine" QuestId="34399" TurnInName="Vindicator Doruu" TurnInId="78538" X="2423.043" Y="2755.477" Z="115.0285" />
 		<PickUp QuestName="Arcane Essence" QuestId="34403" GiverName="Archmage Elandra" GiverId="78513" X="2421.337" Y="2753.976" Z="115.1917" />
 		<PickUp QuestName="Caught In The Chaos" QuestId="34406" GiverName="Archmage Elandra" GiverId="78513" X="2421.337" Y="2753.976" Z="115.1917" />
-		<Objective QuestName="Arcane Essence" QuestId="34403" Type="CollectItem" ItemId="110390" CollectCount="6" />
+
+		<CustomBehavior File="InteractWith" QuestId="34403" MobState="Dead" ProactiveCombatStrategy="ClearMobsTargetingUs" 
+			MobIds="78326, 78327, 78451, 78452" NumOfTimes="100" WaitTime="1000" >
+			<HuntingGrounds>
+				<Hotspot X="2482.856" Y="2727.076" Z="98.93221" />
+				<Hotspot X="2427.626" Y="2625.059" Z="101.5056" />
+				<Hotspot X="2443.341" Y="2754.261" Z="91.56841" />
+				<Hotspot X="2459.42" Y="2737.424" Z="94.89234" />
+				<Hotspot X="2495.827" Y="2732.581" Z="99.57054" />
+				<Hotspot X="2502.875" Y="2698.519" Z="100.4058" />
+				<Hotspot X="2472.876" Y="2672.629" Z="97.03507" />
+				<Hotspot X="2436.71" Y="2657.983" Z="95.34002" />				
+				<Hotspot X="2432.21" Y="2689.345" Z="91.89348" />
+				<Hotspot X="2434.854" Y="2729.449" Z="92.0305" />
+				<Hotspot X="2392.962" Y="2713.331" Z="100.7541" />
+			</HuntingGrounds>
+		</CustomBehavior>
+
+
 		<While Condition="HasQuest(34406) &amp;&amp; !IsQuestCompleted(34406)" > <!-- Caught In The Chaos -->
 			<!--<Objective QuestName="Caught In The Chaos" QuestId="34406" Type="KillMob" MobId="78442" KillCount="8" /> Save 8 Miners -->
 			<CustomBehavior File="InteractWith" QuestId="34406" MobId="78353" MobId2="78354" MobId3="78326" MobId4="78452"
@@ -2065,10 +2083,10 @@
 			<!-- Fire hook -->
 			<CustomBehavior File="InteractWith" QuestId="34448" MobId="78501" Range="5" TerminateWhen="IsObjectiveComplete(2, 34448)" X="2534.303" Y="2722.442" Z="234.9539" />
 			<!-- stop fire hook -->
-			<CustomBehavior File="InteractWith" MobId="78741" Range="5" GossipOptions="1" WaitTime="3000" X="2532.167" Y="2726.31" Z="234.9534" />
+			<CustomBehavior File="InteractWith" MobId="78741" Range="5" GossipOptions="1" WaitTime="3000" X="2531.588" Y="2724.546" Z="234.9536" />
 		</While>
- 		<If Condition="HasQuest(34448) &amp;&amp; IsQuestCompleted(34448) &amp;&amp; Unit(78741) != null" > <!-- Kaelynara Sunchaser -->
-			<CustomBehavior File="InteractWith" MobId="78741" Range="5" GossipOptions="1" WaitTime="3000" X="2532.167" Y="2726.31" Z="234.9534" />
+		<If Condition="HasQuest(34448) &amp;&amp; IsQuestCompleted(34448) &amp;&amp; Unit(78741) != null" > <!-- Kaelynara Sunchaser -->
+			<CustomBehavior File="InteractWith" MobId="78741" Nav="CTM" Range="5" GossipOptions="1" WaitTime="3000" X="2532.167" Y="2726.31" Z="234.9534" />
 		</If>
 		<TurnIn QuestName="Kaelynara Sunchaser" QuestId="34448" TurnInName="Vindicator Doruu" TurnInId="78538" X="2423.043" Y="2755.477" Z="115.0282" />
 		<!-- Possibly use garrison hearth and then fp to Fort Wrynn -->
