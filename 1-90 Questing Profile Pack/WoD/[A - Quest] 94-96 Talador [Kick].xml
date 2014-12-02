@@ -1786,6 +1786,10 @@
 		<!-- END OF ARCANE SANCTUM CHAIN -->
 
 		<!-- Exarch's Refuge / Auchindoun -->
+		<If Condition="!IsQuestCompleted(33917)" > <!-- Avoid Fires -->
+			<CustomBehavior File="Hooks\Avoid" AvoidName="FieryTrail" Command="Add" ObjectType="AreaTrigger" ObjectId="7710" Radius="4" />
+			<CustomBehavior File="Hooks\Avoid" AvoidName="FlameCrash" Command="Add" ObjectType="AreaTrigger" ObjectId="7521" Radius="5" />
+       </If>
 		<PickUp QuestName="Speaker for the Dead" QuestId="34701" GiverName="Vindicator Icia" GiverId="79618" X="3570.226" Y="1680.144" Z="172.8371" /> <!-- Fort Wrynn -->
 		<TurnIn QuestName="Speaker for the Dead" QuestId="34701" TurnInName="Exarch Maladaar" TurnInId="75119" X="1737.653" Y="2514.695" Z="133.6592" /> <!-- Exarch's Refuge -->
 		<PickUp QuestName="Holding the Line" QuestId="34407" GiverName="Exarch Maladaar" GiverId="75119" X="1737.653" Y="2514.695" Z="133.6592" />
@@ -1800,7 +1804,6 @@
 			<TargetingDistance Value="1" /> <!-- Use LevelBot default -->
 		</If>
 		<While Condition="HasQuest(33917) &amp;&amp; !IsQuestCompleted(33917)" > <!-- Disrupting the Flow -->
-			<CustomBehavior File="Hooks\Avoid" AvoidName="FieryTrail" Command="Add" ObjectType="AreaTrigger" ObjectId="7710" Radius="2" />
 			<TargetingDistance Value="1" /> <!-- Use LevelBot default -->
 			<MoveTo X="1881.415" Y="2419.431" Z="121.6267" />
 			<TargetingDistance Value="10" /> <!-- Use LevelBot default -->
@@ -1827,12 +1830,15 @@
 			<TurnIn QuestName="Disrupting the Flow" QuestId="33917" TurnInName="Vindicator Nobundo" TurnInId="78482" X="1814.354" Y="2450.097" Z="129.3672" />
 			<CustomBehavior File="NoCombatMoveTo" X="1737.653" Y="2514.695" Z="133.6592" />
 			<TargetingDistance Value="45" /> <!-- Use LevelBot default -->
-			<CustomBehavior File="Hooks\Avoid" AvoidName="FieryTrail" Command="Remove" />
 		</If>
 		<TurnIn QuestName="Holding the Line" QuestId="34407" TurnInName="Exarch Maladaar" TurnInId="75119" X="1737.653" Y="2514.695" Z="133.6592" />
 		<TurnIn QuestName="Powering the Defenses" QuestId="34458" TurnInName="Soulbinder Tuulani" TurnInId="77737" X="1897.236" Y="2128.445" Z="76.93946" /> <!-- Tomb of Lights -->
 		<PickUp QuestName="We Must Construct Additional Pylons" QuestId="34351" GiverName="Soulbinder Tuulani" GiverId="77737" X="1897.236" Y="2128.445" Z="76.93946" />
 		<PickUp QuestName="Nightmare in the Tomb" QuestId="33530" GiverName="Yuuri" GiverId="76790" X="1828.885" Y="2213.498" Z="79.53819" />
+		<If Condition="IsQuestCompleted(33917)" > <!-- Avoid Fires remove -->
+			<CustomBehavior File="Hooks\Avoid" AvoidName="FieryTrail" Command="Remove" />
+			<CustomBehavior File="Hooks\Avoid" AvoidName="FlameCrash" Command="Remove" />
+        </If>
 		<If Condition="HasQuest(34351)" >
 			<TargetingDistance Value="1" /> <!-- Use LevelBot default -->
 			<CustomBehavior File="NoCombatMoveTo" X="1794.26" Y="2321.939" Z="77.99058" />
