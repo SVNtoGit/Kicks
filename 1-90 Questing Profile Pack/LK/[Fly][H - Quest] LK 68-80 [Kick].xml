@@ -12008,7 +12008,17 @@
         <TurnIn QuestName="It Could Kill Us All" QuestId="13135" TurnInName="Crusade Engineer Spitzpatrick" TurnInId="30714" Nav="Fly" />
         <PickUp QuestName="The Restless Dead" QuestId="13110" GiverName="Father Gustav" GiverId="30683" Nav="Fly" />
             <While Condition="HasQuest(13110) &amp;&amp; !IsQuestCompleted(13110)" >
-                <CustomBehavior File="InteractWith" QuestId="13110" InteractByUsingItemId="43153" MobId="30202" NumOfTimes="30" CollectionDistance="500" X="6617.311" Y="456.2849" Z="400.5445" />
+                <CustomBehavior File="InteractWith" QuestId="13110" InteractByUsingItemId="43153" MobId="30202" MobState="Dead" NumOfTimes="30" CollectionDistance="500" >
+                    <HuntingGrounds>
+                        <Hotspot X="6510.505" Y="522.025" Z="416.4586" />
+                        <Hotspot X="6616.604" Y="532.3381" Z="397.8749" />
+                        <Hotspot X="6679.497" Y="500.1296" Z="400.8133" />
+                        <Hotspot X="6698.07" Y="353.6881" Z="418.4744" />
+                        <Hotspot X="6629.683" Y="426.1842" Z="403.2233" />
+                        <Hotspot X="6601.311" Y="490.9769" Z="398.8555" />
+                        <Hotspot X="6493.644" Y="480.9878" Z="424.1723" />               
+                    </HuntingGrounds>
+                </CustomBehavior>
             </While>
             <Objective QuestName="The Purging Of Scourgeholme" QuestId="13118" Type="KillMob" MobId="30543" KillCount="3" />
             <Objective QuestName="The Purging Of Scourgeholme" QuestId="13118" Type="KillMob" MobId="30541" KillCount="3" />
@@ -12018,11 +12028,84 @@
         <TurnIn QuestName="The Purging Of Scourgeholme" QuestId="13118" TurnInName="The Ebon Watcher" TurnInId="30596" Nav="Fly" />
         <TurnIn QuestName="The Restless Dead" QuestId="13110" TurnInName="Father Gustav" TurnInId="30683" Nav="Fly" />
         <PickUp QuestName="The Air Stands Still" QuestId="13125" GiverName="The Ebon Watcher" GiverId="30596" Nav="Fly" />
-		<!-- <CustomBehavior File="UserDialog" QuestId="13125" Title="title" AllowBotStop="true" SoundCue="Asterisk" -->
-		<!--                 SoundCueInterval="1" -->
-		<!--                 Text="Use the item on the elites and kill them\n\nAfter this quest, the profile will grind you to 80 - i recommend AB until 80 and then switching to my Cata flying profiles" /> -->
-		<!-- <TurnIn QuestName="The Air Stands Still" QuestId="13125" TurnInName="The Ebon Watcher" TurnInId="30596" /> -->
-		<!-- End of Icecrown Quests -->
+ 			<While Condition="((HasQuest(13125)) &amp;&amp; (!IsQuestCompleted(13125)))" >
+			 <While Condition="!IsObjectiveComplete(1, 13125)">
+				<CustomBehavior File="FlyTo" DestName="kill Salranax" X="6802.356" Y="549.4673" Z="428.1523" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="CombatUseItemOnV2" MobId="30829" ItemId="43206" UseWhenMobHasHealthPercent="99" MaxRange="10" X="6839.198" Y="595.1352" Z="426.2299" />
+			 </While>
+				
+			 <While Condition="!IsObjectiveComplete(3, 13125)">
+				<CustomBehavior File="FlyTo" DestName="kill Yath'amon" X="6902.899" Y="488.3887" Z="477.9678" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="CombatUseItemOnV2" MobId="30831" ItemId="43206" UseWhenMobHasHealthPercent="99" MaxRange="10" X="6869.675" Y="422.0885" Z="470.7847" />
+			 </While>
+				
+			 <While Condition="!IsObjectiveComplete(2, 13125)">
+				<CustomBehavior File="FlyTo" DestName="kill Talonox" X="7137.209" Y="620.8448" Z="500.5591" />
+				<CustomBehavior File="ForcedDismount" />
+				<CustomBehavior File="CombatUseItemOnV2" MobId="30830" ItemId="43206" UseWhenMobHasHealthPercent="99" MaxRange="10" X="7208.585" Y="636.478" Z="485.284" />
+			 </While>
+				
+				<CustomBehavior File="InteractWith" MobId="192907" ObjectType="Gameobject" WaitForNpcs="False" WaitTime="5000" X="7215.726" Y="675.1986" Z="491.4342" />
+			</While>
+			<If Condition="HasQuest(13125) &amp;&amp; IsQuestCompleted(13125)" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6374.395" Y="236.6126" Z="396.046" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Air Stands Still" QuestId="13125" TurnInName="The Ebon Watcher" TurnInId="30596" />
+		<PickUp QuestName="Into The Frozen Heart Of Northrend" QuestId="13139" GiverName="Father Gustav" GiverId="30683" />
+				<RunTo X="6384.796" Y="233.2912" Z="395.993" />
+			</If>
+ 			<If Condition="!HasQuest(13139) &amp;&amp; !IsQuestCompleted(13139)" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6374.395" Y="236.6126" Z="396.046" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="Into The Frozen Heart Of Northrend" QuestId="13139" GiverName="Father Gustav" GiverId="30683" />
+				<RunTo X="6384.796" Y="233.2912" Z="395.993" />
+			</If>
+			<If Condition="HasQuest(13139) &amp;&amp; IsQuestCompleted(13139)" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6258.824" Y="49.62731" Z="388.365" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="Into The Frozen Heart Of Northrend" QuestId="13139" TurnInName="Highlord Tirion Fordring" TurnInId="30677" />			
+		<PickUp QuestName="The Battle For Crusaders' Pinnacle" QuestId="13141" GiverName="Highlord Tirion Fordring" GiverId="30677" />
+			</If>
+			<If Condition="!HasQuest(13141) &amp;&amp; !IsQuestCompleted(13141)" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6258.824" Y="49.62731" Z="388.365" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Battle For Crusaders' Pinnacle" QuestId="13141" GiverName="Highlord Tirion Fordring" GiverId="30677" />
+			</If>
+			<If Condition="HasQuest(13141) &amp;&amp; !IsQuestCompleted(13141)" >
+				<CustomBehavior File="FlyTo" DestName="Crusaders' Pinnacle" X="6421.334" Y="440.0847" Z="514.2499" />
+				<CustomBehavior File="ForcedDismount" />
+				<UseItem QuestId="13141" ItemId="43243" X="6419.53" Y="424.3478" Z="511.1282" />
+				<CustomBehavior File="KillUntilComplete" QuestId="13141" MobId1="30984" MobId2="30986" MobId3="30987" MobId4="30989" X="6431.698" Y="415.236" Z="504.072" 
+                                            TerminateWhen="IsQuestCompleted(13141) || Unit(31003) == null" />
+			</If>
+			<If Condition="HasQuest(13141) &amp;&amp; IsQuestCompleted(13141)" >
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6374.395" Y="236.6126" Z="396.046" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Battle For Crusaders' Pinnacle" QuestId="13141" TurnInName="Father Gustav" TurnInId="30683" />	
+		<PickUp QuestName="The Crusaders' Pinnacle" QuestId="13157" GiverName="Father Gustav" GiverId="30683" />
+				<RunTo X="6384.796" Y="233.2912" Z="395.993" />
+			</If>
+			<If Condition="!HasQuest(13157) &amp;&amp; !IsQuestCompleted(13157)" >
+				<CustomBehavior File="FlyTo" DestName="Pickup Quest" X="6374.395" Y="236.6126" Z="396.046" />
+				<CustomBehavior File="ForcedDismount" />
+		<PickUp QuestName="The Crusaders' Pinnacle" QuestId="13157" GiverName="Father Gustav" GiverId="30683" />
+				<RunTo X="6384.796" Y="233.2912" Z="395.993" />
+			</If>
+			<!-- End of Valley of Echoes Quests -->
+  			
+			<!-- Crusaders' Pennicle Quests -->
+				<CustomBehavior File="Message" Text="Compiling Crusaders' Pennicle Quests" LogColor="Cornflowerblue" />
+
+			<If Condition="((HasQuest(13157)) &amp;&amp; (IsQuestCompleted(13157)))" >
+				<CustomBehavior File="FlyTo" DestName="Crusaders' Pinnacle (Icecrown)" X="6424.024" Y="439.9797" Z="520.9583" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="6425.238" Y="439.5326" Z="511.1671" />
+				<CustomBehavior File="ForcedDismount" />
+		<TurnIn QuestName="The Crusaders' Pinnacle" QuestId="13157" TurnInName="Highlord Tirion Fordring" TurnInId="31044" />
+			<!-- <PickUp QuestName="A Tale of Valor" QuestId="13068" GiverName="Highlord Tirion Fordring" GiverId="31044" /> -->
+			</If>
+        <!-- End of Icecrown Development -->
 
 		<!-- Storm Peaks -->
 		<CustomBehavior File="Message" Text="Compiling Storm Peaks Quests" LogColor="Green" />
