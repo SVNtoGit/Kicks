@@ -427,20 +427,42 @@
 			</If>
 		</If>
 
+        <!-- Alliance -->
 		<If Condition="Me.IsAlliance &amp;&amp; !SpellManager.HasSpell(&quot;Flight Master's License&quot;)">
-			<CustomBehavior File="Message" Text="Training Riding in Stormwind." LogColor="CornflowerBlue" />
-			<If Condition="Me.Gold &gt;= 250">
+            <If Condition="Me.Gold &gt;= 250">
+                <CustomBehavior File="Message" Text="Training Riding in Stormwind." LogColor="CornflowerBlue" />
 				<MoveTo DestName="Bralla Cloudwing in Stormwind" X="-8847.636" Y="501.1504" Z="109.6104" />
 				<CustomBehavior File="ForceTrainRiding" MobId="43769" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting {TimeRemaining}" />
-			</If>
+            </If>
+ 		</If>
+            
 		</If>
 		<If Condition="!SpellManager.HasSpell(&quot;Flight Master's License&quot;)">
 			<CustomBehavior File="UserDialog" StopOnContinue="true" SoundCue="Exclamation" SoundCueInterval="1"
                             Text="You need your cata flying license to continue!!!! Train it at your capital City!" />
 		</If>
 
+        <!-- Horde -->
 		<If Condition="Me.IsHorde &amp;&amp; !IsQuestCompleted(25316)">
+			<CustomBehavior File="Message" Text="Repair, Sell, Mail" LogColor="CornflowerBlue" />
+			<If Condition="Me.ZoneId == 1637"> <!-- Org -->
+				<ClearVendor />
+				<SetVendor>
+					<Vendors>
+						<Vendor Name="Sana" Entry="3319" Type="Repair" X="1583.74" Y="-4288.98" Z="21.54139" />
+					</Vendors>
+				</SetVendor>
+				<ClearMailbox />
+				<SetMailbox>
+					<Mailboxes>
+						<Mailbox X="1550.458" Y="-4364.466" Z="17.52338" />
+					</Mailboxes>
+				</SetMailbox>
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+				<ClearVendor />
+				<ClearMailbox />
+            </If>
 			<!-- Set Hearth to Orgrimmar
                  <CustomBehavior File="InteractWith" MobId="6929" InteractByGossipOptions="1"
                  X="1572.816" Y="-4437.691" Z="16.05642" />
@@ -475,6 +497,24 @@
 		<!-- Ally -->
 		<If Condition="Me.IsAlliance &amp;&amp; !IsQuestCompleted(25316)">
 			<CustomBehavior File="Message" Text="Compiling Stormwind Quests" LogColor="CornflowerBlue" />
+			<CustomBehavior File="Message" Text="Repair, Sell, Mail" LogColor="CornflowerBlue" />
+			<If Condition="Me.ZoneId == 1519"> <!-- SW -->
+				<ClearVendor />
+				<SetVendor>
+					<Vendors>
+						<Vendor Name="Gunther Weller" Entry="1289" Type="Repair" X="-8790.421" Y="607.3484" Z="96.77347" />
+					</Vendors>
+				</SetVendor>
+				<ClearMailbox />
+				<SetMailbox>
+					<Mailboxes>
+						<Mailbox X="-8873.934" Y="649.8683" Z="96.02056" />
+					</Mailboxes>
+				</SetMailbox>
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+				<ClearVendor />
+				<ClearMailbox />
+            </If>
 
 			<!-- set hearth to Dorf District
                  <CustomBehavior File="InteractWith" MobId="6929" InteractByGossipOptions="1"
