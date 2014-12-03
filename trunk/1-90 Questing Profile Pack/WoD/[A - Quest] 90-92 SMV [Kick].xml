@@ -2403,11 +2403,9 @@
 					<CustomBehavior File="Hooks\DoWhen" ActivityName="SingularShoveOff" UseWhen="Unit(75358) != null &amp;&amp; Blacklist.Contains(Unit(75358), BlacklistFlags.Pull)" >
 						<CustomBehavior File="RunCode" Code="Blacklist.Clear(u =&gt; u.Entry == 75358)" />
 					</CustomBehavior>
-					<!-- http://www.wowhead.com/spell=161676
-					<CustomBehavior File="Hooks\DoWhen" ActivityName="UseCallToArms" UseWhen="Unit(75358) != null &amp;&amp; Me.Combat == true &amp;&amp; " >
+					<CustomBehavior File="Hooks\DoWhen" ActivityName="UseCallToArms" UseWhen="Unit(75358) != null &amp;&amp; Me.Combat == true &amp;&amp; !WoWSpell.FromId(161676).Cooldown" >
 						<CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(161676)" WaitTime="1000" />
 					</CustomBehavior>
-					-->
 					<CustomBehavior File="KillUntilComplete" QuestId="33256" ImmediatelySwitchToHighestPriorityTarget="True" 
 											TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 1" >
 						<PursuitList>
@@ -2419,6 +2417,7 @@
 						</HuntingGrounds>
 					</CustomBehavior>
 					<CustomBehavior File="Hooks\DoWhen" ActivityName="SingularShoveOff" Command="Remove" />
+					<CustomBehavior File="Hooks\DoWhen" ActivityName="UseCallToArms" Command="Remove" />
 				</While>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 2">
 					<While Condition="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.GetStep(1).IsComplete">
