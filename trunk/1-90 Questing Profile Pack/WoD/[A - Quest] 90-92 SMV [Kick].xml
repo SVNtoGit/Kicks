@@ -1068,7 +1068,7 @@
 		<TurnIn QuestName="A Potential Ally" QuestId="34478" TurnInName="Exarch Maladaar" TurnInId="79537" X="4217.415" Y="-2817.856" Z="16.9857" />
 		<PickUp QuestName="Kill Your Hundred" QuestId="34429" GiverName="Archmage Khadgar" GiverId="78560" X="4229.732" Y="-2812.947" Z="17.11976" />
 		<!-- <CustomBehavior File="Halt" /> -->
-		<If Condition="HasQuest(34429) &amp;&amp; !IsQuestCompleted(34429)" > <!-- Altar Altercation -->
+		<While Condition="HasQuest(34429) &amp;&amp; !IsQuestCompleted(34429)" > <!-- Kill Your Hundred -->
 			<While Condition="!IsObjectiveComplete(1, 34429)"> <!-- Enter the Arena -->
 				<MoveTo X="4402.403" Y="-2826.078" Z="5.036519" />
 				<!-- un cancelable cutscene -->
@@ -1087,6 +1087,11 @@
 			<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for cutscene {TimeRemaining}" />
 			<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
 			<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for cutscene to end {TimeRemaining}" />
+		</While>
+		<If Condition="HasQuest(34429) > <!-- Kill Your Hundred -->
+			<MoveTo X="4510.708" Y="-2635.453" Z="1.748904" />
+			<CustomBehavior File="RunCode" Code="Navigator.Clear()" />
+			<CustomBehavior File="LoadProfile" ProfileName="[A - Quest] 90-92 SMV [Kick]" RememberProfile="true"/> <!-- Remove this when nav is fixed -->
 		</If>
 		<TurnIn QuestName="Kill Your Hundred" QuestId="34429" TurnInName="Archmage Khadgar" TurnInId="78561" X="4510.708" Y="-2635.453" Z="1.748904" /> <!-- New NPC Id -->
 		<PickUp QuestName="The Shadowmoon Clan" QuestId="34432" GiverName="Vindicator Maraad" GiverId="78554" X="4505.308" Y="-2633.774" Z="1.709742" />
@@ -2369,11 +2374,11 @@
 				<MoveTo X="606.9452" Y="-2386.603" Z="96.24855" />
 			</If>
 			<UseMount Value="False" />
-			<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerSphere" Command="Add" ObjectType="AreaTrigger" ObjectId="5805" Radius="8" AvoidWhen="Me.Combat" />
+			<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerSphere" Command="Add" ObjectType="AreaTrigger" ObjectId="5805" Radius="12" AvoidWhen="Me.Combat" />
 			<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPoly" Command="Add" ObjectType="AreaTrigger" ObjectId="5633" Radius="15" AvoidWhen="Me.Combat" />
 			<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPolyFieryBlast" Command="Add" ObjectId="75358" Radius="16" LeashRadius="45" 
 				AvoidWhen="Me.Combat &amp;&amp; (UNIT.CastingSpellId == 151732 || UNIT.CastingSpellId == 149378 || UNIT.CastingSpellId == 151766 || UNIT.HasAura(151731) || UNIT.HasAura(161320) || UNIT.HasAura(151766) )" 
-				AvoidLocationProducer="WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location, UNIT.Location.RayCast(UNIT.Rotation, 20))" X="830.7855" Y="-2869.874" Z="100.4185" />
+				AvoidLocationProducer="WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location, UNIT.Location.RayCast(UNIT.Rotation, 17))" X="830.7855" Y="-2869.874" Z="100.4185" />
 
 			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlazingShot" Command="Add" ObjectType="AreaTrigger" ObjectId="5797" AvoidWhen="Me.HasAura(151630)" Radius="7" />
 			<!--
@@ -2397,6 +2402,11 @@
 					<CustomBehavior File="Hooks\DoWhen" ActivityName="SingularShoveOff" UseWhen="Unit(75358) != null &amp;&amp; Blacklist.Contains(Unit(75358), BlacklistFlags.Pull)" >
 						<CustomBehavior File="RunCode" Code="Blacklist.Clear(u =&gt; u.Entry == 75358)" />
 					</CustomBehavior>
+					<!-- http://www.wowhead.com/spell=161676
+					<CustomBehavior File="Hooks\DoWhen" ActivityName="UseCallToArms" UseWhen="Unit(75358) != null &amp;&amp; Me.Combat == true &amp;&amp; " >
+						<CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(161676)" WaitTime="1000" />
+					</CustomBehavior>
+					-->
 					<CustomBehavior File="KillUntilComplete" QuestId="33256" ImmediatelySwitchToHighestPriorityTarget="True" 
 											TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 1" >
 						<PursuitList>
