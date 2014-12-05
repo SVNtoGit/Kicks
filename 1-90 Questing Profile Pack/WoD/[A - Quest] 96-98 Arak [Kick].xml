@@ -1247,17 +1247,16 @@
 				<CustomBehavior File="InteractWith" QuestId="34884" MobId="80233" Range="4" NonCompeteDistance="0" GossipOptions="1" TerminateWhen="IsObjectiveComplete(1, 34884)" X="-83.36806" Y="1928.299" Z="28.7319" />
 			</While>
 		<PickUp QuestName="Mother of Thorns" QuestId="34885" GiverName="Skizzik" GiverId="80233" X="-83.36806" Y="1928.299" Z="28.7319" />
-		
-			<While Condition="!HasQuest(34838) &amp;&amp; !IsQuestCompleted(34838)" > <!-- Pickup Ikky's Egg -->
+			<!--
+			<While Condition="!HasQuest(34838) &amp;&amp; !IsQuestCompleted(34838)" >
                 <CustomBehavior File="InteractWith" MobId="80470" Range="6" NonCompeteDistance="0" WaitTime="2000" X="-100.6736" Y="1930.181" Z="31.21564" />
                 <CustomBehavior File="Misc\RunLua" Lua="QuestFrameAcceptButton:Click()" WaitTime="2000" />
 			</While>
-			<!--
-			<If Condition="!HasQuest(34838) &amp;&amp; !IsQuestCompleted(34838)" >  Pickup Ikky's Egg 
+			-->
+			<If Condition="!HasQuest(34838) &amp;&amp; !IsQuestCompleted(34838)" >  <!-- Pickup Ikky's Egg -->
 				<MoveTo X="-99.24571" Y="1930.973" Z="28.8145" />
 		<PickUp QuestName="Ikky's Egg" QuestId="34838" GiverName="Kaliri Egg" GiverId="80470" X="-100.6736" Y="1930.181" Z="31.21564" />	
 			</If>
-			-->
 			<While Condition="HasQuest(34838) &amp;&amp; !IsQuestCompleted(34838)" >
 				<CustomBehavior File="InteractWith" QuestId="34838" MobId="80477" Range="4" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 34838)" X="-100.6736" Y="1930.181" Z="31.28452" />
 			</While>
@@ -1371,20 +1370,12 @@
 		<TurnIn QuestName="Shot-Caller" QuestId="35261" TurnInName="Overseers Chair" TurnInId="232353" TurnInType="GameObject" X="88.85938" Y="2530.226" Z="79.25608" />
 		<PickUp QuestName="Hot Seat" QuestId="35273" GiverName="Overseers Chair" GiverId="232353" GiverType="GameObject" X="88.85938" Y="2530.226" Z="79.25608" />
 			<While Condition="HasQuest(35273) &amp;&amp; !IsQuestCompleted(35273)" > <!-- Hot Seat -->
-				<CustomBehavior File="UserDialog" QuestId="35273" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Jump in the chair and kill stuff\nDon't go far, you have another userdialog soon" />
-					<!-- this kinda works, but needs a lot of improvement - it's a copy of 'kitchen sink' quest in TH
-				<If Condition="!Me.IsOnTransport">
-					<CustomBehavior File="InteractWith" QuestId="35273" MobId="232353" ObjectType="GameObject" NonCompeteDistance="0" Range="5" X="88.85938" Y="2530.226" Z="79.25608" />
+				<If Condition="!Me.IsOnTransport &amp;&amp; !IsQuestCompleted(35273)">
+					<CustomBehavior File="InteractWith" QuestId="35273" MobId="232362" ObjectType="GameObject" NonCompeteDistance="0" WaitTime="2000" Range="5" X="88.85938" Y="2530.226" Z="79.25608" />
 				</If>
-				<If Condition="Me.IsOnTransport">
-					<CustomBehavior File="SpecificQuests\35273-Arak-HotSeat" />
-					
-					Logic: Fire button 2 (1s CD - aoe spread), fire button 1 - laser beam for 4s
-					<Mob Name="Apexis Destroyer" Entry="82229" Type="Repair" X="198.3438" Y="2595.892" Z="27.42141" />
-					<WoWUnit Name="Adherent Sol-Shaper" Entry="82245" X="130.2309" Y="2539.313" Z="91.61228" />
-					our vehicle can 'die' and you have to get back in it
-				</If>
-					-->
+              <While Condition="Me.IsOnTransport &amp;&amp; !IsQuestCompleted(35273)" >
+                <CustomBehavior File="Vehicles\CannonControl" QuestId="35273" VehicleId="82153" MinAngle="-1" MaxAngle="1.5" Buttons="1,2" Gravity="0.01" Velocity="150" MobIds="82229, 82245" ExitButton="5" />
+              </While>
 			</While>
 		<TurnIn QuestName="Hot Seat" QuestId="35273" TurnInName="Kura the Blind" TurnInId="80155" X="395.632" Y="2441.932" Z="20.58742" />
 		<TurnIn QuestName="Hardly Working" QuestId="35260" TurnInName="Darkscryer Raastok" TurnInId="80157" X="391.8108" Y="2446.97" Z="20.05751" />

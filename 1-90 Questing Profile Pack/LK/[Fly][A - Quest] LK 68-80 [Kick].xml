@@ -12226,11 +12226,13 @@
                 <CustomBehavior File="InteractWith" MobId="28217" AuraIdMissingFromMob="51329"
                                 InteractByQuestFrameDisposition="Accept"
                                 WaitForNpcs="false" PreInteractMountStrategy="Dismount" />
-                <!-- Start Escort -->
+                <!-- Start Escort 
                 <CustomBehavior File="EscortGroup" QuestId="12570" StartNpcId="28217" StartEscortGossipOptions="1"
                                 EscortNpcId="28217" EscortCountMax="1" EscortCompleteWhen="QuestCompleteOrFails" />
-
-                <!-- Notes from MaxMuster:
+                   -->
+ 				<CustomBehavior File="InteractWith" QuestId="12570" MobId="28217" Range="1" WaitTime="500" NonCompeteDistance="0" 
+                                            InteractByGossipOptions="1" TerminateWhen="IsQuestCompleted(12570) || Unit(28217) == null" />
+               <!-- Notes from MaxMuster:
                 ...Because this Quest never Fails, maybe use EscortCompleteWhen=DestinationReached
                 ...this Quest needs more Testings
                 -->
@@ -13055,9 +13057,11 @@
             <If Condition="HasQuest(12559) &amp;&amp; !IsQuestCompleted(12559)" >
                 <CustomBehavior File="FlyTo" DestName="Objective" X="6116.741" Y="5663.464" Z="17.99642" />
                 <CustomBehavior File="ForcedDismount" />
+                <UseMount Value="false" />
 				<CustomBehavior File="InteractWith" QuestId="12559" MobId="190508" ObjectType="GameObject" NonCompeteDistance="0" Range="5" TerminateWhen="IsObjectiveComplete(1, 12559)" X="6254.906" Y="5785.817" Z="-6.130185" />
                 <MoveTo X="6116.741" Y="5663.464" Z="17.99642" />
-            </If>
+                <UseMount Value="true" />
+           </If>
             <If Condition="HasQuest(12559) &amp;&amp; IsQuestCompleted(12559)" >
                <If Condition="Object(190508) != null" >
                 <MoveTo X="6116.741" Y="5663.464" Z="17.99642" />
@@ -13065,8 +13069,11 @@
                 <CustomBehavior File="FlyTo" DestName="Turnin Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
                 <CustomBehavior File="ForcedDismount" />
         <TurnIn QuestName="Powering the Waygate - The Makers' Perch" QuestId="12559" TurnInName="Avatar of Freya" TurnInId="27801" />
+        <!-- issues with IW always wanting to fly and be stupid 
         <PickUp QuestName="Powering the Waygate - The Makers' Overlook" QuestId="12613" GiverName="Avatar of Freya" GiverId="27801" />
+          -->
             </If>
+            <!--
             <If Condition="!HasQuest(12613) &amp;&amp; !IsQuestCompleted(12613)" >
                 <CustomBehavior File="FlyTo" DestName="Pickup Quest" X="5874.56" Y="4116.636" Z="-85.51167" />
                 <CustomBehavior File="ForcedDismount" />
@@ -13076,7 +13083,7 @@
                 <CustomBehavior File="FlyTo" DestName="Objective" X="5649.105" Y="3425.17" Z="332.4856" />
                 <CustomBehavior File="ForcedDismount" />
         <PickUp QuestName="A Timeworn Coffer" QuestId="12691" GiverName="Timeworn Coffer" GiverId="190768" GiverType="GameObject" X="5669.654" Y="3429.74" Z="300.8429" />
- 				<CustomBehavior File="InteractWith" QuestId="12613" MobId="190509" ObjectType="GameObject" NonCompeteDistance="0" Range="5" TerminateWhen="IsObjectiveComplete(1, 12613)" X="5751.252" Y="3048.935" Z="287.9865" />
+ 				<CustomBehavior File="InteractWith" QuestId="12613" MobId="190509" ObjectType="GameObject" NonCompeteDistance="0" Range="5" TerminateWhen="IsObjectiveComplete(1, 12613)" X="5750.892" Y="3052.271" Z="287.9862" />
              <If Condition="HasQuest(12691) &amp;&amp; !IsQuestCompleted(12691)" >
                 <Objective QuestName="A Timeworn Coffer" QuestId="12691" Type="CollectItem" ItemId="39227" CollectCount="1" />
              </If>
@@ -13099,6 +13106,7 @@
                 <CustomBehavior File="ForcedDismount" />
         <TurnIn QuestName="A Timeworn Coffer" QuestId="12691" TurnInName="Timeworn Coffer" TurnInId="190768" TurninType="GameObject" X="5669.654" Y="3429.74" Z="300.8429" />
             </If>
+            -->
             <If Condition="HasQuest(12613) &amp;&amp; IsQuestCompleted(12613)" >
                <If Condition="Object(190509) != null" >
                 <MoveTo X="6116.741" Y="5663.464" Z="17.99642" />
