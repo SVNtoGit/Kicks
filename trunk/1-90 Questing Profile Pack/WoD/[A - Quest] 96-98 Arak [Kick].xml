@@ -1847,22 +1847,18 @@
 		<TurnIn QuestName="On Ebon Wings" QuestId="36085" TurnInName="Reshad" TurnInId="84262" X="-809.8212" Y="1862.688" Z="472.9334" />
 		<PickUp QuestName="When All Is Aligned" QuestId="35704" GiverName="Reshad" GiverId="84262" X="-809.8212" Y="1862.688" Z="472.9334" />
 			<While Condition="HasQuest(35704) &amp;&amp; !IsQuestCompleted(35704)" > <!-- When All Is Aligned -->
-                <CustomBehavior File="SpecificQuests\35704-SpiresOfArak-WhenAllIsAligned" />
-				<CustomBehavior File="UserDialog" QuestId="35704" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Jump in Ka'alu and kill stuff" />
+                <If Condition="!Me.IsOnTransport &amp;&amp; Me.Z &gt; 470"> <!-- Reshad -->
+                    <CustomBehavior File="InteractWith" QuestId="35704" MobId="86254" WaitTime="25000" NonCompeteDistance="0" X="-821.1736" Y="1859.384" Z="473.1219" />
+                </If>
+                <If Condition="!Me.IsOnTransport &amp;&amp; Me.Z &lt; 470"> <!-- Kaalu -->
+                    <CustomBehavior File="InteractWith" QuestId="35704" MobId="77857" InteractByGossipOptions="1" WaitTime="25000" NonCompeteDistance="0" X="-659.2118" Y="1579.464" Z="36.22358" />
+                </If>
+                <If Condition="Me.IsOnTransport">
+                  <CustomBehavior File="SpecificQuests\35704-SpiresOfArak-WhenAllIsAligned" />
+                </If>
 					<!-- 
-				<If Condition="!Me.IsOnTransport">
-					<CustomBehavior File="InteractWith" QuestId="35704" MobId="86254" NonCompeteDistance="0" Range="5" WaitTime="25000" X="-821.1736" Y="1859.384" Z="473.1219" />
-				</If>
-				<If Condition="Me.IsOnTransport">
-					<WoWUnit Name="Adherent Wind-Thrasher" Entry="82817" X="-467.5799" Y="1514.819" Z="381.0627" />
-					<WoWUnit Name="Adherent Razorwing" Entry="82803" X="-453.5434" Y="1488.366" Z="361.9187" />
-					<WoWUnit Name="Adherent Colossus" Entry="83487" X="-435.398" Y="1488.043" Z="361.9258" />
-					<WoWUnit Name="Adherent Radiant Blade" Entry="82806" X="-419.8542" Y="1570.974" Z="361.9618" />
-
-					<Objective QuestName="When All Is Aligned" QuestId="35704" Type="KillMob" MobId="82806" KillCount="80" />
-					
-				</If>
-				
+				<CustomBehavior File="UserDialog" QuestId="35704" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Jump in Ka'alu and kill stuff" />
+                    <CustomBehavior File="Vehicles\CannonControl" QuestId="35704" VehicleId="82651" MinAngle="-1" MaxAngle=".6" Buttons="1" Gravity="0.01" Velocity="150" MobIds="82817, 82803, 83487, 82806" ExitButton="5" />
 				when done with quest, it will do a cinematic, kill it
 				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
 				-->
