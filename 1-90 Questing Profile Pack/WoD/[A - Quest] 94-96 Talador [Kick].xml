@@ -1846,8 +1846,14 @@
 			<Objective QuestName="We Must Construct Additional Pylons" QuestId="34351" Type="CollectItem" ItemId="110253" CollectCount="6" />
 		</If>
 		<While Condition="HasQuest(33530) &amp;&amp; !IsQuestCompleted(33530)" >
-			<CustomBehavior File="InteractWith" QuestId="33530" MobId="76745" Range="8" X="1711.356" Y="2141.57" Z="61.1513" />
-			<!--<Objective QuestName="Nightmare in the Tomb" QuestId="33530" Type="KillMob" MobId="76745" KillCount="1" />-->
+			<CustomBehavior File="Hooks\Avoid" AvoidName="BoneMauler" Command="Add" ObjectId="76745" Radius="16" LeashRadius="45" 
+				AvoidWhen="UNIT.CastingSpellId == 155513 || UNIT.CastingSpellId == 155519 || UNIT.CastingSpellId == 156144 || UNIT.CastingSpellId == 156144 || UNIT.HasAura(155513) || UNIT.HasAura(156163)" 
+				AvoidLocationProducer="WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location, UNIT.Location.RayCast(UNIT.Rotation, 17))" X="1711.356" Y="2141.57" Z="61.1513" />
+
+			<CustomBehavior File="KillUntilComplete" QuestId="33530" MobId="76745" TerminateWhen="IsObjectiveComplete(2, 33530)" X="1711.356" Y="2141.57" Z="61.1513" />
+			<!--<CustomBehavior File="InteractWith" QuestId="33530" MobId="76745" Range="8" X="1711.356" Y="2141.57" Z="61.1513" />
+			<Objective QuestName="Nightmare in the Tomb" QuestId="33530" Type="KillMob" MobId="76745" KillCount="1" />-->
+			<CustomBehavior File="Hooks\Avoid" AvoidName="BoneMauler" Command="Remove" />
 		</While>
 		<TurnIn QuestName="We Must Construct Additional Pylons" QuestId="34351" TurnInName="Soulbinder Tuulani" TurnInId="78520" X="1749.734" Y="2546.767" Z="133.6591" />
 		<TurnIn QuestName="Nightmare in the Tomb" QuestId="33530" TurnInName="Exarch Maladaar" TurnInId="75119" X="1737.653" Y="2514.695" Z="133.6592" />
