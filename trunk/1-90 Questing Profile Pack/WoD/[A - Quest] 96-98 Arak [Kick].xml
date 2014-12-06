@@ -1241,6 +1241,8 @@
 				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for objective to complete {TimeRemaining}" />
 				<CustomBehavior File="InteractWith" QuestId="35482" MobId="82314" Range="6" WaitForNpcs="False" MobState="Alive" TerminateWhen="IsObjectiveComplete(2, 35482)" X="-911.7457" Y="2449.228" Z="31.1776" />
 				<CustomBehavior File="InteractWith" QuestId="35482" MobId="82320" Range="5" WaitForNpcs="False" MobState="Alive" TerminateWhen="IsObjectiveComplete(3, 35482)" X="-933.2177" Y="2449.947" Z="31.59137" />
+				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+				<!-- add in an abandon + pickup quest here -->
 			</While>
 		<TurnIn QuestName="Admiral Taylor" QuestId="35482" TurnInName="Admiral Taylor" TurnInId="82375" X="-916.9323" Y="2449.837" Z="31.1835" />
 		<PickUp QuestName="Honoring a Hero" QuestId="35549" GiverName="Jasper Fel" GiverId="82403" X="-908.8871" Y="2447.545" Z="31.17204" />
@@ -1413,6 +1415,39 @@
 		<PickUp QuestName="Rites of the Talonpriests" QuestId="35733" GiverName="Reshad" GiverId="81770" X="-501.684" Y="1863.557" Z="44.78222" />
 		<TurnIn QuestName="Rites of the Talonpriests" QuestId="35733" TurnInName="Effigy of Terokk" TurnInId="82813" X="-504.9809" Y="1855.319" Z="44.78154" />
 		<PickUp QuestName="The Talon King" QuestId="35734" GiverName="Effigy of Terokk" GiverId="82813" X="-504.9809" Y="1855.319" Z="44.78154" />
+			<While Condition="HasQuest(35734) &amp;&amp; !IsQuestCompleted(35734)" > <!-- The Talon King -->
+                <DisableBehavior Name="Combat" />
+				<CustomBehavior File="Hooks\DoWhen" ActivityName="SpamVehicleButton1" AllowUseDuringCombat="True" AllowUseInVehicle="True" StopMovingToConductActivity="False" 
+					UseWhen="Me.IsOnTransport &amp;&amp; !IsQuestCompleted(35734) &amp;&amp; Styx.CommonBot.Bars.ActionBar.Active.Buttons.Any(b =&gt; b.Index == 1 &amp;&amp; b.CanUse)" >
+					<CustomBehavior File="Misc\RunLua" Lua="OverrideActionBarButton1:Click()" />
+				</CustomBehavior>
+ 				<If Condition="!Me.IsOnTransport">
+					<CustomBehavior File="InteractWith" QuestId="35734" MobId="82813" Range="4" NonCompeteDistance="0" GossipOptions="1" WaitTime="5000" TerminateWhen="Me.IsOnTransport" X="-504.9809" Y="1855.319" Z="44.78154" />
+				</If>
+                <While Condition="!IsObjectiveComplete(3, 35734) &amp;&amp; Me.IsOnTransport" >
+                    <MoveTo QuestId="35734"  X="-1296.365" Y="1903.054" Z="20.33794" />
+                </While>
+                <While Condition="!IsQuestCompleted(35734) &amp;&amp; Me.IsOnTransport" >
+					<MoveTo QuestId="35734"  X="-1296.365" Y="1903.054" Z="20.33794" />
+					<MoveTo QuestId="35734"  X="-1751.346" Y="1536.595" Z="4.211761" />
+					<MoveTo QuestId="35734"  X="-1731.082" Y="1615.269" Z="4.234367" />
+					<MoveTo QuestId="35734"  X="-1776.077" Y="1646.826" Z="3.54073" />
+					<MoveTo QuestId="35734"  X="-1715.172" Y="1674.48" Z="1.004338" />
+					<MoveTo QuestId="35734"  X="-1735.999" Y="1685.712" Z="1.241477" />
+					<MoveTo QuestId="35734"  X="-1713.237" Y="1709.961" Z="2.459277" />
+					<MoveTo QuestId="35734"  X="-1663.765" Y="1724.596" Z="2.161507" />
+					<MoveTo QuestId="35734"  X="-1641.01" Y="1739.24" Z="5.161044" />
+					<MoveTo QuestId="35734"  X="-1542.013" Y="1782.518" Z="5.109813" />
+					<MoveTo QuestId="35734"  X="-1492.676" Y="1762.623" Z="7.225932" />
+					<MoveTo QuestId="35734"  X="-1389.66" Y="1877.715" Z="3.858189" />
+					<MoveTo QuestId="35734"  X="-1409.015" Y="1899.01" Z="0.8806803" />
+					<MoveTo QuestId="35734"  X="-1373.245" Y="1961.328" Z="4.173043" />
+					<MoveTo QuestId="35734"  X="-1306.287" Y="1959.704" Z="6.79538" />
+					<MoveTo QuestId="35734" X="-1248.32" Y="1949.357" Z="21.83596" />
+               </While>
+				<CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" WaitTime="5000" />
+				<EnableBehavior Name="Combat" />
+			</While>
 			<While Condition="HasQuest(35734) &amp;&amp; !IsQuestCompleted(35734)" > <!-- The Talon King -->
                 <DisableBehavior Name="Combat" />
 				<If Condition="!Me.IsOnTransport">
@@ -2211,6 +2246,7 @@
 		<TurnIn QuestName="Call of the Raven Mother" QuestId="35009" TurnInName="Kaalu" TurnInId="77857" X="-659.2118" Y="1579.463" Z="36.22345" />
 		<PickUp QuestName="On Ebon Wings" QuestId="36085" GiverName="Reshad" GiverId="84276" X="-647.717" Y="1569.469" Z="33.98867" />
 			<While Condition="HasQuest(36085) &amp;&amp; !IsQuestCompleted(36085)" > <!-- On Ebon Wings -->
+				<!-- add a dowhen hook here that auto brings us up to flight master if we fall -->
 				<CustomBehavior File="InteractWith" QuestId="36085" MobId="77857" GossipOptions="1" NonCompeteDistance="0" Range="4" WaitTime="30000" TerminateWhen="Me.Z &gt; 450" X="-659.2118" Y="1579.463" Z="36.22345" />
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for rest of flight {TimeRemaining}" />
 
