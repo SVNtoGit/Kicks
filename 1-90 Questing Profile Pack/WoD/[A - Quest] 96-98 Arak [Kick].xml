@@ -34,6 +34,8 @@
 		<Blackspot X="-1107.994" Y="2296.313" Z="6.133843" Radius="10" />
 		<Blackspot X="-1103.189" Y="2302.459" Z="6.16084" Radius="10" />
 		<Blackspot X="-1098.948" Y="2305.674" Z="6.579217" Radius="15" />
+        
+        <Blackspot X="-375.6849" Y="725.1787" Z="59.95988" Radius="0" /> <!-- Sethekk Hollow Tree - VEHICLE QUEST DO NOT DELETE -->
     </Blackspots>
 
     <Mailboxes> <!-- Need to add Mailboxes and Vendors! -->
@@ -1490,6 +1492,46 @@
                     
 
                 </While>
+                <!--
+                <CustomBehavior File="Hooks\DoWhen" ActivityName="SpamVehicleButton1" AllowUseDuringCombat="True" AllowUseInVehicle="True" StopMovingToConductActivity="False" 
+                        UseWhen="Me.IsOnTransport &amp;&amp; !IsQuestCompleted(35734) 
+                        &amp;&amp; 
+                        (
+                        (Unit(82950) != null &amp;&amp; Unit(82950).Distance &lt; 8 &amp;&amp; Unit(82950).IsAlive) || 
+                        (Unit(82947) != null &amp;&amp; Unit(82947).Distance &lt; 8 &amp;&amp; Unit(82947).IsAlive) || 
+                        (Unit(82946) != null &amp;&amp; Unit(82946).Distance &lt; 8 &amp;&amp; Unit(82946).IsAlive)
+                        )">
+                    <CustomBehavior File="Misc\RunLua" Lua="OverrideActionBarButton1:Click()" WaitTime="1000" />
+                </CustomBehavior>
+				<If Condition="!Me.IsOnTransport">
+					<CustomBehavior File="InteractWith" QuestId="35734" MobId="82813" Range="4" NonCompeteDistance="0" GossipOptions="1" WaitTime="5000" TerminateWhen="Me.IsOnTransport" X="-504.9809" Y="1855.319" Z="44.78154" />
+				</If>
+                <While Condition="!IsObjectiveComplete(3, 35734) &amp;&amp; Me.IsOnTransport" >
+                    <CustomBehavior File="RunLikeHell" QuestId="35734" NumOfTimes="1" MobId="82950" Range="8" >
+                         <Hotspot X="-1296.365" Y="1903.054" Z="20.33794" />
+                    </CustomBehavior>
+                </While>
+                <While Condition="!IsQuestCompleted(35734) &amp;&amp; Me.IsOnTransport" >
+                    <CustomBehavior File="RunLikeHell" QuestId="35734" NumOfTimes="1" MobId1="82946" MobId2="82947" MobId3="82950" Range="8" >
+                            <Hotspot X="-1296.365" Y="1903.054" Z="20.33794" />
+                        <Hotspot X="-1751.346" Y="1536.595" Z="4.211761" />
+                        <Hotspot X="-1731.082" Y="1615.269" Z="4.234367" />
+                        <Hotspot X="-1776.077" Y="1646.826" Z="3.54073" />
+                        <Hotspot X="-1715.172" Y="1674.48" Z="1.004338" />
+                        <Hotspot X="-1735.999" Y="1685.712" Z="1.241477" />
+                        <Hotspot X="-1713.237" Y="1709.961" Z="2.459277" />
+                        <Hotspot X="-1663.765" Y="1724.596" Z="2.161507" />
+                        <Hotspot X="-1641.01" Y="1739.24" Z="5.161044" />
+                        <Hotspot X="-1542.013" Y="1782.518" Z="5.109813" />
+                        <Hotspot X="-1492.676" Y="1762.623" Z="7.225932" />
+                        <Hotspot X="-1389.66" Y="1877.715" Z="3.858189" />
+                        <Hotspot X="-1409.015" Y="1899.01" Z="0.8806803" />
+                        <Hotspot X="-1373.245" Y="1961.328" Z="4.173043" />
+                        <Hotspot X="-1306.287" Y="1959.704" Z="6.79538" />
+                        <Hotspot X="-1248.32" Y="1949.357" Z="21.83596" />
+                     </CustomBehavior>
+               </While>
+                -->
                        <!--
                    <CustomBehavior File="Vehicles\VehicleMover" QuestId="35734" VehicleId="82820" ActionBarIndex="1" Precision="3" 
                    Hop="True" NonCompeteDistance="0" MobId1="82946" MobId2="82947" MobId3="82950" >
@@ -1831,16 +1873,127 @@
 		<TurnIn QuestName="The Missing Piece" QuestId="35897" TurnInName="Effigy of Terokk" TurnInId="82813" X="-504.9809" Y="1855.319" Z="44.78154" />
 		<PickUp QuestName="Terokk's Fall" QuestId="35895" GiverName="Effigy of Terokk" GiverId="82813" X="-504.9809" Y="1855.319" Z="44.78154" />
 			<While Condition="HasQuest(35895) &amp;&amp; !IsQuestCompleted(35895)" > <!-- Terokk's Fall -->
-				<CustomBehavior File="UserDialog" QuestId="35895" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" Text="Talk to The Effigy and Kill stuff
-											\nDon't go anywhere, there's another one soon" />
-				<!--
+                <DisableBehavior Name="Combat" />
 				<If Condition="!Me.IsOnTransport">
 					<CustomBehavior File="InteractWith" QuestId="35895" MobId="82813" Range="4" NonCompeteDistance="0" GossipOptions="1" WaitTime="10000" TerminateWhen="Me.IsOnTransport" X="-504.9809" Y="1855.319" Z="44.78154" />
 				</If>
-			 <If Condition="!IsObjectiveComplete(1, 35895)">
-				<MoveTo X="-256.8004" Y="797.2864" Z="59.57238" />
-				// wait 20s
-			 </If>
+                 <While Condition="!IsObjectiveComplete(1, 35895) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo X="-256.8004" Y="797.2864" Z="59.57238" />
+                    <CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+                 </While>
+                <While Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                   
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-318.6979" Y="797.9705" Z="59.03769" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                   
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-362.8764" Y="816.6022" Z="57.87015" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                   
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-364.5504" Y="755.5886" Z="57.94485" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                 
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-333.5642" Y="721.9983" Z="58.12757" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                   
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-350.757" Y="694.4496" Z="57.95626" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                 
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-390.7406" Y="726.0061" Z="57.505" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                  
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-387.9044" Y="738.5457" Z="57.42753" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                   
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-400.6094" Y="668.0972" Z="57.75156" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                   
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-378.1016" Y="786.4291" Z="57.86756" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                 
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-412.3598" Y="679.6833" Z="57.77292" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                 
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-450.5966" Y="644.9413" Z="58.18137" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                   
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-415.559" Y="637.0883" Z="57.36303" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                   
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-380.206" Y="652.3433" Z="58.68639" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-380.206" Y="652.3433" Z="58.68639" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                   
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-352.2305" Y="673.3245" Z="58.06981" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                   
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-322.5179" Y="707.6718" Z="57.76895" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                   
+ 				 <If Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
+                    <MoveTo QuestId="35895" X="-307.1196" Y="748.8934" Z="59.37311" />	
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton1:Click()" NumOfTimes="3" WaitTime="1200" />
+                    <CustomBehavior File="Misc\RunLua" QuestId="35895" Lua="OverrideActionBarButton2:Click()" WaitTime="1200" />
+ 				 </If>
+                 
+               
+               
+			</While>
+            
+             <While Condition="!IsObjectiveComplete(4, 35895) &amp;&amp; Me.IsOnTransport">
+                <CustomBehavior File="InteractWith" QuestId="35895" MobId="233382" ObjectType="GameObject" NonCompeteDistance="0" WaitTime="5000" Range="5" TerminateWhen="IsObjectiveComplete(4, 35895)" X="-445.4514" Y="624.0938" Z="56.17257" />
+             </While>
+                  
+            <!--
 			 <If Condition="!IsObjectiveComplete(2, 35895)">
 				// Rally guys (go up to them and then press button 2
 				<Mob Name="Outcast Talon Guard" Entry="83647" Type="Repair" X="-365.434" Y="819.1563" Z="58.25806" />
@@ -1868,6 +2021,8 @@
 				dev a behavior that moves around and presses 1 to defend itself.  Hotspots are in the override for this quest - above in profile 
 				// after quest is complete, wait about 20s for stuff to happen and get ported back
 				-->
+				<CustomBehavior File="Misc\RunLua" Lua="VehicleExit()" WaitTime="1000" />
+                <EnableBehavior Name="Combat" />
 			</While>
 		<TurnIn QuestName="Terokk's Fall" QuestId="35895" TurnInName="Reshad" TurnInId="81770" X="-501.684" Y="1863.557" Z="44.7822" />
 		<PickUp QuestName="A Worthy Vessel" QuestId="36059" GiverName="Shadow-Sage Iskar" GiverId="80153" X="-496.2379" Y="1857.922" Z="44.78153" />
