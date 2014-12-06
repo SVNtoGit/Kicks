@@ -2119,8 +2119,10 @@
 		<While Condition="HasQuest(34448) &amp;&amp; !IsQuestCompleted(34448)" > <!-- Kaelynara Sunchaser -->
             <CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for time {TimeRemaining}" />
 			<CustomBehavior File="Hooks\Avoid" AvoidName="ArcaneSphere" Command="Add" ObjectType="AreaTrigger" ObjectId="7676" Radius="6" LeashRadius="12" X="2534.384" Y="2721.675" Z="234.9534" />
-			<CustomBehavior File="InteractWith" QuestId="34448" MobId="78513" GossipOptions="1" Range="5" WaitTime="4000" TerminateWhen="IsObjectiveComplete(1, 34448) &amp;&amp; Object(229271) != null" X="2533.045" Y="2718.826" Z="234.954" />
-            <CustomBehavior File="WaitTimer" WaitTime="25000" TerminateWhen="Object(229271) != null || IsObjectiveComplete(2, 34448)" GoalText="Waiting for time {TimeRemaining}" />
+		  <While Condition="Me.Location.Distance(new WoWPoint(2534.384, 2721.675, 234.9534)) &gt; 15" > <!-- Inside of the bubble -->
+			<CustomBehavior File="InteractWith" QuestId="34448" MobId="78513" GossipOptions="1" Range="5" WaitTime="4000" TerminateWhen="IsObjectiveComplete(1, 34448) &amp;&amp; Object(229271).Distance &lt; 15" X="2421.337" Y="2753.976" Z="115.1917" />
+            <CustomBehavior File="WaitTimer" QuestId="34448" WaitTime="25000" TerminateWhen="Object(229271) != null || IsObjectiveComplete(2, 34448)" GoalText="Waiting for time {TimeRemaining}" />
+		  </While>
 			<CustomBehavior File="InteractWith" QuestId="34448" MobId="78501" Range="5" MobState="Alive" TerminateWhen="IsObjectiveComplete(2, 34448)" X="2534.303" Y="2722.442" Z="234.9539" /> <!-- Kaelynara -->
 			<CustomBehavior File="InteractWith" MobId="78741" Range="5" GossipOptions="1" WaitTime="3000" X="2531.588" Y="2724.546" Z="234.9536" />
 			<CustomBehavior File="Hooks\Avoid" AvoidName="ArcaneSphere" Command="Remove" />
