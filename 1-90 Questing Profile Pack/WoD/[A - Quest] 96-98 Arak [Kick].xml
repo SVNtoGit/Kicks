@@ -2226,16 +2226,19 @@
 				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWingsMissile2" Command="Remove" />
 				<!-- we may have to code this with interacts if ppl fall - hotspots are in the override -->
 			</While>
-			<If Condition="HasQuest(36085) &amp;&amp; IsQuestCompleted(36085) &amp;&amp; Me.Z &gt; 450" > <!-- On Ebon Wings -->
+			<If Condition="HasQuest(36085) &amp;&amp; IsQuestCompleted(36085) &amp;&amp; Me.Z &gt; 450" > <!-- On Ebon Wings 450+ -->
 		<TurnIn QuestName="On Ebon Wings" QuestId="36085" TurnInName="Reshad" TurnInId="84262" X="-809.8212" Y="1862.688" Z="472.9334" />
 		<PickUp QuestName="When All Is Aligned" QuestId="35704" GiverName="Reshad" GiverId="84262" X="-809.8212" Y="1862.688" Z="472.9334" />
 			</If>
-			<If Condition="HasQuest(36085) &amp;&amp; IsQuestCompleted(36085) &amp;&amp; Me.Z &lt; 400" > <!-- On Ebon Wings -->
-		<TurnIn QuestName="On Ebon Wings" QuestId="36085" TurnInName="Reshad" TurnInId="84262" X="-647.717" Y="1569.469" Z="33.98856" />
-		<PickUp QuestName="When All Is Aligned" QuestId="35704" GiverName="Reshad" GiverId="84262" X="-647.717" Y="1569.469" Z="33.98856" />
+			<If Condition="HasQuest(36085) &amp;&amp; IsQuestCompleted(36085) &amp;&amp; Me.Z &lt; 400" > <!-- On Ebon Wings 400- -->
+		<TurnIn QuestName="On Ebon Wings" QuestId="36085" TurnInName="Reshad" TurnInId="84276" X="-647.717" Y="1569.469" Z="33.98856" />
+		<PickUp QuestName="When All Is Aligned" QuestId="35704" GiverName="Reshad" GiverId="84276" X="-647.717" Y="1569.469" Z="33.98856" />
 			</If>
-			<If Condition="!HasQuest(35704) &amp;&amp; !IsQuestCompleted(35704)" > <!-- When All Is Aligned -->
-		<PickUp QuestName="When All Is Aligned" QuestId="35704" GiverName="Reshad" GiverId="84262" X="-647.717" Y="1569.469" Z="33.98856" />
+			<If Condition="!HasQuest(35704) &amp;&amp; !IsQuestCompleted(35704) &amp;&amp; Me.Z &gt; 450" > <!-- When All Is Aligned 450+ -->
+		<PickUp QuestName="When All Is Aligned" QuestId="35704" GiverName="Reshad" GiverId="84262" X="-809.8212" Y="1862.688" Z="472.9334" />
+			</If>
+			<If Condition="!HasQuest(35704) &amp;&amp; !IsQuestCompleted(35704) &amp;&amp; Me.Z &lt; 400" > <!-- When All Is Aligned 400- -->
+		<PickUp QuestName="When All Is Aligned" QuestId="35704" GiverName="Reshad" GiverId="84276" X="-647.717" Y="1569.469" Z="33.98856" />
 			</If>
 			<While Condition="HasQuest(35704) &amp;&amp; !IsQuestCompleted(35704)" > <!-- When All Is Aligned -->
                 <If Condition="!Me.IsOnTransport &amp;&amp; Me.Z &gt; 470"> <!-- Reshad -->
@@ -2250,8 +2253,8 @@
 					<!-- 
                      <CustomBehavior File="Vehicles\CannonControl" QuestId="35704" VehicleId="82651" MinAngle="-1" MaxAngle=".6" Buttons="1" Gravity="0.01" Velocity="150" MobIds="82817, 82803, 83487, 82806" ExitButton="5" />
 				when done with quest, it will do a cinematic, kill it
-				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
 				-->
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
 			</While>
 		<TurnIn QuestName="When All Is Aligned" QuestId="35704" TurnInName="Reshad" TurnInId="81770" X="-501.684" Y="1863.557" Z="44.78233" />
 		<!--<PickUp QuestName="Victory is Within Reach" QuestId="36316" GiverName="Reshad" GiverId="81770" X="-501.684" Y="1863.557" Z="44.78233" /> Dungeon quest -->
