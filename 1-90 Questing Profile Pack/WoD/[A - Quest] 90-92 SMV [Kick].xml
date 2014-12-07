@@ -2366,22 +2366,23 @@
 				<MoveTo X="606.9452" Y="-2386.603" Z="96.24855" />
 			</If>
 			<UseMount Value="False" />
-			<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerSphere" Command="Add" ObjectType="AreaTrigger" ObjectId="5805" Radius="12" AvoidWhen="Me.Combat" />
-			<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPoly" Command="Add" ObjectType="AreaTrigger" ObjectId="5633" Radius="15" AvoidWhen="Me.Combat" />
-			<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPolyFieryBlast" Command="Add" ObjectId="75358" Radius="16" LeashRadius="45" 
+			<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerSphere" Command="Add" ObjectType="AreaTrigger" ObjectId="5805" Radius="3.5" AvoidWhen="Me.Combat" />
+			<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPolyFieryBlast" Command="Add" ObjectId="75358" Radius="7" LeashRadius="45" 
 				AvoidWhen="Me.Combat &amp;&amp; (UNIT.CastingSpellId == 151732 || UNIT.CastingSpellId == 149378 || UNIT.CastingSpellId == 151766 || UNIT.HasAura(151731) || UNIT.HasAura(161320) || UNIT.HasAura(151766) )" 
-				AvoidLocationProducer="WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location, UNIT.Location.RayCast(UNIT.Rotation, 17))" X="830.7855" Y="-2869.874" Z="100.4185" />
+				AvoidLocationProducer="WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location.RayCast(UNIT.Rotation, 4), UNIT.Location.RayCast(UNIT.Rotation, 10))" X="830.7855" Y="-2869.874" Z="100.4185" />
+			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlazingShot" Command="Add" ObjectType="AreaTrigger" ObjectId="5797" Radius="3.5" />
+			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlazingShotMissile" Command="Add" ObjectType="Missile" ObjectId="150278" Radius="3.5" />
+			<CustomBehavior File="Hooks\Avoid" AvoidName="TrashBlaze" Command="Add" ObjectType="AreaTrigger" ObjectId="6613" Radius="4" />
+			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlackestSkiesMissileLine" Command="Add" ObjectType="Missile" ObjectId="150274" Radius="4" />
+			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlackestSkiesMissile" Command="Add" ObjectType="Missile" ObjectId="151661" Radius="4" />
 
-			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlazingShot" Command="Add" ObjectType="AreaTrigger" ObjectId="5797" AvoidWhen="Me.HasAura(151630)" Radius="7" />
-			<!--
-				<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlazingShotRun" Command="Add" ObjectId="74715" Radius="12" 
-											AvoidWhen="UNIT.CastingSpellId == 150279 || UNIT.HasAura(151630)" 
-				AvoidLocationProducer="WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location, UNIT.Location.RayCast(UNIT.Rotation, 12))" />
-				-->
-			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlackestSkiesMissileLine" Command="Add" ObjectType="Missile" ObjectId="150274" Radius="10" />
-			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlackestSkiesMissile" Command="Add" ObjectType="Missile" ObjectId="151661" Radius="10" />
-			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaGrapeshotBlast" Command="Add" ObjectType="Missile" ObjectId="152248" Radius="8" />
-			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaGrapeshotBlastGround" Command="Add" ObjectType="AreaTrigger" ObjectId="152248" Radius="8" />
+			<!-- Dodges the grapeshot like a pro. Won't try to explain the algorithm or why it works... -->
+		 	<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaGrapeshotBlast1" ObjectId="74715" Radius="5" AvoidWhen="UNIT.CastingSpellId == 152247" 
+		    	AvoidLocationProducer="UNIT.Location.RayCast(UNIT.Rotation, WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location, UNIT.Location.RayCast(UNIT.Rotation, 40)).Distance(UNIT.Location) - 3)" />    
+
+			 <CustomBehavior File="Hooks\Avoid" AvoidName="VorkaGrapeshotBlast2" ObjectId="74715" Radius="5" AvoidWhen="UNIT.CastingSpellId == 152247" 
+			    AvoidLocationProducer="UNIT.Location.RayCast(UNIT.Rotation, WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location, UNIT.Location.RayCast(UNIT.Rotation, 40)).Distance(UNIT.Location) + 3 )" />
+			    
 			<While Condition="(!IsObjectiveComplete(1, 33256))">
 				<If Condition="Me.MapId != 1277" > <!-- 1277 = DefenseOfKaraborScenario -->
 					<MoveTo X="606.9452" Y="-2386.603" Z="96.24855" />
@@ -2444,13 +2445,13 @@
 			</If>
 			<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPolyFieryBlast" Command="Remove" />
 			<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerSphere" Command="Remove" />
-			<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerPoly" Command="Remove" />
+			<CustomBehavior File="Hooks\Avoid" AvoidName="TrashBlaze" Command="Remove" />
 			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlazingShot" Command="Remove" />
-			<!--<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlazingShotRun" Command="Remove" />-->
+			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlazingShotMissile" Command="Remove" />
 			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlackestSkiesMissileLine" Command="Remove" />
 			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaBlackestSkiesMissile" Command="Remove" />
-			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaGrapeshotBlast" Command="Remove" />
-			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaGrapeshotBlastGround" Command="Remove" />
+			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaGrapeshotBlast1" Command="Remove" />
+			<CustomBehavior File="Hooks\Avoid" AvoidName="VorkaGrapeshotBlast2" Command="Remove" />
 		</If>
 		<If Condition="HasQuest(33256) &amp;&amp; IsQuestCompleted(33256)" > <!-- The Defense of Karabor -->
 			<If Condition="Me.MapId == 1277" > <!-- 1277 = DefenseOfKaraborScenario -->
