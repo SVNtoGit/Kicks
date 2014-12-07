@@ -1354,6 +1354,7 @@
 		<PickUp QuestName="Hardly Working" QuestId="35260" GiverName="Darkscryer Raastok" GiverId="80157" X="391.8108" Y="2446.97" Z="20.05751" />
 		<PickUp QuestName="Legacy of the Apexis" QuestId="35258" GiverName="Darkscryer Raastok" GiverId="80157" X="391.8108" Y="2446.97" Z="20.05751" />
 		<PickUp QuestName="Sol Sisters" QuestId="35259" GiverName="Kura the Blind" GiverId="80155" X="395.632" Y="2441.932" Z="20.58742" />
+			<CustomBehavior File="Hooks\Avoid" QuestId="35258" AvoidName="Smash" Command="Add" ObjectType="AreaTrigger" ObjectId="6637" Radius="6" />
 			<While Condition="HasQuest(35260) &amp;&amp; !IsQuestCompleted(35260)" > <!-- Hardly Working -->
 				<CustomBehavior File="InteractWith" QuestId="35260" MobId="81873" MobId2="85863" MobState="Alive" NumOfTimes="20" Range="4" TerminateWhen="IsObjectiveComplete(1, 35260)" 
 											InteractByUsingItemId="113084" NonCompeteDistance="0" CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
@@ -1376,10 +1377,13 @@
 			</While>
 			<Objective QuestName="Legacy of the Apexis" QuestId="35258" Type="CollectItem" ItemId="113081" CollectCount="5" />
 			<If Condition="HasQuest(35259)" >
+				<CustomBehavior File="Hooks\Avoid" AvoidName="SolarZone" Command="Add" ObjectType="AreaTrigger" ObjectId="6622" Radius="5" />
 				<Objective QuestName="Sol Sisters" QuestId="35259" Type="KillMob" MobId="81933" KillCount="1" />
 				<Objective QuestName="Sol Sisters" QuestId="35259" Type="KillMob" MobId="81934" KillCount="1" />
 				<MoveTo X="348.2197" Y="2741.416" Z="70.95568" />
 				<MoveTo X="353.5365" Y="2747.607" Z="71.85035" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="Smash" Command="Remove" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="SolarZone" Command="Remove" />
 			</If>
 		<TurnIn QuestName="Sol Sisters" QuestId="35259" TurnInName="Inactive Apexis Destroyer" TurnInId="82123" X="353.5365" Y="2747.607" Z="71.85035" />
 		<PickUp QuestName="Shot-Caller" QuestId="35261" GiverName="Inactive Apexis Destroyer" GiverId="82123" X="353.5365" Y="2747.607" Z="71.85035" />
