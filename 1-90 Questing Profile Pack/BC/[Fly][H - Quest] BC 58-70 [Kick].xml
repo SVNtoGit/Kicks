@@ -5894,10 +5894,27 @@
 		<PickUp Nav="Fly" QuestName="Windroc Mastery" QuestId="9856"
                GiverName="Shado 'Fitz' Farstrider" GiverId="18200" />
 
-		<CustomBehavior File="FlyTo" DestName="Windroc Mastery" QuestId="9856"
-                       X="-636.7315" Y="8308.747" Z="53.21259" />
-		<Objective Nav="Fly" QuestName="Windroc Mastery" QuestId="9856"
-                  Type="CollectItem" ItemId="24513" CollectCount="1" />
+	    <While Condition="HasQuest(9856) &amp;&amp; !IsQuestCompleted(9856)" >
+	        <CustomBehavior File="RunCode" ><![CDATA[ 
+	            var waitAtLoc = WoWMathHelper.GetRandomPointInCircle(new WoWPoint(-710.2057, 8417.889, 37.70057), 10);
+	            while(!IsQuestCompleted(9856) && BotPoi.Current.Type == Styx.CommonBot.POI.PoiType.None)
+	            {
+	                if (Me.Location.DistanceSqr(waitAtLoc) > 5*5)
+	                {                        
+	                    Flightor.MoveTo(waitAtLoc);
+	                }
+	                else
+	                {
+	                    TreeRoot.StatusText="Waiting for Gutripper to show up";
+	                    await CommonCoroutines.LandAndDismount(landPoint: waitAtLoc);
+	                    var gutRipper = Unit(18257, u => u.IsAlive);
+	                    if (gutRipper != null)
+	                        await Bots.DungeonBuddy.Helpers.ScriptHelpers.CastRangedAbility(gutRipper);
+	                }
+	                await Coroutine.Yield();
+	            }
+	    ]]></CustomBehavior>
+	    </While>
 
 		<CustomBehavior File="FlyTo" DestName="Talbuk Mastery" QuestId="9859"
                        X="-1177.466" Y="8594.914" Z="37.26402" />
