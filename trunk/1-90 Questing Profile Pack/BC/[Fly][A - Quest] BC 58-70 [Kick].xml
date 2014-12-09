@@ -5917,8 +5917,14 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
 		    <While Condition="HasQuest(9856) &amp;&amp; !IsQuestCompleted(9856)" >
 		        <CustomBehavior File="RunCode" ><![CDATA[ 
 		            var waitAtLoc = WoWMathHelper.GetRandomPointInCircle(new WoWPoint(-710.2057, 8417.889, 37.70057), 10);
-		            while(!IsQuestCompleted(9856) && BotPoi.Current.Type == Styx.CommonBot.POI.PoiType.None)
+		            while(!IsQuestCompleted(9856) )
 		            {
+		                if (Styx.CommonBot.POI.BotPoi.Current.Type != Styx.CommonBot.POI.PoiType.None)
+		                    return;
+
+		                if (LootTargeting.Instance.FirstObject != null || Targeting.Instance.FirstUnit != null)
+		                    return;
+
 		                if (Me.Location.DistanceSqr(waitAtLoc) > 5*5)
 		                {                        
 		                    Flightor.MoveTo(waitAtLoc);
