@@ -4914,9 +4914,9 @@
 		<UseMount Value="true" />
 		<!-- Template for all escort quests -->
 
-
-		<TurnIn Nav="Fly" QuestName="City of Light" QuestId="10211" TurnInName="Khadgar" TurnInId="18166" />
-
+		<If Condition="HasQuest(10211) &amp;&amp; IsQuestCompleted(10211)" >
+			<TurnIn Nav="Fly" QuestName="City of Light" QuestId="10211" TurnInName="Khadgar" TurnInId="18166" />
+		</If>
 
 		<If Condition="HasQuest(9957)">
 			<CustomBehavior File="FlyTo" X="-1947.203" Y="4689.501" Z="-2.189576" />
@@ -5852,11 +5852,11 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                     X="-1461.778" Y="6344.301" Z="37.24121" />
 			<PickUp QuestName="Talbuk Mastery" QuestId="9857" GiverName="Harold Lane" GiverId="18218"
                     X="-1454.637" Y="6352.28" Z="37.24043" />
-			<Objective QuestName="Talbuk Mastery" QuestId="9857" Type="KillMob" KillCount="12" MobName="Talbuk Stag"
+			<Objective Nav="Fly" QuestName="Talbuk Mastery" QuestId="9857" Type="KillMob" KillCount="12" MobName="Talbuk Stag"
                        MobId="17130" />
-			<Objective QuestName="Windroc Mastery" QuestId="9854" Type="KillMob" KillCount="12" MobName="Windroc"
+			<Objective Nav="Fly" QuestName="Windroc Mastery" QuestId="9854" Type="KillMob" KillCount="12" MobName="Windroc"
                        MobId="17128" />
-			<Objective QuestName="Clefthoof Mastery" QuestId="9789" Type="KillMob" KillCount="12" MobName="Clefthoof"
+			<Objective Nav="Fly" QuestName="Clefthoof Mastery" QuestId="9789" Type="KillMob" KillCount="12" MobName="Clefthoof"
                        MobId="18205" />
 			<If Condition="HasQuest(9789) &amp;&amp; IsQuestCompleted(9789)">
 				<CustomBehavior File="FlyTo" DestName="Turnin: Mastery Quests"
@@ -5891,14 +5891,14 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                     X="-766.7915" Y="6922.056" Z="34.04032" />
 			<Objective QuestName="A Rare Bean" QuestId="9800" Type="CollectItem" CollectCount="8"
                        ItemName="Digested Caracoli" ItemId="24419" />
-			<Objective QuestName="Talbuk Mastery" QuestId="9858" Type="KillMob" KillCount="12"
+			<Objective Nav="Fly" QuestName="Talbuk Mastery" QuestId="9858" Type="KillMob" KillCount="12"
                        MobName="Talbuk Thorngrazer" MobId="17131" />
-			<Objective QuestName="Clefthoof Mastery" QuestId="9850" Type="KillMob" KillCount="12"
+			<Objective Nav="Fly" QuestName="Clefthoof Mastery" QuestId="9850" Type="KillMob" KillCount="12"
                        MobName="Clefthoof Bull" MobId="17132" />
 
 			<CustomBehavior File="FlyTo" DestName="Windroc Mastery" QuestId="9855"
                             X="-2322.044" Y="7518.939" Z="-11.70316" />
-			<Objective QuestName="Windroc Mastery" QuestId="9855" Type="KillMob" KillCount="12"
+			<Objective Nav="Fly" QuestName="Windroc Mastery" QuestId="9855" Type="KillMob" KillCount="12"
                        MobName="Ravenous Windroc" MobId="18220" />
 
 
@@ -5914,8 +5914,8 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
 			<PickUp QuestName="Windroc Mastery" QuestId="9856" GiverName="Shado 'Fitz' Farstrider" GiverId="18200" />
 			<UseMount Value="true" />
 
-		    <While Condition="HasQuest(9856) &amp;&amp; !IsQuestCompleted(9856)" >
-		        <CustomBehavior File="RunCode" ><![CDATA[ 
+			<While Condition="HasQuest(9856) &amp;&amp; !IsQuestCompleted(9856)" >
+				<CustomBehavior File="RunCode" ><![CDATA[ 
 		            var waitAtLoc = WoWMathHelper.GetRandomPointInCircle(new WoWPoint(-710.2057, 8417.889, 37.70057), 10);
 		            while(!IsQuestCompleted(9856) )
 		            {
@@ -5940,7 +5940,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
 		                await Coroutine.Yield();
 		            }
 		    ]]></CustomBehavior>
-		    </While>
+			</While>
 
 			<CustomBehavior File="FlyTo" DestName="Talbuk Mastery" QuestId="9859"
                             X="-1177.466" Y="8594.914" Z="37.26402" />
@@ -6064,7 +6064,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
 				<CustomBehavior File="ForcedDismount" />
 				<TurnIn QuestName="HELP!" QuestId="9923" TurnInName="Arechron" TurnInId="18183" />
 			</If>
-			<PickUp QuestName="Corki's Gone Missing Again!" QuestId="9924" GiverName="Arechron" GiverId="18183" />
+			<PickUp Nav="Fly" QuestName="Corki's Gone Missing Again!" QuestId="9924" GiverName="Arechron" GiverId="18183" />
 			<TurnIn QuestName="The Ruins of Burning Blade" QuestId="9921" TurnInName="Mo'mor the Breaker"
                     TurnInId="18223" />
 			<PickUp QuestName="The Twin Clefts of Nagrand" QuestId="9922" GiverName="Mo'mor the Breaker"
@@ -6110,7 +6110,7 @@ X="-1945.773" Y="4687.774" Z="-2.231679" />
                        ItemName="Muck-Ridden Core" ItemId="24469" />
 			<While Condition="HasQuest(9924) &amp;&amp; !IsQuestCompleted(9924)">
 				<Objective QuestName="Corki's Gone Missing Again!" QuestId="9924" Type="CollectItem" ItemId="25509"
-                           CollectCount="1" />
+			   CollectCount="1" />
 				<MoveTo X="-970.4447" Y="8126.41" Z="-93.85581" />
 				<CustomBehavior File="InteractWith" MobId="182350" />
 			</While>
