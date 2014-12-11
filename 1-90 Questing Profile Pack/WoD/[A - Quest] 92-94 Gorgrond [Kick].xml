@@ -921,33 +921,34 @@
                 <CustomBehavior File="InteractWith" MobId="82610" Range="6" NonCompeteDistance="0" WaitTime="2000" X="6102.186" Y="1391.904" Z="56.90799" />
                 <CustomBehavior File="Misc\RunLua" Lua="QuestFrameAcceptButton:Click()" WaitTime="2000" />
 			</While>
-			<If Condition="HasQuest(35665) &amp;&amp; !IsQuestCompleted(35665)" > <!-- We Have Company -->
+			<While Condition="HasQuest(35665) &amp;&amp; !IsQuestCompleted(35665)" > <!-- We Have Company -->
 				<CustomBehavior File="InteractWith" QuestId="35665" MobId="81056" Range="5" GossipOptions="1" WaitTime="3000" TerminateWhen="IsObjectiveComplete(1, 35665)" X="6231.955" Y="1448.422" Z="39.95501" />
 				<!--<Objective QuestName="We Have Company" QuestId="35665" Type="KillMob" MobId="81118" KillCount="3" />-->
-			</If>
+			</While>
 		<TurnIn QuestName="We Have Company" QuestId="35665" TurnInName="Rexxar" TurnInId="82832" X="6229.938" Y="1446.041" Z="39.95644" />
 		<PickUp QuestName="Cauterizing Wounds" QuestId="35730" GiverName="Rexxar" GiverId="82832" X="6229.938" Y="1446.041" Z="39.95644" />
-			<If Condition="HasQuest(35730) &amp;&amp; !IsQuestCompleted(35730)" > <!-- Cauterizing Wounds -->
-				<CustomBehavior File="InteractWith" QuestId="35730" MobId="233180" ObjectType="GameObject" TerminateWhen="IsObjectiveComplete(1, 35730)" WaitTime="3000" Range="5" X="6249.96" Y="1437.177" Z="40.01296" />
-				<CustomBehavior File="InteractWith" QuestId="35730" MobId="82802" TerminateWhen="IsObjectiveComplete(2, 35730)" Range="5" WaitTime="3000" X="6231.955" Y="1448.422" Z="39.955" />
-			</If>
+			<While Condition="HasQuest(35730) &amp;&amp; !IsQuestCompleted(35730)" > <!-- Cauterizing Wounds -->
+				<CustomBehavior File="InteractWith" QuestId="35730" MobId="233180" ObjectType="GameObject" TerminateWhen="IsObjectiveComplete(1, 35730)" NonCompeteDistance="0" WaitTime="3000" Range="5" X="6249.96" Y="1437.177" Z="40.01296" />
+				<CustomBehavior File="InteractWith" QuestId="35730" MobId="82802" TerminateWhen="IsObjectiveComplete(2, 35730)" NonCompeteDistance="0" Range="5" WaitTime="3000" X="6231.955" Y="1448.422" Z="39.955" />
+			</While>
 		<TurnIn QuestName="Cauterizing Wounds" QuestId="35730" TurnInName="Rexxar" TurnInId="82832" X="6229.938" Y="1446.041" Z="39.95644" />
 		<PickUp QuestName="On the Mend" QuestId="35026" GiverName="Rexxar" GiverId="82832" X="6229.938" Y="1446.041" Z="39.95644" />
 		<PickUp QuestName="Basilisk Butcher" QuestId="35870" GiverName="Rexxar" GiverId="82832" X="6229.938" Y="1446.041" Z="39.95644" />
 			<Objective QuestName="On the Mend" QuestId="35026" Type="CollectItem" ItemId="113009" CollectCount="100" />
-			<If Condition="HasQuest(35870)" > <!-- Basilisk Butcher - temp fix for FP issues -->
+			<While Condition="HasQuest(35870)" > <!-- Basilisk Butcher - temp fix for FP issues -->
                 <CustomBehavior File="Hooks\Avoid" AvoidName="AvoidIgneous" Command="Add" ObjectId="81528" Radius="50" />
 				<Objective QuestName="Basilisk Butcher" QuestId="35870" Type="CollectItem" ItemId="113504" CollectCount="9" />
 				<MoveTo X="6594.965" Y="1315.908" Z="64.63465" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for taxi map crap {TimeRemaining}" />
 				<CustomBehavior File="Misc\RunLua" Lua="TaxiFrame.CloseButton:Click()" WaitTime="1000" />
                 <CustomBehavior File="Hooks\Avoid" AvoidName="AvoidIgneous" Command="Remove" />
-			</If>
 		<TurnIn QuestName="Basilisk Butcher" QuestId="35870" TurnInName="Nisha" TurnInId="81674" X="6594.965" Y="1315.908" Z="64.63465" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for turnin {TimeRemaining}" />
+			</While>
 		<TurnIn QuestName="On the Mend" QuestId="35026" TurnInName="Nisha" TurnInId="81674" X="6594.965" Y="1315.908" Z="64.63465" />
 		<!-- End Highpass - Arena Chain -->
 		
-		<!-- Breaker's Crown - Neutral - Arena Chain-->
+		<!-- Breaker's Crown - Alliance - Arena Chain -->
 		<PickUp QuestName="Is This One of Yours?" QuestId="36508" GiverName="Rexxar" GiverId="83569" X="6606.086" Y="1301.87" Z="64.63428" />
 			<If Condition="HasQuest(36508) &amp;&amp; !IsQuestCompleted(36508)" > <!-- Is This One of Yours? -->
 				<CustomBehavior File="InteractWith" QuestId="36508" MobId="83569" Range="5" GossipOptions="1" X="6606.086" Y="1301.87" Z="64.63428" /> <!-- Rexxar -->
@@ -1056,14 +1057,14 @@
 		<TurnIn QuestName="Getting Gladiators" QuestId="34699" TurnInName="Bruto" TurnInId="77014" X="5889.095" Y="2053.071" Z="72.36064" />		
 		<PickUp QuestName="The Axe of Kor'gall" QuestId="34703" GiverName="Bruto" GiverId="77014" X="5889.095" Y="2053.071" Z="72.36064" />	
 			<If Condition="HasQuest(34703) &amp;&amp; !IsQuestCompleted(34703)" > <!-- The Axe of Kor'gall -->
-				<MoveTo X="5878.697" Y="2061.201" Z="69.80282" />
-			 <If Condition="Object(227114) != null"> <!-- Barricade -->
-				<CustomBehavior File="InteractWith" MobId="227114" ObjectType="GameObject" NonCompeteDistance="0" WaitTime="3000" Range="5" X="5878.697" Y="2061.201" Z="69.80282" />
-			 </If>
+				<If Condition="Unit(77020) == null &amp;&amp; Object(227114) != null"> <!-- Kor'gall -->
+					<CustomBehavior File="InteractWith" MobId="227114" ObjectType="GameObject" NonCompeteDistance="0" WaitTime="2000" Range="3" X="5878.697" Y="2061.201" Z="69.80282" />
+				</If>
 				<Objective QuestName="The Axe of Kor'gall" QuestId="34703" Type="CollectItem" ItemId="109023" CollectCount="1" />
 			</If>
 			<While Condition="HasQuest(34702) &amp;&amp; !IsQuestCompleted(34702)" > <!-- Krav'ogra -->
 			 <If Condition="Object(227114) != null"> <!-- Barricade -->
+				<MoveTo X="5879.817" Y="2057.418" Z="70.53405" />
 				<CustomBehavior File="InteractWith" MobId="227114" ObjectType="GameObject" WaitTime="3000" Range="8" X="5878.697" Y="2061.201" Z="69.80282" />
 			 </If>
 				<CustomBehavior File="InteractWith" QuestId="34702" MobId="81388" Range="5" X="5906.417" Y="1762.99" Z="62.67542" /> <!-- Challenge Gong -->
@@ -1082,7 +1083,10 @@
 		<TurnIn QuestName="Slave Hunters" QuestId="34698" TurnInName="Kash'drakor" TurnInId="79320" X="6152.761" Y="1570.297" Z="61.70557" />
 		<TurnIn QuestName="Nazgrel" QuestId="34700" TurnInName="Kash'drakor" TurnInId="79320" X="6152.761" Y="1570.297" Z="61.70557" />
 		<PickUp QuestName="The Sparring Arena" QuestId="35137" GiverName="Gladiator Akaani" GiverId="79322" X="6157.402" Y="1570.752" Z="61.78324" />
+			<If Condition="HasQuest(35137) &amp;&amp; !IsQuestCompleted(35137)" > <!-- The Sparring Arena -->
 		<TurnIn QuestName="The Sparring Arena" QuestId="35137" TurnInName="Rangari Jonaa" TurnInId="81076" X="6349.229" Y="727.4277" Z="118.0793" />
+                <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="false" />
+			</If>
 			<!-- End of Stonemaul Arena -->		
 		
 			<!-- Iron Approach -->
@@ -1131,7 +1135,7 @@
 			</If>
 			<If Condition="HasQuest(36576) &amp;&amp; IsQuestCompleted(36576)" > <!-- Strike While the Iron is Hot -->
 		<TurnIn QuestName="Strike While the Iron is Hot" QuestId="36576" TurnInName="Vindicator Maraad" TurnInId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
-                <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
+                <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="false" />
 			</If>
 			
 			</If>
@@ -1492,56 +1496,6 @@
 					<GrindTo Condition="IsQuestCompleted(36480)" GoalText="Completing Bonus Objective: Valley of Destruction"  />
 					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to Complete {TimeRemaining}" />
 				</If>
-				
-			<!-- Get Bonus Objective: Brimstone Springs
-			<PickUp QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" GiverName="" GiverId="" /> West of Brimstone Canyon 
-				<Objective QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" Type="KillMob" MobId="85924" KillCount="8" />
-				<Objective QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" Type="KillMob" MobId="85960" KillCount="15" />
-				<Objective QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" Type="KillMob" MobId="85942" KillCount="3" />
-			<TurnIn QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" TurnInName="" TurnInId="" />
-			-->
-				<If Condition="!HasQuest(36603) &amp;&amp; !IsQuestCompleted(36603) &amp;&amp; Me.Level &lt; 94" > <!-- 'Pickup' Bonus Objective: Brimstone Springs -->
-					<MoveTo X="6869.919" Y="1752.798" Z="40.92949" />
-					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to pickup {TimeRemaining}" />
-				</If>
-				<If Condition="HasQuest(36603) &amp;&amp; !IsQuestCompleted(36603)" > <!-- 'Complete' Bonus Objective: Brimstone Springs -->
-					<SetGrindArea>
-						<GrindArea>
-							<Factions>2716 14 16</Factions>
-							<Hotspots>
-								<Hotspot X="6873.586" Y="1702.109" Z="40.91487" />
-								<Hotspot X="6869.919" Y="1752.798" Z="40.92949" />
-								<Hotspot X="6834.088" Y="1799.845" Z="47.50016" />
-								<Hotspot X="6774.801" Y="1798.629" Z="48.78885" />
-								<Hotspot X="6706.893" Y="1820.033" Z="41.76366" />
-								<Hotspot X="6689.901" Y="1867.048" Z="41.7622" />		
-								<Hotspot X="6604.385" Y="1813.85" Z="39.14975" />
-								<Hotspot X="6524.546" Y="1807.702" Z="48.86361" />
-								<Hotspot X="6446.87" Y="1792.152" Z="55.47259" />
-								<Hotspot X="6413.863" Y="1806.602" Z="60.07317" />
-								<Hotspot X="6368.042" Y="1769.997" Z="63.18378" />
-								<Hotspot X="6388.776" Y="1751.826" Z="64.90824" />
-								<Hotspot X="6443.63" Y="1760.116" Z="62.72021" />
-								<Hotspot X="6519.771" Y="1736.627" Z="47.99504" />
-								<Hotspot X="6582.603" Y="1734.761" Z="42.51754" />
-								<Hotspot X="6633.542" Y="1748.649" Z="37.02296" />
-								<Hotspot X="6666.995" Y="1745.042" Z="36.71992" />
-								<Hotspot X="6703.402" Y="1726.948" Z="37.04509" />
-								<Hotspot X="6743.021" Y="1700.982" Z="36.56635" />
-								<Hotspot X="6587.977" Y="1696.718" Z="60.01777" />
-								<Hotspot X="6532.429" Y="1663.745" Z="72.0289" />
-								<Hotspot X="6491.808" Y="1636.794" Z="75.40123" />
-								<Hotspot X="6487.993" Y="1596.202" Z="76.96378" />
-								<Hotspot X="6551.134" Y="1533.872" Z="78.8141" />
-								<Hotspot X="6582.515" Y="1596.414" Z="78.54106" />
-								<Hotspot X="6656.99" Y="1606.337" Z="74.4428" />		
-							</Hotspots>
-						</GrindArea>  
-					</SetGrindArea>
-					<GrindTo Condition="IsQuestCompleted(36603)" GoalText="Completing Bonus Objective: Brimstone Springs"  />
-					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to Complete {TimeRemaining}" />
-				</If>
-		
 				<!-- Grind to lvl 94 here, near Highpass -->
 					<SetGrindArea>
 						<GrindArea>
