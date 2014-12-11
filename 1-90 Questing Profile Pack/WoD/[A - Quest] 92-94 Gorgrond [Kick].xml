@@ -1427,6 +1427,24 @@
 		<TurnIn QuestName="Laying Dionor to Rest" QuestId="36443" TurnInName="Birchus" TurnInId="82302" X="7000" Y="955" Z="80.08334" />
 			<!-- End of Dionor's Demise -->
 			
+				<!-- Turnin Boss Quest Items -->
+				<If Condition="HasItem(114022)" > <!-- Gronn Eye -->
+			<PickUp QuestName="Proof of Strength: Gronn Eye" QuestId="36081" GiverName="Gronn Eye" GiverId="114022" GiverType="Item" />
+			<TurnIn QuestName="Proof of Strength: Gronn Eye" QuestId="36081" TurnInName="Rangari Jonaa" TurnInId="81076" X="6349.229" Y="727.4277" Z="117.5588" />
+				</If>
+				<If Condition="HasItem(113461)" > <!-- Shimmering Scale -->
+			<PickUp QuestName="Trophy of Glory: Khargax the Devourer" QuestId="35820" GiverName="Shimmering Scale" GiverId="113461" GiverType="Item" />
+			<TurnIn QuestName="Trophy of Glory: Khargax the Devourer" QuestId="35820" TurnInName="Vindicator Maraad" TurnInId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
+				</If>
+				<If Condition="HasItem(113446)" > <!-- Globe of Dead Water -->
+			<PickUp QuestName="Trophy of Glory: Dessicus" QuestId="35809" GiverName="Globe of Dead Water" GiverId="113446" GiverType="Item" />
+			<TurnIn QuestName="Trophy of Glory: Dessicus" QuestId="35809" TurnInName="Durotan" TurnInName="Vindicator Maraad" TurnInId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
+				</If>
+				<If Condition="HasItem(113445)" > <!-- Crystalized Steam -->
+			<PickUp QuestName="Trophy of Glory: Erosian" QuestId="35808" GiverName="Crystalized Steam" GiverId="113445" GiverType="Item" />
+			<TurnIn QuestName="Trophy of Glory: Erosian" QuestId="35808" TurnInName="Durotan" TurnInName="Vindicator Maraad" TurnInId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
+				</If>
+			
 			<If Condition="Me.Level &lt; 94" > <!-- Get to Level 94 -->
 				
 				<!-- Get Bonus Objective: Valley of Destruction 
@@ -1496,6 +1514,56 @@
 					<GrindTo Condition="IsQuestCompleted(36480)" GoalText="Completing Bonus Objective: Valley of Destruction"  />
 					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to Complete {TimeRemaining}" />
 				</If>
+				
+			<!-- Get Bonus Objective: Brimstone Springs
+			<PickUp QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" GiverName="" GiverId="" /> West of Brimstone Canyon 
+				<Objective QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" Type="KillMob" MobId="85924" KillCount="8" />
+				<Objective QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" Type="KillMob" MobId="85960" KillCount="15" />
+				<Objective QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" Type="KillMob" MobId="85942" KillCount="3" />
+			<TurnIn QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" TurnInName="" TurnInId="" />
+			-->
+				<If Condition="!HasQuest(36603) &amp;&amp; !IsQuestCompleted(36603) &amp;&amp; Me.Level &lt; 94" > <!-- 'Pickup' Bonus Objective: Brimstone Springs -->
+					<MoveTo X="6869.919" Y="1752.798" Z="40.92949" />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to pickup {TimeRemaining}" />
+				</If>
+				<If Condition="HasQuest(36603) &amp;&amp; !IsQuestCompleted(36603)" > <!-- 'Complete' Bonus Objective: Brimstone Springs -->
+					<SetGrindArea>
+						<GrindArea>
+							<Factions>2716 14 16</Factions>
+							<Hotspots>
+								<Hotspot X="6873.586" Y="1702.109" Z="40.91487" />
+								<Hotspot X="6869.919" Y="1752.798" Z="40.92949" />
+								<Hotspot X="6834.088" Y="1799.845" Z="47.50016" />
+								<Hotspot X="6774.801" Y="1798.629" Z="48.78885" />
+								<Hotspot X="6706.893" Y="1820.033" Z="41.76366" />
+								<Hotspot X="6689.901" Y="1867.048" Z="41.7622" />		
+								<Hotspot X="6604.385" Y="1813.85" Z="39.14975" />
+								<Hotspot X="6524.546" Y="1807.702" Z="48.86361" />
+								<Hotspot X="6446.87" Y="1792.152" Z="55.47259" />
+								<Hotspot X="6413.863" Y="1806.602" Z="60.07317" />
+								<Hotspot X="6368.042" Y="1769.997" Z="63.18378" />
+								<Hotspot X="6388.776" Y="1751.826" Z="64.90824" />
+								<Hotspot X="6443.63" Y="1760.116" Z="62.72021" />
+								<Hotspot X="6519.771" Y="1736.627" Z="47.99504" />
+								<Hotspot X="6582.603" Y="1734.761" Z="42.51754" />
+								<Hotspot X="6633.542" Y="1748.649" Z="37.02296" />
+								<Hotspot X="6666.995" Y="1745.042" Z="36.71992" />
+								<Hotspot X="6703.402" Y="1726.948" Z="37.04509" />
+								<Hotspot X="6743.021" Y="1700.982" Z="36.56635" />
+								<Hotspot X="6587.977" Y="1696.718" Z="60.01777" />
+								<Hotspot X="6532.429" Y="1663.745" Z="72.0289" />
+								<Hotspot X="6491.808" Y="1636.794" Z="75.40123" />
+								<Hotspot X="6487.993" Y="1596.202" Z="76.96378" />
+								<Hotspot X="6551.134" Y="1533.872" Z="78.8141" />
+								<Hotspot X="6582.515" Y="1596.414" Z="78.54106" />
+								<Hotspot X="6656.99" Y="1606.337" Z="74.4428" />		
+							</Hotspots>
+						</GrindArea>  
+					</SetGrindArea>
+					<GrindTo Condition="IsQuestCompleted(36603)" GoalText="Completing Bonus Objective: Brimstone Springs"  />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to Complete {TimeRemaining}" />
+				</If>
+		
 				<!-- Grind to lvl 94 here, near Highpass -->
 					<SetGrindArea>
 						<GrindArea>
@@ -1545,7 +1613,7 @@
 						</GrindArea>  
 					</SetGrindArea>
 					<GrindTo Condition="Me.Level &gt;= 94" GoalText="Grinding to Level 94"  />
-				</If>
+			</If>
 
 		<PickUp QuestName="News from Talador" QuestId="36495" GiverName="Vindicator Maraad" GiverId="75127" X="6337.186" Y="745.6736" Z="116.6775" />
 		<!-- End of Iron Approach -->
