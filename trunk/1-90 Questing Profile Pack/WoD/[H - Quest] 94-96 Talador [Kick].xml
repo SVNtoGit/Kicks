@@ -100,7 +100,7 @@
 			</Hotspots>
 		</Objective>
 	</Quest>	
-	<Quest Id="34088" Name="Too Many Irons in the Fire">
+	<Quest Id="33722" Name="Too Many Irons in the Fire">
 		<Objective Type="KillMob" MobId="75752" KillCount="15">
 			<Hotspots>
 				<Hotspot X="3147.437" Y="1955.937" Z="118.0507" />
@@ -120,23 +120,16 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-	<Quest Id="34089" Name="In Short Supply">
+	<Quest Id="33735" Name="In Short Supply">
 		<Objective Type="CollectItem" ItemId="107855" CollectCount="6">
 			<CollectFrom>
 				<GameObject Name="Iron Horde Explosives" Entry="225731" />
 			</CollectFrom>
 			<Hotspots>
-				<Hotspot X="3147.437" Y="1955.937" Z="118.0507" />
-				<Hotspot X="3124.976" Y="1993.404" Z="111.86" />
-				<Hotspot X="3089.742" Y="1999.531" Z="109.5451" />
-				<Hotspot X="3102.34" Y="2025.009" Z="110.6869" />
-				<Hotspot X="3123.205" Y="2028.23" Z="109.3099" />
-				<Hotspot X="3202.189" Y="2064.778" Z="109.4939" />
-				<Hotspot X="3237.702" Y="2099.13" Z="111.61" />
-				<Hotspot X="3274.428" Y="1981.081" Z="132.736" />
-				<Hotspot X="3254.613" Y="1987.702" Z="130.7341" />
-				<Hotspot X="3223.691" Y="1919.183" Z="127.7735" />
-				<Hotspot X="3174.716" Y="1913.176" Z="128.7417" />
+				<Hotspot X="4023.532" Y="2556.006" Z="0.7694713" />
+				<Hotspot X="3946.606" Y="2475.763" Z="3.00425" />
+				<Hotspot X="3889.355" Y="2477.586" Z="4.728277" />
+				<Hotspot X="3811.509" Y="2602.706" Z="3.156803" />
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -886,8 +879,14 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-
-   
+	<Quest Id="35226" Name="Old Friends, New Enemies">
+		<Objective Type="KillMob" MobId="81704" KillCount="1">
+			<Hotspots>
+				<Hotspot X="4154.428" Y="2690.808" Z="23.60302" />
+			</Hotspots>
+		</Objective>
+	</Quest>
+  
    
 
    
@@ -1035,12 +1034,61 @@
 		<PickUp QuestName="Old Friends, New Enemies" QuestId="35226" GiverName="Durotan" GiverId="75806" X="3993.798" Y="2165.915" Z="117.8817" />
 		<PickUp QuestName="In Short Supply" QuestId="33735" GiverName="Draka" GiverId="75808" X="3992.29" Y="2135.878" Z="117.986" />
 		<PickUp QuestName="Gazlowe's Solution" QuestId="33721" GiverName="Gazlowe" GiverId="75873" X="4015.617" Y="2133.038" Z="115.8616" />
+			<If Condition="!IsQuestCompleted(33933)"> <!-- Treasure: Deceptia's Smoldering Boots -->
+				<CustomBehavior File="InteractWith" MobId="226976" ObjectType="GameObject" Range="4" X="3950.854" Y="2321.958" Z="15.07926" />
+			</If>
+			<While Condition="HasQuest(35226) &amp;&amp; !IsQuestCompleted(35226)"> <!-- Old Friends, New Enemies -->
+				<While Condition="!IsObjectiveComplete(1, 35226)">
+					<MoveTo X="3950.854" Y="2321.958" Z="15.07926" />
+					<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest update" />
+				</While>
+				<While Condition="!IsObjectiveComplete(2, 35226)">
+					<MoveTo X="4148.625" Y="2679.703" Z="23.60977" />
+					<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest update" />
+				</While>
+				<Objective QuestName="Old Friends, New Enemies" QuestId="35226" Type="KillMob" MobId="81704" KillCount="1" />
+			</While>
+			<Objective QuestName="In Short Supply" QuestId="33735" Type="CollectItem" ItemId="107855" CollectCount="6" />
+			<While Condition="HasQuest(33721) &amp;&amp; !IsQuestCompleted(33721)" > <!-- Gazlowe's Solution -->
+			 <While Condition="(!IsObjectiveComplete(1, 33721))"> <!-- Thunderlord Cache -->
+				<UseItem QuestId="33721" ItemId="107899" X="4031.898" Y="2465.359" Z="13.06986" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for explosion {TimeRemaining}" />
+			 </While>
+			 <While Condition="!IsObjectiveComplete(2, 33721)"> <!-- Landing Storage -->
+				<UseItem QuestId="33721" ItemId="107899" X="3926.556" Y="2481.669" Z="1.731876" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for explosion {TimeRemaining}" />
+			 </While>
+			 <While Condition="(!IsObjectiveComplete(3, 33721))"> <!-- Forge -->
+				<UseItem QuestId="33721" ItemId="107899" X="3821.19" Y="2385.406" Z="11.20248" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for explosion {TimeRemaining}" />
+			 </While>
+			</While>
+			<Objective QuestName="Too Many Irons in the Fire" QuestId="33722" Type="KillMob" MobId="75752" KillCount="15" />
+		<TurnIn QuestName="Old Friends, New Enemies" QuestId="35226" TurnInName="Durotan" TurnInId="75958" X="3626.267" Y="2320.623" Z="67.09436" />
+		<TurnIn QuestName="Too Many Irons in the Fire" QuestId="33722" TurnInName="Durotan" TurnInId="75958" X="3626.267" Y="2320.623" Z="67.09436" />
+		<PickUp QuestName="Dreadpiston" QuestId="34950" GiverName="Durotan" GiverId="75958" X="3626.267" Y="2320.623" Z="67.09436" />
+		<TurnIn QuestName="In Short Supply" QuestId="33735" TurnInName="Draka" TurnInId="75808" X="3628.377" Y="2319.958" Z="67.18192" />
+		<PickUp QuestName="Iron Them Out" QuestId="33736" GiverName="Draka" GiverId="75808" X="3628.377" Y="2319.958" Z="67.18192" />
+		<TurnIn QuestName="Gazlowe's Solution" QuestId="33721" TurnInName="Gazlowe" TurnInId="75924" X="3605.53" Y="2318.646" Z="67.61658" />
+		<PickUp QuestName="Shredder Manual" QuestId="34948" GiverName="Gazlowe" GiverId="75924" X="3605.53" Y="2318.646" Z="67.61658" />
+		<TurnIn QuestName="Shredder Manual" QuestId="34948" TurnInName="Iron Shredder Decommission Orders" TurnInId="225726" X="3773.665" Y="2258.144" Z="26.43024" />
+		<PickUp QuestName="Decommissioned Mission" QuestId="33720" GiverName="Iron Shredder Decommission Orders" GiverId="225726" X="3773.665" Y="2258.144" Z="26.43024" />
+			<While Condition="HasQuest(33720) &amp;&amp; !IsQuestCompleted(33720)" > <!-- Decommissioned Mission -->
+				<CustomBehavior File="InteractWith" QuestId="33720" MobId="76791" MobState="Alive" TerminateWhen="IsObjectiveComplete(1, 33720)" NonCompeteDistance="0" X="3853" Y="2068" Z="16.73887" />
+				<CustomBehavior File="InteractWith" QuestId="33720" MobId="75809" TerminateWhen="IsObjectiveComplete(2, 33720)" NonCompeteDistance="0" X="3853" Y="2068" Z="16.73887" />
+				<CustomBehavior File="NoCombatMoveTo" X="3605.53" Y="2318.646" Z="67.61658" />
+				<CustomBehavior File="WaitTimer" QuestId="33720" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</While>
+		<TurnIn QuestName="Decommissioned Mission" QuestId="33720" TurnInName="Gazlowe" TurnInId="75924" X="3605.53" Y="2318.646" Z="67.61658" />
+		<PickUp QuestName="Vol. X Pages ?" QuestId="33724" GiverName="Gazlowe" GiverId="75924" X="3605.53" Y="2318.646" Z="67.61658" />
+		<PickUp QuestName="Dying Wish" QuestId="33973" GiverName="Ahm" GiverId="77031" X="3397.078" Y="2440.462" Z="113.37" />
+			<Objective QuestName="Dying Wish" QuestId="33973" Type="CollectItem" ItemId="108825" CollectCount="1" />
+		<TurnIn QuestName="Dying Wish" QuestId="33973" TurnInName="Ahm" TurnInId="77031" X="3397.078" Y="2440.462" Z="113.37" />
 
 	
 
 
 		
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" Text="I'm serious, there's no more quests." />
 	
 		
 		
