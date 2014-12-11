@@ -1168,7 +1168,7 @@
 				</If>
 				<!-- Grind to lvl 94 here, near Highpass -->
 				
-			<!-- Get Bonus Objective: Brimstone Springs
+				<!-- Get Bonus Objective: Brimstone Springs
 			<PickUp QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" GiverName="" GiverId="" /> West of Brimstone Canyon 
 				<Objective QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" Type="KillMob" MobId="85924" KillCount="8" />
 				<Objective QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" Type="KillMob" MobId="85960" KillCount="15" />
@@ -1270,11 +1270,14 @@
 
 			<!-- Go To Talador -->
 		<PickUp QuestName="News from Talador" QuestId="36494" GiverName="Durotan" GiverId="74594" X="5763.857" Y="1297.016" Z="106.9526" />
+			<If Condition="HasQuest(36494) &amp;&amp; Unit(78487) == null" > <!-- News from Talador -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:110560&quot;)" WaitTime="15000" /> <!-- Garrison Hearthstone -->
+			</If>
 		<TurnIn QuestName="News from Talador" QuestId="36494" TurnInName="Rokhan" TurnInId="78487" X="5614.007" Y="4563.16" Z="135.1946" />
 		<PickUp QuestName="It's a Matter of Strategy" QuestId="34681" GiverName="Rokhan" GiverId="78487" X="5614.007" Y="4563.16" Z="135.1946" />
-			<If Condition="HasQuest(34681) &amp;&amp; Me.ZoneId == 7004"> <!-- It's a Matter of Strategy - Frostwall -->
+			<While Condition="HasQuest(34681) &amp;&amp; Me.ZoneId == 7004"> <!-- It's a Matter of Strategy - Frostwall -->
 				<CustomBehavior File="InteractWith" MobId="79407" GossipOptions="2" X="5575.775" Y="4563.67" Z="136.2085" /> <!-- Flying to Talador -->
-			</If>
+			</While>
 		<TurnIn QuestName="It's a Matter of Strategy" QuestId="34681" TurnInName="Foreman Grobash" TurnInId="79176" />
 			<!-- In Talador -->
 
