@@ -424,7 +424,7 @@
 		</Objective>
 	</Quest>
 	<Quest Id="35030" Name="A Grim Harvest">
-		<Objective Type="CollectItem" ItemId="112394" CollectCount="5">
+		<Objective Type="CollectItem" ItemId="112394" CollectCount="3">
 			<CollectFrom>
 				<Mob Name="Fungal Stomper" Id="80739" />
 			</CollectFrom>
@@ -620,18 +620,12 @@
 			</Hotspots>
 		</Objective>
 	</Quest>		
-	
-   
-   
-
-   
-   
-   
    <!-- END: Quest Overrides -->
    <!-- SMV - Gorgrond - Talador - Spires - Nagrand -->
 
 
     <QuestOrder IgnoreCheckpoints="true" >
+	
          <While Condition="Me.IsAlliance">
             <CustomBehavior File="UserDialog" AllowBotStop="true" SoundCue="Exclamation"
                             SoundCueInterval="1" Text="You must be Horde to run this profile!" />
@@ -734,10 +728,8 @@
 			<PickUp QuestName="The Razorbloom" QuestId="36474" GiverName="Durotan" GiverId="74594" X="5763.857" Y="1297.016" Z="106.9532" />
 				</If>
 			</If>  
-			
-			<!-- Reagents from Rakthoth requires lvl 93 - from Marrow - Either selection 'go to' quest -->
 
-			<!-- Arena -->
+			<!-- ARENA CHAIN START -->
 			<If Condition="HasQuest(35880) || IsQuestCompleted(35880)"> <!-- Arena Chain / Rage and Wisdom -->
 		<PickUp QuestName="A Rediscovered Legend" QuestId="34697" GiverName="Limbflayer" GiverId="76688" X="5791.03" Y="1278.184" Z="109.0173" />
 		<PickUp QuestName="Skulltakers in Crimson Fen" QuestId="35667" GiverName="Marrow" GiverId="82732" X="5775.616" Y="1281.615" Z="107.7676" />
@@ -974,103 +966,319 @@
 			
 			</If>
 			<!-- END ARENA CHAIN -->
-		
 			
+			<If Condition="HasQuest(36474) || IsQuestCompleted(36474) &amp;&amp; !IsQuestCompleted(36574)"> <!-- Lumber Mill Chain / The Razorbloom -->
+				<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" Text="You must complete the lumber mill chain by hand!" />
+			</If>
+			
+		<!-- Dionor's Demise -->
 		<PickUp QuestName="Reagents from Rakthoth" QuestId="33694" GiverName="Marrow" GiverId="82732" X="5775.616" Y="1281.615" Z="107.7674" />
+
+		<TurnIn QuestName="Skulltakers in Crimson Fen" QuestId="35667" TurnInName="Grulkor" TurnInId="81218" X="5956.41" Y="618.3767" Z="42.8774" />
+		<PickUp QuestName="Basic Skulltaking" QuestId="35016" GiverName="Grulkor" GiverId="81218" X="5956.41" Y="618.3767" Z="42.8774" />
+		<PickUp QuestName="Skulltaker's Revenge" QuestId="35017" GiverName="Dying Skulltaker" GiverId="81185" X="6031.535" Y="583.7969" Z="25.80789" />
+			<While Condition="HasQuest(35016) &amp;&amp; !IsQuestCompleted(35016)" > <!-- Basic Skulltaking -->
+				<CustomBehavior File="InteractWith" QuestId="35016" MobId="80807" NumOfTimes="20" Range="4" TerminateWhen="IsObjectiveComplete(1, 35016)" 
+											CollectionDistance="200" NonCompeteDistance="0" PreInteractMountStrategy="DismountOrCancelShapeshift" InteractByLooting="true" KeepTargetSelected="True" >
+				  <HuntingGrounds>
+					<Hotspot X="6038.061" Y="547.1979" Z="19.70261" />
+					<Hotspot  X="6067.377" Y="523.9913" Z="15.13927" />
+					<Hotspot  X="6064.233" Y="497.809" Z="13.32908" />
+					<Hotspot  X="6069.243" Y="475.1701" Z="10.68867" />
+					<Hotspot X="6099.126" Y="447.8993" Z="-0.6855445"/>
+				  </HuntingGrounds>
+				</CustomBehavior>
+			</While>
+			<Objective QuestName="Skulltaker's Revenge" QuestId="35017" Type="KillMob" MobId="80714" KillCount="7" />
+			<If Condition="HasQuest(35017) &amp;&amp; !HasItem(112378) &amp;&amp; (!HasQuest(35021) &amp;&amp; !IsQuestCompleted(35021))" > <!-- Pickup Glowing Red Pod -->
+				<SetGrindArea>
+					<GrindArea>
+						<Factions>14</Factions>
+						<Hotspots>
+							<Hotspot X="6457.437" Y="186.2238" Z="10.05846" />
+							<Hotspot X="6442.094" Y="143.3497" Z="13.1769" />
+							<Hotspot X="6415.687" Y="154.2163" Z="6.681978" />
+							<Hotspot X="6334.518" Y="215.6055" Z="1.478624" />
+							<Hotspot X="6335.989" Y="261.8701" Z="-0.615171" />
+							<Hotspot X="6373.96" Y="285.8842" Z="-0.6064602" />
+							<Hotspot X="6404.639" Y="231.3904" Z="6.263903" />
+							<Hotspot X="6440.526" Y="214.8442" Z="12.06683" />
+						</Hotspots>
+					</GrindArea>
+				</SetGrindArea>
+				<GrindTo Condition="HasItem(112378)" GoalText="Getting dropquest item" /> <!-- Glowing Red Pod -->
+			</If>
+			<If Condition="HasItem(112378) &amp;&amp; (!HasQuest(35021) &amp;&amp; !IsQuestCompleted(35021))" > <!-- Pickup Glowing Red Pod -->
+		<PickUp QuestName="Mysterious Pod" QuestId="35021" GiverName="Glowing Red Pod" GiverId="112378" GiverType="Item" />
+			</If>
+		<TurnIn QuestName="Mysterious Pod" QuestId="35021" TurnInName="Grulkor" TurnInId="80757" X="6213.181" Y="389.1927" Z="4.079291" />
+		<TurnIn QuestName="Skulltaker's Revenge" QuestId="35017" TurnInName="Grulkor" TurnInId="80757" X="6213.181" Y="389.1927" Z="4.079291" />
+		<TurnIn QuestName="Basic Skulltaking" QuestId="35016" TurnInName="Grulkor" TurnInId="80757" X="6213.181" Y="389.1927" Z="4.079291" />
+		<PickUp QuestName="Clearing the Way" QuestId="35027" GiverName="Grulkor" GiverId="80757" X="6213.181" Y="389.1927" Z="4.079291" />
+		<PickUp QuestName="The Secret of the Fungus" QuestId="35029" GiverName="Grulkor" GiverId="80757" X="6213.181" Y="389.1927" Z="4.079291" />
+			<Objective QuestName="The Secret of the Fungus" QuestId="35029" Type="CollectItem" ItemId="112672" CollectCount="5" />
+			<Objective QuestName="Clearing the Way" QuestId="35027" Type="KillMob" MobId="80721" KillCount="6" />
+		<TurnIn QuestName="Clearing the Way" QuestId="35027" TurnInName="Grulkor" TurnInId="80757" X="6213.181" Y="389.1927" Z="4.079291" />
+		<TurnIn QuestName="The Secret of the Fungus" QuestId="35029" TurnInName="Grulkor" TurnInId="80757" X="6213.181" Y="389.1927" Z="4.079291" />
+		<PickUp QuestName="A Grim Harvest" QuestId="35030" GiverName="Grulkor" GiverId="80757" X="6213.181" Y="389.1927" Z="4.079291" />
+		<PickUp QuestName="A Heartfelt Search" QuestId="35031" GiverName="Grulkor" GiverId="80757" X="6213.181" Y="389.1927" Z="4.079291" />
+			<Objective QuestName="A Heartfelt Search" QuestId="35031" Type="UseObject" ObjectId="231229" UseCount="1" />
+			<Objective QuestName="A Grim Harvest" QuestId="35030" Type="CollectItem" ItemId="112394" CollectCount="3"/>
+		<TurnIn QuestName="A Grim Harvest" QuestId="35030" TurnInName="Grulkor" TurnInId="81241" X="6213.181" Y="389.1927" Z="4.079291" />
+		<TurnIn QuestName="A Heartfelt Search" QuestId="35031" TurnInName="Grulkor" TurnInId="81241" X="6213.181" Y="389.1927" Z="4.079291" />
+		<PickUp QuestName="Heart of the Fen" QuestId="35040" GiverName="Grulkor" GiverId="81241" X="6213.181" Y="389.1927" Z="4.079291"/>
+			<Objective QuestName="Heart of the Fen" QuestId="35040" Type="KillMob" MobId="86157" KillCount="1" />
+		<TurnIn QuestName="Reagents from Rakthoth" QuestId="33694" TurnInName="Rakthoth" TurnInId="81731" X="6880.623" Y="1029.911" Z="68.90776" />
+		<PickUp QuestName="Plant Pruning" QuestId="33689" GiverName="Rakthoth" GiverId="81731" X="6880.623" Y="1029.911" Z="68.90776" />
+		<PickUp QuestName="Ambassador to the Ancient" QuestId="33685" GiverName="Rakthoth" GiverId="81731" X="6880.623" Y="1029.911" Z="68.90776" />
+			<Objective QuestName="Plant Pruning" QuestId="33689" Type="KillMob" MobId="81721" KillCount="12" />
+			<While Condition="HasQuest(33685) &amp;&amp; !IsQuestCompleted(33685)" > <!-- Ambassador to the Ancient -->
+				<CustomBehavior File="InteractWith" QuestId="33685" MobId="81723" Range="5" GossipOptions="1,1,1" NonCompeteDistance="0" X="7000" Y="955" Z="80.08334" /> <!-- Birchus -->
+			</While>
+			<Objective QuestName="Plant Pruning" QuestId="33689" Type="KillMob" MobId="81721" KillCount="12" />
+		<TurnIn QuestName="Ambassador to the Ancient" QuestId="33685" TurnInName="Rakthoth" TurnInId="85089" X="6972.672" Y="872.684" Z="93.21799" />
+		<TurnIn QuestName="Plant Pruning" QuestId="33689" TurnInName="Rakthoth" TurnInId="85089" X="6972.672" Y="872.684" Z="93.21799" />
+
+			<If Condition="IsQuestCompleted(35880)"> <!-- Arena Chain - Beatface vs. Boulder -->
+		<PickUp QuestName="Beatface vs. Boulder" QuestId="33662" GiverName="Rakthoth" GiverId="85089" X="6972.672" Y="872.684" Z="93.21799" />
+			<If Condition="HasQuest(33662) &amp;&amp; !IsQuestCompleted(33662)" > <!-- Beatface vs. Boulder -->
+				<MoveTo X="6784.693" Y="929.3717" Z="145.3458" />
+				<CustomBehavior File="InteractWith" QuestId="33662" MobId="232258" ObjectType="GameObject" WaitTime="2000" Range="6" X="6786.285" Y="922.7726" Z="143.8831" />
+				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Beatface vs. Boulder" QuestId="33662" TurnInName="Rakthoth" TurnInId="82222" X="6786.696" Y="904.077" Z="148.8365" />
+			</If>
+			<If Condition="IsQuestCompleted(36474)" > <!-- LM Chain - Shredder vs. Saberon -->
+		<PickUp QuestName="Shredder vs. Saberon" QuestId="33663" GiverName="Altauur" GiverId="85432" X="6975.458" Y="869.9393" Z="93.22194" />
+			<While Condition="HasQuest(33663) &amp;&amp; !IsQuestCompleted(33663)" > <!-- Shredder vs. Saberon -->
+				<MoveTo X="6943.784" Y="795.8861" Z="147.339" />
+				<CustomBehavior File="InteractWith" QuestId="33663" MobId="235381" WaitForNpcs="False" Range="5" WaitTime="8000" ObjectType="GameObject" X="6937.3" Y="793.9132" Z="149.3734" />
+				<MoveTo X="6892.507" Y="811.1858" Z="150.934" />
+				<CustomBehavior File="WaitTimer" QuestId="33663" WaitTime="30000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</While>
+		<TurnIn QuestName="Shredder vs. Saberon" QuestId="33663" TurnInName="Rakthoth" TurnInId="82222" X="6892.507" Y="811.1858" Z="150.934" /> <!-- get correct coords and turn in id when we run LM -->
+			</If>
+			
+		<PickUp QuestName="Steamscar Reagents" QuestId="33661" GiverName="Rakthoth" GiverId="82222" X="6786.696" Y="904.077" Z="148.8365" />
+		<PickUp QuestName="The Sacking of the Saberon" QuestId="33660" GiverName="Saberon Stash" GiverId="234474" />
+			<Objective QuestName="The Sacking of the Saberon" QuestId="33660" Type="CollectItem" ItemId="115442" CollectCount="8" />
+			<Objective QuestName="Steamscar Reagents" QuestId="33661" Type="CollectItem" ItemId="115443" CollectCount="10" />
+		<TurnIn QuestName="The Sacking of the Saberon" QuestId="33660" TurnInName="Rakthoth" TurnInId="82225" X="6768.226" Y="744.2274" Z="189.4311" />
+		<TurnIn QuestId="33661" TurnInName="Rakthoth" TurnInId="82225" X="6768.226" Y="744.2274" Z="189.4311" />
+		<PickUp QuestName="Taking the Death Bloom" QuestId="33695" GiverName="Rakthoth" GiverId="82225" X="6768.226" Y="744.2274" Z="189.4311" />
+			<Objective QuestName="Taking the Death Bloom" QuestId="33695" Type="CollectItem" ItemId="113187" CollectCount="1" />
+		<TurnIn QuestName="Taking the Death Bloom" QuestId="33695" TurnInName="Birchus" TurnInId="82302" X="7000" Y="955" Z="80.08334" />
+		<PickUp QuestName="Laying Dionor to Rest" QuestId="33706" GiverName="Birchus" GiverId="82302" X="7000" Y="955" Z="80.08334" />
+			<If Condition="HasQuest(33706) &amp;&amp; !IsQuestCompleted(33706)" > <!-- Laying Dionor to Rest -->
+				<CustomBehavior File="WaitTimer" QuestId="33706" WaitTime="30000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+		<TurnIn QuestName="Laying Dionor to Rest" QuestId="33706" TurnInName="Birchus" TurnInId="82302" X="7000" Y="955" Z="80.08334" />
+			<!-- End of Dionor's Demise -->
+			
+			<!-- Back to Beastwatch -->
+		<TurnIn QuestName="Heart of the Fen" QuestId="35040" TurnInName="Marrow" TurnInId="82732" X="5775.616" Y="1281.615" Z="107.7673" />
+
+			<!-- Turnin Boss Quest Items -->
+			<If Condition="HasItem(114023)" > <!-- Gronn Eye -->
+		<PickUp QuestName="Proof of Strength: Gronn Eye" QuestId="36083" GiverName="Gronn Eye" GiverId="114023" GiverType="Item" />
+		<TurnIn QuestName="Proof of Strength: Gronn Eye" QuestId="36083" TurnInName="Limbflayer" TurnInId="76688" X="5763.857" Y="1297.016" Z="106.9526" />
+			</If>
+			<If Condition="HasItem(113460)" > <!-- Shimmering Scale -->
+		<PickUp QuestName="Trophy of Glory: Khargax the Devourer" QuestId="35819" GiverName="Shimmering Scale" GiverId="113460" GiverType="Item" />
+		<TurnIn QuestName="Trophy of Glory: Khargax the Devourer" QuestId="35819" TurnInName="Durotan" TurnInId="74594" X="5763.857" Y="1297.016" Z="106.9526" />
+			</If>
+			<If Condition="HasItem(113447)" > <!-- Globe of Dead Water -->
+		<PickUp QuestName="Trophy of Glory: Dessicus" QuestId="35810" GiverName="Globe of Dead Water" GiverId="113447" GiverType="Item" />
+		<TurnIn QuestName="Trophy of Glory: Dessicus" QuestId="35810" TurnInName="Durotan" TurnInId="74594" X="5763.857" Y="1297.016" Z="106.9526" />
+			</If>
+			<If Condition="HasItem(113444)" > <!-- Crystalized Steam -->
+		<PickUp QuestName="Trophy of Glory: Erosian" QuestId="35807" GiverName="Crystalized Steam" GiverId="113444" GiverType="Item" />
+		<TurnIn QuestName="Trophy of Glory: Erosian" QuestId="35807" TurnInName="Durotan" TurnInId="74594" X="5763.857" Y="1297.016" Z="106.9526" />
+			</If>
+			<!-- End of Beastwatch -->
 		
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" 
-										Text="I'm serious, there's no more quests." />
-
-
-
-	<!--
-
-
-
-
-
-
-	
-
-	-->
-
-		<!--
-			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
-			</While>
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" Range="4" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, )" 
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" GossipOptions="1" NonCompeteDistance="0" Range="4" TerminateWhen="IsObjectiveComplete(1, )" 
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" ObjectType="GameObject" NonCompeteDistance="0" Range="5" TerminateWhen="IsObjectiveComplete(1, )" 
-		
-			 <If Condition="!IsObjectiveComplete(1, )">
-			 </If>
-			<If Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
-			</If>
-			 <While Condition="!IsObjectiveComplete(1, 00000)"> 
-			 </While>
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" Range="5" 
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" ObjectType="GameObject" WaitTime="2000" Range="3" 
-
-			<If Condition="HasQuest() &amp;&amp; !HasItem()" >
-			</If>
-			
-			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="4" TerminateWhen="IsObjectiveComplete(1, )" 
-											CollectionDistance="200" NonCompeteDistance="0" PreInteractMountStrategy="DismountOrCancelShapeshift" >
-				  <HuntingGrounds>
-					
-				  </HuntingGrounds>
-				</CustomBehavior>
-			</While>
-			
-			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" ObjectType="GameObject" NumOfTimes="20" Range="5" NonCompeteDistance="0" 
-											TerminateWhen="IsObjectiveComplete(1, )" CollectionDistance="200" PreInteractMountStrategy="DismountOrCancelShapeshift" >
-				  <HuntingGrounds>
-					
-				  </HuntingGrounds>
-				</CustomBehavior>
-			</While>
-			
-			// bonus objectives quick copy
-			<If Condition="!HasQuest() &amp;&amp; !IsQuestCompleted()" >
-				<MoveTo 
-			</If>
-			<If Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="4" CollectionDistance="200" TerminateWhen="IsObjectiveComplete(1, )" NonCompeteDistance="0" >
-				  <HuntingGrounds>
-				  </HuntingGrounds>
-				</CustomBehavior>
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="4" CollectionDistance="200" TerminateWhen="IsObjectiveComplete(2, )" NonCompeteDistance="0" >
-				  <HuntingGrounds>
-				  </HuntingGrounds>
-				</CustomBehavior>
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-			</If>
-			
-
+			<If Condition="Me.Level &lt; 94" > <!-- Get to Level 94 -->
+				
+				<!-- Get Bonus Objective: Valley of Destruction 
+			<PickUp QuestName="Bonus Objective: Valley of Destruction" QuestId="36480" GiverName="" GiverId="" />
+			<Objective QuestName="Bonus Objective: Valley of Destruction" QuestId="36480" Type="KillMob" MobId="81246" KillCount="5" />
+			<Objective QuestName="Bonus Objective: Valley of Destruction" QuestId="36480" Type="KillMob" MobId="81775" KillCount="20" />
+			<Objective QuestName="Bonus Objective: Valley of Destruction" QuestId="36480" Type="KillMob" MobId="85567" KillCount="15" />
+			<TurnIn QuestName="Bonus Objective: Valley of Destruction" QuestId="36480" TurnInName="" TurnInId="" />
+				-->
+				<If Condition="!HasQuest(36480) &amp;&amp; !IsQuestCompleted(36480)" > <!-- 'Pickup' Bonus Objective: Valley of Destruction -->
+					<MoveTo X="7020.825" Y="1404.965" Z="26.15269" />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to pickup {TimeRemaining}" />
+				</If>
+				<If Condition="HasQuest(36480) &amp;&amp; !IsQuestCompleted(36480)" > <!-- 'Complete' Bonus Objective: Valley of Destruction -->
+					<CustomBehavior File="InteractWith" QuestId="36480" MobId="85567" NonCompeteDistance="0" NumOfTimes="20" TerminateWhen="IsObjectiveComplete(3, 36480)"
+												WaitTime="2000" Range="3" CollectionDistance="200" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+					  <HuntingGrounds WaypointVisitStrategy="Random" >
+						<Hotspot X="6999.726" Y="1116.282" Z="28.83911" />
+						<Hotspot X="6994.985" Y="1123.327" Z="28.77155" />
+						<Hotspot X="6965.941" Y="1150.213" Z="28.06948" />
+						<Hotspot X="6961.689" Y="1147.142" Z="28.12299" />
+						<Hotspot X="6960.641" Y="1151.604" Z="28.14313" />
+						<Hotspot X="6927.087" Y="1148.004" Z="29.47584" />
+						<Hotspot X="6922.383" Y="1145.63" Z="29.34525" />
+						<Hotspot X="6922.383" Y="1145.63" Z="29.34525" />
+						<Hotspot X="6994.985" Y="1123.327" Z="28.77155" />
+						<Hotspot X="6945.437" Y="1224.083" Z="28.10672" />
+						<Hotspot X="6986.52" Y="1200.704" Z="27.38369" />
+						<Hotspot X="7021.673" Y="1288.212" Z="31.40257" />
+					  </HuntingGrounds>
+					</CustomBehavior>
+				<SetGrindArea>
+						<GrindArea>
+							<Factions>2030 2738 14 2716 16</Factions> <!-- 85567 - Goren Egg -->
+							<Hotspots>
+								<Hotspot X="6963.894" Y="1423.057" Z="26.15977" />
+								<Hotspot X="7020.825" Y="1404.965" Z="26.15269" />
+								<Hotspot X="7098.308" Y="1411.323" Z="28.63545" />
+								<Hotspot X="7244.334" Y="1454.366" Z="66.28596" />
+								<Hotspot X="7224.933" Y="1396.552" Z="61.57901" />
+								<Hotspot X="7207.611" Y="1294.929" Z="63.79519" />
+								<Hotspot X="7162.582" Y="1381.233" Z="39.67509" />
+								<Hotspot X="7097.381" Y="1339.029" Z="25.0119" />
+								<Hotspot X="7048" Y="1331.029" Z="27.49425" />
+								<Hotspot X="7067.241" Y="1273.838" Z="27.40787" />
+								<Hotspot X="7107.521" Y="1216.483" Z="26.76979" />
+								<Hotspot X="7114.781" Y="1210.919" Z="26.66657" />
+								<Hotspot X="7173.17" Y="1160.427" Z="30.46492" />
+								<Hotspot X="7038.875" Y="1176.767" Z="38.62389" />
+								<Hotspot X="6993.186" Y="1123.632" Z="29.07555" />
+								<!-- Eggs -->
+								<Hotspot X="6999.726" Y="1116.282" Z="28.83911" />
+								<Hotspot X="6994.985" Y="1123.327" Z="28.77155" />
+								<Hotspot X="6965.941" Y="1150.213" Z="28.06948" />
+								<Hotspot X="6961.689" Y="1147.142" Z="28.12299" />
+								<Hotspot X="6960.641" Y="1151.604" Z="28.14313" />
+								<Hotspot X="6927.087" Y="1148.004" Z="29.47584" />
+								<Hotspot X="6922.383" Y="1145.63" Z="29.34525" />
+								<Hotspot X="6922.383" Y="1145.63" Z="29.34525" />
+								<Hotspot X="6994.985" Y="1123.327" Z="28.77155" />
+								<Hotspot X="6945.437" Y="1224.083" Z="28.10672" />
+								<Hotspot X="6986.52" Y="1200.704" Z="27.38369" />
+								<Hotspot X="7021.673" Y="1288.212" Z="31.40257" />
+							</Hotspots>
+						</GrindArea>  
+					</SetGrindArea>
+					<GrindTo Condition="IsQuestCompleted(36480)" GoalText="Completing Bonus Objective: Valley of Destruction"  />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to Complete {TimeRemaining}" />
+				</If>
+				<!-- Grind to lvl 94 here, near Highpass -->
+				
+			<!-- Get Bonus Objective: Brimstone Springs
+			<PickUp QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" GiverName="" GiverId="" /> West of Brimstone Canyon 
+				<Objective QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" Type="KillMob" MobId="85924" KillCount="8" />
+				<Objective QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" Type="KillMob" MobId="85960" KillCount="15" />
+				<Objective QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" Type="KillMob" MobId="85942" KillCount="3" />
+			<TurnIn QuestName="Bonus Objective: Brimstone Springs" QuestId="36603" TurnInName="" TurnInId="" />
 			-->
+				<If Condition="!HasQuest(36603) &amp;&amp; !IsQuestCompleted(36603) &amp;&amp; Me.Level &lt; 94" > <!-- 'Pickup' Bonus Objective: Brimstone Springs -->
+					<MoveTo X="6869.919" Y="1752.798" Z="40.92949" />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to pickup {TimeRemaining}" />
+				</If>
+				<If Condition="HasQuest(36603) &amp;&amp; !IsQuestCompleted(36603)" > <!-- 'Complete' Bonus Objective: Brimstone Springs -->
+					<SetGrindArea>
+						<GrindArea>
+							<Factions>2716 14 16</Factions>
+							<Hotspots>
+								<Hotspot X="6873.586" Y="1702.109" Z="40.91487" />
+								<Hotspot X="6869.919" Y="1752.798" Z="40.92949" />
+								<Hotspot X="6834.088" Y="1799.845" Z="47.50016" />
+								<Hotspot X="6774.801" Y="1798.629" Z="48.78885" />
+								<Hotspot X="6706.893" Y="1820.033" Z="41.76366" />
+								<Hotspot X="6689.901" Y="1867.048" Z="41.7622" />		
+								<Hotspot X="6604.385" Y="1813.85" Z="39.14975" />
+								<Hotspot X="6524.546" Y="1807.702" Z="48.86361" />
+								<Hotspot X="6446.87" Y="1792.152" Z="55.47259" />
+								<Hotspot X="6413.863" Y="1806.602" Z="60.07317" />
+								<Hotspot X="6368.042" Y="1769.997" Z="63.18378" />
+								<Hotspot X="6388.776" Y="1751.826" Z="64.90824" />
+								<Hotspot X="6443.63" Y="1760.116" Z="62.72021" />
+								<Hotspot X="6519.771" Y="1736.627" Z="47.99504" />
+								<Hotspot X="6582.603" Y="1734.761" Z="42.51754" />
+								<Hotspot X="6633.542" Y="1748.649" Z="37.02296" />
+								<Hotspot X="6666.995" Y="1745.042" Z="36.71992" />
+								<Hotspot X="6703.402" Y="1726.948" Z="37.04509" />
+								<Hotspot X="6743.021" Y="1700.982" Z="36.56635" />
+								<Hotspot X="6587.977" Y="1696.718" Z="60.01777" />
+								<Hotspot X="6532.429" Y="1663.745" Z="72.0289" />
+								<Hotspot X="6491.808" Y="1636.794" Z="75.40123" />
+								<Hotspot X="6487.993" Y="1596.202" Z="76.96378" />
+								<Hotspot X="6551.134" Y="1533.872" Z="78.8141" />
+								<Hotspot X="6582.515" Y="1596.414" Z="78.54106" />
+								<Hotspot X="6656.99" Y="1606.337" Z="74.4428" />		
+							</Hotspots>
+						</GrindArea>  
+					</SetGrindArea>
+					<GrindTo Condition="IsQuestCompleted(36603)" GoalText="Completing Bonus Objective: Brimstone Springs"  />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to Complete {TimeRemaining}" />
+				</If>
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
-										Text="End of Tested Profile. Development from here. \n
-										Yes, you read correctly.  There are no more quests after this message. Don't post on forums and ask." />
+					<SetGrindArea>
+						<GrindArea>
+							<Factions>2030 2738 14 2716 16</Factions>
+							<Hotspots>
+								<Hotspot X="6662.978" Y="1404.511" Z="35.38976" />
+								<Hotspot X="6669.374" Y="1465.518" Z="19.76007" />
+								<Hotspot X="6738.67" Y="1486.166" Z="11.28438" />
+								<Hotspot X="6802.808" Y="1492.583" Z="10.89299" />
+								<Hotspot X="6863.495" Y="1546.234" Z="3.784324" />
+								<Hotspot X="7010.163" Y="1396.299" Z="24.3134" />
+								<Hotspot X="7095.101" Y="1357.066" Z="25.64057" />
+								<Hotspot X="7085.393" Y="1274.893" Z="26.54644" />
+								<Hotspot X="7102.864" Y="1167.436" Z="32.77714" />
+								<Hotspot X="7028.009" Y="1196.484" Z="33.79844" />
+								<Hotspot X="6976.425" Y="1229.38" Z="30.54456" />
+								<Hotspot X="6920.483" Y="1194.385" Z="31.30179" />
+								<Hotspot X="6956.028" Y="1125.911" Z="33.22236" />
+								<Hotspot X="6826.704" Y="1185.385" Z="58.72916" />		
+								<Hotspot X="6873.586" Y="1702.109" Z="40.91487" />
+								<Hotspot X="6869.919" Y="1752.798" Z="40.92949" />
+								<Hotspot X="6834.088" Y="1799.845" Z="47.50016" />
+								<Hotspot X="6774.801" Y="1798.629" Z="48.78885" />
+								<Hotspot X="6706.893" Y="1820.033" Z="41.76366" />
+								<Hotspot X="6689.901" Y="1867.048" Z="41.7622" />		
+								<Hotspot X="6604.385" Y="1813.85" Z="39.14975" />
+								<Hotspot X="6524.546" Y="1807.702" Z="48.86361" />
+								<Hotspot X="6446.87" Y="1792.152" Z="55.47259" />
+								<Hotspot X="6413.863" Y="1806.602" Z="60.07317" />
+								<Hotspot X="6368.042" Y="1769.997" Z="63.18378" />
+								<Hotspot X="6388.776" Y="1751.826" Z="64.90824" />
+								<Hotspot X="6443.63" Y="1760.116" Z="62.72021" />
+								<Hotspot X="6519.771" Y="1736.627" Z="47.99504" />
+								<Hotspot X="6582.603" Y="1734.761" Z="42.51754" />
+								<Hotspot X="6633.542" Y="1748.649" Z="37.02296" />
+								<Hotspot X="6666.995" Y="1745.042" Z="36.71992" />
+								<Hotspot X="6703.402" Y="1726.948" Z="37.04509" />
+								<Hotspot X="6743.021" Y="1700.982" Z="36.56635" />
+								<Hotspot X="6587.977" Y="1696.718" Z="60.01777" />
+								<Hotspot X="6532.429" Y="1663.745" Z="72.0289" />
+								<Hotspot X="6491.808" Y="1636.794" Z="75.40123" />
+								<Hotspot X="6487.993" Y="1596.202" Z="76.96378" />
+								<Hotspot X="6551.134" Y="1533.872" Z="78.8141" />
+								<Hotspot X="6582.515" Y="1596.414" Z="78.54106" />
+								<Hotspot X="6656.99" Y="1606.337" Z="74.4428" />	
+							</Hotspots>
+						</GrindArea>  
+					</SetGrindArea>
+					<GrindTo Condition="Me.Level &gt;= 94" GoalText="Grinding to Level 94"  />
+				
+			</If>
 
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" StopOnContinue="True" SoundCueInterval="1" 
-										Text="I'm serious, there's no more quests." />
+			<!-- Go To Talador -->
+		<PickUp QuestName="News from Talador" QuestId="36494" GiverName="Durotan" GiverId="74594" X="5763.857" Y="1297.016" Z="106.9526" />
+		<TurnIn QuestName="News from Talador" QuestId="36494" TurnInName="Rokhan" TurnInId="78487" X="5614.007" Y="4563.16" Z="135.1946" />
+		<PickUp QuestName="It's a Matter of Strategy" QuestId="34681" GiverName="Rokhan" GiverId="78487" X="5614.007" Y="4563.16" Z="135.1946" />
+			<If Condition="HasQuest(34681) &amp;&amp; Me.ZoneId == 7004"> <!-- It's a Matter of Strategy - Frostwall -->
+				<CustomBehavior File="InteractWith" MobId="79407" GossipOptions="2" X="5575.775" Y="4563.67" Z="136.2085" /> <!-- Flying to Talador -->
+			</If>
+		<TurnIn QuestName="It's a Matter of Strategy" QuestId="34681" TurnInName="Foreman Grobash" TurnInId="79176" />
+			<!-- In Talador -->
+
+		<CustomBehavior File="LoadProfile" ProfileName="[H - Quest] 94-96 Talador [Kick]" />
 
 	</QuestOrder>
 
