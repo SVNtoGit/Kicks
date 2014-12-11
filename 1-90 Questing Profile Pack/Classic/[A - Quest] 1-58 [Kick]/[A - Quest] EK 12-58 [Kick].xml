@@ -8725,32 +8725,32 @@
             <CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
         </If>
         <PickUp QuestName="Operation: Stir the Cauldron" QuestId="28052" GiverName="Overseer Oilfist" GiverId="14625" X="-6501.13" Y="-1173.36" Z="325.8643" />
-			<While Condition="HasQuest(28052) &amp;&amp; !IsQuestCompleted(28052)" > <!-- Operation: Stir the Cauldron -->
-				<If Condition="!Me.IsOnTransport">
-					<MoveTo X="-6559.06" Y="-1169.38" Z="309.7966" />
-					<CustomBehavior File="InteractWith" QuestId="28052" MobId="2941" InteractByGossipOptions="2"
-									PreInteractMountStrategy="DismountOrCancelShapeshift" X="-6559.06" Y="-1169.38" Z="309.7966" />
-				</If>
-					<DisableBehavior Name="Combat" />
-				<If Condition="Me.IsOnTransport">
-					<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for flight {TimeRemaining}" />
+        <While Condition="HasQuest(28052) &amp;&amp; !IsQuestCompleted(28052)">
+            <If Condition="!Me.IsOnTransport">
+                <CustomBehavior File="InteractWith" MobId="2941" InteractByGossipOptions="2"
+                                PreInteractMountStrategy="DismountOrCancelShapeshift" WaitTime="2000" NumOfTimes="1" X="-6559.06" Y="-1169.38" Z="309.7966" />
+            </If>
+            <If Condition="Me.IsOnTransport">
+                <DisableBehavior Name="Combat" />
+                <If Condition="Me.Class != WoWClass.Hunter">
+                    <CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for flight {TimeRemaining}" />
+                </If>
+                <While Condition="Me.IsOnTransport &amp;&amp; HasQuest(28052) &amp;&amp; !IsQuestCompleted(28052)">
+                    <CustomBehavior File="Misc\RunLua" Lua="OverrideActionBarButton1:Click()" WaitTime="100" />
+                    <CustomBehavior File="SpellLocation" QuestId="28052" X="-6910.682" Y="-1260.737" Z="178.454" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1100" GoalText="Waiting for GCD {TimeRemaining}" />
 
-					<While Condition="Me.IsOnTransport &amp;&amp; HasQuest(28052) &amp;&amp; !IsQuestCompleted(28052)">
-						<CustomBehavior File="Misc\RunLua" QuestId="28052" Lua="OverrideActionBarButton1:Click()" WaitTime="100" />
-						<CustomBehavior File="SpellLocation" QuestId="28052" X="-6910.682" Y="-1260.737" Z="178.454" />
-						<CustomBehavior File="WaitTimer" QuestId="28052" WaitTime="1100" GoalText="Waiting for GCD {TimeRemaining}" />
+                    <CustomBehavior File="Misc\RunLua" Lua="OverrideActionBarButton1:Click()" WaitTime="100" />
+                    <CustomBehavior File="SpellLocation" QuestId="28052" X="-6909.008" Y="-1246.252" Z="178.3362" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1100" GoalText="Waiting for GCD {TimeRemaining}" />
 
-						<CustomBehavior File="Misc\RunLua" QuestId="28052" Lua="OverrideActionBarButton1:Click()" WaitTime="100" />
-						<CustomBehavior File="SpellLocation" QuestId="28052" X="-6909.008" Y="-1246.252" Z="178.3362" />
-						<CustomBehavior File="WaitTimer" QuestId="28052" WaitTime="1100" GoalText="Waiting for GCD {TimeRemaining}" />
-
-						<CustomBehavior File="Misc\RunLua" QuestId="28052" Lua="OverrideActionBarButton1:Click()" WaitTime="100" />
-						<CustomBehavior File="SpellLocation" QuestId="28052" X="-6908.013" Y="-1232.365" Z="178.3362" />
-						<CustomBehavior File="WaitTimer" QuestId="28052" WaitTime="1100" GoalText="Waiting for GCD {TimeRemaining}" />
-					</While>
-				</If>
-				<EnableBehavior Name="Combat" />
-			</While>
+                    <CustomBehavior File="Misc\RunLua" Lua="OverrideActionBarButton1:Click()" WaitTime="100" />
+                    <CustomBehavior File="SpellLocation" QuestId="28052" X="-6908.013" Y="-1232.365" Z="178.3362" />
+                    <CustomBehavior File="WaitTimer" WaitTime="1100" GoalText="Waiting for GCD {TimeRemaining}" />
+                </While>
+            </If>
+            <EnableBehavior Name="Combat" />
+        </While>
         <TurnIn QuestName="Operation: Stir the Cauldron" QuestId="28052" TurnInName="Mountain-Lord Rendan" TurnInId="47393"
                 X="-6868.26" Y="-1233.31" Z="176.803" />
         <PickUp QuestName="Slavery is Bad" QuestId="28054" GiverName="Mountain-Lord Rendan" GiverId="47393"
