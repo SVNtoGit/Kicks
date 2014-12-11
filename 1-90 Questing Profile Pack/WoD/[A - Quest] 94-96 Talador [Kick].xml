@@ -1318,7 +1318,11 @@
 			<MoveTo QuestId="34094" DestName="Vol. X Pages ?" X="3424.253" Y="2432.738" Z="118.2717" />
 		</While>
 
-		<Objective QuestName="Dreadpiston" QuestId="34959" Type="KillMob" MobId="80576" KillCount="1" />
+			<If Condition="HasQuest(34959) &amp;&amp; !IsQuestCompleted(34959)" >
+                <CustomBehavior File="Hooks\Avoid" AvoidName="ClusterpultShot" Command="Add" ObjectType="Missile" ObjectId="162711" Radius="5" />
+                <Objective QuestName="Dreadpiston" QuestId="34959" Type="KillMob" MobId="80576" KillCount="1" />
+                <CustomBehavior File="Hooks\Avoid" AvoidName="ClusterpultShot" Command="Remove" />
+			</If>
 		<Objective QuestName="Vol. X Pages ?" QuestId="34094" Type="CollectItem" ItemId="107843" CollectCount="20" />
 		<TurnIn QuestName="Iron Them Out" QuestId="34095" TurnInName="Yrel" TurnInId="75804" X="3402.312" Y="2073.545" Z="160.4105" />
 		<TurnIn QuestName="Dreadpiston" QuestId="34959" TurnInName="Vindicator Maraad" TurnInId="75803" X="3400.251" Y="2074.618" Z="160.4136" />
