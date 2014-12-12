@@ -1571,9 +1571,9 @@
 	    <PickUp QuestName="Orbs of Power" QuestId="34889" GiverName="Magister Krelas" GiverId="80390" X="1633.623" Y="1760.865" Z="311.516" />
 	    <PickUp QuestName="Vicious Viziers" QuestId="34888" GiverName="Magister Krelas" GiverId="80390" X="1633.623" Y="1760.865" Z="311.516" />
 			<While Condition="HasQuest(34889) &amp;&amp; !IsQuestCompleted(34889)"> <!-- Orbs of Power -->
-				<CustomBehavior File="InteractWith" QuestId="34889" MobId="230960" ObjectType="GameObject" NumOfTimes="5" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 34889)" >
+				<CustomBehavior File="InteractWith" QuestId="34889" MobId="230960" ObjectType="GameObject" WaitForNpcs="False" NumOfTimes="5" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 34889)" >
 					<HuntingGrounds WaypointVisitStrategy="InOrder">
-						<Hotspot X="1553.752" Y="1645.648" Z="311.4187" />
+						<Hotspot X="1556.296" Y="1653.967" Z="305.7138" />
 						<Hotspot X="1392.044" Y="1765.341" Z="318.1375" />
 						<Hotspot X="1264.333" Y="1696.34" Z="314.2447" />
 						<Hotspot X="1328.266" Y="1808.996" Z="344.0413" />
@@ -1583,15 +1583,15 @@
 					</HuntingGrounds>
 				</CustomBehavior>
 			</While>
-			<While Condition="HasQuest(34910) &amp;&amp; !IsQuestCompleted(34910)" > <!-- Vicious Viziers -->
+			<While Condition="HasQuest(34888) &amp;&amp; !IsQuestCompleted(34888)" > <!-- Vicious Viziers -->
 				<!-- DELETE CONDITION AND MOVETO'S AFTER HB IS FIXED AND CAN MOVE TO KILLMOB X1 ON IT'S OWN -->
-				<If Condition="!IsObjectiveComplete(1, 34910)"> <!-- Vizier Vorgorsh -->
+				<If Condition="!IsObjectiveComplete(1, 34888)"> <!-- Vizier Vorgorsh -->
 					<MoveTo X="1136.474" Y="1746.022" Z="332.404" />
 				</If>
-				<If Condition="!IsObjectiveComplete(2, 34910)"> <!-- Vizier Zulmork -->
+				<If Condition="!IsObjectiveComplete(2, 34888)"> <!-- Vizier Zulmork -->
 					<MoveTo X="1366.564" Y="1830.259" Z="349.1287" />
 				</If>
-				<If Condition="!IsObjectiveComplete(3, 34910)"> <!-- Vizier Cromaug -->
+				<If Condition="!IsObjectiveComplete(3, 34888)"> <!-- Vizier Cromaug -->
 					<MoveTo X="1203.583" Y="1886.641" Z="343.8008" />
 				</If>
 				<!--
@@ -2020,6 +2020,12 @@
 				<CustomBehavior File="KillUntilComplete" QuestId="33837" MobId="76824" TerminateWhen="IsObjectiveComplete(1, 33837) || Unit(76824) == null" X="2222.285" Y="1722.799" Z="117.6865" />
 			</While>
 	    <TurnIn QuestName="Aruumel's Rest" QuestId="33874" TurnInName="Seherin Malune" TurnInId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
+
+			<!-- Vol'jin's Pride to Our Garrison-->
+			<If Condition="HasQuest(34706)" > <!-- Come Together -->
+				<CustomBehavior File="NoCombatMoveTo" X="3246.586" Y="1550.139" Z="163.0454" />
+			</If>
+		<TurnIn QuestName="Come Together" QuestId="34706" TurnInName="Knight-Lord Dranarus" TurnInId="79612" X="3246.586" Y="1550.139" Z="163.0454" />
 		
 		<!-- Grind to 96 if needed -->
 		<SetGrindArea>
@@ -2051,15 +2057,10 @@
 			</GrindArea>
 		</SetGrindArea>
 		<GrindTo Condition="Me.Level >= 96" GoalText="Grinding to level 96" /> <!-- 96 -->
-
-			<!-- Vol'jin's Pride to Our Garrison-->
-			<If Condition="HasQuest(34706)" > <!-- Come Together -->
-				<CustomBehavior File="NoCombatMoveTo" X="3246.586" Y="1550.139" Z="163.0454" />
-			</If>
-		<TurnIn QuestName="Come Together" QuestId="34706" TurnInName="Knight-Lord Dranarus" TurnInId="79612" X="3246.586" Y="1550.139" Z="163.0454" />
+		
 		<PickUp QuestName="News from Spires of Arak" QuestId="35537" GiverName="Shadow Hunter Kajassa" GiverId="79627" X="3238.862" Y="1585.594" Z="163.224" />
 			<If Condition="HasQuest(35537) &amp;&amp; Me.ZoneId == 6662" > <!-- Talador -->
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:110560&quot;)" WaitTime="10000" /> <!-- HS to Frostwall Garrison -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:110560&quot;)" WaitTime="12000" /> <!-- HS to Frostwall Garrison -->
 			</If>
 		<TurnIn QuestName="News from Spires of Arak" QuestId="35537" TurnInName="Rokhan" TurnInId="78487" X="5614.007" Y="4563.16" Z="135.1946" />
 			<!-- End of Talador -->
