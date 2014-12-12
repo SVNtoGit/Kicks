@@ -25,6 +25,7 @@
     <TargetElites>true</TargetElites>
 
     <AvoidMobs>
+		<Mob Name="Kirin Tor Magus" Entry="80617" />
 	</AvoidMobs>
 
     <Blackspots>
@@ -795,7 +796,7 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-	<Quest Id="34979" Name="Punching Through">
+	<Quest Id="34855" Name="Punching Through">
 		<Objective Type="KillMob" MobId="80294" KillCount="1">
 			<Hotspots>
 				<Hotspot X="1349.156" Y="1832.348" Z="349.1126" /> <!-- Vizier Zulmork -->
@@ -812,7 +813,7 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-	<Quest Id="34910" Name="Vicious Viziers">
+	<Quest Id="34888" Name="Vicious Viziers">
 		<Objective Type="KillMob" MobId="80294" KillCount="1"> <!-- Vizier Vorgorsh -->
 			<Hotspots>
 				<Hotspot X="1157.196" Y="1741.314" Z="329.7112" /> <!-- Vizier Vorgorsh -->
@@ -1341,12 +1342,77 @@
 			<MoveTo X="2460.773" Y="1246.671" Z="138.4279" />
 		</While>
 
+		<!-- ARCANE SANCTUM PART 2 -->
+		<If Condition="IsQuestCompleted(34632)">
+			<!-- Gordal Fortress -->
+		<TurnIn QuestName="The Foot of the Fortress" QuestId="34878" TurnInName="Magister Krelas" TurnInId="80396" X="1714.684" Y="2121.399" Z="139.1736" />
+		<PickUp QuestName="Dropping In" QuestId="34879" GiverName="Magister Krelas" GiverId="80396" X="1714.684" Y="2121.399" Z="139.1736" />
+			<While Condition="HasQuest(34879) &amp;&amp; !IsQuestCompleted(34879)"> <!-- Dropping In -->
+					<CustomBehavior File="InteractWith" QuestId="34879" TerminateWhen="IsObjectiveComplete(1, 34879)" MobId="230978" NumOfTimes="3" InteractBlacklistTimeInSeconds="30" NonCompeteDistance="0" >
+						<HuntingGrounds WaypointVisitStrategy="InOrder">
+							<Hotspot X="1686.168" Y="2043.464" Z="166.2971" />
+							<Hotspot X="1694.616" Y="1929.918" Z="230.2456" />
+							<Hotspot X="1728.012" Y="1852.894" Z="262.4622" />
+						</HuntingGrounds>
+					</CustomBehavior>
+					<MoveTo QuestId="34879" X="1666.802" Y="1721.84" Z="293.6602" /> <!-- 2 -->
+					<CustomBehavior File="InteractWith" QuestId="34879" MobId="235824" ObjectType="GameObject" TerminateWhen="IsObjectiveComplete(3, 34879)" NonCompeteDistance="0" X="1657.755" Y="1742.325" Z="300.7884" />
+			</While>
+	    <TurnIn QuestName="Dropping In" QuestId="34879" TurnInName="Magister Krelas" TurnInId="80390" X="1633.623" Y="1760.865" Z="311.516" />
+	    <PickUp QuestName="While We're in the Neighborhood" QuestId="34887" GiverName="Magister Krelas" GiverId="80390" X="1633.623" Y="1760.865" Z="311.516" />
+	    <PickUp QuestName="Orbs of Power" QuestId="34889" GiverName="Magister Krelas" GiverId="80390" X="1633.623" Y="1760.865" Z="311.516" />
+	    <PickUp QuestName="Vicious Viziers" QuestId="34888" GiverName="Magister Krelas" GiverId="80390" X="1633.623" Y="1760.865" Z="311.516" />
+			<While Condition="HasQuest(34889) &amp;&amp; !IsQuestCompleted(34889)"> <!-- Orbs of Power -->
+				<CustomBehavior File="InteractWith" QuestId="34889" MobId="230960" ObjectType="GameObject" NumOfTimes="5" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 34889)" >
+					<HuntingGrounds WaypointVisitStrategy="InOrder">
+						<Hotspot X="1553.752" Y="1645.648" Z="311.4187" />
+						<Hotspot X="1392.044" Y="1765.341" Z="318.1375" />
+						<Hotspot X="1264.333" Y="1696.34" Z="314.2447" />
+						<Hotspot X="1328.266" Y="1808.996" Z="344.0413" />
+						<Hotspot X="1320.432" Y="1896.656" Z="337.1228" />
+						<Hotspot X="1245.779" Y="1871.263" Z="340.3226" />
+						<Hotspot X="1165.507" Y="1722.994" Z="330.7602" />
+					</HuntingGrounds>
+				</CustomBehavior>
+			</While>
+			<Objective QuestName="Vicious Viziers" QuestId="34888" Type="KillMob" MobId="80294" KillCount="1" />
+			<Objective QuestName="Vicious Viziers" QuestId="34888" Type="KillMob" MobId="80292" KillCount="1" />
+			<Objective QuestName="Vicious Viziers" QuestId="34888" Type="KillMob" MobId="80295" KillCount="1" />
+			<Objective QuestName="While We're in the Neighborhood" QuestId="34887" Type="CollectItem" ItemId="112088" CollectCount="8" />
+	    <TurnIn QuestName="While We're in the Neighborhood" QuestId="34887" TurnInName="Magister Krelas" TurnInId="79393" X="1633.623" Y="1760.865" Z="311.516" />
+	    <TurnIn QuestName="Orbs of Power" QuestId="34889" TurnInName="Magister Krelas" TurnInId="79393" X="1633.623" Y="1760.865" Z="311.516" />
+	    <TurnIn QuestName="Vicious Viziers" QuestId="34888" TurnInName="Magister Krelas" TurnInId="79393" X="1633.623" Y="1760.865" Z="311.516" />
+	    <PickUp QuestName="The Final Step" QuestId="34890" GiverName="Magister Krelas" GiverId="79393" X="1633.623" Y="1760.865" Z="311.516" />
+			<While Condition="HasQuest(34890) &amp;&amp; !IsQuestCompleted(34890)"> <!-- The Final Step -->
+				<MoveTo X="1178.178" Y="1999.229" Z="356.6089" />
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:112542&quot;)" WaitTime="5000" />
+				<CustomBehavior File="InteractWith" QuestId="34890" MobId="80335" NonCompeteDistance="0" WaitForNpcs="False" X="1183.113" Y="2002.42" Z="356.6137" />
+				<CustomBehavior File="WaitTimer" QuestId="34912" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</While>
+	    <TurnIn QuestName="The Final Step" QuestId="34890" TurnInName="Magister Krelas" TurnInId="79393" X="1174.614" Y="2003.06" Z="356.6085" />
+			<If Condition="!HasQuest(34712) &amp;&amp; !IsQuestCompleted(34712)">
+		<PickUp QuestName="Due Cause to Celebrate" QuestId="34712" GiverName="Magister Krelas" GiverId="79393" X="1174.614" Y="2003.06" Z="356.6085" />
+					<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for port {TimeRemaining}" />
+			</If>
+			<!-- End of Gordal Fortress -->
+
+			<!-- Vol'jins Pride -->
+	    <TurnIn QuestName="Due Cause to Celebrate" QuestId="34712" TurnInName="Magister Krelas" TurnInId="80553" X="3241.246" Y="1590.108" Z="163.3062" />
+			<If Condition="!HasQuest(34949) &amp;&amp; !IsQuestCompleted(34949)" > <!-- Get Krelas / Follower -->
+				<MoveTo X="3241.246" Y="1590.108" Z="163.3062" />
+				<CustomBehavior File="InteractWith" MobId="80672" X="3241.246" Y="1590.108" Z="163.3062" WaitTime="3000" />
+				<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
+			</If>
+			<!-- End of Vol'jins Pride -->
+		</If>
+		<!-- END ARCANE CHAIN -->
+		
 			<!-- Exarch's Refuge / Auchindoun -->
+		<PickUp QuestName="The Lady of Light" QuestId="34696" GiverName="Knight-Lord Dranarus" GiverId="79612" X="3247.64" Y="1552.686" Z="162.6645" /> <!-- Vol'jin's Pride -->
 			<If Condition="!IsQuestCompleted(33917)" > <!-- Avoid Fires -->
 				<CustomBehavior File="Hooks\Avoid" AvoidName="FieryTrail" Command="Add" ObjectType="AreaTrigger" ObjectId="7710" Radius="4" />
 				<CustomBehavior File="Hooks\Avoid" AvoidName="FlameCrash" Command="Add" ObjectType="AreaTrigger" ObjectId="7521" Radius="5" />
 		   </If>
-		<PickUp QuestName="The Lady of Light" QuestId="34696" GiverName="Knight-Lord Dranarus" GiverId="79612" X="3247.64" Y="1552.686" Z="162.6645" /> <!-- Vol'jin's Pride -->
 		<TurnIn QuestName="The Lady of Light" QuestId="34696" TurnInName="Lady Liadrin" TurnInId="75121" X="1739.441" Y="2524.964" Z="133.659" /> <!-- Exarch's Refuge -->
  		<PickUp QuestName="Holding the Line" QuestId="34418" GiverName="Lady Liadrin" GiverId="75121" X="1739.441" Y="2524.964" Z="133.659" />
 		<PickUp QuestName="Powering the Defenses" QuestId="35249" GiverName="Mehlar Dawnblade" GiverId="78577" X="1768.964" Y="2523.776" Z="133.6589" />
@@ -1354,7 +1420,7 @@
 		<PickUp QuestName="The Heart of Auchindoun" QuestId="33920" GiverName="Soulbinder Nyami" GiverId="78519" X="1760.715" Y="2463.885" Z="129.3717" />
 			<If Condition="!HasQuest(33917) &amp;&amp; !IsQuestCompleted(33917)" > <!-- Disrupting the Flow -->
 				<DisableBehavior Name="Pull" />
-				<PickUp QuestName="Disrupting the Flow" QuestId="33917" GiverName="Vindicator Nobundo" GiverId="78482" X="1814.354" Y="2450.097" Z="129.3672" />
+		<PickUp QuestName="Disrupting the Flow" QuestId="33917" GiverName="Vindicator Nobundo" GiverId="78482" X="1814.354" Y="2450.097" Z="129.3672" />
 				<MoveTo X="1790.636" Y="2422.158" Z="128.3822" />
 				<EnableBehavior Name="Pull" />
 				<TargetingDistance Value="1" /> <!-- Use LevelBot default -->
@@ -1394,15 +1460,13 @@
 				<CustomBehavior File="Hooks\Avoid" AvoidName="FieryTrail" Command="Remove" />
 				<CustomBehavior File="Hooks\Avoid" AvoidName="FlameCrash" Command="Remove" />
 			</If>
-			<If Condition="HasQuest(34351) &amp;&amp; !IsQuestCompleted(34351)" >
+			<If Condition="HasQuest(34351) &amp;&amp; !IsQuestCompleted(34351)" > <!-- We Must Construct Additional Pylons -->
 				<TargetingDistance Value="1" /> <!-- Use LevelBot default -->
 				<CustomBehavior File="NoCombatMoveTo" X="1794.26" Y="2321.939" Z="77.99058" />
 				<Objective QuestName="We Must Construct Additional Pylons" QuestId="34351" Type="CollectItem" ItemId="110271" CollectCount="1" />
 				<Objective QuestName="We Must Construct Additional Pylons" QuestId="34351" Type="CollectItem" ItemId="110253" CollectCount="6" />
 			</If>
-			<If Condition="!HasQuest(33530) &amp;&amp; !IsQuestCompleted(33530)" >
 		<PickUp QuestName="Nightmare in the Tomb" QuestId="33530" GiverName="Yuuri" GiverId="76790" X="1828.885" Y="2213.498" Z="79.53819" />
-			</If>
 			<While Condition="HasQuest(33530) &amp;&amp; !IsQuestCompleted(33530)" >
 				<CustomBehavior File="Hooks\Avoid" AvoidName="BoneMauler" Command="Add" ObjectId="76745" Radius="16" LeashRadius="45" 
 					AvoidWhen="UNIT.CastingSpellId == 155513 || UNIT.CastingSpellId == 155519 || UNIT.CastingSpellId == 156144 || UNIT.CastingSpellId == 156144 || UNIT.HasAura(155513) || UNIT.HasAura(156163)" 
