@@ -806,7 +806,7 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-	<Quest Id="35333" Name="Elemental Attunement">
+	<Quest Id="34891" Name="Elemental Attunement">
 		<Objective Type="UseObject" ObjectId="230961" UseCount="1">
 			<Hotspots>
 				<Hotspot X="4484.75" Y="4809.202" Z="177.8754" />
@@ -1324,16 +1324,17 @@
 			<Objective QuestName="The Dead Do Not Forget..." QuestId="37318" Type="CollectItem" ItemId="119184" CollectCount="10" />
 		<TurnIn QuestName="The Dead Do Not Forget..." QuestId="37318" TurnInName="Boneseers Cauldron" TurnInId="237705" TurnInType="GameObject" X="3780.044" Y="4782.819" Z="95.65758" />
 
-		<While Condition="!HasQuest(37280) &amp;&amp; !IsQuestCompleted(37280)" > <!-- Pickup Bonus Objective: Snarlpaw Ledge -->
+		<!-- cache issues - bot doesn't know we have completed it
+		<While Condition="!HasQuest(37280) &amp;&amp; !IsQuestCompleted(37280)" > Pickup Bonus Objective: Snarlpaw Ledge 
 			<MoveTo X="3783.27" Y="4778.014" Z="96.11109" />
-			<!--
+			
 		<PickUp QuestName="Bonus Objective: Snarlpaw Ledge" QuestId="37280" GiverName="" GiverId="" />
 			<Objective QuestName="Bonus Objective: Snarlpaw Ledge" QuestId="37280" Type="KillMob" MobId="88819" KillCount="6" />
 			<Objective QuestName="Bonus Objective: Snarlpaw Ledge" QuestId="37280" Type="KillMob" MobId="88511" KillCount="15" />
 			<Objective QuestName="Bonus Objective: Snarlpaw Ledge" QuestId="37280" Type="KillMob" MobId="88361" KillCount="1" />
 		<TurnIn QuestName="Bonus Objective: Snarlpaw Ledge" QuestId="37280" TurnInName="" TurnInId="" />
-				-->
 		</While>
+				-->
 		<While Condition="HasQuest(37280) &amp;&amp; !IsQuestCompleted(37280)" > <!-- Bonus Objective: Snarlpaw Ledge -->
 			<CustomBehavior File="InteractWith" QuestId="37280" MobId="88811" MobId2="88812" NumOfTimes="20" Range="4" GossipOptions="1" CollectionDistance="1000" TerminateWhen="IsObjectiveComplete(1, 37280)" >
 				<HuntingGrounds>
@@ -1378,8 +1379,62 @@
 			<MoveTo X="3914.618" Y="5126.026" Z="62.41057" />
 		</While>
 
+			<!-- Throne of the Elements -->
+		<PickUp QuestName="Called to the Throne" QuestId="34965" GiverName="Farseer Drek'Thar" GiverId="80597" X="4179.664" Y="5238.654" Z="65.45112" />		
+			<While Condition="HasQuest(34965) &amp;&amp; !IsQuestCompleted(34965)" > <!-- Called to the Throne -->
+				<CustomBehavior File="InteractWith" QuestId="34965" MobId="80597" GossipOptions="1" NonCompeteDistance="0" Range="4" TerminateWhen="IsObjectiveComplete(1, 34965)" X="4179.509" Y="5238.367" Z="65.45092" />
+				<CustomBehavior File="WaitTimer" QuestId="34965" WaitTime="70000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</While>
+		<TurnIn QuestName="Called to the Throne" QuestId="34965" TurnInName="Farseer DrekThar" TurnInId="80597" X="4179.664" Y="5238.654" Z="65.45112" />
+		<PickUp QuestName="Elemental Attunement" QuestId="34891" GiverName="Farseer DrekThar" GiverId="80597" X="4179.664" Y="5238.654" Z="65.45112" />
+		<!-- 4x Below quests are Neutral -->
+		<PickUp QuestName="Earth, Wind and Fire...and Water" QuestId="34881" GiverName="Incineratus" GiverId="80593" X="4247.078" Y="5259.914" Z="66.14429" />
+		<PickUp QuestName="Guardians of the Plateau" QuestId="34893" GiverName="Incineratus" GiverId="80593" X="4247.078" Y="5259.914" Z="66.14429" />
+		<PickUp QuestName="An Old Friend" QuestId="34943" GiverName="Kalandrios" GiverId="80595" X="4177.374" Y="5177.474" Z="64.45303" />
+		<TurnIn QuestName="An Old Friend" QuestId="34943" TurnInName="Garrok" TurnInId="80434" X="4062.486" Y="5047.749" Z="160.7077" />
+		<PickUp QuestName="A Rare Bloom" QuestId="34894" GiverName="Garrok" GiverId="80434" X="4062.486" Y="5047.749" Z="160.7077" />
+			<Objective QuestName="A Rare Bloom" QuestId="34894" Type="CollectItem" ItemId="112089" CollectCount="1" />
+			<While Condition="!HasQuest(33928) &amp;&amp; !IsQuestCompleted(33928) &amp;&amp; !HasItem(113080)"> <!-- A Wrong of Earth and Fire -->
+				<SetGrindArea>
+					<GrindArea>
+						<Factions>1965</Factions>
+						<Hotspots>
+							<!-- <Vendor Name="Magmire" Entry="80586" Type="Repair" X="4552.727" Y="5309.888" Z="133.5076" /> -->
+							<Hotspot X="4552.727" Y="5309.888" Z="133.5076" />
+						</Hotspots>
+					</GrindArea>
+				</SetGrindArea>
+				<GrindUntil Condition="HasItem(113080)" />
+			</While>
+			<If Condition="HasItem(113080)">
+		<PickUp QuestName="A Wrong of Earth and Fire" QuestId="33928" GiverType="Item" GiverId="113080" />
+			</If>
+			<!-- Fire -->
+			<Objective QuestName="Elemental Attunement" QuestId="34891" Type="UseObject" ObjectId="230963" UseCount="1" />
+			<Objective QuestName="Guardians of the Plateau" QuestId="34893" Type="KillMob" MobId="80376" KillCount="1" />
+			<Objective QuestName="Earth, Wind and Fire...and Water" QuestId="34881" Type="CollectItem" ItemId="112082" CollectCount="4" />
+			<!-- Water -->
+			<Objective QuestName="Elemental Attunement" QuestId="34891" Type="UseObject" ObjectId="230964" UseCount="1" />
+			<Objective QuestName="Guardians of the Plateau" QuestId="34893" Type="KillMob" MobId="80377" KillCount="1" />
+			<Objective QuestName="Earth, Wind and Fire...and Water" QuestId="34881" Type="CollectItem" ItemId="112083" CollectCount="4" />
+			<!-- Earth -->
+			<Objective QuestName="Elemental Attunement" QuestId="34891" Type="UseObject" ObjectId="230961" UseCount="1" />
+			<Objective QuestName="Guardians of the Plateau" QuestId="34893" Type="KillMob" MobId="80374" KillCount="1" />
+			<Objective QuestName="Earth, Wind and Fire...and Water" QuestId="34881" Type="CollectItem" ItemId="112084" CollectCount="4" />
+			<!-- Wind -->
+			<Objective QuestName="Elemental Attunement" QuestId="34891" Type="UseObject" ObjectId="230962" UseCount="1" />
+			<Objective QuestName="Guardians of the Plateau" QuestId="34893" Type="KillMob" MobId="80375" KillCount="1" />
+			<Objective QuestName="Earth, Wind and Fire...and Water" QuestId="34881" Type="CollectItem" ItemId="112085" CollectCount="4" />
+		<TurnIn QuestName="Earth, Wind and Fire...and Water" QuestId="34881" TurnInName="Incineratus" TurnInId="80593" X="4247.078" Y="5259.914" Z="66.14429" />
+		<TurnIn QuestName="Guardians of the Plateau" QuestId="34893" TurnInName="Incineratus" TurnInId="80593" X="4247.078" Y="5259.914" Z="66.14429" />
+			<If Condition="HasQuest(33928)" >
+		<TurnIn QuestName="A Wrong of Earth and Fire" QuestId="33928" TurnInName="Incineratus" TurnInId="80593" X="4247.078" Y="5259.914" Z="66.14429" />
+			</If>
+		<TurnIn QuestName="Elemental Attunement" QuestId="34891" TurnInName="Farseer DrekThar" TurnInId="80597" X="4179.664" Y="5238.654" Z="65.45112" />
+		<TurnIn QuestName="A Rare Bloom" QuestId="34894" TurnInName="Garrok" TurnInId="80434" X="4062.486" Y="5047.749" Z="160.7077" />
+		<PickUp QuestName="Guise of the Deceiver" QuestId="34932" GiverName="Garrok" GiverId="80434" X="4062.486" Y="5047.749" Z="160.7077" />
 
-		
+
 
 
 		
@@ -1388,6 +1443,12 @@
 
 		
 	<!--
+
+			<Objective QuestName="Elemental Attunement" QuestId="34891" Type="UseObject" ObjectId="230961" UseCount="1" />
+			<Objective QuestName="Elemental Attunement" QuestId="34891" Type="UseObject" ObjectId="230962" UseCount="1" />
+			<Objective QuestName="Elemental Attunement" QuestId="34891" Type="UseObject" ObjectId="230963" UseCount="1" />
+			<Objective QuestName="Elemental Attunement" QuestId="34891" Type="UseObject" ObjectId="230964" UseCount="1" />
+
 
 
 
