@@ -1364,9 +1364,13 @@
 		<PickUp QuestName="Build Your Barracks" QuestId="34461" GiverName="Gazlowe" GiverId="78466" X="5564.242" Y="4517.042" Z="132.0609"/>
 		<While Condition="HasQuest(34461) &amp;&amp; !IsQuestCompleted(34461)" > <!-- Build Your Barracks -->
 			<MoveTo X="5592.792" Y="4484.454" Z="130.0325" />
-			<CustomBehavior File="InteractWith" QuestId="34461" MobId="231012" ObjectType="GameObject" TerminateWhen="IsObjectiveComplete(1, 34461)" NonCompeteDistance="0" WaitTime="7000" Range="2" X="5579.406" Y="4464.98" Z="132.1373" />
+			<While Condition="!IsObjectiveComplete(1, 34461)"> <!-- Learn Blueprint -->
+				<CustomBehavior File="InteractWith" QuestId="34461" MobId="231012" ObjectType="GameObject" TerminateWhen="IsObjectiveComplete(1, 34461)" NonCompeteDistance="0" WaitTime="10000" Range="2" X="5579.406" Y="4464.98" Z="132.1373" />
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+			</While>
 			<While Condition="!IsObjectiveComplete(2, 34461)"> <!-- Learn Blueprint -->
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:111956&quot;)" WaitTime="8000" /> <!-- Garrison Blueprint: Barracks, Level 1 -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:111956&quot;)" WaitTime="10000" /> <!-- Garrison Blueprint: Barracks, Level 1 -->
+				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for objective to complete {TimeRemaining}" />
 			</While>
 			<While Condition="!IsObjectiveComplete(3, 34461)"> <!-- Architect Table / Build Your Barracks -->
 				<CustomBehavior File="InteractWith" QuestId="34461" MobId="80600" Range="5" WaitTime="6000" X="5563.049" Y="4518.574" Z="131.976" /> <!-- Architect Table -->
