@@ -1606,10 +1606,16 @@
 	    <TurnIn QuestName="Vicious Viziers" QuestId="34888" TurnInName="Magister Krelas" TurnInId="79393" X="1633.623" Y="1760.865" Z="311.516" />
 	    <PickUp QuestName="The Final Step" QuestId="34890" GiverName="Magister Krelas" GiverId="79393" X="1633.623" Y="1760.865" Z="311.516" />
 			<While Condition="HasQuest(34890) &amp;&amp; !IsQuestCompleted(34890)"> <!-- The Final Step -->
-				<MoveTo X="1178.178" Y="1999.229" Z="356.6089" />
-				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:112542&quot;)" WaitTime="5000" />
-				<CustomBehavior File="InteractWith" QuestId="34890" MobId="80335" NonCompeteDistance="0" WaitForNpcs="False" X="1183.113" Y="2002.42" Z="356.6137" />
-				<CustomBehavior File="WaitTimer" QuestId="34912" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<While Condition="!IsObjectiveComplete(1, 34890)">
+					<!-- We may need to get into bubble when he casts something for this quest if a lot of people die -->
+					<MoveTo QuestId="34890" X="1178.178" Y="1999.229" Z="356.6089" />
+					<CustomBehavior File="Misc\RunLua" QuestId="34890" Lua="UseItemByName(&quot;item:112542&quot;)" WaitTime="5000" />
+					<CustomBehavior File="InteractWith" QuestId="34890" MobId="80335" NonCompeteDistance="0" WaitForNpcs="False" X="1183.113" Y="2002.42" Z="356.6137" />
+					<CustomBehavior File="WaitTimer" QuestId="34890" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				</While>
+				<While Condition="!IsObjectiveComplete(2, 34890)">
+					<CustomBehavior File="InteractWith" QuestId="34890" MobId="231056" ObjectType="GameObject" Range="3" NonCompeteDistance="0" X="1177.615" Y="2001.976" Z="357.3067" />
+				</While>
 			</While>
 	    <TurnIn QuestName="The Final Step" QuestId="34890" TurnInName="Magister Krelas" TurnInId="79393" X="1174.614" Y="2003.06" Z="356.6085" />
 			<If Condition="!HasQuest(34712) &amp;&amp; !IsQuestCompleted(34712)">
@@ -1622,7 +1628,7 @@
 	    <TurnIn QuestName="Due Cause to Celebrate" QuestId="34712" TurnInName="Magister Krelas" TurnInId="80553" X="3241.246" Y="1590.108" Z="163.3062" />
 			<If Condition="!HasQuest(34949) &amp;&amp; !IsQuestCompleted(34949)" > <!-- Get Krelas / Follower -->
 				<MoveTo X="3241.246" Y="1590.108" Z="163.3062" />
-				<CustomBehavior File="InteractWith" MobId="80672" X="3241.246" Y="1590.108" Z="163.3062" WaitTime="3000" />
+				<CustomBehavior File="InteractWith" MobId="80553" X="3241.246" Y="1590.108" Z="163.3062" WaitTime="3000" />
 				<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
 			</If>
 			<!-- End of Vol'jins Pride -->
