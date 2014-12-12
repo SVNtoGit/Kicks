@@ -1215,20 +1215,19 @@
 		<TurnIn QuestName="They Call Him Lantresor of the Blade" QuestId="34951" TurnInName="Lantresor of the Blade" TurnInId="80161" X="2857.505" Y="4460.763" Z="175.8513" />
 		<PickUp QuestName="The Blade Itself" QuestId="34954" GiverName="Lantresor of the Blade" GiverId="80161" X="2857.505" Y="4460.763" Z="175.8513" />
 		<PickUp QuestName="Not Without My Honor" QuestId="34955" GiverName="Lantresor of the Blade" GiverId="80161" X="2857.505" Y="4460.763" Z="175.8513" />
-
-
-		<CustomBehavior File="InteractWith" QuestId="34955" MobIds="233814" Range="4" WaitTime="5000" NumOfTimes="1000" ProactiveCombatStrategy="ClearMobsThatWillAggro" >
-			<HuntingGrounds WaypointVisitStrategy="InOrder" >
-				<Hotspot Name="Hut 1 - NorthEast" X="2914.604" Y="4268.696" Z="188.4803" />
-				<Hotspot Name="Hut 2 - NorthWest" X="2915.558" Y="4450.765" Z="183.0954" />
-				<Hotspot Name="Hut 3 - Lantresor" X="2854.49" Y="4459.231" Z="175.685" />
-				<Hotspot Name="Hut 4 - SouthWest" X="2823.894" Y="4483.251" Z="179.86" />
-				<Hotspot Name="Hut 5 - South" X="2769.092" Y="4433.057" Z="179.4038" />
-				<Hotspot Name="Hut 6 - South" X="2718.265" Y="4356.642" Z="186.0973" />
-			</HuntingGrounds>
-		</CustomBehavior>
+		<While Condition="HasQuest(34850) &amp;&amp; !IsQuestCompleted(34850)" > <!-- Not Without My Honor -->
+			<CustomBehavior File="InteractWith" QuestId="34955" MobIds="233814" Range="4" WaitTime="2000" NumOfTimes="6" ProactiveCombatStrategy="ClearMobsThatWillAggro" >
+				<HuntingGrounds WaypointVisitStrategy="InOrder" >
+					<Hotspot Name="Hut 1 - NorthEast" X="2914.604" Y="4268.696" Z="188.4803" />
+					<Hotspot Name="Hut 2 - NorthWest" X="2915.558" Y="4450.765" Z="183.0954" />
+					<Hotspot Name="Hut 3 - Lantresor" X="2854.49" Y="4459.231" Z="175.685" />
+					<Hotspot Name="Hut 4 - SouthWest" X="2823.894" Y="4483.251" Z="179.86" />
+					<Hotspot Name="Hut 5 - South" X="2769.092" Y="4433.057" Z="179.4038" />
+					<Hotspot Name="Hut 6 - South" X="2718.265" Y="4356.642" Z="186.0973" />
+				</HuntingGrounds>
+			</CustomBehavior>
+		</While>
 		<Objective QuestName="The Blade Itself" QuestId="34954" Type="CollectItem" ItemId="111938" CollectCount="1" />
-		<Objective QuestName="Not Without My Honor" QuestId="34955" Type="CollectItem" ItemId="111947" CollectCount="1" />
 		<TurnIn QuestName="The Blade Itself" QuestId="34954" TurnInName="Lantresor of the Blade" TurnInId="80161" X="2857.505" Y="4460.763" Z="175.8513" />
 		<TurnIn QuestName="Not Without My Honor" QuestId="34955" TurnInName="Lantresor of the Blade" TurnInId="80161" X="2857.505" Y="4460.763" Z="175.8513" />
 		<PickUp QuestName="Meet Me in the Cavern" QuestId="34956" GiverName="Lantresor of the Blade" GiverId="80161" X="2857.505" Y="4460.763" Z="175.8513" />
@@ -1236,9 +1235,9 @@
 		<TurnIn QuestName="Meet Me in the Cavern" QuestId="34956" TurnInName="Lantresor of the Blade" TurnInId="80319" X="2806.654" Y="4200.726" Z="170.017" />
 		<PickUp QuestName="Challenge of the Masters" QuestId="34957" GiverName="Lantresor of the Blade" GiverId="80319" X="2806.654" Y="4200.726" Z="170.017" />
 		<While Condition="HasQuest(34957) &amp;&amp; !IsQuestCompleted(34957)" > <!-- Challenge of the Masters -->
-			<CustomBehavior File="InteractWith" QuestId="34957" MobId="231088" ObjectType="GameObject" TerminateWhen="IsObjectiveComplete(1, 34957)" WaitForNpcs="True" WaitTime="5000" X="2627.631" Y="4150.373" Z="166.1904" />
+			<CustomBehavior File="InteractWith" QuestId="34957" MobId="231088" ObjectType="GameObject" WaitForNpcs="True" WaitTime="5000" X="2627.631" Y="4150.373" Z="166.1904" />
 			<CustomBehavior File="KillUntilComplete" QuestId="34957" ImmediatelySwitchToHighestPriorityTarget="True" X="2627.631" Y="4150.373" Z="166.1904" 
-				TerminateWhen="IsObjectiveComplete(2, 34957) || (Unit(80326) == null &amp;&amp; Unit(80325) == null &amp;&amp; Unit(80324) == null &amp;&amp; Unit(80327) == null)" >	
+										TerminateWhen="IsObjectiveComplete(2, 34957) || Me.Combat == false" >	
 				<PursuitList>
 					<PursueUnit Id="80326" Priority="500" />
 					<PursueUnit Id="80325" Priority="100" />
