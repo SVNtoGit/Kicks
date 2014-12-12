@@ -2135,8 +2135,23 @@
 			<CustomBehavior File="InteractWith" MobId="78741" Nav="CTM" Range="5" GossipOptions="1" WaitTime="3000" X="2532.167" Y="2726.31" Z="234.9534" />
 		</If>
 		<TurnIn QuestName="Kaelynara Sunchaser" QuestId="34448" TurnInName="Vindicator Doruu" TurnInId="78538" X="2423.043" Y="2755.477" Z="115.0282" />
-		<!-- Possibly use garrison hearth and then fp to Fort Wrynn -->
 		<!-- End of Journe Mine / Auchindoun -->
+		
+		<PickUp QuestName="Clear!" QuestId="34761" GiverName="Ziz Fizziks" GiverId="79870" X="2532.503" Y="2004.615" Z="113.6074" />
+			<If Condition="HasQuest(34761) &amp;&amp; !IsQuestCompleted(34761)" >
+				   <UseMount Value="false" />
+					<Objective QuestName="Clear!" QuestId="34761" Type="CollectItem" ItemId="111637" CollectCount="6" />
+				   <UseMount Value="true" />
+			</If>
+			<If Condition="HasQuest(34761) &amp;&amp; IsQuestCompleted(34761)" >
+		<TurnIn QuestName="Clear!" QuestId="34761" TurnInName="Ziz Fizziks" TurnInId="79870" X="2532.503" Y="2004.615" Z="113.6074" />
+				<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+			<While Condition="!HasQuest(35239) &amp;&amp; !IsQuestCompleted(35239)" > <!-- New Owner / Pleasure-Bot 8000 Follower -->
+				<MoveTo X="2529.18" Y="2002.89" Z="113.612" />
+				<CustomBehavior File="InteractWith" MobId="79853" WaitTime="3000" X="2529.18" Y="2002.89" Z="113.612" />
+				<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
+			</While>
 
 		<!-- Grind to 96 -->
 		<SetGrindArea>
