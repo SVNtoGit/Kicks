@@ -862,6 +862,47 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+    <Quest Id="33872" Name="Dusk of the Dead">
+		<Objective Type="CollectItem" ItemId="108645" CollectCount="7">
+			<CollectFrom>
+				<Mob Name="Agitated Duskwing" Entry="76668" />
+				<Mob Name="Elder Duskwing" Entry="77328" />
+				<Mob Name="Duskwing Flutterer" Entry="77331" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="2497.026" Y="1945.304" Z="121.2419" />
+				<Hotspot X="2545.014" Y="1972.723" Z="113.1586" />
+				<Hotspot X="2526.083" Y="1921.456" Z="111.8927" />
+				<Hotspot X="2471.241" Y="1885.517" Z="114.4053" />
+				<Hotspot X="2425.039" Y="1906.96" Z="122.6696" />
+				<Hotspot X="2392.625" Y="1862.097" Z="118.5323" />
+				<Hotspot X="2401.078" Y="1785.827" Z="113.6824" />
+				<Hotspot X="2365.339" Y="1765.951" Z="119.6554" />
+				<Hotspot X="2322.829" Y="1745.192" Z="116.2446" />
+				<Hotspot X="2339.801" Y="1683.694" Z="110.3074" />
+				<Hotspot X="2288.522" Y="1632.133" Z="114.3559" />
+				<Hotspot X="2231.647" Y="1592.005" Z="119.5416" />
+				<Hotspot X="2203.699" Y="1668.793" Z="118.7444" />
+				<Hotspot X="2152.661" Y="1717.401" Z="110.5938" />
+				<Hotspot X="2193.757" Y="1775.197" Z="123.3585" />
+				<Hotspot X="2218.465" Y="1805.294" Z="126.667" />
+				<Hotspot X="2211.691" Y="1883.792" Z="112.4855" />
+				<Hotspot X="2226.419" Y="1940.622" Z="110.219" />
+				<Hotspot X="2256.973" Y="1918.741" Z="110.5913" />
+				<Hotspot X="2285.888" Y="1973.201" Z="118.1856" />
+				<Hotspot X="2324.988" Y="1874.97" Z="114.29" />
+				<Hotspot X="2379.442" Y="1910.54" Z="121.8426" />
+			</Hotspots>
+		</Objective>
+    </Quest>
+    <Quest Id="33874" Name="Aruumel's Rest">
+		<Objective Type="KillMob" MobId="76824" KillCount="1">
+			<Hotspots>
+				<Hotspot X="2242.269" Y="1723.604" Z="117.6763" />
+			</Hotspots>
+		</Objective>
+    </Quest>
+   
 
 
 
@@ -2152,6 +2193,52 @@
 				<CustomBehavior File="InteractWith" MobId="79853" WaitTime="3000" X="2529.18" Y="2002.89" Z="113.612" />
 				<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
 			</While>
+			
+			<!-- ADD IN THE ALLY VERSION OF QUESTS FROM DUSKFALL -
+			- there's a 'go to' quest called 'seek out the seer' that we never pick up 
+			-->
+	    <PickUp QuestName="Dusk of the Dead" QuestId="33872" GiverName="Seherin Malune" GiverId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
+	    <PickUp QuestName="Cure of Aruunem" QuestId="33873" GiverName="Seherin Malune" GiverId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
+			<While Condition="HasQuest(33873) &amp;&amp; !IsQuestCompleted(33873)"> <!-- Cure of Aruunem -->
+				<CustomBehavior File="InteractWith" QuestId="33873" MobId="226888" ObjectType="GameObject" Range="5" NumOfTimes="20" ProactiveCombatStrategy="ClearMobsTargetingUs" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 33873)" >
+					<HuntingGrounds>
+						<Hotspot X="2497.026" Y="1945.304" Z="121.2419" />
+						<Hotspot X="2545.014" Y="1972.723" Z="113.1586" />
+						<Hotspot X="2526.083" Y="1921.456" Z="111.8927" />
+						<Hotspot X="2471.241" Y="1885.517" Z="114.4053" />
+						<Hotspot X="2425.039" Y="1906.96" Z="122.6696" />
+						<Hotspot X="2392.625" Y="1862.097" Z="118.5323" />
+						<Hotspot X="2401.078" Y="1785.827" Z="113.6824" />
+						<Hotspot X="2365.339" Y="1765.951" Z="119.6554" />
+						<Hotspot X="2322.829" Y="1745.192" Z="116.2446" />
+						<Hotspot X="2339.801" Y="1683.694" Z="110.3074" />
+						<Hotspot X="2288.522" Y="1632.133" Z="114.3559" />
+						<Hotspot X="2231.647" Y="1592.005" Z="119.5416" />
+						<Hotspot X="2203.699" Y="1668.793" Z="118.7444" />
+						<Hotspot X="2152.661" Y="1717.401" Z="110.5938" />
+						<Hotspot X="2193.757" Y="1775.197" Z="123.3585" />
+						<Hotspot X="2218.465" Y="1805.294" Z="126.667" />
+						<Hotspot X="2211.691" Y="1883.792" Z="112.4855" />
+						<Hotspot X="2226.419" Y="1940.622" Z="110.219" />
+						<Hotspot X="2256.973" Y="1918.741" Z="110.5913" />
+						<Hotspot X="2285.888" Y="1973.201" Z="118.1856" />
+						<Hotspot X="2324.988" Y="1874.97" Z="114.29" />
+						<Hotspot X="2379.442" Y="1910.54" Z="121.8426" />
+					</HuntingGrounds>
+				</CustomBehavior>
+			</While>
+			<Objective QuestName="Dusk of the Dead" QuestId="33872" Type="CollectItem" ItemId="108645" CollectCount="7" />
+	    <TurnIn QuestName="Cure of Aruunem" QuestId="33873" TurnInName="Seherin Malune" TurnInId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
+	    <TurnIn QuestName="Dusk of the Dead" QuestId="33872" TurnInName="Seherin Malune" TurnInId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
+ 	    <PickUp QuestName="Aruumel's Rest" QuestId="33874" GiverName="Seherin Malune" GiverId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
+			<If Condition="HasQuest(33874) &amp;&amp; !IsQuestCompleted(33874)"> <!-- Aruumel's Rest -->
+				<While Condition="!Me.HasAura(155161)">
+					<MoveTo X="2222.285" Y="1722.799" Z="117.6865" />
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:108749&quot;)" WaitTime="2000" />
+				</While>
+				<CustomBehavior File="KillUntilComplete" QuestId="33837" MobId="76824" TerminateWhen="IsObjectiveComplete(1, 33837) || Unit(76824) == null" X="2222.285" Y="1722.799" Z="117.6865" />
+			</If>
+	    <TurnIn QuestName="Aruumel's Rest" QuestId="33874" TurnInName="Seherin Malune" TurnInId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
 
 		<!-- Grind to 96 -->
 		<SetGrindArea>
