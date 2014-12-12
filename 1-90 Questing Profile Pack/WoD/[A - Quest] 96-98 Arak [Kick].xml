@@ -1097,7 +1097,7 @@
 			</If>
 		<TurnIn QuestName="Attempted Murder" QuestId="35915" TurnInName="Hulda Shadowblade" TurnInId="83609" X="431.6267" Y="1524.061" Z="135.3081" />
 		<PickUp QuestName="Assassin's Mark" QuestId="35926" GiverName="Hulda Shadowblade" GiverId="83609" X="431.6267" Y="1524.061" Z="135.3081" />
-			<While Condition="HasQuest(35926) &amp;&amp; !IsQuestCompleted(35926)" >
+			<While Condition="HasQuest(35926) &amp;&amp; !IsQuestCompleted(35926)" > <!-- Assassin's Mark -->
 				<CustomBehavior File="InteractWith" QuestId="35926" MobId="83633" NumOfTimes="20" Range="4" TerminateWhen="IsObjectiveComplete(1, 35926)" 
 											CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
 				  <HuntingGrounds>
@@ -1119,7 +1119,7 @@
 			 </If>
 				<CustomBehavior File="InteractWith" QuestId="35959" MobId="83760" MobId2="83706" MobId3="83749" NumOfTimes="20" Range="4" TerminateWhen="IsObjectiveComplete(1, 35959) || !Me.HasAura(167565)" 
 											CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
-				  <HuntingGrounds>
+				  <HuntingGrounds WaypointVisitStrategy="InOrder" >
 					<Hotspot X="190.2724" Y="1424.495" Z="4.843091" />
 					<Hotspot X="258.6356" Y="1372.698" Z="2.564817" />
 					<Hotspot X="307.2915" Y="1340.412" Z="1.907616" />
@@ -1150,6 +1150,10 @@
 		<TurnIn QuestName="We Have Him Now" QuestId="36048" TurnInName="Hulda Shadowblade" TurnInId="83904" X="-10.10764" Y="1218.038" Z="34.35396" />
 		<PickUp QuestName="No Time to Waste" QuestId="36165" GiverName="Hulda Shadowblade" GiverId="83904" X="-10.10764" Y="1218.038" Z="34.35396" />
 			<While Condition="HasQuest(36165) &amp;&amp; !IsQuestCompleted(36165)" > <!-- No Time to Waste -->
+				<If Condition="Unit(84261) == null" > <!-- Lunzul - Use HAFH Hearth -->
+					<!--<CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(168487)" WaitTime="12000" />-->
+					<CustomBehavior File="Misc\RunLua" Lua="DraenorZoneAbilityFrame.SpellButton:Click()" WaitTime="12000" />
+				</If>
 				<CustomBehavior File="InteractWith" QuestId="36165" MobId="84261" Range="4" GossipOptions="1" PreInteractMountStrategy="DismountOrCancelShapeshift" TerminateWhen="IsObjectiveComplete(1, 36165)" X="-1075.696" Y="2277.028" Z="6.380687" />
 			</While>
 		<TurnIn QuestName="No Time to Waste" QuestId="36165" TurnInName="Kolrigg Stoktron" TurnInId="84261" WaitTime="3000" X="-1075.696" Y="2277.028" Z="6.380687" />
@@ -1213,8 +1217,8 @@
 			<!-- Admiral Taylor's Garrison -->
 		<TurnIn QuestName="Old Friends" QuestId="35293" TurnInName="Jasper Fel" TurnInId="81960" X="-593.6129" Y="2308.663" Z="27.37601" />
 		<PickUp QuestName="I See Dead People" QuestId="35329" GiverName="Jasper Fel" GiverId="81960" X="-593.6129" Y="2308.663" Z="27.37601" />
-			<Objective QuestName="I See Dead People" QuestId="35329" Type="CollectItem" ItemId="113095" CollectCount="1" />
 			<While Condition="HasQuest(35329) &amp;&amp; !IsQuestCompleted(35329)" > <!-- I See Dead People -->
+				<Objective QuestName="I See Dead People" QuestId="35329" Type="CollectItem" ItemId="113095" CollectCount="1" />
 				<CustomBehavior File="InteractWith" QuestId="35329" MobId="82065" Range="5" NonCompeteDistance="0" GossipOptions="1" TerminateWhen="IsObjectiveComplete(2, 35329)" X="-590.7689" Y="2323.242" Z="29.25928" />	
 			</While>
 		<TurnIn QuestName="I See Dead People" QuestId="35329" TurnInName="Bryan Finn" TurnInId="82100" X="-590.7689" Y="2323.242" Z="29.25928" />	
@@ -1248,8 +1252,8 @@
 				<CustomBehavior File="InteractWith" QuestId="35482" MobId="82320" Range="5" WaitForNpcs="False" MobState="Alive" TerminateWhen="IsObjectiveComplete(3, 35482)" X="-933.2177" Y="2449.947" Z="31.59137" />
 				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for objective to complete {TimeRemaining}" />
 				<!-- add in an abandon + pickup quest here -->
+				<UseMount Value="true" />
 			</While>
-			 <UseMount Value="false" />
 		<TurnIn QuestName="Admiral Taylor" QuestId="35482" TurnInName="Admiral Taylor" TurnInId="82375" X="-916.9323" Y="2449.837" Z="31.1835" />
 		<PickUp QuestName="Honoring a Hero" QuestId="35549" GiverName="Jasper Fel" GiverId="82403" X="-908.8871" Y="2447.545" Z="31.17204" />
 		<TurnIn QuestName="Honoring a Hero" QuestId="35549" TurnInName="Lieutenant Willem" TurnInId="81929" X="-1072.765" Y="2267.486" Z="6.815571" />
