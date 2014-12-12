@@ -3,7 +3,7 @@
     <!-- Original contribution by Kickazz006 -->
     <Name>[H - Quest] 94-96 Talador [Kick] ($Rev: 3710 $)</Name>
 
-    <MinLevel>92</MinLevel>
+    <MinLevel>94</MinLevel>
     <MaxLevel>1001</MaxLevel>
 
     <MinDurability>0.3</MinDurability>
@@ -1072,12 +1072,14 @@
 
 			<If Condition="HasQuest(34569) || IsQuestCompleted(34569)"> <!-- START ARSENAL CHAIN -->
 		<TurnIn QuestName="The Quarry Quandary" QuestId="34569" TurnInName="Morketh Bladehowl" TurnInId="79210" X="3260.163" Y="1546.627" Z="162.9539" />
-
 		<PickUp QuestName="Unleashed Steel" QuestId="35102" GiverName="Morketh Bladehowl" GiverId="79210" X="3260.163" Y="1546.627" Z="162.9539" />
 		<TurnIn QuestName="Unleashed Steel" QuestId="35102" TurnInName="Morketh Bladehowl" TurnInId="79356" X="3217.057" Y="1606.389" Z="166.068" />
 		<PickUp QuestName="Gas Guzzlers" QuestId="34579" GiverName="Morketh Bladehowl" GiverId="79356" X="3217.057" Y="1606.389" Z="166.068" />
 		<PickUp QuestName="Out of Jovite" QuestId="34577" GiverName="Morketh Bladehowl" GiverId="79356" X="3217.057" Y="1606.389" Z="166.068" />
 		<PickUp QuestName="Iridium Recovery" QuestId="34576" GiverName="Morketh Bladehowl" GiverId="79356" X="3217.057" Y="1606.389" Z="166.068" />
+		
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" Text="I'm serious, there's no more quests." />
+	
 			<If Condition="HasQuest(34577) &amp;&amp; Unit(79356) != null" > <!-- Out of Jovitey -->
 				<MoveTo X="3280.993" Y="1550.427" Z="160.0263" />
 			</If>
@@ -1939,6 +1941,11 @@
 		<!-- End of Journe Mine / Auchindoun -->
 
 			<!-- Duskfall -->
+		<!-- 'goto' quest
+		<PickUp QuestName="Seek Out the Seer" QuestId="34721" GiverName="Elumm" GiverId="79724" />
+		<TurnIn QuestName="Seek Out the Seer" QuestId="34721" TurnInName="Seer Malune" TurnInId="76665" /> 
+		-->
+
 		<PickUp QuestName="Clear!" QuestId="34751" GiverName="Ziz Fizziks" GiverId="79870" X="2532.503" Y="2004.615" Z="113.6074" />
 			<If Condition="HasQuest(34751) &amp;&amp; !IsQuestCompleted(34751)" >
 				   <UseMount Value="false" />
@@ -1992,26 +1999,12 @@
 			<If Condition="HasQuest(33874) &amp;&amp; !IsQuestCompleted(33874)"> <!-- Aruumel's Rest -->
 				<While Condition="!Me.HasAura(155161)">
 					<MoveTo X="2222.285" Y="1722.799" Z="117.6865" />
-					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(item:108749)" WaitTime="2000" />
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:108749&quot;)" WaitTime="2000" />
 				</While>
-				<Objective QuestName="Aruumel's Rest" QuestId="33874" Type="KillMob" MobId="76824" KillCount="1" />
+				<CustomBehavior File="KillUntilComplete" QuestId="33837" MobId="76824" TerminateWhen="IsObjectiveComplete(1, 33837) || Unit(76824) == null" X="2222.285" Y="1722.799" Z="117.6865" />
 			</If>
 	    <TurnIn QuestName="Aruumel's Rest" QuestId="33874" TurnInName="Seherin Malune" TurnInId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 		
-		<!-- Some unfinished short quest line here
-		<PickUp QuestName="Seek Out the Seer" QuestId="34721" GiverName="Elumm" GiverId="79724" />
-		<TurnIn QuestName="Seek Out the Seer" QuestId="34721" TurnInName="Seer Malune" TurnInId="76665" /> -->
-
 		<!-- Grind to 96 if needed -->
 		<SetGrindArea>
 			<GrindArea>
@@ -2058,9 +2051,10 @@
 			<!-- To Arak -->
 		<PickUp QuestName="Arakkoa Exodus" QuestId="34653" GiverName="Rokhan" GiverId="78487" X="5614.007" Y="4563.16" Z="135.1946" />
 			<While Condition="!HasQuest(36522) &amp;&amp; !IsQuestCompleted(36522)" > <!-- Solidarity in Death / Ahm Follower -->
-				<MoveTo X="5742.291" Y="4526.642" Z="137.2294" />
-				<CustomBehavior File="InteractWith" MobId="85777" WaitTime="3000" X="1775.358" />
+				<MoveTo X="5741.167" Y="4531.684" Z="138.0303" />
+				<CustomBehavior File="InteractWith" MobId="85777" WaitTime="3000" X="5741.167" Y="4531.684" Z="138.0303" />
 				<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</While>
 			<If Condition="HasQuest(34653)"> <!-- Arakkoa Exodus -->
 				<MoveTo X="5575.775" Y="4563.67" Z="136.2085" />
@@ -2071,101 +2065,10 @@
 		<!-- Terrokar Pass -->
 		<TurnIn QuestName="Arakkoa Exodus" QuestId="34653" TurnInName="Azik" TurnInId="79539" X="655.0746" Y="2384.804" Z="203.7571" />
 		<PickUp QuestName="The Shadows of Skettis" QuestId="34655" GiverName="Azik" GiverId="79539" X="655.0746" Y="2384.804" Z="203.7571" />
+		
 
-	
+		<CustomBehavior File="LoadProfile" RememberProfile="True" ProfileName="[H - Quest] 96-98 Arak [Kick]" />
 
-
-		
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" Text="I'm serious, there's no more quests." />
-	
-		
-		
-		
-		
-		
-	<!--
-
-
-
-
-
-
-	
-
-	-->
-
-		<!--
-			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
-			</While>
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" Range="4" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, )" 
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" GossipOptions="1" NonCompeteDistance="0" Range="4" TerminateWhen="IsObjectiveComplete(1, )" 
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" ObjectType="GameObject" NonCompeteDistance="0" Range="5" TerminateWhen="IsObjectiveComplete(1, )" 
-		
-			 <If Condition="!IsObjectiveComplete(1, )">
-			 </If>
-			<If Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
-			</If>
-			 <While Condition="!IsObjectiveComplete(1, 00000)"> 
-			 </While>
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" Range="5" 
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" ObjectType="GameObject" WaitTime="2000" Range="3" 
-
-			<If Condition="HasQuest() &amp;&amp; !HasItem()" >
-			</If>
-			
-			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="4" TerminateWhen="IsObjectiveComplete(1, )" 
-											CollectionDistance="200" NonCompeteDistance="0" PreInteractMountStrategy="DismountOrCancelShapeshift" >
-				  <HuntingGrounds>
-					
-				  </HuntingGrounds>
-				</CustomBehavior>
-			</While>
-			
-			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" ObjectType="GameObject" NumOfTimes="20" Range="5" NonCompeteDistance="0" 
-											TerminateWhen="IsObjectiveComplete(1, )" CollectionDistance="200" PreInteractMountStrategy="DismountOrCancelShapeshift" >
-				  <HuntingGrounds>
-					
-				  </HuntingGrounds>
-				</CustomBehavior>
-			</While>
-			
-			// bonus objectives quick copy
-			<If Condition="!HasQuest() &amp;&amp; !IsQuestCompleted()" >
-				<MoveTo 
-			</If>
-			<If Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="4" CollectionDistance="200" TerminateWhen="IsObjectiveComplete(1, )" NonCompeteDistance="0" >
-				  <HuntingGrounds>
-				  </HuntingGrounds>
-				</CustomBehavior>
-				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="4" CollectionDistance="200" TerminateWhen="IsObjectiveComplete(2, )" NonCompeteDistance="0" >
-				  <HuntingGrounds>
-				  </HuntingGrounds>
-				</CustomBehavior>
-				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
-			</If>
-			
-
-			-->
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
-										Text="End of Tested Profile. Development from here. \n
-										Yes, you read correctly.  There are no more quests after this message. Don't post on forums and ask." />
-
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" Text="I'm serious, there's no more quests." />
 
 	</QuestOrder>
 
