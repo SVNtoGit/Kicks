@@ -907,6 +907,46 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
+    <Quest Id="33872" Name="Dusk of the Dead">
+		<Objective Type="CollectItem" ItemId="108645" CollectCount="7">
+			<CollectFrom>
+				<Mob Name="Agitated Duskwing" Entry="76668" />
+				<Mob Name="Elder Duskwing" Entry="77328" />
+				<Mob Name="Duskwing Flutterer" Entry="77331" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="2497.026" Y="1945.304" Z="121.2419" />
+				<Hotspot X="2545.014" Y="1972.723" Z="113.1586" />
+				<Hotspot X="2526.083" Y="1921.456" Z="111.8927" />
+				<Hotspot X="2471.241" Y="1885.517" Z="114.4053" />
+				<Hotspot X="2425.039" Y="1906.96" Z="122.6696" />
+				<Hotspot X="2392.625" Y="1862.097" Z="118.5323" />
+				<Hotspot X="2401.078" Y="1785.827" Z="113.6824" />
+				<Hotspot X="2365.339" Y="1765.951" Z="119.6554" />
+				<Hotspot X="2322.829" Y="1745.192" Z="116.2446" />
+				<Hotspot X="2339.801" Y="1683.694" Z="110.3074" />
+				<Hotspot X="2288.522" Y="1632.133" Z="114.3559" />
+				<Hotspot X="2231.647" Y="1592.005" Z="119.5416" />
+				<Hotspot X="2203.699" Y="1668.793" Z="118.7444" />
+				<Hotspot X="2152.661" Y="1717.401" Z="110.5938" />
+				<Hotspot X="2193.757" Y="1775.197" Z="123.3585" />
+				<Hotspot X="2218.465" Y="1805.294" Z="126.667" />
+				<Hotspot X="2211.691" Y="1883.792" Z="112.4855" />
+				<Hotspot X="2226.419" Y="1940.622" Z="110.219" />
+				<Hotspot X="2256.973" Y="1918.741" Z="110.5913" />
+				<Hotspot X="2285.888" Y="1973.201" Z="118.1856" />
+				<Hotspot X="2324.988" Y="1874.97" Z="114.29" />
+				<Hotspot X="2379.442" Y="1910.54" Z="121.8426" />
+			</Hotspots>
+		</Objective>
+    </Quest>
+    <Quest Id="33874" Name="Aruumel's Rest">
+		<Objective Type="KillMob" MobId="76824" KillCount="1">
+			<Hotspots>
+				<Hotspot X="2242.269" Y="1723.604" Z="117.6763" />
+			</Hotspots>
+		</Objective>
+    </Quest>
    
 
    
@@ -980,7 +1020,7 @@
 			  </If>	
 			</If>
 
-			<If Condition="HasQuest(34632) || IsQuestCompleted(34632)"> <!-- START SANCTUM CHAIN -->
+			<If Condition="HasQuest(34632) || !IsQuestCompleted(34632)"> <!-- START SANCTUM CHAIN -->
   	    <TurnIn QuestName="An Audience With The Archmage" QuestId="34632" TurnInName="Erzmagier Khadgar" TurnInId="80142" X="3189.076" Y="1362.391" Z="174.0519" />
 		<PickUp QuestName="Making Acquaintances" QuestId="34814" GiverName="Archmage Khadgar" GiverId="80142" X="3189.076" Y="1362.391" Z="174.0521" />
 			<While Condition="HasQuest(34814) &amp;&amp; !IsQuestCompleted(34814)" > <!-- Making Acquaintances -->
@@ -1029,6 +1069,13 @@
 		<!-- End of Khadgar's Tower -->
 		</If>
 		<!-- END OF SANCTUM CHAIN - PARTIAL -->
+
+			<If Condition="HasQuest(34569) || !IsQuestCompleted(34971)"> <!-- START ARSENAL CHAIN -->
+		<TurnIn QuestName="The Quarry Quandary" QuestId="34569" TurnInName="Morketh Bladehowl" TurnInId="79210" X="3260.163" Y="1546.627" Z="162.9539" />
+			</If>
+			<!-- END ARSENAL QUESTS -->
+		
+			</If>
 		
 			<!-- Vol'jin's Pride -->
 		<PickUp QuestName="Logistical Nightmare" QuestId="34766" GiverName="Versorgerin Naya" GiverId="79921" X="3259.152" Y="1588.486" Z="162.4129" />
@@ -1733,7 +1780,158 @@
 			</While>
 		<TurnIn QuestName="An'dure The Giant" QuestId="34414" TurnInName="Manduil Skycaller" TurnInId="78515" X="2421.337" Y="2753.976" Z="115.1917" />
 		<PickUp QuestName="Kaelynara Sunchaser" QuestId="34447" GiverName="Manduil Skycaller" GiverId="78515" X="2421.337" Y="2753.976" Z="115.1917" />
+			<While Condition="HasQuest(34447) &amp;&amp; !IsQuestCompleted(34447)" > <!-- Kaelynara Sunchaser -->
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for time {TimeRemaining}" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="ArcaneSphere" Command="Add" ObjectType="AreaTrigger" ObjectId="7676" Radius="6" LeashRadius="12" X="2534.384" Y="2721.675" Z="234.9534" />
+			  <While Condition="Me.Location.Distance(new WoWPoint(2534.384, 2721.675, 234.9534)) &gt; 15" > <!-- Inside of the bubble -->
+				<MoveTo X="2421.337" Y="2753.976" Z="115.1917" />
+				<CustomBehavior File="InteractWith" QuestId="34447" MobId="78515" GossipOptions="1" Range="5" WaitTime="5000" X="2421.337" Y="2753.976" Z="115.1917" 
+											TerminateWhen="IsObjectiveComplete(1, 34447) &amp;&amp; Me.Location.Distance(new WoWPoint(2534.384, 2721.675, 234.9534)) &lt; 15" />
+				<CustomBehavior File="WaitTimer" QuestId="34447" WaitTime="25000" TerminateWhen="Object(229271) != null || IsObjectiveComplete(2, 34447)" GoalText="Waiting for time {TimeRemaining}" />
+			  </While>
+				<CustomBehavior File="InteractWith" QuestId="34447" MobId="78501" Range="5" MobState="Alive" TerminateWhen="IsObjectiveComplete(2, 34447)" X="2534.303" Y="2722.442" Z="234.9539" /> <!-- Kaelynara -->
+				<CustomBehavior File="InteractWith" MobId="78740" Range="5" GossipOptions="1" WaitTime="3000" X="2531.588" Y="2724.546" Z="234.9536" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="ArcaneSphere" Command="Remove" />
+			</While>
+			<If Condition="HasQuest(34447) &amp;&amp; IsQuestCompleted(34447) &amp;&amp; Unit(78740) != null" > <!-- Kaelynara Sunchaser -->
+				<CustomBehavior File="InteractWith" MobId="78740" Nav="CTM" Range="5" GossipOptions="1" WaitTime="3000" X="2532.167" Y="2726.31" Z="234.9534" />
+			</If>
+		<TurnIn QuestName="Kaelynara Sunchaser" QuestId="34447" TurnInName="Vindicator Doruu" TurnInId="78538" X="2423.043" Y="2755.477" Z="115.0282" />
+		<!-- End of Journe Mine / Auchindoun -->
 
+			<!-- Duskfall -->
+		<PickUp QuestName="Clear!" QuestId="34751" GiverName="Ziz Fizziks" GiverId="79870" X="2532.503" Y="2004.615" Z="113.6074" />
+			<If Condition="HasQuest(34751) &amp;&amp; !IsQuestCompleted(34751)" >
+				   <UseMount Value="false" />
+					<Objective QuestName="Clear!" QuestId="34751" Type="CollectItem" ItemId="111637" CollectCount="6" />
+				   <UseMount Value="true" />
+			</If>
+			<If Condition="HasQuest(34751) &amp;&amp; IsQuestCompleted(34751)" >
+		<TurnIn QuestName="Clear!" QuestId="34751" TurnInName="Ziz Fizziks" TurnInId="79870" X="2532.503" Y="2004.615" Z="113.6074" />
+				<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+			<While Condition="!HasQuest(35238) &amp;&amp; !IsQuestCompleted(35238)" > <!-- New Owner / Pleasure-Bot 8000 Follower -->
+				<MoveTo X="2529.18" Y="2002.89" Z="113.612" />
+				<CustomBehavior File="InteractWith" MobId="79853" WaitTime="3000" X="2529.18" Y="2002.89" Z="113.612" />
+				<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</While>
+	    <PickUp QuestName="Dusk of the Dead" QuestId="33872" GiverName="Seherin Malune" GiverId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
+	    <PickUp QuestName="Cure of Aruunem" QuestId="33873" GiverName="Seherin Malune" GiverId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
+			<While Condition="HasQuest(33873) &amp;&amp; !IsQuestCompleted(33873)"> <!-- Cure of Aruunem -->
+				<CustomBehavior File="InteractWith" QuestId="33873" MobId="226888" ObjectType="GameObject" Range="5" NumOfTimes="20" ProactiveCombatStrategy="ClearMobsTargetingUs" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 33873)" >
+					<HuntingGrounds>
+						<Hotspot X="2497.026" Y="1945.304" Z="121.2419" />
+						<Hotspot X="2545.014" Y="1972.723" Z="113.1586" />
+						<Hotspot X="2526.083" Y="1921.456" Z="111.8927" />
+						<Hotspot X="2471.241" Y="1885.517" Z="114.4053" />
+						<Hotspot X="2425.039" Y="1906.96" Z="122.6696" />
+						<Hotspot X="2392.625" Y="1862.097" Z="118.5323" />
+						<Hotspot X="2401.078" Y="1785.827" Z="113.6824" />
+						<Hotspot X="2365.339" Y="1765.951" Z="119.6554" />
+						<Hotspot X="2322.829" Y="1745.192" Z="116.2446" />
+						<Hotspot X="2339.801" Y="1683.694" Z="110.3074" />
+						<Hotspot X="2288.522" Y="1632.133" Z="114.3559" />
+						<Hotspot X="2231.647" Y="1592.005" Z="119.5416" />
+						<Hotspot X="2203.699" Y="1668.793" Z="118.7444" />
+						<Hotspot X="2152.661" Y="1717.401" Z="110.5938" />
+						<Hotspot X="2193.757" Y="1775.197" Z="123.3585" />
+						<Hotspot X="2218.465" Y="1805.294" Z="126.667" />
+						<Hotspot X="2211.691" Y="1883.792" Z="112.4855" />
+						<Hotspot X="2226.419" Y="1940.622" Z="110.219" />
+						<Hotspot X="2256.973" Y="1918.741" Z="110.5913" />
+						<Hotspot X="2285.888" Y="1973.201" Z="118.1856" />
+						<Hotspot X="2324.988" Y="1874.97" Z="114.29" />
+						<Hotspot X="2379.442" Y="1910.54" Z="121.8426" />
+					</HuntingGrounds>
+				</CustomBehavior>
+			</While>
+			<Objective QuestName="Dusk of the Dead" QuestId="33872" Type="CollectItem" ItemId="108645" CollectCount="7" />
+	    <TurnIn QuestName="Cure of Aruunem" QuestId="33873" TurnInName="Seherin Malune" TurnInId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
+	    <TurnIn QuestName="Dusk of the Dead" QuestId="33872" TurnInName="Seherin Malune" TurnInId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
+ 	    <PickUp QuestName="Aruumel's Rest" QuestId="33874" GiverName="Seherin Malune" GiverId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
+			<If Condition="HasQuest(33874) &amp;&amp; !IsQuestCompleted(33874)"> <!-- Aruumel's Rest -->
+				<While Condition="!Me.HasAura(155161)">
+					<MoveTo X="2205.274" Y="1742.18" Z="118.16" />
+					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(item:108749)" WaitTime="2000" />
+				</While>
+				<Objective QuestName="Aruumel's Rest" QuestId="33874" Type="KillMob" MobId="76824" KillCount="1" />
+			</If>
+	    <TurnIn QuestName="Aruumel's Rest" QuestId="33874" TurnInName="Seherin Malune" TurnInId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+		<!-- Some unfinished short quest line here
+		<PickUp QuestName="Seek Out the Seer" QuestId="34721" GiverName="Elumm" GiverId="79724" />
+		<TurnIn QuestName="Seek Out the Seer" QuestId="34721" TurnInName="Seer Malune" TurnInId="76665" /> -->
+
+		<!-- Grind to 96 if needed -->
+		<SetGrindArea>
+			<GrindArea>
+				<Factions>14 16</Factions>
+				<Hotspots>
+					<Hotspot X="3634.66" Y="2541.564" Z="10.72686" />
+					<Hotspot X="3696.958" Y="2563.637" Z="8.032303" />
+					<Hotspot X="3733.299" Y="2486.706" Z="11.33622" />
+					<Hotspot X="3795.019" Y="2463.727" Z="9.473437" />
+					<Hotspot X="3842.801" Y="2439.818" Z="10.08411" />
+					<Hotspot X="3907.817" Y="2428.477" Z="9.850216" />
+					<Hotspot X="3945.941" Y="2417.373" Z="14.37388" />
+					<Hotspot X="3997.844" Y="2442.4" Z="9.944968" />
+					<Hotspot X="4019.943" Y="2477.995" Z="10.34428" />
+					<Hotspot X="4044.808" Y="2427.915" Z="15.06996" />
+					<Hotspot X="4101.023" Y="2405.174" Z="17.35217" />
+					<Hotspot X="4077.553" Y="2367.91" Z="20.5936" />
+					<Hotspot X="4018.813" Y="2337.651" Z="18.01294" />
+					<Hotspot X="3995.877" Y="2281.808" Z="25.84417" />
+					<Hotspot X="3937.617" Y="2280.18" Z="18.7465" />
+					<Hotspot X="3887.729" Y="2231.698" Z="24.3466" />
+					<Hotspot X="3837.793" Y="2189.546" Z="21.5798" />
+					<Hotspot X="3805.12" Y="2263.327" Z="24.287" />
+					<Hotspot X="3766.464" Y="2323.898" Z="20.29201" />
+					<Hotspot X="3740.165" Y="2388.208" Z="16.88565" />
+					<Hotspot X="3732.125" Y="2452.807" Z="14.92428" />				  
+				</Hotspots>
+			</GrindArea>
+		</SetGrindArea>
+		<GrindTo Condition="Me.Level >= 96" GoalText="Grinding to level 96" /> <!-- 96 -->
+
+			<!-- Vol'jin's Pride to Our Garrison-->
+			<If Condition="HasQuest(34706)" > <!-- Come Together -->
+				<CustomBehavior File="NoCombatMoveTo" X="3246.586" Y="1550.139" Z="163.0454" />
+			</If>
+		<TurnIn QuestName="Come Together" QuestId="34706" TurnInName="Knight-Lord Dranarus" TurnInId="79612" X="3246.586" Y="1550.139" Z="163.0454" />
+		<PickUp QuestName="News from Spires of Arak" QuestId="35537" GiverName="Shadow Hunter Kajassa" GiverId="79627" X="3238.862" Y="1585.594" Z="163.224" />
+			<If Condition="HasQuest(35537) &amp;&amp; Me.ZoneId == 6662" > <!-- Talador -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:110560&quot;)" WaitTime="10000" /> <!-- HS to Frostwall Garrison -->
+			</If>
+		<TurnIn QuestName="News from Spires of Arak" QuestId="35537" TurnInName="Rokhan" TurnInId="78487" X="5614.007" Y="4563.16" Z="135.1946" />
+			<!-- End of Talador -->
+			
+			<!-- To Arak -->
+		<PickUp QuestName="Arakkoa Exodus" QuestId="34653" GiverName="Rokhan" GiverId="78487" X="5614.007" Y="4563.16" Z="135.1946" />
+			<While Condition="!HasQuest(36522) &amp;&amp; !IsQuestCompleted(36522)" > <!-- Solidarity in Death / Ahm Follower -->
+				<MoveTo X="5742.291" Y="4526.642" Z="137.2294" />
+				<CustomBehavior File="InteractWith" MobId="85777" WaitTime="3000" X="1775.358" />
+				<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
+			</While>
+			<If Condition="HasQuest(34653)"> <!-- Arakkoa Exodus -->
+				<MoveTo X="5575.775" Y="4563.67" Z="136.2085" />
+				<CustomBehavior File="InteractWith" MobId="79407" GossipOptions="2" NonCompeteDistance="0" PreInteractMountStrategy="DismountOrCancelShapeshift" X="5575.775" Y="4563.67" Z="136.2085" /> <!-- Flying to Spires of Arak -->
+			</If>
+			<!-- End of Garrison -->
+
+		<!-- Terrokar Pass -->
+		<TurnIn QuestName="Arakkoa Exodus" QuestId="34653" TurnInName="Azik" TurnInId="79539" X="655.0746" Y="2384.804" Z="203.7571" />
+		<PickUp QuestName="The Shadows of Skettis" QuestId="34655" GiverName="Azik" GiverId="79539" X="655.0746" Y="2384.804" Z="203.7571" />
 
 	
 
@@ -1741,7 +1939,6 @@
 		
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" Text="I'm serious, there's no more quests." />
 	
-		
 		
 		
 		
