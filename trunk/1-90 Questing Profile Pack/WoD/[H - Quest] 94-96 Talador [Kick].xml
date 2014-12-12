@@ -1072,10 +1072,149 @@
 
 			<If Condition="HasQuest(34569) || !IsQuestCompleted(34971)"> <!-- START ARSENAL CHAIN -->
 		<TurnIn QuestName="The Quarry Quandary" QuestId="34569" TurnInName="Morketh Bladehowl" TurnInId="79210" X="3260.163" Y="1546.627" Z="162.9539" />
+
+		<PickUp QuestName="Unleashed Steel" QuestId="35102" GiverName="Morketh Bladehowl" GiverId="79210" X="3260.163" Y="1546.627" Z="162.9539" />
+		<TurnIn QuestName="Unleashed Steel" QuestId="35102" TurnInName="Morketh Bladehowl" TurnInId="79356" X="3217.057" Y="1606.389" Z="166.068" />
+		<PickUp QuestName="Gas Guzzlers" QuestId="34579" GiverName="Morketh Bladehowl" GiverId="79356" X="3217.057" Y="1606.389" Z="166.068" />
+		<PickUp QuestName="Out of Jovite" QuestId="34577" GiverName="Morketh Bladehowl" GiverId="79356" X="3217.057" Y="1606.389" Z="166.068" />
+		<PickUp QuestName="Iridium Recovery" QuestId="34576" GiverName="Morketh Bladehowl" GiverId="79356" X="3217.057" Y="1606.389" Z="166.068" />
+			<If Condition="HasQuest(34577) &amp;&amp; Unit(79356) != null" > <!-- Out of Jovitey -->
+				<MoveTo X="3280.993" Y="1550.427" Z="160.0263" />
+			</If>
+			<While Condition="HasQuest(34579) &amp;&amp; !IsQuestCompleted(34579)" > <!-- Gas Guzzlers -->
+				<CustomBehavior File="InteractWith" QuestId="34579" MobId="80013" MobId2="79190" NumOfTimes="20" Range="5" 
+											InteractByUsingItemId="111910" AuraIdOnMob="161774" MobState="Dead" WaitForNpcs="False" 
+											CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+				  <HuntingGrounds>
+					<Hotspot X="3704.039" Y="1219.953" Z="83.25912" />
+					<Hotspot X="3763.13" Y="1175.983" Z="82.61898" />
+					<Hotspot X="3811.039" Y="1141.853" Z="82.99288" />
+					<Hotspot X="3765.272" Y="1114.259" Z="83.32668" />
+					<Hotspot X="3735.361" Y="1153.05" Z="82.76314" />			
+					<Hotspot X="3689.428" Y="1165.552" Z="104.2811" />
+					<Hotspot X="3675.108" Y="1117.753" Z="107.6984" />
+					<Hotspot X="3835.973" Y="1127.576" Z="108.575" />
+					<Hotspot X="3834.064" Y="1181.338" Z="108.3625" />
+				  </HuntingGrounds>
+				</CustomBehavior>
+			</While>
+			<Objective QuestName="Out of Jovite" QuestId="34577" Type="CollectItem" ItemId="111906" CollectCount="12" />
+				<If Condition="!IsQuestCompleted(34263)"><!-- Treasure: Pure Crystal Dust -->
+				<CustomBehavior File="InteractWith" MobId="228026" ObjectType="GameObject" Range="4" X="3844.26" Y="1169.962" Z="109.1499" /> 
+				</If>
+			<Objective QuestName="Iridium Recovery" QuestId="34576" Type="CollectItem" ItemId="110898" CollectCount="8" />
+			<If Condition="HasQuest(34579) &amp;&amp; !IsQuestCompleted(34579)" > <!-- Gas Guzzlers -->
+				<MoveTo X="3280.993" Y="1550.427" Z="160.0263" />
+			</If>
+		<TurnIn QuestName="Gas Guzzlers" QuestId="34579" TurnInName="Morketh Bladehowl" TurnInId="79356" X="3217.057" Y="1606.389" Z="166.068" />
+		<TurnIn QuestName="Iridium Recovery" QuestId="34576" TurnInName="Morketh Bladehowl" TurnInId="79356" X="3217.057" Y="1606.389" Z="166.068" />
+		<TurnIn QuestName="Out of Jovite" QuestId="34577" TurnInName="Morketh Bladehowl" TurnInId="79356" X="3217.057" Y="1606.389" Z="166.068" />
+			<!-- End of Vol'jin's Arsenal -->
+			
+			<!-- Gordunni -->
+
+			<If Condition="!HasQuest(34837) &amp;&amp; !IsQuestCompleted(34837)">
+		<PickUp QuestName="Going to the Gordunni" QuestId="34837" GiverName="Morketh Bladehowl" GiverId="79356" X="3217.057" Y="1606.389" Z="166.068" />
+		<MoveTo X="3247.444" Y="1586.256" Z="162.0983" />
+			<If Condition="Unit(79356) != null" > <!-- Morketh @ Camp -->
+		<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+			</If>
+		<MoveTo X="3259.898" Y="1659.674" Z="159.7653" />
+			</If> 
+				<If Condition="!IsQuestCompleted(34205)">
+				<CustomBehavior File="InteractWith"  MobId="77776" ObjectType="Npc" NumOfTimes="1"  X="3101.538" Y="1660.394" Z="163.447"   CollectionDistance="200" MobState="Alive" WaitForNpcs="False" /> <!-- Wandering Vindicator NPC -->
+				<CustomBehavior File="InteractWith"  MobId="227859" ObjectType="GameObject" NumOfTimes="1"  X="3110.969" Y="1677.63" Z="165.2378"   CollectionDistance="200" WaitForNpcs="False" /> <!-- Vignette: Wandering Vindicator - Looted Treasure  -->
+				</If>
+				<If Condition="!IsQuestCompleted(36858)"> <!-- Vignette: Steeltusk  -->
+			<CustomBehavior File="InteractWith"  MobId="86549" NumOfTimes="1"  CollectionDistance="200" MobState="Alive" WaitForNpcs="False" X="3005.715" Y="1797.035" Z="143.9281"  />
+				</If>
+				<If Condition="!IsQuestCompleted(34252)"> <!-- Treasure: Barrel of Fish -->
+				<CustomBehavior File="InteractWith" MobId="228016" ObjectType="GameObject" Range="4" X="2522.234" Y="2112.002" Z="108.3595" />
+				</If>
+				<If Condition="!IsQuestCompleted(34101)"> 
+				<CustomBehavior File="InteractWith" MobId="227527" ObjectType="GameObject" Range="4" X="2211.437" Y="1715.16" Z="118.0783" />
+				</If> 				<!-- Lightbearer - No XP but still 100g :D -->
+
+			<If Condition="HasQuest(34837) &amp;&amp; !IsQuestCompleted(34837)" >
+				<MoveTo X="1677.67" Y="2126.579" Z="143.7136" />
+			</If>
+
+				<TurnIn QuestName="Going to the Gordunni" QuestId="34837" TurnInName="Morketh Bladehowl" TurnInId="80229" />
+
+			<PickUp QuestName="Dropping Bombs" QuestId="34840" GiverName="Morketh Bladehowl" GiverId="80229" X="1677.486" Y="2128.863" Z="143.8435" />
+			<While Condition="HasQuest(34840) &amp;&amp; !IsQuestCompleted(34840)" > <!-- Dropping Bombs -->
+				<CustomBehavior File="InteractWith" QuestId="34840" MobId="230889" MobType="GameObject" Range="12" TerminateWhen="IsObjectiveComplete(1, 34840)" 
+											PreInteractMountStrategy="DismountOrCancelShapeshift" X="1686.168" Y="2043.464" Z="166.2137" /> <!-- Base Catapult -->
+				<CustomBehavior File="InteractWith" QuestId="34840" MobId="230912" MobType="GameObject" Range="12" TerminateWhen="IsObjectiveComplete(2, 34840)" 
+											PreInteractMountStrategy="DismountOrCancelShapeshift" X="1694.616" Y="1929.918" Z="228.7991" /> <!-- Central Catapult -->
+				<CustomBehavior File="InteractWith" QuestId="34840" MobId="230913" MobType="GameObject" Range="12" TerminateWhen="IsObjectiveComplete(3, 34840)" 
+											PreInteractMountStrategy="DismountOrCancelShapeshift" X="1728.012" Y="1852.894" Z="261.9403" /> <!-- Summit Catapult -->
+				<CustomBehavior File="InteractWith" QuestId="34840" MobId="230949" MobType="GameObject" Range="6" TerminateWhen="IsObjectiveComplete(4, 34840)" 
+											PreInteractMountStrategy="DismountOrCancelShapeshift" WaitTime="6000" X="1655.939" Y="1738.37" Z="299.1087" /> <!-- Grappling Hook and rope -->
+			</While>
+		<TurnIn QuestName="Dropping Bombs" QuestId="34840" TurnInName="Morketh Bladehowl" TurnInId="80339" X="1625.816" Y="1733.194" Z="307.0859" />
+		<PickUp QuestName="Supply Recovery" QuestId="34860" GiverName="Morketh Bladehowl" GiverId="80339" X="1625.816" Y="1733.194" Z="307.0859" />
+		<PickUp QuestName="Prized Repossessions" QuestId="34858" GiverName="Morketh Bladehowl" GiverId="80339" X="1625.816" Y="1733.194" Z="307.0859" />
+		<PickUp QuestName="Punching Through" QuestId="34855" GiverName="Morketh Bladehowl" GiverId="80339" X="1625.816" Y="1733.194" Z="307.0859" />
+			<While Condition="HasQuest(34860) &amp;&amp; !IsQuestCompleted(34860)" > <!-- Supply Recovery -->
+			<CustomBehavior File="InteractWith" QuestId="34860" MobId="80323" NumOfTimes="20" Range="8" 
+							CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+				<HuntingGrounds>
+					<Hotspot X="1439.089" Y="1733.406" Z="306.4536" />	
+					<Hotspot X="1553.752" Y="1645.648" Z="311.4187" />
+					<Hotspot X="1392.044" Y="1765.341" Z="318.1375" />
+					<Hotspot X="1264.333" Y="1696.34" Z="314.2447" />
+					<Hotspot X="1328.266" Y="1808.996" Z="344.0413" />
+					<Hotspot X="1320.432" Y="1896.656" Z="337.1228" />
+					<Hotspot X="1165.507" Y="1722.994" Z="330.7602" />
+				</HuntingGrounds>
+			</CustomBehavior>
+			</While>
+				<If Condition="HasQuest(34855) &amp;&amp; !IsObjectiveComplete(1, 34855)" > <!-- Punching Through -->
+			<MoveTo X="1170.699" Y="1746.001" Z="329.7249" />			
+			<Objective QuestName="Punching Through" QuestId="34855" Type="KillMob" MobId="80294" KillCount="1" X="1135.076" Y="1746.431" Z="332.4252" />
+				</If>
+			<Objective QuestName="Punching Through" QuestId="34855" Type="KillMob" MobId="80292" KillCount="1" X="1366.564" Y="1830.259" Z="349.1286" />
+				<If Condition="!IsQuestCompleted(34251)"> <!-- Treasure: Iron Box -->
+			<MoveTo X="1281.979" Y="1980.921" Z="339.8494" />
+			<CustomBehavior File="InteractWith" MobId="228015" ObjectType="GameObject" WaitTime="2000" Range="2" X="1280.913" Y="1982.535" Z="340.0328" /> 
+				</If>
+			<Objective QuestName="Punching Through" QuestId="34855" Type="KillMob" MobId="80295" KillCount="1" X="1203.583" Y="1886.641" Z="343.8007" />
+			<Objective QuestName="Prized Repossessions" QuestId="34858" Type="CollectItem" ItemId="112504" CollectCount="6" />
+		<TurnIn QuestName="Supply Recovery" QuestId="34860" TurnInName="Morketh Bladehowl" TurnInId="80229" X="1650.39" Y="1671.984" Z="303.9699" />
+		<TurnIn QuestName="Prized Repossessions" QuestId="34858" TurnInName="Morketh Bladehowl" TurnInId="80229" X="1650.39" Y="1671.984" Z="303.9699" />
+		<TurnIn QuestName="Punching Through" QuestId="34855" TurnInName="Morketh Bladehowl" TurnInId="80229" X="1650.39" Y="1671.984" Z="303.9699" />
+		<PickUp QuestName="The Lord of the Gordunni" QuestId="34870" GiverName="Morketh Bladehowl" GiverId="80229" X="1650.39" Y="1671.984" Z="303.9699" />
+			<While Condition="HasQuest(34870) &amp;&amp; !IsQuestCompleted(34870)"> <!-- The Lord of the Gordunni -->
+			 <While Condition="!IsObjectiveComplete(1, 34870)">
+				<!-- We may need to survive the AOE or manual activate the rocket so far -->
+				<MoveTo QuestId="34870" X="1178.178" Y="1999.229" Z="356.6089" />
+				<!--<CustomBehavior File="Misc\RunLua" QuestId="34870" Lua="UseItemByName(&quot;item:112307&quot;)" WaitTime="1000" />-->
+                <CustomBehavior File="InteractWith" QuestId="34870" MobId="80335" NonCompeteDistance="0" X="1178.352" Y="2017.988" Z="356.6443" />
+				<CustomBehavior File="WaitTimer" QuestId="34870" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			 </While>
+			 <While Condition="!IsObjectiveComplete(2, 34870)">
+                <CustomBehavior File="InteractWith" QuestId="34870" MobId="80335" Range="3" NonCompeteDistance="0" />
+			 </While>
+			</While>
+		<TurnIn QuestName="The Lord of the Gordunni" QuestId="34870" TurnInName="Morketh Bladehowl" TurnInId="80342" X="1184.854" Y="1987.635" Z="356.6569" />
+
+			<If Condition="!HasQuest(34971) &amp;&amp; !IsQuestCompleted(34971)" > <!-- Pickup The Only Way to Travel -->
+		<PickUp QuestName="The Only Way to Travel" QuestId="34971" GiverName="Morketh Bladehowl" GiverId="80342" X="1184.854" Y="1987.635" Z="356.6569" />
+ 		<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for port {TimeRemaining}" />
+			</If>
+			<If Condition="HasQuest(34971) &amp;&amp; IsQuestCompleted(34971)" > <!-- Turnin The Only Way to Travel -->
+		<TurnIn QuestName="The Only Way to Travel" QuestId="34971" TurnInName="Morketh Bladehowl" TurnInId="80623" X="3240.427" Y="1588.71" Z="163.2917" />
+ 				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" WaitTime="5000" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+			</If>
+			<If Condition="!HasQuest(34972) &amp;&amp; !IsQuestCompleted(34972)" > <!-- Armor Up / Morketh Bladehowl Follower -->
+		<PickUp QuestName="Armor Up" QuestId="34972" GiverName="Morketh Bladehowl" GiverId="80623" X="3240.427" Y="1588.71" Z="163.2917" />
+            </If>
 			</If>
 			<!-- END ARSENAL QUESTS -->
 		
-			</If>
 		
 			<!-- Vol'jin's Pride -->
 		<PickUp QuestName="Logistical Nightmare" QuestId="34766" GiverName="Versorgerin Naya" GiverId="79921" X="3259.152" Y="1588.486" Z="162.4129" />
@@ -1814,7 +1953,7 @@
 				<MoveTo X="2529.18" Y="2002.89" Z="113.612" />
 				<CustomBehavior File="InteractWith" MobId="79853" WaitTime="3000" X="2529.18" Y="2002.89" Z="113.612" />
 				<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
-				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete 1218{TimeRemaining}" />
 			</While>
 	    <PickUp QuestName="Dusk of the Dead" QuestId="33872" GiverName="Seherin Malune" GiverId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
 	    <PickUp QuestName="Cure of Aruunem" QuestId="33873" GiverName="Seherin Malune" GiverId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
@@ -1852,7 +1991,7 @@
  	    <PickUp QuestName="Aruumel's Rest" QuestId="33874" GiverName="Seherin Malune" GiverId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
 			<If Condition="HasQuest(33874) &amp;&amp; !IsQuestCompleted(33874)"> <!-- Aruumel's Rest -->
 				<While Condition="!Me.HasAura(155161)">
-					<MoveTo X="2205.274" Y="1742.18" Z="118.16" />
+					<MoveTo X="2222.285" Y="1722.799" Z="117.6865" />
 					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(item:108749)" WaitTime="2000" />
 				</While>
 				<Objective QuestName="Aruumel's Rest" QuestId="33874" Type="KillMob" MobId="76824" KillCount="1" />
