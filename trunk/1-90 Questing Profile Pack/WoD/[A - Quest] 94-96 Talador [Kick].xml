@@ -1549,6 +1549,7 @@
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
 			</While>
 			<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 5">
+					<CustomBehavior File="Hooks\Avoid" AvoidName="ClusterBomb" Command="Add" ObjectId="78427" Radius="3.5" />
 				<!-- 3 parts to stage 5 -->
 				<If Condition="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.GetStep(1).IsComplete">
 					<MoveTo X="3603.865" Y="3049.384" Z="1.572707" /> <!-- 1 -->
@@ -1563,7 +1564,8 @@
 					<MoveTo X="3922.294" Y="2924.162" Z="18.86321" />
 					<MoveTo X="3918.945" Y="2947.194" Z="18.69538" />
 					<MoveTo X="3919.787" Y="2956.806" Z="21.0472" />
-					<CustomBehavior File="InteractWith" QuestId="34099" MobId="80962" WaitForNpcs="False" X="3919.787" Y="2956.806" Z="21.0472" /> <!-- Machinist B'randt -->
+					<CustomBehavior File="InteractWith" QuestId="34099" MobId="80962" WaitForNpcs="False" MobState="Alive" X="3919.787" Y="2956.806" Z="21.0472" /> <!-- Machinist B'randt -->
+					<CustomBehavior File="Hooks\Avoid" AvoidName="ClusterBomb" Command="Remove" />
 				</If>
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
 			</While>
@@ -1609,7 +1611,7 @@
 		<Objective QuestName="What the Draenei Found" QuestId="33579" Type="UseObject" ObjectId="224825" UseCount="1" />
 		<If Condition="HasQuest(33579) &amp;&amp; IsQuestCompleted(33579)" > <!-- Turnin What the Draenei Found -->
 			<TurnIn QuestName="What the Draenei Found" QuestId="33579" TurnInName="Raksi" TurnInId="75469" X="2927.541" Y="906.059" Z="144.3228" />
-			<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 		</If>
 		<!-- End of Aruuna -->
 

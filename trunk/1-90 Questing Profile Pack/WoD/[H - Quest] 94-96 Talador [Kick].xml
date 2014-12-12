@@ -35,7 +35,7 @@
     </Mailboxes>
 
     <Vendors> <!-- Need to add Mailboxes and Vendors! -->
-
+		<Vendor Name="Lo'gron the Shoulder" Entry="81093" Type="Repair" X="2793.32" Y="2519.001" Z="121.1413" /> <!-- Durotan's Grasp -->
     </Vendors>
 
     <!-- BEGIN: Quest Overrides -->
@@ -1084,11 +1084,355 @@
 		<PickUp QuestName="Dying Wish" QuestId="33973" GiverName="Ahm" GiverId="77031" X="3397.078" Y="2440.462" Z="113.37" />
 			<Objective QuestName="Dying Wish" QuestId="33973" Type="CollectItem" ItemId="108825" CollectCount="1" />
 		<TurnIn QuestName="Dying Wish" QuestId="33973" TurnInName="Ahm" TurnInId="77031" X="3397.078" Y="2440.462" Z="113.37" />
+			<While Condition="HasQuest(33736) &amp;&amp; !IsQuestCompleted(33736)" > <!-- Iron Them Out -->
+				<CustomBehavior File="InteractWith" QuestId="33736" MobId="225757" MobId2="225760" MobType="GameObject" NonCompeteDistance="0" NumOfTimes="20" TerminateWhen="IsObjectiveComplete(1, 33736)"
+				WaitTime="2000" Range="16" CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+				  <HuntingGrounds>
+					<Hotspot X="3273.753" Y="2489.528" Z="113.6842" />
+					<Hotspot X="3271.962" Y="2505.593" Z="113.6338" />
+					<Hotspot X="3304.377" Y="2496.023" Z="113.5158" />
+					<Hotspot X="3351.596" Y="2496.479" Z="113.3826" />
+					<Hotspot X="3203.066" Y="2433.143" Z="114.0201" />
+					<Hotspot X="3267.186" Y="2374.978" Z="116.2919" />
+					<Hotspot X="3266.253" Y="2299.318" Z="116.6469" />
+				  </HuntingGrounds>
+				</CustomBehavior>
+			</While>
+			<If Condition="HasQuest(34950) &amp;&amp; !IsQuestCompleted(34950)" > <!-- Dreadpiston -->
+                <CustomBehavior File="Hooks\Avoid" AvoidName="ClusterpultShot" Command="Add" ObjectType="Missile" ObjectId="162711" Radius="5" />
+				<Objective QuestName="Dreadpiston" QuestId="34950" Type="KillMob" MobId="80576" KillCount="1" />
+                <CustomBehavior File="Hooks\Avoid" AvoidName="ClusterpultShot" Command="Remove" />
+			</If>
+			<Objective QuestName="Vol. X Pages ?" QuestId="33724" Type="CollectItem" ItemId="107843" CollectCount="20" />
+			<If Condition="!IsQuestCompleted(34290)"> <!-- Treasure: Ketya's Stash -->
+				<CustomBehavior File="InteractWith" MobId="228570" ObjectType="GameObject" Range="4" X="3328.651" Y="2615.092" Z="7.038307" /> 
+			</If>
+			<If Condition="!IsQuestCompleted(34235)"> <!-- Treasure: Luminous Shell -->
+				<CustomBehavior File="InteractWith" MobId="227954" ObjectType="GameObject" Range="4" X="3254.937" Y="2699.602" Z="0.390289" />
+			</If>
+		<TurnIn QuestName="Iron Them Out" QuestId="33736" TurnInName="Draka" TurnInId="75808" X="2793.064" Y="2513.275" Z="121.1406" />
+		<TurnIn QuestName="Dreadpiston" QuestId="34950" TurnInName="Durotan" TurnInId="75959" X="2793.064" Y="2513.275" Z="121.1406" />
+		<TurnIn QuestName="Vol. X Pages ?" QuestId="33724" TurnInName="Gazlowe" TurnInId="75941" X="2793.064" Y="2513.275" Z="121.1406" />
+		<PickUp QuestName="An Eye for a Spy" QuestId="33728" GiverName="Gazlowe" GiverId="75941" X="2793.064" Y="2513.275" Z="121.1406" />
+			<If Condition="HasQuest(33728) &amp;&amp; !IsQuestCompleted(33728)" > <!-- An Eye for a Spy -->
+				<CustomBehavior File="InteractWith" QuestId="33728" MobId="225762" ObjectType="GameObject" NonCompeteDistance="0" WaitTime="3000" X="2795.554" Y="2508.237" Z="122.2486" />
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
+			</If>
+		<TurnIn QuestName="An Eye for a Spy" QuestId="33728" TurnInName="Gazlowe" TurnInId="75941" X="2793.064" Y="2513.275" Z="121.1406" />
+		<PickUp QuestName="Born to Shred" QuestId="33729" GiverName="Gazlowe" GiverId="75941" X="2793.064" Y="2513.275" Z="121.1406" />
+            <If Condition="HasQuest(33729) &amp;&amp; !IsQuestCompleted(33729)">
+                <While Condition="!Me.IsOnTransport &amp;&amp; !IsQuestCompleted(33729)">
+                    <MoveTo X="2793.999" Y="2530.484" Z="121.1405" />
+                    <CustomBehavior File="InteractWith" QuestId="33729" MobId="75721" TerminateWhen="Me.IsOnTransport" NonCompeteDistance="0" X="2793.999" Y="2530.484" Z="121.1405" />
+                    <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for {TimeRemaining}" />
+                </While>
+                <CustomBehavior File="SpecificQuests\33729-Talador-HordeBorntoShred" />
+                <CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for {TimeRemaining}" />
+            </If>
+		<TurnIn QuestName="Born to Shred" QuestId="33729" TurnInName="Gazlowe" TurnInId="75941" X="2793.064" Y="2513.275" Z="121.1406" />
+		<PickUp QuestName="Engineering Her Demise" QuestId="33730" GiverName="Gazlowe" GiverId="75941" X="2793.064" Y="2513.275" Z="121.1406" />
+			<If Condition="HasQuest(33730) &amp;&amp; !IsQuestCompleted(33730)" > <!-- Engineering Her Demise -->
+				<CustomBehavior File="WaitTimer" WaitTime="6000" GoalText="Waiting for quest to continue {TimeRemaining}" />
+				<EnableBehavior Name="Combat" />
+				<Objective QuestName="Engineering Her Demise" QuestId="33730" Type="KillMob" MobId="75986" KillCount="1" />
+			</If>
+			<If Condition="HasQuest(33730) &amp;&amp; IsQuestCompleted(33730)" > <!-- Engineering Her Demise -->
+				<CustomBehavior File="NoCombatMoveTo" X="2799.346" Y="2513.748" Z="121.0857" />
+		<TurnIn QuestName="Engineering Her Demise" QuestId="33730" TurnInName="Durotan" TurnInId="75959" X="2793.064" Y="2513.275" Z="121.1406" />
+			</If>
+			<If Condition="!HasQuest(34962) &amp;&amp; !IsQuestCompleted(34962)" > <!-- Khadgar's Plan -->
+		<PickUp QuestName="Khadgar's Plan" QuestId="34962" GiverName="Durotan" GiverId="75959" X="2793.064" Y="2513.275" Z="121.1406" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" />
+			</If>
+			<!-- End of Frostwolf Overlook / Durotan's Grasp -->
+		
+			<!-- Shattrath City -->
+		<TurnIn QuestName="Khadgar's Plan" QuestId="34962" TurnInName="Archmage Khadgar" TurnInId="75805" X="2981.135" Y="2602.592" Z="81.42542" />
+		<PickUp QuestName="The Battle for Shattrath" QuestId="33731" GiverName="Archmage Khadgar" GiverId="75805" X="2981.135" Y="2602.592" Z="81.42542" />
+			<If Condition="HasQuest(33731) &amp;&amp; !IsQuestCompleted(33731)" > <!-- The Battle for Shattrath -->
+				<If Condition="Me.MapId == 1116 &amp;&amp; !IsQuestCompleted(33731)"> <!-- Draenor, non scenario -->
+					<MoveTo X="3042.792" Y="2823.976" Z="67.02023" />
+				</If>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 1">
+					<CustomBehavior File="InteractWith" QuestId="33731" MobId="77191" GossipOptions="1" X="3042.792" Y="2823.976" Z="67.02023" /> <!-- Gazlowe -->
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 2">
+					<CustomBehavior File="InteractWith" QuestId="33731" MobId="86671" X="3040.497" Y="2826.125" Z="67.02023" /> <!-- Iron Star -->
+					<CustomBehavior File="WaitTimer" WaitTime="1000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 3">
+				 <If Condition="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.GetStep(1).IsComplete">
+				  <If Condition="!Me.IsOnTransport" > 
+					<CustomBehavior File="InteractWith" QuestId="33731" MobId="86671" X="3040.497" Y="2826.125" Z="67.02023" /> <!-- Iron Star -->
+				  </If>
+					<CustomBehavior File="RunLikeHell" AllowCombat="false" UseCTM="true" >
+						<Hotspot X="3040.458" Y="2863.921" Z="61.915" />
+						<Hotspot X="3040.428" Y="2894.201" Z="47.8164" />
+						<Hotspot X="3047.97" Y="2951.828" Z="47.8164" />
+						<Hotspot X="3031.169" Y="3032.714" Z="47.8164" />
+						<Hotspot X="3026.566" Y="3107.293" Z="33.50219" />
+						<Hotspot X="3088.168" Y="3110.579" Z="33.82507" />
+						<Hotspot X="3171.743" Y="3081.137" Z="20.14583" />
+						<Hotspot X="3268.361" Y="3035.26" Z="20.14467" />
+						<Hotspot X="3294.136" Y="3105.582" Z="20.1447" />
+						<Hotspot X="3358.575" Y="3109.967" Z="20.1451" />
+						<Hotspot X="3433.123" Y="3125.799" Z="20.1449" />					
+					</CustomBehavior>
+				 </If>
+					<CustomBehavior File="InteractWith" QuestId="33731" MobId="77195" GossipOptions="1" X="3451.258" Y="3127.955" Z="20.2411" /> <!-- Khadgar -->
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 4">
+					<!-- kill mobs / guard khadgar -->
+					<MoveTo X="3527.443" Y="3119.473" Z="1.950148" />
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 5">
+				
+					<CustomBehavior File="Hooks\Avoid" AvoidName="ClusterBomb" Command="Add" ObjectId="78427" Radius="3.5" />
+					<!-- 3 parts to stage 5 -->
+				 <If Condition="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.GetStep(1).IsComplete">
+					<MoveTo X="3603.865" Y="3049.384" Z="1.572707" /> <!-- 1 -->
+				 </If>
+				 <If Condition="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.GetStep(2).IsComplete">
+					<!-- 2 -->
+					<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+					<CustomBehavior File="InteractWith" QuestId="33731" MobId="77195" GossipOptions="1" WaitTime="25000" X="3601.61" Y="3046.591" Z="1.950526" /> <!-- Khadgar -->
+				 </If>
+				 <If Condition="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.GetStep(3).IsComplete">
+					<!-- 3 -->
+					<MoveTo X="3922.294" Y="2924.162" Z="18.86321" />
+					<MoveTo X="3918.945" Y="2947.194" Z="18.69538" />
+					<MoveTo X="3919.787" Y="2956.806" Z="21.0472" />
+					<CustomBehavior File="InteractWith" QuestId="33731" MobId="80962" WaitForNpcs="False" MobState="Alive" X="3919.787" Y="2956.806" Z="21.0472" /> <!-- Machinist B'randt -->
+					<CustomBehavior File="Hooks\Avoid" AvoidName="ClusterBomb" Command="Remove" />
+				 </If>
+					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
+				</While>
+				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 6">
+				 <If Condition="!Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.GetStep(1).IsComplete">
+					<!-- 1 - Speak to Khadgar -->
+					<CustomBehavior File="InteractWith" QuestId="33731" MobId="77195" GossipOptions="1" WaitTime="12000" X="3601.61" Y="3046.591" Z="1.950526" /> <!-- Khadgar -->
+				 </If>
+					<!-- 2 - Survive Blackhand's Onslaught -->
+					<CustomBehavior File="InteractWith" QuestId="33731" MobId="77256" WaitTime="3000" X="3670.838" Y="3057.878" Z="17.87251" /> <!-- Blackhand -->
+				</While>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for Cinematic {TimeRemaining}" />
+				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="5000" />
+				<If Condition="Me.MapId == 1207" >
+					<CustomBehavior File="InteractWith" MobId="231620" MobType="GameObject" WaitTime="5000" X="3598.398" Y="3058.706" Z="1.949381" /> <!-- Portal Talador -->
+				</If>
+			</If>
+			<If Condition="HasQuest(33731) &amp;&amp; IsQuestCompleted(33731) &amp;&amp; Me.MapId == 1207" > <!-- The Battle for Shattrath -->
+				<CustomBehavior File="InteractWith" MobId="231620" MobType="GameObject" WaitTime="5000" X="3598.398" Y="3058.706" Z="1.949381" /> <!-- Portal Talador -->
+			</If>
+		<TurnIn QuestName="The Battle for Shattrath" QuestId="33731" TurnInName="Durotan" TurnInId="79604" X="3252.148" Y="1574.076" Z="162.3462" />
+			<If Condition="HasQuest(34106) &amp;&amp; IsQuestCompleted(34106)" > <!-- Wanted: Ra'tok the Hammer -->
+		<TurnIn QuestName="Wanted: Ra'tok the Hammer" QuestId="34106" TurnInName="Beastmaster Tagh" TurnInId="80833" X="3251.15" Y="1610.622" Z="162.3823" />
+			</If>
+			<!-- End of Shattrath City -->
+
+			<!-- Aruuna -->
+		<PickUp QuestName="Burning Sky" QuestId="33740" GiverName="Crystal-Shaper Barum" GiverId="75896" X="2889.734" Y="1476.467" Z="181.7534" />
+		<PickUp QuestName="Pieces of Us" QuestId="33734" GiverName="Crystal-Shaper Barum" GiverId="75896" X="2889.734" Y="1476.467" Z="181.7534" />
+		<PickUp QuestName="Barum's Notes" QuestId="33761" GiverName="Barum's Notes" GiverId="225778" GiverType="Object" X="2729.158" Y="1285.531" Z="187.9987" />	
+		<PickUp QuestName="Pyrophobia" QuestId="33578" GiverName="Raksi" GiverId="75311" X="2681.8" Y="1198.316" Z="197.4381" />
+			<If Condition="HasQuest(33578) &amp;&amp; !IsQuestCompleted(33578)" > <!-- Pyrophobia -->
+				<CustomBehavior File="Hooks\Avoid" AvoidName="SolarZone" Command="Add" ObjectType="AreaTrigger" ObjectId="6622" Radius="5" />
+				<Objective QuestName="Pyrophobia" QuestId="33578" Type="KillMob" MobId="75302" KillCount="1" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="SolarZone" Command="Remove" />
+			</If>
+		<TurnIn QuestName="Pyrophobia" QuestId="33578" TurnInName="Raksi" TurnInId="75311" X="2681.8" Y="1198.316" Z="197.4381" />
+		<PickUp QuestName="What the Draenei Found" QuestId="33579" GiverName="Raksi" GiverId="75311" X="2681.8" Y="1198.316" Z="197.4381" />
+			<Objective QuestName="Pieces of Us" QuestId="33734" Type="CollectItem" ItemId="107851" CollectCount="1" />
+			<Objective QuestName="Pieces of Us" QuestId="33734" Type="CollectItem" ItemId="107856" CollectCount="1" />
+			<Objective QuestName="Pieces of Us" QuestId="33734" Type="CollectItem" ItemId="107859" CollectCount="1" />
+			<Objective QuestName="Barum's Notes" QuestId="33761" Type="UseObject" ObjectId="225776" UseCount="1" />
+			<Objective QuestName="Barum's Notes" QuestId="33761" Type="UseObject" ObjectId="225774" UseCount="1" />
+			<Objective QuestName="Barum's Notes" QuestId="33761" Type="UseObject" ObjectId="225773" UseCount="1" />
+			<Objective QuestName="Burning Sky" QuestId="33740" Type="KillMob" MobId="75283" KillCount="12" />
+			<Objective QuestName="What the Draenei Found" QuestId="33579" Type="UseObject" ObjectId="224825" UseCount="1" />
+			<If Condition="HasQuest(33579) &amp;&amp; IsQuestCompleted(33579)" > <!-- Turn-in What the Draenei Found -->
+		<TurnIn QuestName="What the Draenei Found" QuestId="33579" TurnInName="Raksi" TurnInId="75469" X="2927.541" Y="906.059" Z="144.3228" />
+				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+		<!-- End of Aruuna -->
+			
+		<!-- Terrokar Refuge -->
+		<PickUp QuestName="The Purge of Veil Shadar" QuestId="33580" GiverName="Shadow-Sage Iskar" GiverId="75288" X="2169.292" Y="1629.608" Z="131.3113" />
+		<PickUp QuestName="Kura's Vengeance" QuestId="33582" GiverName="Kura the Blind" GiverId="75324" X="2172.118" Y="1613.33" Z="132.08" />
+		<PickUp QuestName="Forbidden Knowledge" QuestId="33581" GiverName="Darkscryer Raastok" GiverId="75323" X="2149.842" Y="1629.007" Z="131.5271" />
+		<TurnIn QuestName="Barum's Notes" QuestId="33761" TurnInName="Crystal-Shaper Barum" TurnInId="75913" X="2233.384" Y="1259.286" Z="108.7135" />
+		<TurnIn QuestName="Burning Sky" QuestId="33740" TurnInName="Crystal-Shaper Barum" TurnInId="75913" X="2233.384" Y="1259.286" Z="108.7135" />
+		<TurnIn QuestName="Pieces of Us" QuestId="33734" TurnInName="Crystal-Shaper Barum" TurnInId="75913" X="2233.384" Y="1259.286" Z="108.7135" />
+			<While Condition="HasQuest(33580) &amp;&amp; !IsQuestCompleted(33580)" > <!-- The Purge of Veil Shadar -->
+				<CustomBehavior File="InteractWith" QuestId="33580" MobId="75336" MobId2="75337" NonCompeteDistance="0" NumOfTimes="20" TerminateWhen="IsObjectiveComplete(1, 33580)"
+													WaitForNpcs="False" WaitTime="2000" Range="5" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+					<HuntingGrounds>
+						<Hotspot X="1778.924" Y="1405.292" Z="137.3906" />
+						<Hotspot X="2023.208" Y="1393.605" Z="107.5347" />
+						<Hotspot X="1981.319" Y="1424.607" Z="108.2545" />
+						<Hotspot X="1903.13" Y="1414.497" Z="118.9998" />
+						<Hotspot X="1932.922" Y="1385.093" Z="123.793" />
+						<Hotspot X="1920.063" Y="1349.717" Z="128.4132" />
+						<Hotspot X="1944.773" Y="1305.289" Z="125.8943" />
+						<Hotspot X="2002.863" Y="1312.979" Z="119.3906" />
+						<Hotspot X="2011.784" Y="1214.054" Z="110.5263" />
+						<Hotspot X="1983.758" Y="1186.71" Z="116.8739" />
+						<Hotspot X="2028.926" Y="1177.543" Z="112.2358" />
+						<Hotspot X="2021.958" Y="1147.126" Z="113.5864" />
+						<Hotspot X="2013.26" Y="1118.343" Z="116.2607" />
+						<Hotspot X="2074.44" Y="1137.678" Z="107.3033" />		
+					</HuntingGrounds>
+				</CustomBehavior>
+			</While>
+			<Objective QuestName="Forbidden Knowledge" QuestId="33581" Type="CollectItem" ItemId="107391" CollectCount="6" />
+			<Objective QuestName="Kura's Vengeance" QuestId="33582" Type="KillMob" MobId="75353" KillCount="1" />
+		<TurnIn QuestName="The Purge of Veil Shadar" QuestId="33580" TurnInName="Shadow-Sage Iskar" TurnInId="75288" X="2147.04" Y="1621.424" Z="131.4227" />
+		<TurnIn QuestName="Forbidden Knowledge" QuestId="33581" TurnInName="Darkscryer Raastok" TurnInId="75323" X="2149.842" Y="1629.007" Z="131.5271" />
+		<If Condition="HasQuest(33582) &amp;&amp; IsQuestCompleted(33582)" > <!-- Kura's Vengeance -->
+			<TurnIn QuestName="Kura's Vengeance" QuestId="33582" TurnInName="Kura the Blind" TurnInId="75324" X="2172.118" Y="1613.33" Z="132.08" />
+			<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+		</If>
+		<!-- End of Terrokar Refuge -->
+			
+		<If Condition="!HasQuest(34639) &amp;&amp; !IsQuestCompleted(34639)" > <!-- Pickup Bonus Objective: Aruuna's Desolation -->
+			<MoveTo X="2460.773" Y="1246.671" Z="138.4279" />
+		</If>
+		<While Condition="!IsQuestCompleted(34639)" > <!-- Bonus Objective: Aruuna's Desolation -->
+			<CustomBehavior File="InteractWith" QuestId="34639" MobId="79432" NumOfTimes="20" Range="8" TerminateWhen="IsObjectiveComplete(2, 34639)" PreInteractMountStrategy="Mount" >
+				<HuntingGrounds>
+					<Hotspot X="2422.702" Y="1257.187" Z="132.9391" />
+					<Hotspot X="2444.114" Y="1227.835" Z="138.0857" />
+					<Hotspot X="2456.882" Y="1212.906" Z="141.2056" />
+					<Hotspot X="2480.386" Y="1190.662" Z="143.5159" />
+					<Hotspot X="2503.367" Y="1207.881" Z="146.7199" />
+					<Hotspot X="2527.227" Y="1253.143" Z="147.5969" />
+					<Hotspot X="2537.383" Y="1314.279" Z="144.1951" />
+					<Hotspot X="2540.396" Y="1358.557" Z="140.9363" />
+					<Hotspot X="2475.322" Y="1330.519" Z="130.4025" />
+					<Hotspot X="2448.484" Y="1322.708" Z="129.1127" />
+					<Hotspot X="2447.124" Y="1279.975" Z="131.9513" />
+					<Hotspot X="2437.74" Y="1248.256" Z="135.1069" />
+					<Hotspot X="2432.363" Y="1217.759" Z="136.8255" />					
+				</HuntingGrounds>
+			</CustomBehavior>
+			<CustomBehavior File="InteractWith" QuestId="34639" MobId="79409" NumOfTimes="20" Range="8" TerminateWhen="IsObjectiveComplete(1, 34639)" PreInteractMountStrategy="Mount" >
+				<HuntingGrounds>
+					<Hotspot X="2422.702" Y="1257.187" Z="132.9391" />
+					<Hotspot X="2444.114" Y="1227.835" Z="138.0857" />
+					<Hotspot X="2456.882" Y="1212.906" Z="141.2056" />
+					<Hotspot X="2480.386" Y="1190.662" Z="143.5159" />
+					<Hotspot X="2503.367" Y="1207.881" Z="146.7199" />
+					<Hotspot X="2527.227" Y="1253.143" Z="147.5969" />
+					<Hotspot X="2537.383" Y="1314.279" Z="144.1951" />
+					<Hotspot X="2540.396" Y="1358.557" Z="140.9363" />
+					<Hotspot X="2475.322" Y="1330.519" Z="130.4025" />
+					<Hotspot X="2448.484" Y="1322.708" Z="129.1127" />
+					<Hotspot X="2447.124" Y="1279.975" Z="131.9513" />
+					<Hotspot X="2437.74" Y="1248.256" Z="135.1069" />
+					<Hotspot X="2432.363" Y="1217.759" Z="136.8255" />					
+				</HuntingGrounds>
+			</CustomBehavior>
+			<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			<MoveTo X="2460.773" Y="1246.671" Z="138.4279" />
+			<MoveTo X="2434.325" Y="1542.087" Z="114.0466" />
+			<MoveTo X="2460.773" Y="1246.671" Z="138.4279" />
+		</While>
+
+			<!-- Exarch's Refuge / Auchindoun -->
+			<If Condition="!IsQuestCompleted(33917)" > <!-- Avoid Fires -->
+				<CustomBehavior File="Hooks\Avoid" AvoidName="FieryTrail" Command="Add" ObjectType="AreaTrigger" ObjectId="7710" Radius="4" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="FlameCrash" Command="Add" ObjectType="AreaTrigger" ObjectId="7521" Radius="5" />
+		   </If>
+		<PickUp QuestName="The Lady of Light" QuestId="34696" GiverName="Knight-Lord Dranarus" GiverId="79612" X="3247.64" Y="1552.686" Z="162.6645" /> <!-- Vol'jin's Pride -->
+		<TurnIn QuestName="The Lady of Light" QuestId="34696" TurnInName="Lady Liadrin" TurnInId="75121" X="1739.441" Y="2524.964" Z="133.659" /> <!-- Exarch's Refuge -->
+ 		<PickUp QuestName="Holding the Line" QuestId="34418" GiverName="Lady Liadrin" GiverId="75121" X="1739.441" Y="2524.964" Z="133.659" />
+		<PickUp QuestName="Powering the Defenses" QuestId="35249" GiverName="Mehlar Dawnblade" GiverId="78577" X="1768.964" Y="2523.776" Z="133.6589" />
+		<PickUp QuestName="Every Bit Counts" QuestId="34710" GiverName="Ranger Belonis" GiverId="79696" X="1774.679" Y="2531.117" Z="133.6592" />
+		<PickUp QuestName="The Heart of Auchindoun" QuestId="33920" GiverName="Soulbinder Nyami" GiverId="78519" X="1760.715" Y="2463.885" Z="129.3717" />
+			<If Condition="!HasQuest(33917) &amp;&amp; !IsQuestCompleted(33917)" > <!-- Disrupting the Flow -->
+				<DisableBehavior Name="Pull" />
+				<PickUp QuestName="Disrupting the Flow" QuestId="33917" GiverName="Vindicator Nobundo" GiverId="78482" X="1814.354" Y="2450.097" Z="129.3672" />
+				<MoveTo X="1790.636" Y="2422.158" Z="128.3822" />
+				<EnableBehavior Name="Pull" />
+				<TargetingDistance Value="1" /> <!-- Use LevelBot default -->
+			</If>
+			<While Condition="HasQuest(33917) &amp;&amp; !IsQuestCompleted(33917)" > <!-- Disrupting the Flow -->
+				<TargetingDistance Value="1" /> <!-- Use LevelBot default -->
+				<MoveTo X="1881.415" Y="2419.431" Z="121.6267" />
+				<TargetingDistance Value="10" /> <!-- Use LevelBot default -->
+				<!--<Objective QuestName="Disrupting the Flow" QuestId="33917" Type="UseObject" ObjectId="229139" UseCount="4" />-->
+				<CustomBehavior File="InteractWith" QuestId="33917" MobId="229139" ObjectType="GameObject" NumOfTimes="20" Range="4" WaitTime="3000" WaitForNpcs="True"
+												AttemptCountMax="10" NonCompeteDistance="0" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+					<HuntingGrounds>
+						<Hotspot X="1881.415" Y="2419.431" Z="121.6267" />
+						<Hotspot X="1959.603" Y="2562.625" Z="124.9694" />
+						<Hotspot X="1880.915" Y="2518.487" Z="121.9759" />
+						<Hotspot X="1907.187" Y="2469.69" Z="131.3313" />
+					</HuntingGrounds>
+				</CustomBehavior>
+				<TargetingDistance Value="20" /> <!-- Use LevelBot default -->
+			</While>
+			<Objective QuestName="The Heart of Auchindoun" QuestId="33920" Type="CollectItem" ItemId="108733" CollectCount="1" />
+			<Objective QuestName="The Heart of Auchindoun" QuestId="33920" Type="KillMob" MobId="76876" KillCount="1" />
+			<Objective QuestName="Holding the Line" QuestId="34418" Type="KillMob" MobId="76883" KillCount="15" />
+			<If Condition="HasQuest(33920) &amp;&amp; IsQuestCompleted(33920)" > <!-- The Heart of Auchindoun -->
+				<TargetingDistance Value="1" /> <!-- Use LevelBot default -->
+		<TurnIn QuestName="The Heart of Auchindoun" QuestId="33920" TurnInName="Soulbinder Nyami" TurnInId="78519" X="1760.715" Y="2463.885" Z="129.3717" />
+			</If>
+			<If Condition="HasQuest(33917) &amp;&amp; IsQuestCompleted(33917)" > <!-- Disrupting the Flow -->
+		<TurnIn QuestName="Disrupting the Flow" QuestId="33917" TurnInName="Vindicator Nobundo" TurnInId="78482" X="1814.354" Y="2450.097" Z="129.3672" />
+				<CustomBehavior File="NoCombatMoveTo" X="1737.653" Y="2514.695" Z="133.6592" />
+				<TargetingDistance Value="45" /> <!-- Use LevelBot default -->
+			</If>
+		<TurnIn QuestName="Holding the Line" QuestId="34418" TurnInName="Lady Liadrin" TurnInId="75121" X="1739.441" Y="2524.964" Z="133.659" />
+		<TurnIn QuestName="Powering the Defenses" QuestId="35249" TurnInName="Soulbinder Tuulani" TurnInId="77737" X="1897.236" Y="2128.445" Z="76.93946" /> <!-- Powering the Defenses in Tomb of Lights -->
+		<PickUp QuestName="We Must Construct Additional Pylons" QuestId="34351" GiverName="Soulbinder Tuulani" GiverId="77737" X="1897.236" Y="2128.445" Z="76.93946" />
+			<If Condition="IsQuestCompleted(33917)" > <!-- Avoid Fires remove -->
+				<CustomBehavior File="Hooks\Avoid" AvoidName="FieryTrail" Command="Remove" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="FlameCrash" Command="Remove" />
+			</If>
+			<If Condition="HasQuest(34351) &amp;&amp; !IsQuestCompleted(34351)" >
+				<TargetingDistance Value="1" /> <!-- Use LevelBot default -->
+				<CustomBehavior File="NoCombatMoveTo" X="1794.26" Y="2321.939" Z="77.99058" />
+				<Objective QuestName="We Must Construct Additional Pylons" QuestId="34351" Type="CollectItem" ItemId="110271" CollectCount="1" />
+				<Objective QuestName="We Must Construct Additional Pylons" QuestId="34351" Type="CollectItem" ItemId="110253" CollectCount="6" />
+			</If>
+			<If Condition="!HasQuest(33530) &amp;&amp; !IsQuestCompleted(33530)" >
+		<PickUp QuestName="Nightmare in the Tomb" QuestId="33530" GiverName="Yuuri" GiverId="76790" X="1828.885" Y="2213.498" Z="79.53819" />
+			</If>
+			<While Condition="HasQuest(33530) &amp;&amp; !IsQuestCompleted(33530)" >
+				<CustomBehavior File="Hooks\Avoid" AvoidName="BoneMauler" Command="Add" ObjectId="76745" Radius="16" LeashRadius="45" 
+					AvoidWhen="UNIT.CastingSpellId == 155513 || UNIT.CastingSpellId == 155519 || UNIT.CastingSpellId == 156144 || UNIT.CastingSpellId == 156144 || UNIT.HasAura(155513) || UNIT.HasAura(156163)" 
+					AvoidLocationProducer="WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location, UNIT.Location.RayCast(UNIT.Rotation, 17))" X="1711.356" Y="2141.57" Z="61.1513" />
+
+				<CustomBehavior File="KillUntilComplete" QuestId="33530" MobId="76745" TerminateWhen="IsObjectiveComplete(2, 33530)" X="1711.356" Y="2141.57" Z="61.1513" />
+				<!--<CustomBehavior File="InteractWith" QuestId="33530" MobId="76745" Range="8" X="1711.356" Y="2141.57" Z="61.1513" />
+				<Objective QuestName="Nightmare in the Tomb" QuestId="33530" Type="KillMob" MobId="76745" KillCount="1" />-->
+				<CustomBehavior File="Hooks\Avoid" AvoidName="BoneMauler" Command="Remove" />
+			</While>
+		<TurnIn QuestName="We Must Construct Additional Pylons" QuestId="34351" TurnInName="Soulbinder Tuulani" TurnInId="78520" X="1749.734" Y="2546.767" Z="133.6591" />
+		<TurnIn QuestName="Nightmare in the Tomb" QuestId="33530" TurnInName="Lady Liadrin" TurnInId="75121" X="1739.441" Y="2524.964" Z="133.6588" />
+		<PickUp QuestName="Sunsworn Camp" QuestId="34451" GiverName="Lady Liadrin" GiverId="75121" X="1739.441" Y="2524.964" Z="133.6589" />
+			<If Condition="IsQuestCompleted(34351)" >
+				<TargetingDistance Value="45" /> <!-- Use LevelBot default -->
+			</If>
+			<!-- End of Exarch's Refuge -->
+
+			<!-- Sunsworn Camp -->
+		<TurnIn QuestName="Sunsworn Camp" QuestId="34451" TurnInName="Lady Liadrin" TurnInId="75246" X="1549.658" Y="2219.562" Z="138.8121" />
+		<PickUp QuestName="Antivenin" QuestId="33971" GiverName="Soulbinder Tuulani" GiverId="78028" X="1545.84" Y="2201.95" Z="139.3567" />
+	    <PickUp QuestName="Into the Hollow" QuestId="33970" GiverName="Soulbinder Nyami" GiverId="75256" X="1549.17" Y="2200.847" Z="139.1025" />
+	    <PickUp QuestName="Vile Defilers" QuestId="33972" GiverName="Mehlar Dawnblade" GiverId="75249" X="1551.307" Y="2224.95" Z="138.8551" />
+
 
 	
 
 
 		
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" Text="I'm serious, there's no more quests." />
 	
 		
 		
