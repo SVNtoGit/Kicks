@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HBProfile xsi:noNamespaceSchemaLocation="../../../Schemas/QuestProfileSchema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <!-- Original contribution by Kickazz006 -->
+    <Name>[H - Quest] 98-100 Nagrand [Kick] ($Rev: 3710 $)</Name>
+
+    <MinLevel>98</MinLevel>
+    <MaxLevel>1001</MaxLevel>
+
+    <MinDurability>0.3</MinDurability>
+    <MinFreeBagSlots>3</MinFreeBagSlots>
+
+    <!-- NB: Honorbuddy sells before mailing -->
+    <SellGrey>true</SellGrey>
+    <SellWhite>true</SellWhite>
+    <SellGreen>true</SellGreen>
+    <SellBlue>true</SellBlue>
+    <SellPurple>false</SellPurple>
+
+    <MailGrey>false</MailGrey>
+    <MailWhite>true</MailWhite>
+    <MailGreen>true</MailGreen>
+    <MailBlue>true</MailBlue>
+    <MailPurple>true</MailPurple>
+
+    <TargetElites>true</TargetElites>
+
+    <AvoidMobs>
+	</AvoidMobs>
+
+    <Blackspots>
+    </Blackspots>
+
+    <Mailboxes> <!-- Need to add Mailboxes and Vendors! -->
+
+    </Mailboxes>
+
+    <Vendors> <!-- Need to add Mailboxes and Vendors! -->
+		<Vendor Name="Percy" Entry="79748" Type="Sell" X="863.1875" Y="2035.922" Z="181.2414" /> <!-- Terrokar Pass -->
+		<Vendor Name="Percy" Entry="79748" Type="Sell" X="643.0799" Y="1931.465" Z="143.9573" /> <!-- Skettis -->
+		<Vendor Name="Percy" Entry="79748" Type="Sell" X="-412.0764" Y="1735.769" Z="47.75461" /> <!-- Terokkar Wayshrine -->
+		<Vendor Name="Kuro'ak" Entry="86386" Type="Food" X="-394.9809" Y="1852.606" Z="53.45686" /> <!-- Veil Terokk -->
+		<Vendor Name="Ruuan the Seer" Entry="87775" Type="Repair" X="-432.757" Y="1850.8" Z="41.62031" /> <!-- Veil Terokk -->
+		<Vendor Name="Tickle Bubblefizz" Entry="82156" Type="Sell" X="-671.5364" Y="2419.594" Z="34.98823" /> <!-- Admiral Taylor G -->
+		<Vendor Name="Nozwik Charbroil" Entry="82568" Type="Food" X="-1575.559" Y="958.059" Z="10.61832" /> <!-- Pinchwhistle GW -->
+		<Vendor Name="Twizix Copperbomb" Entry="82183" Type="Repair" X="-1483.905" Y="981.5174" Z="8.025555" /> <!-- Pinchwhistle GW -->
+		<Vendor Name="Q2-MLT Fabricator" Entry="82182" Type="Repair" X="-2332.87" Y="1117.309" Z="28.32723" /> <!-- Pinchwhistle Point -->
+		<Vendor Name="Akana" Entry="80777" Type="Sell" X="-337.4931" Y="909.0139" Z="75.39072" /> <!-- Talon Watch -->
+		<Vendor Name="Zektar" Entry="88045" Type="Repair" X="-656.007" Y="1524.108" Z="36.65781" /> <!-- Nest of the Raven Speakers -->
+		<Vendor Name="Lo'gron the Shoulder" Entry="81093" Type="Repair" X="2793.32" Y="2519.001" Z="121.1413" /> <!-- Durotan's Grasp -->
+    </Vendors>
+
+    <!-- BEGIN: Quest Overrides -->
+
+   
+   
+   
+   <!-- END: Quest Overrides -->
+   <!-- SMV - Gorgrond - Talador - Spires - Nagrand -->
+
+
+    <QuestOrder IgnoreCheckpoints="true" >
+	
+         <While Condition="Me.IsAlliance">
+            <CustomBehavior File="UserDialog" AllowBotStop="true" SoundCue="Exclamation"
+                            SoundCueInterval="1" Text="You must be Horde to run this profile!" />
+        </While>
+       <!-- BEGIN: Checkpoint Block
+             This code needs to be replicated after every checkpoint.
+             If you modify something in this block, don't forget to update the copy of this
+             block after each checkpoint, and the at the start of the <QuestOrder>, also.
+        -->
+        <CustomBehavior File="Misc\RunLua" Lua="SetCVar('AutoLootDefault', 1)" />
+        <!--<CustomBehavior File="UserSettings" AutoEquip="true" />-->
+
+        <CustomBehavior File="EnablePlugin" Names="Anti Drown" />
+        <CustomBehavior File="EnablePlugin" Names="Refreshment Detection" />
+
+        <CustomBehavior File="Misc\ProfileCompatibilityInfo" AllowBrokenAddOns="true" AllowBrokenPlugIns="true" />
+
+        <LootMobs Value="true" />
+        <TargetingDistance Value="45" /> <!-- Use LevelBot default -->
+        <UseMount Value="true" />
+        <!-- END: Checkpoint Block -->
+
+        <CustomBehavior File="Message" Text="Compiling Nagrand Quests" LogColor="CornflowerBlue" />
+		
+		<!--
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="3" ExpiryTime="9" ExpiryAction="InputEnabled_Continue" 
+			Text="Horde developments in progress, \nplease do not post on forums and ask for more quests, there are no more after the last popup." />
+			-->
+	
+
+			<!-- GoTo Nagrand - Horde Ids -->
+			<If Condition="HasQuest(36602)" > <!-- News from Nagrand - Horde Ids -->
+			  <If Condition="Unit(78487) == null" > <!-- News from Nagrand - Rokhan - Garrison Hearth -->
+				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:110560&quot;)" WaitTime="15000" />
+				<MoveTo X="5614.007" Y="4563.16" Z="135.1946" />
+			  </If>
+		<TurnIn QuestName="News from Nagrand" QuestId="36602" TurnInName="Rokhan" TurnInId="78487" X="5614.007" Y="4563.16" Z="135.1946" />
+		<PickUp QuestName="Taking the Fight to Nagrand" QuestId="34794" GiverName="Rokhan" GiverId="78487" X="5614.007" Y="4563.16" Z="135.1946" />
+			</If>
+			<If Condition="HasQuest(34794)" > <!-- Taking the Fight to Nagrand - Horde Id -->
+			  <If Condition="Me.MapId == 1330" > <!-- Taking the Fight to Nagrand - FP -->
+				<CustomBehavior File="InteractWith" MobId="79407" GossipOptions="2" NonCompeteDistance="0" Range="4" X="5575.775" Y="4563.67" Z="136.2084" PreInteractMountStrategy="DismountOrCancelShapeshift" />
+			  </If>
+		<TurnIn QuestName="Taking the Fight to Nagrand" QuestId="34794" TurnInName="Stone Guard Brox" TurnInId="80001" X="2418.401" Y="4406.193" Z="208.7417" />
+			</If>
+		<PickUp QuestName="The Might of the Warsong" QuestId="34795" GiverName="Stone Guard Brox" GiverId="80001" X="2418.401" Y="4406.193" Z="208.7417" />
+		<TurnIn QuestName="The Might of the Warsong" QuestId="34795" TurnInName="Thrall" TurnInId="80003" X="3217.496" Y="4607.062" Z="143.8812" />
+		<PickUp QuestName="More Lazy Peons" QuestId="34808" GiverName="Thrall" GiverId="80003" X="3217.496" Y="4607.062" Z="143.8812" />
+
+
+
+
+
+	
+
+		
+		
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" Text="I'm serious, there's no more quests." />
+
+			
+		
+	<!--
+
+
+	
+	
+
+	-->
+
+		<!--
+			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
+			</While>
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" Range="4" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, )" 
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" GossipOptions="1" NonCompeteDistance="0" Range="4" TerminateWhen="IsObjectiveComplete(1, )" 
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" ObjectType="GameObject" NonCompeteDistance="0" Range="5" TerminateWhen="IsObjectiveComplete(1, )" 
+		
+			 <If Condition="!IsObjectiveComplete(1, )">
+			 </If>
+			<If Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
+			</If>
+			 <While Condition="!IsObjectiveComplete(1, 00000)"> 
+			 </While>
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" Range="5" 
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" ObjectType="GameObject" WaitTime="2000" Range="3" 
+
+			<If Condition="HasQuest() &amp;&amp; !HasItem()" >
+			</If>
+			
+			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="4" TerminateWhen="IsObjectiveComplete(1, )" 
+											CollectionDistance="200" NonCompeteDistance="0" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+				  <HuntingGrounds>
+					
+				  </HuntingGrounds>
+				</CustomBehavior>
+			</While>
+			
+			<While Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" ObjectType="GameObject" NumOfTimes="20" Range="5" NonCompeteDistance="0" 
+											TerminateWhen="IsObjectiveComplete(1, )" CollectionDistance="200" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+				  <HuntingGrounds>
+					
+				  </HuntingGrounds>
+				</CustomBehavior>
+			</While>
+			
+			// bonus objectives quick copy
+			<If Condition="!HasQuest() &amp;&amp; !IsQuestCompleted()" >
+				<MoveTo 
+			</If>
+			<If Condition="HasQuest() &amp;&amp; !IsQuestCompleted()" >
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="4" CollectionDistance="200" TerminateWhen="IsObjectiveComplete(1, )" NonCompeteDistance="0" >
+				  <HuntingGrounds>
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="InteractWith" QuestId="" MobId="" NumOfTimes="20" Range="4" CollectionDistance="200" TerminateWhen="IsObjectiveComplete(2, )" NonCompeteDistance="0" >
+				  <HuntingGrounds>
+				  </HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+			</If>
+			
+
+			-->
+		
+		
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
+										Text="End of Tested Profile. Development from here. \n
+										Yes, you read correctly.  There are no more quests after this message. Don't post on forums and ask." />
+
+			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" Text="I'm serious, there's no more quests." />
+
+	</QuestOrder>
+
+</HBProfile>
