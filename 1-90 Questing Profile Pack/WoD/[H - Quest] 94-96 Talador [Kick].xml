@@ -29,6 +29,7 @@
 	</AvoidMobs>
 
     <Blackspots>
+		<Blackspot X="3690.457" Y="1196.113" Z="90.14668" Radius="2" /> <!-- Kuuro -->
     </Blackspots>
 
     <Mailboxes> <!-- Need to add Mailboxes and Vendors! -->
@@ -1001,9 +1002,8 @@
 		<PickUp QuestName="At Your Command" QuestId="34566" GiverName="Foreman Grobash" GiverId="79176" X="3246.724" Y="1596.576" Z="162.5327" />
 			<If Condition="HasQuest(34566) &amp;&amp; !IsQuestCompleted(34566)" > <!-- At Your Command -->
 				<CustomBehavior File="InteractWith" QuestId="34566" Name="Drafting Table" MobId="231231" NonCompeteDistance="0" MobType="GameObject" X="3234.706" Y="1594.054" Z="164.5004" />
-				<!-- I chose the Arcane Sanctum, option 2 -->
 				<CustomBehavior File="UserDialog" QuestId="34566" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="300" 
-											ExpiryAction="InputEnabled_Continue" Text="Choose Arcane Sanctum until both are scripted" />
+											ExpiryAction="InputEnabled_Continue" Text="Choose Arcane Sanctum or Arsenal Tower - Both are scripted" />
 				<CustomBehavior File="Misc\RunLua" QuestId="34566" Lua="QuestChoiceFrameOption2.OptionButton:Click()" WaitTime="3000" />
 				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
 			</If>
@@ -1015,7 +1015,7 @@
 			  <If Condition="Object(231143) != null"> <!-- Sanctum -->
 		<PickUp QuestName="An Audience With The Archmage" QuestId="34632" GiverName="Foreman Grobash" GiverId="79176" X="3246.724" Y="1596.576" Z="162.5324" />
 			  </If>
-			  <If Condition="Object(231803) != null"> <!-- Arsenal -->
+			  <If Condition="Object(231142) != null"> <!-- Arsenal (Armory) -->
 		<PickUp QuestName="The Quarry Quandary" QuestId="34569" GiverName="Foreman Grobash" GiverId="79176" X="3246.724" Y="1596.576" Z="162.5324" />   
 			  </If>	
 			</If>
@@ -1070,16 +1070,14 @@
 		</If>
 		<!-- END OF SANCTUM CHAIN - PARTIAL -->
 
-			<If Condition="HasQuest(34569) || IsQuestCompleted(34569)"> <!-- START ARSENAL CHAIN -->
+			<!-- START ARSENAL CHAIN -->
+			<If Condition="HasQuest(34569) || IsQuestCompleted(34569)"> <!-- Aresenal / The Quarry Quandary -->
 		<TurnIn QuestName="The Quarry Quandary" QuestId="34569" TurnInName="Morketh Bladehowl" TurnInId="79210" X="3260.163" Y="1546.627" Z="162.9539" />
 		<PickUp QuestName="Unleashed Steel" QuestId="35102" GiverName="Morketh Bladehowl" GiverId="79210" X="3260.163" Y="1546.627" Z="162.9539" />
 		<TurnIn QuestName="Unleashed Steel" QuestId="35102" TurnInName="Morketh Bladehowl" TurnInId="79356" X="3217.057" Y="1606.389" Z="166.068" />
 		<PickUp QuestName="Gas Guzzlers" QuestId="34579" GiverName="Morketh Bladehowl" GiverId="79356" X="3217.057" Y="1606.389" Z="166.068" />
 		<PickUp QuestName="Out of Jovite" QuestId="34577" GiverName="Morketh Bladehowl" GiverId="79356" X="3217.057" Y="1606.389" Z="166.068" />
 		<PickUp QuestName="Iridium Recovery" QuestId="34576" GiverName="Morketh Bladehowl" GiverId="79356" X="3217.057" Y="1606.389" Z="166.068" />
-		
-			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" Text="I'm serious, there's no more quests." />
-	
 			<If Condition="HasQuest(34577) &amp;&amp; Unit(79356) != null" > <!-- Out of Jovitey -->
 				<MoveTo X="3280.993" Y="1550.427" Z="160.0263" />
 			</If>
@@ -1101,11 +1099,11 @@
 				</CustomBehavior>
 			</While>
 			<Objective QuestName="Out of Jovite" QuestId="34577" Type="CollectItem" ItemId="111906" CollectCount="12" />
-				<If Condition="!IsQuestCompleted(34263)"><!-- Treasure: Pure Crystal Dust -->
+			<If Condition="!IsQuestCompleted(34263)"><!-- Treasure: Pure Crystal Dust -->
 				<CustomBehavior File="InteractWith" MobId="228026" ObjectType="GameObject" Range="4" X="3844.26" Y="1169.962" Z="109.1499" /> 
-				</If>
+			</If>
 			<Objective QuestName="Iridium Recovery" QuestId="34576" Type="CollectItem" ItemId="110898" CollectCount="8" />
-			<If Condition="HasQuest(34579) &amp;&amp; !IsQuestCompleted(34579)" > <!-- Gas Guzzlers -->
+			<If Condition="HasQuest(34579)" > <!-- Gas Guzzlers -->
 				<MoveTo X="3280.993" Y="1550.427" Z="160.0263" />
 			</If>
 		<TurnIn QuestName="Gas Guzzlers" QuestId="34579" TurnInName="Morketh Bladehowl" TurnInId="79356" X="3217.057" Y="1606.389" Z="166.068" />
@@ -1114,36 +1112,30 @@
 			<!-- End of Vol'jin's Arsenal -->
 			
 			<!-- Gordunni -->
-
 			<If Condition="!HasQuest(34837) &amp;&amp; !IsQuestCompleted(34837)">
 		<PickUp QuestName="Going to the Gordunni" QuestId="34837" GiverName="Morketh Bladehowl" GiverId="79356" X="3217.057" Y="1606.389" Z="166.068" />
-		<MoveTo X="3247.444" Y="1586.256" Z="162.0983" />
-			<If Condition="Unit(79356) != null" > <!-- Morketh @ Camp -->
-		<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
-			</If>
-		<MoveTo X="3259.898" Y="1659.674" Z="159.7653" />
+				<MoveTo X="3247.444" Y="1586.256" Z="162.0983" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
+				<MoveTo X="3259.898" Y="1659.674" Z="159.7653" />
 			</If> 
-				<If Condition="!IsQuestCompleted(34205)">
-				<CustomBehavior File="InteractWith"  MobId="77776" ObjectType="Npc" NumOfTimes="1"  X="3101.538" Y="1660.394" Z="163.447"   CollectionDistance="200" MobState="Alive" WaitForNpcs="False" /> <!-- Wandering Vindicator NPC -->
-				<CustomBehavior File="InteractWith"  MobId="227859" ObjectType="GameObject" NumOfTimes="1"  X="3110.969" Y="1677.63" Z="165.2378"   CollectionDistance="200" WaitForNpcs="False" /> <!-- Vignette: Wandering Vindicator - Looted Treasure  -->
-				</If>
-				<If Condition="!IsQuestCompleted(36858)"> <!-- Vignette: Steeltusk  -->
-			<CustomBehavior File="InteractWith"  MobId="86549" NumOfTimes="1"  CollectionDistance="200" MobState="Alive" WaitForNpcs="False" X="3005.715" Y="1797.035" Z="143.9281"  />
-				</If>
-				<If Condition="!IsQuestCompleted(34252)"> <!-- Treasure: Barrel of Fish -->
-				<CustomBehavior File="InteractWith" MobId="228016" ObjectType="GameObject" Range="4" X="2522.234" Y="2112.002" Z="108.3595" />
-				</If>
-				<If Condition="!IsQuestCompleted(34101)"> 
-				<CustomBehavior File="InteractWith" MobId="227527" ObjectType="GameObject" Range="4" X="2211.437" Y="1715.16" Z="118.0783" />
-				</If> 				<!-- Lightbearer - No XP but still 100g :D -->
-
+			<If Condition="!IsQuestCompleted(34205)">
+				<CustomBehavior File="InteractWith" MobId="77776" X="3101.538" Y="1660.394" Z="163.447" CollectionDistance="200" MobState="Alive" WaitForNpcs="False" /> <!-- Wandering Vindicator NPC -->
+				<CustomBehavior File="InteractWith" MobId="227859" ObjectType="GameObject" X="3110.969" Y="1677.63" Z="165.2378" CollectionDistance="200" WaitForNpcs="False" /> <!-- Vignette: Wandering Vindicator - Looted Treasure  -->
+			</If>
+			<If Condition="!IsQuestCompleted(36858)"> <!-- Vignette: Steeltusk  -->
+				<CustomBehavior File="InteractWith" MobId="86549" MobState="Alive" WaitForNpcs="False" X="3005.715" Y="1797.035" Z="143.9281"  />
+			</If>
+			<If Condition="!IsQuestCompleted(34252)"> <!-- Treasure: Barrel of Fish -->
+			<CustomBehavior File="InteractWith" MobId="228016" ObjectType="GameObject" Range="4" X="2522.234" Y="2112.002" Z="108.3595" />
+			</If>
+			<If Condition="!IsQuestCompleted(34101)"> <!-- Lightbearer gold sell -->
+			<CustomBehavior File="InteractWith" MobId="227527" ObjectType="GameObject" Range="4" X="2211.437" Y="1715.16" Z="118.0783" />
+			</If>
 			<If Condition="HasQuest(34837) &amp;&amp; !IsQuestCompleted(34837)" >
 				<MoveTo X="1677.67" Y="2126.579" Z="143.7136" />
 			</If>
-
-				<TurnIn QuestName="Going to the Gordunni" QuestId="34837" TurnInName="Morketh Bladehowl" TurnInId="80229" />
-
-			<PickUp QuestName="Dropping Bombs" QuestId="34840" GiverName="Morketh Bladehowl" GiverId="80229" X="1677.486" Y="2128.863" Z="143.8435" />
+		<TurnIn QuestName="Going to the Gordunni" QuestId="34837" TurnInName="Morketh Bladehowl" TurnInId="80229" />
+		<PickUp QuestName="Dropping Bombs" QuestId="34840" GiverName="Morketh Bladehowl" GiverId="80229" X="1677.486" Y="2128.863" Z="143.8435" />
 			<While Condition="HasQuest(34840) &amp;&amp; !IsQuestCompleted(34840)" > <!-- Dropping Bombs -->
 				<CustomBehavior File="InteractWith" QuestId="34840" MobId="230889" MobType="GameObject" Range="12" TerminateWhen="IsObjectiveComplete(1, 34840)" 
 											PreInteractMountStrategy="DismountOrCancelShapeshift" X="1686.168" Y="2043.464" Z="166.2137" /> <!-- Base Catapult -->
@@ -1159,29 +1151,40 @@
 		<PickUp QuestName="Prized Repossessions" QuestId="34858" GiverName="Morketh Bladehowl" GiverId="80339" X="1625.816" Y="1733.194" Z="307.0859" />
 		<PickUp QuestName="Punching Through" QuestId="34855" GiverName="Morketh Bladehowl" GiverId="80339" X="1625.816" Y="1733.194" Z="307.0859" />
 			<While Condition="HasQuest(34860) &amp;&amp; !IsQuestCompleted(34860)" > <!-- Supply Recovery -->
-			<CustomBehavior File="InteractWith" QuestId="34860" MobId="80323" NumOfTimes="20" Range="8" 
-							CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
-				<HuntingGrounds>
-					<Hotspot X="1439.089" Y="1733.406" Z="306.4536" />	
-					<Hotspot X="1553.752" Y="1645.648" Z="311.4187" />
-					<Hotspot X="1392.044" Y="1765.341" Z="318.1375" />
-					<Hotspot X="1264.333" Y="1696.34" Z="314.2447" />
-					<Hotspot X="1328.266" Y="1808.996" Z="344.0413" />
-					<Hotspot X="1320.432" Y="1896.656" Z="337.1228" />
-					<Hotspot X="1165.507" Y="1722.994" Z="330.7602" />
-				</HuntingGrounds>
-			</CustomBehavior>
+				<CustomBehavior File="InteractWith" QuestId="34860" MobId="80323" NumOfTimes="20" Range="8" 
+								CollectionDistance="1000" PreInteractMountStrategy="DismountOrCancelShapeshift" >
+					<HuntingGrounds>
+						<Hotspot X="1439.089" Y="1733.406" Z="306.4536" />	
+						<Hotspot X="1553.752" Y="1645.648" Z="311.4187" />
+						<Hotspot X="1392.044" Y="1765.341" Z="318.1375" />
+						<Hotspot X="1264.333" Y="1696.34" Z="314.2447" />
+						<Hotspot X="1328.266" Y="1808.996" Z="344.0413" />
+						<Hotspot X="1320.432" Y="1896.656" Z="337.1228" />
+						<Hotspot X="1165.507" Y="1722.994" Z="330.7602" />
+					</HuntingGrounds>
+				</CustomBehavior>
 			</While>
-				<If Condition="HasQuest(34855) &amp;&amp; !IsObjectiveComplete(1, 34855)" > <!-- Punching Through -->
-			<MoveTo X="1170.699" Y="1746.001" Z="329.7249" />			
-			<Objective QuestName="Punching Through" QuestId="34855" Type="KillMob" MobId="80294" KillCount="1" X="1135.076" Y="1746.431" Z="332.4252" />
+			<While Condition="HasQuest(34855) &amp;&amp; !IsQuestCompleted(34855)" > <!-- Punching Through -->
+				<!-- DELETE AFTER KILLMOB X1 IS FIXED IN HB -->
+				<If Condition="!IsObjectiveComplete(1, 34910)"> <!-- Vizier Vorgorsh -->
+					<MoveTo X="1136.474" Y="1746.022" Z="332.404" />
 				</If>
-			<Objective QuestName="Punching Through" QuestId="34855" Type="KillMob" MobId="80292" KillCount="1" X="1366.564" Y="1830.259" Z="349.1286" />
-				<If Condition="!IsQuestCompleted(34251)"> <!-- Treasure: Iron Box -->
-			<MoveTo X="1281.979" Y="1980.921" Z="339.8494" />
-			<CustomBehavior File="InteractWith" MobId="228015" ObjectType="GameObject" WaitTime="2000" Range="2" X="1280.913" Y="1982.535" Z="340.0328" /> 
+				<If Condition="!IsObjectiveComplete(2, 34910)"> <!-- Vizier Zulmork -->
+					<MoveTo X="1366.564" Y="1830.259" Z="349.1287" />
 				</If>
-			<Objective QuestName="Punching Through" QuestId="34855" Type="KillMob" MobId="80295" KillCount="1" X="1203.583" Y="1886.641" Z="343.8007" />
+				<If Condition="!IsObjectiveComplete(3, 34910)"> <!-- Vizier Cromaug -->
+					<MoveTo X="1203.583" Y="1886.641" Z="343.8008" />
+				</If>
+				<!--
+					<Objective QuestName="Punching Through" QuestId="34855" Type="KillMob" MobId="80294" KillCount="1" X="1135.076" Y="1746.431" Z="332.4252" />
+					<Objective QuestName="Punching Through" QuestId="34855" Type="KillMob" MobId="80292" KillCount="1" X="1366.564" Y="1830.259" Z="349.1286" />
+					<Objective QuestName="Punching Through" QuestId="34855" Type="KillMob" MobId="80295" KillCount="1" X="1203.583" Y="1886.641" Z="343.8007" />
+				-->
+			</While>
+			<If Condition="!IsQuestCompleted(34251)"> <!-- Treasure: Iron Box -->
+				<MoveTo X="1281.979" Y="1980.921" Z="339.8494" />
+				<CustomBehavior File="InteractWith" MobId="228015" ObjectType="GameObject" WaitTime="2000" Range="2" X="1280.913" Y="1982.535" Z="340.0328" /> 
+			</If>
 			<Objective QuestName="Prized Repossessions" QuestId="34858" Type="CollectItem" ItemId="112504" CollectCount="6" />
 		<TurnIn QuestName="Supply Recovery" QuestId="34860" TurnInName="Morketh Bladehowl" TurnInId="80229" X="1650.39" Y="1671.984" Z="303.9699" />
 		<TurnIn QuestName="Prized Repossessions" QuestId="34858" TurnInName="Morketh Bladehowl" TurnInId="80229" X="1650.39" Y="1671.984" Z="303.9699" />
@@ -1209,14 +1212,16 @@
 		<TurnIn QuestName="The Only Way to Travel" QuestId="34971" TurnInName="Morketh Bladehowl" TurnInId="80623" X="3240.427" Y="1588.71" Z="163.2917" />
  				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 				<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" WaitTime="5000" />
-				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
 			</If>
-			<If Condition="!HasQuest(34972) &amp;&amp; !IsQuestCompleted(34972)" > <!-- Armor Up / Morketh Bladehowl Follower -->
-		<PickUp QuestName="Armor Up" QuestId="34972" GiverName="Morketh Bladehowl" GiverId="80623" X="3240.427" Y="1588.71" Z="163.2917" />
+            <If Condition="!HasQuest(34972) &amp;&amp; !IsQuestCompleted(34972)" > <!-- Armor Up / Morketh Bladehowl Follower -->
+                <MoveTo X="3240.427" Y="1588.71" Z="163.2917" />
+                <CustomBehavior File="InteractWith" MobId="80623" WaitTime="3000" X="3240.427" Y="1588.71" Z="163.2917" />
+                <CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+				<CustomBehavior File="ForceSetVendor" DoSell="True" DoRepair="True" DoMail="True" />
             </If>
 			</If>
 			<!-- END ARSENAL QUESTS -->
-		
 		
 			<!-- Vol'jin's Pride -->
 		<PickUp QuestName="Logistical Nightmare" QuestId="34766" GiverName="Versorgerin Naya" GiverId="79921" X="3259.152" Y="1588.486" Z="162.4129" />
@@ -1582,9 +1587,23 @@
 					</HuntingGrounds>
 				</CustomBehavior>
 			</While>
+			<While Condition="HasQuest(34910) &amp;&amp; !IsQuestCompleted(34910)" > <!-- Vicious Viziers -->
+				<!-- DELETE CONDITION AND MOVETO'S AFTER HB IS FIXED AND CAN MOVE TO KILLMOB X1 ON IT'S OWN -->
+				<If Condition="!IsObjectiveComplete(1, 34910)"> <!-- Vizier Vorgorsh -->
+					<MoveTo X="1136.474" Y="1746.022" Z="332.404" />
+				</If>
+				<If Condition="!IsObjectiveComplete(2, 34910)"> <!-- Vizier Zulmork -->
+					<MoveTo X="1366.564" Y="1830.259" Z="349.1287" />
+				</If>
+				<If Condition="!IsObjectiveComplete(3, 34910)"> <!-- Vizier Cromaug -->
+					<MoveTo X="1203.583" Y="1886.641" Z="343.8008" />
+				</If>
+				<!--
 			<Objective QuestName="Vicious Viziers" QuestId="34888" Type="KillMob" MobId="80294" KillCount="1" />
 			<Objective QuestName="Vicious Viziers" QuestId="34888" Type="KillMob" MobId="80292" KillCount="1" />
 			<Objective QuestName="Vicious Viziers" QuestId="34888" Type="KillMob" MobId="80295" KillCount="1" />
+				-->
+			</While>
 			<Objective QuestName="While We're in the Neighborhood" QuestId="34887" Type="CollectItem" ItemId="112088" CollectCount="8" />
 	    <TurnIn QuestName="While We're in the Neighborhood" QuestId="34887" TurnInName="Magister Krelas" TurnInId="79393" X="1633.623" Y="1760.865" Z="311.516" />
 	    <TurnIn QuestName="Orbs of Power" QuestId="34889" TurnInName="Magister Krelas" TurnInId="79393" X="1633.623" Y="1760.865" Z="311.516" />
