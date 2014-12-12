@@ -992,7 +992,11 @@
 		<TurnIn QuestName="Hidden in Plain Sight" QuestId="34656" TurnInName="Reshad" TurnInId="79519" X="861.1337" Y="2035.833" Z="179.6189" />
 		<TurnIn QuestName="Adherents of the Sun God" QuestId="34657" TurnInName="Reshad" TurnInId="79519" X="861.1337" Y="2035.833" Z="179.6189" />
 		<PickUp QuestName="Orders From On High" QuestId="34658" GiverName="Reshad" GiverId="79519" X="861.1337" Y="2035.833" Z="179.6189" />
-			<Objective QuestName="Orders From On High" QuestId="34658" Type="CollectItem" ItemId="111575" CollectCount="1" />
+			<If Condition="HasQuest(34658) &amp;&amp; !IsQuestCompleted(34658)" > <!-- Orders From On High -->
+				<CustomBehavior File="Hooks\Avoid" AvoidName="SolarZone" Command="Add" ObjectType="AreaTrigger" ObjectId="6622" Radius="5" />
+				<Objective QuestName="Orders From On High" QuestId="34658" Type="CollectItem" ItemId="111575" CollectCount="1" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="SolarZone" Command="Remove" />
+			</If>
 		<TurnIn QuestName="Orders From On High" QuestId="34658" TurnInName="Reshad" TurnInId="79519" X="645.6268" Y="1930.595" Z="143.007" />
 		<PickUp QuestName="The Crone" QuestId="34659" GiverName="Reshad" GiverId="79519" X="645.6268" Y="1930.595" Z="143.007" />
 			<While Condition="HasQuest(34659) &amp;&amp; !IsQuestCompleted(34659)" > <!-- The Crone -->
@@ -1017,9 +1021,9 @@
 				  </HuntingGrounds>
 				</CustomBehavior>
 			</While>
-			<While Condition="HasQuest(35636) &amp;&amp; !IsQuestCompleted(35636)" >
+			<While Condition="HasQuest(35636) &amp;&amp; !IsQuestCompleted(35636)" > <!-- All Due Respect -->
 				<CustomBehavior File="InteractWith" QuestId="35636" MobId="80047" Range="5" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 35636)" X="-86.50347" Y="1636.05" Z="-5.85516" />
-				<CustomBehavior File="InteractWith" QuestId="35636" MobId="233073" NonCompeteDistance="0" ObjectType="GameObject" Range="5" WaitTime="10000" TerminateWhen="IsObjectiveComplete(2, 35636)" X="-100.7778" Y="1651.101" Z="-4.661029" />
+				<CustomBehavior File="InteractWith" QuestId="35636" MobId="233073" NonCompeteDistance="0" ObjectType="GameObject" Range="4" WaitTime="10000" TerminateWhen="IsObjectiveComplete(2, 35636)" X="-99.8935" Y="1649.166" Z="-4.999897" />
 			</While>
 		<TurnIn QuestName="All Due Respect" QuestId="35636" TurnInName="Reshad" TurnInId="82621" X="-99.70644" Y="1634.195" Z="-5.854776" />
 		<PickUp QuestName="Syth's Secret" QuestId="35668" GiverName="Reshad" GiverId="82621" X="-99.70644" Y="1634.195" Z="-5.854776" />
@@ -1035,14 +1039,14 @@
 			</While>
 		<TurnIn QuestName="Syth's Secret" QuestId="35668" TurnInName="Reshad" TurnInId="81770" X="-413.4514" Y="1737.877" Z="45.62154" />
 		<PickUp QuestName="A Gathering of Shadows" QuestId="35671" GiverName="Reshad" GiverId="81770" X="-413.4514" Y="1737.877" Z="45.62154" />
-			<While Condition="HasQuest(35671) &amp;&amp; !IsQuestCompleted(35671)" >
+			<While Condition="HasQuest(35671) &amp;&amp; !IsQuestCompleted(35671)" > <!-- A Gathering of Shadows -->
 				<MoveTo X="-413.4514" Y="1737.877" Z="45.62154" />	
 				<MoveTo X="-505.3727" Y="1855.819" Z="44.78161" />			
 				<CustomBehavior File="WaitTimer" QuestId="35671" WaitTime="15000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</While>
 		<TurnIn QuestName="A Gathering of Shadows" QuestId="35671" TurnInName="Shadow-Sage Iskar" TurnInId="80153" X="-459.2104" Y="1862.558" Z="41.12117" />
 		<PickUp QuestName="One of Our Own" QuestId="35274" GiverName="Jasper Fel" GiverId="81891" X="-489.5035" Y="1899.825" Z="41.27819" />
-			<While Condition="HasQuest(35274) &amp;&amp; !IsQuestCompleted(35274)" >
+			<While Condition="HasQuest(35274) &amp;&amp; !IsQuestCompleted(35274)" > <!-- One of Our Own -->
 				<CustomBehavior File="InteractWith" QuestId="35274" MobId="80153" GossipOptions="1" Range="5" TerminateWhen="IsObjectiveComplete(1, 35274)" X="-459.2104" Y="1862.558" Z="41.12117" />
 			</While>
 		<TurnIn QuestName="One of Our Own" QuestId="35274" TurnInName="Jasper Fel" TurnInId="81891" X="-489.5035" Y="1899.825" Z="41.27819" />
@@ -1054,7 +1058,6 @@
 		<PickUp QuestName="Orders, Commander?" QuestId="35286" GiverName="Lieutenant Willem" GiverId="81929" X="-1072.765" Y="2267.486" Z="6.815571" />
 			<While Condition="HasQuest(35286) &amp;&amp; !IsQuestCompleted(35286)" > <!-- Orders, Commander? -->
 				<CustomBehavior File="InteractWith" QuestId="35286" MobId="232089" NonCompeteDistance="0" ObjectType="GameObject" X="-1074.243" Y="2272.849" Z="6.641958" />
-				<!-- I chose the Stocktron Brewery, option 1 -->
 				<CustomBehavior File="UserDialog" QuestId="34558" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="2" ExpiryTime="300" 
 											ExpiryAction="InputEnabled_Continue" Text="Choose a Brewery or Den.  Brewery has a 20% XP Boost.\nBoth are developed." />
 				<CustomBehavior File="Misc\RunLua" QuestId="34558" Lua="QuestChoiceFrameOption1.OptionButton:Click()" WaitTime="8000" />
