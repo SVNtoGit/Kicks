@@ -863,7 +863,7 @@
 			</Hotspots>
 		</Objective>
 	</Quest>
-    <Quest Id="33872" Name="Dusk of the Dead">
+    <Quest Id="33872" Name="Dust of the Dead">
 		<Objective Type="CollectItem" ItemId="108645" CollectCount="7">
 			<CollectFrom>
 				<Mob Name="Agitated Duskwing" Entry="76668" />
@@ -903,7 +903,34 @@
 			</Hotspots>
 		</Objective>
     </Quest>
-   
+	<Quest Id="34761" Name="Clear!">
+		<Objective Type="CollectItem" ItemId="111637" CollectCount="6">
+			<CollectFrom>
+				<Mob Name="Lakebottom Zapper" Entry="79636" />
+			</CollectFrom>
+			<Hotspots>
+				<Hotspot X="2813.603" Y="2353.516" Z="105.3057" />
+				<Hotspot X="2751.604" Y="2361.271" Z="105.7198" />
+				<Hotspot X="2743.613" Y="2291.359" Z="105.72" />
+				<Hotspot X="2721.137" Y="2228.829" Z="105.7199" />
+				<Hotspot X="2642.797" Y="2116.846" Z="105.632" />
+				<Hotspot X="2544.242" Y="2146.814" Z="105.72" />
+				<Hotspot X="2449.493" Y="2176.365" Z="105.72" />
+				<Hotspot X="2589.848" Y="2125.339" Z="105.7208" />
+				<Hotspot X="2688.111" Y="2006.828" Z="105.72" />
+				<Hotspot X="2733.229" Y="2055.144" Z="105.721" />				
+				<Hotspot X="2279.821" Y="1473.585" Z="105.3055" />
+				<Hotspot X="2176.696" Y="1430.528" Z="105.7197" />
+				<Hotspot X="2110.395" Y="1455.01" Z="105.7195" />
+				<Hotspot X="2024.918" Y="1525.893" Z="105.6988" />
+				<Hotspot X="2011.914" Y="1589.512" Z="105.6988" />
+				<Hotspot X="2013.761" Y="1629.697" Z="105.6988" />				
+				<Hotspot X="2046.313" Y="1873.428" Z="105.7195" />
+				<Hotspot X="2109.556" Y="1945.246" Z="105.7196" />
+			</Hotspots>
+		</Objective>
+	</Quest>   
+	
 
 
 
@@ -2183,6 +2210,7 @@
 		<TurnIn QuestName="Kaelynara Sunchaser" QuestId="34448" TurnInName="Vindicator Doruu" TurnInId="78538" X="2423.043" Y="2755.477" Z="115.0282" />
 		<!-- End of Journe Mine / Auchindoun -->
 		
+			<!-- Duskfall -->
 		<PickUp QuestName="Clear!" QuestId="34761" GiverName="Ziz Fizziks" GiverId="79901" X="2427.81" Y="2081.68" Z="118.29" />
 			<If Condition="HasQuest(34761) &amp;&amp; !IsQuestCompleted(34761)" >
 				   <UseMount Value="false" />
@@ -2194,15 +2222,14 @@
 				<CustomBehavior File="WaitTimer" WaitTime="35000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
 			<While Condition="!HasQuest(35239) &amp;&amp; !IsQuestCompleted(35239)" > <!-- New Owner / Pleasure-Bot 8000 Follower -->
-				<MoveTo X="2529.18" Y="2002.89" Z="113.612" />
-				<CustomBehavior File="InteractWith" MobId="79853" WaitTime="3000" X="2529.18" Y="2002.89" Z="113.612" />
+				<MoveTo X="2423.81" Y="2083.69" Z="118.3002" />
+				<CustomBehavior File="InteractWith" MobId="79853" WaitTime="3000" X="2423.81" Y="2083.69" Z="118.3002" />
 				<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
 			</While>
-			
-			<!-- ADD IN THE ALLY VERSION OF QUESTS FROM DUSKFALL -
-			- there's a 'go to' quest called 'seek out the seer' that we never pick up 
-			-->
-	    <PickUp QuestName="Dusk of the Dead" QuestId="33872" GiverName="Seherin Malune" GiverId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
+			<If Condition="HasQuest(33871)" >
+		<TurnIn QuestName="Seek Out the Seer" QuestId="33871" TurnInName="Seer Malune" TurnInId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
+			</If>
+	    <PickUp QuestName="Dust of the Dead" QuestId="33872" GiverName="Seherin Malune" GiverId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
 	    <PickUp QuestName="Cure of Aruunem" QuestId="33873" GiverName="Seherin Malune" GiverId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
 			<While Condition="HasQuest(33873) &amp;&amp; !IsQuestCompleted(33873)"> <!-- Cure of Aruunem -->
 				<CustomBehavior File="InteractWith" QuestId="33873" MobId="226888" Range="5" NumOfTimes="20" ProactiveCombatStrategy="ClearMobsTargetingUs" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 33873)" >
@@ -2244,7 +2271,8 @@
 				<CustomBehavior File="KillUntilComplete" QuestId="33837" MobId="76824" TerminateWhen="IsObjectiveComplete(1, 33837) || Unit(76824) == null" X="2222.285" Y="1722.799" Z="117.6865" />
 			</If>
 	    <TurnIn QuestName="Aruumel's Rest" QuestId="33874" TurnInName="Seherin Malune" TurnInId="76665" X="2412.587" Y="1932.405" Z="128.9913" />
-
+			<!-- End Duskfall -->	
+		
 		<!-- Grind to 96 -->
 		<SetGrindArea>
 			<GrindArea>
