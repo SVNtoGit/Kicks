@@ -1138,15 +1138,21 @@
 				</If>
 				<CustomBehavior File="InteractWith" QuestId="36166" MobId="84259" Range="4" GossipOptions="1" PreInteractMountStrategy="DismountOrCancelShapeshift" TerminateWhen="IsObjectiveComplete(1, 36166)" X="-364.1945" Y="2250.507" Z="27.36109" />
 			</While>
+			<If Condition="HasQuest(36166) &amp;&amp; !IsQuestCompleted(36166)" > <!-- No Time to Waste -->
 		<TurnIn QuestName="No Time to Waste" QuestId="36166" TurnInName="Lunzul" TurnInId="84259" X="-364.1945" Y="2250.507" Z="27.36109" />
-             <If Condition="!HasQuest(37281) &amp;&amp; !IsQuestCompleted(37281) &amp;&amp; !IsQuestCompleted(35293)" > <!-- Velonara / Follower -->
+				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+ 			</If>
+            <If Condition="!HasQuest(37281) &amp;&amp; !IsQuestCompleted(37281) &amp;&amp; !IsQuestCompleted(35293)" > <!-- Velonara / Follower -->
                 <MoveTo X="-367.0347" Y="2254.575" Z="27.13527" />
 				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for Velonara {TimeRemaining}" />
                 <CustomBehavior File="InteractWith" MobId="88179" WaitForNpcs="False" WaitTime="3000" X="-367.0347" Y="2254.575" Z="27.13527" />
                 <CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
              </If>
+             <If Condition="!HasQuest(37292) &amp;&amp; !IsQuestCompleted(37292)" > <!-- Pickup Not In Your Army -->
 		<PickUp QuestName="Not In Your Army" QuestId="37292" GiverName="Lunzul" GiverId="84292" X="-338.5903" Y="2249.964" Z="28.267" />
+				<MoveTo X="-368.8386" Y="2249.375" Z="26.54297" />
+             </If>
 			<While Condition="HasQuest(37292) &amp;&amp; !IsQuestCompleted(37292)" > <!-- Not In Your Army -->
 				<!-- Avoid.cs stuff: 
 				Rorka Id: 88234
