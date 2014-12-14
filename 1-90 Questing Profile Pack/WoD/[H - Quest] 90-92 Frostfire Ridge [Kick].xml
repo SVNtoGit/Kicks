@@ -972,6 +972,11 @@
 			<PickUp QuestName="The Dark Portal" QuestId="34398" GiverName="Warchiefs Command Board" GiverId="206109" X="1596.325" Y="-4365.863" Z="21.06839" />
 		</If>
 		<If Condition="HasQuest(34398) &amp;&amp; !IsQuestCompleted(34398)" >
+			<If Condition="Me.ZoneId == 4"> <!-- Blasted Lands -->
+				<MoveTo DestName="near Khadgar" X="-11806.83" Y="-3203.989" Z="-28.92494" />
+				<CustomBehavior File="InteractWith" MobId="78423" GossipOptions="1" ProactiveCombatStrategy="ClearMobsTargetingUs" NonCompeteDistance="0" KeepTargetSelected="True" Range="6" X="-11812.26" Y="-3205.597" Z="-29.56283" /> <!-- Khadgar -->
+                <CustomBehavior File="Misc\RunLua" Lua="StaticPopup1Button1:Click()" WaitTime="1000" />
+			</If>
 			<If Condition="Me.ZoneId == 1637"> <!-- Org -->
 				<ClearVendor />
 				<SetVendor>
@@ -989,14 +994,15 @@
 				<ClearVendor />
 				<ClearMailbox />
 			</If>
+			<If Condition="Me.ZoneId != 1265"> <!-- Tanaan -->
+                <UseMount Value="false" />
 
-			<UseMount Value="false" />
-
-			<CustomBehavior File="FlyTo" DestName="Khadgar port to Tanaan" X="1585.265" Y="-4370.585" Z="20.78289" />
-			<MoveTo X="1585.265" Y="-4370.585" Z="20.78289" /> <!-- The Dark Portal -->
-			<CustomBehavior File="InteractWith" MobId="78423" KeepTargetSelected="True" PreInteractMountStrategy="DismountOrCancelShapeshift" 
-											GossipOptions="1" NonCompeteDistance="0" Range="5" WaitTime="5000" X="1592.226" Y="-4373.335" Z="20.77822" /> <!-- Khadgar -->
-			<CustomBehavior File="Misc\RunLua" Lua="StaticPopup1Button1:Click()" WaitTime="3000" />
+                <CustomBehavior File="FlyTo" DestName="Khadgar port to Tanaan" X="1585.265" Y="-4370.585" Z="20.78289" />
+                <MoveTo X="1585.265" Y="-4370.585" Z="20.78289" /> <!-- The Dark Portal -->
+                <CustomBehavior File="InteractWith" MobId="78423" KeepTargetSelected="True" PreInteractMountStrategy="DismountOrCancelShapeshift" 
+                                                GossipOptions="1" NonCompeteDistance="0" Range="5" WaitTime="5000" X="1592.226" Y="-4373.335" Z="20.77822" /> <!-- Khadgar -->
+                <CustomBehavior File="Misc\RunLua" Lua="StaticPopup1Button1:Click()" WaitTime="3000" />
+			</If>
 			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for port {TimeRemaining}" />
 			<!-- kill cinematic -->
 			<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="3000" />
