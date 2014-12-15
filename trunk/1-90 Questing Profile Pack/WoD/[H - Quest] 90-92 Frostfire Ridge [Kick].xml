@@ -2090,6 +2090,26 @@
 		</While>
 		<TurnIn QuestName="The Battle of Thunder Pass" QuestId="34124" TurnInName="Durotan" TurnInId="76484" X="6025.898" Y="2850.042" Z="200.401" />
 		<PickUp QuestName="The Secrets of Gorgrond" QuestId="34867" GiverName="Durotan" GiverId="76484" X="6025.898" Y="2850.042" Z="200.401" />
+		
+			<If Condition="Unit(76730) != null &amp;&amp; !IsQuestCompleted(37563)" > <!-- The Frostwolves Stand Ready -->
+		<PickUp QuestName="The Frostwolves Stand Ready" QuestId="37563" GiverName="Makar Stonebinder" GiverId="76730" X="6033.52" Y="2839.22" Z="200.0953" />
+		<While Condition="HasQuest(37563) &amp;&amp; !IsQuestCompleted(37563)"> <!-- The Frostwolves Stand Ready -->
+			<MoveTo X="6033.367" Y="2839.109" Z="200.0946" />
+			<If Condition="Chance(33.3)">
+				<CustomBehavior File="InteractWith" MobId="88655" GossipOptions="1" KeepTargetSelected="true" NonCompeteDistance="0" X="6033.367" Y="2839.109" Z="200.0946" />
+				<ElseIf Condition="Chance(50)">
+					<CustomBehavior File="InteractWith" MobId="76724" GossipOptions="1" KeepTargetSelected="true" NonCompeteDistance="0" X="6033.367" Y="2839.109" Z="200.0946" />
+				</ElseIf>
+				<Else>
+					<CustomBehavior File="InteractWith" MobId="76487" GossipOptions="1" KeepTargetSelected="true" NonCompeteDistance="0" X="6033.367" Y="2839.109" Z="200.0946" />
+				</Else>
+			</If>
+			<CustomBehavior File="Misc\RunLua" Lua="StaticPopup1Button1:Click()" WaitTime="2000" />
+		</While>
+		<TurnIn QuestName="The Frostwolves Stand Ready" QuestId="37563" TurnInName="Makar Stonebinder" TurnInId="76730" X="6033.52" Y="2839.22" Z="200.0953" />
+		
+			<Else>
+			
 		<PickUp QuestName="The Frostwolves Stand Ready" QuestId="37563" GiverName="Makar Stonebinder" GiverId="88147" X="6029.027" Y="2719.445" Z="210.0318" />
 		<While Condition="HasQuest(37563) &amp;&amp; !IsQuestCompleted(37563)"> <!-- The Frostwolves Stand Ready -->
 			<MoveTo X="6029.027" Y="2719.445" Z="210.0318" />
@@ -2105,6 +2125,10 @@
 			<CustomBehavior File="Misc\RunLua" Lua="StaticPopup1Button1:Click()" WaitTime="2000" />
 		</While>
 		<TurnIn QuestName="The Frostwolves Stand Ready" QuestId="37563" TurnInName="Makar Stonebinder" TurnInId="88147" X="6029.027" Y="2719.445" Z="210.0318" />
+			</Else>
+			
+			</If>
+		
 		<!-- End of Thunder Pass -->
 
 		<!-- Bones of Aguark -->
