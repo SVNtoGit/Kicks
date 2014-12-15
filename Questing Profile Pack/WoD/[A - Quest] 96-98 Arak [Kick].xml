@@ -2002,14 +2002,23 @@
 		<TurnIn QuestName="Call of the Raven Mother" QuestId="35009" TurnInName="Kaalu" TurnInId="77857" X="-659.2118" Y="1579.463" Z="36.22345" />
 		<PickUp QuestName="On Ebon Wings" QuestId="36085" GiverName="Reshad" GiverId="84276" X="-647.717" Y="1569.469" Z="33.98867" />
 			<While Condition="HasQuest(36085) &amp;&amp; !IsQuestCompleted(36085)" > <!-- On Ebon Wings -->
+				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWings1" Command="Remove" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWings2" Command="Remove" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWingsMissile" Command="Remove" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWingsMissile2" Command="Remove" />
+				
 				<!-- add a dowhen hook here that auto brings us up to flight master if we fall -->
 				<CustomBehavior File="InteractWith" QuestId="36085" MobId="77857" GossipOptions="1" NonCompeteDistance="0" Range="4" WaitTime="5000" TerminateWhen="Me.Z &gt; 450" X="-659.2118" Y="1579.463" Z="36.22345" />
-				<CustomBehavior File="WaitTimer" WaitTime="45000" GoalText="Waiting for rest of flight {TimeRemaining}" />
+				<CustomBehavior File="WaitTimer" WaitTime="45000" TerminateWhen="!Me.IsOnTransport" GoalText="Waiting for rest of flight {TimeRemaining}" />
+				
+				<CustomBehavior File="Hooks\DoWhen" ActivityName="ReloadIfWeDied" UseWhen="Me.Z &lt; 400 &amp;&amp; !IsQuestCompleted(36085)" >
+					<CustomBehavior File="LoadProfile" RememberProfile="True" ProfileName="[A - Quest] 96-98 Arak [Kick]" />
+				</CustomBehavior>
 
-				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWings1" Command="Add" ObjectType="AreaTrigger" ObjectId="7301" Radius="3" LeashRadius="15" X="-777.1063" Y="1914.668" Z="472.1597" />
-				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWings2" Command="Add" ObjectType="AreaTrigger" ObjectId="7302" Radius="7" LeashRadius="15" X="-777.1063" Y="1914.668" Z="472.1597" />
-				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWingsMissile" Command="Add" ObjectType="Missile" ObjectId="158086" Radius="7" LeashRadius="15" X="-777.1063" Y="1914.668" Z="472.1597" />
-				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWingsMissile2" Command="Add" ObjectType="Missile" ObjectId="158085" Radius="7" LeashRadius="15" X="-777.1063" Y="1914.668" Z="472.1597" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWings1" ObjectType="AreaTrigger" ObjectId="7301" Radius="3" LeashRadius="15" X="-777.1063" Y="1914.668" Z="472.1597" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWings2" ObjectType="AreaTrigger" ObjectId="7302" Radius="7" LeashRadius="15" X="-777.1063" Y="1914.668" Z="472.1597" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWingsMissile" ObjectType="Missile" ObjectId="158086" Radius="7" LeashRadius="15" X="-777.1063" Y="1914.668" Z="472.1597" />
+				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWingsMissile2" ObjectType="Missile" ObjectId="158085" Radius="7" LeashRadius="15" X="-777.1063" Y="1914.668" Z="472.1597" />
 				<Objective QuestName="On Ebon Wings" QuestId="36085" Type="KillMob" MobId="84001" KillCount="1" />
 				<Objective QuestName="On Ebon Wings" QuestId="36085" Type="KillMob" MobId="84111" KillCount="8" />
 				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWings1" Command="Remove" />
@@ -2017,6 +2026,7 @@
 				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWingsMissile" Command="Remove" />
 				<CustomBehavior File="Hooks\Avoid" AvoidName="EbonWingsMissile2" Command="Remove" />
 				<!-- we may have to code this with interacts if ppl fall - hotspots are in the override -->
+				<CustomBehavior File="Hooks\DoWhen" ActivityName="ReloadIfWeDied" Command="Remove" />
 			</While>
 			<If Condition="HasQuest(36085) &amp;&amp; IsQuestCompleted(36085) &amp;&amp; Me.Z &gt; 450" > <!-- On Ebon Wings 450+ -->
 		<TurnIn QuestName="On Ebon Wings" QuestId="36085" TurnInName="Reshad" TurnInId="84262" X="-809.8212" Y="1862.688" Z="472.9334" />
