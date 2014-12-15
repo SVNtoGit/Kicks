@@ -1390,6 +1390,35 @@
 				</CustomBehavior>
 				<CustomBehavior File="InteractWith" QuestId="34868" MobId="230946" NonCompeteDistance="0" Range="5" TerminateWhen="IsObjectiveComplete(3, 34868)" X="2625.938" Y="4153.885" Z="166.1646" />
 			</While>
+
+			<!-- Bonus Objective: Hemet's Happy Hunting Grounds - Neutral -->
+			<While Condition="!IsQuestCompleted(35379)">
+				<If Condition="!HasQuest(35379)">
+					<MoveTo X="3038.292" Y="4513.282" Z="137.8464" /> <!-- Outside of Bonus Area - In case we have issues with it completing -->
+					<MoveTo X="3082.212" Y="4289.397" Z="164.8556" /> <!-- Middle of area -->
+				</If>
+				<CustomBehavior File="KillUntilComplete" QuestId="35379" TerminateWhen="IsObjectiveComplete(2, 35379)" MobId="82205" NonCompeteDistance="0" X="3203.657" Y="4330.018" Z="163.3852" /> <!-- Lupe -->
+				<CustomBehavior File="KillUntilComplete" QuestId="35379" TerminateWhen="IsObjectiveComplete(3, 35379)" MobId="82209" NonCompeteDistance="0" X="3203.657" Y="4330.018" Z="163.3852" /> <!-- Loup -->
+				<CustomBehavior File="KillUntilComplete" QuestId="35379" TerminateWhen="IsObjectiveComplete(4, 35379)" MobId="82202" NonCompeteDistance="0" X="3252.449" Y="4270.199" Z="145.9286" /> <!-- Big Pete -->
+				<CustomBehavior File="KillUntilComplete" QuestId="35379" TerminateWhen="IsObjectiveComplete(1, 35379)" MobId="81902" NonCompeteDistance="0" >
+					<HuntingGrounds>
+						<Hotspot X="3187.061" Y="4450.436" Z="151.068" />
+						<Hotspot X="3105.536" Y="4412.861" Z="153.0907" />
+						<Hotspot X="3074.009" Y="4364.451" Z="152.0732" />
+						<Hotspot X="3048.735" Y="4294.958" Z="166.7896" />
+						<Hotspot X="3035.225" Y="4223.973" Z="194.0574" />
+						<Hotspot X="3097.284" Y="4188.764" Z="205.722" />
+						<Hotspot X="3189.991" Y="4183.201" Z="205.7232" />
+						<Hotspot X="3217.421" Y="4209.855" Z="207.184" />
+						<Hotspot X="3289.208" Y="4214.059" Z="211.6972" />
+						<Hotspot X="3141.349" Y="4268.188" Z="164.4327" />
+						<Hotspot X="3141.96" Y="4358.444" Z="147.2912" />
+					</HuntingGrounds>
+				</CustomBehavior>
+				<MoveTo X="3038.292" Y="4513.282" Z="137.8464" /> <!-- Outside of Bonus Area - In case we have issues with it completing -->
+			</While>
+			<!-- Bonus Objective: Hemet's Happy Hunting Grounds - Neutral -->
+
 		<TurnIn QuestName="The Friend of My Enemy" QuestId="34826" TurnInName="Thrall" TurnInId="80003" X="3217.496" Y="4607.062" Z="143.8812" />
 		<TurnIn QuestName="Challenge of the Masters" QuestId="34868" TurnInName="Foreman Thazzril" TurnInId="80140" X="3253.109" Y="4602.051" Z="146.9202" />
 			<!-- End of Hallvalor -->
@@ -2190,14 +2219,6 @@
 		<TurnIn QuestName="And Justice for Thrall" QuestId="35171" TurnInName="Durotan" TurnInId="81415" X="3647.919" Y="5512.442" Z="52.36304" />
 			<!-- End of Gates of Grommashar -->
 			
-			<!-- Turn In Soup Bones at RoT-->
-			<While Condition="GetItemCount(113578) &gt;= 20" > <!-- Meatgut Needs Bones / Hearty Soup Bone - Infinite Turn In -->
-				<MoveTo X="2938.628" Y="4863.047" Z="128.2752" />
-				<CustomBehavior File="InteractWith" MobId="82727" NonCompeteDistance="0" KeepTargetSelected="True" X="2938.628" Y="4863.047" Z="128.2752" />
-                <CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteButton:Click()" WaitTime="500" />	
-                <CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" WaitTime="500" />	
-			</While>
-			
 			<!-- Telaar Grind -->
 			<SetGrindArea>
 				<GrindArea>
@@ -2223,6 +2244,14 @@
 			</SetGrindArea>
 			<GrindTo Condition="Me.Level >= 100" GoalText="Grinding to Level 100" />
 
+			<!-- Turn In Soup Bones at RoT-->
+			<While Condition="GetItemCount(113578) &gt;= 20" > <!-- Meatgut Needs Bones / Hearty Soup Bone - Infinite Turn In -->
+				<MoveTo X="2938.628" Y="4863.047" Z="128.2752" />
+				<CustomBehavior File="InteractWith" MobId="82727" NonCompeteDistance="0" KeepTargetSelected="True" X="2938.628" Y="4863.047" Z="128.2752" />
+                <CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteButton:Click()" WaitTime="500" />	
+                <CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" WaitTime="500" />	
+			</While>
+			
 		
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
 										Text="End of WoD Profiles - There's nothing more!\n\nIf you enjoyed this questing pack, please feel free to donate!" />
