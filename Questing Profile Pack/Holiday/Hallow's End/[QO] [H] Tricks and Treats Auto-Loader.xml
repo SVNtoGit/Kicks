@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HBProfile xsi:noNamespaceSchemaLocation="../../Schemas/QuestProfileSchema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <!-- INFORMATION:
+        Last Updated: Oct 2013
+        Credits: Larc
+
+        When using this profile, set the HonorBuddy bot to:
+            [ ] AutoAngler
+            [ ] GatherBuddy2
+            [ ] Grind Bot / Mixed Mode
+            [ ] ProfessionBuddy
+            [ ] PvP
+            [X] Questing
+
+        This profile was written for:
+            [ ] Alliance    [X] Achievement
+            [X] Horde       [ ] Farming
+                            [ ] Leveling
+                            [ ] PvP
+                            [X] Questing
+                            [X] Reputation
+                            [X] Seasonal
+    -->
+    <Name>[QO] [H] Tricks and Treats Auto-Loader (Northrend, Outland, Kalimdor, Eastern Kingdoms)</Name>
+    <QuestOrder>
+        <CustomBehavior File="UserDialog" AllowBotStop="true" SoundCue="Exclamation" SoundCueInterval="15" ExpiryTime="60" ExpiryAction="InputEnabled_Continue" Text="This auto-loader will run through Northrend, Outland, Kalimdor, Eastern Kingdoms.\n\nPandaria is not included due to phasing issues with multiple Candy Buckets.\n\nPlease set your Hearthstone to the Shrine of Two Moons." />
+        <If Condition="new uint[] {12940,12941,12946,12947,12950,13452,13456,13459,13460,13461,13462,13463,13464,13465,13466,13467,13468,13469,13470,13471,13472,13474,13501,13548,}.Any(questId =&gt; !IsQuestCompleted(questId))" >
+            <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Northrend is not completed, loading profile..." />
+            <If Condition="Me.MapId != 870 &amp;&amp; Me.MapId != 571">
+                <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="We are not where we need to be, Hearthing..." />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:6948&quot;)" />
+                <CustomBehavior File="WaitTimer" WaitTime="20000" VariantTime="5000" />
+            </If>
+            <If Condition="Me.MapId == 870">
+                <CustomBehavior File="FlyTo" DestName="Shrine of Two Moons Dalaran Portal" X="1745.899" Y="899.2382" Z="487.1374" />
+                <CustomBehavior File="ForcedDismount" />
+                <CustomBehavior File="InteractWith" MobId="215112" Range="5" X="1745.706" Y="903.9822" Z="487.2821" />
+                <CustomBehavior File="WaitTimer" WaitTime="10000" VariantTime="2500" />
+            </If>
+            <If Condition="Me.MapId == 571">
+                <CustomBehavior File="LoadProfile" ProfileName="[QO] [H] Tricks and Treats of Northrend" />
+            </If>
+        </If>
+        <If Condition="new uint[] {12940,12941,12946,12947,12950,13452,13456,13459,13460,13461,13462,13463,13464,13465,13466,13467,13468,13469,13470,13471,13472,13474,13501,13548 }.All(questId =&gt; IsQuestCompleted(questId))">
+            <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Northrend is completed, compiling Outland..." />
+            <If Condition="new uint[] {12388,12389,12390,12391,12392,12393,12394,12395,12403,12404,12406,12407,12408,12409, }.Any(questId => !IsQuestCompleted(questId))">
+                <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Outland is not completed, loading profile..." />
+                <If Condition="Me.MapId != 870 &amp;&amp; Me.MapId != 530">
+                    <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="We are not where we need to be, Hearthing..." />
+                    <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:6948&quot;)" />
+                    <CustomBehavior File="WaitTimer" WaitTime="20000" VariantTime="5000" />
+                </If>
+                <If Condition="Me.MapId == 870">
+                    <CustomBehavior File="FlyTo" DestName="Shrine of Two Moons Shattrath Portal" X="1710.986" Y="895.1791" Z="486.8545" />
+                    <CustomBehavior File="ForcedDismount" />
+                    <CustomBehavior File="InteractWith" MobId="215113" Range="5"
+                                    X="1709.74" Y="899.3869" Z="487.0404" />
+                    <CustomBehavior File="WaitTimer" WaitTime="10000" VariantTime="2500" />
+                </If>
+                <If Condition="Me.MapId == 530">
+                    <CustomBehavior File="LoadProfile" ProfileName="[QO] [H] Tricks and Treats of Outland" />
+                </If>
+            </If>
+        </If>
+        <If Condition="new uint[]{12388,12389,12390,12391,12392,12393,12394,12395,12403,12404,12406,12407,12408,12409 }.Any(questId =&gt; !IsQuestCompleted(questId))">
+            <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Outland is still not completed, re-loading profile..." />
+            <If Condition="Me.MapId != 870 &amp;&amp; Me.MapId != 530">
+                <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="We are not where we need to be, Hearthing..." />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:6948&quot;)" />
+                <CustomBehavior File="WaitTimer" WaitTime="20000" VariantTime="5000" />
+            </If>
+            <If Condition="Me.MapId == 870">
+                <CustomBehavior File="FlyTo" DestName="Shrine of Two Moons Shattrath Portal" X="1710.986" Y="895.1791" Z="486.8545" />
+                <CustomBehavior File="ForcedDismount" />
+                <CustomBehavior File="InteractWith" MobId="215113" Range="5" X="1709.74" Y="899.3869" Z="487.0404" />
+                <CustomBehavior File="WaitTimer" WaitTime="10000" VariantTime="2500" />
+            </If>
+            <If Condition="Me.MapId == 530">
+                <CustomBehavior File="LoadProfile" ProfileName="[QO] [H] Tricks and Treats of Outland" />
+            </If>
+        </If>
+        <If Condition="new uint[] {12388,12389,12390,12391,12392,12393,12394,12395,12403,12404,12406,12407,12408,12409 }.All(questId =&gt; IsQuestCompleted(questid))">
+            <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Outland is completed, compiling Kalimdor..." />
+            <If Condition="new uint[] {12361,12362,12366,12367,12374,12377,12378,12381,12383,12386,12396,12398,12399,12400,12401,28953,28958,28989,28992,28993,28994,28996,28998,28999,29000,29001,29002,29003,29004,29005,29009,29014,29016,29017,29018 }.Any(questId =&gt; !IsQuestCompleted(questId))">
+                <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Kalimdor is not completed, loading profile..." />
+                <If Condition="Me.MapId != 870 &amp;&amp; Me.MapId != 1">
+                    <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="We are not where we need to be, Hearthing..." />
+                    <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:6948&quot;)" />
+                    <CustomBehavior File="WaitTimer" WaitTime="20000" VariantTime="5000" />
+                </If>
+                <If Condition="Me.MapId == 870">
+                    <CustomBehavior File="FlyTo" DestName="Shrine of Two Moons Orgrimmar Portal" X="1733.145" Y="878.0269" Z="487.0988" />
+                    <CustomBehavior File="ForcedDismount" />
+                    <CustomBehavior File="InteractWith" MobId="215127" Range="5"
+                                    X="1735.073" Y="873.5676" Z="487.4114" />
+                    <CustomBehavior File="WaitTimer" WaitTime="10000" VariantTime="2500" />
+                </If>
+                <If Condition="Me.MapId == 1">
+                    <CustomBehavior File="LoadProfile" ProfileName="[QO] [H] Tricks and Treats of Kalimdor" />
+                </If>
+            </If>
+        </If>
+        <If Condition="new uint[]{12361,12362,12366,12367,12374,12377,12378,12381,12383,12386,12396,12398,12399,12400,12401,28953,28958,28989,28992,28993,28994,28996,28998,28999,29000,29001,29002,29003,29004,29005,29009,29014,29016,29017,29018}.Any(questId =&gt; !IsQuestCompleted(questId)">
+            <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Kalimdor is not still completed, re-loading profile..." />
+            <If Condition="Me.MapId != 870 &amp;&amp; Me.MapId != 1">
+                <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="We are not where we need to be, Hearthing..." />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:6948&quot;)" />
+                <CustomBehavior File="WaitTimer" WaitTime="20000" VariantTime="5000" />
+            </If>
+            <If Condition="Me.MapId == 870">
+                <CustomBehavior File="FlyTo" DestName="Shrine of Two Moons Orgrimmar Portal" X="1733.145" Y="878.0269" Z="487.0988" />
+                <CustomBehavior File="ForcedDismount" />
+                <CustomBehavior File="InteractWith" MobId="215127" Range="5"
+                                X="1735.073" Y="873.5676" Z="487.4114" />
+                <CustomBehavior File="WaitTimer" WaitTime="10000" VariantTime="2500" />
+            </If>
+            <If Condition="Me.MapId == 1">
+                <CustomBehavior File="LoadProfile" ProfileName="[QO] [H] Tricks and Treats of Kalimdor" />
+            </If>
+        </If>
+        <If Condition="new uint[] {12361,12362,12366,12367,12374,12377,12378,12381,12383,12386,12396,12398,12399,12400,12401,28953,28958,28989,28992,28993,28994,28996,28998,28999,29000,29001,29002,29003,29004,29005,29009,29014,29016,29017,29018 }.All(questId =&gt; IsQuestCompleted(questId))" >
+            <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Kalimdor is completed, compiling Eastern Kingdoms..." />
+            <If Condition="new uint[]{12363,12364,12365,12368,12369,12370,12371,12373,12376,12380,12382,12384,12387,12397,12402,28955,28957,28959,28962,28965,28966,28967,28969,28971,28973,28974,28975,28972,28987 }.Any(questId =&gt; !IsQuestCompleted(questId))">
+                <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Eastern Kingdoms is not completed, loading profile..." />
+                <If Condition="( Me.MapId != 870 ) &amp;&amp; ( Me.MapId != 0 ) &amp;&amp; ( Me.ZoneId != 3487 ) &amp;&amp; ( Me.ZoneId != 3433 ) &amp;&amp; ( Me.ZoneId != 3430 )">
+                    <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="We are not where we need to be, Hearthing..." />
+                    <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:6948&quot;)" />
+                    <CustomBehavior File="WaitTimer" WaitTime="20000" VariantTime="5000" />
+                </If>
+                <If Condition="Me.MapId == 870">
+                    <CustomBehavior File="FlyTo" DestName="Shrine of Two Moons Silvermoon City Portal" X="1715.592" Y="872.0211" Z="487.0356" />
+                    <CustomBehavior File="ForcedDismount" />
+                    <CustomBehavior File="InteractWith" MobId="215126" Range="5"
+                                    X="1717.823" Y="867.4124" Z="487.3876" />
+                    <CustomBehavior File="WaitTimer" WaitTime="10000" VariantTime="2500" />
+                </If>
+                <If Condition="Me.MapId == 0 || Me.ZoneId == 3487 || Me.ZoneId == 3433 || Me.ZoneId == 3430">
+                    <CustomBehavior File="LoadProfile" ProfileName="[QO] [H] Tricks and Treats of Eastern Kingdoms" />
+                </If>
+            </If>
+        </If>
+        <If Condition="new uint[] {12363,12364,12365,12368,12369,12370,12371,12373,12376,12380,12382,12384,12387,12397,12402,28955,28957,28959,28962,28965,28966,28967,28969,28971,28972,28973,28974,28976,28987 }.Any(questId =&gt; !IsQuestCompleted(questId))">
+            <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Eastern Kingdoms is not still completed, re-loading profile..." />
+            <If Condition="( Me.MapId != 870 ) &amp;&amp; ( Me.MapId != 0 ) &amp;&amp; ( Me.ZoneId != 3487 ) &amp;&amp; ( Me.ZoneId != 3433 ) &amp;&amp; ( Me.ZoneId != 3430 )">
+                <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="We are not where we need to be, Hearthing..." />
+                <CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:6948&quot;)" />
+                <CustomBehavior File="WaitTimer" WaitTime="20000" VariantTime="5000" />
+            </If>
+            <If Condition="Me.MapId == 870">
+                    <CustomBehavior File="FlyTo" DestName="Shrine of Two Moons Silvermoon City Portal" X="1715.592" Y="872.0211" Z="487.0356" />
+                    <CustomBehavior File="ForcedDismount" />
+                    <CustomBehavior File="InteractWith" MobId="215126" Range="5"
+                                    X="1717.823" Y="867.4124" Z="487.3876" />
+                    <CustomBehavior File="WaitTimer" WaitTime="10000" VariantTime="2500" />
+            </If>
+            <If Condition="Me.MapId == 0 || Me.ZoneId == 3487 || Me.ZoneId == 3433 || Me.ZoneId == 3430">
+                <CustomBehavior File="LoadProfile" ProfileName="[QO] [H] Tricks and Treats of Eastern Kingdoms" />
+            </If>
+        </If>
+        <If Condition="new uint[] {12363,12364,12365,12368,12369,12370,12371,12373,12376,12380,12382,12384,12387,12397,12402,28955,28957,28959,28962,28965,28966,28967,28969,28971,28972,28973,28974,28976,28987,}.All(questId => IsQuestCompleted(questId))">
+            <CustomBehavior File="Message" LogColor="LightSkyBlue" Text="Eastern Kingdoms is completed, remember to do Vashj'ir &amp; Deepholm manually!" />
+        </If>
+    </QuestOrder>
+</HBProfile>
