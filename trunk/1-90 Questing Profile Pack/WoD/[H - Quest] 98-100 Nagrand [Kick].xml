@@ -1588,7 +1588,7 @@
 			<Objective QuestName="The Dead Do Not Forget..." QuestId="37318" Type="CollectItem" ItemId="119184" CollectCount="10" />
 		<TurnIn QuestName="The Dead Do Not Forget..." QuestId="37318" TurnInName="Boneseers Cauldron" TurnInId="237705" TurnInType="GameObject" X="3780.044" Y="4782.819" Z="95.65758" />
 
-		<!-- cache issues - bot doesn't know we have completed it
+			<!-- cache issues - bot doesn't know we have completed it
 		<While Condition="!HasQuest(37280) &amp;&amp; !IsQuestCompleted(37280)" > Pickup Bonus Objective: Snarlpaw Ledge 
 			<MoveTo X="3783.27" Y="4778.014" Z="96.11109" />
 			
@@ -1899,6 +1899,70 @@
 		<TurnIn QuestName="King of the Breezestriders" QuestId="35378" TurnInName="Stalker Ogka" TurnInId="82080" X="3260.439" Y="4620.981" Z="144.8471" />
 			<!-- End of Ancestral Grounds -->
 
+			
+			<!-- Feline Friends Forever - Ironfist Harbor
+		<While Condition="!HasQuest(34747) &amp;&amp; !IsQuestCompleted(34747)" >  Goldmane the Skinner / Follower -->
+			<!-- 
+			<Vendor Name="Goldmane the Skinner" Entry="80083" Type="Repair" X="2042.12" Y="7014.122" Z="51.06328" />
+			<Vendor Name="Bolkar the Cruel" Entry="80080" Type="Repair" X="2039.87" Y="7020.071" Z="51.06337" />
+			<GameObject Name="Goldmane's Cage" Entry="230842" X="2042.84" Y="7022.205" Z="51.03998" />
+			item: <WoWItem Name="Goldmane's Cage Key" Entry="111863" />
+			http://www.wowhead.com/quest=35596
+		
+			You must go up and kill Bolkar, open the cage, and then the npc respawns with a quest to be a follower		
+		
+			<MoveTo X="2042.12" Y="7014.122" Z="51.06328" />
+			<CustomBehavior File="InteractWith" MobId="80083" WaitForNpcs="False" WaitTime="3000" X="2042.12" Y="7014.122" Z="51.06328" />
+			<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
+			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
+		</While>
+			-->
+	
+			<!-- Bonus Objective: Ironfist Harbor -->
+			<While Condition="!IsQuestCompleted(34723)">
+				<If Condition="!HasQuest(34723)">
+					<MoveTo X="2034.087" Y="6678.708" Z="4.044489" /> <!-- Outside of Bonus Area - In case we have issues with it completing -->
+					<MoveTo X="2083.428" Y="6989.918" Z="6.692083" /> <!-- Middle of area -->
+				</If>
+				<CustomBehavior File="KillUntilComplete" QuestId="34723" TerminateWhen="IsObjectiveComplete(4, 34723)" MobId="79588" NonCompeteDistance="0" X="2205.747" Y="7167.661" Z="34.17322" />
+				<CustomBehavior File="KillUntilComplete" QuestId="34723" TerminateWhen="IsObjectiveComplete(3, 34723)" MobId="79651" NonCompeteDistance="0" X="2128.802" Y="7124.25" Z="6.761444" />
+				<CustomBehavior File="InteractWith" QuestId="34723" TerminateWhen="IsObjectiveComplete(2, 34723)" NumOfTimes="20" MobId="230653" Range="5" NonCompeteDistance="0" >
+					<HuntingGrounds>
+						<Hotspot X="2098.376" Y="7090.127" Z="2.551831" />
+						<Hotspot X="2043.792" Y="7131.683" Z="2.075294" />
+						<Hotspot X="2005.146" Y="7161.055" Z="12.42941" />
+						<Hotspot X="2037.001" Y="7219.654" Z="12.42742" />
+						<Hotspot X="1985.332" Y="7191.097" Z="12.42937" />
+						<Hotspot X="1952.958" Y="7138.512" Z="12.42692" />
+						<Hotspot X="1934.771" Y="7214.01" Z="2.250448" />
+					</HuntingGrounds>
+				</CustomBehavior>
+				<CustomBehavior File="KillUntilComplete" QuestId="34723" TerminateWhen="IsObjectiveComplete(1, 34723)" MobId="79581" MobId2="79754" MobId3="79584" NonCompeteDistance="0" >
+					<HuntingGrounds>
+						<Hotspot X="2108.31" Y="6886.154" Z="1.80034" />
+						<Hotspot X="2151.867" Y="6923.481" Z="2.332081" />
+						<Hotspot X="2169.141" Y="6945.388" Z="2.349196" />
+						<Hotspot X="2169.384" Y="6973.868" Z="5.094735" />
+						<Hotspot X="2135.499" Y="6967.575" Z="3.482102" />
+						<Hotspot X="2096.127" Y="6952.899" Z="3.486643" />
+						<Hotspot X="1985.021" Y="6965.28" Z="6.720469" />
+						<Hotspot X="2011.065" Y="6975.309" Z="8.323505" />
+						<Hotspot X="2085.609" Y="7006.771" Z="7.007453" />
+						<Hotspot X="2130.672" Y="6998.936" Z="5.799054" />
+						<Hotspot X="2197.978" Y="7022.112" Z="5.707052" />
+						<Hotspot X="2229.004" Y="7025.858" Z="6.967257" />
+						<Hotspot X="2257.131" Y="7066.118" Z="10.31782" />
+						<Hotspot X="2219.437" Y="7076.233" Z="5.717357" />
+						<Hotspot X="2230.364" Y="7147.475" Z="17.54829" />
+						<Hotspot X="2174.333" Y="7152.463" Z="10.29335" />
+						<Hotspot X="2099.796" Y="7087.553" Z="2.322588" />
+						<Hotspot X="2082.543" Y="7024.264" Z="6.516591" />
+					</HuntingGrounds>
+				</CustomBehavior>
+				<MoveTo X="2034.087" Y="6678.708" Z="4.044489" /> <!-- Outside of Bonus Area - In case we have issues with it completing -->
+			</While>
+			<!-- End Bonus Objective: Ironfist Harbor -->
+			
 			<!-- Ring of Trials -->
 		<PickUp QuestName="Bread and Circuses" QuestId="35922" GiverName="Lucy Brokerblast" GiverId="83606" X="3151.342" Y="4606.972" Z="137.0102" />
 		<TurnIn QuestName="Bread and Circuses" QuestId="35922" TurnInName="Dexyl Deadblade" TurnInId="79188" X="3019.969" Y="4800.141" Z="130.394" />
@@ -1985,7 +2049,7 @@
 			</While>
 			<!-- End of Telaar -->
 
-		<!-- Stonecrag Gorge -->
+			<!-- Stonecrag Gorge -->
 		<TurnIn QuestName="Gazmolf Futzwangler and the Highmaul Crusade" QuestId="34810" TurnInName="Gazmolf Futzwangler" TurnInId="79201" X="2942.579" Y="5271.724" Z="107.1625" />
 		<PickUp QuestName="A Lesson in Minerology" QuestId="34809" GiverName="Gazmolf Futzwangler" GiverId="79201" X="2942.579" Y="5271.724" Z="107.1625" />
 		<PickUp QuestName="Good Help is Hard to Find" QuestId="34811" GiverName="Trixi Leroux" GiverId="82658" X="2939.817" Y="5272.894" Z="107.6862" />
@@ -2004,7 +2068,7 @@
 			<Objective QuestName="A Lesson in Teamwork" QuestId="35663" Type="CollectItem" ItemId="113272" CollectCount="10" />
 		<TurnIn QuestName="A Lesson in Teamwork" QuestId="35663" TurnInName="Gazmolf Futzwangler" TurnInId="79201" X="2942.579" Y="5271.724" Z="107.1631" />
 		<TurnIn QuestName="A Lesson in Archaeology" QuestId="35632" TurnInName="Gazmolf Futzwangler" TurnInId="79201" X="2942.579" Y="5271.724" Z="107.1631" />
-		<!-- End of Stonecrag Gorge -->
+			<!-- End of Stonecrag Gorge -->
 
 		<TurnIn QuestName="Fruitful Ventures" QuestId="34819" TurnInName="Digrem Orebar" TurnInId="81955" X="2930.979" Y="4812.316" Z="128.1292" />
 		<PickUp QuestName="New Babies" QuestId="34900" GiverName="Digrem Orebar" GiverId="81955" X="2930.979" Y="4812.316" Z="128.1292" />
@@ -2063,7 +2127,7 @@
 				</CustomBehavior>
 			</While>
 		<TurnIn QuestName="New Babies" QuestId="34900" TurnInName="Digrem Orebar" TurnInId="81955" X="2930.979" Y="4812.316" Z="128.1292" />
-		<!-- End of Ring of Trials -->
+			<!-- End of Ring of Trials -->
 
 			<!-- Various Nagrand Quests -->
 		<TurnIn QuestName="Lost in Nagrand" QuestId="35167" TurnInName="Olgra" TurnInId="82688" X="3503.72" Y="5099.708" Z="58.41842" />
@@ -2219,26 +2283,29 @@
 		<TurnIn QuestName="And Justice for Thrall" QuestId="35171" TurnInName="Durotan" TurnInId="81415" X="3647.919" Y="5512.442" Z="52.36304" />
 			<!-- End of Gates of Grommashar -->
 			
-			<!-- Telaar Grind -->
+			<!-- Ironfist Harbor Grind -->
 			<SetGrindArea>
 				<GrindArea>
 					<Factions>16</Factions>
 					<Hotspots>
-						<Hotspot X="2334.166" Y="5476.16" Z="161.0184" />
-						<Hotspot X="2412.174" Y="5456.024" Z="152.4621" />
-						<Hotspot X="2482.724" Y="5475.389" Z="152.0393" />
-						<Hotspot X="2530.964" Y="5473.332" Z="146.7101" />
-						<Hotspot X="2509.214" Y="5476.273" Z="150.7292" />
-						<Hotspot X="2538.413" Y="5543.618" Z="138.6539" />
-						<Hotspot X="2579.115" Y="5580.441" Z="128.3037" />
-						<Hotspot X="2524.897" Y="5570.505" Z="138.5237" />
-						<Hotspot X="2505.579" Y="5602.955" Z="138.7215" />
-						<Hotspot X="2447.757" Y="5576.202" Z="152.8263" />
-						<Hotspot X="2383.639" Y="5553.779" Z="153.4641" />
-						<Hotspot X="2322.699" Y="5585.3" Z="155.8951" />
-						<Hotspot X="2266.938" Y="5581.623" Z="151.8701" />
-						<Hotspot X="2299.421" Y="5494.679" Z="162.7337" />
-						<Hotspot X="2360.304" Y="5498.444" Z="166.0703" />
+						<Hotspot X="2108.31" Y="6886.154" Z="1.80034" />
+						<Hotspot X="2151.867" Y="6923.481" Z="2.332081" />
+						<Hotspot X="2169.141" Y="6945.388" Z="2.349196" />
+						<Hotspot X="2169.384" Y="6973.868" Z="5.094735" />
+						<Hotspot X="2135.499" Y="6967.575" Z="3.482102" />
+						<Hotspot X="2096.127" Y="6952.899" Z="3.486643" />
+						<Hotspot X="1985.021" Y="6965.28" Z="6.720469" />
+						<Hotspot X="2011.065" Y="6975.309" Z="8.323505" />
+						<Hotspot X="2085.609" Y="7006.771" Z="7.007453" />
+						<Hotspot X="2130.672" Y="6998.936" Z="5.799054" />
+						<Hotspot X="2197.978" Y="7022.112" Z="5.707052" />
+						<Hotspot X="2229.004" Y="7025.858" Z="6.967257" />
+						<Hotspot X="2257.131" Y="7066.118" Z="10.31782" />
+						<Hotspot X="2219.437" Y="7076.233" Z="5.717357" />
+						<Hotspot X="2230.364" Y="7147.475" Z="17.54829" />
+						<Hotspot X="2174.333" Y="7152.463" Z="10.29335" />
+						<Hotspot X="2099.796" Y="7087.553" Z="2.322588" />
+						<Hotspot X="2082.543" Y="7024.264" Z="6.516591" />
 					</Hotspots>
 				</GrindArea>
 			</SetGrindArea>
