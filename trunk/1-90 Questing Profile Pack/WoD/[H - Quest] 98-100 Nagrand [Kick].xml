@@ -48,6 +48,7 @@
 		<Vendor Name="&quot;Chef&quot; Grogglefitz" Entry="79199" Type="Food" X="3013.191" Y="4762.819" Z="128.2746" /> <!-- Ring of Trials -->
 		<Vendor Name="Pyxni Pennypocket" Entry="79310" Type="Repair" X="3085.323" Y="4849.036" Z="128.3313" /> <!-- Ring of Trials -->  
 		<Vendor Name="Tai'tasi" Entry="82344" Type="Repair" X="3121.195" Y="6559.984" Z="12.77843" /> <!-- Riverside Port - Horde -->
+		<Vendor Name="Rizmax Copperwattz" Entry="87396" Type="Repair" X="3325.174" Y="6443.257" Z="16.31485" /> <!-- Ruins of Na'gwa -->
     </Vendors>
 
     <!-- BEGIN: Quest Overrides -->
@@ -1073,7 +1074,7 @@
 	<Quest Id="35084" Name="Silence the Call">
 		<Objective Type="KillMob" MobId="81142" KillCount="1">
 			<Hotspots>
-				
+				<Hotspot X="2383.315" Y="6205.54" Z="67.60984" />
 			</Hotspots>
 		</Objective>
 		<Objective Type="KillMob" MobId="83477" KillCount="10">
@@ -2164,13 +2165,14 @@
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for Stage 4 to Complete {TimeRemaining}" />
 			 </While>
 			 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 5"> <!-- 5 -->
-					<!-- Durn.txt	-->
+					<!-- Durn.txt	- there's also a special button that we can use ... maybe a dowhen hook here for that 'barrage' thing?? -->
 				<CustomBehavior File="KillUntilComplete" QuestId="35171" MobId="82132" X="1840.809" Y="5014.384" Z="219.9477" 
 				TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 5" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for Stage 5 to Complete {TimeRemaining}" />
 			 </While>
 			 <While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 6"> <!-- 6 -->
-				<CustomBehavior File="InteractWith" MobId="84443" GossipOptions="1" NonCompeteDistance="0" X="1826.391" Y="5131.593" Z="207.3466" 
+				<MoveTo X="1826.391" Y="5131.593" Z="207.3466" />
+				<CustomBehavior File="InteractWith" MobId="84443" GossipOptions="1" WaitTime="10000" NonCompeteDistance="0" X="1826.391" Y="5131.593" Z="207.3466" 
 				TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber > 6" />
 				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for Stage 6 to Complete {TimeRemaining}" />
 			 </While>
@@ -2181,11 +2183,12 @@
 				TerminateWhen="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber != 7 || IsQuestCompleted(35171)" />
 				<CustomBehavior File="WaitTimer" QuestId="35171" WaitTime="180000" GoalText="Waiting for Stage 7 to Complete {TimeRemaining}" />
 			 </While>
+				<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for Stage 7 to Complete {TimeRemaining}" />
 				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="2000" />
 				<UseMount Value="true" />
 			</While>
 		<TurnIn QuestName="And Justice for Thrall" QuestId="35171" TurnInName="Durotan" TurnInId="81415" X="3647.919" Y="5512.442" Z="52.36304" />
-        <!-- End of Gates of Grommashar -->
+			<!-- End of Gates of Grommashar -->
 			
 			<!-- Turn In Soup Bones at RoT-->
 			<While Condition="GetItemCount(113578) &gt;= 20" > <!-- Meatgut Needs Bones / Hearty Soup Bone - Infinite Turn In -->
@@ -2194,6 +2197,32 @@
                 <CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteButton:Click()" WaitTime="500" />	
                 <CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" WaitTime="500" />	
 			</While>
+			
+			<!-- Telaar Grind -->
+			<SetGrindArea>
+				<GrindArea>
+					<Factions>16</Factions>
+					<Hotspots>
+						<Hotspot X="2334.166" Y="5476.16" Z="161.0184" />
+						<Hotspot X="2412.174" Y="5456.024" Z="152.4621" />
+						<Hotspot X="2482.724" Y="5475.389" Z="152.0393" />
+						<Hotspot X="2530.964" Y="5473.332" Z="146.7101" />
+						<Hotspot X="2509.214" Y="5476.273" Z="150.7292" />
+						<Hotspot X="2538.413" Y="5543.618" Z="138.6539" />
+						<Hotspot X="2579.115" Y="5580.441" Z="128.3037" />
+						<Hotspot X="2524.897" Y="5570.505" Z="138.5237" />
+						<Hotspot X="2505.579" Y="5602.955" Z="138.7215" />
+						<Hotspot X="2447.757" Y="5576.202" Z="152.8263" />
+						<Hotspot X="2383.639" Y="5553.779" Z="153.4641" />
+						<Hotspot X="2322.699" Y="5585.3" Z="155.8951" />
+						<Hotspot X="2266.938" Y="5581.623" Z="151.8701" />
+						<Hotspot X="2299.421" Y="5494.679" Z="162.7337" />
+						<Hotspot X="2360.304" Y="5498.444" Z="166.0703" />
+					</Hotspots>
+				</GrindArea>
+			</SetGrindArea>
+			<GrindTo Condition="Me.Level >= 100" GoalText="Grinding to Level 100" />
+
 		
 			<CustomBehavior File="UserDialog" AllowBotStop="True" SoundCue="Exclamation" SoundCueInterval="1" 
 										Text="End of WoD Profiles - There's nothing more!\n\nIf you enjoyed this questing pack, please feel free to donate!" />
