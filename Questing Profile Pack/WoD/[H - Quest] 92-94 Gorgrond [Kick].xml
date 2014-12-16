@@ -1121,13 +1121,16 @@
 			<!-- Iron Approach -->
 		<PickUp QuestName="Strike While the Iron is Hot" QuestId="36573" GiverName="Durotan" GiverId="74594" X="5763.857" Y="1297.016" Z="106.9531" />
 			<While Condition="HasQuest(36573) &amp;&amp; !IsQuestCompleted(36573)" > <!-- Strike While the Iron is Hot -->
-				<If Condition="(Unit(81055) != null)"> <!-- FP -->
-					<CustomBehavior File="InteractWith" MobId="81055" GossipOptions="1" WaitTime="5000" X="5816.885" Y="1306.451" Z="109.1542" />
-				<!-- wait for taxi's to get fixed - then verify if i need a 45s waittimer or not -->
-					<CustomBehavior File="WaitTimer" WaitTime="50000" GoalText="Waiting for  {TimeRemaining}" />
-				</If>
+				<If Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 0">
+                    <MoveTo X="5816.885" Y="1306.451" Z="109.1542" />
+                    <If Condition="(Unit(81055) != null)"> <!-- FP -->
+                        <CustomBehavior File="InteractWith" MobId="81055" GossipOptions="1" WaitTime="5000" X="5816.885" Y="1306.451" Z="109.1542" />
+                        <!-- wait for taxi's to get fixed - then verify if i need a 45s waittimer or not -->
+                        <CustomBehavior File="WaitTimer" WaitTime="50000" GoalText="Waiting for  {TimeRemaining}" />
+                    </If>
+				</While>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 1">
-					<CustomBehavior File="InteractWith" QuestId="36573" MobId="86401" GossipOptions="1" WaitForNpcs="False" X="8618.279" Y="1412.998" Z="64.88986" /> /> <!-- Draka -->
+					<CustomBehavior File="InteractWith" QuestId="36573" MobId="86401" GossipOptions="1" WaitForNpcs="False" X="8618.279" Y="1412.998" Z="64.88986" /> <!-- Draka -->
 					<MoveTo X="8681.092" Y="1440.195" Z="64.91515" />
 					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for timer to clear {TimeRemaining}" />
 				</While>
@@ -1313,11 +1316,14 @@
 
 		<PickUp QuestName="Strike While the Iron is Hot" QuestId="36574" GiverId="74594" GiverName="Durotan" X="5763.857" Y="1297.016" Z="106.9534" />
 			<While Condition="HasQuest(36574) &amp;&amp; !IsQuestCompleted(36574)" > <!-- Strike While the Iron is Hot -->
-				<If Condition="(Unit(81055) != null)"> <!-- FP -->
-					<CustomBehavior File="InteractWith" MobId="81055" GossipOptions="1" WaitTime="5000" X="5816.885" Y="1306.451" Z="109.1542" />
-					<!-- wait for taxi's to get fixed - then verify if i need a 45s waittimer or not -->
-					<CustomBehavior File="WaitTimer" WaitTime="50000" GoalText="Waiting for  {TimeRemaining}" />
-				</If>
+				<If Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 0">
+                    <MoveTo X="5816.885" Y="1306.451" Z="109.1542" />
+                    <If Condition="(Unit(81055) != null)"> <!-- FP -->
+                        <CustomBehavior File="InteractWith" MobId="81055" GossipOptions="1" WaitTime="5000" X="5816.885" Y="1306.451" Z="109.1542" />
+                        <!-- wait for taxi's to get fixed - then verify if i need a 45s waittimer or not -->
+                        <CustomBehavior File="WaitTimer" WaitTime="50000" GoalText="Waiting for  {TimeRemaining}" />
+                    </If>
+                </If>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 1">
 					<CustomBehavior File="InteractWith" QuestId="36574" MobId="86401" GossipOptions="1" WaitForNpcs="False" X="8618.279" Y="1412.998" Z="64.88986" /> /> <!-- Draka -->
 					<MoveTo X="8681.092" Y="1440.195" Z="64.91515" />
