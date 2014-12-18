@@ -1799,6 +1799,7 @@
 		<PickUp QuestName="Enfilade" QuestId="32994" GiverName="Karg Blutfuror" GiverId="72373" X="5630.699" Y="3773.53" Z="112.6136" />
 		<While Condition="HasQuest(32994) &amp;&amp; !IsQuestCompleted(32994)" > <!-- Enfilade -->
             <UseMount Value="false" />
+            
 			<CustomBehavior File="KillUntilComplete" QuestId="32994" ObjectId="230262" MobId1="72328" MobId2="73360" TerminateWhen="GetItemCount(104039) &gt;= 5 || IsObjectiveComplete(1, 32994)" >
 				<HuntingGrounds>
 					<Hotspot X="5359.049" Y="3720.831" Z="120.1101" />
@@ -1818,32 +1819,37 @@
 					<Hotspot X="5211.471" Y="3665.625" Z="129.097" />
 				</HuntingGrounds>
 			</CustomBehavior>
+			
+			<CustomBehavior File="RunCode" Type="Definition">
+				<![CDATA[ 
+				async Task InteractWithNearbyTank()
+				{
+					var tank = Object(222870);
+					if (tank == null) return;
+					// CTM to tank location to ensure bot is standing within interact range.
+					WoWMovement.ClickToMove(tank.Location);
+					await Coroutine.Wait(6000, () => tank.WithinInteractRange);
+					await CommonCoroutines.StopMoving();
+					tank.Interact();
+					await Coroutine.Sleep(3000);    
+				} 
+				]]>
+			</CustomBehavior>
 
-            
-            <MoveTo QuestId="32994" X="5350.65" Y="3698.173" Z="119.3312" />
-			<CustomBehavior File="InteractWith" QuestId="32994" MobId="222870" NumOfTimes="1" Range="10" WaitForNpcs="False" NonCompeteDistance="0" CollectionDistance="15" PreInteractMountStrategy="DismountOrCancelShapeshift" X="5350.65" Y="3698.173" Z="119.3312" />
-                                            
-            <MoveTo QuestId="32994" X="5312.693" Y="3690.262" Z="122.9737" />
-            <CustomBehavior File="InteractWith" QuestId="32994" MobId="222870" NumOfTimes="1" Range="10" WaitForNpcs="False" NonCompeteDistance="0" CollectionDistance="15" PreInteractMountStrategy="DismountOrCancelShapeshift" X="5312.693" Y="3690.262" Z="122.9737" />
+			<MoveTo X="5240.938" Y="3739.942" Z="123.1777" />
+			<CustomBehavior File="RunCode" Code="await InteractWithNearbyTank()" />
 
-            <MoveTo QuestId="32994" X="5295.421" Y="3650.62" Z="126.388" />
-            <CustomBehavior File="InteractWith" QuestId="32994" MobId="222870" NumOfTimes="1" Range="10" WaitForNpcs="False" NonCompeteDistance="0" CollectionDistance="15" PreInteractMountStrategy="DismountOrCancelShapeshift" X="5295.421" Y="3650.62" Z="126.388" />
+			<MoveTo X="5244.663" Y="3692.977" Z="128.6403" />
+			<CustomBehavior File="RunCode" Code="await InteractWithNearbyTank()" />
 
-            <MoveTo QuestId="32994" X="5331.279" Y="3581.964" Z="122.7807" />
-            <CustomBehavior File="InteractWith" QuestId="32994" MobId="222870" NumOfTimes="1" Range="10" WaitForNpcs="False" NonCompeteDistance="0" CollectionDistance="15" PreInteractMountStrategy="DismountOrCancelShapeshift" X="5331.279" Y="3581.964" Z="122.7807" />
+			<MoveTo X="5287.375" Y="3647.036" Z="126.6929" />
+			<CustomBehavior File="RunCode" Code="await InteractWithNearbyTank()" />
 
-            <MoveTo QuestId="32994" X="5275.662" Y="3573.619" Z="121.445" />
-            <CustomBehavior File="InteractWith" QuestId="32994" MobId="222870" NumOfTimes="1" Range="10" WaitForNpcs="False" NonCompeteDistance="0" CollectionDistance="15" PreInteractMountStrategy="DismountOrCancelShapeshift" X="5275.662" Y="3573.619" Z="121.445" />
-
-            <MoveTo QuestId="32994" X="5292.817" Y="3650.438" Z="126.5414" />
-            <CustomBehavior File="InteractWith" QuestId="32994" MobId="222870" NumOfTimes="1" Range="10" WaitForNpcs="False" NonCompeteDistance="0" CollectionDistance="15" PreInteractMountStrategy="DismountOrCancelShapeshift" X="5292.817" Y="3650.438" Z="126.5414" />
-
-            <MoveTo QuestId="32994" X="5308.415" Y="3686.11" Z="123.403" />
-            <CustomBehavior File="InteractWith" QuestId="32994" MobId="222870" NumOfTimes="1" Range="10" WaitForNpcs="False" NonCompeteDistance="0" CollectionDistance="15" PreInteractMountStrategy="DismountOrCancelShapeshift" X="5308.415" Y="3686.11" Z="123.403" />
-
-            <MoveTo QuestId="32994" X="5347.559" Y="3702.216" Z="119.3455" />
-            <CustomBehavior File="InteractWith" QuestId="32994" MobId="222870" NumOfTimes="1" Range="10" WaitForNpcs="False" NonCompeteDistance="0" CollectionDistance="15" PreInteractMountStrategy="DismountOrCancelShapeshift" X="5347.559" Y="3702.216" Z="119.3455" />
-                                            
+			<MoveTo X="5308.948" Y="3683.901" Z="123.5076" />
+			<CustomBehavior File="RunCode" Code="await InteractWithNearbyTank()" />
+			
+			<MoveTo X="5344.429" Y="3702.578" Z="119.4067" />
+			<CustomBehavior File="RunCode" Code="await InteractWithNearbyTank()" />			
             <UseMount Value="true" />
 		</While>
 		<Objective QuestName="The Master Siegesmith" QuestId="33828" Type="KillMob" MobId="76594" KillCount="1" />
