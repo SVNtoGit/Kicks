@@ -1020,8 +1020,8 @@
 		<TurnIn QuestName="Syth's Secret" QuestId="35668" TurnInName="Reshad" TurnInId="81770" X="-413.4514" Y="1737.877" Z="45.62154" />
 		<PickUp QuestName="A Gathering of Shadows" QuestId="35671" GiverName="Reshad" GiverId="81770" X="-413.4514" Y="1737.877" Z="45.62154" />
 		<While Condition="HasQuest(35671) &amp;&amp; !IsQuestCompleted(35671)" > <!-- A Gathering of Shadows -->
-			<MoveTo X="-413.4514" Y="1737.877" Z="45.62154" />	
-			<MoveTo X="-505.3727" Y="1855.819" Z="44.78161" />			
+			<MoveTo DestName="A Gathering of Shadows 1" X="-413.4514" Y="1737.877" Z="45.62154" />	
+			<MoveTo DestName="A Gathering of Shadows 2" X="-505.3727" Y="1855.819" Z="44.78161" />			
 			<CustomBehavior File="WaitTimer" QuestId="35671" WaitTime="15000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 		</While>
 		<!-- Horde Specific Ids from here down to beginning if admiral taylor -->
@@ -1055,7 +1055,7 @@
 		<!-- Ignoring Wanted Poster x3 -->
 
 		<If Condition="(!HasQuest(35697) &amp;&amp; !IsQuestCompleted(35697)) &amp;&amp; (!HasQuest(37326) &amp;&amp; !IsQuestCompleted(37326))">
-			<MoveTo X="-374.8891" Y="2243.131" Z="26.1326" />
+			<MoveTo DestName="Taskmaster Gornek and Provisioner Galgar" X="-374.8891" Y="2243.131" Z="26.1326" />
 			<If Condition="Object(232384) != null"> <!-- Tavern -->
 				<PickUp QuestName="Befriending the Locals" QuestId="37326" GiverName="Taskmaster Gornek" GiverId="81920" X="-373.7014" Y="2245.993" Z="26.13114" />
 			</If>
@@ -1095,7 +1095,7 @@
 			<PickUp QuestName="Extrinsic Motivation" QuestId="36022" GiverName="Dark Ranger Velonara" GiverId="83772" X="272.1129" Y="1434.884" Z="22.69005" />
 			<While Condition="HasQuest(35947) &amp;&amp; !IsQuestCompleted(35947)" > <!-- The Power of Poison -->
 				<If Condition="!Me.HasAura(167565)" > <!-- Wracking Poison -->
-					<MoveTo X="186.0442" Y="1427.71" Z="4.800173" />
+					<MoveTo DestName="The Power of Poison" X="186.0442" Y="1427.71" Z="4.800173" />
 					<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:113587&quot;)" WaitTime="2000" /> <!-- Vial of Wracking Poison -->
 				</If>
 				<CustomBehavior File="InteractWith" QuestId="35947" MobId="83760" MobId2="83706" MobId3="83749" NumOfTimes="20" Range="4" TerminateWhen="IsObjectiveComplete(1, 35947) || !Me.HasAura(167565)" 
@@ -1134,7 +1134,7 @@
 				<If Condition="Unit(84259) == null" > <!-- Lunzul - Use HAFH Hearth -->
 					<!--					<CustomBehavior File="Misc\RunLua" Lua="CastSpellByID(168499)" WaitTime="12000" />-->
 					<CustomBehavior File="Misc\RunLua" Lua="DraenorZoneAbilityFrame.SpellButton:Click()" WaitTime="12000" />
-					<MoveTo X="-365.0258" Y="2249.392" Z="27.228" />
+					<MoveTo DestName="No Time to Waste" X="-365.0258" Y="2249.392" Z="27.228" />
 				</If>
 				<CustomBehavior File="InteractWith" QuestId="36166" MobId="84259" Range="4" GossipOptions="1" PreInteractMountStrategy="DismountOrCancelShapeshift" TerminateWhen="IsObjectiveComplete(1, 36166)" X="-364.1945" Y="2250.507" Z="27.36109" />
 			</While>
@@ -1143,7 +1143,7 @@
 				<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			</If>
 			<If Condition="!HasQuest(37281) &amp;&amp; !IsQuestCompleted(37281) &amp;&amp; !IsQuestCompleted(35293)" > <!-- Velonara / Follower -->
-				<MoveTo X="-367.0347" Y="2254.575" Z="27.13527" />
+				<MoveTo DestName="Dark Ranger Velonara" X="-367.0347" Y="2254.575" Z="27.13527" />
 				<CustomBehavior File="WaitTimer" WaitTime="15000" GoalText="Waiting for Velonara {TimeRemaining}" />
 				<CustomBehavior File="InteractWith" MobId="88179" WaitForNpcs="False" WaitTime="3000" X="-367.0347" Y="2254.575" Z="27.13527" />
 				<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
@@ -1151,7 +1151,7 @@
 			</If>
 			<If Condition="!HasQuest(37292) &amp;&amp; !IsQuestCompleted(37292)" > <!-- Pickup Not In Your Army -->
 				<PickUp QuestName="Not In Your Army" QuestId="37292" GiverName="Lunzul" GiverId="84292" X="-338.5903" Y="2249.964" Z="28.267" />
-				<MoveTo X="-368.8386" Y="2249.375" Z="26.54297" />
+				<MoveTo DestName="Not In Your Army" X="-368.8386" Y="2249.375" Z="26.54297" />
 			</If>
 			<While Condition="HasQuest(37292) &amp;&amp; !IsQuestCompleted(37292)" > <!-- Not In Your Army -->
 				<!-- Avoid.cs stuff: 
@@ -1166,9 +1166,9 @@
 				<CustomBehavior File="InteractWith" QuestId="37292" MobId="88234" Range="4" GossipOptions="1" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 37292)" X="-301.7813" Y="2290.498" Z="38.90661" />
 			</While>
 			<If Condition="HasQuest(37292) &amp;&amp; IsQuestCompleted(37292)" > <!-- Pickup Not In Your Army -->
-				<MoveTo X="-368.8386" Y="2249.375" Z="26.54297" />
+				<MoveTo DestName="Pickup: Not In Your Army" X="-368.8386" Y="2249.375" Z="26.54297" />
 				<TurnIn QuestName="Not In Your Army" QuestId="37292" TurnInName="Lunzul" TurnInId="84292" X="-338.5903" Y="2249.964" Z="28.267" />
-				<MoveTo X="-368.8386" Y="2249.375" Z="26.54297" />
+				<MoveTo DestName="End of Axefall" X="-368.8386" Y="2249.375" Z="26.54297" />
 			</If>
 			<!-- End of Axefall - Horde -->
 		</If>
@@ -1246,7 +1246,7 @@
 		<While Condition="!HasQuest(36864) &amp;&amp; !IsQuestCompleted(36864)" > <!-- Three Feet Under / xxxxx Follower -->
 			<CustomBehavior File="InteractWith" MobId="82247" MobState="Alive" WaitTime="3000" X="-739.783" Y="2482.047" Z="40.68709" /> <!-- Kill Nas Dunberlin to spawn quest -->
 
-			<MoveTo X="-724.8611" Y="2513.88" Z="37.13251" />
+			<MoveTo DestName="Benjamin Gibb" X="-724.8611" Y="2513.88" Z="37.13251" />
 			<CustomBehavior File="InteractWith" MobId="86597" WaitTime="3000" X="-724.8611" Y="2513.88" Z="37.13251" />
 			<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
 			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
@@ -1303,7 +1303,7 @@
 			</While>
 			-->
 		<If Condition="!HasQuest(34838) &amp;&amp; !IsQuestCompleted(34838)" >  <!-- Pickup Ikky's Egg -->
-			<MoveTo X="-99.24571" Y="1930.973" Z="28.8145" />
+			<MoveTo DestName="Kaliri Egg" X="-99.24571" Y="1930.973" Z="28.8145" />
 			<PickUp QuestName="Ikky's Egg" QuestId="34838" GiverName="Kaliri Egg" GiverId="80470" X="-100.6736" Y="1930.181" Z="31.21564" />	
 		</If>
 		<While Condition="HasQuest(34838) &amp;&amp; !IsQuestCompleted(34838)" >
@@ -1332,7 +1332,7 @@
 		<Objective QuestName="Mother of Thorns" QuestId="34885" Type="KillMob" MobId="78931" KillCount="5" />
 		<TurnIn QuestName="Baby Bird" QuestId="34886" TurnInName="Ikky" TurnInId="80469" X="-100.8576" Y="1930.196" Z="32.01377" />
 		<While Condition="HasQuest(34827) &amp;&amp; !IsQuestCompleted(34827)" > <!-- Last of the Talonpriests -->
-			<MoveTo X="-18.1171" Y="1777.336" Z="20.37024" />
+			<MoveTo DestName="Last of the Talonpriests" X="-18.1171" Y="1777.336" Z="20.37024" />
 			<UseItem QuestId="34827" ItemId="112100" X="-18.1171" Y="1777.336" Z="20.37024" />
 			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 		</While>
@@ -1364,7 +1364,7 @@
 		<TurnIn QuestName="Ishaal's Orb" QuestId="34828" TurnInName="Talonpriest Ishaal" TurnInId="80232" X="-20.46354" Y="1771.319" Z="20.50745" />
 		<PickUp QuestName="Behind the Veil" QuestId="34830" GiverName="Talonpriest Ishaal" GiverId="80232" X="-20.46354" Y="1771.319" Z="20.50745" />
 		<While Condition="HasQuest(34830) &amp;&amp; !IsQuestCompleted(34830)" >
-			<MoveTo X="422.0598" Y="1983.623" Z="13.47741" />
+			<MoveTo DestName="Behind the Veil" X="422.0598" Y="1983.623" Z="13.47741" />
 			<UseItem QuestId="34830" ItemId="112099" X="422.0598" Y="1983.623" Z="13.47741" />
 			<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			<!-- obtain aura: <Aura Name="Behind the Veil" SpellId="162563" /> -->
@@ -1411,8 +1411,8 @@
 			<CustomBehavior File="Hooks\Avoid" AvoidName="SolarZone" Command="Add" ObjectType="AreaTrigger" ObjectId="6622" Radius="5" />
 			<Objective QuestName="Sol Sisters" QuestId="35259" Type="KillMob" MobId="81933" KillCount="1" />
 			<Objective QuestName="Sol Sisters" QuestId="35259" Type="KillMob" MobId="81934" KillCount="1" />
-			<MoveTo X="348.2197" Y="2741.416" Z="70.95568" />
-			<MoveTo X="353.5365" Y="2747.607" Z="71.85035" />
+			<MoveTo DestName="Sol Sisters 1" X="348.2197" Y="2741.416" Z="70.95568" />
+			<MoveTo DestName="Sol Sisters 2" X="353.5365" Y="2747.607" Z="71.85035" />
 			<CustomBehavior File="Hooks\Avoid" AvoidName="Smash" Command="Remove" />
 			<CustomBehavior File="Hooks\Avoid" AvoidName="SolarZone" Command="Remove" />
 		</If>
@@ -1439,7 +1439,7 @@
 		<!-- Veil Terrok -->
 		<TurnIn QuestName="Control is King" QuestId="35634" TurnInName="Darkscryer Raastok" TurnInId="82509" X="-468.8924" Y="1825.566" Z="44.58598" />
 		<If Condition="!HasQuest(34898) &amp;&amp; !IsQuestCompleted(34898)" > <!-- Ikky / Companion -->
-			<MoveTo X="-462.592" Y="1881.333" Z="46.13694" />
+			<MoveTo DestName="Ikky" X="-462.592" Y="1881.333" Z="46.13694" />
 			<CustomBehavior File="InteractWith" MobId="85320" WaitTime="3000" X="-462.592" Y="1881.333" Z="46.13694" />
 			<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
 			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
@@ -1506,7 +1506,7 @@
 
 		<!-- Pinchwhistle Gearworks -->
 		<While Condition="HasQuest(35620) &amp;&amp; !IsQuestCompleted(35620)" > <!-- Pinchwhistle Gearworks - Horde Id -->
-			<MoveTo X="-368.5955" Y="2287.085" Z="34.01545" />
+			<MoveTo DestName="Hutou Featherwind the Flight Master" X="-368.5955" Y="2287.085" Z="34.01545" />
 			<CustomBehavior File="InteractWith" QuestId="35620" MobId="82612" Range="5" GossipOptions="1" WaitTime="5000" X="-368.5955" Y="2287.085" Z="34.01545" />
 		</While>
 		<If Condition="HasQuest(35620)" > <!-- Pinchwhistle Gearworks - Horde -->
@@ -1678,7 +1678,7 @@
 			<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:111957&quot;)" WaitTime="12000" />
 		</While>
 		<If Condition="!HasQuest(36062) &amp;&amp; !IsQuestCompleted(36062)" > <!-- Kimzee Pinchwhistle / Follower -->
-			<MoveTo X="-1559.517" Y="948.3993" Z="7.99075" />
+			<MoveTo DestName="Kimzee Pinchwhistle" X="-1559.517" Y="948.3993" Z="7.99075" />
 			<CustomBehavior File="InteractWith" MobId="82468" WaitTime="3000" X="-1559.517" Y="948.3993" Z="7.99075" />
 			<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
 			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
@@ -1737,34 +1737,36 @@
 		<!-- These 2 pickups may bug out until main fixes the interact range for pickup / turnins -->
 		<PickUp QuestName="Ritual Severance" QuestId="35003" GiverName="Anzu" GiverId="80648" X="-707.4323" Y="628.4236" Z="80.09872" />
 		<PickUp QuestName="Servants of a Dead God" QuestId="35004" GiverName="Anzu" GiverId="80648" X="-707.4323" Y="628.4236" Z="80.09872" />
+
 		<While Condition="HasQuest(35003) &amp;&amp; !IsQuestCompleted(35003)" > <!-- Ritual Severance -->
 			<While Condition="!IsObjectiveComplete(1, 35003)"> <!-- South -->
-				<MoveTo X="-298.827" Y="502.2569" Z="74.51005" />
-				<MoveTo X="-305.1045" Y="495.5247" Z="74.68217" />
-				<MoveTo X="-314.8975" Y="500.1879" Z="74.46211" />
-				<MoveTo X="-308.7792" Y="508.4653" Z="74.02866" />
-				<MoveTo X="-299.4967" Y="503.4933" Z="74.49133" />
-				<MoveTo X="-307.1436" Y="501.3085" Z="74.47687" />
+				<MoveTo DestName="Ritual Severance 1a" X="-298.827" Y="502.2569" Z="74.51005" />
+				<MoveTo DestName="Ritual Severance 1b" X="-305.1045" Y="495.5247" Z="74.68217" />
+				<MoveTo DestName="Ritual Severance 1c" X="-314.8975" Y="500.1879" Z="74.46211" />
+				<MoveTo DestName="Ritual Severance 1d" X="-308.7792" Y="508.4653" Z="74.02866" />
+				<MoveTo DestName="Ritual Severance 1e" X="-299.4967" Y="503.4933" Z="74.49133" />
+				<MoveTo DestName="Ritual Severance 1f" X="-307.1436" Y="501.3085" Z="74.47687" />
 			</While>
 			<While Condition="!IsObjectiveComplete(2, 35003)"> <!-- Central -->
-				<MoveTo X="-260.0925" Y="588.0868" Z="74.92296" />
-				<MoveTo X="-254.6516" Y="592.6397" Z="74.97564" />
-				<MoveTo X="-249.1338" Y="587.2943" Z="74.95708" />
-				<MoveTo X="-253.2941" Y="581.9844" Z="74.95496" />
-				<MoveTo X="-261.3671" Y="585.3033" Z="74.9186" />
-				<MoveTo X="-260.0925" Y="588.0868" Z="74.92296" />
-				<MoveTo X="-254.5577" Y="587.2178" Z="74.95715" />
+				<MoveTo DestName="Ritual Severance 2a" X="-260.0925" Y="588.0868" Z="74.92296" />
+				<MoveTo DestName="Ritual Severance 2b" X="-254.6516" Y="592.6397" Z="74.97564" />
+				<MoveTo DestName="Ritual Severance 2c" X="-249.1338" Y="587.2943" Z="74.95708" />
+				<MoveTo DestName="Ritual Severance 2d" X="-253.2941" Y="581.9844" Z="74.95496" />
+				<MoveTo DestName="Ritual Severance 2e" X="-261.3671" Y="585.3033" Z="74.9186" />
+				<MoveTo DestName="Ritual Severance 2f" X="-260.0925" Y="588.0868" Z="74.92296" />
+				<MoveTo DestName="Ritual Severance 2g" X="-254.5577" Y="587.2178" Z="74.95715" />
 			</While>
 			<While Condition="!IsObjectiveComplete(3, 35003)"> <!-- North -->
-				<MoveTo X="-166.8487" Y="615.7782" Z="86.19635" />
-				<MoveTo X="-164.9285" Y="624.7982" Z="86.28423" />
-				<MoveTo X="-156.1659" Y="622.5986" Z="86.29033" />
-				<MoveTo X="-159.3589" Y="615.153" Z="86.29033" />
-				<MoveTo X="-166.9981" Y="617.8109" Z="86.19656" />
-				<MoveTo X="-166.8487" Y="615.7782" Z="86.19635" />
-				<MoveTo X="-157.9763" Y="622.7756" Z="86.29029" />
+				<MoveTo DestName="Ritual Severance 3a" X="-166.8487" Y="615.7782" Z="86.19635" />
+				<MoveTo DestName="Ritual Severance 3b" X="-164.9285" Y="624.7982" Z="86.28423" />
+				<MoveTo DestName="Ritual Severance 3c" X="-156.1659" Y="622.5986" Z="86.29033" />
+				<MoveTo DestName="Ritual Severance 3d" X="-159.3589" Y="615.153" Z="86.29033" />
+				<MoveTo DestName="Ritual Severance 3e" X="-166.9981" Y="617.8109" Z="86.19656" />
+				<MoveTo DestName="Ritual Severance 3f" X="-166.8487" Y="615.7782" Z="86.19635" />
+				<MoveTo DestName="Ritual Severance 3g" X="-157.9763" Y="622.7756" Z="86.29029" />
 			</While>
 		</While>
+
 		<Objective QuestName="The False Talon King" QuestId="35011" Type="CollectItem" ItemId="112444" CollectCount="1" />
 		<Objective QuestName="Servants of a Dead God" QuestId="35004" Type="KillMob" MobId="80640" KillCount="6" />
 		<Objective QuestName="Servants of a Dead God" QuestId="35004" Type="KillMob" MobId="80638" KillCount="6" />
@@ -1806,6 +1808,7 @@
 		<PickUp QuestName="The Missing Piece" QuestId="35897" GiverName="Reshad" GiverId="81770" X="-501.684" Y="1863.557" Z="44.7822" />
 		<TurnIn QuestName="The Missing Piece" QuestId="35897" TurnInName="Effigy of Terokk" TurnInId="82813" X="-504.9809" Y="1855.319" Z="44.78154" />
 		<PickUp QuestName="Terokk's Fall" QuestId="35895" GiverName="Effigy of Terokk" GiverId="82813" X="-504.9809" Y="1855.319" Z="44.78154" />
+
 		<While Condition="HasQuest(35895) &amp;&amp; !IsQuestCompleted(35895)" > <!-- Terokk's Fall -->
 			<DisableBehavior Name="Combat" />
 
@@ -1818,7 +1821,7 @@
 				<CustomBehavior File="InteractWith" QuestId="35895" MobId="82813" Range="4" NonCompeteDistance="0" GossipOptions="1" WaitTime="10000" TerminateWhen="Me.IsOnTransport" X="-504.9809" Y="1855.319" Z="44.78154" />
 			</If>
 			<While Condition="!IsObjectiveComplete(1, 35895) &amp;&amp; Me.IsOnTransport">
-				<MoveTo X="-256.8004" Y="797.2864" Z="59.57238" />
+				<MoveTo DestName="Terokk's Fall" X="-256.8004" Y="797.2864" Z="59.57238" />
 				<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for objective to complete {TimeRemaining}" />
 			</While>
 			<While Condition="!(IsObjectiveComplete(2, 35895) &amp;&amp; IsObjectiveComplete(3, 35895)) &amp;&amp; Me.IsOnTransport">
@@ -1834,19 +1837,19 @@
 				<CustomBehavior File="Misc\RunLua" Lua="OverrideActionBarButton2:Click()" WaitTime="0" />
 				<MoveTo QuestId="35895" X="-390.7406" Y="726.0061" Z="57.505" />
 				<CustomBehavior File="Misc\RunLua" Lua="OverrideActionBarButton2:Click()" WaitTime="0" />
-				<MoveTo QuestId="35895" X="-387.9044" Y="738.5457" Z="57.42753" />
-				<MoveTo QuestId="35895" X="-400.6094" Y="668.0972" Z="57.75156" />
-				<MoveTo QuestId="35895" X="-378.1016" Y="786.4291" Z="57.86756" />
-				<MoveTo QuestId="35895" X="-412.3598" Y="679.6833" Z="57.77292" />
-				<MoveTo QuestId="35895" X="-450.5966" Y="644.9413" Z="58.18137" />
-				<MoveTo QuestId="35895" X="-415.559" Y="637.0883" Z="57.36303" />
-				<MoveTo QuestId="35895" X="-380.206" Y="652.3433" Z="58.68639" />
-				<MoveTo QuestId="35895" X="-380.206" Y="652.3433" Z="58.68639" />
-				<MoveTo QuestId="35895" X="-352.2305" Y="673.3245" Z="58.06981" />
-				<MoveTo QuestId="35895" X="-322.5179" Y="707.6718" Z="57.76895" />
-				<MoveTo QuestId="35895" X="-307.1196" Y="748.8934" Z="59.37311" />	
-				<MoveTo QuestId="35895" X="-362.582" Y="795.6953" Z="57.86882" />
-				<MoveTo QuestId="35895" X="-321.7895" Y="785.7971" Z="58.20914" />  	
+				<MoveTo DestName="Terokk's Fall 1" QuestId="35895" X="-387.9044" Y="738.5457" Z="57.42753" />
+				<MoveTo DestName="Terokk's Fall 2" QuestId="35895" X="-400.6094" Y="668.0972" Z="57.75156" />
+				<MoveTo DestName="Terokk's Fall 3" QuestId="35895" X="-378.1016" Y="786.4291" Z="57.86756" />
+				<MoveTo DestName="Terokk's Fall 4" QuestId="35895" X="-412.3598" Y="679.6833" Z="57.77292" />
+				<MoveTo DestName="Terokk's Fall 5" QuestId="35895" X="-450.5966" Y="644.9413" Z="58.18137" />
+				<MoveTo DestName="Terokk's Fall 6" QuestId="35895" X="-415.559" Y="637.0883" Z="57.36303" />
+				<MoveTo DestName="Terokk's Fall 7" QuestId="35895" X="-380.206" Y="652.3433" Z="58.68639" />
+				<MoveTo DestName="Terokk's Fall 8" QuestId="35895" X="-380.206" Y="652.3433" Z="58.68639" />
+				<MoveTo DestName="Terokk's Fall 9" QuestId="35895" X="-352.2305" Y="673.3245" Z="58.06981" />
+				<MoveTo DestName="Terokk's Fall 10" QuestId="35895" X="-322.5179" Y="707.6718" Z="57.76895" />
+				<MoveTo DestName="Terokk's Fall 11" QuestId="35895" X="-307.1196" Y="748.8934" Z="59.37311" />	
+				<MoveTo DestName="Terokk's Fall 12" QuestId="35895" X="-362.582" Y="795.6953" Z="57.86882" />
+				<MoveTo DestName="Terokk's Fall 13" QuestId="35895" X="-321.7895" Y="785.7971" Z="58.20914" />  	
 			</While>
 			<While Condition="!IsObjectiveComplete(4, 35895) &amp;&amp; Me.IsOnTransport">
 				<CustomBehavior File="InteractWith" QuestId="35895" MobId="233382" NonCompeteDistance="0" WaitTime="5000" Range="5" TerminateWhen="IsObjectiveComplete(4, 35895)" X="-445.4514" Y="624.0938" Z="56.17257" />
@@ -1856,6 +1859,7 @@
 			<CustomBehavior File="Hooks\DoWhen" ActivityName="SpamVehicleButton1" Command="Remove" /> 
 			<EnableBehavior Name="Combat" />
 		</While>
+
 		<TurnIn QuestName="Terokk's Fall" QuestId="35895" TurnInName="Reshad" TurnInId="81770" X="-501.684" Y="1863.557" Z="44.7822" />
 		<PickUp QuestName="A Worthy Vessel" QuestId="36059" GiverName="Shadow-Sage Iskar" GiverId="80153" X="-496.2379" Y="1857.922" Z="44.78153" />
 		<While Condition="HasQuest(36059) &amp;&amp; !IsQuestCompleted(36059)" > <!-- A Worthy Vessel -->
@@ -1991,12 +1995,12 @@
 		<While Condition="HasQuest(35009) &amp;&amp; !IsQuestCompleted(35009)" > <!-- Call of the Raven Mother -->
 			<If Condition="!IsObjectiveComplete(2, 35009)">
 				<CustomBehavior File="InteractWith" QuestId="35009" MobId="80481" Range="4" NonCompeteDistance="0" GossipOptions="1" TerminateWhen="IsObjectiveComplete(1, 35009)" X="-633.1424" Y="1522.276" Z="36.65496" />
-				<MoveTo X="-651.8298" Y="1549.763" Z="36.42992" />
+				<MoveTo DestName="Call of the Raven Mother 2a" X="-651.8298" Y="1549.763" Z="36.42992" />
 			</If>
 			<While Condition="!IsObjectiveComplete(2, 35009)">
 				<If Condition="!Me.HasAura(167507)"> <!-- Krikka / Summon Krikka -->
 					<CustomBehavior File="InteractWith" QuestId="35009" MobId="80481" Range="4" NonCompeteDistance="0" GossipOptions="1" X="-633.1424" Y="1522.276" Z="36.65496" />
-					<MoveTo X="-651.8298" Y="1549.763" Z="36.42992" />
+					<MoveTo DestName="Call of the Raven Mother 2b" X="-651.8298" Y="1549.763" Z="36.42992" />
 					<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for Krikka {TimeRemaining}" />
 				</If>
 
@@ -2077,7 +2081,7 @@
 		<TurnIn QuestName="When All Is Aligned" QuestId="35704" TurnInName="Reshad" TurnInId="81770" X="-501.684" Y="1863.557" Z="44.78233" />
 		<!--<PickUp QuestName="Victory is Within Reach" QuestId="36316" GiverName="Reshad" GiverId="81770" X="-501.684" Y="1863.557" Z="44.78233" /> Dungeon quest -->
 		<If Condition="!HasQuest(37141) &amp;&amp; !IsQuestCompleted(37141)" > <!-- Talonpriest Ishaal / Follower -->
-			<MoveTo X="-507.8021" Y="1862.358" Z="44.78172" />
+			<MoveTo DestName="Talonpriest Ishaal" X="-507.8021" Y="1862.358" Z="44.78172" />
 			<CustomBehavior File="InteractWith" MobId="83959" WaitTime="3000" X="-507.8021" Y="1862.358" Z="44.78172" />
 			<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
 		</If>
@@ -2107,7 +2111,7 @@
 		<PickUp QuestName="News from Nagrand" QuestId="36602" GiverName="Shadow-Sage Iskar" GiverId="80153" X="-496.2379" Y="1857.922" Z="44.78159" /> 
 		<If Condition="HasQuest(36602) &amp;&amp; Unit(78487) == null" > <!-- News from Nagrand - Rokhan - Garrison Hearth -->
 			<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:110560&quot;)" WaitTime="15000" />
-			<MoveTo X="5614.007" Y="4563.16" Z="135.1946" />
+			<MoveTo DestName="Turnin: News from Nagrand" X="5614.007" Y="4563.16" Z="135.1946" />
 		</If>
 		<TurnIn QuestName="News from Nagrand" QuestId="36602" TurnInName="Rokhan" TurnInId="78487" X="5614.007" Y="4563.16" Z="135.1946" />
 		<PickUp QuestName="Taking the Fight to Nagrand" QuestId="34794" GiverName="Rokhan" GiverId="78487" X="5614.007" Y="4563.16" Z="135.1946" />
