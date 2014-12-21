@@ -925,7 +925,7 @@
 
 				<CustomBehavior File="FlyTo" DestName="Khadgar port to Tanaan" X="-8836.918" Y="621.7521" Z="93.56944" />
 				<CustomBehavior File="ForcedDismount" />
-				<MoveTo X="-8836.918" Y="621.7521" Z="93.56944" />
+				<MoveTo DestName="Khadgar port to Tanaan" X="-8836.918" Y="621.7521" Z="93.56944" />
 				<CustomBehavior File="InteractWith" MobId="78423" ProactiveCombatStrategy="ClearMobsTargetingUs" GossipOptions="1" NonCompeteDistance="0" KeepTargetSelected="True" Range="10" X="-8831.111" Y="623.9757" Z="94.09922" /> <!-- Khadgar -->
 			</If>
 			<If Condition="Me.ZoneId == 4"> <!-- Blasted Lands -->
@@ -954,7 +954,7 @@
 		<PickUp QuestName="Azeroth's Last Stand" QuestId="35933" GiverName="Archmage Khadgar" GiverId="78558" X="4066.427" Y="-2372.571" Z="94.59667" />
 		<While Condition="HasQuest(35933) &amp;&amp; !IsQuestCompleted(35933)"> <!-- Azeroth's Last Stand -->
 			<!--<Objective QuestName="Azeroth's Last Stand" QuestId="35933" Type="CollectItem" ItemId="113579" CollectCount="1" />-->
-			<MoveTo X="4065.393" Y="-2333.173" Z="69.03096" />
+			<MoveTo DestName="Azeroth's Last Stand" X="4065.393" Y="-2333.173" Z="69.03096" />
 			<CustomBehavior File="InteractWith" QuestId="35933" MobId="78883" MobState="Alive" Range="2" NonCompeteDistance="0" IgnoreLOS="False" X="4066.309" Y="-2304.655" Z="64.92082" />
 		</While>
 		<While Condition="HasQuest(35933) &amp;&amp; IsQuestCompleted(35933)"> <!-- Turnin Azeroth's Last Stand, Pickup Onslaught's End -->
@@ -963,11 +963,11 @@
 		</While>
 		<If Condition="HasQuest(34392) &amp;&amp; !IsQuestCompleted(34392)" > <!-- Onslaught's End -->
 			<While Condition="!IsObjectiveComplete(1, 34392)"> <!-- North -->
-				<MoveTo X="4167.385" Y="-2287.48" Z="59.87266" />
+				<MoveTo DestName="Onslaught's End 1" X="4167.385" Y="-2287.48" Z="59.87266" />
 				<CustomBehavior File="InteractWith" QuestId="34392" MobId="233056" NonCompeteDistance="0" Range="8" WaitTime="3000" X="4167.385" Y="-2287.48" Z="59.87266" />
 			</While>
 			<While Condition="!IsObjectiveComplete(2, 34392)"> <!-- South -->
-				<MoveTo X="3964.42" Y="-2290.505" Z="59.67453" />
+				<MoveTo DestName="Onslaught's End 2" X="3964.42" Y="-2290.505" Z="59.67453" />
 				<CustomBehavior File="InteractWith" QuestId="34392" MobId="233057" NonCompeteDistance="0" Range="8" WaitTime="3000" X="3964.42" Y="-2290.505" Z="59.67453" />
 			</While>
 		</If>
@@ -975,8 +975,8 @@
 		<PickUp QuestName="The Portal's Power" QuestId="34393" GiverName="Archmage Khadgar" GiverId="78558" X="4066.427" Y="-2372.571" Z="94.59733" />
 		<If Condition="HasQuest(34393) &amp;&amp; !IsQuestCompleted(34393)" > <!-- The Portal's Power -->
 			<While Condition="!IsObjectiveComplete(1, 34393)"> <!-- Enter the Soul Chamber -->
-				<MoveTo X="4026.397" Y="-2377.47" Z="79.60987" />
-				<MoveTo X="4034.27" Y="-2377.651" Z="79.64513" />
+				<MoveTo DestName="The Portal's Power 1a" X="4026.397" Y="-2377.47" Z="79.60987" />
+				<MoveTo DestName="The Portal's Power 1b" X="4034.27" Y="-2377.651" Z="79.64513" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for Cinematic {TimeRemaining}" />
 				<!-- kill cinematic -->
 				<CustomBehavior File="Misc\RunLua" Lua="if MovieFrame and MovieFrame:IsVisible() then MovieFrame:StopMovie() elseif CinematicFrame and CinematicFrame:IsVisible() then CinematicFrame_CancelCinematic() end" WaitTime="1000" />
@@ -1004,7 +1004,7 @@
 
 		<!-- Heartblood -->
 		<If Condition="HasQuest(34420)" > <!-- The Cost of War - Turnin -->
-			<MoveTo X="3936.718" Y="-2505.224" Z="69.73077" />
+			<MoveTo DestName="The Cost of War" X="3936.718" Y="-2505.224" Z="69.73077" />
 			<CustomBehavior File="WaitTimer" WaitTime="7000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 			<TurnIn QuestName="The Cost of War" QuestId="34420" TurnInName="Archmage Khadgar" TurnInId="78559" X="3936.718" Y="-2505.224" Z="69.73077" /> <!-- NEW NPC ID -->
 			<TargetingDistance Value="40" />
@@ -1035,7 +1035,7 @@
 				<CustomBehavior File="InteractWith" MobId="78556" GossipOptions="1" Range="5" X="3842.366" Y="-2787.323" Z="94.29414" /> <!-- Ariok -->
 			</While>
 			<While Condition="!IsObjectiveComplete(2, 34423)"> <!-- Escort Ariok (MoveTo new spot) -->
-				<MoveTo X="3953.007" Y="-2889.559" Z="60.34301" />
+				<MoveTo DestName="Altar Altercation 2" X="3953.007" Y="-2889.559" Z="60.34301" />
 			</While>
 			<While Condition="!IsObjectiveComplete(3, 34423)"> <!-- Destroy Blood Ritual Orbs x3 -->
 				<CustomBehavior File="InteractWith" QuestId="34423" MobId="83670" Range="8" NonCompeteDistance="0" WaitTime="3000" >
@@ -1051,13 +1051,13 @@
 				<CustomBehavior File="WaitTimer" WaitTime="4000" GoalText="Waiting for cutscene to end {TimeRemaining}" />
 			</While>
 			<While Condition="!IsObjectiveComplete(4, 34423)"> <!-- Find Khadgar on Tar'thog Bridge -->
-				<MoveTo X="4191.499" Y="-2786.998" Z="26.74773" /> <!-- Npc Id 78560 -->
+				<MoveTo DestName="Altar Altercation 4 Find Khadgar on Tar'thog Bridge" X="4191.499" Y="-2786.998" Z="26.74773" /> <!-- Npc Id 78560 -->
 			</While>
 		</If>
 		<TurnIn QuestName="Altar Altercation" QuestId="34423" TurnInName="Archmage Khadgar" TurnInId="78560" X="4191.499" Y="-2786.998" Z="26.74773" /> <!-- NEW NPC ID -->
 		<PickUp QuestName="The Kargathar Proving Grounds" QuestId="34425" GiverName="Archmage Khadgar" GiverId="78560" X="4191.499" Y="-2786.998" Z="26.74773" />
 		<If Condition="HasQuest(34425) &amp;&amp; !IsQuestCompleted(34425)" > <!-- The Kargathar Proving Grounds -->
-			<MoveTo X="4229.732" Y="-2812.947" Z="17.11976" />
+			<MoveTo DestName="The Kargathar Proving Grounds" X="4229.732" Y="-2812.947" Z="17.11976" />
 		</If>
 		<TurnIn QuestName="The Kargathar Proving Grounds" QuestId="34425" TurnInName="Archmage Khadgar" TurnInId="78560" X="4229.732" Y="-2812.947" Z="17.11976" /> <!-- New npc location -->
 		<!-- End Heartblood -->
@@ -1065,7 +1065,7 @@
 		<!-- Kargathar Proving Grounds -->
 		<PickUp QuestName="A Potential Ally" QuestId="34478" GiverName="Archmage Khadgar" GiverId="78560" X="4229.732" Y="-2812.947" Z="17.11976" />
 		<While Condition="HasQuest(34478) &amp;&amp; !IsQuestCompleted(34478)" > <!-- A Potential Ally -->
-			<MoveTo X="4295.471" Y="-2713.788" Z="8.792819" />
+			<MoveTo DestName="A Potential Ally" X="4295.471" Y="-2713.788" Z="8.792819" />
 			<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for agro to clear {TimeRemaining}" />
 			<UseItem QuestId="34478" ItemId="110799" X="4295.471" Y="-2713.788" Z="8.792819" /> <!-- Channel for ~10s -->
 		</While>
@@ -1074,18 +1074,18 @@
 		<!-- <CustomBehavior File="Halt" /> -->
 		<While Condition="HasQuest(34429) &amp;&amp; !IsQuestCompleted(34429)" > <!-- Kill Your Hundred -->
 			<While Condition="!IsObjectiveComplete(1, 34429)"> <!-- Enter the Arena -->
-				<MoveTo X="4402.403" Y="-2826.078" Z="5.036519" />
+				<MoveTo DestName="Kill Your Hundred 1" X="4402.403" Y="-2826.078" Z="5.036519" />
 				<!-- un cancelable cutscene -->
 			</While>
 			<While Condition="!IsObjectiveComplete(2, 34429)"> <!-- Kill 99 / 100 mobs - we could do escort group, but ... meh -->
-				<MoveTo X="4396.81" Y="-2823.687" Z="4.992444" />
+				<MoveTo DestName="Kill Your Hundred 2" X="4396.81" Y="-2823.687" Z="4.992444" />
 				<!--  kill: <WoWUnit Name="Shattered Hand Brawler" Entry="82057" X="4392.524" Y="-2822.002" Z="4.916245" /> -->
 				<!--<Objective QuestName="Kill Your Hundred" QuestId="34429" Type="KillMob" MobId="82066" KillCount="100" />--> <!-- we can just /afk here and the npcs will handle it -->
 				<!--<Objective QuestName="Kill Your Hundred" QuestId="34429" Type="KillMob" MobId="82142" KillCount="99" />-->
 				<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for objective to auto complete {TimeRemaining}" />
 			</While>
 			<While Condition="!IsObjectiveComplete(3, 34429)"> <!-- Escape Arena -->
-				<MoveTo X="4510.224" Y="-2634.387" Z="1.843593" />
+				<MoveTo DestName="Kill Your Hundred 3" X="4510.224" Y="-2634.387" Z="1.843593" />
 				<CustomBehavior File="WaitTimer" QuestId="34429" WaitTime="10000" GoalText="Waiting for cutscene {TimeRemaining}" /> <!-- don't edit timer - Kick -->
 			</While>
 			<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Waiting for cutscene {TimeRemaining}" />
@@ -1096,7 +1096,7 @@
 		</While>
 		<If Condition="HasQuest(34429)" > <!-- Kill Your Hundred -->
 			<CustomBehavior File="RunCode" Code="Navigator.Clear()" />
-			<MoveTo X="4510.708" Y="-2635.453" Z="1.748904" />
+			<MoveTo DestName="Kill Your Hundred - Completed" X="4510.708" Y="-2635.453" Z="1.748904" />
 		</If>
 		<TurnIn QuestName="Kill Your Hundred" QuestId="34429" TurnInName="Archmage Khadgar" TurnInId="78561" X="4510.708" Y="-2635.453" Z="1.748904" /> <!-- New NPC Id -->
 		<PickUp QuestName="The Shadowmoon Clan" QuestId="34432" GiverName="Vindicator Maraad" GiverId="78554" X="4505.308" Y="-2633.774" Z="1.709742" />
@@ -1150,11 +1150,11 @@
 		<PickUp QuestName="The Shadow of the Worldbreaker" QuestId="34958" GiverName="Thaelin Darkanvil" GiverId="78568" X="4364.854" Y="-2115.491" Z="2.372308" />
 		<If Condition="HasQuest(34987) &amp;&amp; !IsQuestCompleted(34987)" > <!-- The Gunpowder Plot -->
 			<While Condition="!IsObjectiveComplete(1, 34987)"> <!-- Click Gunpowder -->
-				<MoveTo X="4325.336" Y="-2185.328" Z="6.931957" />
+				<MoveTo DestName="The Gunpowder Plot 1" X="4325.336" Y="-2185.328" Z="6.931957" />
 				<CustomBehavior File="InteractWith" QuestId="34987" MobId="231119" NonCompeteDistance="0" WaitTime="2000" WaitForNpcs="False" Range="4" X="4325.336" Y="-2185.328" Z="6.931957" />
 			</While>
 			<While Condition="!IsObjectiveComplete(2, 34987)"> <!-- Click Plunger -->
-				<MoveTo X="4365.916" Y="-2114.574" Z="2.412212" />
+				<MoveTo DestName="The Gunpowder Plot 2" X="4365.916" Y="-2114.574" Z="2.412212" />
 				<CustomBehavior File="InteractWith" QuestId="34987" MobId="231066" NonCompeteDistance="0" Range="2" X="4365.916" Y="-2114.574" Z="2.412212" />
 			</While>
 		</If>
@@ -1171,10 +1171,10 @@
 		<If Condition="HasQuest(35747) &amp;&amp; !IsQuestCompleted(35747)" > <!-- Taking a Trip to the Top of the Tank - Escort -->
 			<While Condition="!IsObjectiveComplete(1, 35747)"> <!-- Thaelin Darkanvil -->
 				<CustomBehavior File="InteractWith" MobId="78568" GossipOptions="1" X="4364.854" Y="-2115.491" Z="2.372287" /> <!-- Thaelin Darkanvil -->
-				<MoveTo X="4338.178" Y="-2060.592" Z="1.166897" />
+				<MoveTo DestName="Taking a Trip to the Top of the Tank 1" X="4338.178" Y="-2060.592" Z="1.166897" />
 			</While>
 			<While Condition="!IsObjectiveComplete(2, 35747)"> <!-- Kill Gogluk
-                <MoveTo X="4338.178" Y="-2060.592" Z="1.166897" />
+                <MoveTo DestName="Taking a Trip to the Top of the Tank 2" X="4338.178" Y="-2060.592" Z="1.166897" />
                 <CustomBehavior File="EscortGroup" QuestId="35747" EscortCompleteWhen="QuestObjectiveComplete" QuestObjectiveIndex="2" EscortCountMax="1"
                                             EscortNpcId="78568" EscortMaxFightDistance="15" SearchForNpcsRadius="75" >
                     <SearchPath>
@@ -1188,16 +1188,16 @@
                     </SearchPath>
                 </CustomBehavior>
                 -->
-				<MoveTo X="4109.659" Y="-1930.428" Z="26.4752" />
+				<MoveTo DestName="Taking a Trip to the Top of the Tank 2a" X="4109.659" Y="-1930.428" Z="26.4752" />
 				<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Kill noob mobs {TimeRemaining}" />
-				<MoveTo X="4065.759" Y="-1955.649" Z="27.83311" />
+				<MoveTo DestName="Taking a Trip to the Top of the Tank 2b" X="4065.759" Y="-1955.649" Z="27.83311" />
 				<While Condition="!IsObjectiveComplete(2, 35747)"> <!-- Thaelin Darkanvil & Kill Gogluk -->
-					<MoveTo X="4065.759" Y="-1955.649" Z="27.83311" />
+					<MoveTo DestName="Taking a Trip to the Top of the Tank 2c" X="4065.759" Y="-1955.649" Z="27.83311" />
 					<CustomBehavior File="WaitTimer" WaitTime="2000" GoalText="Kill Gogluk npc 86039 {TimeRemaining}" />
 				</While>
 			</While>
 			<While Condition="!IsObjectiveComplete(3, 35747)"> <!-- Climb the rear chains -->
-				<MoveTo X="4064.357" Y="-2021.231" Z="74.99429" />
+				<MoveTo DestName="Taking a Trip to the Top of the Tank 3" X="4064.357" Y="-2021.231" Z="74.99429" />
 			</While>
 		</If>
 		<TurnIn QuestName="Taking a Trip to the Top of the Tank" QuestId="35747" TurnInName="Thaelin Darkanvil" TurnInId="80521" X="4062.665" Y="-2019.338" Z="74.87279" />
@@ -1240,7 +1240,7 @@
 		<TurnIn QuestName="Step Three: Prophet!" QuestId="34575" TurnInName="Prophet Velen" TurnInId="79206" X="2298.302" Y="461.8368" Z="8.514358" />
 		<PickUp QuestName="Finding a Foothold" QuestId="34582" GiverName="Prophet Velen" GiverId="79206" X="2298.302" Y="461.8368" Z="8.514358" />
 		<While Condition="HasQuest(34582) &amp;&amp; !IsQuestCompleted(34582)" > <!-- Finding a Foothold - quest bugs out sometimes -->
-			<MoveTo X="1935.315" Y="339.6169" Z="88.966" />
+			<MoveTo DestName="Finding a Foothold" X="1935.315" Y="339.6169" Z="88.966" />
 
 			<!-- If it bugged out, do this: -->
 			<CustomBehavior File="AbandonQuest" QuestId="34582" Type="Incomplete" />
@@ -1380,7 +1380,7 @@
 		</If>
 		<!--<PickUp QuestName="Ashran Appearance" QuestId="36624" GiverName="Lieutenant Thorn" GiverId="79953" X="1847.073" Y="270.6632" Z="78.39755" />  Get a follower in pvp zone -->
 		<If Condition="HasQuest(33075) &amp;&amp; !IsQuestCompleted(33075)" > <!-- A Hero's Welcome -->
-			<MoveTo X="922.9953" Y="-815.6843" Z="-28.82178" />
+			<MoveTo DestName="A Hero's Welcome" X="922.9953" Y="-815.6843" Z="-28.82178" />
 		</If>
 		<TurnIn QuestName="A Hero's Welcome" QuestId="33075" TurnInName="Samaara" TurnInId="75005" X="922.1233" Y="-816.309" Z="-28.80807" />
 		<!-- End of Our Character's Outpost / Garrison -->
@@ -1395,7 +1395,7 @@
 			<If Condition="!HasItem(111908) &amp;&amp; !IsQuestCompleted(33813)" >
 				<CustomBehavior File="InteractWith" QuestId="33813" MobId="230883" NonCompeteDistance="0" WaitTime="2000" Range="3" X="1207.785" Y="-1204.707" Z="-47.55516" />
 			</If>
-			<MoveTo X="1190.588" Y="-1219.145" Z="-47.55511" />
+			<MoveTo DestName="In Need of a Hero" X="1190.588" Y="-1219.145" Z="-47.55511" />
 			<If Condition="!IsObjectiveComplete(1, 33813) &amp;&amp; HasItem(111908)">
 				<CustomBehavior File="UseItemTargetLocation" ItemId="111908" UseType="PointToPoint" WaitTime="4000"
                                             X="1190.588" Y="-1219.145" Z="-47.55511"
@@ -1448,10 +1448,10 @@
 		<PickUp QuestName="Shadows Awaken" QuestId="34019" GiverName="Prophet Velen" GiverId="74043" X="940.3281" Y="-1022.436" Z="-0.8042811" />
 		<While Condition="HasQuest(34019) &amp;&amp; !IsQuestCompleted(34019)" > <!-- Shadows Awaken -->
 			<If Condition="!IsObjectiveComplete(1, 34019)"> <!-- Confront -->
-				<MoveTo X="989.5382" Y="-1037.033" Z="6.398543" /> <!-- Yrel -->
+				<MoveTo DestName="Shadows Awaken 1" X="989.5382" Y="-1037.033" Z="6.398543" /> <!-- Yrel -->
 			</If>
 			<While Condition="!IsObjectiveComplete(2, 34019)"> <!-- Kill Karnoth -->
-				<MoveTo X="1014.802" Y="-1043.021" Z="7.891774" />
+				<MoveTo DestName="Shadows Awaken 2" X="1014.802" Y="-1043.021" Z="7.891774" />
 				<CustomBehavior File="InteractWith" QuestId="34019" MobId="75043" Range="5" X="1014.802" Y="-1043.021" Z="7.891774" />
 			</While>
 		</While>
@@ -1474,7 +1474,7 @@
 		<PickUp QuestName="Circle the Wagon" QuestId="34779" GiverName="Foreman Zipfizzle" GiverId="81912" X="1203.875" Y="-1482.67" Z="-6.358276" />
 		<If Condition="HasQuest(34779) &amp;&amp; !IsQuestCompleted(34779)" > <!-- Circle the Wagon -->
 			<If Condition="!IsObjectiveComplete(1, 34779)">
-				<MoveTo X="1390.312" Y="-1171.933" Z="-12.86604" />
+				<MoveTo DestName="Circle the Wagon 1" X="1390.312" Y="-1171.933" Z="-12.86604" />
 			</If>
 			<While Condition="!IsObjectiveComplete(2, 34779)">
 				<CustomBehavior File="EscortGroup" QuestId="34779" EscortCompleteWhen="QuestObjectiveComplete" QuestObjectiveIndex="2" EscortCountMax="5"
@@ -1487,7 +1487,7 @@
 			</While>
 			<While Condition="!IsObjectiveComplete(3, 34779)">
 				<If Condition="Unit(81850) == null" >
-					<MoveTo X="1385.573" Y="-1167.992" Z="-12.85547" />
+					<MoveTo DestName="Circle the Wagon 3" X="1385.573" Y="-1167.992" Z="-12.85547" />
 				</If>
 				<!-- EscortNpcId2="81633" EscortNpcId3="81853" EscortNpcId4="81852" EscortNpcId5="81851" -->
 				<CustomBehavior File="EscortGroup" QuestId="34779" EscortCompleteWhen="DestinationReached" EscortCountMax="5" EscortNpcId="81850" EscortMaxFollowDistance="8" 
@@ -1507,15 +1507,15 @@
 		<While Condition="HasQuest(34780) &amp;&amp; !IsQuestCompleted(34780)" > <!-- Invisible Ramparts -->
 			<If Condition="!IsObjectiveComplete(1, 34780)"> <!-- First -->
 				<CustomBehavior File="InteractWith" QuestId="34780" MobId="230856" NonCompeteDistance="0" WaitTime="2000" Range="3" X="1128.132" Y="-1536.884" Z="-4.332456" />
-				<MoveTo X="1196.606" Y="-1499.322" Z="-5.42832" />
+				<MoveTo DestName="Invisible Ramparts 1" X="1196.606" Y="-1499.322" Z="-5.42832" />
 			</If>
 			<If Condition="!IsObjectiveComplete(2, 34780)"> <!-- Second -->
 				<CustomBehavior File="InteractWith" QuestId="34780" MobId="230856" NonCompeteDistance="0" WaitTime="2000" Range="3" X="1128.132" Y="-1536.884" Z="-4.332456" />
-				<MoveTo X="1179.494" Y="-1522.722" Z="-5.428779" />
+				<MoveTo DestName="Invisible Ramparts2" X="1179.494" Y="-1522.722" Z="-5.428779" />
 			</If>
 			<If Condition="!IsObjectiveComplete(3, 34780)"> <!-- Tertiary -->
 				<CustomBehavior File="InteractWith" QuestId="34780" MobId="230856" NonCompeteDistance="0" WaitTime="2000" Range="3" X="1128.132" Y="-1536.884" Z="-4.332456" />
-				<MoveTo X="1167.719" Y="-1496.011" Z="-5.428708" />
+				<MoveTo DestName="Invisible Ramparts 3" X="1167.719" Y="-1496.011" Z="-5.428708" />
 			</If>
 			<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to complete {TimeRemaining}" />
 		</While>
@@ -1600,7 +1600,7 @@
 		<TurnIn QuestName="Exarch Maladaar" QuestId="34787" TurnInName="Exarch Maladaar" TurnInId="80073" X="1303.726" Y="-1718.915" Z="45.07868" />
 		<PickUp QuestName="Trust No One" QuestId="35552" GiverName="Exarch Maladaar" GiverId="80073" X="1303.726" Y="-1718.915" Z="45.07868" />
 		<If Condition="HasQuest(35552) &amp;&amp; !IsQuestCompleted(35552)" > <!-- Trust No One -->
-			<MoveTo X="1557.545" Y="-1840.951" Z="52.28745" />
+			<MoveTo DestName="Trust No One" X="1557.545" Y="-1840.951" Z="52.28745" />
 		</If>
 		<TurnIn QuestName="Trust No One" QuestId="35552" TurnInName="Shadow Council Tome of Curses" TurnInId="233229" TurnInType="Object" X="1569.16" Y="-1816.174" Z="49.1266" />
 		<PickUp QuestName="Warning the Exarchs" QuestId="34791" GiverName="Shadow Council Tome of Curses" GiverId="233229" GiverType="Object" X="1569.264" Y="-1812.804" Z="50.40388" />
@@ -1611,7 +1611,7 @@
 				AvoidWhen="UNIT.CastingSpellId == 166308|| UNIT.HasAura(166309)" 
 				AvoidLocationProducer="WoWMathHelper.GetNearestPointOnLineSegment(Me.Location, UNIT.Location, UNIT.Location.RayCast(UNIT.Rotation, 12))" />
 
-			<MoveTo X="1490.019" Y="-2186.103" Z="88.80363" />
+			<MoveTo DestName="Speaker for the Dead - Start" X="1490.019" Y="-2186.103" Z="88.80363" />
 			<CustomBehavior File="InteractWith" QuestId="34789" MobId1="80073" MobId2="88972" WaitTime="5000" Range="5" TerminateWhen="IsObjectiveComplete(1, 34789) &amp;&amp; Unit(88972) != null" GossipOptions="1" CollectionDistance="10" X="1491.712" Y="-2182.271" Z="88.80327" />
 			<CustomBehavior File="KillUntilComplete" QuestId="34789" TerminateWhen="IsObjectiveComplete(2, 34789) || Unit(88972) == null"
 											ImmediatelySwitchToHighestPriorityTarget="True" X="1490.019" Y="-2186.103" Z="88.80363" > <!-- add a 20 yard leash here -->
@@ -1686,7 +1686,7 @@
 		<PickUp QuestName="Crippled Caravan" QuestId="33786" GiverName="Prelate Reenu" GiverId="76200" X="92.54688" Y="-1547.115" Z="35.48412" />
 		<!-- Ignoring Wanted Poster 3+ quest -->
 		<If Condition="HasQuest(33786) &amp;&amp; !IsQuestCompleted(33786)" > <!-- Crippled Caravan -->
-			<MoveTo X="105.0247" Y="-1325.182" Z="-4.268952" />
+			<MoveTo DestName="Crippled Caravan" X="105.0247" Y="-1325.182" Z="-4.268952" />
 		</If>
 		<TurnIn QuestName="Crippled Caravan" QuestId="33786" TurnInName="Fiona" TurnInId="76204" X="101.8281" Y="-1322.726" Z="-4.050506" />
 		<PickUp QuestName="Fiona's Solution" QuestId="33787" GiverName="Fiona" GiverId="76204" X="101.8281" Y="-1322.726" Z="-4.050506" />
@@ -1799,7 +1799,7 @@
 		<TurnIn QuestName="Forever Young" QuestId="34994" TurnInName="Beezil Linkspanner" TurnInId="80761" X="100.2622" Y="-1312.13" Z="-3.583952" />
 		<TurnIn QuestName="Punishing the Primals" QuestId="34995" TurnInName="Tarenar Sunstrike" TurnInId="80865" X="103.1128" Y="-1326.731" Z="-4.200006" />
 		<If Condition="!HasQuest(35617) &amp;&amp; !IsQuestCompleted(35617)" > <!-- Fiona / Follower -->
-			<MoveTo X="101.8281" Y="-1322.726" Z="-4.050506" />
+			<MoveTo DestName="Fiona" X="101.8281" Y="-1322.726" Z="-4.050506" />
 			<CustomBehavior File="InteractWith" MobId="76204" X="101.8281" Y="-1322.726" Z="-4.050506" WaitTime="3000" />
 			<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
 		</If>
@@ -1824,7 +1824,7 @@
 
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:107076&quot;)" TerminateWhen="(Me.HasAura(150456) || Me.HasAura(148601))" WaitTime="4000" /> <!-- Sylene's Amulet of Illusion -->
 			</While>
-			<MoveTo X="-164.3993" Y="-23.49479" Z="90.11432" />
+			<MoveTo DestName="Going Undercover" X="-164.3993" Y="-23.49479" Z="90.11432" />
 			<EnableBehavior Name="Pull" />
 		</If>
 		<TurnIn QuestName="Going Undercover" QuestId="33080" TurnInName="Yrel" TurnInId="74877" X="-164.3993" Y="-23.49479" Z="90.11432" />
@@ -1852,8 +1852,8 @@
 			<CustomBehavior File="InteractWith" QuestId="33078" MobId="224705" Range="8" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(1, 33078)" X="-40.16449" Y="-758.5936" Z="24.70023" /> <!-- Eastern -->
 			<CustomBehavior File="InteractWith" QuestId="33078" MobId="224706" Range="8" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(2, 33078)" X="16.10787" Y="-713.0391" Z="23.55025" /> <!-- Northern -->
 			<CustomBehavior File="InteractWith" QuestId="33078" MobId="224708" Range="8" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(3, 33078)" X="-45.65149" Y="-664.2499" Z="24.90166" /> <!-- Western -->
-			<MoveTo X="-172.091" Y="-710.9433" Z="5.181043" /> <!-- Southern -->
-			<MoveTo X="-180.844" Y="-709.108" Z="6.031713" /> <!-- Southern -->
+			<MoveTo DestName="The Dark that Blinds Us (a)" X="-172.091" Y="-710.9433" Z="5.181043" /> <!-- Southern -->
+			<MoveTo DestName="The Dark that Blinds Us (b)" X="-180.844" Y="-709.108" Z="6.031713" /> <!-- Southern -->
 			<CustomBehavior File="InteractWith" QuestId="33078" MobId="224707" Range="8" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(4, 33078)" X="-172.091" Y="-710.9433" Z="5.181043" /> <!-- Southern -->
 		</While>
 		<If Condition="HasQuest(33078) &amp;&amp; HasQuest(34076) &amp;&amp; !IsQuestCompleted(34076)" > <!-- Bonus Objective: The Burial Fields - part of: The Dark that Blinds Us -->
@@ -1957,22 +1957,22 @@
 			</If>
 			<If Condition="(!IsObjectiveComplete(2, 33059))">
 				<If Condition="Me.MapId != 1277"> <!-- Fate of Karabor instance -->
-					<MoveTo X="464.4299" Y="-96.27913" Z="92.55475" />
+					<MoveTo DestName="The Fate of Karabor 2a" X="464.4299" Y="-96.27913" Z="92.55475" />
 					<UseItem QuestId="33059" ItemId="111591" X="464.4299" Y="-96.27913" Z="92.55475" />
 					<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
 				</If>
 				<DisableBehavior Name="Pull" />
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 1">
-					<MoveTo X="577.1495" Y="-3077.012" Z="59.58014" />
+					<MoveTo DestName="The Fate of Karabor 2b" X="577.1495" Y="-3077.012" Z="59.58014" />
 					<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for Krull to come out {TimeRemaining}" />
 				</While>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 2">
 					<If Condition="Me.MapId != 1277"> <!-- Fate of Karabor instance -->
-						<MoveTo X="464.4299" Y="-96.27913" Z="92.55475" />
+						<MoveTo DestName="The Fate of Karabor 2c" X="464.4299" Y="-96.27913" Z="92.55475" />
 						<UseItem QuestId="33059" ItemId="111591" X="464.4299" Y="-96.27913" Z="92.55475" />
 						<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for port {TimeRemaining}" />
 					</If>
-					<MoveTo X="578.1978" Y="-3081.296" Z="59.73512" />
+					<MoveTo DestName="The Fate of Karabor 2d" X="578.1978" Y="-3081.296" Z="59.73512" />
 					<CustomBehavior File="InteractWith" QuestId="33059" WaitForNpcs="False" MobId="79560" Range="4" CollectionDistance="200" X="578.5238" Y="-3076.904" Z="59.72013" /> <!-- Kill Krull -->
 					<!--
 					ADD HOOK: STAND HERE AT ALL TIMES WHILE FIGHTING KRULL
@@ -1992,11 +1992,11 @@
 
 				</While>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 3">
-					<MoveTo X="578.1978" Y="-3081.296" Z="59.73512" />
+					<MoveTo DestName="The Fate of Karabor Stage 3" X="578.1978" Y="-3081.296" Z="59.73512" />
 					<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for objective to complete {TimeRemaining}" />
 				</While>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 4">
-					<MoveTo X="580.0881" Y="-3036.546" Z="69.39507" />
+					<MoveTo DestName="The Fate of Karabor Stage 4" X="580.0881" Y="-3036.546" Z="69.39507" />
 					<CustomBehavior File="InteractWith" QuestId="33059" MobId="79522" GossipOptions="1" NonCompeteDistance="0" X="579.5521" Y="-3038.07" Z="69.39507" />
 
 					<CustomBehavior File="WaitTimer" WaitTime="27000" GoalText="Waiting for Mobs to overrun us {TimeRemaining}" />
@@ -2022,14 +2022,14 @@
 		<TurnIn QuestName="Ancestor's Memory" QuestId="33082" TurnInName="Rulkan" TurnInId="75884" X="1517.859" Y="-802.7396" Z="-20.035" />
 		<PickUp QuestName="Darkest Night" QuestId="34043" GiverName="Rulkan" GiverId="75884" X="1517.859" Y="-802.7396" Z="-20.035" />
 		<If Condition="!HasQuest(35631) &amp;&amp; !IsQuestCompleted(35631)" > <!-- Rulkan / Follower -->
-			<MoveTo X="1517.859" Y="-802.7396" Z="-20.035" />
+			<MoveTo DestName="Rulkan" X="1517.859" Y="-802.7396" Z="-20.035" />
 			<CustomBehavior File="InteractWith" MobId="75884" X="1517.859" Y="-802.7396" Z="-20.035" NonCompeteDistance="0" WaitTime="1000" />
 			<CustomBehavior File="Misc\RunLua" Lua="GossipTitleButton1:Click()" WaitTime="1000" />
 			<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" WaitTime="1000" />
 		</If>
 		<If Condition="HasQuest(34847) &amp;&amp; !IsQuestCompleted(34847)" > <!-- Forbidden Love -->
 			<While Condition="(!IsObjectiveComplete(1, 34847))">
-				<MoveTo X="2003.896" Y="-956.5999" Z="28.1075" />
+				<MoveTo DestName="Forbidden Love 1" X="2003.896" Y="-956.5999" Z="28.1075" />
 			</While>
 			<While Condition="(!IsObjectiveComplete(2, 34847))">
 				<CustomBehavior File="InteractWith" QuestId="34847" MobId1="76295" MobId2="80250" MobState="Alive" NonCompeteDistance="0" X="1988.175" Y="-955.0695" Z="27.86312" />
@@ -2054,7 +2054,7 @@
 		<!-- need to force repair / sell here before going into the 'zone' -->
 		<While Condition="HasQuest(35032) &amp;&amp; !IsQuestCompleted(35032)" > <!-- Into Anguish -->
 			<While Condition="(!IsObjectiveComplete(1, 35032))"> <!-- Open Door -->
-				<MoveTo X="966.7886" Y="-78.96068" Z="28.12074" /> <!-- Fragment of Anguish -->
+				<MoveTo DestName="Into Anguish 1" X="966.7886" Y="-78.96068" Z="28.12074" /> <!-- Fragment of Anguish -->
 				<CustomBehavior File="Misc\RunLua" Lua="UseItemByName(&quot;item:112386&quot;)" WaitTime="5000" />
 			</While>
 			<CustomBehavior File="InteractWith" QuestId="35032" MobId="80741" Range="8" NonCompeteDistance="0" TerminateWhen="IsObjectiveComplete(2, 35032)" X="884.8594" Y="292.5521" Z="51.63548" />
@@ -2099,7 +2099,7 @@
 		<Objective QuestName="On the Offensive" QuestId="33083" Type="KillMob" MobId="74373" KillCount="15" />
 		<While Condition="HasQuest(34054) &amp;&amp; !IsQuestCompleted(34054)" > <!-- The Dark Side of the Moon -->
 			<While Condition="(!IsObjectiveComplete(1, 34054))">
-				<MoveTo X="754.3941" Y="300.9167" Z="90.15506" />
+				<MoveTo DestName="The Dark Side of the Moon 1" X="754.3941" Y="300.9167" Z="90.15506" />
 			</While>
 			<While Condition="(!IsObjectiveComplete(2, 34054))">
 				<CustomBehavior File="EscortGroup" QuestId="34054" EscortCompleteWhen="QuestObjectiveComplete" QuestObjectiveIndex="2"
@@ -2118,10 +2118,10 @@
 		<PickUp QuestName="Darkness Falls" QuestId="33837" GiverName="Prophet Velen" GiverId="77282" X="932.2986" Y="-837.9618" Z="-28.83358" />
 		<While Condition="HasQuest(33837) &amp;&amp; !IsQuestCompleted(33837)" > <!-- Darkness Falls -->
 			<While Condition="(!IsObjectiveComplete(1, 33837))">
-				<MoveTo X="635.2081" Y="-847.2468" Z="-8.633304" />
+				<MoveTo DestName="Darkness Falls 1" X="635.2081" Y="-847.2468" Z="-8.633304" />
 			</While>
 			<While Condition="(!IsObjectiveComplete(2, 33837))">
-				<MoveTo X="596.5054" Y="-1150.109" Z="-17.32368" />
+				<MoveTo DestName="Darkness Falls 2" X="596.5054" Y="-1150.109" Z="-17.32368" />
 			</While>
 			<While Condition="(!IsObjectiveComplete(3, 33837))">
 				<!-- 76650 - Risen Spirit is never targetted for some reason, but it kills the void horror just fine -->
@@ -2367,7 +2367,7 @@
 		<PickUp QuestName="The Defense of Karabor" QuestId="33256" GiverName="Exarch Akama" GiverId="72413" X="980.2604" Y="-2921.111" Z="99.33604" />
 		<If Condition="HasQuest(33256) &amp;&amp; !IsQuestCompleted(33256)" > <!-- The Defense of Karabor -->
 			<If Condition="Me.MapId != 1277" > <!-- 1277 = DefenseOfKaraborScenario -->
-				<MoveTo X="606.9452" Y="-2386.603" Z="96.24855" />
+				<MoveTo DestName="The Defense of Karabor Scenario Location" X="606.9452" Y="-2386.603" Z="96.24855" />
 			</If>
 			<UseMount Value="False" />
 			<CustomBehavior File="Hooks\Avoid" AvoidName="ArnokkTheBurnerSphere" Command="Add" ObjectType="AreaTrigger" ObjectId="5805" Radius="3.5" AvoidWhen="Me.Combat" />
@@ -2389,10 +2389,10 @@
 			    
 			<While Condition="(!IsObjectiveComplete(1, 33256))">
 				<If Condition="Me.MapId != 1277" > <!-- 1277 = DefenseOfKaraborScenario -->
-					<MoveTo X="606.9452" Y="-2386.603" Z="96.24855" />
+					<MoveTo DestName="The Defense of Karabor 1" X="606.9452" Y="-2386.603" Z="96.24855" />
 				</If>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 1">
-					<!--<MoveTo X="830.7855" Y="-2869.874" Z="100.4185" />
+					<!--<MoveTo DestName="The Defense of Karabor Stage 1" X="830.7855" Y="-2869.874" Z="100.4185" />
 					<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for Arnokk {TimeRemaining}" />
                     <CustomBehavior File="InteractWith" QuestId="33256" MobId="75358" WaitForNpcs="False" MobState="Alive" X="830.7855" Y="-2869.874" Z="100.4185" />  Kill Arnokk -->
 					<!-- Need to tweak his Avoid hooks some -->
@@ -2429,15 +2429,15 @@
 						</CustomBehavior>
 					</While>
 					<CustomBehavior File="NoCombatMoveTo" X="579.8438" Y="-3004.25" Z="76.73641" />
-					<MoveTo X="578.7453" Y="-3074.575" Z="59.6398" />
+					<MoveTo DestName="The Defense of Karabor Stage 2" X="578.7453" Y="-3074.575" Z="59.6398" />
 				</While>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 3">
 					<!-- Defend K'ara <Vendor Name="K'ara" Entry="79664" Type="Repair" X="579.4202" Y="-3076.38" Z="57.27955" /> -->
-					<MoveTo X="578.7453" Y="-3074.575" Z="59.6398" />
+					<MoveTo DestName="The Defense of Karabor Stage 3" X="578.7453" Y="-3074.575" Z="59.6398" />
 					<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for Kara {TimeRemaining}" />
 				</While>
 				<While Condition="Bots.DungeonBuddy.Helpers.ScriptHelpers.CurrentScenarioInfo.CurrentStage.StageNumber == 4">
-					<MoveTo X="579.946" Y="-3127.99" Z="58.4295" /> <!-- Kill Vorka -->
+					<MoveTo DestName="The Defense of Karabor Stage 4" X="579.946" Y="-3127.99" Z="58.4295" /> <!-- Kill Vorka -->
 					<CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting for Vorka {TimeRemaining}" />
 					<CustomBehavior File="InteractWith" QuestId="33256" MobId="74715" WaitForNpcs="False" MobState="Alive" X="579.946" Y="-3127.99" Z="58.4295" /> <!-- Kill Vorka -->
 				</While>
@@ -2484,7 +2484,7 @@
 		<PickUp QuestName="Gloomshade Grove" QuestId="33263" GiverName="Lost Packmule" GiverId="79966" X="1315.064" Y="-382.506" Z="7.897085" />
 		<If Condition="HasQuest(33263) &amp;&amp; !IsQuestCompleted(33263)" > <!-- The Defense of Karabor -->
 			<While Condition="(!IsObjectiveComplete(1, 33263))"> <!-- Find Phlox -->
-				<MoveTo X="1515.269" Y="-363.6183" Z="5.303165" />
+				<MoveTo DestName="Gloomshade Grove 1" X="1515.269" Y="-363.6183" Z="5.303165" />
 			</While>
 			<CustomBehavior File="InteractWith" QuestId="33263" MobId="74667" TerminateWhen="IsObjectiveComplete(2, 33263)" X="1515.519" Y="-362.8733" Z="5.298625" /> <!-- Phlox -->
 			<CustomBehavior File="InteractWith" QuestId="33263" MobId="224229" TerminateWhen="IsObjectiveComplete(3, 33263)" X="1649.759" Y="-379.3993" Z="12.45454" /> <!-- Alliance Sword -->
@@ -2494,7 +2494,7 @@
 			<CustomBehavior File="InteractWith" QuestId="33263" MobId="74193" TerminateWhen="IsObjectiveComplete(7, 33263)" X="1856.429" Y="-533.7899" Z="2.341996" /> <!-- Dead Packmule -->
 			<CustomBehavior File="InteractWith" QuestId="33263" MobId="74687" TerminateWhen="IsObjectiveComplete(8, 33263)" X="1856.161" Y="-540.6371" Z="1.812772" /> <!-- Phlox -->
 			<While Condition="(!IsObjectiveComplete(9, 33263))"> <!-- Find Phlox in Cave / Grotto -->
-				<MoveTo X="2014.526" Y="-874.6424" Z="-5.33093" /> <!-- Find Phlox -->
+				<MoveTo DestName="Gloomshade Grove 9" X="2014.526" Y="-874.6424" Z="-5.33093" /> <!-- Find Phlox -->
 			</While>
 			<CustomBehavior File="InteractWith" QuestId="33263" MobId="74244" TerminateWhen="IsObjectiveComplete(10, 33263)" X="2014.526" Y="-874.6424" Z="-5.33093" /> <!-- Kill Phlox -->
 		</If>
@@ -2505,7 +2505,7 @@
 		<Objective QuestName="Game of Thorns" QuestId="33271" Type="KillMob" MobId="73888" KillCount="1" />
 		<TurnIn QuestName="Game of Thorns" QuestId="33271" TurnInName="Shelly Hamby" TurnInId="76748" X="1799.83" Y="-169.5625" Z="79.79438" />
 		<If Condition="!HasQuest(35625) &amp;&amp; !IsQuestCompleted(35625)" > <!-- Shelly Hamby / Follower -->
-			<MoveTo X="1799.83" Y="-169.5625" Z="79.79438" />
+			<MoveTo DestName="Shelly Hamby" X="1799.83" Y="-169.5625" Z="79.79438" />
 			<CustomBehavior File="InteractWith" MobId="76748" WaitTime="3000" X="1799.83" Y="-169.5625" Z="79.79438" />
 			<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
 		</If>
@@ -2556,17 +2556,17 @@
 			<If Condition="Me.ZoneId == 7078"> <!-- WoD SMV -->
 				<!-- This isn't working, need to find a way to make bot fly via fp, grr! -->
 				<CustomBehavior File="InteractWith" MobId="81103" WaitTime="2000" X="1864.33" Y="217.8108" Z="76.63772" />
-				<MoveTo X="6458.474" Y="-177.2899" Z="120.0832" /> <!-- Wildwood Wash FP -->
+				<MoveTo DestName="Wildwood Wash FP" X="6458.474" Y="-177.2899" Z="120.0832" /> <!-- Wildwood Wash FP -->
 			</If>
 			<TurnIn QuestName="The Secrets of Gorgrond" QuestId="33533" TurnInName="Yrel" TurnInId="80978" X="6472.39" Y="-165.4722" Z="120.0954" />
 		</If>
 		<PickUp QuestName="Welcome to Gorgrond" QuestId="35033" GiverName="Yrel" GiverId="80978" X="6472.39" Y="-165.4722" Z="120.0714" />
 		<If Condition="HasQuest(35033) &amp;&amp; !IsQuestCompleted(35033)" > <!-- Welcome to Gorgrond -->
 			<While Condition="!IsObjectiveComplete(1, 35033)">
-				<MoveTo X="6709.346" Y="-125.2724" Z="77.22012" />
+				<MoveTo DestName="Welcome to Gorgrond 1" X="6709.346" Y="-125.2724" Z="77.22012" />
 			</While>
 			<While Condition="!IsObjectiveComplete(2, 35033)">
-				<MoveTo X="6760.303" Y="-183.2191" Z="86.40382" /> <!-- Inside of cave -->
+				<MoveTo DestName="Welcome to Gorgrond 2" X="6760.303" Y="-183.2191" Z="86.40382" /> <!-- Inside of cave -->
 			</While>
 		</If>
 		<TurnIn QuestName="Welcome to Gorgrond" QuestId="35033" TurnInName="Rangari D'kaan" TurnInId="80921" X="6758.518" Y="-183.8646" Z="86.4031" />
@@ -2590,7 +2590,7 @@
 		<PickUp QuestName="A Surly Dwarf" QuestId="36630" GiverName="Lieutenant Howell" GiverId="86069" X="3560.73" Y="-3869.205" Z="7.02828" />
 		<TurnIn QuestName="A Surly Dwarf" QuestId="36630" TurnInName="Delvar Ironfist" TurnInId="86084" X="3767.985" Y="-3954.955" Z="27.79601" />
 		<If Condition="!HasQuest(36633) &amp;&amp; !IsQuestCompleted(36633)" > <!-- Delvar Ironfist / Follower -->
-			<MoveTo X="3767.985" Y="-3954.955" Z="27.79601" />
+			<MoveTo DestName="Delvar Ironfist" X="3767.985" Y="-3954.955" Z="27.79601" />
 			<CustomBehavior File="InteractWith" MobId="86084" WaitTime="3000" X="3767.985" Y="-3954.955" Z="27.79601" />
 			<CustomBehavior File="Misc\RunLua" Lua="QuestFrameCompleteQuestButton:Click()" />
 			<CustomBehavior File="WaitTimer" WaitTime="5000" GoalText="Waiting for quest to complete {TimeRemaining}" />
