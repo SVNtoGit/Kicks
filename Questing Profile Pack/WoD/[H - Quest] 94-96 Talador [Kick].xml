@@ -744,30 +744,8 @@
 				<GameObject Name="Jovite Ore" Entry="230268" />
 			</CollectFrom>
 			<Hotspots>
-				<Hotspot Name="Jovite Ore" X="3648.438" Y="1284.441" Z="107.4727" />
-				<Hotspot Name="Jovite Ore" X="3658.57" Y="1223.872" Z="91.30381" />
 				<Hotspot Name="Jovite Ore" X="3697.785" Y="1243.509" Z="89.6039" />
-				<Hotspot Name="Jovite Ore" X="3561.815" Y="1307.314" Z="112.645" />
-				<Hotspot X="3795.486" Y="1161.793" Z="83.28595" />
-				<Hotspot X="3817.875" Y="1143.275" Z="84.03461" />
-				<Hotspot X="3704.039" Y="1219.953" Z="83.25912" />
-				<Hotspot X="3763.13" Y="1175.983" Z="82.61898" />
-				<Hotspot X="3811.039" Y="1141.853" Z="82.99288" />
-				<Hotspot X="3765.272" Y="1114.259" Z="83.32668" />
-				<Hotspot X="3735.361" Y="1153.05" Z="82.76314" />			
-				<Hotspot X="3689.428" Y="1165.552" Z="104.2811" />
-				<Hotspot X="3675.108" Y="1117.753" Z="107.6984" />
-				<Hotspot X="3835.973" Y="1127.576" Z="108.575" />
-				<Hotspot X="3834.064" Y="1181.338" Z="108.3625" />
-				<Hotspot X="3704.039" Y="1219.953" Z="83.25912" />
-				<Hotspot X="3763.13" Y="1175.983" Z="82.61898" />
-				<Hotspot X="3811.039" Y="1141.853" Z="82.99288" />
-				<Hotspot X="3765.272" Y="1114.259" Z="83.32668" />
-				<Hotspot X="3735.361" Y="1153.05" Z="82.76314" />			
-				<Hotspot X="3689.428" Y="1165.552" Z="104.2811" />
-				<Hotspot X="3675.108" Y="1117.753" Z="107.6984" />
-				<Hotspot X="3835.973" Y="1127.576" Z="108.575" />
-				<Hotspot X="3834.064" Y="1181.338" Z="108.3625" />
+				<Hotspot Name="Jovite Ore" X="3671.47" Y="1152.694" Z="110.7434" />
 			</Hotspots>
 		</Objective>
 	</Quest>
@@ -1106,9 +1084,10 @@
 			<PickUp QuestName="Gas Guzzlers" QuestId="34579" GiverName="Morketh Bladehowl" GiverId="79356" X="3217.057" Y="1606.389" Z="166.068" />
 			<PickUp QuestName="Out of Jovite" QuestId="34577" GiverName="Morketh Bladehowl" GiverId="79356" X="3217.057" Y="1606.389" Z="166.068" />
 			<PickUp QuestName="Iridium Recovery" QuestId="34576" GiverName="Morketh Bladehowl" GiverId="79356" X="3217.057" Y="1606.389" Z="166.068" />
-			<If Condition="HasQuest(34577) &amp;&amp; Unit(79356) != null" > <!-- Out of Jovitey -->
+			<If Condition="HasQuest(34577) &amp;&amp; Unit(79356) != null" > <!-- Out of Jovite -->
 				<MoveTo DestName="Out of Jovite" X="3280.993" Y="1550.427" Z="160.0263" />
 			</If>
+
 			<While Condition="HasQuest(34579) &amp;&amp; !IsQuestCompleted(34579)" > <!-- Gas Guzzlers -->
 				<CustomBehavior File="InteractWith" QuestId="34579" MobId="80013" MobId2="79190" NumOfTimes="20" Range="5" 
 											InteractByUsingItemId="111910" AuraIdOnMob="161774" MobState="Dead" WaitForNpcs="False" 
@@ -1126,6 +1105,23 @@
 					</HuntingGrounds>
 				</CustomBehavior>
 			</While>
+
+			<!-- Logic added for QuestId="34577" DestName="Out of Jovite" as it really needs the blackspot -->
+			<MoveTo QuestId="34577" DestName="Out of Jovite" X="3558.338" Y="1318.819" Z="112.7169" />
+			<CustomBehavior File="InteractWith" QuestId="34577" MobId="230268" NumOfTimes="100" Range="5" NonCompeteDistance="0" WaitTime="3000" CollectionDistance="300" >
+				<HuntingGrounds>		
+					<Hotspot Name="Jovite Ore 1" X="3683.536" Y="1089.394" Z="112.2308" />				
+					<Hotspot Name="Jovite Ore 2" X="3671.47" Y="1152.694" Z="110.7434" />
+					<Hotspot Name="Jovite Ore 3" X="3790.709" Y="1115.752" Z="108.5716" />
+					<Hotspot Name="Jovite Ore 4" X="3779.175" Y="1105.54" Z="88.0564" />
+					<Hotspot Name="Jovite Ore 5" X="3755.715" Y="1095.411" Z="113.417" />
+					<Hotspot Name="Jovite Ore 6" X="3720.065" Y="1090.96" Z="111.7431" />					
+				</HuntingGrounds>
+				<Blackspots>
+					<Blackspot Name="Jovite Ore" X="3697.785" Y="1243.509" Z="89.6039" Radius="20"/>
+				</Blackspots>
+			</CustomBehavior>  
+
 			<Objective QuestName="Out of Jovite" QuestId="34577" Type="CollectItem" ItemId="111906" CollectCount="12" />
 			<If Condition="!IsQuestCompleted(34263)"><!-- Treasure: Pure Crystal Dust -->
 				<CustomBehavior File="InteractWith" MobId="228026" Range="4" X="3844.26" Y="1169.962" Z="109.1499" /> 
