@@ -1151,7 +1151,7 @@
 				</If>
 			</If>
 
-			
+
 			<If Condition="!HasQuest(36048) &amp;&amp; !IsQuestCompleted(36048)" >
 				<MoveTo DestName="Hulda Shadowblade" X="-10.01563" Y="1218.09" Z="34.32194" />
 				<If Condition="Object(83904) != null" >
@@ -1274,7 +1274,6 @@
 		<Objective QuestName="Punishable by Death" QuestId="35407" Type="KillMob" MobId="82230" KillCount="8" />
 		<TurnIn QuestName="Punishable by Death" QuestId="35407" TurnInName="Sir Harris" TurnInId="82194" X="-790.2917" Y="2396.677" Z="37.83524" />
 		<TurnIn QuestName="Prime the Cannons" QuestId="35408" TurnInName="Lady Claudia" TurnInId="82212" X="-792.7222" Y="2399.188" Z="37.83524" />
-		<PickUp QuestName="Admiral Taylor" QuestId="35482" GiverName="Lady Claudia" GiverId="82278" X="-792.7222" Y="2399.188" Z="37.83524" />
 
 		<!-- Lady Claudia's Entry ID changes so please don't mess with this -->
 		<While Condition="!IsQuestCompleted(35482)" >
@@ -1282,6 +1281,11 @@
 				<CustomBehavior File="AbandonQuest" QuestId="35482" Type="All" />
 			</If>
 			<MoveTo DestName="Lady Claudia" X="-792.7222" Y="2399.188" Z="37.83524" />
+
+			<If  Condition="Unit(82293) == null" >
+				<PickUp QuestName="Admiral Taylor" QuestId="35482" GiverName="Lady Claudia" GiverId="82278" X="-792.7222" Y="2399.188" Z="37.83524" />
+			</If>
+
 			<!-- <Vendor Name="Lady Claudia" Entry="82293" Type="Repair" X="-792.7222" Y="2399.188" Z="37.83524" /> -->
 			<PickUp QuestName="Admiral Taylor" QuestId="35482" GiverName="Lady Claudia" GiverId="82293" X="-792.7222" Y="2399.188" Z="37.83524" />
 			<If Condition="HasQuest(35482)" >
@@ -1449,6 +1453,7 @@
 		<PickUp QuestName="Hot Seat" QuestId="35273" GiverName="Overseers Chair" GiverId="232353" GiverType="GameObject" X="88.85938" Y="2530.226" Z="79.25608" />
 		<While Condition="HasQuest(35273) &amp;&amp; !IsQuestCompleted(35273)" > <!-- Hot Seat -->
 			<If Condition="!Me.IsOnTransport &amp;&amp; !IsQuestCompleted(35273)">
+				<MoveTo DestName="The Hot Seat" X="86.37299" Y="2527.67" Z="78.92762" />
 				<CustomBehavior File="InteractWith" QuestId="35273" MobId="232362" NonCompeteDistance="0" WaitTime="2000" Range="5" X="88.85938" Y="2530.226" Z="79.25608" />
 			</If>
 			<While Condition="Me.IsOnTransport &amp;&amp; !IsQuestCompleted(35273)" >
