@@ -1151,8 +1151,11 @@
 			</If>
 			<If Condition="!HasQuest(37292) &amp;&amp; !IsQuestCompleted(37292)" > <!-- Pickup Not In Your Army -->
 				<PickUp QuestName="Not In Your Army" QuestId="37292" GiverName="Lunzul" GiverId="84292" X="-338.5903" Y="2249.964" Z="28.267" />
-				<MoveTo DestName="Not In Your Army" X="-368.8386" Y="2249.375" Z="26.54297" />
+
 			</If>
+
+			<MoveTo DestName="Not In Your Army" QuestId="37292" X="-301.7813" Y="2290.498" Z="38.90661" />
+
 			<While Condition="HasQuest(37292) &amp;&amp; !IsQuestCompleted(37292)" > <!-- Not In Your Army -->
 				<!-- Avoid.cs stuff: 
 					Rorka Id: 88234
@@ -1254,7 +1257,7 @@
 		<TurnIn QuestName="Punishable by Death" QuestId="35407" TurnInName="Sir Harris" TurnInId="82194" X="-790.2917" Y="2396.677" Z="37.83524" />
 		<TurnIn QuestName="Prime the Cannons" QuestId="35408" TurnInName="Lady Claudia" TurnInId="82212" X="-792.7222" Y="2399.188" Z="37.83524" />
 		<!-- Horde Ids from here to Pinchwhistle pickup -->
-		<PickUp QuestName="Admiral Taylor" QuestId="36183" GiverName="Lady Claudia" GiverId="82278" X="-792.7222" Y="2399.188" Z="37.83524" />
+
 
 		<!-- Lady Claudia's Entry ID changes so please don't mess with this -->
 		<While Condition="!IsQuestCompleted(36183)" >
@@ -1263,6 +1266,9 @@
 			</If>
 			<MoveTo DestName="Lady Claudia" X="-792.7222" Y="2399.188" Z="37.83524" />
 			<!-- <Vendor Name="Lady Claudia" Entry="82293" Type="Repair" X="-792.7222" Y="2399.188" Z="37.83524" /> -->
+			<If  Condition="Unit(82293) == null" >
+				<PickUp QuestName="Admiral Taylor" QuestId="36183" GiverName="Lady Claudia" GiverId="82278" X="-792.7222" Y="2399.188" Z="37.83524" />
+			</If>
 			<PickUp QuestName="Admiral Taylor" QuestId="36183" GiverName="Lady Claudia" GiverId="82293" X="-792.7222" Y="2399.188" Z="37.83524" />
 			<If Condition="HasQuest(36183)" >
 				<MoveTo DestName="Admiral Taylor's Farm" X="-911.7457" Y="2449.228" Z="31.1776" />
@@ -1424,6 +1430,7 @@
 		<PickUp QuestName="Hot Seat" QuestId="35273" GiverName="Overseers Chair" GiverId="232353" GiverType="GameObject" X="88.85938" Y="2530.226" Z="79.25608" />
 		<While Condition="HasQuest(35273) &amp;&amp; !IsQuestCompleted(35273)" > <!-- Hot Seat -->
 			<If Condition="!Me.IsOnTransport &amp;&amp; !IsQuestCompleted(35273)">
+				<MoveTo DestName="The Hot Seat" X="86.37299" Y="2527.67" Z="78.92762" />
 				<CustomBehavior File="InteractWith" QuestId="35273" MobId="232362" NonCompeteDistance="0" WaitTime="2000" Range="5" X="88.85938" Y="2530.226" Z="79.25608" />
 			</If>
 			<While Condition="Me.IsOnTransport &amp;&amp; !IsQuestCompleted(35273)" >
