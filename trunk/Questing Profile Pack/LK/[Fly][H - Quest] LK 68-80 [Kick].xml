@@ -11183,20 +11183,24 @@ Y="2291.558" Z="30.3925" />
 		</If>
 		<CustomBehavior File="FlyTo" QuestId="12605" DestName="collect Hatchlings" X="6403.826" Y="4943.531"
                             Z="-70.18993" />
-		<CustomBehavior File="InteractWith" QuestId="12605" MobId="28389" NumOfTimes="100" 
-                             ProactiveCombatStrategy="ClearMobsTargetingUs"
-                            WaitTime="500" CollectionDistance="25">
-			<HuntingGrounds>
-				<Hotspot X="6403.826" Y="4943.531" Z="-70.18993" />
-				<Hotspot X="6404.983" Y="4855.975" Z="-72.73577" />
-				<Hotspot X="6484.424" Y="4857.614" Z="-60.3858" />
-				<Hotspot X="6599.307" Y="4822.845" Z="-38.30979" />
-				<Hotspot X="6628.692" Y="4946.098" Z="-30.09219" />
-				<Hotspot X="6574.344" Y="4973.43" Z="-41.25753" />
-				<Hotspot X="6456.425" Y="4983.32" Z="-65.27117" />
-				<Hotspot X="6394.117" Y="4969.726" Z="-72.10036" />
-			</HuntingGrounds>
-		</CustomBehavior>
+		<While Condition="HasQuest(12605) &amp;&amp; !IsQuestCompleted(12605)">
+	            <CustomBehavior File="KillUntilComplete" QuestId="12605" MobId="28408"
+				    TerminateWhen="Unit(28389, u =&gt; u.IsAlive) != null" >
+		        <HuntingGrounds>
+			    <Hotspot X="6403.826" Y="4943.531" Z="-70.18993" />
+			    <Hotspot X="6404.983" Y="4855.975" Z="-72.73577" />
+			    <Hotspot X="6484.424" Y="4857.614" Z="-60.3858" />
+			    <Hotspot X="6599.307" Y="4822.845" Z="-38.30979" />
+			    <Hotspot X="6628.692" Y="4946.098" Z="-30.09219" />
+			    <Hotspot X="6574.344" Y="4973.43" Z="-41.25753" />
+			    <Hotspot X="6456.425" Y="4983.32" Z="-65.27117" />
+			    <Hotspot X="6394.117" Y="4969.726" Z="-72.10036" />
+		        </HuntingGrounds>
+	            </CustomBehavior>
+		    <CustomBehavior File="InteractWith" QuestId="12605" MobId="28389" NumOfTimes="3" 
+                                    MobState="Alive" PreInteractMountStrategy="DismountOrCancelShapeshift"
+                                    WaitForNpcs="false" />
+		</While>
 		<If Condition="HasQuest(12603) &amp;&amp; !IsQuestCompleted(12603)">
 			<CustomBehavior File="FlyTo" DestName="kill Drakes" X="6403.826" Y="4943.531" Z="-70.18993" />
 			<CustomBehavior File="ForcedDismount" />
