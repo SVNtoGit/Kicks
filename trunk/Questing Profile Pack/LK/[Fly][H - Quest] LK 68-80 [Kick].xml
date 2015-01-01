@@ -7671,7 +7671,7 @@ Y="2291.558" Z="30.3925" />
                                     GoalText="Waiting for quest to complete {TimeRemaining}" />
 				</While>
 			</If>
-			<UseMount Value="true" />
+			
 			<While Condition="HasQuest(12232) &amp;&amp; !IsQuestCompleted(12232)">
 				<CustomBehavior File="FlyTo" DestName="bomb 5 ballista's" X="2751.594" Y="-224.4054" Z="138.778" />
 				<CustomBehavior File="ForcedDismount" />
@@ -7680,6 +7680,7 @@ Y="2291.558" Z="30.3925" />
 				<CustomBehavior File="UseItemTargetLocation" QuestId="12232" ItemId="37259" MobId="188673" NumOfTimes="10"  
                                 UseType="ToObject" ObjectType="GameObject" WaitTime="1500" MinRange="10" Range="20"
                                 X="2564.432" Y="-269.8682" Z="1.311315" />
+				<UseMount Value="true" />
 			</While>
 			<UseMount Value="true" />
 			<If Condition="HasQuest(12234) &amp;&amp; !IsQuestCompleted(12234)">
@@ -7706,12 +7707,12 @@ Y="2291.558" Z="30.3925" />
 				</If>
 			</If>
 			<If Condition="HasQuest(12232) &amp;&amp; IsQuestCompleted(12232)">
-				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3234.707" Y="-667.9856" Z="166.7894" />
+				<CustomBehavior File="FlyTo" DestName="Turnin: Bombard the Ballistae" X="3234.707" Y="-667.9856" Z="166.7894" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
-			<TurnIn QuestName="Bombard the Ballistae" QuestId="12232" TurnInName="Deathguard Molder" TurnInId="27320" />
-			<TurnIn QuestName="A Means to an End" QuestId="12240" TurnInName="Apothecary Vicky Levine" TurnInId="27248" />
-			<PickUp QuestName="Fire Upon the Waters" QuestId="12243" GiverName="Apothecary Vicky Levine"
+			<TurnIn Nav="Fly" QuestName="Bombard the Ballistae" QuestId="12232" TurnInName="Deathguard Molder" TurnInId="27320" />
+			<TurnIn Nav="Fly" QuestName="A Means to an End" QuestId="12240" TurnInName="Apothecary Vicky Levine" TurnInId="27248" />
+			<PickUp Nav="Fly" QuestName="Fire Upon the Waters" QuestId="12243" GiverName="Apothecary Vicky Levine"
                     GiverId="27248" />
 			<TurnIn QuestName="Need to Know" QuestId="12234" TurnInName="Spy Mistress Repine" TurnInId="27337" />
 			<PickUp QuestName="The Spy in New Hearthglen" QuestId="12239" GiverName="Spy Mistress Repine"
@@ -7807,19 +7808,24 @@ Y="2291.558" Z="30.3925" />
 
 			<If Condition="HasQuest(12243) &amp;&amp; !IsQuestCompleted(12243)">
 				<While Condition="HasQuest(12243) &amp;&amp; !IsObjectiveComplete(1,12243)">
-					<CustomBehavior File="FlyTo" DestName="set sails on fire" X="2481.194" Y="-355.7067" Z="1.422338" />
+					<CustomBehavior File="FlyTo" DestName="set sails on fire" X="2435.895" Y="-401.711" Z="20.34278"  />
 					<CustomBehavior File="ForcedDismount" />
-					<CustomBehavior File="UseItemTargetLocation" ItemId="37304" UseType="ToObject" WaitTime="1500"
-                                    MinRange="25" Range="30" MobId="24110" X="2466.371" Y="-403.9666" Z="13.24716" />
+					<UseMount Value="false" />
+					<!-- <WoWUnit Name="ELM General Purpose Bunny Large" Entry="24110" X="2458.783" Y="-404.1076" Z="23.79817" /> -->
+					<CustomBehavior File="UseItemTargetLocation" ItemId="37304" UseType="PointToPoint" WaitTime="1500"
+                                    MinRange="25" Range="30" MobId="24110" X="2435.895" Y="-401.711" Z="20.34278" ClickToX="2458.783" ClickToY="-404.1076" ClickToZ="23.79817" />
+					<UseMount Value="true" />
 				</While>
+				<UseMount Value="true" />
 				<If Condition="HasQuest(12243) &amp;&amp; !IsObjectiveComplete(2,12243)">
 					<CustomBehavior File="NoCombatMoveTo" X="2433.659" Y="-403.4233" Z="7.914649" />
 					<CustomBehavior File="KillUntilComplete" QuestId="12243" MobId="27232"
                                     X="2433.659" Y="-403.4233" Z="7.914649" />
 				</If>
 			</If>
+			
 			<If Condition="HasQuest(12243) &amp;&amp; IsQuestCompleted(12243)">
-				<CustomBehavior File="FlyTo" DestName="Turnin Quest" X="3230.447" Y="-690.9584" Z="166.9581" />
+				<CustomBehavior File="FlyTo" DestName="Turnin Quest: Fire Upon the Waters" X="3230.447" Y="-690.9584" Z="166.9581" />
 				<CustomBehavior File="ForcedDismount" />
 			</If>
 			<TurnIn QuestName="Fire Upon the Waters" QuestId="12243" TurnInName="Apothecary Vicky Levine"
