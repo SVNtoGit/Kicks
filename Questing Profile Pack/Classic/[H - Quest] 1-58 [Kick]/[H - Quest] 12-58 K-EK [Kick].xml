@@ -4296,7 +4296,7 @@
 			<PickUp QuestName="Naga at the Zoram Strand" QuestId="6442" GiverName="Marukai" GiverId="12719" />
 			<While Condition="!IsQuestCompleted(6641)">
 				<If Condition="HasQuest(6641) &amp;&amp; !IsQuestCompleted(6641)">
-					<CustomBehavior File="AbandonQuest" QuestId="6641" WaitTime="3000" Type="Failed" />
+					<CustomBehavior File="AbandonQuest" QuestId="6641" WaitTime="3000" Type="All" />
 				</If>
 				<PickUp QuestName="Vorsha the Lasher" QuestId="6641" GiverName="Muglash" GiverId="12717" X="3358.74" Y="964.2664" Z="7.404287" />
 				<CustomBehavior File="UserSettings" Preset="NoDistractions" />
@@ -5577,23 +5577,24 @@
 
 			<CustomBehavior File="Message" Text="Compiling Brackenwall Village Quests" LogColor="CornflowerBlue" />
 
-			<If Condition="HasQuest(1202) &amp;&amp; !IsQuestCompleted(1202)">
+			<While Condition="HasQuest(1202) &amp;&amp; !IsQuestCompleted(1202)">
 				<MoveTo X="-3511.703" Y="-4373.801" Z="0.5695375" />
 				<MoveTo X="-3583.374" Y="-4667.912" Z="-2.296135" />
 				<MoveTo X="-3812.899" Y="-4725.931" Z="-2.288495" />
 				<!-- <GameObject Name="Captain's Footlocker" Entry="20925" X="-3825.003" Y="-4730.157" Z="-25.71132" /> -->
-				<CustomBehavior File="InteractWith" QuestId="1202" MobId="20925" X="-3825.003" Y="-4730.157" Z="-25.71132" /> 
+				<CustomBehavior File="InteractWith" QuestId="1202" MobId="20925" Nav="CTM" Range="4" X="-3825.003" Y="-4730.157" Z="-25.71132" /> 
 				<CustomBehavior File="AscendInWater" />
 				<CustomBehavior File="MyCTM" X="-3812.899" Y="-4725.931" Z="-2.288495" />
 				<MoveTo X="-3583.374" Y="-4667.912" Z="-2.296135" />
 				<MoveTo X="-3511.703" Y="-4373.801" Z="0.5695375" />
-			</If>
+				<CustomBehavior QuestId="1202" File="WaitTimer" WaitTime="35000" />
+			</While>
 			<TurnIn QuestName="The Theramore Docks" QuestId="1202" TurnInName="Nazeer Bloodpike" TurnInId="4791" />
 			<PickUp QuestName="Check Up on Tabetha" QuestId="11213" GiverName="Nazeer Bloodpike" GiverId="4791" />
 
 			<SetGrindArea>
 				<GrindArea>
-					<Name>Grind to Level 40</Name>
+					<Name>Grind to Level 38</Name>
 					<Factions>22</Factions>
 					<TargetMinLevel>34</TargetMinLevel>
 					<TargetMaxLevel>41</TargetMaxLevel>
