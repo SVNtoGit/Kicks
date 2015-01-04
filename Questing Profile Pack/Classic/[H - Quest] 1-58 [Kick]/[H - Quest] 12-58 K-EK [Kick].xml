@@ -8824,7 +8824,7 @@
 			<TurnIn QuestId="24704" />
 		</If>
 
-		<If Condition="Me.HasAura(71498)">
+		<If Condition="Me.HasAura(71498) &amp;&amp; !IsQuestCompleted(24706)">
 			<!-- Pickup quest from stationary Maximillian -->
 			<PickUp QuestName="The Spirits of Golakka Hot Springs" QuestId="24706" GiverName="Maximillian of Northshire" GiverId="38237" X="-7228.146" Y="-599.6198" Z="-271.2461" />
 			<Else>
@@ -8832,22 +8832,40 @@
 				<PickUp QuestName="The Spirits of Golakka Hot Springs" QuestId="24706" GiverName="Maximillian of Northshire" GiverId="38255" X="-7228.146" Y="-599.6198" Z="-271.2461" />
 			</Else>
 		</If>
-
-
-		<!-- We keep Max with us as he is so jolly helpful :-0 -->
-		<MoveTo DestName="The Spirits of Golakka Hot Springs" QuestId="24706" X="-7228.146" Y="-599.6198" Z="-271.2461" />
-
-		<If Condition="HasQuest(24706)">
+		
+		<If Condition="HasQuest(24706) &amp;&amp; !IsQuestCompleted(24706)">
+			<CustomBehavior File="Hooks\DoWhen" ActivityName="GetMaxFollower" UseWhen="Unit(38343) == null &amp;&amp; !Me.HasAura(71710) &amp;&amp; !IsQuestCompleted(24706)" >
+                <CustomBehavior File="InteractWith" NonCompeteDistance="0" MobId="38237" GossipOptions="1" Range="2" WaitTime="2000" X="-7228.146" Y="-599.6198" Z="-271.2461" />
+			</CustomBehavior>
+			
+		 <While Condition="HasQuest(24706) &amp;&amp; !IsQuestCompleted(24706)">
+			<MoveTo DestName="The Spirits of Golakka Hot Springs" QuestId="24706" X="-7228.146" Y="-599.6198" Z="-271.2461" />
 			<DisableBehavior Name="Pull" />
 			<While Condition="HasQuest(24706) &amp;&amp; !IsQuestCompleted(24706)">
-				<CustomBehavior File="TargetAndMoveToMob" MobId="38254" TargetOnlyIfHealthPercentAbove="1" MoveWithinMaxRangeOfMob="2" />
-				<CustomBehavior File="WaitTimer" WaitTime="25000" />
+				<CustomBehavior QuestId="24706" File="TargetAndMoveToMob" MobId="38254" TargetOnlyIfHealthPercentAbove="1" MoveWithinMaxRangeOfMob="2" WaitForNpcs="False" WaitTime="25000" >
+                 <HuntingGrounds>
+					<Hotspot X="-7286.739" Y="-788.6278" Z="-269.7741" />
+					<Hotspot X="-7217.324" Y="-818.4847" Z="-269.1963" />
+					<Hotspot X="-7146.852" Y="-747.1312" Z="-271.4031" />
+					<Hotspot X="-7148.377" Y="-690.7659" Z="-271.9333" />
+					<Hotspot X="-7203.314" Y="-559.0794" Z="-270.8744" />
+					<Hotspot X="-7221.106" Y="-420.1067" Z="-272.2326" />
+					<Hotspot X="-7282.873" Y="-612.6926" Z="-269.9807" />
+					<Hotspot X="-7337.169" Y="-611.3437" Z="-272.8247" />
+					<Hotspot X="-7396.432" Y="-632.2504" Z="-273.0631" />
+					<Hotspot X="-7443.881" Y="-687.7545" Z="-269.055" />
+					<Hotspot X="-7452.182" Y="-783.694" Z="-271.5006" />
+                 </HuntingGrounds>
+				</CustomBehavior>
+				<!--<CustomBehavior QuestId="24706" File="WaitTimer" WaitTime="25000" />-->
 			</While>
+		 </While>
 		</If>
-		<EnableBehavior Name="Pull" />
 
 		<If Condition="HasQuest(24706) &amp;&amp; IsQuestCompleted(24706)">
+			<CustomBehavior File="Hooks\DoWhen" ActivityName="GetMaxFollower" Command="Remove" />
 			<TurnIn QuestId="24706" />
+			<EnableBehavior Name="Pull" />
 		</If>
 
 		<PickUp QuestName="The Ballad of Maximillian" QuestId="24707" GiverName="Maximillian of Northshire" GiverId="38237" X="-7228.146" Y="-599.6198" Z="-271.2461" />
