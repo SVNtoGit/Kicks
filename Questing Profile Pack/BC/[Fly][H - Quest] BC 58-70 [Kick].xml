@@ -3090,10 +3090,17 @@
 
 
 			<PickUp QuestName="The Foot of the Citadel" QuestId="10876" GiverName="Nazgrel" GiverId="3230" />
-			<CustomBehavior File="InteractWith" NonCompeteDistance="0"  QuestId="10876" MobId="19264" WaitTime="5000" NumOfTimes="10" ProactiveCombatStrategy="ClearMobsTargetingUs"
-                            InteractByUsingItemId="31702" MobState="Dead" X="-226.4953" Y="3098.184" Z="-61.22203" />
-			<CustomBehavior File="WaitTimer" QuestId="10876" WaitTime="20000"
-                            GoalText="Waiting for the Hand of Kargath {TimeRemaining}" />
+				<If Condition="HasQuest(10876) &amp;&amp; !IsQuestCompleted(10876)" >
+					<If Condition="CanFly()" >
+						<CustomBehavior File="FlyTo" DestName="The Great Fissure"
+										X="-226.4953" Y="3098.184" Z="-61.22203" />
+						<CustomBehavior File="ForcedDismount" />
+					</If>
+					<CustomBehavior File="InteractWith" NonCompeteDistance="0" QuestId="10876" MobId="19264" WaitTime="5000" NumOfTimes="10" PreInteractMountStrategy="DismountOrCancelShapeshift"
+									ProactiveCombatStrategy="ClearMobsTargetingUs" InteractByUsingItemId="31702" MobState="Dead" X="-226.4953" Y="3098.184" Z="-61.22203" />
+					<CustomBehavior File="WaitTimer" QuestId="10876" WaitTime="20000"
+									GoalText="Waiting for the Hand of Kargath {TimeRemaining}" />
+				</If>
 			<TurnIn QuestName="The Foot of the Citadel" QuestId="10876" TurnInName="Nazgrel" TurnInId="3230" />
 
 			<TurnIn QuestName="Arelion's Journal" QuestId="9374" TurnInName="Magistrix Carinda" TurnInId="16793" />
@@ -5227,9 +5234,10 @@
                        Type="CollectItem" ItemId="25812" CollectCount="12" />
 
 			<If Condition="HasQuest(9987) &amp;&amp; !IsObjectiveComplete(3,9987)">
+				<CustomBehavior File="FlyTo" X="-2486.197" Y="5383.288" Z="41.46399" />
 				<CustomBehavior File="FlyTo" DestName="Urdak" X="-2507.74" Y="5380.578" Z="27.14109" />
 				<CustomBehavior File="ForcedDismount" />
-				<Objective Nav="Fly" QuestName="Stymying the Arakkoa" QuestId="9987"
+				<Objective QuestName="Stymying the Arakkoa" QuestId="9987"
                            Type="KillMob" KillCount="1" MobName="Urdak" MobId="18541"
                            X="-2507.74" Y="5380.578" Z="27.14109" />
 			</If>
@@ -5247,7 +5255,7 @@
 				<CustomBehavior File="FlyTo" DestName="Ashkaz"
                                 X="-1562.632" Y="4414.421" Z="36.75764" />
 				<CustomBehavior File="ForcedDismount" />
-				<Objective Nav="Fly" QuestName="Stymying the Arakkoa" QuestId="9987"
+				<Objective QuestName="Stymying the Arakkoa" QuestId="9987"
                            Type="KillMob" MobId="18539" KillCount="1" X="-1610.637" Y="4425.914" Z="53.38889" />
 			</If>
 			<Objective Nav="Fly" QuestName="Arakkoa War Path" QuestId="10868" Type="KillMob"
@@ -5255,9 +5263,8 @@
 			<Objective Nav="Fly" QuestName="Arakkoa War Path" QuestId="10868" Type="KillMob"
                        MobId="18450" KillCount="6" />
 			<If Condition="HasQuest(9987) &amp;&amp; !IsObjectiveComplete(2,9987)" >
-				<CustomBehavior File="FlyTo" DestName="Landing spot by Ayit's House"
-                                X="-1902.127" Y="3930.562" Z="-0.4784756" />
-				<Objective Nav="Fly" QuestName="Stymying the Arakkoa" QuestId="9987"
+				<CustomBehavior File="FlyTo" DestName="Landing spot by Ayit's House" X="-1902.127" Y="3930.562" Z="-0.4784756" />
+				<Objective QuestName="Stymying the Arakkoa" QuestId="9987"
                            Type="KillMob" MobId="18540" KillCount="1" />
 			</If>
 
