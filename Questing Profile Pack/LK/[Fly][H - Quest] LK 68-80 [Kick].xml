@@ -1855,7 +1855,7 @@
 			<CustomBehavior File="FlyTo" QuestId="11602" DestName="destroy 10 Egg Sacs." X="2575.186" Y="6041.46"
                             Z="88.37296" />
 			<CustomBehavior File="InteractWith"  NonCompeteDistance="0"
-                            QuestId="11602" MobId="187655" NumOfTimes="10" CollectionDistance="30">
+                            QuestId="11602" MobId="187655" NumOfTimes="10" CollectionDistance="30" PreInteractMountStrategy="DismountOrCancelShapeshift" >
 				<HuntingGrounds>
 					<Hotspot X="2575.186" Y="6041.46" Z="88.37296" />
 					<Hotspot X="2622.235" Y="6029.462" Z="79.6147" />
@@ -1867,7 +1867,7 @@
 			</CustomBehavior>
 
 			<While Condition="HasQuest(11602) &amp;&amp; !IsQuestCompleted(11602)">
-				<CustomBehavior File="FlyTo" QuestId="11602" DestName="destroy 10 Egg Sacs" X="2804.003" Y="6352.191"
+				<CustomBehavior File="FlyTo" QuestId="11602" DestName="destroy 10 Egg Sacs" PreInteractMountStrategy="DismountOrCancelShapeshift" X="2804.003" Y="6352.191"
                                 Z="102.8158" />
 				<CustomBehavior File="ForcedDismount" QuestId="11602" />
 				<CustomBehavior File="InteractWith"  NonCompeteDistance="0"
@@ -2327,7 +2327,7 @@
 			<PickUp QuestName="The Emissary" QuestId="11626" GiverName="Veehja" GiverId="25450" Nav="Fly" />
 
 			<!--The Emissary-->
-			<If Condition="HasQuest(11626) &amp;&amp; !IsQuestCompleted(11626)">
+			<While Condition="HasQuest(11626) &amp;&amp; !IsQuestCompleted(11626)">
 				<CustomBehavior File="FlyTo" DestName="Objective" X="1514.22" Y="5580.736" Z="-1.207225" />
 				<CustomBehavior File="ForcedDismount" />
 
@@ -2337,15 +2337,15 @@
 
 				<CustomBehavior File="MyCTM" X="1497.972" Y="5575.564" Z="-42.35924" />
 				<CustomBehavior File="InteractWith" QuestId="11626" MobId="26452" InteractByUsingItemId="35850"
-                                Range="30" WaitTime="3000" PreInteractMountStrategy="DismountOrCancelShapeshift"
-                X="1494.106" Y="5583.749" Z="-64.57539" />
+                                Range="30" WaitTime="3000" PreInteractMountStrategy="DismountOrCancelShapeshift" MobState="Alive" 
+                X="1494.106" Y="5583.749" Z="-64.57539" Nav="CTM" />
 				<CustomBehavior File="WaitTimer" WaitTime="3000"
                                 GoalText="Waiting for quest to complete {TimeRemaining}" />
 
 				<!-- <CustomBehavior File="MyCTM" X="1532.314" Y="5552.445" Z="-1.841549" /> -->
 				<!-- <CustomBehavior File="MyCTM" X="1802.628" Y="5795.152" Z="-0.01941342" /> -->
 
-			</If>
+			</While>
 			<TurnIn QuestName="The Emissary" QuestId="11626" TurnInName="Karuk" TurnInId="25435" Nav="Fly" />
 
 			<!-- Level 69 'GoTo' Quests -->
