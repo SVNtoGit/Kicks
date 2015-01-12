@@ -946,8 +946,8 @@
                    X="-8698.75" Y="-387.318" Z="189.2363" />
 		<If Condition="HasQuest(28502) &amp;&amp; IsQuestCompleted(28502)">
 			<CustomBehavior File="FlyTo" X="-9171.189" Y="-841.3754" Z="138.2338" />
+			<TurnIn QuestName="The Bandit Warlord" TurnInName="Sun Priest Asaris" QuestId="28502" TurnInId="47715" />
 		</If>
-		<TurnIn QuestName="The Bandit Warlord" TurnInName="Sun Priest Asaris" QuestId="28502" TurnInId="47715" />
 
 		<!-- Need to add a SubZone check here to make the char move inside Chamber of the Stars -->
 
@@ -992,7 +992,27 @@
 			<PickUp QuestName="By the Light of the Stars" GiverName="Harrison Jones" QuestId="27549" GiverId="45296" />
 			<CustomBehavior File="ForcedDismount" />
 		</If>
-		<Objective QuestName="By the Light of the Stars" QuestId="27549" Type="CollectItem" CollectCount="7" ItemId="61376" />
+		<While Condition="HasQuest(27549) &amp;&amp; !IsQuestCompleted(27549)">
+		 <If Condition="Me.Z &gt; -50">
+			<CustomBehavior File="ForcedMount" MountType="Flying" />
+			<CustomBehavior File="FlyTo" IgnoreIndoors="true" X="-9093.915" Y="-1621.531" Z="-150.8947" />
+			<CustomBehavior File="FlyTo" IgnoreIndoors="true" X="-9254.666" Y="-1549.424" Z="-146.4362" />
+			<CustomBehavior File="FlyTo" IgnoreIndoors="true" Land="true" X="-9427.897" Y="-1615.634" Z="-158.0035" />
+		 </If>
+			<CustomBehavior File="InteractWith" QuestId="27549" MobId="205582" NumOfTimes="20" WaitTime="4000" PreInteractMountStrategy="DismountOrCancelShapeshift" Range="5" TerminateWhen="IsObjectiveComplete(1, 27549) || Me.Z &gt; -50" >
+				<HuntingGrounds>
+				<Hotspot X="-9154.822" Y="-1482.897" Z="-170.9095" />
+				<Hotspot X="-9238.191" Y="-1480.095" Z="-172.5587" />
+				<Hotspot X="-9293.509" Y="-1478.565" Z="-172.5597" />
+				<Hotspot X="-9378.783" Y="-1489.22" Z="-170.9088" />
+				<Hotspot X="-9392.968" Y="-1554.831" Z="-170.9094" />
+				<Hotspot X="-9283.414" Y="-1628.342" Z="-172.5582" />
+				<Hotspot X="-9139.733" Y="-1626.047" Z="-170.9091" />
+				<Hotspot X="-9143.199" Y="-1494.236" Z="-170.9096" />
+				</HuntingGrounds>
+			</CustomBehavior>
+			<!--<Objective QuestName="By the Light of the Stars" QuestId="27549" Type="CollectItem" CollectCount="7" ItemId="61376" /> -->
+		</While>
 		<If Condition="HasQuest(27549) &amp;&amp; IsQuestCompleted(27549)">
 			<TurnIn QuestName="By the Light of the Stars" TurnInName="Harrison Jones" QuestId="27549" TurnInId="45296" />
 			<CustomBehavior File="WaitTimer" WaitTime="70000" />
