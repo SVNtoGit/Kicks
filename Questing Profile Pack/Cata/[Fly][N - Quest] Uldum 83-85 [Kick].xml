@@ -322,14 +322,33 @@
             block after each checkpoint, and the at the start of the <QuestOrder>, also.
             -->
 
-		<CustomBehavior File="Misc\ProfileCompatibilityInfo"
-            AllowBrokenAddOns="true" AllowBrokenPlugIns="true" />
+		<CustomBehavior File="Misc\ProfileCompatibilityInfo" AllowBrokenAddOns="true" AllowBrokenPlugIns="true" />
 		<CustomBehavior File="EnablePlugin" Names="Anti Drown" />
+		
+		<!-- Leave Deepholm -->
+        <If Condition="Me.IsHorde &amp;&amp; Me.MapId == 646">
+ 			<CustomBehavior File="FlyTo" Land="true"  X="793.2799" Y="476.4489" Z="-67.35288" />
+			<MoveTo DestName="Portal from Deepholm to Orgrimmar" X="989.8224" Y="452.6522" Z="-44.23887" />
+            <CustomBehavior File="ForcedDismount" />
+
+            <CustomBehavior File="InteractWith" MobId="205273" Range="5" X="989.8224" Y="452.6522" Z="-44.23887" />
+            <CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting to zone to Orgrimmar." />
+
+        </If>
+        <If Condition="Me.IsAlliance &amp;&amp; Me.MapId == 646">
+			<CustomBehavior File="FlyTo" Land="true"  X="793.2799" Y="476.4489" Z="-67.35288" />
+            <MoveTo DestName="Portal from Deepholm to Stormwind" X="965.6035" Y="576.8459" Z="-44.25931" />
+            <CustomBehavior File="ForcedDismount" />
+
+            <CustomBehavior File="InteractWith" MobId="205272" Range="5" X="965.6035" Y="576.8459" Z="-44.25931" />
+            <CustomBehavior File="WaitTimer" WaitTime="10000" GoalText="Waiting to zone to Stormwind." />
+        </If>
 
 		<!-- CHECKPOINT BLOCK END -->
 
 		<!-- GoTo Uldum Quests -->
 		<CustomBehavior File="Message" Text="Compiling GoTo Uldum Quests" LogColor="Green" />
+		
 
 		<If Condition="!HasQuest(27003) &amp;&amp; !IsQuestCompleted(27003)">
 			<!-- Ally -->
