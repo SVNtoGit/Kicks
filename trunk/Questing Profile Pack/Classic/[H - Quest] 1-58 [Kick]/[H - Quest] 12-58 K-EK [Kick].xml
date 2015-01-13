@@ -4052,14 +4052,23 @@
 			<CustomBehavior File="UserSettings" Preset="UserOriginal" />
 			<PickUp QuestName="All Apologies" QuestId="13841" GiverName="Splintertree Demolisher" GiverId="33726" />
 			<TurnIn QuestName="All Apologies" QuestId="13841" TurnInName="Vol'jin" TurnInId="86832" X="1669.59" Y="-4343.08" Z="28.36332" />
-			<If Condition="!HasQuest(13842) &amp;&amp; !IsQuestCompleted(13842)">
-				<PickUp QuestName="Dread Head Redemption" QuestId="13842" GiverName="Vol'jin" GiverId="86832" X="1669.59" Y="-4343.08" Z="28.36333" />
+			<While Condition="!HasQuest(13842) &amp;&amp; !IsQuestCompleted(13842)">
+			 <While Condition="!HasQuest(13842) &amp;&amp; !IsQuestCompleted(13842)">
+				<!--<PickUp QuestName="Dread Head Redemption" QuestId="13842" GiverName="Vol'jin" GiverId="86832" X="1669.59" Y="-4343.08" Z="28.36332" />-->
+				<MoveTo X="1669.59" Y="-4343.08" Z="28.36332" />
+				<CustomBehavior File="InteractWith" MobId="86832" X="1669.59" Y="-4343.08" Z="28.36332" KeepTargetSelected="True" NonCompeteDistance="0" />
+				<CustomBehavior File="Misc\RunLua" Lua="GossipTitleButton1:Click()" WaitTime="2000" />
+				<CustomBehavior File="Misc\RunLua" Lua="QuestFrameAcceptButton:Click()" WaitTime="2000" />
+				<CustomBehavior File="WaitTimer" WaitTime="3000" GoalText="Waiting for quest to accept {TimeRemaining}" />
+			 </While>
+				
 				<!-- Set Hearth to Orgrimmar -->
+				<MoveTo X="1572.816" Y="-4437.691" Z="16.05642" />
 				<CustomBehavior File="InteractWith" MobId="6929" InteractByGossipOptions="1" X="1572.816" Y="-4437.691" Z="16.05642" />
 				<CustomBehavior File="RunMacro" Macro="/click StaticPopup1Button1" WaitTime="5000" />
 				<CustomBehavior File="Message" Text="Force Sell, Repair, Mail, Train Initiated - Do not interrupt the bot!" LogColor="Orange" />
 				<CustomBehavior File="ForceSetVendor" DoSell="true" DoRepair="true" DoMail="true" />
-			</If>
+			</While>
 			<If Condition="HasQuest(13842) &amp;&amp; !IsQuestCompleted(13842)">
 				<CustomBehavior File="InteractWith" QuestId="13842" MobId="44414" InteractByGossipOptions="1" X="2457.892" Y="-2463.774" Z="109.6444" />
 				<CustomBehavior File="WaitTimer" WaitTime="16000" GoalText="Waiting for speech {TimeRemaining}" />
@@ -4145,7 +4154,7 @@
 				</GrindArea>
 			</SetGrindArea>
 			<GrindUntil Level="23" />
-			<Checkpoint Level="23" />
+			<Checkpoint Level="25" />
 			<!-- CHECKPOINT BLOCK START: This code needs to be replicated after every checkpoint.
                 If you modify something in this block, don't forget to update the copy of this
                 block after each checkpoint, and the at the start of the <QuestOrder>, also.
