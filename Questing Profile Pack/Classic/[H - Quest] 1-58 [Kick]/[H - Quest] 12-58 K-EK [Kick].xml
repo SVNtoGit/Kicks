@@ -6275,11 +6275,15 @@
 		<TurnIn QuestName="Ysondre's Call" QuestId="25378" TurnInName="Ysondre" TurnInId="39407" X="-4334.737" Y="-220.2993" Z="125.1731" />
 
 
-		<PickUp QuestName="Taerar's Fall" QuestId="25379" GiverName="Ysondre" GiverId="39407" />
 
-		<While Condition="HasQuest(25379) &amp;&amp; !IsQuestCompleted(25379)">
+		<While Condition="!IsQuestCompleted(25379)">
+			<PickUp QuestName="Taerar's Fall" QuestId="25379" GiverName="Ysondre" GiverId="39407" />
 			<MoveTo QuestId="25379" DestName="Taerar" X="-4337.523" Y="-211.8387" Z="125.1737" />
-			<CustomBehavior File="WaitTimer" WaitTime="30000" GoalText="Waiting for Taerar {TimeRemaining}" />
+			<CustomBehavior File="WaitTimer" WaitTime="20000" GoalText="Waiting for Taerar {TimeRemaining}" />
+			<CustomBehavior File="InteractWith" QuestId="25379" MobId="39853" PreInteractMountStrategy="DismountOrCancelShapeshift" WaitForNpcs="False" X="-4337.523" Y="-211.8387" Z="125.1737" />
+			<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for kill {TimeRemaining}" />
+			<AbandonQuest QuestId="25379" Type="Failed" />
+			<CustomBehavior File="WaitTimer" WaitTime="8000" GoalText="Waiting for cache {TimeRemaining}" />
 		</While>
 
 		<TurnIn QuestName="Taerar's Fall" QuestId="25379" TurnInName="Ysondre" TurnInId="39407" />
